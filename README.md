@@ -2,13 +2,19 @@
 [![Forks][forks-shield]][forks-url]
 [![Stargazers][stars-shield]][stars-url]
 [![Issues][issues-shield]][issues-url]
+<div align=center>
+  <a href="https://github.com/AppleBee12/Code_Even">
+    <img src="images/sb_logo.png" alt="Logo" width="200" height="150">
+    <p><img src="images/txt_logo.png" alt="Logo" width="309" height="46"></p>
+  </a>
+  
 
-<h3 align=center>Amazing Code Even ReadMe!</h3>
+<h1 align=center>"Code Even" Amazing ReadMe!</h1>
 <p>안녕하세요 코드이븐에 오신 여러분 환영합니다!</p>
 <p>이건 여러분과 함께 만들어가고 완성할 Amazing하고 아주 Fantastic한 ReadMe입니다</p>
 
 <a href="https://www.figma.com/design/VH49EasHjN4QLjkcdUEO9n/CODE_EVEN?node-id=0-1&t=n8MCpj3Oq7MdNSB3-1"><strong>Explore the figma »</strong></a>
-
+</div>
 ## 일정
 
 - [x] 3차 백엔드(관리자페이지, 강사페이지) : 기획 2024.10.09(수) ~ 10.23(수) *2주
