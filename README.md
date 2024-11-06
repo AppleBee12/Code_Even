@@ -30,9 +30,53 @@
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
+1. VS Code(Visual Studio Code) 익스텐션 가이드
 
+2. HTML, CSS, JavaScript 코딩 스타일 가이드
+일관된 코딩 스타일을 유지하기 위해 다음 규칙을 따라주세요:
 
+HTML: 들여쓰기는 2칸 또는 4칸, 태그는 소문자 사용 (구분 필요시 "_"언더바 사용)
+CSS: 들여쓰기는 2칸, 색상 코드는 var에서 사용하기
+JavaScript: 들여쓰기는 2칸, 변수 선언은 const와 let 사용
+예시
+html
 
+<!-- HTML -->
+<div>
+  <p class="desc_hello">Hello World</p>
+</div>
+
+css
+
+/* CSS */
+body {
+  background-color: var(white);
+}
+
+javascript
+
+// JavaScript
+const greeting = "Hello World";
+  console.log(greeting);
+
+3. Git 관리, 깃모지 및 커밋 가이드
+Git 브랜치 전략 각 조원 이름 별 폴더 브랜치를 생성하여 작업 후 master 브랜치로 병합 합니다.(병합하기 전 SOURCE CONTROL에서 SYNC 싱크를 꼭 확인해주세요)
+
+깃모지(Gitmoji) 사용법 커밋 메시지에 이모지를 사용해 변경 사항을 직관적으로 표시합니다.
+✨ feat: 새로운 기능 추가
+🐛 fix: 버그 발견/수정
+🚑 hotfix: 긴급 버그 수정 중
+📝 docs: 문서 추가 편집
+💄 style: 스타일만 변경(자체적인 수정은 없음, 세미콜론 누락 등에 사용)
+♻️ refactor: 코드 구조 변경(결과의 변경은 없음, 코드 구조만 재조정, 가독성을 높이고 유지 보수를 편리하게 하기 위해 사용)
+✅ test: 테스트와 관련된 모든 것
+🔨 chore: 자잘한 수정이나 빌드 업데이트
+🚚 rename: 리소스 이동/이름의 변경
+🔥 remove: 폴더 및 파일 삭제
+
+커밋 메시지 작성 규칙 타입(type): feat, fix, docs 등으로 시작
+제목: 50자 이내로 간결하게 작성
+본문: 필요 시 제목과 본문 사이 한 줄 띄우고 상세 설명 작성
 
 
 <!-- MARKDOWN LINKS & IMAGES -->
