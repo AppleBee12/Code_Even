@@ -30,53 +30,67 @@
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-1. VS Code(Visual Studio Code) 익스텐션 가이드
+## 1. VS Code(Visual Studio Code) 익스텐션 가이드
+프로젝트의 효율적인 진행을 위해 VSC 익스텐션 설치하기:
 
-2. HTML, CSS, JavaScript 코딩 스타일 가이드
+* **Auto Rename Tag**:자동으로 대응/매칭되는 태그명을 변경해줍니다.
+* **GitLens**: Git 내역을 쉽게 확인할 수 있습니다.<br>
+![image](https://github.com/user-attachments/assets/4def851b-c8ff-4055-8b14-b35a2a2439db)
+
+* **Gitmoji**: Commit창에서 깃모지를 바로 눌러 사용할 수 있습니다.<br>
+![image](https://github.com/user-attachments/assets/7ba5fd2d-048f-4bfa-9d5a-1df11f69d41e)
+
+* **htmlagwrap**: 내용을 감싸는 태그를 생성할 수 있습니다. (Win: 내용 선택 후 alt + w /Mac: 내용 선택 후 Option + W)
+* **Live Server**: HTML 파일을 브라우저에서 실시간으로 미리 볼 수 있습니다.
+
+
+* 설치 방법
+VSCode 상단 메뉴에서 Extensions 아이콘 클릭
+위 목록의 이름을 검색하여 설치
+
+## 2. HTML, CSS, JavaScript 코딩 스타일 가이드
 일관된 코딩 스타일을 유지하기 위해 다음 규칙을 따라주세요:
 
-HTML: 들여쓰기는 2칸 또는 4칸, 태그는 소문자 사용 (구분 필요시 "_"언더바 사용)
-CSS: 들여쓰기는 2칸, 색상 코드는 var에서 사용하기
-JavaScript: 들여쓰기는 2칸, 변수 선언은 const와 let 사용
-예시
-html
+* HTML: 들여쓰기는 2칸 또는 4칸, 태그는 소문자 사용 (구분 필요시 "_"언더바 사용)
+* CSS: 들여쓰기는 2칸, 색상 코드는 var에서 사용하기
+* JavaScript: 들여쓰기는 2칸, 변수 선언은 const와 let 사용
 
-<!-- HTML -->
-<div>
-  <p class="desc_hello">Hello World</p>
-</div>
+
+예시<br>
+html
+> `<!-- HTML -->`<br>
+> `<div>`<br>
+> `  <p class="desc_hello">Hello World</p>`<br>
+> `</div>`<br>
 
 css
-
-/* CSS */
-body {
-  background-color: var(white);
-}
+> `/* CSS */`<br>
+> `body {`<br>
+> `  background-color: var(white);`<br>
+> `}`<br>
 
 javascript
+> `// JavaScript`<br>
+> `const greeting = "Hello World";`<br>
+> `  console.log(greeting);`
 
-// JavaScript
-const greeting = "Hello World";
-  console.log(greeting);
 
-3. Git 관리, 깃모지 및 커밋 가이드
-Git 브랜치 전략 각 조원 이름 별 폴더 브랜치를 생성하여 작업 후 master 브랜치로 병합 합니다.(병합하기 전 SOURCE CONTROL에서 SYNC 싱크를 꼭 확인해주세요)
+## 3. Git 관리, 깃모지 및 커밋 가이드
+* Git 브랜치 전략
+각 조원 이름 별 폴더 브랜치를 생성하여 작업 후 master 브랜치로 병합 합니다.(병합하기 전 SOURCE CONTROL에서 SYNC 싱크를 꼭 확인해주세요)<br>
 
-깃모지(Gitmoji) 사용법 커밋 메시지에 이모지를 사용해 변경 사항을 직관적으로 표시합니다.
-✨ feat: 새로운 기능 추가
-🐛 fix: 버그 발견/수정
-🚑 hotfix: 긴급 버그 수정 중
-📝 docs: 문서 추가 편집
-💄 style: 스타일만 변경(자체적인 수정은 없음, 세미콜론 누락 등에 사용)
-♻️ refactor: 코드 구조 변경(결과의 변경은 없음, 코드 구조만 재조정, 가독성을 높이고 유지 보수를 편리하게 하기 위해 사용)
-✅ test: 테스트와 관련된 모든 것
-🔨 chore: 자잘한 수정이나 빌드 업데이트
-🚚 rename: 리소스 이동/이름의 변경
+* 깃모지(Gitmoji) 사용법
+커밋 메시지에 이모지를 사용해 변경 사항을 직관적으로 표시합니다.<br>
+✨ feat: 새로운 기능 추가<br>
+🐛 fix: 버그 발견/수정<br>
+🚑 hotfix: 긴급 버그 수정 중<br> 
+📝 docs: 문서 추가 편집<br>
+💄 style: 스타일만 변경(자체적인 수정은 없음, 세미콜론 누락 등에 사용)<br>
+♻️ refactor: 코드 구조 변경(결과의 변경은 없음, 코드 구조만 재조정, 가독성을 높이고 유지 보수를 편리하게 하기 위해 사용)<br>
+✅ test: 테스트와 관련된 모든 것<br>
+🔨 chore: 자잘한 수정이나 빌드 업데이트<br>
+🚚 rename: 리소스 이동/이름의 변경<br>
 🔥 remove: 폴더 및 파일 삭제
-
-커밋 메시지 작성 규칙 타입(type): feat, fix, docs 등으로 시작
-제목: 50자 이내로 간결하게 작성
-본문: 필요 시 제목과 본문 사이 한 줄 띄우고 상세 설명 작성
 
 
 <!-- MARKDOWN LINKS & IMAGES -->
