@@ -4,8 +4,8 @@
   "settings": {
     "width": 2000,
     "height": 2000,
-    "scrollTop": -306.2255,
-    "scrollLeft": -693.8928,
+    "scrollTop": -680.2255,
+    "scrollLeft": 0,
     "zoomLevel": 1,
     "show": 447,
     "database": 4,
@@ -326,16 +326,16 @@
         "comment": "회원고유번호",
         "dataType": "INT",
         "default": "",
-        "options": 0,
+        "options": 11,
         "ui": {
-          "keys": 0,
+          "keys": 1,
           "widthName": 60,
           "widthComment": 74,
           "widthDataType": 60,
           "widthDefault": 60
         },
         "meta": {
-          "updateAt": 1730883879607,
+          "updateAt": 1730970763263,
           "createAt": 1730492469461
         }
       },
@@ -426,16 +426,16 @@
         "comment": "쿠폰고유번호",
         "dataType": "INT",
         "default": "",
-        "options": 1,
+        "options": 11,
         "ui": {
-          "keys": 0,
+          "keys": 1,
           "widthName": 60,
           "widthComment": 74,
           "widthDataType": 60,
           "widthDefault": 60
         },
         "meta": {
-          "updateAt": 1730969739548,
+          "updateAt": 1730970766839,
           "createAt": 1730523588772
         }
       },
@@ -666,16 +666,16 @@
         "comment": "유저쿠폰고유번호",
         "dataType": "INT",
         "default": "",
-        "options": 0,
+        "options": 11,
         "ui": {
-          "keys": 0,
+          "keys": 1,
           "widthName": 60,
           "widthComment": 98,
           "widthDataType": 60,
           "widthDefault": 60
         },
         "meta": {
-          "updateAt": 1730550123546,
+          "updateAt": 1730970770087,
           "createAt": 1730549898290
         }
       },
@@ -806,16 +806,16 @@
         "comment": "카테고리고유번호",
         "dataType": "INT",
         "default": "",
-        "options": 0,
+        "options": 11,
         "ui": {
-          "keys": 0,
+          "keys": 1,
           "widthName": 60,
           "widthComment": 98,
           "widthDataType": 60,
           "widthDefault": 60
         },
         "meta": {
-          "updateAt": 1730550128549,
+          "updateAt": 1730970773174,
           "createAt": 1730550096776
         }
       },
@@ -1613,7 +1613,9 @@
         "name": 1730883371017,
         "dataType": 1730883375157,
         "comment": 1730883388617,
-        "options(notNull)": 1730883879607
+        "options(notNull)": 1730883879607,
+        "options(autoIncrement)": 1730970761142,
+        "options(primaryKey)": 1730970763262
       }
     ],
     "HQ7jJZR7OvTelJ6_LT3X1": [
@@ -1675,7 +1677,8 @@
         "dataType": 1730523654741,
         "default": 1730969739547,
         "comment": 1730523755999,
-        "options(autoIncrement)": 1730969738377
+        "options(autoIncrement)": 1730969738377,
+        "options(primaryKey)": 1730970766838
       }
     ],
     "hH_9wJSfyZwbV-VsOYgN-": [
@@ -1805,7 +1808,9 @@
       {
         "name": 1730549904107,
         "dataType": 1730549948723,
-        "comment": 1730550123544
+        "comment": 1730550123544,
+        "options(primaryKey)": 1730970769311,
+        "options(autoIncrement)": 1730970770086
       }
     ],
     "WmWYj2oKyqFXuzvXCMOQl": [
@@ -1884,7 +1889,9 @@
       {
         "name": 1730550101441,
         "dataType": 1730550109887,
-        "comment": 1730550128547
+        "comment": 1730550128547,
+        "options(autoIncrement)": 1730970771542,
+        "options(primaryKey)": 1730970773174
       }
     ],
     "-QYHgJ8nuUad57bPX2F2h": [
