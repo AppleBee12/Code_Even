@@ -32,17 +32,15 @@
 
 ## 1. VS Code(Visual Studio Code) 익스텐션 가이드
 프로젝트의 효율적인 진행을 위해 VSC 익스텐션 설치하기:
-
+* **ERD Editor**: 모든 팀원의 ERD 테이블을 확인해 볼 수 있습니다.
+![image](https://github.com/user-attachments/assets/5eb6372b-341f-404f-b2ba-18536ada6fdf)
+* **Gitmoji**: Commit창에서 깃모지를 바로 눌러 사용할 수 있습니다.<br>
+![image](https://github.com/user-attachments/assets/7ba5fd2d-048f-4bfa-9d5a-1df11f69d41e)
 * **Auto Rename Tag**:자동으로 대응/매칭되는 태그명을 변경해줍니다.
 * **GitLens**: Git 내역을 쉽게 확인할 수 있습니다.<br>
 ![image](https://github.com/user-attachments/assets/4def851b-c8ff-4055-8b14-b35a2a2439db)
-
-* **Gitmoji**: Commit창에서 깃모지를 바로 눌러 사용할 수 있습니다.<br>
-![image](https://github.com/user-attachments/assets/7ba5fd2d-048f-4bfa-9d5a-1df11f69d41e)
-
 * **htmlagwrap**: 내용을 감싸는 태그를 생성할 수 있습니다. (Win: 내용 선택 후 alt + w /Mac: 내용 선택 후 Option + W)
 * **Live Server**: HTML 파일을 브라우저에서 실시간으로 미리 볼 수 있습니다.
-
 
 * 설치 방법
 VSCode 상단 메뉴에서 Extensions 아이콘 클릭
