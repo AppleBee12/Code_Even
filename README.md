@@ -37,8 +37,6 @@
 * **Gitmoji**: Commit창에서 깃모지를 바로 눌러 사용할 수 있습니다.<br>
 ![image](https://github.com/user-attachments/assets/7ba5fd2d-048f-4bfa-9d5a-1df11f69d41e)
 * **Auto Rename Tag**:자동으로 대응/매칭되는 태그명을 변경해줍니다.
-* **GitLens**: Git 내역을 쉽게 확인할 수 있습니다.<br>
-![image](https://github.com/user-attachments/assets/4def851b-c8ff-4055-8b14-b35a2a2439db)
 * **htmlagwrap**: 내용을 감싸는 태그를 생성할 수 있습니다. (Win: 내용 선택 후 alt + w /Mac: 내용 선택 후 Option + W)
 * **Live Server**: HTML 파일을 브라우저에서 실시간으로 미리 볼 수 있습니다.
 
