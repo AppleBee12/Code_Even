@@ -1,0 +1,43 @@
+:root {
+	/* color */
+	--primary: #c93333;
+	--secondary: #d76969;
+	
+  /* color-red */
+	--red1000: #c62424;
+	--red950: #c93333;
+	--red900: #cc3e3e;
+	--red800: #d25353;
+	--red700: #d76969;
+	--red600: #dd7e7e;
+	--red500: #E39494;
+	--red400: #E8a9a9;
+	--red300: ;
+	--red200: ;
+	--red100: ;
+	--red50: ;
+	--red0: ;
+  
+  /* color-black */
+  --black1000: ;
+  --black950: ;
+  --black900: ;
+  --black800: ;
+  --black700: ;
+  --black600: ;
+  --black500: ;
+  --black400: ;
+  --black300: ;
+  --black200: ;
+  --black100: ;
+  --black50: ;
+  --black0: ;
+  
+	/* pc fonts */
+	--pc_big: 6.875rem;
+	--pc_title: 3.5rem;
+	--pc_mid_body: 2rem;
+	--pc_body: 1.25rem;
+	--pc_sub_title: 1.75rem;
+	--pc_sub_body: 1rem;
+}
