@@ -15,13 +15,21 @@
 
 <a href="https://www.figma.com/design/VH49EasHjN4QLjkcdUEO9n/CODE_EVEN?node-id=0-1&t=n8MCpj3Oq7MdNSB3-1"><strong>Explore the figma »</strong></a>
 </div>
-## 일정
+### 일정 
 
 - [x] 3차 백엔드(관리자페이지, 강사페이지) : 기획 2024.10.09(수) ~ 10.23(수) *2주
 - [x] 3차 백엔드(관리자페이지, 강사페이지) : 디자인 2024.10.24(목) ~ 11.06(수) *2주
 - [ ] 3차 백엔드(관리자페이지, 강사페이지) : 구현 2024.11.07(목) ~ 11.20(수) *2주
 - [ ] 4차 프론트엔드(메인-수강생페이지) : 기획/디자인 2024.11.21(목) ~ 12.04(수) *2주
 - [ ] 4차 프론트엔드(메인-수강생페이지) : 구현 2024.12.05(목) ~ 12.18(수) *2주
+
+### 스토리보드
+
+![image](https://github.com/user-attachments/assets/a373f778-bb4a-407a-beaf-0a43d36c7ce8)
+
+![image](https://github.com/user-attachments/assets/8e5ee89e-0383-4cd9-9608-4c970c6b438f)
+
+
 
 ### Built With
 
@@ -34,6 +42,28 @@
 프로젝트의 효율적인 진행을 위해 VSC 익스텐션 설치하기:
 * **ERD Editor**: 모든 팀원의 ERD 테이블을 확인해 볼 수 있습니다.
 ![image](https://github.com/user-attachments/assets/5eb6372b-341f-404f-b2ba-18536ada6fdf)
+
+**ERD Editor 사용하기**
+
+![image](https://github.com/user-attachments/assets/d649e463-9e97-4cde-b1b8-367ded73b735)
+- key값은 alt+k를 누르면 primary-key로 열쇠모양이 생깁니다.
+- 본인 파트에는 알아보기 쉽게 색상을 넣어주세요! 테이블위에 마우스 우클릭>컬러탭에서 설정
+- (채림:옐로우, 유나:오렌지, 은진:그린, 은화:블루, 수진:퍼플)
+
+1. 첫 행에 마우스를 클릭 한 뒤에 shift를 누르고 맨 마지막 행을 누르면 테이블 전체가 선택됩니다.
+2. 액셀을 켜고 액셀에 복사한 테이블을 붙여넣기 합니다.
+3. VScode로 돌아와서 alt+N 혹은 마우스 우클릭+new table 선택 으로 새 테이블을 만든 뒤
+4. 액셀에서 다시 한번 데이터를 ctrl+c한 뒤 테이블에 붙여넣기 합니다
+
+![image](https://github.com/user-attachments/assets/1b9316bc-8218-40e3-b2a2-23dfe32c2c3e)
+
+5. 액셀을 거치지 않고 그냥은 붙여넣기 되지 않아요~!
+
+![image](https://github.com/user-attachments/assets/5478f983-5dbc-4d90-abfb-01c82344516d)
+ 색상등록, primary-key설정이 끝난 최종 테이블 모습!!
+ 
+
+
 * **Gitmoji**: Commit창에서 깃모지를 바로 눌러 사용할 수 있습니다.<br>
 ![image](https://github.com/user-attachments/assets/7ba5fd2d-048f-4bfa-9d5a-1df11f69d41e)
 * **Auto Rename Tag**:자동으로 대응/매칭되는 태그명을 변경해줍니다.
