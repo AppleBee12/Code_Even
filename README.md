@@ -35,22 +35,20 @@
 * **ERD Editor**: 모든 팀원의 ERD 테이블을 확인해 볼 수 있습니다.
 ![image](https://github.com/user-attachments/assets/5eb6372b-341f-404f-b2ba-18536ada6fdf)
 
-**ERD Editor 사용방법**
+**ERD Editor 사용하기**
+
 ![image](https://github.com/user-attachments/assets/d649e463-9e97-4cde-b1b8-367ded73b735)
--- key값은 alt+k를 누르면 primary-key로 열쇠모양이 생깁니다.
--- 테이블위에 마우스 우클릭, 본인 파트에는 알아보기 쉽게 색상을 넣어주세요!
-![image](https://github.com/user-attachments/assets/47d0d87c-0d06-47ea-9154-7272310cdd90)
---1. 첫 행에 마우스를 클릭 한 뒤에 shift를 누르고 맨 마지막 행을 누르면 테이블 전체가 선택됩니다.
-![image](https://github.com/user-attachments/assets/f1b51982-b4e6-4fa3-9b99-79ad679d0e1d)
---2. 액셀을 켜고 액셀에 복사한 테이블을 붙여넣기 합니다.
-![image](https://github.com/user-attachments/assets/809aaed5-3ed7-4e3f-a96e-211a37161670)
---3. alt+N 혹은 마우스 우클릭+new table 선택 으로 새 테이블을 만든 뒤
-![image](https://github.com/user-attachments/assets/6cf4fd00-7a1e-4241-ad78-a95dd17e9ae3)
---액셀에서 다시한번 ctrl+c한 뒤 테이블에 다시 붙여넣기 합니다
-![image](https://github.com/user-attachments/assets/51fba57e-63f4-43f1-887b-810712ec71a6)
+- key값은 alt+k를 누르면 primary-key로 열쇠모양이 생깁니다.
+- 본인 파트에는 알아보기 쉽게 색상을 넣어주세요! 테이블위에 마우스 우클릭>컬러탭에서 설정
+- (채림:옐로우, 유나:오렌지, 은진:그린, 은화:블루, 수진:퍼플)
+
+1. 첫 행에 마우스를 클릭 한 뒤에 shift를 누르고 맨 마지막 행을 누르면 테이블 전체가 선택됩니다.
+2. 액셀을 켜고 액셀에 복사한 테이블을 붙여넣기 합니다.
+3. VScode로 돌아와서 alt+N 혹은 마우스 우클릭+new table 선택 으로 새 테이블을 만든 뒤
+4. 액셀에서 다시 한번 데이터를 ctrl+c한 뒤 테이블에 붙여넣기 합니다
 
 ![image](https://github.com/user-attachments/assets/5478f983-5dbc-4d90-abfb-01c82344516d)
-색상등록, primary-key설정이 끝난 최종 테이블 모습!!
+- 색상등록, primary-key설정이 끝난 최종 테이블 모습!!
 
 
 * **Gitmoji**: Commit창에서 깃모지를 바로 눌러 사용할 수 있습니다.<br>
