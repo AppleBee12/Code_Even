@@ -1,0 +1,82 @@
+<?php
+session_start();
+
+include_once($_SERVER['DOCUMENT_ROOT'] . '/CODE_EVEN/admin/inc/dbcon.php');
+
+if(!isset($title)){
+  $title = '';
+}
+?>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>코드이븐 솔루션-관리자 페이지</title>
+  <link rel="stylesheet" href="../css/reset.css">
+  <link rel="stylesheet" href="../css/common.css">
+  <link rel="stylesheet" href="../css/main.css">
+</head>
+<body>
+  <header class="header">
+    <h1>codeeven</h1>
+    <div>안녕하세요 관리자님</div>
+  </header>
+  <nav class="nav navbar-expand-lg">
+    <ul>
+      <li><a href="">대시보드</a></li>
+      <li><a href="카테고리 관리"></a></li>
+      <li>강좌 관리
+        <ul>
+          <li><a href="">- 강좌 목록</a></li>
+          <li><a href="">- 강좌 등록</a></li>
+          <li><a href="">- 퀴즈 / 시험 목록</a></li>
+          <li><a href="">- 퀴즈 / 시험 결과 관리</a></li>
+        </ul>
+      </li>
+      <li>교재 관리
+        <ul>
+          <li><a href="">교재 목록</a></li>
+          <li><a href="">교재 등록</a></li>
+        </ul>
+      </li>
+      <li><a href="">전체 회원 관리</a></li>
+      <li><a href="">강사 관리</a></li>
+      <li>수강생 관리</li>
+      <li>결제/배송 관리
+        <ul>
+          <li><a href="">- 주문/결제 목록</a></li>
+          <li><a href="">- 교재 배송관리</a></li>
+        </ul>
+      </li>
+      <li><a href="">쿠폰 관리</a></li>
+      <li>매출통계 관리
+        <ul>
+          <li><a href="">- 강의 매출통계</a></li>
+          <li><a href="">- 교재 매출통계</a></li>
+          <li><a href="">- 월별 매출통계</a></li>
+        </ul>
+      </li>
+      <li>문의 게시판 관리
+        <ul>
+          <li><a href="">- 전체 공지사항</a></li>
+          <li><a href="">- 수강생 FAQ</a></li>
+          <li><a href="">- 교사 FAQ</a></li>
+          <li><a href="">- 1:1 문의</a></li>
+        </ul>
+      </li>
+      <li>커뮤니티 솔루션-관리자
+        <ul>
+          <li><a href="">- 고민상담</a></li>
+          <li><a href="">- 팀 프로젝트</a></li>
+          <li><a href="">- 블로그</a></li>
+        </ul>
+      </li>
+      <li><a href="">강사 1:1</a></li>
+      <li><a href="">강사 매뉴얼</a></li>
+      <li><a href="">관리자 매뉴얼</a></li>
+      <li><a href="">상점 관리</a></li>
+      
+    </ul>
+  </nav>
