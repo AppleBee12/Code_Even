@@ -1,5 +1,5 @@
 <?php
-include_once($_SERVER['DOCUMENT_ROOT']. '/code_even/admin/inc/header.php');
+include_once($_SERVER['DOCUMENT_ROOT']. '/CODE_EVEN/admin/inc/header.php');
 ?>
 
 
@@ -30,5 +30,5 @@ include_once($_SERVER['DOCUMENT_ROOT']. '/code_even/admin/inc/header.php');
 
 
 <?php
-include_once($_SERVER['DOCUMENT_ROOT']. '/code_even/admin/inc/footer.php');
+include_once($_SERVER['DOCUMENT_ROOT']. '/CODE_EVEN/admin/inc/footer.php');
 ?>
