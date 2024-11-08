@@ -47,8 +47,14 @@
 3. VScode로 돌아와서 alt+N 혹은 마우스 우클릭+new table 선택 으로 새 테이블을 만든 뒤
 4. 액셀에서 다시 한번 데이터를 ctrl+c한 뒤 테이블에 붙여넣기 합니다
 
+![image](https://github.com/user-attachments/assets/ea25754a-e944-4fa4-82e1-4f05a90863c7)
+![image](https://github.com/user-attachments/assets/f5738286-992f-4852-96c4-19b232ae9cf6)
+![image](https://github.com/user-attachments/assets/545c8c6b-fd37-466c-9238-861a19594412)
+
+
 ![image](https://github.com/user-attachments/assets/5478f983-5dbc-4d90-abfb-01c82344516d)
-- 색상등록, primary-key설정이 끝난 최종 테이블 모습!!
+ 색상등록, primary-key설정이 끝난 최종 테이블 모습!!
+ 
 
 
 * **Gitmoji**: Commit창에서 깃모지를 바로 눌러 사용할 수 있습니다.<br>
