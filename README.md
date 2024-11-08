@@ -15,13 +15,21 @@
 
 <a href="https://www.figma.com/design/VH49EasHjN4QLjkcdUEO9n/CODE_EVEN?node-id=0-1&t=n8MCpj3Oq7MdNSB3-1"><strong>Explore the figma »</strong></a>
 </div>
-## 일정
+### 일정 
 
 - [x] 3차 백엔드(관리자페이지, 강사페이지) : 기획 2024.10.09(수) ~ 10.23(수) *2주
 - [x] 3차 백엔드(관리자페이지, 강사페이지) : 디자인 2024.10.24(목) ~ 11.06(수) *2주
 - [ ] 3차 백엔드(관리자페이지, 강사페이지) : 구현 2024.11.07(목) ~ 11.20(수) *2주
 - [ ] 4차 프론트엔드(메인-수강생페이지) : 기획/디자인 2024.11.21(목) ~ 12.04(수) *2주
 - [ ] 4차 프론트엔드(메인-수강생페이지) : 구현 2024.12.05(목) ~ 12.18(수) *2주
+
+### 스토리보드
+
+![image](https://github.com/user-attachments/assets/a373f778-bb4a-407a-beaf-0a43d36c7ce8)
+
+![image](https://github.com/user-attachments/assets/8e5ee89e-0383-4cd9-9608-4c970c6b438f)
+
+
 
 ### Built With
 
