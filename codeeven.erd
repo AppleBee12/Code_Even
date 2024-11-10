@@ -4,8 +4,8 @@
   "settings": {
     "width": 5000,
     "height": 5000,
-    "scrollTop": -1219.801,
-    "scrollLeft": -704.7571,
+    "scrollTop": -1110.801,
+    "scrollLeft": -805.7571,
     "zoomLevel": 0.88,
     "show": 447,
     "database": 4,
@@ -368,7 +368,7 @@
       },
       "6I3WW_nmnLqXwgAy-QAdR": {
         "id": "6I3WW_nmnLqXwgAy-QAdR",
-        "name": "order",
+        "name": "order_main",
         "comment": "주문결제",
         "columnIds": [
           "wMOvKNMHBDVt3-abNP0BH",
@@ -410,12 +410,12 @@
           "x": 656.5609,
           "y": 1112.5068,
           "zIndex": 782,
-          "widthName": 60,
+          "widthName": 62,
           "widthComment": 60,
           "color": "#69AF6C"
         },
         "meta": {
-          "updateAt": 1731262711302,
+          "updateAt": 1731266044514,
           "createAt": 1731239257897
         }
       },
@@ -3425,7 +3425,7 @@
       1731239257896,
       -1,
       {
-        "name": 1731239266481,
+        "name": 1731266044514,
         "ui.color": 1731262711301,
         "comment": 1731259092804
       }
