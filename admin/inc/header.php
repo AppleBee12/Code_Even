@@ -44,7 +44,14 @@ if(!isset($title)){
       </li>
       <li><a href="">전체 회원 관리</a></li>
       <li><a href="">강사 관리</a></li>
-      <li>수강생 관리</li>
+      <li>수강생 관리
+        <ul>
+          <li><a href="../students.php">- 수강생 목록</a></li>
+          <li><a href="../students_qna.php">- 수강생 질문</a></li>
+          <li><a href="../send_email.php">- 이메일 발송</a></li>
+          <li><a href="../review.php">- /수강 후기</a></li>
+        </ul>
+      </li>
       <li>결제/배송 관리
         <ul>
           <li><a href="">- 주문/결제 목록</a></li>
@@ -61,10 +68,10 @@ if(!isset($title)){
       </li>
       <li>문의 게시판 관리
         <ul>
-          <li><a href="">- 전체 공지사항</a></li>
-          <li><a href="">- 수강생 FAQ</a></li>
-          <li><a href="">- 교사 FAQ</a></li>
-          <li><a href="">- 1:1 문의</a></li>
+          <li><a href="../notice.php">- 전체 공지사항</a></li>
+          <li><a href="../faq.php">- 수강생 FAQ</a></li>
+          <li><a href="../faq.php">- 교사 FAQ</a></li>
+          <li><a href="../admin_qna.php">- 1:1 문의</a></li>
         </ul>
       </li>
       <li>커뮤니티 솔루션-관리자
