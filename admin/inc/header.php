@@ -21,7 +21,8 @@ if(!isset($title)){
 <body>
   <header class="header">
     <h1>codeeven</h1>
-    <div>안녕하세요 관리자님</div>
+    <div class="">안녕하세요 {name}관리자님</div>
+    <div class="">안녕하세요 {name}강사님</div>
   </header>
   <nav class="nav navbar-expand-lg">
     <ul>
