@@ -404,3 +404,140 @@ COMMIT;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+
+-- phpMyAdmin SQL Dump
+-- version 5.2.1
+-- https://www.phpmyadmin.net/
+--
+-- Host: 127.0.0.1
+-- 생성 시간: 24-11-10 20:12
+-- 서버 버전: 10.4.32-MariaDB
+-- PHP 버전: 8.2.12
+
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+START TRANSACTION;
+SET time_zone = "+00:00";
+
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8mb4 */;
+
+--
+-- 데이터베이스: `code_even`
+--
+
+-- --------------------------------------------------------
+
+--
+-- 테이블 구조 `order_detail`
+--
+
+CREATE TABLE `order_detail` (
+  `oddtid` int(11) NOT NULL COMMENT '주문상세고유번호',
+  `odid` int(11) NOT NULL COMMENT '주문고유번호',
+  `leid` int(11) NOT NULL COMMENT '강좌고유번호',
+  `price` double NOT NULL COMMENT '강좌가격',
+  `cnt` int(11) NOT NULL DEFAULT 1 COMMENT '수량',
+  `discount_amount` double DEFAULT NULL COMMENT '할인액',
+  `refund_amount` double DEFAULT NULL COMMENT '환불액',
+  `cal_amount` double NOT NULL COMMENT '실결제금액',
+  `od_status` tinyint(4) NOT NULL DEFAULT 0 COMMENT '결제상태'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- 테이블 구조 `order_main`
+--
+
+CREATE TABLE `order_main` (
+  `odid` int(11) NOT NULL COMMENT '주문고유번호',
+  `uid` int(11) NOT NULL COMMENT '회원고유번호',
+  `payment` double NOT NULL COMMENT '결제금액',
+  `order_date` datetime NOT NULL DEFAULT current_timestamp() COMMENT '주문날짜',
+  `pay_method` tinyint(4) NOT NULL COMMENT '결제수단',
+  `pay_status` tinyint(4) NOT NULL DEFAULT 0 COMMENT '주문상태',
+  `reason` varchar(250) DEFAULT NULL COMMENT '환불취소사유',
+  `order_cnt` int(11) NOT NULL COMMENT '주문총개수',
+  `receiver` varchar(50) DEFAULT NULL COMMENT '수령인',
+  `zipcode` int(6) DEFAULT NULL COMMENT '우편번호',
+  `addr_line1` varchar(100) DEFAULT NULL COMMENT '수령주소',
+  `addr_line2` varchar(100) DEFAULT NULL COMMENT '상세주소',
+  `receiver_phone` varchar(11) DEFAULT NULL COMMENT '수령인전화번호',
+  `request` varchar(100) DEFAULT NULL COMMENT '요청사항',
+  `deli_status` tinyint(4) DEFAULT NULL COMMENT '배송상태'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- 테이블 구조 `teacher`
+--
+
+CREATE TABLE `teacher` (
+  `tcid` int(11) NOT NULL COMMENT '강사고유번호',
+  `uid` int(11) NOT NULL COMMENT '회원고유번호',
+  `cgid` int(11) NOT NULL COMMENT '카테고리고유번호',
+  `tc_cate` varchar(50) NOT NULL COMMENT '대표분야',
+  `tc_url` varchar(100) DEFAULT NULL COMMENT '사이트링크',
+  `tc_thumbnail` varchar(50) DEFAULT NULL COMMENT '프로필이미지',
+  `tc_intro` varchar(250) NOT NULL COMMENT '소개글',
+  `tc_bank` varchar(50) DEFAULT NULL COMMENT '은행명',
+  `tc_account` int(11) DEFAULT NULL COMMENT '계좌번호',
+  `tc_ok` tinyint(4) NOT NULL DEFAULT 0 COMMENT '승인상태',
+  `isrecom` tinyint(4) DEFAULT NULL COMMENT '추천강사여부',
+  `isnew` tinyint(4) DEFAULT NULL COMMENT '신규강사여부'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- 덤프된 테이블의 인덱스
+--
+
+--
+-- 테이블의 인덱스 `order_detail`
+--
+ALTER TABLE `order_detail`
+  ADD PRIMARY KEY (`oddtid`);
+
+--
+-- 테이블의 인덱스 `order_main`
+--
+ALTER TABLE `order_main`
+  ADD PRIMARY KEY (`odid`);
+
+--
+-- 테이블의 인덱스 `teacher`
+--
+ALTER TABLE `teacher`
+  ADD PRIMARY KEY (`tcid`);
+
+--
+-- 덤프된 테이블의 AUTO_INCREMENT
+--
+
+--
+-- 테이블의 AUTO_INCREMENT `order_detail`
+--
+ALTER TABLE `order_detail`
+  MODIFY `oddtid` int(11) NOT NULL AUTO_INCREMENT COMMENT '주문상세고유번호';
+
+--
+-- 테이블의 AUTO_INCREMENT `order_main`
+--
+ALTER TABLE `order_main`
+  MODIFY `odid` int(11) NOT NULL AUTO_INCREMENT COMMENT '주문고유번호';
+
+--
+-- 테이블의 AUTO_INCREMENT `teacher`
+--
+ALTER TABLE `teacher`
+  MODIFY `tcid` int(11) NOT NULL AUTO_INCREMENT COMMENT '강사고유번호';
+COMMIT;
+
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+
+
