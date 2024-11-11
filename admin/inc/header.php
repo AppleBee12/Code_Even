@@ -17,11 +17,13 @@ if(!isset($title)){
   <link rel="stylesheet" href="../css/reset.css">
   <link rel="stylesheet" href="../css/common.css">
   <link rel="stylesheet" href="../css/main.css">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 </head>
 <body>
   <header class="header">
     <h1>codeeven</h1>
-    <div>안녕하세요 관리자님</div>
+    <div class="login.php">안녕하세요 {name}관리자님</div>
+    <div class="">안녕하세요 {name}강사님</div>
   </header>
   <nav class="nav navbar-expand-lg">
     <ul>

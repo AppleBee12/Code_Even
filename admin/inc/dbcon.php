@@ -14,4 +14,3 @@ if($mysqli->errno){
   throw new RuntimeException('연결 후 에러' . $mysqli->error);
 }
 
-?>
