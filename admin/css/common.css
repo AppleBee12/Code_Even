@@ -1,41 +1,64 @@
+@import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css");
+@import url('https://fonts.googleapis.com/css2?family=League+Gothic&display=swap');
+
 :root {
-	/* color */
-	--primary: #c93333;
-	--secondary: #d76969;
-	
+  /* color */
+  --primary: #c93333;
+  --secondary: #d76969;
+
   /* color-red */
-	--red1000: #c62424;
-	--red950: #c93333;
-	--red900: #cc3e3e;
-	--red800: #d25353;
-	--red700: #d76969;
-	--red600: #dd7e7e;
-	--red500: #E39494;
-	--red400: #E8a9a9;
-	--red300: #EEBFBF;
-	--red200: #F4D4D4;
-	--red100: #F9EAEA;
-	--red50: #FCF4F4;
-	--red0: #FFFFFF;
-  
+  --red1000: #c62424;
+  --red950: #c93333;
+  --red900: #cc3e3e;
+  --red800: #d25353;
+  --red700: #d76969;
+  --red600: #dd7e7e;
+  --red500: #e39494;
+  --red400: #e8a9a9;
+  --red300: #eebfbf;
+  --red200: #f4d4d4;
+  --red100: #f9eaea;
+  --red50: #fcf4f4;
+  --red0: #ffffff;
+
   /* color-black */
-  --bk1000: #1E1E1E;
+  --bk1000: #1e1e1e;
   --bk950: #292929;
   --bk900: #353535;
-  --bk800: #4B4B4B;
+  --bk800: #4b4b4b;
   --bk700: #616161;
   --bk600: #787878;
-  --bk500: #8F8F8F;
-  --bk400: #A5A5A5;
-  --bk300: #BCBCBC;
-  --bk200: #D2D2D2;
-  --bk100: #E9E9E9;
-  --bk50: #F4F4F4;
-  --bk0: #FFFFFF;
-  
-	/* fonts */
-	--main_big: 22px;
-	--sub_title: 18px;
-	--section_title: 17px;
-	--main: 17px;
+  --bk500: #8f8f8f;
+  --bk400: #a5a5a5;
+  --bk300: #bcbcbc;
+  --bk200: #d2d2d2;
+  --bk100: #e9e9e9;
+  --bk50: #f4f4f4;
+  --bk0: #ffffff;
+
+  /* fonts */
+  --main_big: 22px;
+  --sub_title: 18px;
+  --section_title: 17px;
+  --main: 17px;
+}
+
+/* font */
+
+body {
+  font-family: "SUIT", sans-serif;
+}
+
+
+
+/* header */
+.logo {
+	font-family: "League Gothic", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+	font-size: 45px;
+	line-height: 150%;
+	letter-spacing: 31%;
+	text-transform: uppercase;
+
 }
