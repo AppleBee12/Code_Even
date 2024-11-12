@@ -27,8 +27,6 @@ if (!isset($title)) {
 <body>
   <header class="header">
     <h1 class="logo"><a href="#">code even</a></h1>
-    <div class="login.php">안녕하세요 {name}관리자님</div>
-    <div class="">안녕하세요 {name}강사님</div>
   </header>
   <nav class="nav navbar-expand-lg">
     <ul class="list-group">
