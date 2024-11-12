@@ -13,7 +13,7 @@ if(!isset($_SESSION['AUID'])){
 
 
 
-<div class="container d-flex gap-3">
+<div class="container ">
   <?php
     if(!isset($_SESSION['AUID'])){
   ?>
@@ -21,8 +21,28 @@ if(!isset($_SESSION['AUID'])){
   <?php
     }else{
   ?>
-    <div class="login.php">안녕하세요 <?= $_SESSION['AUNAME'] ?> 관리자님</div>
-    <a href="logout.php">로그아웃</a>
+    <div><?= $_SESSION['AUNAME'] ?> 관리자님 <br>환영합니다. </div>
+    <!-- <a href="logout.php">로그아웃</a> -->
+
+
+    <ul class="nav nav-pills">
+    <li class="nav-item">
+    <a class="nav-link" href="#"><img src="images/sb_logo.png" alt="" width="50"></a>
+  </li>
+  <li class="nav-item dropdown">
+    <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false"></a>
+    <ul class="dropdown-menu">
+      <li><a class="dropdown-item" href="logout.php">로그아웃</a></li>
+      <li><a class="dropdown-item" href="#">Another action</a></li>
+      <li><a class="dropdown-item" href="#">Something else here</a></li>
+      <li><hr class="dropdown-divider"></li>
+      <li><a class="dropdown-item" href="#">Separated link</a></li>
+    </ul>
+  </li>
+  
+</ul>
+
+
   <?php
     }
   ?>
