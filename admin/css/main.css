@@ -1,6 +1,20 @@
-
+/* header */
 .header{
   min-width: 1920px;
   height: 100px;
-
 }
+
+/* menu */
+
+body nav {
+  width: 300px;
+  background: var(--bk1000);
+}
+
+nav ul{ 
+  color: var(--bk0);
+}
+
+
+
+/*  */
