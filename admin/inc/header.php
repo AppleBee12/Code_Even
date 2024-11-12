@@ -36,16 +36,16 @@ if (!isset($title)) {
       <li class="list-group-item"><a href=""><i class="bi bi-tags"></i> 　 카테고리 관리</a></li>
       <li class="list-group-item"><i class="bi bi-collection-play"></i> 　 강좌 관리
         <ul>
-          <li class="list-group-item"><a href="">- 강좌 목록</a></li>
-          <li class="list-group-item"><a href="">- 강좌 등록</a></li>
-          <li class="list-group-item"><a href="">- 퀴즈 / 시험 목록</a></li>
-          <li class="list-group-item"><a href="">- 퀴즈 / 시험 결과 관리</a></li>
+          <li class="list-group-item"><a href="./admin/lecture/lecture_list.php">- 강좌 목록</a></li>
+          <li class="list-group-item"><a href="./admin/lecture/lecture_up.php">- 강좌 등록</a></li>
+          <li class="list-group-item"><a href="./admin/lecture/quiz_test_list.php">- 퀴즈 / 시험 목록</a></li>
+          <li class="list-group-item"><a href="./admin/lecture/quiz_test_outcome.php">- 퀴즈 / 시험 결과 관리</a></li>
         </ul>
       </li>
       <li class="list-group-item"><i class="bi bi-book"></i> 　 교재 관리
         <ul>
-          <li class="list-group-item"><a href="">교재 목록</a></li>
-          <li class="list-group-item"><a href="">교재 등록</a></li>
+          <li class="list-group-item"><a href="./admin/book/book_list.php">교재 목록</a></li>
+          <li class="list-group-item"><a href="./admin/lecture/book_up.php">교재 등록</a></li>
         </ul>
       </li>
       <li class="list-group-item"><a href=""><i class="bi bi-people"></i> 　 전체 회원 관리</a></li>
