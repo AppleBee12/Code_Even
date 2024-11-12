@@ -53,14 +53,3 @@ body {
 
 
 
-/* header */
-.logo {
-	font-family: "League Gothic", sans-serif;
-  font-optical-sizing: auto;
-  font-weight: 400;
-	font-size: 45px;
-	line-height: 150%;
-	letter-spacing: 31%;
-	text-transform: uppercase;
-
-}
