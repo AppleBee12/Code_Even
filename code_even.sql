@@ -44,7 +44,7 @@ CREATE TABLE `blog` (
 --
 
 INSERT INTO `blog` (`post_id`, `uid`, `titles`, `thumnails`, `contents`, `likes`, `comments`, `hits`, `regdate`) VALUES
-(1, 3, '[쿠폰이벤트] 코드이븐 가을세일전쟁 : BEST 강사 전 강좌 최대 50%쿠폰', '/admin/community/blog/img/20241101fallsalewar001.png', '다가오는 연말, 연초에 계획한 목표를 이룰 마지막 소중한 2달!\r\n다시 도전 할 수 있도록  코드이븐이 이~븐하게 챙겨드립니다.\r\n\r\n대상: 연초 작성해뒀던 목표 리스트가 생각나 ‘앗차!’ 외치신 분\r\n기간: 11.01 ~ 11.11 \r\n연초 생각했던 리스트와 다짐을 댓글로 남겨주시면\r\n“30일 강좌 할인 쿠폰” x  2장  /  “60일 강좌 할인 쿠폰” x 1장  이 발급됩니다!', 0, 0, 0, '2024-11-11 19:45:45');
+(1, 3, '[쿠폰이벤트] 코드이븐 가을세일전쟁 : BEST 강사 전 강좌 최대 50%쿠폰', '/admin/community/blog/img/20241101fallsalewar001.png', '다가오는 연말, 연초에 계획한 목표를 이룰 마지막 소중한 2달!\r\n다시 도전 할 수 있도록  코드이븐이 이~븐하게 챙겨드립니다.\r\n\r\n대상: 연초 작성해뒀던 목표 리스트가 생각나 ‘앗차!’ 외치신 분\r\n기간: 11.01 ~ 11.11\r\n연초 생각했던 리스트와 다짐을 댓글로 남겨주시면\r\n“30일 강좌 할인 쿠폰” x  2장  /  “60일 강좌 할인 쿠폰” x 1장  이 발급됩니다!', 0, 0, 0, '2024-11-11 19:45:45');
 
 -- --------------------------------------------------------
 
@@ -660,6 +660,392 @@ ALTER TABLE `test`
 --
 ALTER TABLE `manual_contents`
   ADD CONSTRAINT `manual_contents_ibfk_1` FOREIGN KEY (`mnnid`) REFERENCES `manual` (`mnid`) ON DELETE CASCADE;
+COMMIT;
+
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8mb4 */;
+
+--
+-- 데이터베이스: `code_even`
+--
+
+-- --------------------------------------------------------
+
+--
+-- 테이블 구조 `category`
+--
+
+CREATE TABLE `category` (
+  `cgid` int(11) NOT NULL,
+  `code` varchar(10) NOT NULL COMMENT '카테고리 코드명',
+  `pcode` varchar(10) DEFAULT NULL COMMENT '부모 카테고리 고드명',
+  `name` varchar(50) NOT NULL COMMENT '카테고리 명',
+  `step` int(11) NOT NULL COMMENT '카테고리 단계 1,2,3'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- 테이블 구조 `coupons`
+--
+
+CREATE TABLE `coupons` (
+  `cpid` int(11) NOT NULL,
+  `coupon_name` varchar(100) DEFAULT NULL COMMENT '쿠폰명',
+  `coupon_image` varchar(100) DEFAULT NULL COMMENT '쿠폰이미지',
+  `coupon_type` tinyint(4) DEFAULT NULL COMMENT '쿠폰타입',
+  `coupon_price` double DEFAULT NULL COMMENT '할인금액',
+  `coupon_ratio` double DEFAULT NULL COMMENT '할인비율',
+  `status` tinyint(4) DEFAULT 0 COMMENT '상태',
+  `regdate` datetime DEFAULT NULL COMMENT '등록일',
+  `userid` varchar(100) DEFAULT NULL COMMENT '등록한유저',
+  `max_value` double DEFAULT NULL COMMENT '최대할인금액',
+  `use_min_price` double DEFAULT NULL COMMENT '최소사용금액'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- 테이블 구조 `user`
+--
+
+CREATE TABLE `user` (
+  `uid` int(11) NOT NULL COMMENT '회원고유번호',
+  `userid` varchar(50) NOT NULL COMMENT '아이디',
+  `username` varchar(50) NOT NULL COMMENT '이름',
+  `usernick` varchar(50) DEFAULT NULL COMMENT '닉네임',
+  `userpw` varchar(200) NOT NULL COMMENT '비밀번호',
+  `userphonenum` varchar(50) NOT NULL COMMENT '휴대전화',
+  `useremail` varchar(100) DEFAULT NULL COMMENT '이메일',
+  `email_ok` tinyint(4) DEFAULT NULL COMMENT '이메일수신여부',
+  `post_code` int(11) DEFAULT NULL COMMENT '우편번호',
+  `addr_line1` varchar(100) DEFAULT NULL COMMENT '주소',
+  `addr_line2` varchar(100) DEFAULT NULL COMMENT '상세주소',
+  `signup_date` date NOT NULL COMMENT '가입일',
+  `last_date` datetime NOT NULL COMMENT '마지막접속일',
+  `user_level` tinyint(4) DEFAULT NULL COMMENT '회원구분',
+  `user_status` int(11) DEFAULT 0 COMMENT '회원상태'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- 테이블 구조 `user_coupons`
+--
+
+CREATE TABLE `user_coupons` (
+  `ucid` int(11) NOT NULL,
+  `couponid` int(11) NOT NULL COMMENT '쿠폰아이디',
+  `userid` varchar(100) NOT NULL COMMENT '유저아이디',
+  `status` int(11) DEFAULT 1 COMMENT '상태',
+  `use_max_date` datetime DEFAULT NULL COMMENT '사용기한',
+  `regdate` datetime DEFAULT NULL COMMENT '등록일',
+  `reason` varchar(100) NOT NULL COMMENT '쿠폰취득사유'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- 덤프된 테이블의 인덱스
+--
+
+--
+-- 테이블의 인덱스 `category`
+--
+ALTER TABLE `category`
+  ADD PRIMARY KEY (`cgid`);
+
+--
+-- 테이블의 인덱스 `coupons`
+--
+ALTER TABLE `coupons`
+  ADD PRIMARY KEY (`cpid`);
+
+--
+-- 테이블의 인덱스 `user`
+--
+ALTER TABLE `user`
+  ADD PRIMARY KEY (`uid`);
+
+--
+-- 테이블의 인덱스 `user_coupons`
+--
+ALTER TABLE `user_coupons`
+  ADD PRIMARY KEY (`ucid`);
+COMMIT;
+
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8mb4 */;
+
+--
+-- 데이터베이스: `code_even`
+--
+
+-- --------------------------------------------------------
+
+--
+-- 테이블 구조 `admin_answer`
+--
+
+CREATE TABLE `admin_answer` (
+  `aaid` int(11) NOT NULL COMMENT '답변고유번호',
+  `aqid` int(11) NOT NULL COMMENT '질문고유번호',
+  `acontent` text NOT NULL COMMENT '답변내용',
+  `status` enum('답변대기','답변완료') NOT NULL DEFAULT '답변대기' COMMENT '상태',
+  `file` varchar(255) DEFAULT NULL COMMENT '파일'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='1:1 문의 (관리자답변)';
+
+-- --------------------------------------------------------
+
+--
+-- 테이블 구조 `admin_question`
+--
+
+CREATE TABLE `admin_question` (
+  `aqid` int(11) NOT NULL COMMENT '질문고유번호',
+  `uid` int(11) NOT NULL COMMENT '회원고유번호',
+  `category` int(11) NOT NULL COMMENT '주제분류',
+  `qtitle` varchar(255) NOT NULL COMMENT '질문제목',
+  `qcontent` text NOT NULL COMMENT '질문내용',
+  `regdate` date NOT NULL COMMENT '등록일',
+  `file` varchar(255) DEFAULT NULL COMMENT '파일'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='1:1 문의 (사용자질문)';
+
+-- --------------------------------------------------------
+
+--
+-- 테이블 구조 `class_data`
+--
+
+CREATE TABLE `class_data` (
+  `cdid` int(11) NOT NULL COMMENT '수강데이터ID',
+  `uid` int(11) NOT NULL COMMENT '회원고유번호',
+  `leid` int(11) NOT NULL COMMENT '강좌고유번호',
+  `exid` int(11) NOT NULL COMMENT '점수관리ID',
+  `course_cert` varchar(255) NOT NULL COMMENT '수강이수증',
+  `progress_rate` decimal(10,0) NOT NULL COMMENT '진도율'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='수강데이터';
+
+-- --------------------------------------------------------
+
+--
+-- 테이블 구조 `faq`
+--
+
+CREATE TABLE `faq` (
+  `fqid` int(11) NOT NULL COMMENT 'FAQ고유번호',
+  `uid` int(11) NOT NULL COMMENT '회원고유번호',
+  `category` int(11) NOT NULL COMMENT '주제분류',
+  `target` enum('일반회원','강사') NOT NULL COMMENT '대상',
+  `title` varchar(255) NOT NULL COMMENT '제목',
+  `content` text NOT NULL COMMENT '내용',
+  `view` int(11) NOT NULL COMMENT '조회수',
+  `regdate` datetime NOT NULL COMMENT '작성일',
+  `status` enum('숨김','노출') NOT NULL DEFAULT '숨김' COMMENT '상태'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='자주묻는질문';
+
+-- --------------------------------------------------------
+
+--
+-- 테이블 구조 `notice`
+--
+
+CREATE TABLE `notice` (
+  `ntid` int(11) NOT NULL COMMENT '공지사항고유번호',
+  `uid` int(11) NOT NULL COMMENT '회원고유번호',
+  `title` varchar(255) NOT NULL COMMENT '제목',
+  `content` text NOT NULL COMMENT '내용',
+  `view` int(11) NOT NULL COMMENT '조회수',
+  `regdate` date NOT NULL COMMENT '등록일',
+  `status` enum('노출','숨김') NOT NULL DEFAULT '숨김' COMMENT '상태',
+  `file` varchar(255) DEFAULT NULL COMMENT '파일'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- 테이블 구조 `review`
+--
+
+CREATE TABLE `review` (
+  `rvid` int(11) NOT NULL COMMENT '수강후기ID',
+  `cdid` int(11) NOT NULL COMMENT '수강데이터ID',
+  `rating` tinyint(4) NOT NULL COMMENT '평점',
+  `title` varchar(255) NOT NULL COMMENT '제목',
+  `content` text NOT NULL COMMENT '내용',
+  `regdate` datetime NOT NULL COMMENT '등록일'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='수강 후기';
+
+-- --------------------------------------------------------
+
+--
+-- 테이블 구조 `send_email`
+--
+
+CREATE TABLE `send_email` (
+  `emid` int(11) NOT NULL COMMENT '이메일발송고유번호',
+  `uid` int(11) NOT NULL COMMENT '회원고유번호',
+  `title` varchar(255) NOT NULL COMMENT '제목',
+  `content` text NOT NULL COMMENT '내용',
+  `regdate` datetime NOT NULL COMMENT '발송일'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='이메일발송';
+
+-- --------------------------------------------------------
+
+--
+-- 테이블 구조 `student_qna`
+--
+
+CREATE TABLE `student_qna` (
+  `sqid` int(11) NOT NULL COMMENT '질문고유번호',
+  `cdid` int(11) NOT NULL COMMENT '수강데이터ID',
+  `qtitle` varchar(255) NOT NULL COMMENT '질문제목',
+  `qcontent` text NOT NULL COMMENT '질문내용',
+  `status` enum('답변대기','답변완료') NOT NULL DEFAULT '답변대기' COMMENT '상태',
+  `regdate` datetime NOT NULL COMMENT '등록일',
+  `file` varchar(255) DEFAULT NULL COMMENT '파일'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='수강생 질문';
+
+-- --------------------------------------------------------
+
+--
+-- 테이블 구조 `teacher_qna`
+--
+
+CREATE TABLE `teacher_qna` (
+  `asid` int(11) NOT NULL COMMENT '답변고유ID',
+  `sqid` int(11) NOT NULL COMMENT '질문고유ID',
+  `tcid` int(11) NOT NULL COMMENT '강사ID',
+  `content` text NOT NULL COMMENT '답변내용',
+  `file` varchar(255) DEFAULT NULL COMMENT '파일'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='강사 답변';
+
+--
+-- 덤프된 테이블의 인덱스
+--
+
+--
+-- 테이블의 인덱스 `admin_answer`
+--
+ALTER TABLE `admin_answer`
+  ADD PRIMARY KEY (`aaid`);
+
+--
+-- 테이블의 인덱스 `admin_question`
+--
+ALTER TABLE `admin_question`
+  ADD PRIMARY KEY (`aqid`);
+
+--
+-- 테이블의 인덱스 `class_data`
+--
+ALTER TABLE `class_data`
+  ADD PRIMARY KEY (`cdid`);
+
+--
+-- 테이블의 인덱스 `faq`
+--
+ALTER TABLE `faq`
+  ADD PRIMARY KEY (`fqid`);
+
+--
+-- 테이블의 인덱스 `notice`
+--
+ALTER TABLE `notice`
+  ADD PRIMARY KEY (`ntid`);
+
+--
+-- 테이블의 인덱스 `review`
+--
+ALTER TABLE `review`
+  ADD PRIMARY KEY (`rvid`);
+
+--
+-- 테이블의 인덱스 `send_email`
+--
+ALTER TABLE `send_email`
+  ADD PRIMARY KEY (`emid`);
+
+--
+-- 테이블의 인덱스 `student_qna`
+--
+ALTER TABLE `student_qna`
+  ADD PRIMARY KEY (`sqid`);
+
+--
+-- 테이블의 인덱스 `teacher_qna`
+--
+ALTER TABLE `teacher_qna`
+  ADD PRIMARY KEY (`asid`);
+
+--
+-- 덤프된 테이블의 AUTO_INCREMENT
+--
+
+--
+-- 테이블의 AUTO_INCREMENT `admin_answer`
+--
+ALTER TABLE `admin_answer`
+  MODIFY `aaid` int(11) NOT NULL AUTO_INCREMENT COMMENT '답변고유번호';
+
+--
+-- 테이블의 AUTO_INCREMENT `admin_question`
+--
+ALTER TABLE `admin_question`
+  MODIFY `aqid` int(11) NOT NULL AUTO_INCREMENT COMMENT '질문고유번호';
+
+--
+-- 테이블의 AUTO_INCREMENT `class_data`
+--
+ALTER TABLE `class_data`
+  MODIFY `cdid` int(11) NOT NULL AUTO_INCREMENT COMMENT '수강데이터ID';
+
+--
+-- 테이블의 AUTO_INCREMENT `faq`
+--
+ALTER TABLE `faq`
+  MODIFY `fqid` int(11) NOT NULL AUTO_INCREMENT COMMENT 'FAQ고유번호';
+
+--
+-- 테이블의 AUTO_INCREMENT `notice`
+--
+ALTER TABLE `notice`
+  MODIFY `ntid` int(11) NOT NULL AUTO_INCREMENT COMMENT '공지사항고유번호';
+
+--
+-- 테이블의 AUTO_INCREMENT `review`
+--
+ALTER TABLE `review`
+  MODIFY `rvid` int(11) NOT NULL AUTO_INCREMENT COMMENT '수강후기ID';
+
+--
+-- 테이블의 AUTO_INCREMENT `send_email`
+--
+ALTER TABLE `send_email`
+  MODIFY `emid` int(11) NOT NULL AUTO_INCREMENT COMMENT '이메일발송고유번호';
+
+--
+-- 테이블의 AUTO_INCREMENT `student_qna`
+--
+ALTER TABLE `student_qna`
+  MODIFY `sqid` int(11) NOT NULL AUTO_INCREMENT COMMENT '질문고유번호';
+
+--
+-- 테이블의 AUTO_INCREMENT `teacher_qna`
+--
+ALTER TABLE `teacher_qna`
+  MODIFY `asid` int(11) NOT NULL AUTO_INCREMENT COMMENT '답변고유ID';
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

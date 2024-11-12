@@ -28,8 +28,6 @@ if (!isset($title)) {
 <body>
   <header class="header">
     <h1 class="logo"><a href="#">code even</a></h1>
-    <div class="login.php">안녕하세요 {name}관리자님</div>
-    <div class="">안녕하세요 {name}강사님</div>
   </header>
   <div class="nav_wrapper d-flex">
     <nav class="nav navbar-expand-lg">
@@ -51,7 +49,7 @@ if (!isset($title)) {
           </ul>
         </li>
         <li class="list-group-item"><a href=""><i class="bi bi-people"></i> 　 전체 회원 관리</a></li>
-        <li class="list-group-item"><a href=""><i class="bi bi-incognito"></i> 　 강사 관리</a></li>
+        <li class="list-group-item"><a href="admin/teacher/teacher_list.php"><i class="bi bi-incognito"></i> 　 강사 관리</a></li>
         <li class="pr list-group-item"><i class="bi bi-mortarboard"></i> 　 수강생 관리
           <ul>
             <li class="list-group-item"><a href=""> 　 - 수강생 목록</a></li>
