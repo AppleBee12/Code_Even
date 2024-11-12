@@ -734,6 +734,14 @@ CREATE TABLE `user` (
   `user_status` int(11) DEFAULT 0 COMMENT '회원상태'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- 테이블의 덤프 데이터 `user`
+--
+
+INSERT INTO `user` (`uid`, `userid`, `username`, `usernick`, `userpw`, `userphonenum`, `useremail`, `email_ok`, `post_code`, `addr_line1`, `addr_line2`, `signup_date`, `last_date`, `user_level`, `user_status`) VALUES
+(1, 'code_even', '홍이븐', '이븐이', '3627909a29c31381a071ec27f7c9ca97726182aed29a7ddd2e54353322cfb30abb9e3a6df2ac2c20fe23436311d678564d0c8d305930575f60e2d3d048184d79', '010-1234-5678', 'hong@example.com', 1, 12345, '서울특별시 강남구', '101호', '2024-11-01', '2024-11-12 17:45:39', 100, 0);
+
+-- --------------------------------------------------------
 -- --------------------------------------------------------
 
 --
