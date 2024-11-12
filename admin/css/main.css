@@ -1,20 +1,113 @@
 /* header */
-.header{
+.header {
   min-width: 1920px;
-  height: 100px;
+  height: 105px;
+  background: var(--bk1000);
+  display: flex;
+
+}
+
+/* header */
+header h1 {
+  margin: 50px 35px 22px;
+
+}
+
+header h1.logo a {
+  font-family: "League Gothic", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-size: 45px;
+  line-height: 45px;
+  letter-spacing: 13px;
+  text-transform: uppercase;
+  color: var(--primary);
+  
+
 }
 
 /* menu */
 
 body nav {
-  width: 300px;
+  width: 316px;
   background: var(--bk1000);
+  align-items: flex-end;
+  padding-top: 46px;
 }
 
-nav ul{ 
-  color: var(--bk0);
+body nav .list-group {
+  width: 316px;
+  border-radius: 0;
+  margin-left: 42px;
+  padding-left: 42px;
+}
+
+body nav .list-group-item,
+body nav .list-group-item a {
+  background-color: var(--bk1000);
+  border: 1px solid var(--bk1000);
+  color: var(--bk300);
+  width: 274px;
+  /* height: 46px; */
+  text-align: left;
+  line-height: 30px;
+  font-size: 18px;
+}
+
+body nav .list-group.line .list-group-item {
+  /* padding-left: 42px; */
+  align-content: end;
+  border-bottom: 1px solid var(--bk300);
 }
 
 
+body nav ul li ul {
+  padding-left: 0px;
+  margin-top: 8px;
+  
+}
 
-/*  */
+body nav ul li ul li {
+  padding-left: 0px;
+  
+}
+body nav ul li ul li:first-child {
+  border-top: 1px solid var(--bk300);
+
+}
+body nav ul li ul li:last-child {
+  border-bottom: none;
+}
+
+body nav .list-group.line ul li:last-child {
+  border-bottom: none;
+}
+
+
+body nav .pr {
+  /* padding-left:0px; */
+  padding-bottom: 0px;
+}
+
+body nav .pr ul li {
+  width: 257px;
+
+}
+
+body nav .no_line.list-group {
+  margin-top: 46px;
+  margin-bottom: 47px;
+}
+
+
+body nav .list-group-item.active {
+  background: var(--bk0);
+  color: var(--bk800);
+  border: 1px solid var(--bk300);
+
+  a {
+    background: var(--bk0);
+    color: var(--bk800);
+    border: 1px solid var(--bk0);
+  }
+}

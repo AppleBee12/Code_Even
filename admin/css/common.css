@@ -47,6 +47,8 @@
 
 body {
   font-family: "SUIT", sans-serif;
+  font-size: 17px;
+  color: var(--bk800);
 }
 
 
@@ -62,3 +64,16 @@ body {
 	text-transform: uppercase;
 
 }
+
+/* form control*/
+.form-check-input:checked {
+  background-color: var(--red700);
+  border-color: var(--red700);
+}
+
+.form-check-input:focus {
+  border-color: var(--red400);
+  box-shadow: 0 0 0 .25rem rgba(231, 105, 105, .25);
+}
+
+
