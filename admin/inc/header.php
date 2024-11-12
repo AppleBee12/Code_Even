@@ -30,7 +30,7 @@ if (!isset($title)) {
     <h1 class="logo"><a href="#">code even</a></h1>
   </header>
   <div class="nav_wrapper d-flex">
-    <nav class="nav navbar-expand-lg">
+    <nav class="nav navbar-expand-lg d-flex flex-column justify-content-between">
       <ul class="list-group line">
         <li class="list-group-item active"><a href=""><i class="bi bi-grid"></i> 　 대시보드</a></li>
         <li class="list-group-item"><a href=""><i class="bi bi-tags"></i> 　 카테고리 관리</a></li>
@@ -87,11 +87,8 @@ if (!isset($title)) {
             <li class="list-group-item"><a href=""> 　 - 블로그</a></li>
           </ul>
         </li>
-
-
       </ul>
-
-      <ul class="list-group">
+      <ul class="no_line list-group">
         <li class="list-group-item"><a href=""><i class="bi bi-chat-dots"></i> 　 강사 1:1</a></li>
         <li class="list-group-item"><a href=""><i class="bi bi-journal-bookmark-fill"></i> 　 강사 매뉴얼</a></li>
         <li class="list-group-item"><a href=""><i class="bi bi-journal-bookmark-fill"></i> 　 관리자 매뉴얼</a></li>

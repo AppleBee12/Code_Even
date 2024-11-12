@@ -39,6 +39,7 @@ body nav .list-group {
   width: 316px;
   border-radius: 0;
   margin-left: 42px;
+  padding-left: 42px;
 }
 
 body nav .list-group-item,
@@ -77,6 +78,12 @@ body nav ul li ul li:first-child {
 body nav ul li ul li:last-child {
   border-bottom: none;
 }
+
+body nav .list-group.line ul li:last-child {
+  border-bottom: none;
+}
+
+
 body nav .pr {
   /* padding-left:0px; */
   padding-bottom: 0px;
@@ -85,6 +92,11 @@ body nav .pr {
 body nav .pr ul li {
   width: 257px;
 
+}
+
+body nav .no_line.list-group {
+  margin-top: 46px;
+  margin-bottom: 47px;
 }
 
 
