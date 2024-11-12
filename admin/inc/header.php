@@ -47,7 +47,7 @@ if (!isset($title)) {
         </ul>
       </li>
       <li class="list-group-item"><a href=""><i class="bi bi-people"></i> 　 전체 회원 관리</a></li>
-      <li class="list-group-item"><a href=""><i class="bi bi-incognito"></i> 　 강사 관리</a></li>
+      <li class="list-group-item"><a href="admin/teacher/teacher_list.php"><i class="bi bi-incognito"></i> 　 강사 관리</a></li>
       <li class="list-group-item"><i class="bi bi-mortarboard"></i> 　 수강생 관리</li>
       <ul>
         <li class="list-group-item"><a href="">- 수강생 목록</a></li>
