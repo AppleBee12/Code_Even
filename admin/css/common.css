@@ -47,6 +47,8 @@
 
 body {
   font-family: "SUIT", sans-serif;
+  font-size: 17px;
+  color: var(--bk800);
 }
 
 
