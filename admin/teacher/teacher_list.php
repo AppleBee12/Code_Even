@@ -4,7 +4,7 @@ include_once($_SERVER['DOCUMENT_ROOT'] . '/CODE_EVEN/admin/inc/header.php');
 ?>
 
 
-<div class="container">
+<main>
   <h2>강사목록</h2>
 
   <table class="table">
@@ -36,7 +36,7 @@ include_once($_SERVER['DOCUMENT_ROOT'] . '/CODE_EVEN/admin/inc/header.php');
     </tr>
   </tbody>
 </table>
-</div>
+</main>
 
 <?php
 include_once($_SERVER['DOCUMENT_ROOT'] . '/CODE_EVEN/admin/inc/footer.php');
