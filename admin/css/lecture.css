@@ -1,3 +1,21 @@
+table {
+  border-spacing: 0 8px; /* 행 사이에만 8px 간격을 줍니다 */
+  border-collapse: separate;
+}
+
+table, th, td {
+  border: none; /* 테이블, 헤더 셀, 데이터 셀의 테두리 제거 */
+}
+
+.content_bar{
+  margin-top: 50px;
+  max-width: 1296px;
+}
+
+.table>thead.thead-hidden{
+  display: none;
+}
+
 /* 스위치 체크 시 배경색 */
 .form-check-input:checked {
   background-color: var(--primary);
@@ -76,3 +94,52 @@
   border-color: var(--bk900);
   color: var(--bk900);
 }
+
+
+/* lecture_up.php CSS */
+
+.box, .input-group {
+  padding: 0;
+  margin: 0;
+}
+
+th span{
+  color: var(--red950);
+}
+
+tbody tr td .box {
+  height: 200px !important;
+  width: 100% !important;
+  background-color: #ccc !important;
+  align-items: center; 
+  text-align: center;
+  margin-bottom: 10px;
+  position: relative;
+
+  span{
+    text-wrap: nowrap;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    
+  }
+}
+
+.video{
+  margin-top: 10px;
+  height: 48px;
+  background-color: var(--bk50);
+  border-color: var(--200);
+
+  h5{
+    margin-left: 24px;
+  }
+
+  i{
+    margin-right: 24px;
+    font-size: 24px;
+  }
+}
+
+
