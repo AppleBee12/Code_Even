@@ -3,25 +3,12 @@ $title = "수강생 관리";
 include_once($_SERVER['DOCUMENT_ROOT'] . '/code_even/admin/inc/header.php');
 ?>
 
-<style>
-  .none {
-    border: none;
-
-    thead,
-    tbody,
-    tr,
-    th,
-    td {
-      border-style: none;
-    }
-  }
-</style>
-
 <div class="container">
   <h2>수강생 관리</h2>
   <div class="content_bar">
     <h3>수강생 상세정보</h3>
   </div>
+
   <div class="row">
     <div class="col">
       <table class="table none d-flex">
@@ -120,6 +107,7 @@ include_once($_SERVER['DOCUMENT_ROOT'] . '/code_even/admin/inc/header.php');
       </table>
     </div>
   </div>
+
   <div class="content_bar">
     <h3>수강 정보</h3>
   </div>
