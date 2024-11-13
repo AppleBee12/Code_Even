@@ -4,20 +4,20 @@ include_once($_SERVER['DOCUMENT_ROOT'] . '/CODE_EVEN/admin/inc/header.php');
 if(!isset($_SESSION['AUID'])){
   echo"<script>
   alert('로그인을 해주세요');
-  location.href='login.php'
+  location.href='admin/login/login.php';
   </script>";
 }
 
 ?>
 
-
+<!-- localhost/Code_Even/admin/login/login.php -->
 
 
 <div class="container ">
   <?php
     if(!isset($_SESSION['AUID'])){
   ?>
-    <a href="login.php">로그인</a>
+    <a href="admin/login/login.php">로그인</a>
   <?php
     }else{
   ?>
@@ -32,7 +32,7 @@ if(!isset($_SESSION['AUID'])){
   <li class="nav-item dropdown">
     <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false"></a>
     <ul class="dropdown-menu">
-      <li><a class="dropdown-item" href="logout.php">로그아웃</a></li>
+      <li><a class="dropdown-item" href="admin/login/logout.php">로그아웃</a></li>
       <li><a class="dropdown-item" href="#">Another action</a></li>
       <li><a class="dropdown-item" href="#">Something else here</a></li>
       <li><hr class="dropdown-divider"></li>

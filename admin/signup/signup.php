@@ -11,7 +11,7 @@
 <div class="container">
   <img src="images/txt_logo.png" alt="">
   <h1 class="mt-3">회원가입</h1>
-    <form action="signup_ok.php" method="POST">
+    <form action="../signup/signup_ok.php" method="POST">
       
       <label for="username" class="form-label mt-3">이름</label>
     <input type="text" id="username" name="username" class="form-control w-25" placeholder="홍이븐" required>

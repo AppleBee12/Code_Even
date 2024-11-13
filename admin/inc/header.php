@@ -44,7 +44,7 @@ if (!isset($title)) {
     <nav class="nav navbar-expand-lg d-flex flex-column justify-content-between">
       <ul class="list-group line">
         <li class="list-group-item active"><a href=""><i class="bi bi-grid"></i> 　 대시보드</a></li>
-        <li class="list-group-item"><a href=""><i class="bi bi-tags"></i> 　 카테고리 관리</a></li>
+        <li class="list-group-item"><a href="admin/category/category.php"><i class="bi bi-tags"></i> 　 카테고리 관리</a></li>
         <li class="pr list-group-item"><i class="bi bi-collection-play"></i> 　 강좌 관리
           <ul>
             <li class="list-group-item"><a href=""> 　 - 강좌 목록</a></li>
@@ -76,7 +76,7 @@ if (!isset($title)) {
             <li class="list-group-item"><a href=""> 　 - 교재 배송관리</a></li>
           </ul>
         </li>
-        <li class="list-group-item"><a href=""><i class="bi bi-ticket"></i> 　 쿠폰 관리</a></li>
+        <li class="list-group-item"><a href="admin/coupons/coupons.php"><i class="bi bi-ticket"></i> 　 쿠폰 관리</a></li>
         <li class="pr list-group-item"><i class="bi bi-graph-up-arrow"></i> 　 매출통계 관리
           <ul>
             <li class="list-group-item"><a href=""> 　 - 강의 매출통계</a></li>
