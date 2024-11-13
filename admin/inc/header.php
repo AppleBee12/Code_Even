@@ -16,11 +16,11 @@ if (!isset($title)) {
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>코드이븐 솔루션-관리자 페이지</title>
 
+  <link rel="stylesheet" href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/css/reset.css">
   <link href="https://cdn.jsdelivr.net/gh/sun-typeface/SUIT@2/fonts/static/woff2/SUIT.css" rel="stylesheet">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-  <link rel="stylesheet" href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/css/reset.css">
   <link rel="stylesheet" href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/css/common.css">
   <link rel="stylesheet" href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/css/main.css">
 </head>
@@ -49,7 +49,8 @@ if (!isset($title)) {
           </ul>
         </li>
         <li class="list-group-item"><a href=""><i class="bi bi-people"></i> 　 전체 회원 관리</a></li>
-        <li class="list-group-item"><a href="admin/teacher/teacher_list.php"><i class="bi bi-incognito"></i> 　 강사 관리</a></li>
+        <li class="list-group-item"><a href="admin/teacher/teacher_list.php"><i class="bi bi-incognito"></i> 　 강사 관리</a>
+        </li>
         <li class="pr list-group-item"><i class="bi bi-mortarboard"></i> 　 수강생 관리
           <ul>
             <li class="list-group-item"><a href=""> 　 - 수강생 목록</a></li>
