@@ -4,8 +4,29 @@ include_once($_SERVER['DOCUMENT_ROOT'] . '/code_even/admin/inc/header.php');
 ?>
 
 <style>
-  em {
-    color: var(--primary);
+  .list_table tr {
+    height: 60px;
+    th, td {
+      vertical-align: middle;
+      text-align: center;
+    }
+  }
+  
+  .modal_table {
+    thead {
+    flex: 0 0 110px;
+    }
+    tr {
+    height: 50px;
+    width: 100%;
+    }
+    th, td {
+      vertical-align: middle;
+      width: 100%;
+    }
+    tbody {
+    flex: 1;
+    }
   }
 </style>
 
@@ -23,7 +44,7 @@ include_once($_SERVER['DOCUMENT_ROOT'] . '/code_even/admin/inc/header.php');
     </div>
   </form>
 
-  <table class="table">
+  <table class="table list_table">
     <thead>
       <tr>
         <th scope="col">
@@ -72,7 +93,7 @@ include_once($_SERVER['DOCUMENT_ROOT'] . '/code_even/admin/inc/header.php');
     </tbody>
   </table>
 
-  <div class="modal modal-lg" id="send_email" tabindex="-1">
+  <div class="modal" id="send_email" tabindex="-1">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
@@ -80,60 +101,18 @@ include_once($_SERVER['DOCUMENT_ROOT'] . '/code_even/admin/inc/header.php');
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-          <div class="row">
-            <div class="col">
-              <table class="table d-flex">
-                <thead>
-                  <tr>
-                    <th scope="col">이름(아이디)</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td>홍길동</td>
-                  </tr>
-                </tbody>
-              </table>
+          <div class="table modal_table">
+            <div>
+              <div class="d-flex">
+                <div>제목<em> *</em></div>
+                <input type="text" class="form-control form-control-sm" placeholder="제목을 입력해주세요.">
+              </div>
             </div>
-            <div class="col">
-              <table class="table d-flex">
-                <thead>
-                  <tr>
-                    <th scope="col">이메일</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td>hong1234@hong.com</td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col">
-              <table class="table d-flex">
-                <thead>
-                  <tr>
-                    <th scope="col">제목<em> *</em></th>
-                  </tr>
-                  <tr>
-                    <th scope="col">내용<em> *</em></th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td>
-                      <input type="text" class="form-control" placeholder="제목을 입력해주세요.">
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <textarea class="form-control" placeholder="메시지를 입력해주세요."></textarea>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
+            <div>
+              <div class="d-flex">
+                <div>내용<em> *</em></div>
+                <textarea name="" class="form-control" placeholder="메시지를 입력해주세요."></textarea>
+              </div>
             </div>
           </div>
         </div>
