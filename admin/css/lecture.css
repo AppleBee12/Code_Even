@@ -1,5 +1,3 @@
-@import url(common.css);
-
 /* 스위치 체크 시 배경색 */
 .form-check-input:checked {
   background-color: var(--primary);
