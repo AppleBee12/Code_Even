@@ -15,20 +15,6 @@ include_once($_SERVER['DOCUMENT_ROOT'] . '/code_even/admin/inc/header.php');
       border-style: none;
     }
   }
-
-  #printButton {
-    position: relative;
-    width: 50px;
-    height: 21px;
-    background: none;
-    border: none;
-
-    span {
-      position: absolute;
-      top: 0;
-      left: 0;
-    }
-  }
 </style>
 
 <div class="container">
