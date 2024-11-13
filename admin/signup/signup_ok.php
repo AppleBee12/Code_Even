@@ -16,7 +16,7 @@ if($result){
 
   echo "<script>
   alert('회원가입이 완료되었습니다. 가입축하쿠폰이 발행되었습니다!');
-  location.href='index.php';
+  location.href='../../index.php';
   </script>";
 }else{
   echo "<script>

@@ -15,9 +15,8 @@
       <div class="d-flex gap-3  mt-3">
         <a href="" class="link-body-emphasis link-offset-2 link-underline-opacity-25 link-underline-opacity-75-hover">아이디 찾기</a>
         <a href="" class="link-body-emphasis link-offset-2 link-underline-opacity-25 link-underline-opacity-75-hover">비밀번호 찾기</a>
-        <a href="signup.php" class="link-body-emphasis link-offset-2 link-underline-opacity-25 link-underline-opacity-75-hover">회원가입</a>
+        <a href="../signup/signup.php" class="link-body-emphasis link-offset-2 link-underline-opacity-25 link-underline-opacity-75-hover">회원가입</a>
       </div>
     </div>
   </form>
-  
 </div>
