@@ -51,6 +51,16 @@ body {
   color: var(--bk800);
 }
 
+/* font - Heading */
+h2.page_title{
+  font-size: 22px;
+  font-weight: bold;
+}
+
+.page_sub_title{
+  font-size: 18px;
+  font-weight: bold;
+}
 
 
 /* header */
