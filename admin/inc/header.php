@@ -16,6 +16,7 @@ if (!isset($title)) {
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>코드이븐 솔루션-관리자 페이지</title>
 
+  <!-- 공통 Style CSS -->
   <link rel="stylesheet" href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/css/reset.css">
   <link href="https://cdn.jsdelivr.net/gh/sun-typeface/SUIT@2/fonts/static/woff2/SUIT.css" rel="stylesheet">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
@@ -23,6 +24,16 @@ if (!isset($title)) {
     integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
   <link rel="stylesheet" href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/css/common.css">
   <link rel="stylesheet" href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/css/main.css">
+
+  <!-- 개인 Style CSS -->
+  <?php
+    $page = basename($_SERVER['PHP_SELF']); // 현재 실행 중인 페이지 이름을 가져옴
+    switch ($page) {
+        case 'teacher_list.php':
+            echo '<link rel="stylesheet" href="http://' . $_SERVER['HTTP_HOST'] . '/code_even/admin/css/teacher.css">';
+            break;
+    }
+  ?>
 </head>
 
 <body>
