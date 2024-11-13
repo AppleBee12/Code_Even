@@ -1,0 +1,17 @@
+#printButton {
+  position: relative;
+  width: 50px;
+  height: 21px;
+  background: none;
+  border: none;
+
+  span {
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+}
+
+.underline {
+  text-decoration: underline;
+}
