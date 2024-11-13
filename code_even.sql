@@ -193,6 +193,7 @@ INSERT INTO `counsel` (`post_id`, `uid`, `status`, `titles`, `contents`, `likes`
 
 CREATE TABLE `coupons` (
   `cpid` int(11) NOT NULL,
+  `couponid` int(11) NOT NULL COMMENT '쿠폰아이디',
   `coupon_name` varchar(100) DEFAULT NULL COMMENT '쿠폰명',
   `coupon_image` varchar(100) DEFAULT NULL COMMENT '쿠폰이미지',
   `coupon_type` tinyint(4) DEFAULT NULL COMMENT '쿠폰타입',
