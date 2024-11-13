@@ -48,6 +48,11 @@ if (!isset($title)) {
             echo '<link rel="stylesheet" href="http://' . $_SERVER['HTTP_HOST'] . '/code_even/admin/css/student.css">';
             break;
     }
+    switch ($page) {
+        case 'student_question_details.php':
+            echo '<link rel="stylesheet" href="http://' . $_SERVER['HTTP_HOST'] . '/code_even/admin/css/student.css">';
+            break;
+    }
   ?>
 </head>
 
