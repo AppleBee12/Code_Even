@@ -4,24 +4,6 @@ include_once($_SERVER['DOCUMENT_ROOT'] . '/code_even/admin/inc/header.php');
 ?>
 
 <style>
-  #printButton {
-    position: relative;
-    width: 50px;
-    height: 21px;
-    background: none;
-    border: none;
-
-    span {
-      position: absolute;
-      top: 0;
-      left: 0;
-    }
-  }
-
-  .underline {
-    text-decoration: underline;
-  }
-
   em {
     color: var(--primary);
   }
@@ -45,7 +27,7 @@ include_once($_SERVER['DOCUMENT_ROOT'] . '/code_even/admin/inc/header.php');
     <thead>
       <tr>
         <th scope="col">
-          <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+          <input class="form-check-input" type="checkbox" value="" id="allCheck">
         </th>
         <th scope="col">번호</th>
         <th scope="col">아이디</th>
@@ -59,7 +41,7 @@ include_once($_SERVER['DOCUMENT_ROOT'] . '/code_even/admin/inc/header.php');
     <tbody>
       <tr>
         <th scope="row">
-          <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+          <input class="form-check-input itemCheckbox" type="checkbox" value="">
         </th>
         <td>2</td>
         <td><a href="student_details.php" class="underline">ping09</a></td>
@@ -73,7 +55,7 @@ include_once($_SERVER['DOCUMENT_ROOT'] . '/code_even/admin/inc/header.php');
       </tr>
       <tr>
         <th scope="row">
-          <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+          <input class="form-check-input itemCheckbox" type="checkbox" value="" id="flexCheckDefault">
         </th>
         <td>1</td>
         <td><a href="student_details.php" class="underline">hong1234</a></td>
@@ -142,12 +124,12 @@ include_once($_SERVER['DOCUMENT_ROOT'] . '/code_even/admin/inc/header.php');
                 <tbody>
                   <tr>
                     <td>
-                      <input type="text" class="form-control">
+                      <input type="text" class="form-control" placeholder="제목을 입력해주세요.">
                     </td>
                   </tr>
                   <tr>
                     <td>
-                      <textarea class="form-control"></textarea>
+                      <textarea class="form-control" placeholder="메시지를 입력해주세요."></textarea>
                     </td>
                   </tr>
                 </tbody>
@@ -169,7 +151,9 @@ include_once($_SERVER['DOCUMENT_ROOT'] . '/code_even/admin/inc/header.php');
   </div>
 
 </div>
+
 <script>
+  // 인쇄 버튼
   function printPage() {
     const fileUrl = "../../images/certificate of completion.pdf";
 
@@ -191,6 +175,19 @@ include_once($_SERVER['DOCUMENT_ROOT'] . '/code_even/admin/inc/header.php');
   }
 
   document.getElementById("printButton").addEventListener("click", printPage);
+
+
+  // "전체 선택" 체크박스를 가져옴
+  const checkAll = document.getElementById('allCheck');
+  // 각 항목 체크박스를 모두 가져옴
+  const itemCheckboxes = document.querySelectorAll('.itemCheckbox');
+
+  // "전체 선택" 체크박스 클릭 이벤트 리스너 추가
+  checkAll.addEventListener('change', function() {
+      itemCheckboxes.forEach((checkbox) => {
+          checkbox.checked = checkAll.checked;
+      });
+  });
 </script>
 
 
