@@ -1,3 +1,7 @@
+em {
+  color: var(--primary);
+}
+
 #printButton {
   position: relative;
   width: 50px;
@@ -14,4 +18,23 @@
 
 .underline {
   text-decoration: underline;
+}
+
+.none {
+  border: none;
+
+  thead,
+  tbody,
+  tr,
+  th,
+  td {
+    border-style: none;
+  }
+}
+
+.custom-hr {
+  border: 0;
+  height: 1px;
+  background-color: var(--bk100);
+  margin-bottom: 20px;
 }
