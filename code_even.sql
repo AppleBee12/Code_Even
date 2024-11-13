@@ -372,7 +372,7 @@ INSERT INTO `manual_contents` (`mcid`, `mnnid`, `conid`, `type`, `text`, `image`
 --
 
 CREATE TABLE `members` (
-  `id` int(11) NOT NULL,
+  `mid` int(11) NOT NULL,
   `username` varchar(50) NOT NULL,
   `usernick` varchar(50) NOT NULL,
   `userid` varchar(50) NOT NULL,
@@ -383,7 +383,7 @@ CREATE TABLE `members` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 
-INSERT INTO `user` (id, username, usernick, userid, userpw, userphonenum, useremail, regdate)
+INSERT INTO `members` (mid, username, usernick, userid, userpw, userphonenum, useremail, regdate)
 VALUES (5, '홍길동', '길동이', 'hong123', '3627909a29c31381a071ec27f7c9ca97726182aed29a7ddd2e...', '010-4934-2679', 'hong123@naver.com', '2024-11-13 00:26:53');
 
 -- --------------------------------------------------------
@@ -779,7 +779,7 @@ ALTER TABLE `manual_contents`
 -- 테이블의 인덱스 `members`
 --
 ALTER TABLE `members`
-  ADD PRIMARY KEY (`id`),
+  ADD PRIMARY KEY (`mid`),
   ADD UNIQUE KEY `userid` (`userid`),
   ADD UNIQUE KEY `useremail` (`useremail`);
 
