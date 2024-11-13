@@ -154,4 +154,4 @@ if (!isset($_SESSION['AUID'])) {
         <li class="list-group-item"><a href=""><i class="bi bi-gear-fill"></i> 　 상점 관리</a></li>
       </ul>
     </nav>
-    <div class="nav_silbling">
+    <div class="nav_sibling">
