@@ -87,6 +87,11 @@ h4, th, .sst{
 
 }
 
+.nav_sibling{
+  margin-left:90px; /* 102-12 = 90// bootstrap container 기본패딩 12px제외*/
+  margin-top:80px;
+}
+
 /* form control*/
 .form-check-input:checked {
   background-color: var(--red700);
@@ -112,3 +117,4 @@ a{
   line-height: 48px;
   padding-left: 24px;
 }
+
