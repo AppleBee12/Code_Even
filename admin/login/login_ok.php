@@ -18,7 +18,7 @@ if($data){
 
   echo "<script>
     alert('관리자님, 반갑습니다.');
-    location.href='index.php'
+    location.href='../../index.php'
   </script>";
 }else{
   echo "<script>

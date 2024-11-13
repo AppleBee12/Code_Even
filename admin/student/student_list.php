@@ -1,20 +1,29 @@
 <?php
 $title = "수강생 관리";
-include_once($_SERVER['DOCUMENT_ROOT']. '/code_even/admin/inc/header.php');
+include_once($_SERVER['DOCUMENT_ROOT'] . '/code_even/admin/inc/header.php');
 ?>
 
 <style>
   #printButton {
-    position: relative; width: 50px; height: 21px;
-    background: none; border: none;
-    span {position: absolute; left: 0; top: 0;}
+    position: relative;
+    width: 50px;
+    height: 21px;
+    background: none;
+    border: none;
+
+    span {
+      position: absolute;
+      top: 0;
+      left: 0;
+    }
   }
 
-  .modal_table {
-    display: flex;
-    flex-direction: row;
-    width: 100%;
-    border-collapse: collapse;
+  .underline {
+    text-decoration: underline;
+  }
+
+  em {
+    color: var(--primary);
   }
 </style>
 
@@ -23,7 +32,8 @@ include_once($_SERVER['DOCUMENT_ROOT']. '/code_even/admin/inc/header.php');
   <form class="row justify-content-end">
     <div class="col-lg-4">
       <div class="input-group mb-3">
-        <input type="text" class="form-control" placeholder="검색어를 입력하세요." aria-label="Recipient's username" aria-describedby="basic-addon2">
+        <input type="text" class="form-control" placeholder="검색어를 입력하세요." aria-label="Recipient's username"
+          aria-describedby="basic-addon2">
         <button type="button" class="btn btn-secondary">
           <i class="bi bi-search"></i>
         </button>
@@ -52,8 +62,8 @@ include_once($_SERVER['DOCUMENT_ROOT']. '/code_even/admin/inc/header.php');
           <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
         </th>
         <td>2</td>
-        <td><a href="">ping09</a></td>
-        <td><a href="">피곤핑</a></td>
+        <td><a href="student_details.php" class="underline">ping09</a></td>
+        <td><a href="student_details.php" class="underline">피곤핑</a></td>
         <td>기초부터 확실하게! 페이지의..</td>
         <td>0%</td>
         <td>
@@ -66,8 +76,8 @@ include_once($_SERVER['DOCUMENT_ROOT']. '/code_even/admin/inc/header.php');
           <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
         </th>
         <td>1</td>
-        <td><a href="">hong1234</a></td>
-        <td><a href="">홍길동</a></td>
+        <td><a href="student_details.php" class="underline">hong1234</a></td>
+        <td><a href="student_details.php" class="underline">홍길동</a></td>
         <td>기초부터 확실하게! 페이지의..</td>
         <td>100%</td>
         <td>
@@ -80,63 +90,110 @@ include_once($_SERVER['DOCUMENT_ROOT']. '/code_even/admin/inc/header.php');
     </tbody>
   </table>
 
-<div class="modal" id="send_email" tabindex="-1">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title">이메일 전송</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        <table class="modal_table table">
-          <thead>
-            <tr>
-              <th>이름(아이디)</th>
-              <th>이메일</th>
-            </tr>
-            <tr>
-              <th>제목 *</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>홍길동</td>
-              <td>hong1234@hong.com</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal">취소</button>
-        <button type="button" class="btn btn-secondary">등록</button>
+  <div class="modal modal-lg" id="send_email" tabindex="-1">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">이메일 전송</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <div class="row">
+            <div class="col">
+              <table class="table d-flex">
+                <thead>
+                  <tr>
+                    <th scope="col">이름(아이디)</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>홍길동</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="col">
+              <table class="table d-flex">
+                <thead>
+                  <tr>
+                    <th scope="col">이메일</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>hong1234@hong.com</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col">
+              <table class="table d-flex">
+                <thead>
+                  <tr>
+                    <th scope="col">제목<em> *</em></th>
+                  </tr>
+                  <tr>
+                    <th scope="col">내용<em> *</em></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>
+                      <input type="text" class="form-control">
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <textarea class="form-control"></textarea>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal">취소</button>
+          <button type="button" class="btn btn-secondary">등록</button>
+        </div>
       </div>
     </div>
   </div>
-</div>
 
-<div class="d-flex justify-content-end">
-  <button type="button" data-bs-toggle="modal" data-bs-target="#send_email" class="btn btn-outline-secondary">이메일 전송</button>
-</div>
+  <div class="d-flex justify-content-end">
+    <button type="button" data-bs-toggle="modal" data-bs-target="#send_email" class="btn btn-outline-secondary">이메일
+      전송</button>
+  </div>
 
 </div>
 <script>
-  function printPage(){
+  function printPage() {
     const fileUrl = "../../images/certificate of completion.pdf";
 
-    const width = 800;
-    const height = 600;
-    const left = (window.innerWidth / 2) - (width / 2);
-    const top = (window.innerHeight / 2) - (height / 2);
+    // PDF를 iframe으로 페이지에 삽입
+    const iframe = document.createElement("iframe");
+    iframe.style.position = "absolute";
+    iframe.style.width = "0px";
+    iframe.style.height = "0px";
+    iframe.style.border = "none";
+    iframe.src = fileUrl;
 
-    const printWindow = window.open(fileUrl, "_blank", `width=${width},height=${height},left=${left},top=${top}`);
+    // iframe을 body에 추가
+    document.body.appendChild(iframe);
 
-    printWindow.onload = function() {
-      printWindow.print();
-    }; 
+    // PDF 파일이 로드된 후 인쇄
+    iframe.onload = function () {
+      iframe.contentWindow.print();  // iframe 내에서 print() 호출
+    };
   }
+
   document.getElementById("printButton").addEventListener("click", printPage);
 </script>
 
+
 <?php
-include_once($_SERVER['DOCUMENT_ROOT']. '/code_even/admin/inc/footer.php');
+include_once($_SERVER['DOCUMENT_ROOT'] . '/code_even/admin/inc/footer.php');
 ?>

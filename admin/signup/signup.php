@@ -11,10 +11,10 @@
 <div class="container">
   <img src="images/txt_logo.png" alt="">
   <h1 class="mt-3">회원가입</h1>
-    <form action="signup_ok.php" method="POST">
+    <form action="../signup/signup_ok.php" method="POST">
       
       <label for="username" class="form-label mt-3">이름</label>
-    <input type="text" id="username" name="username" class="form-control w-25" placeholder="홍이븐">
+    <input type="text" id="username" name="username" class="form-control w-25" placeholder="홍이븐" required>
     
     <label for="usernick" class="form-label mt-3">닉네임</label>
 
@@ -25,35 +25,35 @@
 
     <label for="userid" class="form-label mt-3">아이디</label>
 
-    <div class="d-flex gap-1">
-      <input type="text" id="userid" class="form-control w-25" placeholder="code_even123" name="userid">
-      <button type="button" class="btn btn-outline-secondary">중복확인</button>
+    <div class="d-flex gap-1" id="signup_form">
+      <input type="text" id="userid " class="form-control w-25" placeholder="code_even123" name="userid" required>
+      <button type="button" class="btn btn-outline-secondary" >중복확인</button>
     </div>
 
     <label for="password" class="form-label mt-3">비밀번호</label>
-    <input type="password" id="userpw" class="form-control w-25" placeholder="숫자/영문/특수문자를 조합한 6~16자 이하" name="userpw">
+    <input type="password" id="userpw" class="form-control w-25" placeholder="숫자/영문/특수문자를 조합한 6~16자 이하" name="userpw" required>
 
     <div class=" mt-3 ">
       <div class="">
         <label for="userphonenum" class="form-label mt-3">연락처</label>
-        <input type="text" id="userphonenum" class="form-control w-25" placeholder="010-1234-5678" name="userphonenum">
+        <input type="text" id="userphonenum" class="form-control w-25" placeholder="010-1234-5678" name="userphonenum" required>
       </div>
       
       <div class="">
         <label for="useremail" class="form-label mt-3">이메일</label>
-        <input type="email" id="useremail" class="form-control w-25" aria-describedby="passwordHelpBlock" placeholder="code@even.com" name="useremail">
+        <input type="email" id="useremail" class="form-control w-25" aria-describedby="passwordHelpBlock" placeholder="code@even.com" name="useremail" required>
       </div>
     </div>
 
 
     <div class="form-check mt-3">
       <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-      <label class="form-check-label" for="flexCheckDefault" required>
+      <label class="form-check-label" for="flexCheckDefault" checked >
         [필수] 개인정보 수집  및 이용에 동의합니다.
       </label>
     </div>
     <div class="form-check">
-      <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" checked>
+      <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" >
       <label class="form-check-label" for="flexCheckChecked">
         [선택] 광고성 이메일 수신에 동의합니다.
       </label>

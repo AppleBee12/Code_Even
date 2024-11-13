@@ -16,6 +16,7 @@ if (!isset($title)) {
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>코드이븐 솔루션-관리자 페이지</title>
 
+  <!-- 공통 Style CSS -->
   <link rel="stylesheet" href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/css/reset.css">
   <link href="https://cdn.jsdelivr.net/gh/sun-typeface/SUIT@2/fonts/static/woff2/SUIT.css" rel="stylesheet">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
@@ -23,6 +24,16 @@ if (!isset($title)) {
     integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
   <link rel="stylesheet" href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/css/common.css">
   <link rel="stylesheet" href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/css/main.css">
+
+  <!-- 개인 Style CSS -->
+  <?php
+    $page = basename($_SERVER['PHP_SELF']); // 현재 실행 중인 페이지 이름을 가져옴
+    switch ($page) {
+        case 'teacher_list.php':
+            echo '<link rel="stylesheet" href="http://' . $_SERVER['HTTP_HOST'] . '/code_even/admin/css/teacher.css">';
+            break;
+    }
+  ?>
 </head>
 
 <body>
@@ -33,7 +44,7 @@ if (!isset($title)) {
     <nav class="nav navbar-expand-lg d-flex flex-column justify-content-between">
       <ul class="list-group line">
         <li class="list-group-item active"><a href=""><i class="bi bi-grid"></i> 　 대시보드</a></li>
-        <li class="list-group-item"><a href=""><i class="bi bi-tags"></i> 　 카테고리 관리</a></li>
+        <li class="list-group-item"><a href="admin/category/category.php"><i class="bi bi-tags"></i> 　 카테고리 관리</a></li>
         <li class="pr list-group-item"><i class="bi bi-collection-play"></i> 　 강좌 관리
           <ul>
             <li class="list-group-item"><a href=""> 　 - 강좌 목록</a></li>
@@ -65,7 +76,7 @@ if (!isset($title)) {
             <li class="list-group-item"><a href=""> 　 - 교재 배송관리</a></li>
           </ul>
         </li>
-        <li class="list-group-item"><a href=""><i class="bi bi-ticket"></i> 　 쿠폰 관리</a></li>
+        <li class="list-group-item"><a href="admin/coupons/coupons.php"><i class="bi bi-ticket"></i> 　 쿠폰 관리</a></li>
         <li class="pr list-group-item"><i class="bi bi-graph-up-arrow"></i> 　 매출통계 관리
           <ul>
             <li class="list-group-item"><a href=""> 　 - 강의 매출통계</a></li>
