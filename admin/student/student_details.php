@@ -4,16 +4,6 @@ include_once($_SERVER['DOCUMENT_ROOT'] . '/code_even/admin/inc/header.php');
 ?>
 
 <style>
-  .content_bar {
-    background: var(--bk50);
-    border: 1px solid var(--bk200);
-    width: 1400px;
-    height: 48px;
-    border-radius: 8px;
-    line-height: 48px;
-    padding-left: 24px;
-  }
-
   .none {
     border: none;
 
