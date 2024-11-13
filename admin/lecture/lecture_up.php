@@ -2,11 +2,6 @@
 include_once($_SERVER['DOCUMENT_ROOT']. '/code_even/admin/inc/header.php');
 ?>
 
-<head>
-  <link rel="stylesheet" href="/code_even/admin/css/lecture.css">
-</head>
-
-
 <div class="container">
   <h2>강좌 등록</h2>
   <div class="content_bar">

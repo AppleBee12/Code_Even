@@ -4,9 +4,6 @@ include_once($_SERVER['DOCUMENT_ROOT']. '/code_even/admin/inc/header.php');
 
 ?>
 
-<head>
-  <link rel="stylesheet" href="/code_even/admin/css/lecture.css">
-</head>
 <div class="container">
   <h3>강좌 목록</h3>
   <form action="" class="d-flex justify-content-end">
