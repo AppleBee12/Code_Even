@@ -33,6 +33,21 @@ if (!isset($title)) {
             echo '<link rel="stylesheet" href="http://' . $_SERVER['HTTP_HOST'] . '/code_even/admin/css/teacher.css">';
             break;
     }
+    switch ($page) {
+        case 'student_list.php':
+            echo '<link rel="stylesheet" href="http://' . $_SERVER['HTTP_HOST'] . '/code_even/admin/css/student.css">';
+            break;
+    }
+    switch ($page) {
+        case 'student_details.php':
+            echo '<link rel="stylesheet" href="http://' . $_SERVER['HTTP_HOST'] . '/code_even/admin/css/student.css">';
+            break;
+    }
+    switch ($page) {
+        case 'student_question.php':
+            echo '<link rel="stylesheet" href="http://' . $_SERVER['HTTP_HOST'] . '/code_even/admin/css/student.css">';
+            break;
+    }
   ?>
 </head>
 
