@@ -4,6 +4,26 @@ include_once($_SERVER['DOCUMENT_ROOT'] . '/code_even/admin/inc/header.php');
 ?>
 
 <style>
+  .table {
+    margin: 25px 25px;
+  }
+
+  .table thead {
+    flex: 0 0 160px;
+  }
+
+  tr {
+    height: 50px;
+  }
+  
+  th, td {
+    vertical-align: middle;
+  }
+
+  .table tbody {
+    flex: 1;  /* 나머지 공간을 차지 */
+  }
+
 </style>
 
 <div class="container">
@@ -11,14 +31,35 @@ include_once($_SERVER['DOCUMENT_ROOT'] . '/code_even/admin/inc/header.php');
   <div class="content_bar">
     <h3>수강생 질문</h3>
   </div>
+  
+  <table class="table d-flex none">
+    <thead>
+      <tr>
+        <th>강사명</th>
+      </tr>
+      <tr>
+        <th>강좌명</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>김동주</td>
+      </tr>
+      <tr>
+        <td>
+          기초부터 확실하게! (페이지의 내용 전달을 위한 HTML, 스타일 설정을 위한 CSS 기초 학습)
+        </td>
+      </tr>
+    </tbody>
+  </table>
 
   <div class="content_bar">
     <h3>수강 정보</h3>
   </div>
 
   <div class="d-flex justify-content-end">
-    <a href="student_list.php" type="button" class="btn btn-outline-danger">취소</a>
-    <a href="student_list.php" type="button" class="btn btn-danger">삭제</a>
+    <a href="student_question.php" type="button" class="btn btn-outline-danger">취소</a>
+    <a href="" type="button" class="btn btn-danger">삭제</a>
   </div>
 </div>
 
