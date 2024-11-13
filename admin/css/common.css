@@ -92,6 +92,15 @@ h4, th, .sst{
   margin-top:80px;
 }
 
+nav .btn-toggle{
+  margin-left: 10%;
+  color:var(--bk600);
+}
+.bi.bi-caret-down-fill::before{
+    transform: rotate(90deg);
+}
+
+
 /* form control*/
 .form-check-input:checked {
   background-color: var(--red700);
