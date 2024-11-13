@@ -6,7 +6,7 @@ include_once($_SERVER['DOCUMENT_ROOT'] . '/CODE_EVEN/admin/inc/header.php');
 
 
 <div class="container">
-  <h2>강사목록</h2>
+  <h2 class="page_title">강사목록</h2>
 
 
   <form action="" id="search_form" class="row justify-content-end">
@@ -380,30 +380,19 @@ include_once($_SERVER['DOCUMENT_ROOT'] . '/CODE_EVEN/admin/inc/header.php');
 </div>
 
 <div class="form-check">
-  <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
+  <input class="form-check-input" type="radio" name="user_level" id="flexRadioDefault1">
   <label class="form-check-label" for="flexRadioDefault1">
     Default radio
   </label>
 </div>
 <div class="form-check">
-  <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" checked>
+  <input class="form-check-input" type="radio" name="user_level" id="flexRadioDefault2" checked>
   <label class="form-check-label" for="flexRadioDefault2">
     Default checked radio
   </label>
 </div>
 
-<div class="form-check">
-  <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
-  <label class="form-check-label" for="flexRadioDefault1">
-    Default radio
-  </label>
-</div>
-<div class="form-check">
-  <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" checked>
-  <label class="form-check-label" for="flexRadioDefault2">
-    Default checked radio
-  </label>
-</div>
+
 <?php
 include_once($_SERVER['DOCUMENT_ROOT'] . '/CODE_EVEN/admin/inc/footer.php');
 ?>
