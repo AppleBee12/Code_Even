@@ -65,7 +65,7 @@ if (!isset($title)) {
             <li class="list-group-item"><a href=""> 　 - 교재 배송관리</a></li>
           </ul>
         </li>
-        <li class="list-group-item"><a href=""><i class="bi bi-ticket"></i> 　 쿠폰 관리</a></li>
+        <li class="list-group-item"><a href="admin/coupons/coupons.php"><i class="bi bi-ticket"></i> 　 쿠폰 관리</a></li>
         <li class="pr list-group-item"><i class="bi bi-graph-up-arrow"></i> 　 매출통계 관리
           <ul>
             <li class="list-group-item"><a href=""> 　 - 강의 매출통계</a></li>
