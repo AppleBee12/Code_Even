@@ -45,12 +45,34 @@
 
 /* font */
 
-body {
+body, .bd {
   font-family: "SUIT", sans-serif;
+  font-weight: 500;
   font-size: 17px;
+  color: var(--bk700);
+}
+
+h2, .mt{
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--bk900);
+}
+
+h3, .st{
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--bk900);
+}
+
+h4, th, .sst{
+  font-weight: 700;
   color: var(--bk800);
 }
 
+.ph{
+  font-weight: 500;
+  color: var(--bk900);
+}
 
 
 /* header */
