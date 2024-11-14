@@ -4,7 +4,7 @@ include_once($_SERVER['DOCUMENT_ROOT']. '/code_even/admin/inc/header.php');
 
 <div class="container">
   <h2>강좌 등록</h2>
-  <div class="content_bar">
+  <div class="content_bar cent">
     <h3>강좌 기본 정보 입력</h3>
   </div>
   <table class="table w-100">
@@ -115,11 +115,11 @@ include_once($_SERVER['DOCUMENT_ROOT']. '/code_even/admin/inc/header.php');
       </tr>
     </tbody>
   </table>
-  <div class="content_bar">
+  <div class="content_bar cent">
     <h3>강의 설정</h3>
   </div>
   <div>
-    <div class="video d-flex justify-content-between align-items-center bg-light border">
+    <div class="video d-flex justify-content-between align-items-center bg-light border rounded-3">
       <h5 class="mb-0">1강</h5>
       <i class="bi bi-x" style="cursor: pointer;"></i>
     </div>

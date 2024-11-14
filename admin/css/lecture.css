@@ -24,7 +24,8 @@ table, th, td {
 }
 
 /* 포커스 효과 */
-.form-check-input:focus {
+.form-check-input:focus,
+.form-control:focus {
   border-color: #ff5733;
   box-shadow: 0 0 0 0.25rem rgba(255, 87, 51, 0.25);
 }
@@ -93,6 +94,16 @@ table, th, td {
 
 
 /* lecture_up.php CSS */
+
+.cent{
+  position: relative;
+
+  h3{
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+}
 
 .box, .input-group {
   padding: 0;
