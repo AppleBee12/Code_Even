@@ -134,8 +134,12 @@ a{
 
 .list_table tr {
   height: 60px;
+
   th, td {
     vertical-align: middle;
     text-align: center;
+  }
+  th b{ /* 입력필수값 "*별모양" */
+    color:var(--red950);
   }
 }
