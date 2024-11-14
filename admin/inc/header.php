@@ -75,6 +75,16 @@ if (!isset($_SESSION['AUID'])) {
       echo '<link rel="stylesheet" href="http://' . $_SERVER['HTTP_HOST'] . '/code_even/admin/css/student.css">';
       break;
   }
+  switch ($page) {
+    case 'lecture_list.php':
+      echo '<link rel="stylesheet" href="http://' . $_SERVER['HTTP_HOST'] . '/code_even/admin/css/lecture.css">';
+      break;
+  }
+  switch ($page) {
+    case 'lecture_up.php':
+      echo '<link rel="stylesheet" href="http://' . $_SERVER['HTTP_HOST'] . '/code_even/admin/css/lecture.css">';
+      break;
+  }
   ?>
 
 
