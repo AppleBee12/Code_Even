@@ -4,28 +4,24 @@ include_once($_SERVER['DOCUMENT_ROOT'] . '/code_even/admin/inc/header.php');
 ?>
 
 <style>
-  .list_table tr {
-    height: 60px;
-    th, td {
-      vertical-align: middle;
-      text-align: center;
-    }
-  }
-  
   .modal_table {
     thead {
-    flex: 0 0 110px;
+      flex: 0 0 110px;
     }
+
     tr {
-    height: 50px;
-    width: 100%;
+      height: 50px;
+      width: 100%;
     }
-    th, td {
+
+    th,
+    td {
       vertical-align: middle;
       width: 100%;
     }
+
     tbody {
-    flex: 1;
+      flex: 1;
     }
   }
 </style>
@@ -162,10 +158,10 @@ include_once($_SERVER['DOCUMENT_ROOT'] . '/code_even/admin/inc/header.php');
   const itemCheckboxes = document.querySelectorAll('.itemCheckbox');
 
   // "전체 선택" 체크박스 클릭 이벤트 리스너 추가
-  checkAll.addEventListener('change', function() {
-      itemCheckboxes.forEach((checkbox) => {
-          checkbox.checked = checkAll.checked;
-      });
+  checkAll.addEventListener('change', function () {
+    itemCheckboxes.forEach((checkbox) => {
+      checkbox.checked = checkAll.checked;
+    });
   });
 </script>
 
