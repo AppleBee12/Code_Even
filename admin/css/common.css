@@ -136,13 +136,6 @@ a{
   display: none;
 }
 
-/* 상세정보 table */
-/* 임시 */
-.nav_sibling h2{
-  margin-bottom: 30px;
-}
-
-/* 목록페이지 테이블 */
 .list_table tr {
   height: 60px;
 
@@ -150,6 +143,15 @@ a{
     vertical-align: middle;
     text-align: center;
   }
+}
+
+/* 상세정보 table */
+.nav_sibling h2{ /* 임시 */
+  margin-bottom: 30px;
+}
+
+.note-toolbar .dropdown-toggle::after {
+  display: none;
 }
 
 /* 입력필수값 "*별모양" */
