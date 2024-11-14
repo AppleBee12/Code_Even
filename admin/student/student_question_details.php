@@ -3,35 +3,12 @@ $title = "수강생 관리";
 include_once($_SERVER['DOCUMENT_ROOT'] . '/code_even/admin/inc/header.php');
 ?>
 
-<style>
-  .table {
-    margin: 25px 25px;
-  }
-
-  .table thead {
-    flex: 0 0 160px;
-  }
-
-  tr {
-    height: 50px;
-  }
-  
-  th, td {
-    vertical-align: middle;
-  }
-
-  .table tbody {
-    flex: 1;  /* 나머지 공간을 차지 */
-  }
-
-</style>
-
 <div class="container">
   <h2>수강생 관리</h2>
   <div class="content_bar">
     <h3>수강생 질문</h3>
   </div>
-  
+
   <table class="table d-flex none">
     <thead>
       <tr>
