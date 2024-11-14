@@ -45,12 +45,34 @@
 
 /* font */
 
-body {
+body, .bd {
   font-family: "SUIT", sans-serif;
+  font-weight: 500;
   font-size: 17px;
+  color: var(--bk700);
+}
+
+h2, .mt{
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--bk900);
+}
+
+h3, .st{
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--bk900);
+}
+
+h4, th, .sst{
+  font-weight: 700;
   color: var(--bk800);
 }
 
+.ph{
+  font-weight: 500;
+  color: var(--bk900);
+}
 
 
 /* header */
@@ -64,6 +86,20 @@ body {
 	text-transform: uppercase;
 
 }
+
+.nav_sibling{
+  margin-left:90px; /* 102-12 = 90// bootstrap container 기본패딩 12px제외*/
+  margin-top:80px;
+}
+
+nav .btn-toggle{
+  margin-left: 10%;
+  color:var(--bk600);
+}
+.bi.bi-caret-down-fill::before{
+    transform: rotate(90deg);
+}
+
 
 /* form control*/
 .form-check-input:checked {
