@@ -69,9 +69,8 @@ h4, th, .sst{
   color: var(--bk800);
 }
 
-.ph{
-  font-weight: 500;
-  color: var(--bk900);
+input.form-control::placeholder, .ph{
+  color: var(--bk300);
 }
 
 
@@ -84,7 +83,6 @@ h4, th, .sst{
 	line-height: 150%;
 	letter-spacing: 31%;
 	text-transform: uppercase;
-
 }
 
 .nav_sibling{
@@ -114,7 +112,7 @@ nav .btn-toggle{
 
 a{
 	text-decoration: none;
-	color: black;
+	color: var(--bk1000);
 }
 
 .content_bar {
