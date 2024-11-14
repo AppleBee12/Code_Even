@@ -19,3 +19,6 @@
   
 }
 
+.form-control.w_512, .form-select.w_512{
+  width: 512px;
+}
