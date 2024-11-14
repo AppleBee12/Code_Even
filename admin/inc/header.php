@@ -42,6 +42,7 @@ if (!isset($_SESSION['AUID'])) {
   $page = basename($_SERVER['PHP_SELF']); // 현재 실행 중인 페이지 이름을 가져옴
   switch ($page) {
     case 'teacher_list.php':
+    case 'teacher_details.php':
       echo '<link rel="stylesheet" href="http://' . $_SERVER['HTTP_HOST'] . '/code_even/admin/css/teacher.css">';
       break;
   }
