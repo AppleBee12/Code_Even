@@ -12,10 +12,6 @@ table, th, td {
   max-width: 1296px;
 }
 
-.table>thead.thead-hidden{
-  display: none;
-}
-
 /* 스위치 체크 시 배경색 */
 .form-check-input:checked {
   background-color: var(--primary);
@@ -108,7 +104,7 @@ th span{
 }
 
 tbody tr td .box {
-  height: 200px !important;
+  height: 230px !important;
   width: 100% !important;
   background-color: #ccc !important;
   align-items: center; 

@@ -6,7 +6,7 @@
   display: flex;
 }
 
-/* header */
+/* header nav */
 header h1 {
   margin: 50px 35px 22px;
 }
@@ -96,6 +96,13 @@ body nav .list-group-item.active {
     color: var(--bk800);
     border: 1px solid var(--bk0);
   }
+}
+
+/* container */
+
+.container {
+  width: 1400px;
+  max-width: 1400px;
 }
 
 /* index */

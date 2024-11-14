@@ -2,31 +2,6 @@
 $title = "수강생 관리";
 include_once($_SERVER['DOCUMENT_ROOT'] . '/code_even/admin/inc/header.php');
 ?>
-
-<style>
-  #printButton {
-    position: relative;
-    width: 50px;
-    height: 21px;
-    background: none;
-    border: none;
-
-    span {
-      position: absolute;
-      top: 0;
-      left: 0;
-    }
-  }
-
-  .underline {
-    text-decoration: underline;
-  }
-
-  em {
-    color: var(--primary);
-  }
-</style>
-
 <div class="container">
   <h2>수강생목록</h2>
   <form class="row justify-content-end">
@@ -41,11 +16,11 @@ include_once($_SERVER['DOCUMENT_ROOT'] . '/code_even/admin/inc/header.php');
     </div>
   </form>
 
-  <table class="table">
+  <table class="table list_table">
     <thead>
       <tr>
         <th scope="col">
-          <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+          <input class="form-check-input" type="checkbox" value="" id="allCheck">
         </th>
         <th scope="col">번호</th>
         <th scope="col">아이디</th>
@@ -59,7 +34,7 @@ include_once($_SERVER['DOCUMENT_ROOT'] . '/code_even/admin/inc/header.php');
     <tbody>
       <tr>
         <th scope="row">
-          <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+          <input class="form-check-input itemCheckbox" type="checkbox" value="">
         </th>
         <td>2</td>
         <td><a href="student_details.php" class="underline">ping09</a></td>
@@ -73,7 +48,7 @@ include_once($_SERVER['DOCUMENT_ROOT'] . '/code_even/admin/inc/header.php');
       </tr>
       <tr>
         <th scope="row">
-          <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+          <input class="form-check-input itemCheckbox" type="checkbox" value="" id="flexCheckDefault">
         </th>
         <td>1</td>
         <td><a href="student_details.php" class="underline">hong1234</a></td>
@@ -90,7 +65,7 @@ include_once($_SERVER['DOCUMENT_ROOT'] . '/code_even/admin/inc/header.php');
     </tbody>
   </table>
 
-  <div class="modal modal-lg" id="send_email" tabindex="-1">
+  <div class="modal" id="send_email" tabindex="-1">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
@@ -98,60 +73,18 @@ include_once($_SERVER['DOCUMENT_ROOT'] . '/code_even/admin/inc/header.php');
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-          <div class="row">
-            <div class="col">
-              <table class="table d-flex">
-                <thead>
-                  <tr>
-                    <th scope="col">이름(아이디)</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td>홍길동</td>
-                  </tr>
-                </tbody>
-              </table>
+          <div class="table modal_table">
+            <div>
+              <div class="d-flex">
+                <div>제목<em> *</em></div>
+                <input type="text" class="form-control form-control-sm" placeholder="제목을 입력해주세요.">
+              </div>
             </div>
-            <div class="col">
-              <table class="table d-flex">
-                <thead>
-                  <tr>
-                    <th scope="col">이메일</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td>hong1234@hong.com</td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col">
-              <table class="table d-flex">
-                <thead>
-                  <tr>
-                    <th scope="col">제목<em> *</em></th>
-                  </tr>
-                  <tr>
-                    <th scope="col">내용<em> *</em></th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td>
-                      <input type="text" class="form-control">
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <textarea class="form-control"></textarea>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
+            <div>
+              <div class="d-flex">
+                <div>내용<em> *</em></div>
+                <textarea name="" class="form-control" placeholder="메시지를 입력해주세요."></textarea>
+              </div>
             </div>
           </div>
         </div>
@@ -169,7 +102,9 @@ include_once($_SERVER['DOCUMENT_ROOT'] . '/code_even/admin/inc/header.php');
   </div>
 
 </div>
+
 <script>
+  // 인쇄 버튼
   function printPage() {
     const fileUrl = "../../images/certificate of completion.pdf";
 
@@ -191,6 +126,19 @@ include_once($_SERVER['DOCUMENT_ROOT'] . '/code_even/admin/inc/header.php');
   }
 
   document.getElementById("printButton").addEventListener("click", printPage);
+
+
+  // "전체 선택" 체크박스를 가져옴
+  const checkAll = document.getElementById('allCheck');
+  // 각 항목 체크박스를 모두 가져옴
+  const itemCheckboxes = document.querySelectorAll('.itemCheckbox');
+
+  // "전체 선택" 체크박스 클릭 이벤트 리스너 추가
+  checkAll.addEventListener('change', function () {
+    itemCheckboxes.forEach((checkbox) => {
+      checkbox.checked = checkAll.checked;
+    });
+  });
 </script>
 
 
