@@ -1,6 +1,31 @@
 <?php
 include_once($_SERVER['DOCUMENT_ROOT'] . '/CODE_EVEN/admin/inc/header.php');
 ?>
+<style>
+    /* 테이블 고정 너비와 레이아웃 */
+  table {
+    width: 100%;
+    table-layout: fixed;
+    border-spacing: 0 8px; /* 행 사이에만 8px 간격을 줍니다 */
+    border-collapse: separate;
+  }
+
+  table, th, td {
+    border: none;
+  }
+
+  th[scope="row"] {
+    width: 15%;
+  }
+
+  td[colspan="6"] {
+    width: 85%;
+  }
+
+  .content_bar{
+    margin-top: 50px;
+  }
+</style>
 
 <div class="container">
   <h2>강좌 등록</h2>

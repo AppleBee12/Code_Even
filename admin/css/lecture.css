@@ -1,25 +1,33 @@
-/* 테이블 고정 너비와 레이아웃 */
-table {
+.table {
   width: 100%;
-  table-layout: fixed;
-  border-spacing: 0 8px; /* 행 사이에만 8px 간격을 줍니다 */
-  border-collapse: separate;
+  border-collapse: collapse;
 }
 
-table, th, td {
-  border: none;
+/* 상단과 하단 테두리만 남기기 (세로선 제거) */
+.table th, .table td {
+  border-top: 1px solid #dee2e6 !important;
+  border-bottom: 1px solid #dee2e6 !important;
+  padding: 8px;
+  text-align: center;
+  vertical-align: middle;
 }
 
-th[scope="row"] {
-  width: 15%;
+.d-flex {
+  gap: 0; /* 불필요한 gap 제거 */
 }
 
-td[colspan="6"] {
-  width: 85%;
+.tog {
+  display: inline-block !important;
+  vertical-align: middle !important; /* 세로 중앙 정렬 */
 }
 
-.content_bar{
-  margin-top: 50px;
+.recipe {
+  background-color: var(--primary);
+}
+
+.waitopen {
+  background-color: #E9ECEF;
+  color: #343A40;
 }
 
 /* 스위치 체크 시 배경색 */
@@ -59,6 +67,11 @@ td[colspan="6"] {
 .waitopen{
   background-color: #E9ECEF;
   color: #343A40;
+}
+
+/* 토글 스위치 가운데 정렬 */
+.custom-table .tog {
+  display: inline-block;
 }
 
 /* 검색창 */

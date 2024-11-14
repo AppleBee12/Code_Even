@@ -12,9 +12,8 @@ include_once($_SERVER['DOCUMENT_ROOT']. '/code_even/admin/inc/header.php');
       <button type="button" class="btn lesearch"><i class="bi bi-search"></i></button>
     </div>
   </form>
-  <table class="table">
-    <thead class="text-center">
-      <tr>
+  <table class="table list_table">
+    <thead>
         <th scope="col">번호</th>
         <th scope="col">이미지</th>
         <th scope="col">강좌명</th>
@@ -27,12 +26,12 @@ include_once($_SERVER['DOCUMENT_ROOT']. '/code_even/admin/inc/header.php');
         <th scope="col">관리</th>
       </tr>
     </thead>
-    <tbody class="text-center">
+    <tbody>
       <tr>
-        <th scope="row">1</th>
+      <th scope="row">1</th>
         <td><img src="" alt=""></td>
         <td>HTML 도장 깨기</td>
-        <td>admin</td>
+        <td>admin</td>    
         <td>60일</td>
         <td>
           <div>
@@ -40,26 +39,28 @@ include_once($_SERVER['DOCUMENT_ROOT']. '/code_even/admin/inc/header.php');
             <span class="badge recipe">레시피</span>
           </div>
         </td>
-        <td class="d-flex justify-content-center aling-item-center gap-4">
-          <div class="form-check d-flex gap-2">
-            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-            <label class="form-check-label" for="flexCheckDefault"> 베스트 </label>
-          </div>
-          <div class="form-check d-flex gap-2">
-            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-            <label class="form-check-label" for="flexCheckDefault"> 추천 </label>
-          </div>
-        </td>
+        <td>
+            <div class="form-check d-inline-block me-2">
+              <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+              <label class="form-check-label" for="flexCheckDefault"> 베스트 </label>
+            </div>
+            <div class="form-check d-inline-block">
+              <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+              <label class="form-check-label" for="flexCheckDefault"> 추천 </label>
+            </div>
+          </td>
         <td>
           <div>
             <span class="badge text-bg-secondary">개설</span>
             <span class="badge waitopen d-none">개설 대기</span>
           </div>
         </td>
-        <td class="d-flex justify-content-center">
-          <div class="form-check form-switch">
-            <input class="form-check-input tog" type="checkbox" role="switch" id="flexSwitchCheckDefault">
-            <label class="form-check-label" for="flexSwitchCheckDefault"></label>
+        <td>
+          <div class="d-flex justify-content-center align-items-center">
+            <div class="form-check form-switch">
+              <input class="form-check-input tog" type="checkbox" role="switch" id="flexSwitchCheckDefault">
+              <!-- <label class="form-check-label" for="flexSwitchCheckDefault"></label> -->
+            </div>
           </div>
         </td>
         <td>
