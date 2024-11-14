@@ -2,30 +2,6 @@
 $title = "수강생 관리";
 include_once($_SERVER['DOCUMENT_ROOT'] . '/code_even/admin/inc/header.php');
 ?>
-
-<style>
-  .modal_table {
-    thead {
-      flex: 0 0 110px;
-    }
-
-    tr {
-      height: 50px;
-      width: 100%;
-    }
-
-    th,
-    td {
-      vertical-align: middle;
-      width: 100%;
-    }
-
-    tbody {
-      flex: 1;
-    }
-  }
-</style>
-
 <div class="container">
   <h2>수강생목록</h2>
   <form class="row justify-content-end">
