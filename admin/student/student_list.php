@@ -76,13 +76,13 @@ include_once($_SERVER['DOCUMENT_ROOT'] . '/code_even/admin/inc/header.php');
           <div class="table modal_table">
             <div>
               <div class="d-flex">
-                <div>제목<em> *</em></div>
+                <div>제목 <b>*</b></div>
                 <input type="text" class="form-control form-control-sm" placeholder="제목을 입력해주세요.">
               </div>
             </div>
             <div>
               <div class="d-flex">
-                <div>내용<em> *</em></div>
+                <div>내용 <b>*</b></div>
                 <textarea name="" class="form-control" placeholder="메시지를 입력해주세요."></textarea>
               </div>
             </div>
