@@ -10,12 +10,21 @@ include_once($_SERVER['DOCUMENT_ROOT'] . '/code_even/admin/inc/header.php');
   </div>
 
   <form action="">
-  <table class="table w-100">
+  <div class="upload mt-5 mb-3">
+    <img src="https://picsum.photos/200" width = 100 height = 100 alt="">
+    <div class="round">
+      <input type="file">
+      <i class="bi bi-camera-fill"></i>
+    </div>
+  </div>
+  <p class="text-center mb-5">프로필 이미지</p>
+
+  <table class="table w-100 info_table">
     <colgroup>
       <col width="160">  
-      <col>  
+      <col width="516">  
       <col width="160">
-      <col>  
+      <col width="516">  
     </colgroup>
     <tbody>
       <tr>
@@ -73,11 +82,33 @@ include_once($_SERVER['DOCUMENT_ROOT'] . '/code_even/admin/inc/header.php');
       <tr>
         <th scope="row">승인상태</th>
         <td>
-          <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="냠냠">
+          <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1" checked>
+            <label class="form-check-label" for="inlineRadio1">심사중</label>
+          </div>
+          <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2">
+            <label class="form-check-label" for="inlineRadio2">승인완료</label>
+          </div>
+          <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio3" value="option3">
+            <label class="form-check-label" for="inlineRadio3">승인거절</label>
+          </div>
         </td>
         <th scope="row">강사전시옵션</th>
         <td>
-          <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="냠냠">
+        <div class="form-check d-inline-block me-2">
+              <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+              <label class="form-check-label" for="flexCheckDefault">
+                신규
+              </label>
+            </div>
+            <div class="form-check d-inline-block">
+              <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+              <label class="form-check-label" for="flexCheckDefault">
+                추천
+              </label>
+            </div>
         </td>
       </tr>
       <tr>
@@ -97,8 +128,9 @@ include_once($_SERVER['DOCUMENT_ROOT'] . '/code_even/admin/inc/header.php');
   </table>
   </form>
 
-  <div class="d-flex justify-content-end">
-    <a href="student_list.php" type="button" class="btn btn-outline-danger">취소</a>
+  <div class="d-flex justify-content-end gap-2">
+    <a href="teacher_list.php" type="button" class="btn btn-outline-danger">취소</a>
+    <a href="teacher_list.php" type="button" class="btn btn-outline-secondary">수정</a>
   </div>
 </div>
 
