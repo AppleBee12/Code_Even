@@ -17,24 +17,20 @@ include_once($_SERVER['DOCUMENT_ROOT']. '/code_even/admin/inc/header.php');
     <tbody>
       <tr>
         <th scope="row">분류 설정 <span>*</span></th>
-        <td>
-          <select class="form-select" aria-label="Default select example">
+        <td colspan="3" class="d-flex gap-3">
+          <select class="form-select me-2" aria-label="Default select example">
             <option selected>대분류</option>
             <option value="1">One</option>
             <option value="2">Two</option>
             <option value="3">Three</option>
           </select>
-        </td>
-        <td>
-          <select class="form-select" aria-label="Default select example">
+          <select class="form-select me-2" aria-label="Default select example">
             <option selected>중분류</option>
             <option value="1">One</option>
             <option value="2">Two</option>
             <option value="3">Three</option>
           </select>
-        </td>
-        <td>
-          <select class="form-select" aria-label="Default select example">
+          <select class="form-select me-2" aria-label="Default select example">
             <option selected>소분류</option>
             <option value="1">One</option>
             <option value="2">Two</option>
