@@ -3,35 +3,12 @@ $title = "수강생 관리";
 include_once($_SERVER['DOCUMENT_ROOT'] . '/code_even/admin/inc/header.php');
 ?>
 
-<style>
-  .none {
-    border: none;
-
-    * {
-      border-style: none;
-    }
-  }
-
-  #printButton {
-    position: relative;
-    width: 50px;
-    height: 21px;
-    background: none;
-    border: none;
-
-    span {
-      position: absolute;
-      top: 0;
-      left: 0;
-    }
-  }
-</style>
-
 <div class="container">
   <h2>수강생 관리</h2>
   <div class="content_bar">
     <h3>수강생 상세정보</h3>
   </div>
+
   <div class="row">
     <div class="col">
       <table class="table none d-flex">
@@ -66,8 +43,19 @@ include_once($_SERVER['DOCUMENT_ROOT'] . '/code_even/admin/inc/header.php');
             <td>exampla1111@example.com</td>
           </tr>
           <tr>
-            <td>
-              <span class="badge text-bg-danger">동의</span>
+            <td class="d-flex gap-2">
+              <div class="form-check">
+                <input class="form-check-input" type="radio" name="emailCheck" id="flexRadioDisabled" checked disabled>
+                <label class="form-check-label" for="flexRadioDisabled">
+                  동의
+                </label>
+              </div>
+              <div class="form-check">
+                <input class=" form-check-input" type="radio" name="emailCheck" id="flexRadioDisabled" disabled>
+                <label class="form-check-label" for="flexRadioCheckedDisabled">
+                  비동의
+                </label>
+              </div>
             </td>
           </tr>
         </tbody>
@@ -94,14 +82,32 @@ include_once($_SERVER['DOCUMENT_ROOT'] . '/code_even/admin/inc/header.php');
             <td>2024/10/10 13:14:15</td>
           </tr>
           <tr>
-            <td>
-              <span class="badge text-bg-primary">정상</span>
+            <td class="d-flex gap-2">
+              <div class="form-check">
+                <input class="form-check-input" type="radio" name="statusCheck" id="statusCheck" checked disabled>
+                <label class="form-check-label" for="flexRadioDisabled">
+                  정상
+                </label>
+              </div>
+              <div class="form-check">
+                <input class=" form-check-input" type="radio" name="statusCheck" id="statusCheck" disabled>
+                <label class="form-check-label" for="flexRadioCheckedDisabled">
+                  정지
+                </label>
+              </div>
+              <div class="form-check">
+                <input class=" form-check-input" type="radio" name="statusCheck" id="statusCheck" disabled>
+                <label class="form-check-label" for="flexRadioCheckedDisabled">
+                  탈퇴
+                </label>
+              </div>
             </td>
           </tr>
         </tbody>
       </table>
     </div>
   </div>
+
   <div class="content_bar">
     <h3>수강 정보</h3>
   </div>
