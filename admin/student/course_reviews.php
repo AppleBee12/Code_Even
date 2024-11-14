@@ -3,7 +3,7 @@ $title = "수강생 관리";
 include_once($_SERVER['DOCUMENT_ROOT'] . '/code_even/admin/inc/header.php');
 ?>
 <div class="container">
-  <h2>수강생목록</h2>
+  <h2>수강 후기</h2>
   <form class="row justify-content-end">
     <div class="col-lg-4">
       <div class="input-group mb-3">
@@ -26,10 +26,12 @@ include_once($_SERVER['DOCUMENT_ROOT'] . '/code_even/admin/inc/header.php');
           <th scope="col">번호</th>
           <th scope="col">아이디</th>
           <th scope="col">이름</th>
-          <th scope="col">강좌명</th>
-          <th scope="col">진도율</th>
-          <th scope="col">수강이수</th>
-          <th scope="col">학습기간</th>
+          <th scope="col">제목</th>
+          <th scope="col">강의명</th>
+          <th scope="col">강사</th>
+          <th scope="col">평점</th>
+          <th scope="col">등록일</th>
+          <th scope="col">관리</th>
         </tr>
       </thead>
       <tbody>
@@ -38,37 +40,58 @@ include_once($_SERVER['DOCUMENT_ROOT'] . '/code_even/admin/inc/header.php');
             <input class="form-check-input itemCheckbox" type="checkbox" value="">
           </th>
           <td>2</td>
-          <td><a href="student_details.php" class="underline">ping09</a></td>
-          <td><a href="student_details.php" class="underline">피곤핑</a></td>
-          <td>기초부터 확실하게! 페이지의..</td>
-          <td>0%</td>
+          <td>ping09</td>
+          <td>피곤핑</td>
+          <td><a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/student/course_reviews_details.php" class="underline">정말 좋은 강의 감사합니다.</a></td>
+          <td>기초부터 확실하게!..</td>
+          <td>이코딩</td>
           <td>
-            <span class="badge text-bg-light">미이수</span>
+            <div>
+              <i class="bi bi-star-fill"></i>
+              <i class="bi bi-star-fill"></i>
+              <i class="bi bi-star-fill"></i>
+              <i class="bi bi-star-fill"></i>
+              <i class="bi bi-star-fill"></i>
+            </div>
           </td>
-          <td>2024.10.19 ~ 2024.10.31</td>
+          <td>2024/10/19 10:10:10</td>
+          <td>
+            <a href="">
+              <i class="bi bi-trash-fill"></i>
+            </a>
+          </td>
         </tr>
         <tr>
           <th scope="row">
             <input class="form-check-input itemCheckbox" type="checkbox" value="" id="flexCheckDefault">
           </th>
           <td>1</td>
-          <td><a href="student_details.php" class="underline">hong1234</a></td>
-          <td><a href="student_details.php" class="underline">홍길동</a></td>
-          <td>기초부터 확실하게! 페이지의..</td>
-          <td>100%</td>
+          <td>hong1234</td>
+          <td>홍길동</td>
+          <td><a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/student/course_reviews_details.php" class="underline">정말 좋은 강의 감사합니다.</a></td>
+          <td>기초부터 확실하게!..</td>
+          <td>이코딩</td>
           <td>
-            <button type="button" id="printButton">
-              <span class="badge text-bg-dark">이수증</span>
-            </button>
+            <div>
+              <i class="bi bi-star-fill"></i>
+              <i class="bi bi-star-fill"></i>
+              <i class="bi bi-star-fill"></i>
+              <i class="bi bi-star-fill"></i>
+              <i class="bi bi-star-fill"></i>
+            </div>
           </td>
-          <td>2024.10.19 ~ 2024.10.31</td>
+          <td>2024/10/19 10:10:10</td>
+          <td>
+            <a href="">
+              <i class="bi bi-trash-fill"></i>
+            </a>
+          </td>
         </tr>
       </tbody>
     </table>
 
     <div class="d-flex justify-content-end">
-       <button type="button" data-bs-toggle="modal" data-bs-target="#send_email" class="btn btn-outline-secondary">이메일
-         전송</button>
+       <button type="button" class="btn btn-danger">삭제</button>
      </div>
 
      <!-- //Pagination -->
@@ -142,43 +165,6 @@ include_once($_SERVER['DOCUMENT_ROOT'] . '/code_even/admin/inc/header.php');
 
 </div>
 
-<script>
-  // 인쇄 버튼
-  function printPage() {
-    const fileUrl = "../../images/certificate of completion.pdf";
-
-    // PDF를 iframe으로 페이지에 삽입
-    const iframe = document.createElement("iframe");
-    iframe.style.position = "absolute";
-    iframe.style.width = "0px";
-    iframe.style.height = "0px";
-    iframe.style.border = "none";
-    iframe.src = fileUrl;
-
-    // iframe을 body에 추가
-    document.body.appendChild(iframe);
-
-    // PDF 파일이 로드된 후 인쇄
-    iframe.onload = function () {
-      iframe.contentWindow.print();  // iframe 내에서 print() 호출
-    };
-  }
-
-  document.getElementById("printButton").addEventListener("click", printPage);
-
-  // "전체 선택" 체크박스를 가져옴
-  const checkAll = document.getElementById('allCheck');
-  // 각 항목 체크박스를 모두 가져옴
-  const itemCheckboxes = document.querySelectorAll('.itemCheckbox');
-
-  // "전체 선택" 체크박스 클릭 이벤트 리스너 추가
-  checkAll.addEventListener('change', function () {
-    itemCheckboxes.forEach((checkbox) => {
-      checkbox.checked = checkAll.checked;
-    });
-  });
-</script>
-
 <?php
-include_once($_SERVER['DOCUMENT_ROOT'] . '/code_even/admin/inc/footer.php');
+include_once($_SERVER['DOCUMENT_ROOT']. '/code_even/admin/inc/footer.php');
 ?>
