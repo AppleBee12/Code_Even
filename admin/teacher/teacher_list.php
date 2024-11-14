@@ -18,9 +18,9 @@ include_once($_SERVER['DOCUMENT_ROOT'] . '/CODE_EVEN/admin/inc/header.php');
         <option value="3">보안</option>
       </select>
     </div>
-    <div class="col-lg-4">
+    <div class="col-lg-3">
     <div class="input-group mb-3">
-      <input type="text" class="form-control" placeholder="분류를 선택하거나 검색어를 입력해주세요." aria-label="Recipient's username" aria-describedby="basic-addon2">
+      <input type="text" class="form-control" placeholder="분류 선택 또는 검색어를 입력해주세요" aria-label="Recipient's username" aria-describedby="basic-addon2">
       <button type="button" class="btn btn-secondary">
         <i class="bi bi-search"></i>
       </button>
