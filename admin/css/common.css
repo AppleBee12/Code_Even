@@ -132,6 +132,7 @@ a{
   display: none;
 }
 
+/* 목록페이지 테이블 */
 .list_table tr {
   height: 60px;
   th, td {
