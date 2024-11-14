@@ -12,7 +12,7 @@ include_once($_SERVER['DOCUMENT_ROOT']. '/code_even/admin/inc/header.php');
 <div class="container ">
   <h2>카테고리 관리</h2>
   <div class="d-flex gap-5 ctgr">
-    <div class="col-md-9 mt-5 ctgr-wrap">
+    <div class="col-md-3 mt-5 ctgr-wrap">
       <h3>대분류</h3>
       <select class="form-select mt-4" aria-label="Default select example">
         <option selected>대분류</option>
@@ -22,7 +22,7 @@ include_once($_SERVER['DOCUMENT_ROOT']. '/code_even/admin/inc/header.php');
       </select>
       <button class="btn btn-secondary mt-4">대분류 등록</button>
     </div>
-    <div class="col-md-9 mt-5  ctgr-wrap">
+    <div class="col-md-3 mt-5  ctgr-wrap">
     <h3>중분류</h3>
       <select class="form-select mt-4" aria-label="Default select example">
         <option selected>중분류</option>
@@ -31,7 +31,7 @@ include_once($_SERVER['DOCUMENT_ROOT']. '/code_even/admin/inc/header.php');
       </select>
       <button class="btn btn-secondary mt-4">중분류 등록</button>
     </div>
-    <div class="col-md-9 mt-5 ctgr-wrap">
+    <div class="col-md-3 mt-5 ctgr-wrap">
     <h3>소분류</h3>
       <select class="form-select mt-4" aria-label="Default select example">
         <option selected>소분류</option>
