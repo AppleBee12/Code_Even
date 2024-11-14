@@ -127,6 +127,11 @@ a{
   padding-left: 24px;
 }
 
+/* 테이블 하단에 라인 가리기 */
+.thead-hidden{
+  display: none;
+}
+
 .list_table tr {
   height: 60px;
   th, td {
