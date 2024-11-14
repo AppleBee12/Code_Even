@@ -29,14 +29,14 @@ body nav {
   background: var(--bk1000);
   align-items: flex-end;
   padding-top: 46px;
+
+  .list-group {
+    width: 316px;
+    border-radius: 0;
+    padding-left: 42px;
+  }
 }
 
-body nav .list-group {
-  width: 316px;
-  border-radius: 0;
-  margin-left: 42px;
-  padding-left: 42px;
-}
 
 body nav .list-group-item,
 body nav .list-group-item a {
@@ -57,11 +57,12 @@ body nav .list-group.line .list-group-item {
 body nav ul li ul {
   padding-left: 0px;
   margin-top: 8px;
+
+  li{
+  padding-left: 0px;
+  }
 }
 
-body nav ul li ul li {
-  padding-left: 0px;
-}
 body nav ul li ul li:first-child {
   border-top: 1px solid var(--bk300);
 }
@@ -89,7 +90,7 @@ body nav .no_line.list-group {
 body nav .list-group-item.active {
   background: var(--bk0);
   color: var(--bk800);
-  border: 1px solid var(--bk300);
+  border-color: var(--bk300) var(--bk0) var(--bk300) var(--bk300);
 
   a {
     background: var(--bk0);
@@ -97,6 +98,8 @@ body nav .list-group-item.active {
     border: 1px solid var(--bk0);
   }
 }
+
+
 
 /* container */
 
@@ -112,8 +115,10 @@ body nav .list-group-item.active {
 
   div {
     border: 1px solid var(--bk100);
+    border-radius: 8px;
     padding: 24px;
     min-width: 263px;
+
   }
 
   p {
@@ -127,4 +132,21 @@ body nav .list-group-item.active {
     line-height: 30px;
     color: var(--bk600);
   }
+}
+
+
+.bottom_wrapper{
+  margin-top: 20px;
+}
+.bott_left{
+  width: 648px;
+  height: 600px;
+  border: 1px solid var(--bk100);
+  padding:10px;
+  border-radius: 8px;
+
+}
+.sellcost_best_table{
+  width: 732px;
+  height: 300px;
 }

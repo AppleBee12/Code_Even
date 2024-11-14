@@ -145,8 +145,8 @@ if (!isset($_SESSION['AUID'])) {
           <button class="btn btn-toggle collapsed" data-bs-toggle="collapse" data-bs-target="#book_collapse" href="#"
             aria-expanded="false"><i class="bi bi-caret-down-fill"></i></button>
           <ul class="collapse btn-toggle-nav" id="book_collapse">
-            <li class="list-group-item dropdown-item"><a href="">교재 목록</a></li>
-            <li class="list-group-item dropdown-item"><a href="">교재 등록</a></li>
+            <li class="list-group-item dropdown-item"><a href=""> 　 - 교재 목록</a></li>
+            <li class="list-group-item dropdown-item"><a href=""> 　 - 교재 등록</a></li>
           </ul>
         </li>
         <li class="list-group-item"><a href=""><i class="bi bi-people"></i> 　 전체 회원 관리</a></li>
