@@ -69,9 +69,8 @@ h4, th, .sst{
   color: var(--bk800);
 }
 
-.ph{
-  font-weight: 500;
-  color: var(--bk900);
+input.form-control::placeholder, .ph{
+  color: var(--bk300);
 }
 
 
@@ -84,7 +83,6 @@ h4, th, .sst{
 	line-height: 150%;
 	letter-spacing: 31%;
 	text-transform: uppercase;
-
 }
 
 .nav_sibling{
@@ -114,7 +112,7 @@ nav .btn-toggle{
 
 a{
 	text-decoration: none;
-	color: black;
+	color: var(--bk1000);
 }
 
 .content_bar {
@@ -135,8 +133,12 @@ a{
 /* 목록페이지 테이블 */
 .list_table tr {
   height: 60px;
+
   th, td {
     vertical-align: middle;
     text-align: center;
+  }
+  th b{ /* 입력필수값 "*별모양" */
+    color:var(--red950);
   }
 }
