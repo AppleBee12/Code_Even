@@ -1,13 +1,6 @@
 <?php
 $chart_js = "<script src=\"https://cdn.jsdelivr.net/npm/chart.js\"></script>";
 include_once($_SERVER['DOCUMENT_ROOT'] . '/CODE_EVEN/admin/inc/header.php');
-
-if(!isset($_SESSION['AUID'])){
-  echo"<script>
-  alert('로그인을 해주세요');
-  location.href='admin/login/login.php';
-  </script>";
-}
 ?>
 
 <div class="container">
