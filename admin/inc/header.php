@@ -88,7 +88,7 @@ if (!isset($_SESSION['AUID'])) {
 
 <body>
   <header class="header">
-    <h1 class="logo"><a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/index.php">code even</a></h1>
+    <h1 class="logo"><a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/index.php">code even</a></h1>
     <div>
       <div><?= $_SESSION['AUNAME'] ?> 관리자님 <br>환영합니다. </div>
       <ul class="nav nav-pills">
