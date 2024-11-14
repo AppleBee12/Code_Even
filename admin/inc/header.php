@@ -77,6 +77,12 @@ if (!isset($_SESSION['AUID'])) {
   }
   ?>
 
+  <!-- 개인 추가 js -->
+  <?php
+  if (isset($chart_js)) {
+    echo $chart_js;
+  }
+  ?>
 
 </head>
 
@@ -119,8 +125,7 @@ if (!isset($_SESSION['AUID'])) {
           </a>
         </li>
         <li class="pr list-group-item">
-          <i class="bi bi-collection-play"></i>
-          강좌 관리
+          <i class="bi bi-collection-play"></i> 　 강좌 관리
           <button class="btn btn-toggle collapsed" data-bs-toggle="collapse" data-bs-target="#lecture_collapse" href="#"
             aria-expanded="false"><i class="bi bi-caret-down-fill"></i></button>
           <ul class="collapse btn-toggle-nav" id="lecture_collapse">
@@ -175,8 +180,7 @@ if (!isset($_SESSION['AUID'])) {
           </ul>
         </li>
         <li class="list-group-item"><a
-            href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/coupons/coupons.php"><i class="bi bi-ticket"></i>
-            쿠폰 관리</a></li>
+            href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/coupons/coupons.php"><i class="bi bi-ticket"></i> 　 쿠폰 관리</a></li>
         <li class="pr list-group-item"><i class="bi bi-graph-up-arrow"></i> 　 매출통계 관리
           <button class="btn btn-toggle collapsed" data-bs-toggle="collapse" data-bs-target="#statistics_collapse"
             href="#" aria-expanded="false"><i class="bi bi-caret-down-fill"></i></button>
