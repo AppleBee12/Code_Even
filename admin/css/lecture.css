@@ -110,10 +110,6 @@ table, th, td {
   margin: 0;
 }
 
-th span{
-  color: var(--red950);
-}
-
 tbody tr td .box {
   height: 230px !important;
   width: 100% !important;

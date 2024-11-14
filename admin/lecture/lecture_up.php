@@ -16,7 +16,7 @@ include_once($_SERVER['DOCUMENT_ROOT']. '/code_even/admin/inc/header.php');
     </thead>
     <tbody>
       <tr>
-        <th scope="row">분류 설정 <span>*</span></th>
+        <th scope="row">분류 설정 <b>*</b></th>
         <td colspan="3" class="d-flex gap-3">
           <select class="form-select me-2" aria-label="Default select example">
             <option selected>대분류</option>
@@ -39,7 +39,7 @@ include_once($_SERVER['DOCUMENT_ROOT']. '/code_even/admin/inc/header.php');
         </td>
       </tr>
       <tr>
-        <th scope="row">강좌명 <span>*</span></th>
+        <th scope="row">강좌명 <b>*</b></th>
         <td colspan="3">
           <div class="mb-3">
             <!-- <label for="exampleFormControlInput1" class="form-label"></label> -->
@@ -48,7 +48,7 @@ include_once($_SERVER['DOCUMENT_ROOT']. '/code_even/admin/inc/header.php');
         </td>
       </tr>
       <tr>
-        <th scope="row">강사명 <span>*</span></th>
+        <th scope="row">강사명 <b>*</b></th>
         <td>
           <div class="mb-3">
             <!-- <label for="exampleFormControlInput1" class="form-label"></label> -->
@@ -66,7 +66,7 @@ include_once($_SERVER['DOCUMENT_ROOT']. '/code_even/admin/inc/header.php');
         </td>
       </tr>
       <tr>
-        <th scope="row">수강료 <span>*</span></th>
+        <th scope="row">수강료 <b>*</b></th>
         <td>
           <div class="input-group mb-3">
             <input type="text" class="form-control" aria-label="Dollar amount (with dot and two decimal places)">
@@ -75,7 +75,7 @@ include_once($_SERVER['DOCUMENT_ROOT']. '/code_even/admin/inc/header.php');
         </td>
       </tr>
       <tr>
-        <th scope="row">교재 선택 <span>*</span></th>
+        <th scope="row">교재 선택 <b>*</b></th>
         <td>
           <select class="form-select" aria-label="Default select example">
             <option selected>SELECT</option>
@@ -87,7 +87,7 @@ include_once($_SERVER['DOCUMENT_ROOT']. '/code_even/admin/inc/header.php');
         </td>
       </tr>
       <tr>
-        <th scope="row">교육 기간 <span>*</span></th>
+        <th scope="row">교육 기간 <b>*</b></th>
         <td>
           <select class="form-select" aria-label="Default select example">
             <option selected>60일</option>
@@ -99,7 +99,7 @@ include_once($_SERVER['DOCUMENT_ROOT']. '/code_even/admin/inc/header.php');
         </td>
       </tr>
       <tr>
-        <th scope="row">강좌 유형 <span>*</span></th>
+        <th scope="row">강좌 유형 <b>*</b></th>
         <td>
           <div class="d-flex gap-5">
             <div class="form-check">
@@ -132,7 +132,7 @@ include_once($_SERVER['DOCUMENT_ROOT']. '/code_even/admin/inc/header.php');
     </thead>
     <tbody>
       <tr>
-        <th scope="row">강의명 <span>*</span></th>
+        <th scope="row">강의명 <b>*</b></th>
         <td colspan="3">
           <div class="mb-3">
             <!-- <label for="exampleFormControlInput1" class="form-label"></label> -->
@@ -141,7 +141,7 @@ include_once($_SERVER['DOCUMENT_ROOT']. '/code_even/admin/inc/header.php');
         </td>
       </tr>
       <tr>
-        <th scope="row">강의 설명 <span>*</span></th>
+        <th scope="row">강의 설명 <b>*</b></th>
         <td colspan="3">
           <div class="mb-3">
             <!-- <label for="exampleFormControlTextarea1" class="form-label">Example textarea</label> -->
@@ -150,7 +150,7 @@ include_once($_SERVER['DOCUMENT_ROOT']. '/code_even/admin/inc/header.php');
         </td>
       </tr>
       <tr>
-        <th scope="row">퀴즈 선택 <span>*</span></th>
+        <th scope="row">퀴즈 선택 <b>*</b></th>
         <td>
           <select class="form-select" aria-label="Default select example">
             <option selected>퀴즈를 선택해 주세요.</option>
@@ -159,7 +159,7 @@ include_once($_SERVER['DOCUMENT_ROOT']. '/code_even/admin/inc/header.php');
             <option value="3">Three</option>
           </select>
         </td>
-        <th scope="row">시험 선택 <span>*</span></th>
+        <th scope="row">시험 선택 <b>*</b></th>
         <td>
           <select class="form-select" aria-label="Default select example">
             <option selected>시험을 선택해 주세요.</option>
@@ -170,13 +170,13 @@ include_once($_SERVER['DOCUMENT_ROOT']. '/code_even/admin/inc/header.php');
         </td>
       </tr>
       <tr>
-        <th scope="row">실습 파일 등록 <span>*</span></th>
+        <th scope="row">실습 파일 등록 <b>*</b></th>
         <td>
           <div class="mb-3">
             <input class="form-control" type="file" id="formFile">
           </div>
         </td>
-        <th scope="row">동영상 주소 <span>*</span></th>
+        <th scope="row">동영상 주소 <b>*</b></th>
         <td>
           <div class="input-group mb-3">
             <span class="input-group-text" id="basic-addon2">https://</span>
