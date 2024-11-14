@@ -87,13 +87,10 @@ include_once($_SERVER['DOCUMENT_ROOT'] . '/code_even/admin/inc/header.php');
       </tr>
       <tr>
         <th scope="row">소개글 <b>*</b></th>
-        <td>
-          <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="냠냠">
+        <td colspan="3">
+        <div id="summernote"></div>
         </td>
-        <th scope="row">합칠곳</th>
-        <td>
-          <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="냠냠">
-        </td>
+
       </tr>
       
     </tbody>
@@ -104,6 +101,7 @@ include_once($_SERVER['DOCUMENT_ROOT'] . '/code_even/admin/inc/header.php');
     <a href="student_list.php" type="button" class="btn btn-outline-danger">취소</a>
   </div>
 </div>
+
 
 
 <?php
