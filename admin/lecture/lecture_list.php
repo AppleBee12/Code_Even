@@ -5,7 +5,7 @@ include_once($_SERVER['DOCUMENT_ROOT']. '/code_even/admin/inc/header.php');
 ?>
 
 <div class="container">
-  <h3>강좌 목록</h3>
+  <h2>강좌 목록</h2>
   <form action="" class="d-flex justify-content-end">
     <div class="d-flex w-25 mb-3">
       <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="검색어를 입력하세요.">

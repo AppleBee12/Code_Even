@@ -1,15 +1,25 @@
+/* 테이블 고정 너비와 레이아웃 */
 table {
+  width: 100%;
+  table-layout: fixed;
   border-spacing: 0 8px; /* 행 사이에만 8px 간격을 줍니다 */
   border-collapse: separate;
 }
 
 table, th, td {
-  border: none; /* 테이블, 헤더 셀, 데이터 셀의 테두리 제거 */
+  border: none;
+}
+
+th[scope="row"] {
+  width: 15%;
+}
+
+td[colspan="6"] {
+  width: 85%;
 }
 
 .content_bar{
   margin-top: 50px;
-  max-width: 1296px;
 }
 
 /* 스위치 체크 시 배경색 */
@@ -25,7 +35,8 @@ table, th, td {
 
 /* 포커스 효과 */
 .form-check-input:focus,
-.form-control:focus {
+.form-control:focus,
+.form-select:focus {
   border-color: #ff5733;
   box-shadow: 0 0 0 0.25rem rgba(255, 87, 51, 0.25);
 }
@@ -110,11 +121,17 @@ table, th, td {
   margin: 0;
 }
 
+box_container{
+  padding: 0;
+  position: relative;
+  align-items: end;
+}
+
 tbody tr td .box {
-  height: 230px !important;
+  height: 300px !important;
   width: 100% !important;
   background-color: #ccc !important;
-  align-items: center; 
+  align-items: end; 
   text-align: center;
   margin-bottom: 10px;
   position: relative;
@@ -145,4 +162,11 @@ tbody tr td .box {
   }
 }
 
+.quiz-select {
+  margin-right: 10px; /* 원하는 간격으로 조정 */
+}
+
+.exam-select {
+  margin-left: 10px; /* 원하는 간격으로 조정 */
+}
 
