@@ -8,7 +8,7 @@ include_once($_SERVER['DOCUMENT_ROOT'] . '/code_even/admin/inc/header.php');
     <h3>전체 공지사항 작성</h3>
   </div>
 
-  <form action="" method="" enctype="multipart/form-data">
+  <form action="notice_write_ok.php" method="POST" enctype="multipart/form-data">
     <table class="table details_table">
       <colgroup>
         <col style="width:160px">
@@ -18,7 +18,6 @@ include_once($_SERVER['DOCUMENT_ROOT'] . '/code_even/admin/inc/header.php');
         <tr>
           <th scope="col">구분</th>
           <th scope="col">내용</th>
-          <th scope="col">구분선</th>
         </tr>
       </thead>
       <tbody>
@@ -45,14 +44,14 @@ include_once($_SERVER['DOCUMENT_ROOT'] . '/code_even/admin/inc/header.php');
           <th scope="row">제목 <b>*</b></th>
           <td colspan="3">
             <div>
-              <input type="text" class="form-control form-control-sm" id="" placeholder="제목을 입력해주세요.">
+              <input type="text" name="title" class="form-control w-75" id="title" placeholder="제목을 입력해주세요.">
             </div>
           </td>
         </tr>
         <tr class="none">
           <td colspan="3">
             <div>
-              <textarea name="" id="" class="form-control"></textarea>
+              <textarea name="content" id="content" class="form-control"></textarea>
             </div>
           </td>
         </tr>
@@ -64,14 +63,14 @@ include_once($_SERVER['DOCUMENT_ROOT'] . '/code_even/admin/inc/header.php');
         </tr>
       </tbody>
     </table>
+    <div class="custom-hr"></div>
+    <div class="d-flex justify-content-end gap-2">
+      <a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/inquiry/notice.php" type="button"
+        class="btn btn-outline-danger">취소</a>
+      <a href="" type="submit" class="btn btn-secondary">등록</a>
+    </div>
   </form>
 
-  <div class="custom-hr"></div>
-  <div class="d-flex justify-content-end gap-2">
-    <a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/inquiry/notice.php" type="button"
-      class="btn btn-outline-danger">취소</a>
-    <a href="" type="button" class="btn btn-secondary">등록</a>
-  </div>
 </div>
 
 </div>
