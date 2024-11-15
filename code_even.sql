@@ -221,7 +221,7 @@ CREATE TABLE `faq` (
   `content` text NOT NULL COMMENT '내용',
   `view` int(11) NOT NULL COMMENT '조회수',
   `regdate` datetime NOT NULL COMMENT '작성일',
-  `status` enum('숨김','노출') NOT NULL DEFAULT '숨김' COMMENT '상태'
+  `status` enum('on','off') NOT NULL DEFAULT 'off' COMMENT '상태'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='자주묻는질문';
 
 -- --------------------------------------------------------
