@@ -14,6 +14,7 @@ $data = $result->fetch_object();
   </div>
 
   <form action="notice_write_ok.php" method="POST" enctype="multipart/form-data">
+    <input type="hidden" name="username" value="<?= $data->username; ?>">
     <table class="table details_table">
       <colgroup>
         <col style="width:160px">
