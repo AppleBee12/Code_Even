@@ -1,5 +1,10 @@
 <?php
 include_once($_SERVER['DOCUMENT_ROOT'] . '/code_even/admin/inc/header.php');
+
+$sql = "SELECT username FROM user";
+$result = $mysqli->query($sql);
+$data = $result->fetch_object();
+
 ?>
 
 <div class="container">
@@ -23,18 +28,18 @@ include_once($_SERVER['DOCUMENT_ROOT'] . '/code_even/admin/inc/header.php');
       <tbody>
         <tr>
           <th scope="row">이름(아이디)</th>
-          <td>관리자(admin)</td>
+          <td><?= $data->username; ?></td>
           <th scope="row">상태 <b>*</b></th>
           <td class="d-flex gap-3">
             <div class="form-check">
-              <input class="form-check-input" type="radio" name="emailCheck" id="flexRadioDisabled" checked>
-              <label class="form-check-label" for="flexRadioDisabled">
+              <input class="form-check-input" type="radio" name="status" id="status" value="on">
+              <label class="form-check-label" for="status">
                 노출
               </label>
             </div>
             <div class="form-check">
-              <input class=" form-check-input" type="radio" name="emailCheck" id="flexRadioDisabled">
-              <label class="form-check-label" for="flexRadioCheckedDisabled">
+              <input class=" form-check-input" type="radio" name="status" id="status" value="off" checked>
+              <label class="form-check-label" for="status">
                 숨김
               </label>
             </div>
@@ -44,14 +49,14 @@ include_once($_SERVER['DOCUMENT_ROOT'] . '/code_even/admin/inc/header.php');
           <th scope="row">제목 <b>*</b></th>
           <td colspan="3">
             <div>
-              <input type="text" name="title" class="form-control w-75" id="title" placeholder="제목을 입력해주세요.">
+              <input type="text" name="title" class="form-control w-75" id="title" placeholder="제목을 입력해주세요." required>
             </div>
           </td>
         </tr>
         <tr class="none">
           <td colspan="3">
             <div>
-              <textarea name="content" id="content" class="form-control"></textarea>
+              <textarea name="content" id="content" class="form-control" required></textarea>
             </div>
           </td>
         </tr>
