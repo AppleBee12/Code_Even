@@ -398,8 +398,8 @@ CREATE TABLE `notice` (
   `title` varchar(255) NOT NULL COMMENT '제목',
   `content` text NOT NULL COMMENT '내용',
   `view` int(11) NOT NULL COMMENT '조회수',
-  `regdate` date NOT NULL COMMENT '등록일',
-  `status` enum('노출','숨김') NOT NULL DEFAULT '숨김' COMMENT '상태',
+  `regdate` date NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '등록일';
+  `status` enum('on','off') NOT NULL DEFAULT 'off' COMMENT '상태',
   `file` varchar(255) DEFAULT NULL COMMENT '파일'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
