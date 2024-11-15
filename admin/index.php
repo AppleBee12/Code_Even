@@ -37,7 +37,7 @@ if (!isset($_SESSION['AUID'])) {
   <div class="bottom_wrapper d-flex justify-content-between">
     <div class="bott_left d-flex flex-column justify-content-between ">
       <h3>최근 6개월 수익률</h3>
-      <canvas id="current_six_returns" width="500" height="500"></canvas>
+      <canvas id="current_six_returns" width="550" height="500"></canvas>
     </div>
     <div class="bott_right d-flex flex-column justify-content-between">
       <div class="sellcost_best_table">
