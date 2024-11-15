@@ -47,8 +47,8 @@ include_once($_SERVER['DOCUMENT_ROOT'] . '/CODE_EVEN/admin/inc/header.php');
       <tbody>
         <tr>
           <th scope="row">1</th>
-          <td>teacher01</td>
-          <td>이코딩</td>
+          <td><a href="teacher_details.php">teacher01</a></td>
+          <td><a href="teacher_details.php">이코딩</td>
           <td>teacher1@mdo.com</td>
           <td>웹개발</td>
           <td><span class="badge text-bg-secondary">심사중</span></td>
