@@ -73,6 +73,16 @@ if (!isset($_SESSION['AUID'])) {
       echo '<link rel="stylesheet" href="http://' . $_SERVER['HTTP_HOST'] . '/code_even/admin/css/student_inquiry.css">';
       break;
   }
+  switch ($page) {
+    case 'lecture_list.php':
+      echo '<link rel="stylesheet" href="http://' . $_SERVER['HTTP_HOST'] . '/code_even/admin/css/lecture.css">';
+      break;
+  }
+  switch ($page) {
+    case 'lecture_up.php':
+      echo '<link rel="stylesheet" href="http://' . $_SERVER['HTTP_HOST'] . '/code_even/admin/css/lecture.css">';
+      break;
+  }
   ?>
 
   <!-- 개인 추가 js -->
@@ -80,6 +90,7 @@ if (!isset($_SESSION['AUID'])) {
   if (isset($chart_js)) {
     echo $chart_js;
   }
+
   ?>
 
 </head>

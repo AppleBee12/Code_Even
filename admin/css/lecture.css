@@ -1,15 +1,35 @@
-table {
-  border-spacing: 0 8px; /* 행 사이에만 8px 간격을 줍니다 */
-  border-collapse: separate;
+.table {
+  width: 100%;
+  border-collapse: collapse;
 }
 
-table, th, td {
-  border: none; /* 테이블, 헤더 셀, 데이터 셀의 테두리 제거 */
+/* 상단과 하단 테두리만 남기기 (세로선 제거) */
+.table th, .table td {
+  padding: 8px;
+  vertical-align: middle;
 }
 
-.content_bar{
-  margin-top: 50px;
-  max-width: 1296px;
+.d-flex {
+  gap: 0; /* 불필요한 gap 제거 */
+}
+
+.tog {
+  display: inline-block !important;
+  vertical-align: middle !important; /* 세로 중앙 정렬 */
+}
+
+.recipe {
+  background-color: var(--primary);
+}
+
+.waitopen {
+  background-color: #E9ECEF;
+  color: #343A40;
+}
+
+i{
+  cursor: pointer;
+  font-size: 24px;
 }
 
 /* 스위치 체크 시 배경색 */
@@ -24,7 +44,9 @@ table, th, td {
 }
 
 /* 포커스 효과 */
-.form-check-input:focus {
+.form-check-input:focus,
+.form-control:focus,
+.form-select:focus {
   border-color: #ff5733;
   box-shadow: 0 0 0 0.25rem rgba(255, 87, 51, 0.25);
 }
@@ -47,6 +69,11 @@ table, th, td {
 .waitopen{
   background-color: #E9ECEF;
   color: #343A40;
+}
+
+/* 토글 스위치 가운데 정렬 */
+.custom-table .tog {
+  display: inline-block;
 }
 
 /* 검색창 */
@@ -94,20 +121,32 @@ table, th, td {
 
 /* lecture_up.php CSS */
 
+.cent{
+  position: relative;
+
+  h3{
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+}
+
 .box, .input-group {
   padding: 0;
   margin: 0;
 }
 
-th span{
-  color: var(--red950);
+box_container{
+  padding: 0;
+  position: relative;
+  align-items: end;
 }
 
 tbody tr td .box {
-  height: 230px !important;
+  height: 300px !important;
   width: 100% !important;
   background-color: #ccc !important;
-  align-items: center; 
+  align-items: end; 
   text-align: center;
   margin-bottom: 10px;
   position: relative;
@@ -134,8 +173,21 @@ tbody tr td .box {
 
   i{
     margin-right: 24px;
-    font-size: 24px;
   }
 }
 
+.quiz-select {
+  margin-right: 10px; /* 원하는 간격으로 조정 */
+}
+
+.exam-select {
+  margin-left: 10px; /* 원하는 간격으로 조정 */
+}
+
+.leplus{
+  width: 100% !important;
+  margin-top: 10px !important;
+  height: 38px !important;
+  border-color: var(--bk800) !important;
+}
 

@@ -20,9 +20,45 @@
 }
 
 .form-control.w_512, .form-select.w_512{
-  width: 512px;
+  width: 509px;
 }
 
-.table {
+.info_table {
   border-color: var(--bk0);
+}
+
+/* 프로필 이미지 업로드 */
+.upload{
+  width: 100px;
+  position: relative;
+  margin: auto;
+}
+
+.upload img{
+  border-radius: 50%;
+  border: 1px solid var(--bk200);
+}
+
+.upload .round{
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  background: var(--bk50);
+  border: 1px solid var(--bk200);
+  width: 32px;
+  height: 32px;
+  line-height: 33px;
+  text-align: center;
+  border-radius: 50%;
+  overflow: hidden;
+}
+
+.upload .round input[type = "file"]{
+  position: absolute;
+  /* transform: scale(2); */
+  opacity: 0;
+}
+
+input[type=file]::-webkit-file-upload-button{
+    cursor: pointer;
 }
