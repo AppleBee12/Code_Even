@@ -16,8 +16,7 @@ if (!isset($_SESSION['AUID'])) {
   location.href='login/login.php';
   </script>";
 }
-
-
+$current_page = basename($_SERVER['REQUEST_URI'], ".php");
 ?>
 
 <!DOCTYPE html>
@@ -34,9 +33,11 @@ if (!isset($_SESSION['AUID'])) {
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/summernote@0.8.20/dist/summernote-lite.min.css" integrity="sha256-IKhQVXDfwbVELwiR0ke6dX+pJt0RSmWky3WB2pNx9Hg=" crossorigin="anonymous">
-  
-  <link rel="stylesheet" href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/css/summernote-bs5.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/summernote@0.8.20/dist/summernote-lite.min.css"
+    integrity="sha256-IKhQVXDfwbVELwiR0ke6dX+pJt0RSmWky3WB2pNx9Hg=" crossorigin="anonymous">
+
+  <link rel="stylesheet" href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/css/summernote-bs5.css"
+    rel="stylesheet">
 
   <link rel="stylesheet" href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/css/common.css">
   <link rel="stylesheet" href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/css/main.css">
@@ -109,18 +110,18 @@ if (!isset($_SESSION['AUID'])) {
   </header>
   <div class="nav_wrapper d-flex">
     <nav class="nav navbar-expand-lg d-flex flex-column justify-content-between">
-      <ul class="list-group line">
-        <li class="list-group-item active"><a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/index.php"><i
+      <ul class="list-group line accordion">
+        <li class="list-group-item active" data-link="index"><a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/index.php"><i
               class="bi bi-grid"></i> 　 대시보드</a></li>
-        <li class="list-group-item">
+        <li class="list-group-item" data-link="category">
           <a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/category/category.php">
             <i class="bi bi-tags"></i> 　 카테고리 관리
           </a>
         </li>
-        <li class="pr list-group-item">
+        <li class="pr list-group-item" data-link="lecture">
           <i class="bi bi-collection-play"></i> 　 강좌 관리
           <button class="btn btn-toggle collapsed" data-bs-toggle="collapse" data-bs-target="#lecture_collapse" href="#"
-            aria-expanded="false"><i class="bi bi-caret-down-fill"></i></button>
+            aria-expanded="false"><i class="bi bi-chevron-down"></i></button>
           <ul class="collapse btn-toggle-nav" id="lecture_collapse">
             <li class="list-group-item dropdown-item"><a
                 href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/lecture/lecture_list.php"> 　 - 강좌 목록</a></li>
@@ -134,22 +135,22 @@ if (!isset($_SESSION['AUID'])) {
                 결과 관리</a></li>
           </ul>
         </li>
-        <li class="pr list-group-item"><i class="bi bi-book"></i> 　 교재 관리
+        <li class="pr list-group-item" data-link="book"><i class="bi bi-book"></i> 　 교재 관리
           <button class="btn btn-toggle collapsed" data-bs-toggle="collapse" data-bs-target="#book_collapse" href="#"
-            aria-expanded="false"><i class="bi bi-caret-down-fill"></i></button>
+            aria-expanded="false"><i class="bi bi-chevron-down"></i></button>
           <ul class="collapse btn-toggle-nav" id="book_collapse">
             <li class="list-group-item dropdown-item"><a href=""> 　 - 교재 목록</a></li>
             <li class="list-group-item dropdown-item"><a href=""> 　 - 교재 등록</a></li>
           </ul>
         </li>
-        <li class="list-group-item"><a href=""><i class="bi bi-people"></i> 　 전체 회원 관리</a></li>
-        <li class="list-group-item"><a
+        <li class="list-group-item" data-link="user"><a href=""><i class="bi bi-people"></i> 　 전체 회원 관리</a></li>
+        <li class="list-group-item" data-link="teacher"><a
             href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/teacher/teacher_list.php"><i
               class="bi bi-incognito"></i> 　 강사 관리</a>
         </li>
-        <li class="pr list-group-item"><i class="bi bi-mortarboard"></i> 　 수강생 관리
+        <li class="pr list-group-item" data-link="student"><i class="bi bi-mortarboard"></i> 　 수강생 관리
           <button class="btn btn-toggle collapsed" data-bs-toggle="collapse" data-bs-target="#student_collapse" href="#"
-            aria-expanded="false"><i class="bi bi-caret-down-fill"></i></button>
+            aria-expanded="false"><i class="bi bi-chevron-down"></i></button>
           <ul class="collapse btn-toggle-nav" id="student_collapse">
             <li class="list-group-item dropdown-item"><a
                 href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/student/student_list.php"> 　 - 수강생 목록</a>
@@ -164,38 +165,40 @@ if (!isset($_SESSION['AUID'])) {
             </li>
           </ul>
         </li>
-        <li class="pr list-group-item"><i class="bi bi-truck"></i> 　 결제/배송 관리
-          <button class="btn btn-toggle collapsed" data-bs-toggle="collapse" data-bs-target="#payment_collapse" href="#"
-            aria-expanded="false"><i class="bi bi-caret-down-fill"></i></button>
+        <li class="pr list-group-item" data-link="pay"><i class="bi bi-truck"></i> 　 결제/배송 관리
+          <button class="btn btn-toggle collapsed" data-bs-toggle="collapse" data-bs-target="#payment_collapse"
+            aria-expanded="false"><i class="bi bi-chevron-down"></i></button>
           <ul class="collapse btn-toggle-nav" id="payment_collapse">
             <li class="list-group-item dropdown-item"><a href=""> 　 - 주문/결제 목록</a></li>
             <li class="list-group-item dropdown-item"><a href=""> 　 - 교재 배송관리</a></li>
           </ul>
         </li>
-        <li class="list-group-item"><a
+        <li class="list-group-item" data-link="coupons"><a
             href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/coupons/coupons.php"><i class="bi bi-ticket"></i> 　 쿠폰 관리</a></li>
-        <li class="pr list-group-item"><i class="bi bi-graph-up-arrow"></i> 　 매출통계 관리
+        <li class="pr list-group-item" data-link="statistics"><i class="bi bi-graph-up-arrow"></i> 　 매출통계 관리
           <button class="btn btn-toggle collapsed" data-bs-toggle="collapse" data-bs-target="#statistics_collapse"
-            href="#" aria-expanded="false"><i class="bi bi-caret-down-fill"></i></button>
+            href="#" aria-expanded="false"><i class="bi bi-chevron-down"></i></button>
           <ul class="collapse btn-toggle-nav" id="statistics_collapse">
             <li class="list-group-item dropdown-item"><a href=""> 　 - 강의 매출통계</a></li>
             <li class="list-group-item dropdown"><a href=""> 　 - 교재 매출통계</a></li>
             <li class="list-group-item dropdown"><a href=""> 　 - 월별 매출통계</a></li>
           </ul>
         </li>
-        <li class="pr list-group-item"><i class="bi bi-patch-question"></i> 　 문의 게시판 관리
+        <li class="pr list-group-item" data-link="inquiry"><i class="bi bi-patch-question"></i> 　 문의 게시판 관리
           <button class="btn btn-toggle collapsed" data-bs-toggle="collapse" data-bs-target="#bulletinboard_collapse"
-            href="#" aria-expanded="false"><i class="bi bi-caret-down-fill"></i></button>
+            href="#" aria-expanded="false"><i class="bi bi-chevron-down"></i></button>
           <ul class="collapse btn-toggle-nav" id="bulletinboard_collapse">
-            <li class="list-group-item dropdown-item"><a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/inquiry/notice.php"> 　 - 전체 공지사항</a></li>
+            <li class="list-group-item dropdown-item"><a
+                href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/inquiry/notice.php"> 　 - 전체 공지사항</a></li>
             <li class="list-group-item dropdown"><a href=""> 　 - 수강생 FAQ</a></li>
             <li class="list-group-item dropdown"><a href=""> 　 - 교사 FAQ</a></li>
-            <li class="list-group-item dropdown"><a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/inquiry/admin_qna.php"> 　 - 1:1 문의</a></li>
+            <li class="list-group-item dropdown"><a
+                href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/inquiry/admin_qna.php"> 　 - 1:1 문의</a></li>
           </ul>
         </li>
-        <li class="pr list-group-item"><i class="bi bi-chat-dots"></i> 　 커뮤니티 관리
+        <li class="pr list-group-item" data-link="community"><i class="bi bi-chat-dots"></i> 　 커뮤니티 관리
           <button class="btn btn-toggle collapsed" data-bs-toggle="collapse" data-bs-target="#community_collapse"
-            href="#" aria-expanded="false"><i class="bi bi-caret-down-fill"></i></button>
+            href="#" aria-expanded="false"><i class="bi bi-chevron-down"></i></button>
           <ul class="collapse btn-toggle-nav" id="community_collapse">
             <li class="list-group-item dropdown-item"><a href=""> 　 - 고민상담</a></li>
             <li class="list-group-item dropdown"><a href=""> 　 - 팀 프로젝트</a></li>
@@ -204,10 +207,10 @@ if (!isset($_SESSION['AUID'])) {
         </li>
       </ul>
       <ul class="no_line list-group">
-        <li class="list-group-item"><a href=""><i class="bi bi-chat-dots"></i> 　 강사 1:1</a></li>
-        <li class="list-group-item"><a href=""><i class="bi bi-journal-bookmark-fill"></i> 　 강사 매뉴얼</a></li>
-        <li class="list-group-item"><a href=""><i class="bi bi-journal-bookmark-fill"></i> 　 관리자 매뉴얼</a></li>
-        <li class="list-group-item"><a href=""><i class="bi bi-gear-fill"></i> 　 상점 관리</a></li>
+        <li class="list-group-item" data-link=""><a href=""><i class="bi bi-chat-dots"></i> 　 강사 1:1</a></li>
+        <li class="list-group-item" data-link=""><a href=""><i class="bi bi-journal-bookmark-fill"></i> 　 강사 매뉴얼</a></li>
+        <li class="list-group-item" data-link=""><a href=""><i class="bi bi-journal-bookmark-fill"></i> 　 관리자 매뉴얼</a></li>
+        <li class="list-group-item" data-link=""><a href=""><i class="bi bi-gear-fill"></i> 　 상점 관리</a></li>
       </ul>
     </nav>
     <div class="nav_sibling">

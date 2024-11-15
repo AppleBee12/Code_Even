@@ -40,14 +40,16 @@ body nav {
 
 body nav .list-group-item,
 body nav .list-group-item a {
+  padding:0;
   background-color: var(--bk1000);
   border: 1px solid var(--bk1000);
   color: var(--bk300);
   width: 274px;
   text-align: left;
-  line-height: 42px;
+  line-height: 46px;
   font-size: 18px;
 }
+
 
 body nav .list-group.line .list-group-item {
   align-content: end;
@@ -56,6 +58,7 @@ body nav .list-group.line .list-group-item {
 
 body nav ul li ul {
   padding-left: 0px;
+  padding-right: 0px;
 
   li{
   padding-left: 0px;
@@ -65,21 +68,25 @@ body nav ul li ul {
 body nav ul li ul li:first-child {
   border-top: 1px solid var(--bk300);
 }
-body nav ul li ul li:last-child {
-  border-bottom: none;
-}
-
-body nav .list-group.line ul li:last-child {
+body nav ul li ul li:last-child,
+body nav .list-group.line ul li:last-child  {
   border-bottom: none;
 }
 
 body nav .pr {
   padding-bottom: 0px;
+  cursor: pointer;
+  ul{
+       
+    li {
+    width: 257px;
+    margin-left:15px;
+  }
+}
 }
 
-body nav .pr ul li {
-  width: 257px;
-}
+
+
 
 body nav .no_line.list-group {
   margin-top: 46px;
@@ -102,12 +109,18 @@ body nav .list-group-item.active {
   }
 }
 
-.dropdown-toggle[aria-expanded="true"] i{
-  transform: rotate(90deg);
-  transition: transform 0.3s ease;
+body nav .list-group-item:hover,
+body nav .list-group-item:hover>a{
+  background: var(--bk0);
+  color: var(--bk900);
+  border-color:var(--bk0);
 }
 
 
+button.btn-toggle[aria-expanded="true"] i::before {
+  transform: rotate(180deg);
+  transition: transform 0.3s ease;
+}
 
 
 /* container */
@@ -127,7 +140,6 @@ body nav .list-group-item.active {
     border-radius: 8px;
     padding: 24px;
     min-width: 263px;
-
   }
 
   p {
@@ -143,11 +155,9 @@ body nav .list-group-item.active {
   }
 }
 
-
 .bottom_wrapper{
   margin-top: 20px;
 }
-
 
 .bott_left{
   width: 648px;
