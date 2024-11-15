@@ -22,7 +22,7 @@ header h1.logo a {
   color: var(--primary);
 }
 
-/* menu */
+/* navigation (menu) */
 
 body nav {
   width: 316px;
@@ -45,7 +45,7 @@ body nav .list-group-item a {
   color: var(--bk300);
   width: 274px;
   text-align: left;
-  line-height: 30px;
+  line-height: 42px;
   font-size: 18px;
 }
 
@@ -56,7 +56,6 @@ body nav .list-group.line .list-group-item {
 
 body nav ul li ul {
   padding-left: 0px;
-  margin-top: 8px;
 
   li{
   padding-left: 0px;
@@ -76,6 +75,12 @@ body nav .list-group.line ul li:last-child {
 
 body nav .pr {
   padding-bottom: 0px;
+
+  button{
+    position: absolute;
+    right: 0;
+    top: 5px;
+  }
 }
 
 body nav .pr ul li {
@@ -86,6 +91,10 @@ body nav .no_line.list-group {
   margin-top: 46px;
   margin-bottom: 47px;
 }
+
+
+
+/*nav의 active*/
 
 body nav .list-group-item.active {
   background: var(--bk0);
@@ -98,6 +107,12 @@ body nav .list-group-item.active {
     border: 1px solid var(--bk0);
   }
 }
+
+.dropdown-toggle[aria-expanded="true"] i{
+  transform: rotate(90deg);
+  transition: transform 0.3s ease;
+}
+
 
 
 
@@ -138,13 +153,15 @@ body nav .list-group-item.active {
 .bottom_wrapper{
   margin-top: 20px;
 }
+
+
 .bott_left{
   width: 648px;
-  height: 600px;
+  height: 632px;
   border: 1px solid var(--bk100);
-  padding:10px;
+  padding: 20px;
   border-radius: 8px;
-
+  margin-right:20px;
 }
 .sellcost_best_table{
   width: 732px;
