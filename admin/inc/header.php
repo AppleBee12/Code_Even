@@ -34,7 +34,8 @@ if (!isset($_SESSION['AUID'])) {
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/summernote@0.8.20/dist/summernote-lite.min.css" integrity="sha256-IKhQVXDfwbVELwiR0ke6dX+pJt0RSmWky3WB2pNx9Hg=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/summernote@0.8.20/dist/summernote-lite.min.css"
+    integrity="sha256-IKhQVXDfwbVELwiR0ke6dX+pJt0RSmWky3WB2pNx9Hg=" crossorigin="anonymous">
   <link href="../css/summernote-bs5.css" rel="stylesheet">
 
   <link rel="stylesheet" href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/css/common.css">
@@ -60,6 +61,12 @@ if (!isset($_SESSION['AUID'])) {
     case 'notice.php':
     case 'notice_write.php':
     case 'notice_details.php':
+    case 'student_faq.php':
+    case 'student_faq_write.php':
+    case 'student_faq_modify.php':
+    case 'teacher_faq.php':
+    case 'teacher_faq_write.php':
+    case 'teacher_faq_modify.php':
     case 'admin_qna.php':
     case 'admin_qna_datails.php':
     case 'admin_qna_write.php':
@@ -171,7 +178,8 @@ if (!isset($_SESSION['AUID'])) {
           </ul>
         </li>
         <li class="list-group-item"><a
-            href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/coupons/coupons.php"><i class="bi bi-ticket"></i> 　 쿠폰 관리</a></li>
+            href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/coupons/coupons.php"><i class="bi bi-ticket"></i>
+            쿠폰 관리</a></li>
         <li class="pr list-group-item"><i class="bi bi-graph-up-arrow"></i> 　 매출통계 관리
           <button class="btn btn-toggle collapsed" data-bs-toggle="collapse" data-bs-target="#statistics_collapse"
             href="#" aria-expanded="false"><i class="bi bi-caret-down-fill"></i></button>
@@ -185,10 +193,15 @@ if (!isset($_SESSION['AUID'])) {
           <button class="btn btn-toggle collapsed" data-bs-toggle="collapse" data-bs-target="#bulletinboard_collapse"
             href="#" aria-expanded="false"><i class="bi bi-caret-down-fill"></i></button>
           <ul class="collapse btn-toggle-nav" id="bulletinboard_collapse">
-            <li class="list-group-item dropdown-item"><a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/inquiry/notice.php"> 　 - 전체 공지사항</a></li>
-            <li class="list-group-item dropdown"><a href=""> 　 - 수강생 FAQ</a></li>
-            <li class="list-group-item dropdown"><a href=""> 　 - 교사 FAQ</a></li>
-            <li class="list-group-item dropdown"><a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/inquiry/admin_qna.php"> 　 - 1:1 문의</a></li>
+            <li class="list-group-item dropdown-item"><a
+                href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/inquiry/notice.php"> 　 - 전체 공지사항</a></li>
+            <li class="list-group-item dropdown"><a
+                href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/inquiry/student_faq.php"> 　 - 수강생 FAQ</a>
+            </li>
+            <li class="list-group-item dropdown"><a
+                href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/inquiry/teacher_faq.php"> 　 - 강사 FAQ</a></li>
+            <li class="list-group-item dropdown"><a
+                href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/inquiry/admin_qna.php"> 　 - 1:1 문의</a></li>
           </ul>
         </li>
         <li class="pr list-group-item"><i class="bi bi-chat-dots"></i> 　 커뮤니티 관리
