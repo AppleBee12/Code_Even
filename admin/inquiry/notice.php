@@ -1,7 +1,5 @@
 <?php
 include_once($_SERVER['DOCUMENT_ROOT'] . '/code_even/admin/inc/header.php');
-
-
 ?>
 
 
@@ -89,7 +87,7 @@ include_once($_SERVER['DOCUMENT_ROOT'] . '/code_even/admin/inc/header.php');
     <div class="d-flex justify-content-end gap-2">
       <button type="button" data-bs-toggle="modal" data-bs-target="#status_modal"
         class="btn btn-outline-secondary">상태일괄수정</button>
-      <a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/inquiry/notice_write.php" type="button"
+      <a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/inquiry/notice_write.php"
         class="btn btn-secondary">등록</a>
       <button type="button" class="btn btn-danger">삭제</button>
     </div>
@@ -144,14 +142,14 @@ include_once($_SERVER['DOCUMENT_ROOT'] . '/code_even/admin/inc/header.php');
                 <th scope="row">상태 <b>*</b></th>
                 <td class="d-flex gap-3">
                   <div class="form-check">
-                    <input class="form-check-input" type="radio" name="emailCheck" id="flexRadioDisabled" checked>
-                    <label class="form-check-label" for="flexRadioDisabled">
+                    <input class="form-check-input" type="radio" name="status" id="status" checked>
+                    <label class="form-check-label" for="status">
                       노출
                     </label>
                   </div>
                   <div class="form-check">
-                    <input class=" form-check-input" type="radio" name="emailCheck" id="flexRadioDisabled">
-                    <label class="form-check-label" for="flexRadioCheckedDisabled">
+                    <input class=" form-check-input" type="radio" name="status" id="status">
+                    <label class="form-check-label" for="status">
                       숨김
                     </label>
                   </div>
