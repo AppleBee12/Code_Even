@@ -95,8 +95,10 @@ input.form-control::placeholder, .ph{
 }
 
 nav .btn-toggle{
-  margin-left: 10%;
   color:var(--bk600);
+  position: absolute;
+  right: 0;
+  top: 5px;
 }
 .bi.bi-caret-down-fill::before{
     transform: rotate(90deg);

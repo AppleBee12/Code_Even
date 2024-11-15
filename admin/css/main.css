@@ -75,12 +75,6 @@ body nav .list-group.line ul li:last-child {
 
 body nav .pr {
   padding-bottom: 0px;
-
-  button{
-    position: absolute;
-    right: 0;
-    top: 5px;
-  }
 }
 
 body nav .pr ul li {
