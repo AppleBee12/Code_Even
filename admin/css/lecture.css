@@ -5,10 +5,7 @@
 
 /* 상단과 하단 테두리만 남기기 (세로선 제거) */
 .table th, .table td {
-  border-top: 1px solid #dee2e6 !important;
-  border-bottom: 1px solid #dee2e6 !important;
   padding: 8px;
-  text-align: center;
   vertical-align: middle;
 }
 
@@ -28,6 +25,11 @@
 .waitopen {
   background-color: #E9ECEF;
   color: #343A40;
+}
+
+i{
+  cursor: pointer;
+  font-size: 24px;
 }
 
 /* 스위치 체크 시 배경색 */
@@ -171,7 +173,6 @@ tbody tr td .box {
 
   i{
     margin-right: 24px;
-    font-size: 24px;
   }
 }
 
@@ -181,5 +182,12 @@ tbody tr td .box {
 
 .exam-select {
   margin-left: 10px; /* 원하는 간격으로 조정 */
+}
+
+.leplus{
+  width: 100% !important;
+  margin-top: 10px !important;
+  height: 38px !important;
+  border-color: var(--bk800) !important;
 }
 
