@@ -38,7 +38,7 @@
             <button type="button" class="btn btn-outline-secondary col-md-4">중복확인</button>
           </div>
 
-          <label for="userid" class="form-label mt-3">아이디</label>
+          <label for="userid" class="form-label mt-3">아이디 <b>*</b></label>
 
           <div class="d-flex gap-1" id="signup_form">
             <input type="text" id="userid" class="form-control" placeholder="code_even123" name="userid" required>
@@ -46,17 +46,17 @@
           </div>
           
 
-          <label for="password" class="form-label mt-3">비밀번호</label>
+          <label for="password" class="form-label mt-3">비밀번호 <b>*</b></label>
           <input type="password" id="userpw" class="form-control" placeholder="숫자/영문/특수문자를 조합한 6~16자 이하" name="userpw" required>
 
           <div class=" mt-3 ">
             <div class="">
-              <label for="userphonenum" class="form-label mt-3">연락처</label>
+              <label for="userphonenum" class="form-label mt-3">연락처 <b>*</b></label>
               <input type="text" id="userphonenum" class="form-control" placeholder="010-1234-5678" name="userphonenum" required>
             </div>
             
             <div class="">
-              <label for="useremail" class="form-label mt-3">이메일</label>
+              <label for="useremail" class="form-label mt-3">이메일 <b>*</b></label>
               <input type="email" id="useremail" class="form-control" aria-describedby="passwordHelpBlock" placeholder="code@even.com" name="useremail" required>
             </div>
           </div>
