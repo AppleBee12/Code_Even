@@ -5,7 +5,7 @@ include_once($_SERVER['DOCUMENT_ROOT'] . '/code_even/admin/inc/header.php');
 <div class="container">
   <h2>문의게시판 관리</h2>
   <div class="content_bar">
-    <h3>전체 공지사항 작성</h3>
+    <h3>전체 공지사항 수정</h3>
   </div>
 
   <form action="notice_write_ok.php" method="POST" enctype="multipart/form-data">
@@ -44,14 +44,14 @@ include_once($_SERVER['DOCUMENT_ROOT'] . '/code_even/admin/inc/header.php');
           <th scope="row">제목 <b>*</b></th>
           <td colspan="3">
             <div>
-              <input type="text" name="title" class="form-control w-75" id="title" placeholder="제목을 입력해주세요.">
+              <input type="text" name="title" class="form-control w-75" id="title" placeholder="제목을 입력해주세요." value="[공지] 결제요청 가이드라인 안내">
             </div>
           </td>
         </tr>
         <tr class="none">
           <td colspan="3">
             <div>
-              <textarea name="content" id="content" class="form-control"></textarea>
+              <textarea name="content" id="content" class="form-control" >[공지] 결제요청 가이드라인 안내</textarea>
             </div>
           </td>
         </tr>

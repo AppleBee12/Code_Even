@@ -9,156 +9,137 @@ include_once($_SERVER['DOCUMENT_ROOT'] . '/code_even/admin/inc/header.php');
     <h3>수강생 상세정보</h3>
   </div>
 
-  <div class="row">
-    <div class="col">
-      <table class="table none d-flex">
-        <thead>
-          <tr>
-            <th scope="col">이름</th>
-          </tr>
-          <tr>
-            <th scope="col">아이디</th>
-          </tr>
-          <tr>
-            <th scope="col">휴대전화</th>
-          </tr>
-          <tr>
-            <th scope="col">이메일</th>
-          </tr>
-          <tr>
-            <th scope="col">이메일 수신 여부</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>홍길동</td>
-          </tr>
-          <tr>
-            <td>hong1234</td>
-          </tr>
-          <tr>
-            <td>010-1234-6589</td>
-          </tr>
-          <tr>
-            <td>exampla1111@example.com</td>
-          </tr>
-          <tr>
-            <td class="d-flex gap-2">
-              <div class="form-check">
-                <input class="form-check-input" type="radio" name="emailCheck" id="flexRadioDisabled" checked disabled>
-                <label class="form-check-label" for="flexRadioDisabled">
-                  동의
-                </label>
-              </div>
-              <div class="form-check">
-                <input class=" form-check-input" type="radio" name="emailCheck" id="flexRadioDisabled" disabled>
-                <label class="form-check-label" for="flexRadioCheckedDisabled">
-                  비동의
-                </label>
-              </div>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-    <div class="col">
-      <table class="table none d-flex">
-        <thead>
-          <tr>
-            <th scope="col">가입일</th>
-          </tr>
-          <tr>
-            <th scope="col">마지막접속일</th>
-          </tr>
-          <tr>
-            <th scope="col">상태</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>2024/10/10 13:14:15</td>
-          </tr>
-          <tr>
-            <td>2024/10/10 13:14:15</td>
-          </tr>
-          <tr>
-            <td class="d-flex gap-2">
-              <div class="form-check">
-                <input class="form-check-input" type="radio" name="statusCheck" id="statusCheck" checked disabled>
-                <label class="form-check-label" for="flexRadioDisabled">
-                  정상
-                </label>
-              </div>
-              <div class="form-check">
-                <input class=" form-check-input" type="radio" name="statusCheck" id="statusCheck" disabled>
-                <label class="form-check-label" for="flexRadioCheckedDisabled">
-                  정지
-                </label>
-              </div>
-              <div class="form-check">
-                <input class=" form-check-input" type="radio" name="statusCheck" id="statusCheck" disabled>
-                <label class="form-check-label" for="flexRadioCheckedDisabled">
-                  탈퇴
-                </label>
-              </div>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-  </div>
+  <form action="" method="">
+    <table class="table details_table">
+      <colgroup>
+        <col style="width:160px">
+        <col style="width:516px">
+      </colgroup>
+      <thead class="thead-hidden">
+        <tr>
+          <th scope="col">구분</th>
+          <th scope="col">내용</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="none">
+          <th scope="row">이름(아이디)</th>
+          <td>홍길동</td>
+          <th scope="row">가입일</th>
+          <td>2024/10/10 13:14:15</td>
+        </tr>
+        <tr class="none">
+          <th scope="row">아이디</th>
+          <td>hong1234</td>
+          <th scope="row">마지막접속일</th>
+          <td>2024/10/10 13:14:15</td>
+        </tr>
+        <tr class="none">
+          <th scope="row">휴대전화</th>
+          <td>010-1234-6589</td>
+          <th scope="row">상태</th>
+          <td class="d-flex gap-3">
+            <div class="form-check">
+              <input class="form-check-input" type="radio" name="statusCheck" id="flexRadioDisabled" checked disabled>
+              <label class="form-check-label" for="flexRadioDisabled">
+                정상
+              </label>
+            </div>
+            <div class="form-check">
+              <input class=" form-check-input" type="radio" name="statusCheck" id="flexRadioDisabled" disabled>
+              <label class="form-check-label" for="flexRadioCheckedDisabled">
+                정지
+              </label>
+            </div>
+            <div class="form-check">
+              <input class=" form-check-input" type="radio" name="statusCheck" id="flexRadioDisabled" disabled>
+              <label class="form-check-label" for="flexRadioCheckedDisabled">
+                탈퇴
+              </label>
+            </div>
+          </td>
+        </tr>
+        <tr class="none">
+          <th scope="row">이메일</th>
+          <td>exampla1111@example.com</td>
+          <th scope="row">마지막접속일</th>
+          <td>2024/10/10 13:14:15</td>
+        </tr>
+        <tr class="none">
+          <th scope="row">이메일 수신 여부</th>
+          <td class="d-flex gap-3">
+            <div class="form-check">
+              <input class="form-check-input" type="radio" name="emailCheck" id="emailCheck" checked disabled>
+              <label class="form-check-label" for="flexRadioDisabled">
+                동의
+              </label>
+            </div>
+            <div class="form-check">
+              <input class=" form-check-input" type="radio" name="emailCheck" id="flexRadioDisabled" disabled>
+              <label class="form-check-label" for="flexRadioCheckedDisabled">
+                비동의
+              </label>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </form>
 
   <div class="content_bar">
     <h3>수강 정보</h3>
   </div>
-  <table class="table">
-    <thead>
-      <tr>
-        <th scope="col">번호</th>
-        <th scope="col">강사명</th>
-        <th scope="col">강좌명</th>
-        <th scope="col">학습시작일</th>
-        <th scope="col">학습종료일</th>
-        <th scope="col">퀴즈</th>
-        <th scope="col">시험</th>
-        <th scope="col">진도율</th>
-        <th scope="col">수강이수</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <th scope="row">2</th>
-        <td>김동주</td>
-        <td>웹 프로그래밍의 꽃! 웹페이지의 동 적요소를 담당하는...</td>
-        <td>2024/11/02</td>
-        <td>2024/12/01</td>
-        <td>100</td>
-        <td>80</td>
-        <td>100%</td>
-        <td>
-          <button id="printButton">
-            <span class="badge text-bg-dark">이수증</span>
-          </button>
-        </td>
-      </tr>
-      <tr>
-        <th scope="row">1</th>
-        <td>김동주</td>
-        <td>기초부터 확실하게! 페이지의 내용 전달을 위한 HTML...</td>
-        <td>2024/11/02</td>
-        <td>2024/12/31</td>
-        <td></td>
-        <td>20</td>
-        <td>40%</td>
-        <td>
-          <span class="badge text-bg-light">미이수</span>
-        </td>
-      </tr>
-    </tbody>
-  </table>
-  <div class="d-flex justify-content-end">
-    <a href="student_list.php" type="button" class="btn btn-outline-danger">취소</a>
-  </div>
+
+  <form action="" method="">
+    <table class="table list_table">
+      <thead>
+        <tr>
+          <th scope="col">번호</th>
+          <th scope="col">강사명</th>
+          <th scope="col">강좌명</th>
+          <th scope="col">학습시작일</th>
+          <th scope="col">학습종료일</th>
+          <th scope="col">퀴즈</th>
+          <th scope="col">시험</th>
+          <th scope="col">진도율</th>
+          <th scope="col">수강이수</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th scope="row">2</th>
+          <td>김동주</td>
+          <td>웹 프로그래밍의 꽃! 웹페이지의 동 적요소를 담당하는...</td>
+          <td>2024/11/02</td>
+          <td>2024/12/01</td>
+          <td>100</td>
+          <td>80</td>
+          <td>100%</td>
+          <td>
+            <button id="printButton">
+              <span class="badge text-bg-dark">이수증</span>
+            </button>
+          </td>
+        </tr>
+        <tr>
+          <th scope="row">1</th>
+          <td>김동주</td>
+          <td>기초부터 확실하게! 페이지의 내용 전달을 위한 HTML...</td>
+          <td>2024/11/02</td>
+          <td>2024/12/31</td>
+          <td></td>
+          <td>20</td>
+          <td>40%</td>
+          <td>
+            <span class="badge text-bg-light">미이수</span>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="d-flex justify-content-end">
+      <a href="student_list.php" type="button" class="btn btn-outline-danger">취소</a>
+    </div>
+  </form>
 </div>
 
 <script>

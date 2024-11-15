@@ -52,3 +52,10 @@
   border-bottom: 1px solid var(--bk100); /* 구분선 */
   height: 10px; /* 원하는 높이로 조절 */
 }
+
+.card-header {background: none !important; height: 56px; display: flex;
+  align-items: center;
+  p {margin-bottom: 0 !important;}
+}
+
+#propfile_thumbnail {width: 24px; height: 24px;}
