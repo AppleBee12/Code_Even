@@ -19,6 +19,58 @@ include_once($_SERVER['DOCUMENT_ROOT'] . '/CODE_EVEN/admin/inc/header.php');
     padding: 40px;
   }
 
+  .selecmodify{
+    border-color: var(--bk900);
+    color: var(--bk900);
+  }
+
+  .selecmodify:hover{
+    border-color: var(--bk0);
+    background-color: var(--bk900);
+    color: var(--bk0);
+  }
+
+  .nlecture{
+    border-color: var(--bk0);
+    background-color: var(--bk900);
+    color: var(--bk0);
+  }
+
+  .nlecture:hover{
+    border-color: var(--bk900);
+    color: var(--bk900);
+  }
+
+  .images{
+    width: 150px;
+  }
+
+  .file{
+    margin: 0;
+  }
+
+  .exercise{
+    width: 100px;
+  }
+
+  .border-spacing{
+    border-bottom: 30px;
+  }
+
+  .bb{
+    position: relative;
+  }
+
+  .bb::after{
+    content: "";
+    display: block;
+    height: 2px;
+    background-color: #ccc;
+    width: calc(100% - 20%);
+    margin: 10px auto;
+  }
+
+
 </style>
 
 <div class="container">
@@ -68,36 +120,39 @@ include_once($_SERVER['DOCUMENT_ROOT'] . '/CODE_EVEN/admin/inc/header.php');
     <h3">강의 상세</h3>
   </div>
   <form action="" method="" class="mt-3">
-    <table class="table list_table">
-      <colgroup>
-        <col style="width:160px">
-        <col style="width:516px">
-        <col style="width:160px">
-        <col style="width:516px">
-      </colgroup>
-      <tbody>
-        <tr>
-          <th scope="row" rowspan="3"><img src="../../images/sb_logo.png" alt="" style="width: 200px;"></th>
-          <td>1강. 개발 시작하기 전 준비!</td>
-          <td>
-            <div class="input-group mb-3">
-            <span class="input-group-text" id="basic-addon2">실습 파일</span>
-            <input type="text" class="form-control file-view" placeholder="index.html" aria-label="Recipient's username" aria-describedby="basic-addon2">
+  <div class="container py-3">
+  <table class="table">
+    <tbody>
+      <tr>
+        <!-- 이미지 열 -->
+        <td class="images">
+          <img src="../../images/sb_logo" alt="Thumbnail" class="img-fluid rounded">
+        </td>
+        <!-- 제목과 버튼, 입력 필드 열 -->
+        <td class="align-middle">
+          <div class="d-flex justify-content-between align-items-center">
+            <span class="fw-bold">1강. 개발 시작하기 전 준비!</span>
+            <div class="d-flex align-items-center">
+              <button type="button" class="btn btn-sm btn-outline-secondary file">실습 파일</button>
+              <input type="text" class="form-control form-control-sm me-2 exercise" placeholder="index.html">
+              <button type="button" class="btn btn-sm btn-outline-secondary me-2">퀴즈 미리보기</button>
+              <button type="button" class="btn btn-sm btn-outline-secondary">시험 미리보기</button>
+            </div>
           </div>
-          </td>
-          <td>
-            <button type="button" class="btn btn-sm nlecture">퀴즈 미리보기</button>
-            <button type="button" class="btn btn-sm nlecture">시험 미리보기</button>
-          </td>
-        </tr>
-        <tr>
-          <td rowspan="2" colspan="3">
-            <p>개발을 대하는 마음가짐과 검색 방법 및 공식 문서 활용하는 습관을 키우며 vs code 설치까지 한 번에! 완전 처음 접하시는 분이라면 무조건 집중
-            해서 수강해 보세요</p>
-          </td>
-        </tr>
-      </tbody>
-    </table>
+        </td>
+      </tr>
+      <!-- 설명 텍스트 열 -->
+      <tr class="bb">
+        <td></td> <!-- 이미지 열 빈칸으로 유지 -->
+        <td>
+          <p class="text-muted mb-0">
+            개발을 대하는 마음가짐과 검색 방법 및 공식 문서 활용하는 습관을 키우며 vs code 설치까지 한 번에! 완전 처음 접하시는 분이라면 무조건 집중해서 수강해 보세요
+          </p>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  </div>
   </form>
 </div>
 <?php
