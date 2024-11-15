@@ -67,7 +67,7 @@ include_once($_SERVER['DOCUMENT_ROOT'] . '/code_even/admin/inc/header.php');
     <div class="d-flex justify-content-end gap-2">
       <a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/inquiry/notice.php" type="button"
         class="btn btn-outline-danger">취소</a>
-      <a href="" type="submit" class="btn btn-secondary">등록</a>
+      <button type="submit" class="btn btn-secondary">등록</button>
     </div>
   </form>
 
