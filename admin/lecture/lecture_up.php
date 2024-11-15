@@ -14,14 +14,6 @@ include_once($_SERVER['DOCUMENT_ROOT'] . '/CODE_EVEN/admin/inc/header.php');
     border: none;
   }
 
-  th[scope="row"] {
-    width: 15%;
-  }
-
-  td[colspan="6"] {
-    width: 85%;
-  }
-
   .content_bar{
     margin-top: 50px;
   }
