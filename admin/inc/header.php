@@ -73,9 +73,7 @@ if (!isset($_SESSION['AUID'])) {
   if (isset($chart_js)) {
     echo $chart_js;
   }
-  if (isset($main_js)) {
-    echo $main_js;
-  }
+
   ?>
 
 </head>
