@@ -143,7 +143,7 @@ header h1.logo a {
 
 /* navigation (menu) */
 
-body nav {
+body nav.nav {
   width: 316px;
   background: var(--bk1000);
   align-items: flex-end;
@@ -168,8 +168,18 @@ body nav .list-group-item a {
   font-size: 18px;
 }
 
+body nav ul.list-group + .list-group,
+body nav .pr .list-group-item:first-child{
+  border-top: 1px solid var(--bk700);
+}
+
+
+
+body nav ul.line .list-group-item + .list-group-item{
+  border-top: 1px solid var(--bk900);
+}
+
 body nav .list-group-item{
-/* border: 1px solid var(--bk1000); */
 border:0;
 }
 
@@ -179,25 +189,6 @@ body nav ul li ul {
 
   li {
     padding-left: 0px;
-  }
-}
-
-/* body nav ul li ul li:first-child {
-  border-top: 1px solid var(--bk300);
-} */
-/* body nav ul li ul li:last-child,
-body nav .list-group.line ul li:last-child {
-  border-bottom: none;
-} */
-
-body nav .pr {
-  padding-bottom: 0px;
-  border: 1px solid red;
-  ul {
-    li {
-      width: 257px;
-      margin-left: 17px;
-    }
   }
 }
 

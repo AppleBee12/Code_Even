@@ -158,14 +158,14 @@ $current_page = basename($_SERVER['REQUEST_URI'], ".php");
               aria-expanded="false"><i class="bi bi-chevron-down"></i></button>
             <ul class="collapse btn-toggle-nav" id="lecture_collapse">
               <li class="list-group-item dropdown-item"><a
-                  href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/lecture/lecture_list.php"> 　 - 강좌 목록</a></li>
+                  href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/lecture/lecture_list.php">　　-　강좌 목록</a></li>
               <li class="list-group-item dropdown-item"><a
-                  href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/lecture/lecture_up.php"> 　 - 강좌 등록</a></li>
+                  href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/lecture/lecture_up.php">　　-　강좌 등록</a></li>
               <li class="list-group-item dropdown-item"><a
-                  href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/lecture/quiz_test_list.php"> 　 - 퀴즈 / 시험
+                  href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/lecture/quiz_test_list.php">　　-　퀴즈 / 시험
                   목록</a></li>
               <li class="list-group-item dropdown-item"><a
-                  href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/lecture/quiz_test_outcome.php"> 　 - 퀴즈 / 시험
+                  href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/lecture/quiz_test_outcome.php">　　-　퀴즈 / 시험
                   결과 관리</a></li>
             </ul>
           </li>
@@ -173,8 +173,8 @@ $current_page = basename($_SERVER['REQUEST_URI'], ".php");
             <button class="btn btn-toggle collapsed" data-bs-toggle="collapse" data-bs-target="#book_collapse" href="#"
               aria-expanded="false"><i class="bi bi-chevron-down"></i></button>
             <ul class="collapse btn-toggle-nav" id="book_collapse">
-              <li class="list-group-item dropdown-item"><a href=""> 　 - 교재 목록</a></li>
-              <li class="list-group-item dropdown-item"><a href=""> 　 - 교재 등록</a></li>
+              <li class="list-group-item dropdown-item"><a href="">　　-　교재 목록</a></li>
+              <li class="list-group-item dropdown-item"><a href="">　　-　교재 등록</a></li>
             </ul>
           </li>
         </ul>
@@ -189,15 +189,15 @@ $current_page = basename($_SERVER['REQUEST_URI'], ".php");
               aria-expanded="false"><i class="bi bi-chevron-down"></i></button>
             <ul class="collapse btn-toggle-nav" id="student_collapse">
               <li class="list-group-item dropdown-item"><a
-                  href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/student/student_list.php"> 　 - 수강생 목록</a>
+                  href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/student/student_list.php">　　-　수강생 목록</a>
               </li>
               <li class="list-group-item"><a
-                  href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/student/student_question.php"> 　 - 수강생 질문</a>
+                  href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/student/student_question.php">　　-　수강생 질문</a>
               </li>
               <li class="list-group-item"><a
-                  href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/student/send_email.php"> 　 - 이메일 발송</a></li>
+                  href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/student/send_email.php">　　-　이메일 발송</a></li>
               <li class="list-group-item"><a
-                  href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/student/course_reviews.php"> 　 - 수강 후기</a>
+                  href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/student/course_reviews.php">　　-　수강 후기</a>
               </li>
             </ul>
           </li>
@@ -207,9 +207,9 @@ $current_page = basename($_SERVER['REQUEST_URI'], ".php");
             <button class="btn btn-toggle collapsed" data-bs-toggle="collapse" data-bs-target="#payment_collapse"
               aria-expanded="false"><i class="bi bi-chevron-down"></i></button>
             <ul class="collapse btn-toggle-nav" id="payment_collapse">
-              <li class="list-group-item dropdown-item"><a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/orders/orders_list.php"> 　 - 주문/결제 목록</a></li>
-              <li class="list-group-item dropdown-item"><a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/orders/delivery_list.php"> 　 - 교재 배송관리</a></li>
-              <li class="list-group-item dropdown-item"><a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/orders/refunds_list.php"> 　 - 환불 관리</a></li>
+              <li class="list-group-item dropdown-item"><a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/orders/orders_list.php">　　-　주문/결제 목록</a></li>
+              <li class="list-group-item dropdown-item"><a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/orders/delivery_list.php">　　-　교재 배송관리</a></li>
+              <li class="list-group-item dropdown-item"><a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/orders/refunds_list.php">　　-　환불 관리</a></li>
             </ul>
           </li>
           <li class="list-group-item" data-link="coupons"><a
@@ -218,9 +218,9 @@ $current_page = basename($_SERVER['REQUEST_URI'], ".php");
             <button class="btn btn-toggle collapsed" data-bs-toggle="collapse" data-bs-target="#statistics_collapse"
               href="#" aria-expanded="false"><i class="bi bi-chevron-down"></i></button>
             <ul class="collapse btn-toggle-nav" id="statistics_collapse">
-              <li class="list-group-item dropdown-item"><a href=""> 　 - 강의 매출통계</a></li>
-              <li class="list-group-item dropdown"><a href=""> 　 - 교재 매출통계</a></li>
-              <li class="list-group-item dropdown"><a href=""> 　 - 월별 매출통계</a></li>
+              <li class="list-group-item dropdown-item"><a href="">　　-　강의 매출통계</a></li>
+              <li class="list-group-item dropdown"><a href="">　　-　교재 매출통계</a></li>
+              <li class="list-group-item dropdown"><a href="">　　-　월별 매출통계</a></li>
             </ul>
           </li>
         </ul>
@@ -229,19 +229,19 @@ $current_page = basename($_SERVER['REQUEST_URI'], ".php");
             <button class="btn btn-toggle collapsed" data-bs-toggle="collapse" data-bs-target="#bulletinboard_collapse"
               href="#" aria-expanded="false"><i class="bi bi-chevron-down"></i></button>
             <ul class="collapse btn-toggle-nav" id="bulletinboard_collapse">
-              <li class="list-group-item dropdown-item"><a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/inquiry/notice.php"> 　 - 전체 공지사항</a></li>
-              <li class="list-group-item dropdown"><a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/inquiry/student_faq.php"> 　 - 수강생 FAQ</a></li>
-              <li class="list-group-item dropdown"><a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/inquiry/teacher_faq.php"> 　 - 교사 FAQ</a></li>
-              <li class="list-group-item dropdown"><a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/inquiry/admin_qna.php"> 　 - 1:1 문의</a></li>
+              <li class="list-group-item dropdown-item"><a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/inquiry/notice.php">　　-　전체 공지사항</a></li>
+              <li class="list-group-item dropdown"><a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/inquiry/student_faq.php">　　-　수강생 FAQ</a></li>
+              <li class="list-group-item dropdown"><a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/inquiry/teacher_faq.php">　　-　교사 FAQ</a></li>
+              <li class="list-group-item dropdown"><a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/inquiry/admin_qna.php">　　-　1:1 문의</a></li>
             </ul>
           </li>
           <li class="pr list-group-item" data-link="community">　<i class="bi bi-chat-dots"></i> 　 커뮤니티 관리
             <button class="btn btn-toggle collapsed" data-bs-toggle="collapse" data-bs-target="#community_collapse"
               href="#" aria-expanded="false"><i class="bi bi-chevron-down"></i></button>
             <ul class="collapse btn-toggle-nav" id="community_collapse">
-              <li class="list-group-item dropdown-item"><a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/community/counsel.php"> 　 - 고민상담</a></li>
-              <li class="list-group-item dropdown"><a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/community/team_project.php"> 　 - 팀 프로젝트</a></li>
-              <li class="list-group-item dropdown"><a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/community/blog.php"> 　 - 블로그</a></li>
+              <li class="list-group-item dropdown-item"><a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/community/counsel.php">　　-　고민상담</a></li>
+              <li class="list-group-item dropdown"><a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/community/team_project.php">　　-　팀 프로젝트</a></li>
+              <li class="list-group-item dropdown"><a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/community/blog.php">　　-　블로그</a></li>
             </ul>
           </li>
         </ul>
