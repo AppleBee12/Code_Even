@@ -127,7 +127,7 @@ $current_page = basename($_SERVER['REQUEST_URI'], ".php");
   <div class="nav_wrapper d-flex">
     <nav class="nav navbar-expand-lg d-flex flex-column justify-content-between">
       <ul class="list-group line accordion">
-        <li class="list-group-item active" data-link="index"><a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/index.php"><i
+        <li class="list-group-item" data-link="admin"><a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/index.php"><i
               class="bi bi-grid"></i> 　 대시보드</a></li>
         <li class="list-group-item" data-link="category">
           <a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/category/category.php">
@@ -189,7 +189,7 @@ $current_page = basename($_SERVER['REQUEST_URI'], ".php");
             <li class="list-group-item dropdown-item"><a href=""> 　 - 교재 배송관리</a></li>
           </ul>
         </li>
-        <li class="list-group-item"><a
+        <li class="list-group-item" data-link="coupons"><a
             href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/coupons/coupons.php"><i class="bi bi-ticket"></i> 　 쿠폰 관리</a></li>
         <li class="pr list-group-item"><i class="bi bi-graph-up-arrow"></i> 　 매출통계 관리
           <button class="btn btn-toggle collapsed" data-bs-toggle="collapse" data-bs-target="#statistics_collapse"
