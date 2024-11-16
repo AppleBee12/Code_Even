@@ -1,5 +1,11 @@
 <?php
 include_once($_SERVER['DOCUMENT_ROOT'] . '/code_even/admin/inc/header.php');
+
+$ntid = $_GET['ntid'];
+$sql = "SELECT notice.*, user.username, user.userid FROM notice JOIN user ON notice.uid = user.uid";
+$result = $mysqli->query($sql);
+$data = $result->fetch_object();
+
 ?>
 
 <div class="container">
@@ -23,17 +29,21 @@ include_once($_SERVER['DOCUMENT_ROOT'] . '/code_even/admin/inc/header.php');
       <tbody>
         <tr>
           <th scope="row">이름(아이디)</th>
-          <td>관리자(admin)</td>
+          <td><?=$data->username;?>(<?=$data->userid;?>)</td>
           <th scope="row">상태 <b>*</b></th>
           <td class="d-flex gap-3">
             <div class="form-check">
-              <input class="form-check-input" type="radio" name="emailCheck" id="flexRadioDisabled" checked>
+              <input class="form-check-input" type="radio" name="emailCheck" id="flexRadioDisabled" 
+                <?= ($data->status === 'on') ? 'checked' : ''; ?>
+              >
               <label class="form-check-label" for="flexRadioDisabled">
                 노출
               </label>
             </div>
             <div class="form-check">
-              <input class=" form-check-input" type="radio" name="emailCheck" id="flexRadioDisabled">
+              <input class=" form-check-input" type="radio" name="emailCheck" id="flexRadioDisabled"
+                <?= ($data->status === 'off') ? 'checked' : ''; ?>
+              >
               <label class="form-check-label" for="flexRadioCheckedDisabled">
                 숨김
               </label>
@@ -44,14 +54,14 @@ include_once($_SERVER['DOCUMENT_ROOT'] . '/code_even/admin/inc/header.php');
           <th scope="row">제목 <b>*</b></th>
           <td colspan="3">
             <div>
-              <input type="text" name="title" class="form-control w-75" id="title" placeholder="제목을 입력해주세요." value="[공지] 결제요청 가이드라인 안내">
+              <input type="text" name="title" class="form-control w-75" id="title" placeholder="제목을 입력해주세요." value="<?=$data->title;?>">
             </div>
           </td>
         </tr>
         <tr class="none">
           <td colspan="3">
             <div>
-              <textarea name="content" id="content" class="form-control" >[공지] 결제요청 가이드라인 안내</textarea>
+              <textarea name="content" id="content" class="form-control" ><?=$data->content;?></textarea>
             </div>
           </td>
         </tr>
