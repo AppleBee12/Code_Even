@@ -80,8 +80,6 @@ include_once($_SERVER['DOCUMENT_ROOT'] . '/code_even/admin/inc/header.php');
       </tbody>
     </table>
     <div class="d-flex justify-content-end gap-2">
-      <button type="button" data-bs-toggle="modal" data-bs-target="#status_modal"
-        class="btn btn-outline-secondary">상태일괄수정</button>
       <a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/inquiry/student_faq_write.php" type="button"
         class="btn btn-secondary">등록</a>
       <button type="button" class="btn btn-danger">삭제</button>

@@ -1,7 +1,7 @@
 <?php
 include_once($_SERVER['DOCUMENT_ROOT'] . '/code_even/admin/inc/header.php');
 
-$sql = "SELECT username FROM user";
+$sql = "SELECT userid, username FROM user";
 $result = $mysqli->query($sql);
 $data = $result->fetch_object();
 
@@ -15,8 +15,11 @@ $data = $result->fetch_object();
 
   <form action="notice_write_ok.php" method="POST" enctype="multipart/form-data">
     <input type="hidden" name="username" value="<?= $data->username; ?>">
+    <input type="hidden" name="userid" value="<?= $data->userid; ?>">
     <table class="table details_table">
       <colgroup>
+        <col style="width:160px">
+        <col style="width:516px">
         <col style="width:160px">
         <col style="width:516px">
       </colgroup>
@@ -29,7 +32,7 @@ $data = $result->fetch_object();
       <tbody>
         <tr>
           <th scope="row">이름(아이디)</th>
-          <td><?= $data->username; ?></td>
+          <td><?= $data->username; ?>(<?= $data->userid; ?>)</td>
           <th scope="row">상태 <b>*</b></th>
           <td class="d-flex gap-3">
             <div class="form-check">
@@ -64,7 +67,7 @@ $data = $result->fetch_object();
         <tr class="none">
           <th scope="row">파일 등록 <b>*</b></th>
           <td>
-            <input type="file" class="form-control" id="inputGroupFile02" class="w-50">
+            <input type="file" class="form-control" id="file" class="w-50">
           </td>
         </tr>
       </tbody>
