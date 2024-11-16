@@ -20,6 +20,8 @@ $data = $result->fetch_object();
       <colgroup>
         <col style="width:160px">
         <col style="width:516px">
+        <col style="width:160px">
+        <col style="width:516px">
       </colgroup>
       <thead class="thead-hidden">
         <tr>
