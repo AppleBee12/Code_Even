@@ -1,5 +1,9 @@
 <?php
+
 $chart_js = "<script src=\"https://cdn.jsdelivr.net/npm/chart.js\"></script>";
+$host = $_SERVER['HTTP_HOST'];
+$main_js = "<script src=\"http://$host/code_even/admin/js/main.js\"></script>";
+
 include_once($_SERVER['DOCUMENT_ROOT'] . '/CODE_EVEN/admin/inc/header.php');
 
 if (!isset($_SESSION['AUID'])) {
@@ -8,6 +12,8 @@ if (!isset($_SESSION['AUID'])) {
   location.href='admin/login/login.php';
   </script>";
 }
+
+
 ?>
 
 <div class="container">
@@ -83,7 +89,8 @@ if (!isset($_SESSION['AUID'])) {
             <h3>카테고리별 매출 금액</h3>
             <p class="month">11월 현황</p>
           </div>
-          <p>7,123,000<span class="top_text"> 원</span></p><canvas id="cate_one_return" width="250" height="250"></canvas>
+          <p>7,123,000<span class="top_text"> 원</span></p>
+          <canvas id="cate_one_return" width="250" height="250"></canvas>
         </div>
       </div>
     </div>
@@ -91,98 +98,9 @@ if (!isset($_SESSION['AUID'])) {
 
 </div>
 
-<script>
-  const barchart = document.getElementById('current_six_returns');
-  const cateDatas = [250, 390, 580, 610, 710, 783]
-
-  new Chart(barchart, {
-    type: 'bar',
-    data: {
-      labels: ['6월', '7월', '8월', '9월', '10월', '11월'],
-      datasets: [{
-        label: '(만원)',
-        data: cateDatas,
-        borderColor: '#D25353',
-        backgroundColor: '#c93333',
-        borderWidth: 1,
-      }]
-    },
-    options: {
-      scales: {
-        y: {
-          beginAtZero: true
-        }
-      }
-    }
-  });
-</script>
-<script>
-  const lineCtx = document.getElementById('current_six_news').getContext('2d');
-  const lineChart = new Chart(lineCtx, {
-    type: 'line',
-    data: {
-      labels: ['6월', '7월', '8월', '9월', '10월', '11월'],
-      datasets: [{
-        label: '신규 가입자 수',
-        data: [2000, 2800, 3200, 3800, 4000, 3765],
-        borderColor: '#D25353',
-        backgroundColor: '#c93333',
-        borderWidth: 1,
-        fill: false,
-        pointRadius: 3
-      }, {
-        label: '방문자',
-        data: [8000, 6700, 6900, 8500, 9215, 7265],
-        borderColor: '#7987FF',
-        backgroundColor: '#5e62f1',
-        borderWidth: 1,
-        fill: false,
-        pointRadius: 3
-      }],
-      options: {
-        scales: {
-          x: {
-            beginAtZero: true
-          },
-          y: {
-            beginAtZero: true
-          }
-        }
-      }
-    }
-  });
-</script>
-<script>
-  const doughnutCtx = document.getElementById('cate_one_return');
-  const doughnutChart = new Chart(doughnutCtx, {
-    type: 'doughnut',
-    data: {
-      labels: ['웹 개발', '클라우드DB', '보안 네트워크'],
-      datasets: [{
-        label: '카테고리',
-        data: [3561500, 2493050, 1068450],
-        borderColor: ['#D25353'],
-        backgroundColor: ['#c93333', '#E76969', '#E8A9A9'],
-        borderWidth: 1,
-        fill: false,
-        pointRadius: 3
-      }],
-      options: {
-        scales: {
-          x: {
-            beginAtZero: true
-          },
-          y: {
-            beginAtZero: true
-          },
-          title: {
-            align: 'start'
-          }
-        }
-      }
-    }
-  });
-</script>
 <?php
+$host = $_SERVER['HTTP_HOST'];
+
+
 include_once($_SERVER['DOCUMENT_ROOT'] . '/CODE_EVEN/admin/inc/footer.php');
 ?>

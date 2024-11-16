@@ -75,7 +75,7 @@ CREATE TABLE `class_data` (
 CREATE TABLE `faq` (
   `fqid` int(11) NOT NULL COMMENT 'FAQ고유번호',
   `uid` int(11) DEFAULT NULL COMMENT '회원고유번호',
-  `category` enum('결제/환불', '강의', '쿠폰', '가입/탈퇴', '기타', '수료', '정산', '강사') NOT NULL COMMENT '주제분류',
+  `category` int(11) NOT NULL COMMENT '주제분류',
   `target` enum('일반회원','강사') NOT NULL COMMENT '대상',
   `title` varchar(255) NOT NULL COMMENT '제목',
   `content` text NOT NULL COMMENT '내용',
@@ -133,7 +133,7 @@ INSERT INTO `notice` (`ntid`, `uid`, `title`, `content`, `view`, `regdate`, `sta
 (17, 1, '[공지] 개인정보처리방침 변경 안내', '[공지] 개인정보처리방침 변경 안내', 0, '2024-11-16', 'off', NULL),
 (18, 1, '[공지] 개인정보처리방침 변경 안내', '[공지] 개인정보처리방침 변경 안내', 0, '2024-11-16', 'off', NULL),
 (19, 1, '[공지] 개인정보처리방침 변경 안내', '[공지] 개인정보처리방침 변경 안내', 0, '2024-11-16', 'off', NULL),
-(20, 1, '[공지] 개인정보처리방침 변경 안내', '[공지] 개인정보처리방침 변경 안내', 0, '2024-11-16', 'off', NULL)
+(20, 1, '[공지] 개인정보처리방침 변경 안내', '[공지] 개인정보처리방침 변경 안내', 0, '2024-11-16', 'off', NULL),
 (21, 1, '[공지] 개인정보처리방침 변경 안내', '[공지] 개인정보처리방침 변경 안내', 0, '2024-11-16', 'off', NULL),
 (22, 1, '[공지] 개인정보처리방침 변경 안내', '[공지] 개인정보처리방침 변경 안내', 0, '2024-11-16', 'off', NULL),
 (23, 1, '[공지] 개인정보처리방침 변경 안내', '[공지] 개인정보처리방침 변경 안내', 0, '2024-11-16', 'off', NULL),
