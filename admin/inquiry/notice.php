@@ -104,7 +104,7 @@ while($data = $result->fetch_object()){
               echo "<span class='badge $class'>$text</span>";
             ?>
           </td>
-          <td>
+          <td class="edit_col">
             <a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/inquiry/notice_modify.php?ntid=<?=$no->ntid;?>">
               <i class="bi bi-pencil-fill"></i>
             </a>
