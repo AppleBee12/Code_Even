@@ -185,8 +185,9 @@ $current_page = basename($_SERVER['REQUEST_URI'], ".php");
           <button class="btn btn-toggle collapsed" data-bs-toggle="collapse" data-bs-target="#payment_collapse"
             aria-expanded="false"><i class="bi bi-chevron-down"></i></button>
           <ul class="collapse btn-toggle-nav" id="payment_collapse">
-            <li class="list-group-item dropdown-item"><a href=""> 　 - 주문/결제 목록</a></li>
-            <li class="list-group-item dropdown-item"><a href=""> 　 - 교재 배송관리</a></li>
+            <li class="list-group-item dropdown-item"><a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/orders/orders_list.php"> 　 - 주문/결제 목록</a></li>
+            <li class="list-group-item dropdown-item"><a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/orders/delivery_list.php"> 　 - 교재 배송관리</a></li>
+            <li class="list-group-item dropdown-item"><a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/orders/refunds_list.php"> 　 - 환불 관리</a></li>
           </ul>
         </li>
         <li class="list-group-item"><a
