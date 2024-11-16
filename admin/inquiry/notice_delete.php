@@ -8,7 +8,8 @@
   if($result){
     echo 
     "<script>
-      alert('글 삭제 성공');
+      confirm('글을 삭제하시겠습니까?');
+      alert('삭제가 완료되었습니다.');
       location.href='notice.php';
     </script>";
   }else{
