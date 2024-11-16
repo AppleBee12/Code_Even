@@ -1,13 +1,25 @@
-document.addEventListener('DOMContentLoaded', () => {
-  document.querySelectorAll('nav > ul > li').forEach(menu => {
-      const link = menu.getAttribute('data-link');
-      
-      if (link === currentPage) {
-          menu.classList.add('active');
-          const dropdownMenu = menu.querySelector('.dropdown-menu');
-          if (dropdownMenu) {
-              dropdownMenu.classList.add('show');
-          }
-      }
-  });
+document.addEventListener("DOMContentLoaded", function () {
+    const path = window.location.pathname.split("/");//왜 빈값이 생길까?
+    const folderName = path.length > 1 ? path[path.length - 2] : path[0];
+    const menuItems = document.querySelectorAll("li[data-link]");
+    //li button -> remove collapsed , aria-expanded -> true, ul -> add show
+    // console.log(path);
+    // console.log(folderName);
+    menuItems.forEach((menuItem) => {
+        const datalink = menuItem.getAttribute("data-link");
+        const collapseButton = menuItem.querySelector(".btn-toggle");
+        const collapseContent = menuItem.querySelector(".btn-toggle-nav");
+
+        if (datalink === folderName) {            
+            menuItem.classList.add("active");
+
+            if (collapseButton && collapseContent) {
+                collapseButton.classList.remove("collapsed");
+                collapseButton.setAttribute("aria-expanded", "true");
+                collapseContent.classList.add("show");
+            }
+        }
+    });
+
 });
+
