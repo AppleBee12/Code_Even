@@ -3,18 +3,26 @@ include_once($_SERVER['DOCUMENT_ROOT'] . '/CODE_EVEN/admin/inc/dbcon.php');
 
 // print_r($_POST);
 $username = $_POST['username'];
+$userid = $_POST['userid'];
 $title = $_POST['title'];
 $content = $_POST['content'];
 $status = $_POST['status'];
 
-$sql = "INSERT INTO notice (title, content, status) VALUES ('$title', '$content', '$status')";
+$notice_sql = "
+    INSERT INTO notice (uid, title, content, status)
+    SELECT uid, '$title', '$content', '$status'
+    FROM user
+    WHERE username = '$username' AND userid = '$userid'
+";
 
-if ($mysqli->query($sql) === true) {
+$user_result = $mysqli->query($notice_sql);
+
+if ($user_result === true) {
   echo
     "<script>
     confirm('글을 등록하시겠습니까?');
     alert('등록이 완료되었습니다.');
-    location.href='notice_write.php';
+    location.href='notice.php';
   </script>";
 } else {
   echo
