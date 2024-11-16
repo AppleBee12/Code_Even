@@ -1,22 +1,63 @@
 <?php
 include_once($_SERVER['DOCUMENT_ROOT'] . '/code_even/admin/inc/header.php');
+
+// 게시글 개수 구하기
+$keywords = isset($_GET['keywords']) ? $mysqli->real_escape_string($_GET['keywords']) : '';
+$where_clause = '';
+
+if ($keywords) {
+  $where_clause = "WHERE faq.title LIKE '%$keywords%' OR user.username LIKE '%$keywords%' OR user.userid LIKE '%$keywords%'";
+}
+
+$page_sql = "SELECT COUNT(*) AS cnt FROM faq JOIN user ON faq.uid = user.uid $where_clause";
+$page_result = $mysqli->query($page_sql);
+$page_data = $page_result->fetch_assoc();
+$row_num = $page_data['cnt'];
+
+// 페이지네이션
+$page = isset($_GET['page']) ? $_GET['page'] : 1;
+$list = 10;
+$start_num = ($page - 1) * $list;
+$block_ct = 5;
+$block_num = ceil($page / $block_ct);
+$block_start = (($block_num - 1) * $block_ct) + 1;
+$block_end = $block_start + $block_ct - 1;
+
+$total_page = ceil($row_num / $list);
+$total_block = ceil($total_page / $block_ct);
+if ($block_end > $total_page) {
+  $block_end = $total_page;
+}
+
+$sql = "SELECT faq.*, user.username, user.userid 
+        FROM faq 
+        JOIN user ON faq.uid = user.uid 
+        $where_clause 
+        AND faq.target = 'student' 
+        ORDER BY faq.fqid DESC 
+        LIMIT $start_num, $list";
+$result = $mysqli->query($sql);
+
+$dataArr = [];
+while($data = $result->fetch_object()){
+  $dataArr[] = $data;
+}
+
 ?>
 
 <div class="container">
   <h2>수강생 FAQ</h2>
-  <form class="row justify-content-end">
+  <form action="" method="get" class="row justify-content-end">
     <div class="col-lg-4">
       <div class="input-group mb-3">
-        <input type="text" class="form-control" placeholder="검색어를 입력하세요." aria-label="Recipient's username"
-          aria-describedby="basic-addon2">
-        <button type="button" class="btn btn-secondary">
+        <input type="text" class="form-control" placeholder="검색어를 입력하세요." name="keywords" value="<?= htmlspecialchars($keywords); ?>">
+        <button type="submit" class="btn btn-secondary">
           <i class="bi bi-search"></i>
         </button>
       </div>
     </div>
   </form>
 
-  <form action="" method="">
     <table class="table list_table">
       <thead>
         <tr>
@@ -24,6 +65,8 @@ include_once($_SERVER['DOCUMENT_ROOT'] . '/code_even/admin/inc/header.php');
             <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
           </th>
           <th scope="col">번호</th>
+          <th scope="col">아이디</th>
+          <th scope="col">이름</th>
           <th scope="col">분류</th>
           <th scope="col">제목</th>
           <th scope="col">조회수</th>
@@ -33,134 +76,91 @@ include_once($_SERVER['DOCUMENT_ROOT'] . '/code_even/admin/inc/header.php');
         </tr>
       </thead>
       <tbody>
+      <?php   
+          if(isset($dataArr)){
+            foreach($dataArr as $no){
+        ?>
         <tr>
           <th scope="row">
             <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
           </th>
-          <td>2</td>
-          <td>결제</td>
-          <td><a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/inquiry/student_faq_modify.php"
-              class="underline">제목</a></td>
-          <td>9,999</td>
-          <td>2024/10/31</td>
+          <td><?=$no->fqid;?></td>
+          <td><?=$no->userid;?></td>
+          <td><?=$no->username;?></td>
+          <td><?=$no->category;?></td>
           <td>
-            <span class="badge text-bg-success">노출</span>
+            <a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/inquiry/student_faq_modify.php?ntid=<?= $no->ntid; ?>"
+              class="underline"><?=$no->title;?></a>
           </td>
+          <td><?=$no->view;?></td>
+          <td><?=$no->regdate;?></td>
           <td>
-            <a href="">
+          <?php
+            $class = $no->status == 'on' ? 'text-bg-success' : 'text-bg-light';
+            $text = $no->status == 'on' ? '노출' : '숨김';
+            echo "<span class='badge $class'>$text</span>";
+          ?>
+          </td>
+          <td class="edit_col">
+            <a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/inquiry/student_faq_modify.php?fqid=<?= $no->fqid; ?>">
               <i class="bi bi-pencil-fill"></i>
             </a>
-            <a href="">
+            <a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/inquiry/student_faq_delete.php?fqid=<?= $no->fqid; ?>">
               <i class="bi bi-trash-fill"></i>
             </a>
           </td>
         </tr>
-        <tr>
-          <th scope="row">
-            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-          </th>
-          <td>1</td>
-          <td>결제</td>
-          <td><a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/inquiry/student_faq_modify.php"
-              class="underline">제목</a></td>
-          <td>9,999</td>
-          <td>2024/10/31</td>
-          <td>
-            <span class="badge text-bg-light">숨김</span>
-          </td>
-          <td>
-            <a href="">
-              <i class="bi bi-pencil-fill"></i>
-            </a>
-            <a href="">
-              <i class="bi bi-trash-fill"></i>
-            </a>
-          </td>
-        </tr>
+        <?php   
+            }   
+          } else {
+            echo "<tr><td colspan='8'>검색 결과가 없습니다.</td></tr>";
+          }
+        ?>
       </tbody>
     </table>
+
     <div class="d-flex justify-content-end gap-2">
-      <a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/inquiry/student_faq_write.php" type="button"
-        class="btn btn-secondary">등록</a>
-      <button type="button" class="btn btn-danger">삭제</button>
+      <a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/inquiry/faq_write.php?target=student"
+      class="btn btn-secondary">등록</a>
     </div>
 
-    <!-- //상태 변경 모달창 -->
-    <div class="modal" id="status_modal" tabindex="-1">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title">글 상태 변경</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-          </div>
-          <div class="modal-body">
-            <form action="" method="">
-              <table class="table">
-                <colgroup>
-                  <col style="width:110px">
-                  <col style="width:auto">
-                </colgroup>
-                <thead class="thead-hidden">
-                  <tr>
-                    <th scope="col">구분</th>
-                    <th scope="col">내용</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr class="none">
-                    <th scope="row">제목</th>
-                    <td><input type="text" class="form-control w-75" placeholder="[공지] 결제요청 가이드라인 안내" disabled></td>
-                  </tr>
-                  <tr class="none">
-                    <th scope="row">상태 <b>*</b></th>
-                    <td class="d-flex gap-3">
-                      <div class="form-check">
-                        <input class="form-check-input" type="radio" name="emailCheck" id="flexRadioDisabled" checked>
-                        <label class="form-check-label" for="flexRadioDisabled">
-                          노출
-                        </label>
-                      </div>
-                      <div class="form-check">
-                        <input class=" form-check-input" type="radio" name="emailCheck" id="flexRadioDisabled">
-                        <label class="form-check-label" for="flexRadioCheckedDisabled">
-                          숨김
-                        </label>
-                      </div>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-            </form>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal">취소</button>
-            <button type="button" class="btn btn-outline-secondary">수정</button>
-          </div>
-        </div>
-      </div>
-    </div>
+</div>
 
-    <!-- //Pagination -->
-    <div class="list_pagination" aria-label="Page navigation example">
-      <ul class="pagination d-flex justify-content-center">
-        <li class="page-item">
-          <a class="page-link" href="" aria-label="Previous">
-            <i class="bi bi-chevron-left"></i>
-          </a>
-        </li>
-        <li class="page-item active"><a class="page-link" href="">1</a></li>
-        <li class="page-item"><a class="page-link" href="">2</a></li>
-        <li class="page-item"><a class="page-link" href="">3</a></li>
-        <li class="page-item">
-          <a class="page-link" href="" aria-label="Next">
-            <i class="bi bi-chevron-right"></i>
-          </a>
-        </li>
-      </ul>
-    </div>
-
-  </form>
-
+<!-- //Pagination -->
+<div class="list_pagination" aria-label="Page navigation example">
+  <ul class="pagination d-flex justify-content-center">
+    <?php
+      $previous = $block_start - $block_ct;
+      if ($previous < 1) $previous = 1;
+      if ($block_num > 1) { 
+    ?>
+    <li class="page-item">
+      <a class="page-link" href="student_faq.php?page=<?= $previous; ?>" aria-label="Previous">
+        <i class="bi bi-chevron-left"></i>
+      </a>
+    </li>
+    <?php
+      }
+    ?>
+    <?php
+      for ($i = $block_start; $i <= $block_end; $i++) {
+        $active = ($page == $i) ? 'active' : '';
+    ?>
+    <li class="page-item <?= $active; ?>"><a class="page-link" href="student_faq.php?page=<?= $i; ?>"><?= $i; ?></a></li>
+    <?php
+      }
+      $next = $block_end + 1;
+      if($total_block > $block_num){
+    ?>
+    <li class="page-item">
+      <a class="page-link" href="teacher_faq.php?page=<?= $next; ?>" aria-label="Next">
+        <i class="bi bi-chevron-right"></i>
+      </a>
+    </li>
+    <?php
+      }
+    ?>
+  </ul>
 </div>
 
 <?php
