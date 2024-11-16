@@ -36,8 +36,8 @@ $current_page = basename($_SERVER['REQUEST_URI'], ".php");
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/summernote@0.8.20/dist/summernote-lite.min.css"
     integrity="sha256-IKhQVXDfwbVELwiR0ke6dX+pJt0RSmWky3WB2pNx9Hg=" crossorigin="anonymous">
 
-  <link rel="stylesheet" href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/css/summernote-bs5.css"
-    rel="stylesheet">
+  <!-- <link rel="stylesheet" href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/css/summernote-bs5.css"
+    rel="stylesheet"> -->
 
   <link rel="stylesheet" href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/css/common.css">
   <link rel="stylesheet" href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/css/main.css">
@@ -95,6 +95,7 @@ $current_page = basename($_SERVER['REQUEST_URI'], ".php");
   }
   ?>
 
+  <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>   
   <!-- 개인 추가 js -->
   <?php
   if (isset($chart_js)) {
