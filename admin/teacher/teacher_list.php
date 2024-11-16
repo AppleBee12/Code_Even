@@ -345,6 +345,7 @@ include_once($_SERVER['DOCUMENT_ROOT'] . '/CODE_EVEN/admin/inc/header.php');
             </a>
           </td>
         </tr>
+      </tbody> 
     </table>
     <!-- //table -->
     <button type="button" class="btn btn-outline-secondary ms-auto d-block">일괄수정</button>
