@@ -92,7 +92,7 @@ CREATE TABLE `faq` (
 
 CREATE TABLE `notice` (
   `ntid` int(11) NOT NULL COMMENT '공지사항고유번호',
-  `uid` int(11) NOT NULL COMMENT '회원고유번호',
+  `uid` int(11) DEFAULT NULL COMMENT '회원고유번호',
   `title` varchar(255) NOT NULL COMMENT '제목',
   `content` text NOT NULL COMMENT '내용',
   `view` int(11) NOT NULL COMMENT '조회수',
