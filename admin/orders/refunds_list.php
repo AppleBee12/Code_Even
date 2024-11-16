@@ -1,12 +1,12 @@
 <?php
-$title = "강사 목록";
+$title = "환불 목록";
 include_once($_SERVER['DOCUMENT_ROOT'] . '/CODE_EVEN/admin/inc/header.php');
 ?>
 
 
 
 <div class="container">
-  <h2 class="page_title">강사목록</h2>
+  <h2 class="page_title">환불목록</h2>
 
 
   <form action="" id="search_form" class="row justify-content-end">
@@ -51,7 +51,7 @@ include_once($_SERVER['DOCUMENT_ROOT'] . '/CODE_EVEN/admin/inc/header.php');
           <td><a href="teacher_details.php">이코딩</td>
           <td>teacher1@mdo.com</td>
           <td>웹개발</td>
-          <td><span class="badge text-bg-light">심사중</span></td>
+          <td><span class="badge text-bg-secondary">심사중</span></td>
           <td>
             <div class="form-check d-inline-block me-2">
               <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
@@ -66,13 +66,14 @@ include_once($_SERVER['DOCUMENT_ROOT'] . '/CODE_EVEN/admin/inc/header.php');
               </label>
             </div>
           </td>
-          <td class="edit_col">
+          <td>
             <a href="">
             <i class="bi bi-pencil-fill"></i>   
             </a>
             <a href="">
             <i class="bi bi-trash-fill"></i>
             </a>
+    
           </td>
         </tr>
         <tr>
@@ -81,7 +82,7 @@ include_once($_SERVER['DOCUMENT_ROOT'] . '/CODE_EVEN/admin/inc/header.php');
           <td>이코딩</td>
           <td>teacher1@mdo.com</td>
           <td>웹개발</td>
-          <td><span class="badge text-bg-light">심사중</span></td>
+          <td><span class="badge text-bg-secondary">심사중</span></td>
           <td>
             <div class="form-check d-inline-block me-2">
               <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
@@ -96,13 +97,14 @@ include_once($_SERVER['DOCUMENT_ROOT'] . '/CODE_EVEN/admin/inc/header.php');
               </label>
             </div>
           </td>
-          <td class="edit_col">
+          <td>
             <a href="">
             <i class="bi bi-pencil-fill"></i>   
             </a>
             <a href="">
             <i class="bi bi-trash-fill"></i>
             </a>
+    
           </td>
         </tr>
         <tr>
@@ -111,7 +113,7 @@ include_once($_SERVER['DOCUMENT_ROOT'] . '/CODE_EVEN/admin/inc/header.php');
           <td>이코딩</td>
           <td>teacher1@mdo.com</td>
           <td>웹개발</td>
-          <td><span class="badge text-bg-secondary">승인완료</span></td>
+          <td><span class="badge text-bg-secondary">심사중</span></td>
           <td>
             <div class="form-check d-inline-block me-2">
               <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
@@ -126,13 +128,14 @@ include_once($_SERVER['DOCUMENT_ROOT'] . '/CODE_EVEN/admin/inc/header.php');
               </label>
             </div>
           </td>
-          <td class="edit_col">
+          <td>
             <a href="">
             <i class="bi bi-pencil-fill"></i>   
             </a>
             <a href="">
             <i class="bi bi-trash-fill"></i>
             </a>
+    
           </td>
         </tr>
         <tr>
@@ -141,7 +144,7 @@ include_once($_SERVER['DOCUMENT_ROOT'] . '/CODE_EVEN/admin/inc/header.php');
           <td>이코딩</td>
           <td>teacher1@mdo.com</td>
           <td>웹개발</td>
-          <td><span class="badge text-bg-secondary">승인완료</span></td>
+          <td><span class="badge text-bg-secondary">심사중</span></td>
           <td>
             <div class="form-check d-inline-block me-2">
               <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
@@ -156,13 +159,14 @@ include_once($_SERVER['DOCUMENT_ROOT'] . '/CODE_EVEN/admin/inc/header.php');
               </label>
             </div>
           </td>
-          <td class="edit_col">
+          <td>
             <a href="">
             <i class="bi bi-pencil-fill"></i>   
             </a>
             <a href="">
             <i class="bi bi-trash-fill"></i>
             </a>
+    
           </td>
         </tr>
         <tr>
@@ -171,7 +175,7 @@ include_once($_SERVER['DOCUMENT_ROOT'] . '/CODE_EVEN/admin/inc/header.php');
           <td>이코딩</td>
           <td>teacher1@mdo.com</td>
           <td>웹개발</td>
-          <td><span class="badge text-bd-secondary">승인거절</span></td>
+          <td><span class="badge text-bg-secondary">심사중</span></td>
           <td>
             <div class="form-check d-inline-block me-2">
               <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
@@ -186,16 +190,171 @@ include_once($_SERVER['DOCUMENT_ROOT'] . '/CODE_EVEN/admin/inc/header.php');
               </label>
             </div>
           </td>
-          <td class="edit_col">
+          <td>
             <a href="">
             <i class="bi bi-pencil-fill"></i>   
             </a>
             <a href="">
             <i class="bi bi-trash-fill"></i>
             </a>
+    
           </td>
         </tr>
-
+        <tr>
+          <th scope="row">1</th>
+          <td>teacher01</td>
+          <td>이코딩</td>
+          <td>teacher1@mdo.com</td>
+          <td>웹개발</td>
+          <td><span class="badge text-bg-secondary">심사중</span></td>
+          <td>
+            <div class="form-check d-inline-block me-2">
+              <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+              <label class="form-check-label" for="flexCheckDefault">
+                신규
+              </label>
+            </div>
+            <div class="form-check d-inline-block">
+              <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+              <label class="form-check-label" for="flexCheckDefault">
+                추천
+              </label>
+            </div>
+          </td>
+          <td>
+            <a href="">
+            <i class="bi bi-pencil-fill"></i>   
+            </a>
+            <a href="">
+            <i class="bi bi-trash-fill"></i>
+            </a>
+    
+          </td>
+        </tr>
+        <tr>
+          <th scope="row">1</th>
+          <td>teacher01</td>
+          <td>이코딩</td>
+          <td>teacher1@mdo.com</td>
+          <td>웹개발</td>
+          <td><span class="badge text-bg-secondary">심사중</span></td>
+          <td>
+            <div class="form-check d-inline-block me-2">
+              <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+              <label class="form-check-label" for="flexCheckDefault">
+                신규
+              </label>
+            </div>
+            <div class="form-check d-inline-block">
+              <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+              <label class="form-check-label" for="flexCheckDefault">
+                추천
+              </label>
+            </div>
+          </td>
+          <td>
+            <a href="">
+            <i class="bi bi-pencil-fill"></i>   
+            </a>
+            <a href="">
+            <i class="bi bi-trash-fill"></i>
+            </a>
+    
+          </td>
+        </tr>
+        <tr>
+          <th scope="row">1</th>
+          <td>teacher01</td>
+          <td>이코딩</td>
+          <td>teacher1@mdo.com</td>
+          <td>웹개발</td>
+          <td><span class="badge text-bg-secondary">심사중</span></td>
+          <td>
+            <div class="form-check d-inline-block me-2">
+              <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+              <label class="form-check-label" for="flexCheckDefault">
+                신규
+              </label>
+            </div>
+            <div class="form-check d-inline-block">
+              <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+              <label class="form-check-label" for="flexCheckDefault">
+                추천
+              </label>
+            </div>
+          </td>
+          <td>
+            <a href="">
+            <i class="bi bi-pencil-fill"></i>   
+            </a>
+            <a href="">
+            <i class="bi bi-trash-fill"></i>
+            </a>
+    
+          </td>
+        </tr>
+        <tr>
+          <th scope="row">1</th>
+          <td>teacher01</td>
+          <td>이코딩</td>
+          <td>teacher1@mdo.com</td>
+          <td>웹개발</td>
+          <td><span class="badge text-bg-secondary">심사중</span></td>
+          <td>
+            <div class="form-check d-inline-block me-2">
+              <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+              <label class="form-check-label" for="flexCheckDefault">
+                신규
+              </label>
+            </div>
+            <div class="form-check d-inline-block">
+              <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+              <label class="form-check-label" for="flexCheckDefault">
+                추천
+              </label>
+            </div>
+          </td>
+          <td>
+            <a href="">
+            <i class="bi bi-pencil-fill"></i>   
+            </a>
+            <a href="">
+            <i class="bi bi-trash-fill"></i>
+            </a>
+    
+          </td>
+        </tr>
+        <tr>
+          <th scope="row">1</th>
+          <td>teacher01</td>
+          <td>이코딩</td>
+          <td>teacher1@mdo.com</td>
+          <td>웹개발</td>
+          <td><span class="badge text-bg-secondary">심사중</span></td>
+          <td>
+            <div class="form-check d-inline-block me-2">
+              <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+              <label class="form-check-label" for="flexCheckDefault">
+                신규
+              </label>
+            </div>
+            <div class="form-check d-inline-block">
+              <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+              <label class="form-check-label" for="flexCheckDefault">
+                추천
+              </label>
+            </div>
+          </td>
+          <td>
+            <a href="">
+            <i class="bi bi-pencil-fill"></i>   
+            </a>
+            <a href="">
+            <i class="bi bi-trash-fill"></i>
+            </a>
+    
+          </td>
+        </tr>
     </table>
     <!-- //table -->
     <button type="button" class="btn btn-outline-secondary ms-auto d-block">일괄수정</button>

@@ -1,6 +1,6 @@
 /* header */
 .header {
-  width: 100%;
+  min-width: 100%;
   height: 105px;
   background: var(--bk1000);
   display: flex;
@@ -40,14 +40,16 @@ body nav {
 
 body nav .list-group-item,
 body nav .list-group-item a {
+  padding:0;
   background-color: var(--bk1000);
   border: 1px solid var(--bk1000);
   color: var(--bk300);
   width: 274px;
   text-align: left;
-  line-height: 42px;
+  line-height: 46px;
   font-size: 18px;
 }
+
 
 body nav .list-group.line .list-group-item {
   align-content: end;
@@ -56,6 +58,7 @@ body nav .list-group.line .list-group-item {
 
 body nav ul li ul {
   padding-left: 0px;
+  padding-right: 0px;
 
   li{
   padding-left: 0px;
@@ -65,27 +68,25 @@ body nav ul li ul {
 body nav ul li ul li:first-child {
   border-top: 1px solid var(--bk300);
 }
-body nav ul li ul li:last-child {
-  border-bottom: none;
-}
-
-body nav .list-group.line ul li:last-child {
+body nav ul li ul li:last-child,
+body nav .list-group.line ul li:last-child  {
   border-bottom: none;
 }
 
 body nav .pr {
   padding-bottom: 0px;
-
-  button{
-    position: absolute;
-    right: 0;
-    top: 5px;
+  cursor: pointer;
+  ul{
+       
+    li {
+    width: 257px;
+    margin-left:15px;
   }
 }
-
-body nav .pr ul li {
-  width: 257px;
 }
+
+
+
 
 body nav .no_line.list-group {
   margin-top: 46px;
@@ -100,18 +101,33 @@ body nav .list-group-item.active {
   background: var(--bk0);
   color: var(--bk800);
   border-color: var(--bk300) var(--bk0) var(--bk300) var(--bk300);
-
+/* 
   a {
     background: var(--bk0);
     color: var(--bk800);
     border: 1px solid var(--bk0);
   }
+
+  ul li a{
+    background: var(--bk1000);
+    color: var(--bk300);
+    border: 0;
+  } */
 }
 
-.dropdown-toggle[aria-expanded="true"] i{
-  transform: rotate(90deg);
+body nav .list-group-item:hover,
+body nav .list-group-item:hover>a{
+  background: var(--bk0);
+  color: var(--bk900);
+  border-color:var(--bk0);
+}
+
+
+button.btn-toggle[aria-expanded="true"] i::before {
+  transform: rotate(180deg);
   transition: transform 0.3s ease;
 }
+
 
 
 
@@ -133,7 +149,6 @@ body nav .list-group-item.active {
     border-radius: 8px;
     padding: 24px;
     min-width: 263px;
-
   }
 
   p {
@@ -142,6 +157,8 @@ body nav .list-group-item.active {
     color: var(--bk950);
     margin-top: 20px;
   }
+
+
   .top_text {
     font-size: 20px;
     line-height: 30px;
@@ -151,12 +168,12 @@ body nav .list-group-item.active {
 
 
 .bottom_wrapper{
+  width: 1400px;
   margin-top: 20px;
 }
 
-
 .bott_left{
-  width: 648px;
+  width: 624px;
   height: 632px;
   border: 1px solid var(--bk100);
   padding: 20px;
@@ -164,6 +181,30 @@ body nav .list-group-item.active {
   margin-right:20px;
 }
 .sellcost_best_table{
-  width: 732px;
+  width: 756px;
   height: 300px;
+}
+
+
+
+.bott_right {
+  
+  height: 632px;
+  .row div{
+    border-top: 1px solid var(--bk100);
+  }
+
+  .month{
+    font-size: 12px;
+  }
+} 
+.bott_right>div:first-child{
+  margin-bottom: 20px;
+}
+
+.bott_right>div:first-child,
+.bott_right>div:nth-child(2)>div {
+  border: 1px solid var(--bk100);
+  padding: 20px;
+  border-radius: 8px;
 }

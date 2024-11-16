@@ -21,6 +21,9 @@
   --red50: #fcf4f4;
   --red0: #ffffff;
 
+  --red700_aph25: rgba(231, 105, 105, .25);
+  --red700_aph15: rgba(231, 105, 105, .15);
+
   /* color-black */
   --bk1000: #1e1e1e;
   --bk950: #292929;
@@ -41,6 +44,7 @@
   --sub_title: 18px;
   --section_title: 17px;
   --main: 17px;
+  
 }
 
 /* font */
@@ -95,8 +99,10 @@ input.form-control::placeholder, .ph{
 }
 
 nav .btn-toggle{
-  margin-left: 10%;
   color:var(--bk600);
+  position: absolute;
+  right: 0;
+  top: 5px;
 }
 .bi.bi-caret-down-fill::before{
     transform: rotate(90deg);
@@ -104,6 +110,11 @@ nav .btn-toggle{
 
 
 /* form control*/
+a{
+	text-decoration: none;
+	color: var(--bk1000);
+}
+
 .form-check-input:checked {
   background-color: var(--red700);
   border-color: var(--red700);
@@ -111,13 +122,38 @@ nav .btn-toggle{
 
 .form-check-input:focus {
   border-color: var(--red400);
-  box-shadow: 0 0 0 .25rem rgba(231, 105, 105, .25);
+  box-shadow: 0 0 0 .25rem var(--red700_aph25);
 }
 
-a{
-	text-decoration: none;
-	color: var(--bk1000);
+.form-control:focus {
+  border-color: var(--red400);
+  outline: 0;
+  box-shadow: 0 0 .1rem .1rem var(--red700_aph15);
 }
+
+.form-select:focus {
+  border-color: var(--red400);
+  outline: 0;
+  box-shadow: 0 0 .1rem .1rem var(--red700_aph15);
+}
+
+.list_pagination{
+  background: none;
+  .page-link {
+    color: var(--bk700);
+    margin: 0 10px;
+  }
+  .active>.page-link, .page-link.active {
+    color: var(--bk0);
+    background-color: var(--bk700);
+    border-color: var(--bk700);
+  }
+  .page-link:focus {
+    box-shadow: none;
+}
+  
+}
+
 
 .content_bar {
   background: var(--bk50);
@@ -144,6 +180,15 @@ a{
     vertical-align: middle;
     text-align: center;
   }
+}
+
+.list_table td.edit_col > a:first-child{
+  margin-right: 20px;
+}
+
+.text-bd-secondary{
+  color: var(--bk700);
+  border: 1px solid var(--bk700);
 }
 
 /* 상세정보 table */

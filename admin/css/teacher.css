@@ -1,23 +1,5 @@
-:root{
-  --red700_aph25: rgba(231, 105, 105, .25);
-}
 
-.list_pagination{
-  background: none;
-  .page-link {
-    color: var(--bk700);
-    margin: 0 10px;
-  }
-  .active>.page-link, .page-link.active {
-    color: var(--bk0);
-    background-color: var(--bk700);
-    border-color: var(--bk700);
-  }
-  .page-link:focus {
-    box-shadow: 0 0 0 .25rem var(--red700_aph25);
-}
-  
-}
+
 
 .form-control.w_512, .form-select.w_512{
   width: 509px;
@@ -62,3 +44,5 @@
 input[type=file]::-webkit-file-upload-button{
     cursor: pointer;
 }
+
+
