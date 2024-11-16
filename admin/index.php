@@ -1,6 +1,5 @@
 <?php
 $chart_js = "<script src=\"https://cdn.jsdelivr.net/npm/chart.js\"></script>";
-$main_js = "";
 include_once($_SERVER['DOCUMENT_ROOT'] . '/CODE_EVEN/admin/inc/header.php');
 
 if (!isset($_SESSION['AUID'])) {
