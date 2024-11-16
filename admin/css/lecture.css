@@ -1,125 +1,18 @@
-.table {
+/* 테이블 고정 너비와 레이아웃 */
+table {
   width: 100%;
-  border-collapse: collapse;
+  table-layout: fixed;
+  border-spacing: 0 8px; /* 행 사이에만 8px 간격을 줍니다 */
+  border-collapse: separate;
 }
 
-/* 상단과 하단 테두리만 남기기 (세로선 제거) */
-.table th, .table td {
-  padding: 8px;
-  vertical-align: middle;
+table, th, td {
+  border: none;
 }
 
-.d-flex {
-  gap: 0; /* 불필요한 gap 제거 */
+.content_bar{
+  margin-top: 50px;
 }
-
-.tog {
-  display: inline-block !important;
-  vertical-align: middle !important; /* 세로 중앙 정렬 */
-}
-
-.recipe {
-  background-color: var(--primary);
-}
-
-.waitopen {
-  background-color: #E9ECEF;
-  color: #343A40;
-}
-
-i{
-  cursor: pointer;
-  font-size: 24px;
-}
-
-/* 스위치 체크 시 배경색 */
-.form-check-input:checked {
-  background-color: var(--primary);
-  border-color: var(--secondary);
-}
-
-/* 스위치의 원 (슬라이딩 부분) 색상 변경 */
-.form-check-input:checked::-webkit-slider-thumb {
-  background-color: #ff5733; 
-}
-
-/* 포커스 효과 */
-.form-check-input:focus,
-.form-control:focus,
-.form-select:focus {
-  border-color: #ff5733;
-  box-shadow: 0 0 0 0.25rem rgba(255, 87, 51, 0.25);
-}
-
-.form-check-input .tog{
-  border-color: var(--secondary);
-}
-
-.form-switch-focus-bg-image{
-  background-color: var(--red400);
-}
-
-
-/* 레시피 강좌 */
-
-.recipe{
-  background-color: var(--primary);
-}
-
-.waitopen{
-  background-color: #E9ECEF;
-  color: #343A40;
-}
-
-/* 토글 스위치 가운데 정렬 */
-.custom-table .tog {
-  display: inline-block;
-}
-
-/* 검색창 */
-
-.lesearch{
-  background-color: var(--bk700);
-
-  i{
-    color: var(--bk0);
-  }
-}
-
-.lesearch:hover{
-  background-color: var(--bk700);
-
-  i{
-    color: var(--bk0);
-  }
-}
-
-/* 일괄 수정, 강좌 등록 */
-
-.selecmodify{
-  border-color: var(--bk900);
-  color: var(--bk900);
-}
-
-.selecmodify:hover{
-  border-color: var(--bk0);
-  background-color: var(--bk900);
-  color: var(--bk0);
-}
-
-.nlecture{
-  border-color: var(--bk0);
-  background-color: var(--bk900);
-  color: var(--bk0);
-}
-
-.nlecture:hover{
-  border-color: var(--bk900);
-  color: var(--bk900);
-}
-
-
-/* lecture_up.php CSS */
 
 .cent{
   position: relative;
@@ -190,4 +83,3 @@ tbody tr td .box {
   height: 38px !important;
   border-color: var(--bk800) !important;
 }
-

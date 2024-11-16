@@ -1,36 +1,19 @@
 <?php
 include_once($_SERVER['DOCUMENT_ROOT'] . '/CODE_EVEN/admin/inc/header.php');
 ?>
-<style>
-    /* 테이블 고정 너비와 레이아웃 */
-  table {
-    width: 100%;
-    table-layout: fixed;
-    border-spacing: 0 8px; /* 행 사이에만 8px 간격을 줍니다 */
-    border-collapse: separate;
-  }
-
-  table, th, td {
-    border: none;
-  }
-
-  .content_bar{
-    margin-top: 50px;
-  }
-</style>
 
 <div class="container">
   <h2>강좌 등록</h2>
   <div class="content_bar cent">
     <h3>강좌 기본 정보 입력</h3>
   </div>
-  <form>
+  <form action="lecture_up_ok.php" id="lecture_save" enctype="multipart/form-data">
     <table class="table">
       <tbody>
         <tr>
           <th scope="row">분류 설정 <b>*</b></th>
           <td colspan="2">
-            <select class="form-select" aria-label="대분류">
+            <select name="cate1" class="form-select" aria-label="대분류">
               <option selected>대분류</option>
               <option value="1">One</option>
               <option value="2">Two</option>
@@ -38,7 +21,7 @@ include_once($_SERVER['DOCUMENT_ROOT'] . '/CODE_EVEN/admin/inc/header.php');
             </select>
           </td>
           <td colspan="2">
-            <select class="form-select" aria-label="중분류">
+            <select name="cate2" class="form-select" aria-label="중분류">
               <option selected>중분류</option>
               <option value="1">One</option>
               <option value="2">Two</option>
@@ -46,7 +29,7 @@ include_once($_SERVER['DOCUMENT_ROOT'] . '/CODE_EVEN/admin/inc/header.php');
             </select>
           </td>
           <td colspan="2">
-            <select class="form-select" aria-label="소분류">
+            <select name="cate3" class="form-select" aria-label="소분류">
               <option selected>소분류</option>
               <option value="1">One</option>
               <option value="2">Two</option>
@@ -57,21 +40,21 @@ include_once($_SERVER['DOCUMENT_ROOT'] . '/CODE_EVEN/admin/inc/header.php');
         <tr>
           <th scope="row">강좌명 <b>*</b></th>
           <td colspan="6">
-            <input type="text" class="form-control" placeholder="기초부터 확실하게! (페이지의 내용 전달을 위한 HTML, 스타일 설정을 위한 CSS 기초 학습)">
+            <input type="text" name="title" class="form-control" placeholder="기초부터 확실하게! (페이지의 내용 전달을 위한 HTML, 스타일 설정을 위한 CSS 기초 학습)">
           </td>
         </tr>
         <tr>
           <th scope="row">강사명 <b>*</b></th>
           <td colspan="2">
-            <input type="text" class="form-control" placeholder="admin">
+            <input type="text" name="name" class="form-control" placeholder="admin">
           </td>
-          <td class="box_container" colspan="4" rowspan="5">
+          <td name="image" class="box_container" colspan="4" rowspan="5">
             <div class="box">
               <span>강좌 썸네일 이미지를 선택해주세요.</span>
               <div class="image"><img src="" alt=""></div>
             </div>
             <div class="input-group mb-3">
-              <input type="file" class="form-control" id="inputGroupFile02">
+              <input name="image" accept="image/*" type="file" class="form-control" id="inputGroupFile02">
             </div>
           </td>
         </tr>
@@ -79,7 +62,7 @@ include_once($_SERVER['DOCUMENT_ROOT'] . '/CODE_EVEN/admin/inc/header.php');
           <th scope="row">수강료 <b>*</b></th>
           <td colspan="2">
             <div class="input-group">
-              <input type="text" class="form-control" aria-label="원">
+              <input name="price" type="text" class="form-control" aria-label="원">
               <span class="input-group-text">원</span>
             </div>
           </td>
@@ -87,7 +70,7 @@ include_once($_SERVER['DOCUMENT_ROOT'] . '/CODE_EVEN/admin/inc/header.php');
         <tr>
           <th scope="row">교재 선택 <b>*</b></th>
           <td colspan="2">
-            <select class="form-select">
+            <select name="" class="form-select">
               <option selected>SELECT</option>
               <option value="1">One</option>
               <option value="2">Two</option>
@@ -99,7 +82,7 @@ include_once($_SERVER['DOCUMENT_ROOT'] . '/CODE_EVEN/admin/inc/header.php');
         <tr>
           <th scope="row">교육 기간 <b>*</b></th>
           <td colspan="2">
-            <select class="form-select">
+            <select name="period" class="form-select">
               <option selected>60일</option>
               <option value="1">One</option>
               <option value="2">Two</option>
@@ -113,12 +96,12 @@ include_once($_SERVER['DOCUMENT_ROOT'] . '/CODE_EVEN/admin/inc/header.php');
           <td colspan="4">
             <div class="d-flex gap-4">
               <div class="form-check">
-                <input class="form-check-input" type="radio" name="courseType" id="recipeCourse">
-                <label class="form-check-label" for="recipeCourse">레시피 강좌</label>
+                <input name="isrecipe" class="form-check-input" type="radio" name="courseType" id="recipeCourse">
+                <label class="form-check-label" for="isrecipe">레시피 강좌</label>
               </div>
               <div class="form-check">
-                <input class="form-check-input" type="radio" name="courseType" id="generalCourse" checked>
-                <label class="form-check-label" for="generalCourse">일반 강좌</label>
+                <input name="isgeneral" class="form-check-input" type="radio" name="courseType" id="generalCourse" checked>
+                <label class="form-check-label" for="isgeneral">일반 강좌</label>
               </div>
             </div>
           </td>
@@ -194,8 +177,17 @@ include_once($_SERVER['DOCUMENT_ROOT'] . '/CODE_EVEN/admin/inc/header.php');
         <i class="bi bi-plus"></i>
       </div>
     </div>
+    <div class="d-flex justify-content-end gap-2 mt-4 mb-5">
+      <a href="" type="button" class="btn btn-secondary">등록</a>
+      <a href="" type="button" class="btn btn-secondary">임시 저장</a>
+      <a href="" type="button" class="btn btn-danger">취소</a>
+    </div>
   </form>
 </div>
+
+<script>
+
+</script>
 
 <?php
 include_once($_SERVER['DOCUMENT_ROOT'] . '/code_even/admin/inc/footer.php');
