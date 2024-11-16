@@ -61,7 +61,8 @@ $current_page = basename($_SERVER['REQUEST_URI'], ".php");
     case 'course_reviews_details.php':
     case 'notice.php':
     case 'notice_write.php':
-    case 'notice_details.php':
+    case 'notice_modify.php':
+    case 'notice_search_result.php':
     case 'student_faq.php':
     case 'student_faq_write.php':
     case 'student_faq_modify.php':
@@ -205,8 +206,8 @@ $current_page = basename($_SERVER['REQUEST_URI'], ".php");
             href="#" aria-expanded="false"><i class="bi bi-chevron-down"></i></button>
           <ul class="collapse btn-toggle-nav" id="bulletinboard_collapse">
             <li class="list-group-item dropdown-item"><a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/inquiry/notice.php"> 　 - 전체 공지사항</a></li>
-            <li class="list-group-item dropdown"><a href=""> 　 - 수강생 FAQ</a></li>
-            <li class="list-group-item dropdown"><a href=""> 　 - 교사 FAQ</a></li>
+            <li class="list-group-item dropdown"><a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/inquiry/student_faq.php"> 　 - 수강생 FAQ</a></li>
+            <li class="list-group-item dropdown"><a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/inquiry/teacher_faq.php"> 　 - 교사 FAQ</a></li>
             <li class="list-group-item dropdown"><a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/inquiry/admin_qna.php"> 　 - 1:1 문의</a></li>
           </ul>
         </li>
