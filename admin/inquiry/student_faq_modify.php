@@ -35,9 +35,9 @@ $data = $result->fetch_object();
         <tr>
           <th scope="row">유형 <b>*</b></th>
           <td>
-            <select class="form-select w-50" aria-label="Default select example" name="target">
+            <select class="form-select w-50" aria-label="Default select example" name="target" disabled>
               <option value="">유형 선택</option>
-              <option value="student">일반회원</option>
+              <option value="student" selected>수강생</option>
               <option value="teacher">강사</option>
             </select>
           </td>
@@ -60,16 +60,20 @@ $data = $result->fetch_object();
         <th scope="row">이름(아이디)</th>
         <td><?= $data->username; ?>(<?= $data->userid; ?>)</td>
           <th scope="row">상태 <b>*</b></th>
-          <td class="d-flex gap-3 full_width">
+          <td class="d-flex gap-3">
             <div class="form-check">
-              <input class="form-check-input" type="radio" name="emailCheck" id="flexRadioDisabled" checked>
-              <label class="form-check-label" for="flexRadioDisabled">
+              <input class="form-check-input" type="radio" name="status" id="status" value="on"
+                <?= ($data->status === 'on') ? 'checked' : ''; ?>
+              >
+              <label class="form-check-label" for="status">
                 노출
               </label>
             </div>
             <div class="form-check">
-              <input class=" form-check-input" type="radio" name="emailCheck" id="flexRadioDisabled">
-              <label class="form-check-label" for="flexRadioCheckedDisabled">
+              <input class=" form-check-input" type="radio" name="status" id="status" value="off"
+                <?= ($data->status === 'off') ? 'checked' : ''; ?>
+              >
+              <label class="form-check-label" for="status">
                 숨김
               </label>
             </div>
@@ -79,13 +83,13 @@ $data = $result->fetch_object();
           <th scope="row">제목 <b>*</b></th>
           <td colspan="3">
             <div>
-              <input type="text" name="title" class="form-control w-75" id="title" placeholder="제목을 입력해주세요.">
+              <input type="text" name="title" class="form-control w-75" id="title" placeholder="제목을 입력해주세요." value="<?=$data->title;?>">
             </div>
           </td>
         </tr>
       </tbody>
     </table>
-    <textarea name="" id="" class="form-control w-75"></textarea>
+    <textarea name="content" id="content" class="form-control" ><?=$data->content;?></textarea>
     <input type="file" class="form-control" id="inputGroupFile02" class="w-50">
     <div class="custom-hr"></div>
   
