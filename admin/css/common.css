@@ -167,14 +167,10 @@ body nav .list-group-item a {
   line-height: 46px;
   font-size: 18px;
 }
+
 body nav .list-group-item{
-border: 1px solid var(--bk1000);
-
-}
-
-body nav .list-group.line .list-group-item {
-  align-content: end;
-  /* border-bottom: 1px solid var(--bk300); */
+/* border: 1px solid var(--bk1000); */
+border:0;
 }
 
 body nav ul li ul {
@@ -196,11 +192,11 @@ body nav .list-group.line ul li:last-child {
 
 body nav .pr {
   padding-bottom: 0px;
-  cursor: pointer;
+  border: 1px solid red;
   ul {
     li {
       width: 257px;
-      margin-left: 15px;
+      margin-left: 17px;
     }
   }
 }
