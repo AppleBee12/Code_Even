@@ -1,6 +1,14 @@
 <?php
 $title = "강사 목록";
 include_once($_SERVER['DOCUMENT_ROOT'] . '/CODE_EVEN/admin/inc/header.php');
+
+$sql = "SELECT * FROM teachers WHERE 1=1"; //teachers 테이블에서 모든 데이터를 조회
+$result = $mysqli->query($sql); //쿼리 실행 결과
+
+while($data = $result->fetch_object()){
+  $dataArr[] = $data;
+}
+
 ?>
 
 
@@ -45,29 +53,39 @@ include_once($_SERVER['DOCUMENT_ROOT'] . '/CODE_EVEN/admin/inc/header.php');
         </tr>
       </thead>
       <tbody>
+      <?php
+          if(isset($dataArr)){
+            foreach($dataArr as $item){
+        ?> 
         <tr>
-          <th scope="row">1</th>
-          <td><a href="teacher_details.php">teacher01</a></td>
-          <td><a href="teacher_details.php">이코딩</td>
-          <td>teacher1@mdo.com</td>
-          <td>웹개발</td>
-          <td><span class="badge text-bg-light">심사중</span></td>
+          <th scope="row"><?= $item->tcid; ?></th>
+          <td><?= $item->tc_userid; ?></td> <!-- 웹개발 -->
+          <td><?= $item->tc_name; ?></td> <!-- 웹개발 -->
+          <td><?= $item->tc_email; ?></td> <!-- 웹개발 -->
+          <td><?= $item->tc_cate; ?></td> <!-- 웹개발 -->
+          <td>
+          <select class="form-select form-select-sm tc_status" aria-label="승인여부" name="status[<?= $item->tcid; ?>]" id="status[<?= $item->tcid; ?>]">
+              <option value="-1" <?php if($item->tc_ok == -1){echo 'selected';}?>>승인거절</option>
+              <option value="0" <?php if($item->tc_ok == 0){echo 'selected';}?>>심사중</option>
+              <option value="1" <?php if($item->tc_ok == 1){echo 'selected';}?>>승인완료</option>
+            </select>
+          </td>
           <td>
             <div class="form-check d-inline-block me-2">
-              <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+              <input class="form-check-input" type="checkbox" <?php echo $item->isnew ? 'checked' : ''; ?> value="<?= $item->isnew ?>" id="flexCheckDefault">
               <label class="form-check-label" for="flexCheckDefault">
                 신규
               </label>
             </div>
             <div class="form-check d-inline-block">
-              <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+              <input class="form-check-input" type="checkbox" <?php echo $item->isrecom ? 'checked' : ''; ?> value="<?= $item->isrecom ?>" id="flexCheckDefault">
               <label class="form-check-label" for="flexCheckDefault">
                 추천
               </label>
             </div>
           </td>
           <td class="edit_col">
-            <a href="">
+            <a href="teacher_details.php">
             <i class="bi bi-pencil-fill"></i>   
             </a>
             <a href="">
@@ -75,66 +93,11 @@ include_once($_SERVER['DOCUMENT_ROOT'] . '/CODE_EVEN/admin/inc/header.php');
             </a>
           </td>
         </tr>
-        <tr>
-          <th scope="row">1</th>
-          <td>teacher01</td>
-          <td>이코딩</td>
-          <td>teacher1@mdo.com</td>
-          <td>웹개발</td>
-          <td><span class="badge text-bg-light">심사중</span></td>
-          <td>
-            <div class="form-check d-inline-block me-2">
-              <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-              <label class="form-check-label" for="flexCheckDefault">
-                신규
-              </label>
-            </div>
-            <div class="form-check d-inline-block">
-              <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-              <label class="form-check-label" for="flexCheckDefault">
-                추천
-              </label>
-            </div>
-          </td>
-          <td class="edit_col">
-            <a href="">
-            <i class="bi bi-pencil-fill"></i>   
-            </a>
-            <a href="">
-            <i class="bi bi-trash-fill"></i>
-            </a>
-          </td>
-        </tr>
-        <tr>
-          <th scope="row">1</th>
-          <td>teacher01</td>
-          <td>이코딩</td>
-          <td>teacher1@mdo.com</td>
-          <td>웹개발</td>
-          <td><span class="badge text-bg-secondary">승인완료</span></td>
-          <td>
-            <div class="form-check d-inline-block me-2">
-              <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-              <label class="form-check-label" for="flexCheckDefault">
-                신규
-              </label>
-            </div>
-            <div class="form-check d-inline-block">
-              <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-              <label class="form-check-label" for="flexCheckDefault">
-                추천
-              </label>
-            </div>
-          </td>
-          <td class="edit_col">
-            <a href="">
-            <i class="bi bi-pencil-fill"></i>   
-            </a>
-            <a href="">
-            <i class="bi bi-trash-fill"></i>
-            </a>
-          </td>
-        </tr>
+        <?php
+            }
+          }
+        ?>
+        <!--
         <tr>
           <th scope="row">1</th>
           <td>teacher01</td>
@@ -195,159 +158,10 @@ include_once($_SERVER['DOCUMENT_ROOT'] . '/CODE_EVEN/admin/inc/header.php');
             </a>
           </td>
         </tr>
-        <tr>
-          <th scope="row">1</th>
-          <td><a href="teacher_details.php">teacher01</a></td>
-          <td><a href="teacher_details.php">이코딩</td>
-          <td>teacher1@mdo.com</td>
-          <td>웹개발</td>
-          <td><span class="badge text-bg-light">심사중</span></td>
-          <td>
-            <div class="form-check d-inline-block me-2">
-              <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-              <label class="form-check-label" for="flexCheckDefault">
-                신규
-              </label>
-            </div>
-            <div class="form-check d-inline-block">
-              <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-              <label class="form-check-label" for="flexCheckDefault">
-                추천
-              </label>
-            </div>
-          </td>
-          <td class="edit_col">
-            <a href="">
-            <i class="bi bi-pencil-fill"></i>   
-            </a>
-            <a href="">
-            <i class="bi bi-trash-fill"></i>
-            </a>
-          </td>
-        </tr>
-        <tr>
-          <th scope="row">1</th>
-          <td>teacher01</td>
-          <td>이코딩</td>
-          <td>teacher1@mdo.com</td>
-          <td>웹개발</td>
-          <td><span class="badge text-bg-light">심사중</span></td>
-          <td>
-            <div class="form-check d-inline-block me-2">
-              <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-              <label class="form-check-label" for="flexCheckDefault">
-                신규
-              </label>
-            </div>
-            <div class="form-check d-inline-block">
-              <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-              <label class="form-check-label" for="flexCheckDefault">
-                추천
-              </label>
-            </div>
-          </td>
-          <td class="edit_col">
-            <a href="">
-            <i class="bi bi-pencil-fill"></i>   
-            </a>
-            <a href="">
-            <i class="bi bi-trash-fill"></i>
-            </a>
-          </td>
-        </tr>
-        <tr>
-          <th scope="row">1</th>
-          <td>teacher01</td>
-          <td>이코딩</td>
-          <td>teacher1@mdo.com</td>
-          <td>웹개발</td>
-          <td><span class="badge text-bg-secondary">승인완료</span></td>
-          <td>
-            <div class="form-check d-inline-block me-2">
-              <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-              <label class="form-check-label" for="flexCheckDefault">
-                신규
-              </label>
-            </div>
-            <div class="form-check d-inline-block">
-              <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-              <label class="form-check-label" for="flexCheckDefault">
-                추천
-              </label>
-            </div>
-          </td>
-          <td class="edit_col">
-            <a href="">
-            <i class="bi bi-pencil-fill"></i>   
-            </a>
-            <a href="">
-            <i class="bi bi-trash-fill"></i>
-            </a>
-          </td>
-        </tr>
-        <tr>
-          <th scope="row">1</th>
-          <td>teacher01</td>
-          <td>이코딩</td>
-          <td>teacher1@mdo.com</td>
-          <td>웹개발</td>
-          <td><span class="badge text-bg-secondary">승인완료</span></td>
-          <td>
-            <div class="form-check d-inline-block me-2">
-              <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-              <label class="form-check-label" for="flexCheckDefault">
-                신규
-              </label>
-            </div>
-            <div class="form-check d-inline-block">
-              <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-              <label class="form-check-label" for="flexCheckDefault">
-                추천
-              </label>
-            </div>
-          </td>
-          <td class="edit_col">
-            <a href="">
-            <i class="bi bi-pencil-fill"></i>   
-            </a>
-            <a href="">
-            <i class="bi bi-trash-fill"></i>
-            </a>
-          </td>
-        </tr>
-        <tr>
-          <th scope="row">1</th>
-          <td>teacher01</td>
-          <td>이코딩</td>
-          <td>teacher1@mdo.com</td>
-          <td>웹개발</td>
-          <td><span class="badge text-bd-secondary">승인거절</span></td>
-          <td>
-            <div class="form-check d-inline-block me-2">
-              <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-              <label class="form-check-label" for="flexCheckDefault">
-                신규
-              </label>
-            </div>
-            <div class="form-check d-inline-block">
-              <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-              <label class="form-check-label" for="flexCheckDefault">
-                추천
-              </label>
-            </div>
-          </td>
-          <td class="edit_col">
-            <a href="">
-            <i class="bi bi-pencil-fill"></i>   
-            </a>
-            <a href="">
-            <i class="bi bi-trash-fill"></i>
-            </a>
-          </td>
-        </tr>
+        -->
       </tbody> 
     </table>
-    <!-- //table -->
+     <!--//table -->
     <button type="button" class="btn btn-outline-secondary ms-auto d-block">일괄수정</button>
   </form>
 
@@ -373,6 +187,15 @@ include_once($_SERVER['DOCUMENT_ROOT'] . '/CODE_EVEN/admin/inc/header.php');
    <!-- //Pagination -->
 </div>
 
+<script>
+    $('table .form-check-input').change(function(){
+    if($(this).prop( "checked" )){
+      $(this).val('1');
+    } else{
+      $(this).val('0');
+    }
+  });
+</script>
 
 <?php
 include_once($_SERVER['DOCUMENT_ROOT'] . '/CODE_EVEN/admin/inc/footer.php');
