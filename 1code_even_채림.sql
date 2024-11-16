@@ -54,7 +54,7 @@ CREATE TABLE `coupons` (
   `userid` varchar(100) DEFAULT NULL COMMENT '등록한유저',
   `max_value` double DEFAULT NULL COMMENT '최대할인금액',
   `use_min_price` double DEFAULT NULL COMMENT '최소사용금액',
-  `use_max_date` datetime DEFAULT NULL
+  `use_max_date` datetime DEFAULT NULL COMMENT '사용기한'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
