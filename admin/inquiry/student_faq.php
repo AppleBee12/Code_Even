@@ -33,6 +33,7 @@ $sql = "SELECT faq.*, user.username, user.userid
         FROM faq 
         JOIN user ON faq.uid = user.uid 
         $where_clause 
+        AND faq.target = 'student' 
         ORDER BY faq.fqid DESC 
         LIMIT $start_num, $list";
 $result = $mysqli->query($sql);
@@ -118,11 +119,11 @@ while($data = $result->fetch_object()){
       </tbody>
     </table>
 
-    
     <div class="d-flex justify-content-end gap-2">
-      <a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/inquiry/student_faq_write.php" type="button"
+      <a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/inquiry/faq_write.php?target=student"
       class="btn btn-secondary">등록</a>
     </div>
+
 </div>
 
 <!-- //Pagination -->
@@ -145,14 +146,14 @@ while($data = $result->fetch_object()){
       for ($i = $block_start; $i <= $block_end; $i++) {
         $active = ($page == $i) ? 'active' : '';
     ?>
-    <li class="page-item <?= $active; ?>"><a class="page-link" href="notice.php?page=<?= $i; ?>"><?= $i; ?></a></li>
+    <li class="page-item <?= $active; ?>"><a class="page-link" href="student_faq.php?page=<?= $i; ?>"><?= $i; ?></a></li>
     <?php
       }
       $next = $block_end + 1;
       if($total_block > $block_num){
     ?>
     <li class="page-item">
-      <a class="page-link" href="notice.php?page=<?= $next; ?>" aria-label="Next">
+      <a class="page-link" href="teacher_faq.php?page=<?= $next; ?>" aria-label="Next">
         <i class="bi bi-chevron-right"></i>
       </a>
     </li>
