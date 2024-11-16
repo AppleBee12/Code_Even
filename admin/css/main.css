@@ -101,12 +101,18 @@ body nav .list-group-item.active {
   background: var(--bk0);
   color: var(--bk800);
   border-color: var(--bk300) var(--bk0) var(--bk300) var(--bk300);
-
+/* 
   a {
     background: var(--bk0);
     color: var(--bk800);
     border: 1px solid var(--bk0);
   }
+
+  ul li a{
+    background: var(--bk1000);
+    color: var(--bk300);
+    border: 0;
+  } */
 }
 
 body nav .list-group-item:hover,
