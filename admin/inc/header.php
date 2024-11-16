@@ -64,7 +64,7 @@ $current_page = basename($_SERVER['REQUEST_URI'], ".php");
     case 'notice_modify.php':
     case 'notice_search_result.php':
     case 'student_faq.php':
-    case 'student_faq_write.php':
+    case 'faq_write.php':
     case 'student_faq_modify.php':
     case 'teacher_faq.php':
     case 'teacher_faq_write.php':
