@@ -1,7 +1,7 @@
 document.addEventListener("DOMContentLoaded", function () {
 
     const barCtx = document.getElementById('current_six_returns');
-    const cateDatas = [250, 390, 580, 610, 710, 712]
+    const cateDatas = [250, 390, 580, 610, 692, 712]
     let now = new Date();
     let month = now.getMonth() + 1;
     let labels = []
