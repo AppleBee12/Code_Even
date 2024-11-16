@@ -29,7 +29,7 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `admin_answer` (
   `aaid` int(11) NOT NULL COMMENT '답변고유번호',
-  `aqid` int(11) NOT NULL COMMENT '질문고유번호',
+  `aqid` int(11) DEFAULT NULL COMMENT '질문고유번호',
   `acontent` text NOT NULL COMMENT '답변내용',
   `status` enum('waiting','done') NOT NULL DEFAULT 'waiting' COMMENT '상태',
   `file` varchar(255) DEFAULT NULL COMMENT '파일'
@@ -43,11 +43,11 @@ CREATE TABLE `admin_answer` (
 
 CREATE TABLE `admin_question` (
   `aqid` int(11) NOT NULL COMMENT '질문고유번호',
-  `uid` int(11) NOT NULL COMMENT '회원고유번호',
+  `uid` int(11) DEFAULT NULL COMMENT '회원고유번호',
   `category` int(11) NOT NULL COMMENT '주제분류',
   `qtitle` varchar(255) NOT NULL COMMENT '질문제목',
   `qcontent` text NOT NULL COMMENT '질문내용',
-  `regdate` date NOT NULL COMMENT '등록일',
+  `regdate` date NOT NULL DEFAULT current_timestamp() COMMENT '등록일',
   `file` varchar(255) DEFAULT NULL COMMENT '파일'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='1:1 문의 (사용자질문)';
 
@@ -158,9 +158,9 @@ CREATE TABLE `category` (
 
 CREATE TABLE `class_data` (
   `cdid` int(11) NOT NULL COMMENT '수강데이터ID',
-  `uid` int(11) NOT NULL COMMENT '회원고유번호',
-  `leid` int(11) NOT NULL COMMENT '강좌고유번호',
-  `exid` int(11) NOT NULL COMMENT '점수관리ID',
+  `uid` int(11) DEFAULT NULL COMMENT '회원고유번호',
+  `leid` int(11) DEFAULT NULL COMMENT '강좌고유번호',
+  `exid` int(11) DEFAULT NULL COMMENT '점수관리ID',
   `course_cert` varchar(255) NOT NULL COMMENT '수강이수증',
   `progress_rate` decimal(10,0) NOT NULL COMMENT '진도율'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='수강데이터';
@@ -256,7 +256,7 @@ CREATE TABLE `faq` (
   `fqid` int(11) NOT NULL COMMENT 'FAQ고유번호',
   `uid` int(11) DEFAULT NULL COMMENT '회원고유번호',
   `category` int(11) NOT NULL COMMENT '주제분류',
-  `target` enum('일반회원','강사') NOT NULL COMMENT '대상',
+  `target` enum('student','teacher') NOT NULL COMMENT '대상',
   `title` varchar(255) NOT NULL COMMENT '제목',
   `content` text NOT NULL COMMENT '내용',
   `view` int(11) NOT NULL COMMENT '조회수',
@@ -667,7 +667,7 @@ CREATE TABLE `review` (
   `rating` tinyint(4) NOT NULL COMMENT '평점',
   `title` varchar(255) NOT NULL COMMENT '제목',
   `content` text NOT NULL COMMENT '내용',
-  `regdate` datetime NOT NULL COMMENT '등록일'
+  `regdate` datetime NOT NULL DEFAULT current_timestamp() COMMENT '등록일'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='수강 후기';
 
 -- --------------------------------------------------------
@@ -681,7 +681,7 @@ CREATE TABLE `send_email` (
   `uid` int(11) DEFAULT NULL COMMENT '회원고유번호',
   `title` varchar(255) NOT NULL COMMENT '제목',
   `content` text NOT NULL COMMENT '내용',
-  `regdate` datetime NOT NULL COMMENT '발송일'
+  `regdate` datetime NOT NULL DEFAULT current_timestamp() COMMENT '발송일'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='이메일발송';
 
 -- --------------------------------------------------------
@@ -696,7 +696,7 @@ CREATE TABLE `student_qna` (
   `qtitle` varchar(255) NOT NULL COMMENT '질문제목',
   `qcontent` text NOT NULL COMMENT '질문내용',
   `status` enum('waiting','done') NOT NULL DEFAULT 'waiting' COMMENT '상태',
-  `regdate` datetime NOT NULL COMMENT '등록일',
+  `regdate` datetime NOT NULL DEFAULT current_timestamp() COMMENT '등록일',
   `file` varchar(255) DEFAULT NULL COMMENT '파일'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='수강생 질문';
 
