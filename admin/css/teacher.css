@@ -46,7 +46,3 @@ input[type=file]::-webkit-file-upload-button{
 }
 
 
-.list_table > tbody > tr > td:last-child > a:first-child{
-  margin-right: 20px;
-}
-
