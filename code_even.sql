@@ -29,7 +29,7 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `admin_answer` (
   `aaid` int(11) NOT NULL COMMENT '답변고유번호',
-  `aqid` int(11) NOT NULL COMMENT '질문고유번호',
+  `aqid` int(11) DEFAULT NULL COMMENT '질문고유번호',
   `acontent` text NOT NULL COMMENT '답변내용',
   `status` enum('답변대기','답변완료') NOT NULL DEFAULT '답변대기' COMMENT '상태',
   `file` varchar(255) DEFAULT NULL COMMENT '파일'
@@ -43,7 +43,7 @@ CREATE TABLE `admin_answer` (
 
 CREATE TABLE `admin_question` (
   `aqid` int(11) NOT NULL COMMENT '질문고유번호',
-  `uid` int(11) NOT NULL COMMENT '회원고유번호',
+  `uid` int(11) DEFAULT NULL COMMENT '회원고유번호',
   `category` int(11) NOT NULL COMMENT '주제분류',
   `qtitle` varchar(255) NOT NULL COMMENT '질문제목',
   `qcontent` text NOT NULL COMMENT '질문내용',
@@ -119,9 +119,9 @@ CREATE TABLE `category` (
 
 CREATE TABLE `class_data` (
   `cdid` int(11) NOT NULL COMMENT '수강데이터ID',
-  `uid` int(11) NOT NULL COMMENT '회원고유번호',
-  `leid` int(11) NOT NULL COMMENT '강좌고유번호',
-  `exid` int(11) NOT NULL COMMENT '점수관리ID',
+  `uid` int(11) DEFAULT NULL COMMENT '회원고유번호',
+  `leid` int(11) DEFAULT NULL COMMENT '강좌고유번호',
+  `exid` int(11) DEFAULT NULL COMMENT '점수관리ID',
   `course_cert` varchar(255) NOT NULL COMMENT '수강이수증',
   `progress_rate` decimal(10,0) NOT NULL COMMENT '진도율'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='수강데이터';
@@ -220,9 +220,17 @@ CREATE TABLE `faq` (
   `title` varchar(255) NOT NULL COMMENT '제목',
   `content` text NOT NULL COMMENT '내용',
   `view` int(11) NOT NULL COMMENT '조회수',
-  `regdate` datetime NOT NULL COMMENT '작성일',
+  `regdate` datetime NOT NULL DEFAULT current_timestamp() COMMENT '작성일',
   `status` enum('on','off') NOT NULL DEFAULT 'off' COMMENT '상태'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='자주묻는질문';
+
+--
+-- 테이블의 덤프 데이터 `faq`
+--
+
+INSERT INTO `faq` (`fqid`, `uid`, `category`, `target`, `title`, `content`, `view`, `regdate`, `status`) VALUES
+(1, 1, 1, 'student', 'ㄹ소', 'ㄹ소', 0, '2024-11-16 17:24:50', 'off'),
+(2, 1, 6, 'student', 'ㄴㅇㄻ', 'ㅁㄴㅇㄹ', 0, '2024-11-16 18:30:18', 'off');
 
 -- --------------------------------------------------------
 
