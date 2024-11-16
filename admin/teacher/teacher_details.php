@@ -97,7 +97,7 @@ include_once($_SERVER['DOCUMENT_ROOT'] . '/code_even/admin/inc/header.php');
         </td>
         <th scope="row">강사전시옵션</th>
         <td>
-        <div class="form-check d-inline-block me-2">
+        <div class="form-check form-check-inline d-inline-block">
               <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
               <label class="form-check-label" for="flexCheckDefault">
                 신규

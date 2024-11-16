@@ -29,7 +29,7 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `admin_answer` (
   `aaid` int(11) NOT NULL COMMENT '답변고유번호',
-  `aqid` int(11) NOT NULL COMMENT '질문고유번호',
+  `aqid` int(11) DEFAULT NULL COMMENT '질문고유번호',
   `acontent` text NOT NULL COMMENT '답변내용',
   `status` enum('waiting','done') NOT NULL DEFAULT 'waiting' COMMENT '상태',
   `file` varchar(255) DEFAULT NULL COMMENT '파일'
@@ -43,7 +43,7 @@ CREATE TABLE `admin_answer` (
 
 CREATE TABLE `admin_question` (
   `aqid` int(11) NOT NULL COMMENT '질문고유번호',
-  `uid` int(11) NOT NULL COMMENT '회원고유번호',
+  `uid` int(11) DEFAULT NULL COMMENT '회원고유번호',
   `category` int(11) NOT NULL COMMENT '주제분류',
   `qtitle` varchar(255) NOT NULL COMMENT '질문제목',
   `qcontent` text NOT NULL COMMENT '질문내용',
@@ -59,7 +59,7 @@ CREATE TABLE `admin_question` (
 
 CREATE TABLE `class_data` (
   `cdid` int(11) NOT NULL COMMENT '수강데이터ID',
-  `uid` int(11) NOT NULL COMMENT '회원고유번호',
+  `uid` int(11) DEFAULT NULL COMMENT '회원고유번호',
   `leid` int(11) NOT NULL COMMENT '강좌고유번호',
   `exid` int(11) NOT NULL COMMENT '점수관리ID',
   `course_cert` varchar(255) NOT NULL COMMENT '수강이수증',
@@ -90,7 +90,8 @@ CREATE TABLE `faq` (
 
 INSERT INTO `faq` (`fqid`, `uid`, `category`, `target`, `title`, `content`, `view`, `regdate`, `status`) VALUES
 (1, 1, 1, 'student', 'ㄹ소', 'ㄹ소', 0, '2024-11-16 17:24:50', 'off'),
-(2, 1, 6, 'student', 'ㄴㅇㄻ', 'ㅁㄴㅇㄹ', 0, '2024-11-16 18:30:18', 'off');
+(2, 1, 6, 'teacher', 'ㄴㅇㄻ', 'ㅁㄴㅇㄹ', 0, '2024-11-16 18:30:18', 'off'),
+(3, 1, 1, 'teacher', '인증메일이 오지 않아요.', '인증메일이 오지 않아요.', 0, '2024-11-17 02:47:25', 'off');
 
 -- --------------------------------------------------------
 
