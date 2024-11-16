@@ -75,7 +75,7 @@ CREATE TABLE `class_data` (
 CREATE TABLE `faq` (
   `fqid` int(11) NOT NULL COMMENT 'FAQ고유번호',
   `uid` int(11) DEFAULT NULL COMMENT '회원고유번호',
-  `category` int(11) NOT NULL COMMENT '주제분류',
+  `category` enum('결제/환불', '강의', '쿠폰', '가입/탈퇴', '기타', '수료', '정산', '강사') NOT NULL COMMENT '주제분류',
   `target` enum('일반회원','강사') NOT NULL COMMENT '대상',
   `title` varchar(255) NOT NULL COMMENT '제목',
   `content` text NOT NULL COMMENT '내용',
