@@ -182,6 +182,15 @@ a{
   }
 }
 
+.list_table td.edit_col > a:first-child{
+  margin-right: 20px;
+}
+
+.text-bd-secondary{
+  color: var(--bk700);
+  border: 1px solid var(--bk700);
+}
+
 /* 상세정보 table */
 .nav_sibling h2{ /* 임시 */
   margin-bottom: 30px;
