@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- 생성 시간: 24-11-16 17:21
+-- 생성 시간: 24-11-16 18:14
 -- 서버 버전: 10.4.32-MariaDB
 -- PHP 버전: 8.2.12
 
@@ -103,6 +103,62 @@ CREATE TABLE `user_coupons` (
   `regdate` datetime DEFAULT NULL COMMENT '등록일',
   `reason` varchar(100) NOT NULL COMMENT '쿠폰취득사유'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- 덤프된 테이블의 인덱스
+--
+
+--
+-- 테이블의 인덱스 `category`
+--
+ALTER TABLE `category`
+  ADD PRIMARY KEY (`cgid`);
+
+--
+-- 테이블의 인덱스 `coupons`
+--
+ALTER TABLE `coupons`
+  ADD PRIMARY KEY (`cpid`);
+
+--
+-- 테이블의 인덱스 `user`
+--
+ALTER TABLE `user`
+  ADD PRIMARY KEY (`uid`);
+
+--
+-- 테이블의 인덱스 `user_coupons`
+--
+ALTER TABLE `user_coupons`
+  ADD PRIMARY KEY (`ucid`);
+
+--
+-- 덤프된 테이블의 AUTO_INCREMENT
+--
+
+--
+-- 테이블의 AUTO_INCREMENT `category`
+--
+ALTER TABLE `category`
+  MODIFY `cgid` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- 테이블의 AUTO_INCREMENT `coupons`
+--
+ALTER TABLE `coupons`
+  MODIFY `cpid` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- 테이블의 AUTO_INCREMENT `user`
+--
+ALTER TABLE `user`
+  MODIFY `uid` int(11) NOT NULL AUTO_INCREMENT COMMENT '회원고유번호', AUTO_INCREMENT=2;
+
+--
+-- 테이블의 AUTO_INCREMENT `user_coupons`
+--
+ALTER TABLE `user_coupons`
+  MODIFY `ucid` int(11) NOT NULL AUTO_INCREMENT;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

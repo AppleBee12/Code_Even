@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- 생성 시간: 24-11-16 12:55
+-- 생성 시간: 24-11-16 18:18
 -- 서버 버전: 10.4.32-MariaDB
 -- PHP 버전: 8.2.12
 
@@ -205,6 +205,98 @@ CREATE TABLE `teamproject` (
 
 INSERT INTO `teamproject` (`post_id`, `uid`, `status`, `titles`, `start_date`, `mode`, `dev_env`, `durations`, `contact_url`, `roles`, `contents`, `likes`, `comments`, `hits`, `regdate`) VALUES
 (1, 3, '모집중', '[프론트엔드 모집] LMS 강의사이트 제작 프로젝트', '2024-11-30', '온라인', '피그마, 리액트 혹은 뷰, AWS, Docker, Nestjs, 노션, 디스코드', '단기(1~2개월)', 'forms.gle/A1b2Cdef3gHijk', 10, '[프로젝트 주제] 온라인 강좌를 등록할 수 있는 LMS 사이트의 관리자, 강사, 수강생 버전 웹 개발\r\n[프로젝트 목표] 유저 레벨에 따라 차등 작동되는 관리자 페이지와 강사페이지와  수강생 페이지의 연계를 보여주는 LMS사이트의 개발\r\n\r\n[예상 프로젝트 일정]  매주 평일 하루 + 토요일, 토요일은 오전 9시부터 4시간정도 온라인 회의 / 목표 일정: 합류시작 ~ 12월 말 예정\r\n[개발환경] 리액트를 사용하시면 좋겠지만 뷰도 괜찮습니다\r\n[팀 구성]  디자이너 1명을 구인하고 있으며 현재 팀구성은 기획자 1명, 프론트엔드 2명, 백엔드 2명입니다.', 0, 0, 0, '2024-11-11 19:33:41');
+
+--
+-- 덤프된 테이블의 인덱스
+--
+
+--
+-- 테이블의 인덱스 `blog`
+--
+ALTER TABLE `blog`
+  ADD PRIMARY KEY (`post_id`);
+
+--
+-- 테이블의 인덱스 `company_info`
+--
+ALTER TABLE `company_info`
+  ADD PRIMARY KEY (`comid`);
+
+--
+-- 테이블의 인덱스 `counsel`
+--
+ALTER TABLE `counsel`
+  ADD PRIMARY KEY (`post_id`);
+
+--
+-- 테이블의 인덱스 `manual`
+--
+ALTER TABLE `manual`
+  ADD PRIMARY KEY (`mnid`);
+
+--
+-- 테이블의 인덱스 `manual_contents`
+--
+ALTER TABLE `manual_contents`
+  ADD PRIMARY KEY (`mcid`);
+
+--
+-- 테이블의 인덱스 `post_comment`
+--
+ALTER TABLE `post_comment`
+  ADD PRIMARY KEY (`commid`);
+
+--
+-- 테이블의 인덱스 `teamproject`
+--
+ALTER TABLE `teamproject`
+  ADD PRIMARY KEY (`post_id`);
+
+--
+-- 덤프된 테이블의 AUTO_INCREMENT
+--
+
+--
+-- 테이블의 AUTO_INCREMENT `blog`
+--
+ALTER TABLE `blog`
+  MODIFY `post_id` int(11) NOT NULL AUTO_INCREMENT COMMENT '게시물id', AUTO_INCREMENT=2;
+
+--
+-- 테이블의 AUTO_INCREMENT `company_info`
+--
+ALTER TABLE `company_info`
+  MODIFY `comid` int(11) NOT NULL AUTO_INCREMENT COMMENT '상점정보 고유번호(자동)', AUTO_INCREMENT=2;
+
+--
+-- 테이블의 AUTO_INCREMENT `counsel`
+--
+ALTER TABLE `counsel`
+  MODIFY `post_id` int(11) NOT NULL AUTO_INCREMENT COMMENT '게시물id', AUTO_INCREMENT=2;
+
+--
+-- 테이블의 AUTO_INCREMENT `manual`
+--
+ALTER TABLE `manual`
+  MODIFY `mnid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+
+--
+-- 테이블의 AUTO_INCREMENT `manual_contents`
+--
+ALTER TABLE `manual_contents`
+  MODIFY `mcid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- 테이블의 AUTO_INCREMENT `post_comment`
+--
+ALTER TABLE `post_comment`
+  MODIFY `commid` int(11) NOT NULL AUTO_INCREMENT COMMENT '댓글id', AUTO_INCREMENT=3;
+
+--
+-- 테이블의 AUTO_INCREMENT `teamproject`
+--
+ALTER TABLE `teamproject`
+  MODIFY `post_id` int(11) NOT NULL AUTO_INCREMENT COMMENT '게시물id(자동)', AUTO_INCREMENT=2;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

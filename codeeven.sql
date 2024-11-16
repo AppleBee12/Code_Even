@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- 생성 시간: 24-11-16 17:42
+-- 생성 시간: 24-11-16 18:22
 -- 서버 버전: 10.4.32-MariaDB
 -- PHP 버전: 8.2.12
 
@@ -852,6 +852,12 @@ ALTER TABLE `admin_question`
   ADD KEY `uid` (`uid`);
 
 --
+-- 테이블의 인덱스 `blog`
+--
+ALTER TABLE `blog`
+  ADD PRIMARY KEY (`post_id`);
+
+--
 -- 테이블의 인덱스 `book`
 --
 ALTER TABLE `book`
@@ -870,6 +876,12 @@ ALTER TABLE `cart`
   ADD PRIMARY KEY (`cartid`);
 
 --
+-- 테이블의 인덱스 `category`
+--
+ALTER TABLE `category`
+  ADD PRIMARY KEY (`cgid`);
+
+--
 -- 테이블의 인덱스 `class_data`
 --
 ALTER TABLE `class_data`
@@ -877,6 +889,24 @@ ALTER TABLE `class_data`
   ADD KEY `uid` (`uid`,`leid`,`exid`),
   ADD KEY `leid` (`leid`),
   ADD KEY `class_data_ibfk_3` (`exid`);
+
+--
+-- 테이블의 인덱스 `company_info`
+--
+ALTER TABLE `company_info`
+  ADD PRIMARY KEY (`comid`);
+
+--
+-- 테이블의 인덱스 `counsel`
+--
+ALTER TABLE `counsel`
+  ADD PRIMARY KEY (`post_id`);
+
+--
+-- 테이블의 인덱스 `coupons`
+--
+ALTER TABLE `coupons`
+  ADD PRIMARY KEY (`cpid`);
 
 --
 -- 테이블의 인덱스 `faq`
@@ -908,6 +938,18 @@ ALTER TABLE `lecture_sales`
 --
 ALTER TABLE `lefile`
   ADD PRIMARY KEY (`fileid`);
+
+--
+-- 테이블의 인덱스 `manual`
+--
+ALTER TABLE `manual`
+  ADD PRIMARY KEY (`mnid`);
+
+--
+-- 테이블의 인덱스 `manual_contents`
+--
+ALTER TABLE `manual_contents`
+  ADD PRIMARY KEY (`mcid`);
 
 --
 -- 테이블의 인덱스 `monthly_sales`
@@ -944,6 +986,12 @@ ALTER TABLE `order_delivery`
 ALTER TABLE `order_details`
   ADD PRIMARY KEY (`oddtid`),
   ADD UNIQUE KEY `oddt_odid_IDX` (`odid`);
+
+--
+-- 테이블의 인덱스 `post_comment`
+--
+ALTER TABLE `post_comment`
+  ADD PRIMARY KEY (`commid`);
 
 --
 -- 테이블의 인덱스 `quiz`
@@ -996,10 +1044,28 @@ ALTER TABLE `teacher_qna`
   ADD KEY `tcid` (`tcid`);
 
 --
+-- 테이블의 인덱스 `teamproject`
+--
+ALTER TABLE `teamproject`
+  ADD PRIMARY KEY (`post_id`);
+
+--
 -- 테이블의 인덱스 `test`
 --
 ALTER TABLE `test`
   ADD PRIMARY KEY (`exid`);
+
+--
+-- 테이블의 인덱스 `user`
+--
+ALTER TABLE `user`
+  ADD PRIMARY KEY (`uid`);
+
+--
+-- 테이블의 인덱스 `user_coupons`
+--
+ALTER TABLE `user_coupons`
+  ADD PRIMARY KEY (`ucid`);
 
 --
 -- 덤프된 테이블의 AUTO_INCREMENT
@@ -1018,6 +1084,12 @@ ALTER TABLE `admin_question`
   MODIFY `aqid` int(11) NOT NULL AUTO_INCREMENT COMMENT '질문고유번호';
 
 --
+-- 테이블의 AUTO_INCREMENT `blog`
+--
+ALTER TABLE `blog`
+  MODIFY `post_id` int(11) NOT NULL AUTO_INCREMENT COMMENT '게시물id', AUTO_INCREMENT=2;
+
+--
 -- 테이블의 AUTO_INCREMENT `book`
 --
 ALTER TABLE `book`
@@ -1030,10 +1102,34 @@ ALTER TABLE `cart`
   MODIFY `cartid` int(11) NOT NULL AUTO_INCREMENT COMMENT '장바구니고유번호';
 
 --
+-- 테이블의 AUTO_INCREMENT `category`
+--
+ALTER TABLE `category`
+  MODIFY `cgid` int(11) NOT NULL AUTO_INCREMENT;
+
+--
 -- 테이블의 AUTO_INCREMENT `class_data`
 --
 ALTER TABLE `class_data`
   MODIFY `cdid` int(11) NOT NULL AUTO_INCREMENT COMMENT '수강데이터ID';
+
+--
+-- 테이블의 AUTO_INCREMENT `company_info`
+--
+ALTER TABLE `company_info`
+  MODIFY `comid` int(11) NOT NULL AUTO_INCREMENT COMMENT '상점정보 고유번호(자동)', AUTO_INCREMENT=2;
+
+--
+-- 테이블의 AUTO_INCREMENT `counsel`
+--
+ALTER TABLE `counsel`
+  MODIFY `post_id` int(11) NOT NULL AUTO_INCREMENT COMMENT '게시물id', AUTO_INCREMENT=2;
+
+--
+-- 테이블의 AUTO_INCREMENT `coupons`
+--
+ALTER TABLE `coupons`
+  MODIFY `cpid` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- 테이블의 AUTO_INCREMENT `faq`
@@ -1060,6 +1156,18 @@ ALTER TABLE `lefile`
   MODIFY `fileid` int(11) NOT NULL AUTO_INCREMENT COMMENT '번호';
 
 --
+-- 테이블의 AUTO_INCREMENT `manual`
+--
+ALTER TABLE `manual`
+  MODIFY `mnid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+
+--
+-- 테이블의 AUTO_INCREMENT `manual_contents`
+--
+ALTER TABLE `manual_contents`
+  MODIFY `mcid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
 -- 테이블의 AUTO_INCREMENT `notice`
 --
 ALTER TABLE `notice`
@@ -1082,6 +1190,12 @@ ALTER TABLE `order_delivery`
 --
 ALTER TABLE `order_details`
   MODIFY `oddtid` int(11) NOT NULL AUTO_INCREMENT COMMENT '주문상세고유번호';
+
+--
+-- 테이블의 AUTO_INCREMENT `post_comment`
+--
+ALTER TABLE `post_comment`
+  MODIFY `commid` int(11) NOT NULL AUTO_INCREMENT COMMENT '댓글id', AUTO_INCREMENT=3;
 
 --
 -- 테이블의 AUTO_INCREMENT `quiz`
@@ -1126,10 +1240,28 @@ ALTER TABLE `teacher_qna`
   MODIFY `asid` int(11) NOT NULL AUTO_INCREMENT COMMENT '답변고유ID';
 
 --
+-- 테이블의 AUTO_INCREMENT `teamproject`
+--
+ALTER TABLE `teamproject`
+  MODIFY `post_id` int(11) NOT NULL AUTO_INCREMENT COMMENT '게시물id(자동)', AUTO_INCREMENT=2;
+
+--
 -- 테이블의 AUTO_INCREMENT `test`
 --
 ALTER TABLE `test`
   MODIFY `exid` int(11) NOT NULL AUTO_INCREMENT COMMENT '번호';
+
+--
+-- 테이블의 AUTO_INCREMENT `user`
+--
+ALTER TABLE `user`
+  MODIFY `uid` int(11) NOT NULL AUTO_INCREMENT COMMENT '회원고유번호', AUTO_INCREMENT=2;
+
+--
+-- 테이블의 AUTO_INCREMENT `user_coupons`
+--
+ALTER TABLE `user_coupons`
+  MODIFY `ucid` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- 덤프된 테이블의 제약사항
@@ -1140,6 +1272,45 @@ ALTER TABLE `test`
 --
 ALTER TABLE `admin_answer`
   ADD CONSTRAINT `admin_answer_ibfk_1` FOREIGN KEY (`aqid`) REFERENCES `admin_question` (`aqid`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- 테이블의 제약사항 `admin_question`
+--
+ALTER TABLE `admin_question`
+  ADD CONSTRAINT `admin_question_ibfk_1` FOREIGN KEY (`uid`) REFERENCES `user` (`uid`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- 테이블의 제약사항 `orders`
+--
+ALTER TABLE `orders`
+  ADD CONSTRAINT `uid_ondel_setnull` FOREIGN KEY (`uid`) REFERENCES `user` (`uid`) ON DELETE SET NULL ON UPDATE CASCADE;
+
+--
+-- 테이블의 제약사항 `order_delivery`
+--
+ALTER TABLE `order_delivery`
+  ADD CONSTRAINT `oddtid_cascade` FOREIGN KEY (`oddtid`) REFERENCES `order_details` (`oddtid`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `order_delivery_ibfk_1` FOREIGN KEY (`odid`) REFERENCES `orders` (`odid`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `order_delivery_ibfk_2` FOREIGN KEY (`uid`) REFERENCES `user` (`uid`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- 테이블의 제약사항 `order_details`
+--
+ALTER TABLE `order_details`
+  ADD CONSTRAINT `odid_cascade` FOREIGN KEY (`odid`) REFERENCES `orders` (`odid`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- 테이블의 제약사항 `refunds`
+--
+ALTER TABLE `refunds`
+  ADD CONSTRAINT `refunds_ibfk_1` FOREIGN KEY (`oddtid`) REFERENCES `order_details` (`oddtid`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- 테이블의 제약사항 `teachers`
+--
+ALTER TABLE `teachers`
+  ADD CONSTRAINT `fk_1_userid` FOREIGN KEY (`uid`) REFERENCES `user` (`uid`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `fk_2_cateid` FOREIGN KEY (`cgid`) REFERENCES `category` (`cgid`) ON DELETE SET NULL ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
