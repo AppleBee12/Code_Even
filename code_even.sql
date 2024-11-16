@@ -394,10 +394,10 @@ VALUES (5, '홍길동', '길동이', 'hong123', '3627909a29c31381a071ec27f7c9ca9
 
 CREATE TABLE `notice` (
   `ntid` int(11) NOT NULL COMMENT '공지사항고유번호',
-  `uid` int(11) NOT NULL COMMENT '회원고유번호',
+  `uid` int(11) DEFAULT NULL COMMENT '회원고유번호',
   `title` varchar(255) NOT NULL COMMENT '제목',
   `content` text NOT NULL COMMENT '내용',
-  `view` int(11) NOT NULL COMMENT '조회수',
+  `view` int(11) DEFAULT NULL COMMENT '조회수',
   `regdate` date NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '등록일',
   `status` enum('on','off') NOT NULL DEFAULT 'off' COMMENT '상태',
   `file` varchar(255) DEFAULT NULL COMMENT '파일'
@@ -1049,6 +1049,12 @@ ALTER TABLE `test`
 ALTER TABLE `manual_contents`
   ADD CONSTRAINT `manual_contents_ibfk_1` FOREIGN KEY (`mnnid`) REFERENCES `manual` (`mnid`) ON DELETE CASCADE;
 COMMIT;
+
+--
+-- 테이블의 제약사항 `notice`
+--
+ALTER TABLE `notice`
+  ADD CONSTRAINT `notice_ibfk_1` FOREIGN KEY (`uid`) REFERENCES `user` (`uid`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
