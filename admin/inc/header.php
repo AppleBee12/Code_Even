@@ -92,16 +92,30 @@ $current_page = basename($_SERVER['REQUEST_URI'], ".php");
   if (isset($chart_js)) {
     echo $chart_js;
   }
+  if (isset($main_js)) {
+    echo $main_js;
+  }
 
   ?>
 
 </head>
 
 <body>
-  <header class="header">
+  <header class="header d-flex justify-content-between">
     <h1 class="logo"><a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/index.php">code even</a></h1>
-    <div>
-      <div><?= $_SESSION['AUNAME'] ?> 관리자님 <br>환영합니다. </div>
+    <div class="header_profile d-flex justify-content-between">
+      <div class="alarm">
+        <i class="bi bi-bell">
+          <span class="position-absolute top-0 start-80 translate-middle badge rounded-pill bg-danger">
+            1
+            <span class="visually-hidden">unread messages</span>
+          </span>
+        </i>
+      </div>
+      <div>
+        <p><?= $_SESSION['AUNAME'] ?> 님</p>
+        <p>환영합니다.</p>
+      </div>
       <ul class="nav nav-pills">
         <li class="nav-item">
           <a class="nav-link" href="#"><img src="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/images/sb_logo.png"
