@@ -97,30 +97,15 @@ body nav .no_line.list-group {
 
 /*nav의 active*/
 
-body nav .list-group-item.active {
-  background: var(--bk0);
-  color: var(--bk800);
-  border-color: var(--bk300) var(--bk0) var(--bk300) var(--bk300);
-/* 
-  a {
-    background: var(--bk0);
-    color: var(--bk800);
-    border: 1px solid var(--bk0);
-  }
-
-  ul li a{
-    background: var(--bk1000);
-    color: var(--bk300);
-    border: 0;
-  } */
-}
-
+body nav .list-group-item.active,
+body nav .list-group-item.active>a,
 body nav .list-group-item:hover,
-body nav .list-group-item:hover>a{
+body nav .list-group-item:hover>a {
   background: var(--bk0);
   color: var(--bk900);
-  border-color:var(--bk0);
+  border-color: var(--bk0);
 }
+
 
 
 button.btn-toggle[aria-expanded="true"] i::before {
