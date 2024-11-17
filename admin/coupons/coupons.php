@@ -1,126 +1,185 @@
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
+  integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="
+  crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <?php
-include_once($_SERVER['DOCUMENT_ROOT']. '/code_even/admin/inc/header.php');
+include_once($_SERVER['DOCUMENT_ROOT'] . '/code_even/admin/inc/header.php');
+
+if (!isset($_SESSION['AUID'])) {
+  echo "<script>
+  alert('로그인을 해주세요');
+  location.href='../login/login.php';
+  </script>";
+}
+
+$search_where = '';
+
+$search_keyword = $_GET['search_keyword'] ?? '';
+
+if ($search_keyword) {
+  $search_where .= " and (coupon_name LIKE '%$search_keyword%')";
+}
+
+
+$search_where = '';
+
+$search_keyword = $_GET['search_keyword'] ?? '';
+
+if ($search_keyword) {
+  $search_where .= " and (coupon_name LIKE '%$search_keyword%')";
+}
+
+
+//데이터의 개수 조회
+$page_sql = "SELECT COUNT(*) AS cnt FROM coupons WHERE 1=1 $search_where";
+$page_result = $mysqli->query($page_sql);
+$page_data = $page_result->fetch_assoc();
+$row_num = $page_data['cnt'];
+
+//페이지네이션 
+if (isset($_GET['page'])) {
+  $page = $_GET['page'];
+} else {
+  $page = 1;
+}
+
+$list = 10;
+$start_num = ($page - 1) * $list;
+$block_ct = 5;
+$block_num = ceil($page / $block_ct); //$page1/5 0.2 = 1
+
+$block_start = (($block_num - 1) * $block_ct) + 1;
+$block_end = $block_start + $block_ct - 1;
+
+$total_page = ceil($row_num / $list); //총75개 10개씩, 8
+$total_block = ceil($total_page / $block_ct);
+
+if ($block_end > $total_page)
+  $block_end = $total_page;
+
+
+$sql = "SELECT * FROM coupons WHERE 1=1 $search_where ORDER BY cpid DESC LIMIT $start_num, $list"; //products 테이블에서 모든 데이터를 조회
+
+$result = $mysqli->query($sql); //쿼리 실행 결과
+
+
+while ($data = $result->fetch_object()) {
+  $dataArr[] = $data;
+}
+
+
 ?>
 
 <style>
-  .text-bg-secondary-light{
-    background-color: var(--bk300); /* light 배경 색상 */
+  .text-bg-secondary-light {
+    background-color: var(--bk300);
+    /* light 배경 색상 */
   }
-  .c-img img{
-    /* display: none; */
-    height: 232px;
+
+  .card {
+    width: 45%;
   }
-  .cps{
-    gap: 110px;
+  .cps {
+    /* gap: 110px; */
     height: 250px;
   }
 </style>
 
-  <div class="container">
-    <h2 class="mb-5">쿠폰관리</h2>
-    <div class="d-flex gap-5">
+<div class="container">
+  <h2 class="mb-5">쿠폰관리</h2>
+  <!-- <div class="d-flex gap-5">
       <h5>총 쿠폰 수 18개</h5>
       <h5>활성화 쿠폰 수 9개</h5>
       <h5>비활성화 쿠폰 수 9개</h5>
-    </div>
-    <form class="row justify-content-end">
-      <div class="col-lg-4">
-        <div class="input-group mb-3">
-          <input type="text" class="form-control" placeholder="검색어를 입력하세요." aria-label="Recipient's username" aria-describedby="basic-addon2">
-          <button type="button" class="btn btn-secondary">
-            <i class="bi bi-search"></i>
-          </button>
-        </div>
-      </div>
-    </form>
-    
-    <div class="d-flex cps">
-      <div class="card mb-3" style="max-width: 540px;">
-        <div class="row g-0">
-          <div class="col-md-7 c-img">
-            <img src="../../images/coupons1.png" class="img-fluid rounded-start" alt="...">
-          </div>
-          <div class="col-md-5">
-            <div class="card-body">
-              <h6><span class="badge text-bg-secondary">활성화</span></h6>
-              <h5 class="card-title mt">환승회원 전용 쿠폰</h5>
-              <p class="card-text bd">사용기한 : 무제한</p>
-              <p class="card-text bd">할인금액 : 20,000원</p>
-              <p class="card-text bd"> 최소 사용금액 : 10,000원</p>
-              <div class="icons d-flex justify-content-end gap-2">
-                <i class="bi bi-trash"></i>
-                <i class="bi bi-pencil-fill"></i>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="card mb-3" style="max-width: 540px;">
-        <div class="row g-0">
-          <div class="col-md-7 c-img">
-            <img src="../../images/coupons2.png" class="img-fluid rounded-start" alt="...">
-          </div>
-          <div class="col-md-5">
-            <div class="card-body">
-            <h6><span class="badge text-bg-secondary-light">비활성화</span></h6>
-              <h5 class="card-title mt">강의할인 쿠폰</h5>
-              <p class="card-text bd">사용기한 : 2025/10/29</p>
-              <p class="card-text bd">할인금액 : 5,000원</p>
-              <p class="card-text bd"> 최소 사용금액 : 10,000원</p>
-              <div class="icons d-flex justify-content-end gap-2">
-                <i class="bi bi-trash"></i>
-                <i class="bi bi-pencil-fill"></i>
-              </div>
-            </div>
-          </div>
-        </div>
+    </div> -->
+  <form class="row justify-content-end">
+    <div class="col-lg-4">
+      <div class="input-group mb-3">
+        <input type="text" class="form-control" id="search" name="search_keyword" placeholder="검색어를 입력하세요."
+          aria-label="Recipient's username" aria-describedby="basic-addon2">
+        <button type="button" class="btn btn-secondary">
+          <i class="bi bi-search"></i>
+        </button>
       </div>
     </div>
-    <div class="d-flex cps">
-      <div class="card mb-3" style="max-width: 540px;">
-        <div class="row g-0">
-          <div class="col-md-7 c-img">
-            <img src="../../images/coupons3.png" class="img-fluid rounded-start" alt="...">
-          </div>
-          <div class="col-md-5">
-            <div class="card-body">
-            <h6><span class="badge text-bg-secondary-light">비활성화</span></h6>
-              <h5 class="card-title mt">가입축하 쿠폰</h5>
-              <p class="card-text bd">사용기한 : 2025/12/24</p>
-              <p class="card-text bd">할인금액 : 7,000원</p>
-              <p class="card-text bd"> 최소 사용금액 : 14,000원</p>
-              <div class="icons d-flex justify-content-end gap-2">
-                <i class="bi bi-trash"></i>
-                <i class="bi bi-pencil-fill"></i>
+  </form>
+
+  <div class="row  mb-5 ">
+    <?php
+    if (isset($dataArr)) {
+      foreach ($dataArr as $item) {
+        ?>
+      <div class="col-6 card p-0 m-3">
+          <div class="row g-0">
+            <div class="col-md-7 c-img">
+              <img src="<?= $item->coupon_image; ?>" class="img-fluid rounded-start" alt="...">
+            </div>
+            <div class="col-md-5">
+              <div class="card-body">
+                <h6><span class="badge text-bg-secondary mb-3">
+                    <?php
+                    if ($item->status == 1) {
+                      echo '활성화';
+                    } else {
+                      echo '비활성화';
+                    }
+                    ?>
+                  </span></h6>
+                <h5 class="card-title "><?= $item->coupon_name; ?></h5>
+                <p class="card-text bd">사용기한 : <?= $item->use_max_date; ?></p>
+                <p class="card-text bd">할인금액 : <?= $item->max_value; ?>원</p>
+                <p class="card-text bd"> 최소 사용금액 :<?= $item->use_min_price; ?>원</p>
+                <div class="icons d-flex justify-content-end gap-2">
+                  <a href="coupon_edit.php?cpid=<?= $item->cpid ?>" class="bi bi-pencil-fill"></a>
+                  <a href="coupon_del.php?cpid=<?= $item->cpid ?>" class="delete bi bi-trash"></a>
+                </div>
               </div>
             </div>
           </div>
-        </div>
-      </div>
-      <div class="card mb-3" style="max-width: 540px;">
-        <div class="row g-0">
-          <div class="col-md-7 c-img">
-            <img src="../../images/coupons4.png" class="img-fluid rounded-start" alt="...">
-          </div>
-          <div class="col-md-5">
-            <div class="card-body">
-            <h6><span class="badge text-bg-secondary-light">활성화</span></h6>
-              <h5 class="card-title mt">리뷰작성  쿠폰</h5>
-              <p class="card-text bd">사용기한 : 2025/11/14</p>
-              <p class="card-text bd">할인금액 : 20,000원</p>
-              <p class="card-text bd"> 최소 사용금액 : 13,000원</p>
-              <div class="icons d-flex justify-content-end gap-2">
-                <i class="bi bi-trash"></i>
-                <i class="bi bi-pencil-fill"></i>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
     </div>
+    <?php
+      }
+    }
+    ?>
+ 
   </div>
+
+  <div class="d-flex justify-content-end">
+    <a href="coupons_up.php">
+      <button class="btn btn-secondary mt-3 ">쿠폰등록</button>
+    </a>
+  </div>
+
+  <div class="list_pagination" aria-label="Page navigation example">
+    <ul class="pagination d-flex justify-content-center">
+      <li class="page-item">
+        <a class="page-link" href="" aria-label="Previous">
+          <i class="bi bi-chevron-left"></i>
+        </a>
+      </li>
+      <li class="page-item active"><a class="page-link" href="">1</a></li>
+      <li class="page-item"><a class="page-link" href="">2</a></li>
+      <li class="page-item"><a class="page-link" href="">3</a></li>
+      <li class="page-item">
+        <a class="page-link" href="" aria-label="Next">
+          <i class="bi bi-chevron-right"></i>
+        </a>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<script>
+  $('.delete').click(function (e) {
+    e.preventDefault();
+    if (confirm('정말 삭제할까요?')) {
+      window.location.href = $(this).attr('href');
+    }
+  });
+</script>
+
+
 
 
 <?php
-include_once($_SERVER['DOCUMENT_ROOT']. '/code_even/admin/inc/footer.php');
+include_once($_SERVER['DOCUMENT_ROOT'] . '/code_even/admin/inc/footer.php');
 ?>
