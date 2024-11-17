@@ -1,0 +1,116 @@
+/* top_wrapper */
+
+.container .top_wrapper {
+  width: 1400px;
+
+  div {
+    border: 1px solid var(--bk100);
+    border-radius: 8px;
+    padding: 30px;
+    min-width: 263px;
+
+    img{
+      border-radius: 50%;
+    }
+  }
+
+  p {
+    font-size: 30px;
+    line-height: 30px;
+    color: var(--bk950);
+    margin-top: 20px;
+  }
+
+  .top_text {
+    font-size: 20px;
+    line-height: 30px;
+    color: var(--bk600);
+  }
+}
+
+.container .top_wrapper div img + div{
+  border: 0;
+  padding: 0;
+  min-width:200px;
+  p{
+    margin-top: 0px;
+    
+  }
+}
+
+.container .top_wrapper div:last-child p{
+  text-align: center;
+}
+
+/* 평점 별 */
+#rating_star {
+  list-style: none;
+  display: flex;
+  gap: 5px;
+  padding: 0;
+}
+
+#rating_star li {
+  font-size: 30px;
+}
+
+#rating_star li i {
+  color: var(--bk100); 
+}
+
+#rating_star li.full i {
+  color: gold; 
+}
+
+#rating_star li.half i {
+  color: gold; 
+}
+
+#rating_star li.empty i {
+  color: var(--bk100);
+}
+
+
+/* bottom_wrapper */
+
+.bottom_wrapper{
+  width: 1400px;
+  margin-top: 20px;
+}
+
+.bott_left{
+  width: 624px;
+  height: 632px;
+  border: 1px solid var(--bk100);
+  padding: 20px;
+  border-radius: 8px;
+  margin-right:20px;
+}
+.sellcost_best_table{
+  width: 756px;
+  height: 300px;
+}
+
+
+
+.bott_right {
+  
+  height: 632px;
+  .row div{
+    border-top: 1px solid var(--bk100);
+  }
+
+  .month{
+    font-size: 12px;
+  }
+} 
+.bott_right>div:first-child{
+  margin-bottom: 20px;
+}
+
+.bott_right>div:first-child,
+.bott_right>div:nth-child(2)>div {
+  border: 1px solid var(--bk100);
+  padding: 20px;
+  border-radius: 8px;
+}
