@@ -1,9 +1,18 @@
 <?php
+
+  $title = "강좌 등록";
+
   include_once($_SERVER['DOCUMENT_ROOT'] . '/CODE_EVEN/admin/inc/header.php');
 
-  $sql = "SELECT * FROM lecture WHERE leid = $leid";
-  // $result = $mysqli->query($sql);
-  // $data = $result->fetch_object();
+  // 카테고리 데이터를 불러오기
+  $sql_cate = "SELECT * FROM category ORDER BY step, pcode";
+  $result_cate = $mysqli->query($sql_cate);
+
+  $categories = [];
+  while ($categoriesArr = $result_cate->fetch_assoc()) {
+      $categories[] = $categoriesArr;
+  }
+
 ?>
 
 <div class="container">
@@ -12,33 +21,29 @@
     <h3>강좌 기본 정보 입력</h3>
   </div>
   <form action="lecture_up_ok.php" id="lecture_save" enctype="multipart/form-data">
-  <input type="hidden" name="pid" value="<?= $pid; ?>">
+  <input type="hidden" name="leid" value="<?= $leid; ?>">
     <table class="table">
       <tbody>
         <tr>
           <th scope="row">분류 설정 <b>*</b></th>
           <td colspan="2">
-            <select name="cate1" class="form-select" aria-label="대분류">
+            <select name="cate1" id="cate1" class="form-select" aria-label="대분류">
               <option selected>대분류</option>
-              <option value="1">One</option>
-              <option value="2">Two</option>
-              <option value="3">Three</option>
+              <?php foreach ($categories as $category) {
+                if ($category['step'] == 1) { // 대분류만
+                  echo "<option value='{$category['code']}'>{$category['name']}</option>";
+                }
+              } ?>
             </select>
           </td>
           <td colspan="2">
-            <select name="cate2" class="form-select" aria-label="중분류">
-              <option selected>중분류</option>
-              <option value="1">One</option>
-              <option value="2">Two</option>
-              <option value="3">Three</option>
+            <select name="cate2" id="cate2" class="form-select" aria-label="Default select example">
+              <option selected value="">중분류</option>
             </select>
           </td>
           <td colspan="2">
-            <select name="cate3" class="form-select" aria-label="소분류">
-              <option selected>소분류</option>
-              <option value="1">One</option>
-              <option value="2">Two</option>
-              <option value="3">Three</option>
+            <select name="cate3" id="cate3" class="form-select" aria-label="Default select example">
+              <option selected value="">소분류</option>
             </select>
           </td>
         </tr>
@@ -192,8 +197,55 @@
 
 <script>
 
+  // 카테고리 데이터 변환
+  const categories = <?php echo json_encode($categories); ?>;
+
+  // 대분류 선택 -> 중분류 업데이트
+  $('#cate1').on('change', function() {
+    const cate1 = $(this).val();
+    console.log(cate1);
+
+    if(cate1) {
+      const filterCate2 = categories.filter(category => category.step == 2 && category.pcode == cate1);
+
+      $('#cate2').html('<option value="">중분류</option>');
+      filterCate2.forEach(category => {
+        $('#cate2').append(`<option value="${category.code}">${category.name}</option>`);
+      });
+      $('#cate3').html('<option value="">소분류</option>');
+
+    }else{
+
+      $('#cate2').html('<option value="">중분류</option>');
+      $('#cate3').html('<option value="">소분류</option>');
+
+    }
+  });
+
+  // 중분류 선택 -> 소분류 업데이트
+  $('#cate2').on('change', function() {
+    const cate2 = $(this).val();
+
+    if(cate2) {
+      const filterCate3 = categories.filter(category => category.step == 3 && category.pcode == cate2);
+
+      $('#cate3').html('<option value="">소분류</option>')
+      filterCate3.forEach(category => {
+        $('#cate3').append(`<option value="${category.code}">${category.name}</option>`);
+      });
+
+    }else{
+
+      $('#cate3').html('<option value="">소분류</option>');
+
+    }
+  });
+
 </script>
 
 <?php
 include_once($_SERVER['DOCUMENT_ROOT'] . '/code_even/admin/inc/footer.php');
 ?>
+
+
+
