@@ -35,6 +35,13 @@ CREATE TABLE `admin_answer` (
   `file` varchar(255) DEFAULT NULL COMMENT '파일'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='1:1 문의 (관리자답변)';
 
+--
+-- 테이블의 덤프 데이터 `admin_answer`
+--
+
+INSERT INTO `admin_answer` (`aaid`, `aqid`, `acontent`, `status`, `file`) VALUES
+(1, 1, '답변이 작성되었습니다.', 'done', NULL);
+
 -- --------------------------------------------------------
 
 --
@@ -50,6 +57,14 @@ CREATE TABLE `admin_question` (
   `regdate` date NOT NULL DEFAULT current_timestamp() COMMENT '등록일',
   `file` varchar(255) DEFAULT NULL COMMENT '파일'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='1:1 문의 (사용자질문)';
+
+--
+-- 테이블의 덤프 데이터 `admin_question`
+--
+
+INSERT INTO `admin_question` (`aqid`, `uid`, `category`, `qtitle`, `qcontent`, `regdate`, `file`) VALUES
+(1, 2, 2, '질문이 있습니다.', '질문이 있습니다.', '2024-11-18', NULL),
+(2, 3, 5, '사용 문의 드립니다.', '사용 문의 드립니다.', '2024-11-18', NULL);
 
 -- --------------------------------------------------------
 
