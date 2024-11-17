@@ -7,7 +7,7 @@
     border: 1px solid var(--bk100);
     border-radius: 8px;
     padding: 30px;
-    min-width: 263px;
+    min-width: 325px;
 
     img{
       border-radius: 50%;
@@ -28,6 +28,10 @@
   }
 }
 
+.container .top_wrapper div:nth-child(3) ul{
+  margin-top: 15px
+}
+
 .container .top_wrapper div img + div{
   border: 0;
   padding: 0;
@@ -42,32 +46,25 @@
   text-align: center;
 }
 
+
 /* 평점 별 */
 #rating_star {
   list-style: none;
-  display: flex;
-  gap: 5px;
   padding: 0;
+  
+  li {
+    font-size: 30px;
+  }
 }
 
-#rating_star li {
-  font-size: 30px;
-}
-
-#rating_star li i {
+#rating_star li i,
+#rating_star li.empty i {
   color: var(--bk100); 
 }
 
-#rating_star li.full i {
-  color: gold; 
-}
-
+#rating_star li.full i,
 #rating_star li.half i {
   color: gold; 
-}
-
-#rating_star li.empty i {
-  color: var(--bk100);
 }
 
 
