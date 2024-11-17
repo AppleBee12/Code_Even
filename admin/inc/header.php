@@ -120,14 +120,13 @@ $current_page = basename($_SERVER['REQUEST_URI'], ".php");
           </span>
         </i>
       </div>
-      <div>
+      <div class="greet_name bd">
         <p><?= $_SESSION['AUNAME'] ?> 님</p>
         <p>환영합니다.</p>
       </div>
       <ul class="nav nav-pills">
         <li class="nav-item">
-          <a class="nav-link" href="#"><img src="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/images/sb_logo.png"
-              alt="" width="50"></a>
+          <a class="nav-link profile_image" href="#"></a>
         </li>
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button"
