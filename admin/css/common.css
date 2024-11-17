@@ -197,6 +197,7 @@ body nav.nav {
   background: var(--bk1000);
   align-items: flex-end;
   padding-top: 46px;
+  min-height: calc(100vh - 105px);
 
   .list-group {
     width: 316px;
