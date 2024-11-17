@@ -40,11 +40,15 @@ $current_page = basename($_SERVER['REQUEST_URI'], ".php");
     rel="stylesheet"> -->
 
   <link rel="stylesheet" href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/css/common.css">
-  <link rel="stylesheet" href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/css/main.css">
 
   <!-- 개인 Style CSS -->
   <?php
   $page = basename($_SERVER['PHP_SELF']); // 현재 실행 중인 페이지 이름을 가져옴
+  switch ($page) {
+    case 'index.php':
+      echo '<link rel="stylesheet" href="http://' . $_SERVER['HTTP_HOST'] . '/code_even/admin/css/main.css">';
+      break;
+  }
   switch ($page) {
     case 'teacher_list.php':
     case 'teacher_details.php':
@@ -95,6 +99,11 @@ $current_page = basename($_SERVER['REQUEST_URI'], ".php");
       echo '<link rel="stylesheet" href="http://' . $_SERVER['HTTP_HOST'] . '/code_even/admin/css/lecture.css">';
       break;
   }
+  switch ($page) {
+    case 'teacher_index.php':
+      echo '<link rel="stylesheet" href="http://' . $_SERVER['HTTP_HOST'] . '/code_even/admin/css/t_main.css">';
+      break;
+  }
   ?>
 
   <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>   
@@ -105,6 +114,9 @@ $current_page = basename($_SERVER['REQUEST_URI'], ".php");
   }
   if (isset($main_js)) {
     echo $main_js;
+  }
+  if (isset($t_main_js)) {
+    echo $t_main_js;
   }
 
   ?>
