@@ -38,7 +38,7 @@ while($data = $result->fetch_object()){
     
   </form>
 
-  <form action="">
+  <form action="tclist_update.php" method="GET">
     <table class="table list_table">
       <thead>
         <tr>
@@ -58,13 +58,16 @@ while($data = $result->fetch_object()){
             foreach($dataArr as $item){
         ?> 
         <tr>
-          <th scope="row"><?= $item->tcid; ?></th>
-          <td><?= $item->tc_userid; ?></td> <!-- 웹개발 -->
-          <td><?= $item->tc_name; ?></td> <!-- 웹개발 -->
-          <td><?= $item->tc_email; ?></td> <!-- 웹개발 -->
+          <th scope="row">
+            <input type="hidden" name="tcid[]" value="<?= $item->tcid; ?>">
+            <?= $item->tcid; ?>
+          </th>
+          <td><?= $item->tc_userid; ?></td> 
+          <td><?= $item->tc_name; ?></td> 
+          <td><?= $item->tc_email; ?></td>
           <td><?= $item->tc_cate; ?></td> <!-- 웹개발 -->
           <td>
-          <select class="form-select form-select-sm tc_status" aria-label="승인여부" name="status[<?= $item->tcid; ?>]" id="status[<?= $item->tcid; ?>]">
+          <select class="form-select form-select-sm tc_status" aria-label="승인여부" name="tc_ok[<?= $item->tcid; ?>]" id="tc_ok[<?= $item->tcid; ?>]">
               <option value="-1" <?php if($item->tc_ok == -1){echo 'selected';}?>>승인거절</option>
               <option value="0" <?php if($item->tc_ok == 0){echo 'selected';}?>>심사중</option>
               <option value="1" <?php if($item->tc_ok == 1){echo 'selected';}?>>승인완료</option>
@@ -72,20 +75,20 @@ while($data = $result->fetch_object()){
           </td>
           <td>
             <div class="form-check d-inline-block me-2">
-              <input class="form-check-input" type="checkbox" <?php echo $item->isnew ? 'checked' : ''; ?> value="<?= $item->isnew ?>" id="flexCheckDefault">
+              <input class="form-check-input" type="checkbox" <?php echo $item->isnew ? 'checked' : ''; ?> name="isnew[<?= $item->tcid; ?>]" value="<?= $item->isnew ?>" id="flexCheckDefault">
               <label class="form-check-label" for="flexCheckDefault">
                 신규
               </label>
             </div>
             <div class="form-check d-inline-block">
-              <input class="form-check-input" type="checkbox" <?php echo $item->isrecom ? 'checked' : ''; ?> value="<?= $item->isrecom ?>" id="flexCheckDefault">
+              <input class="form-check-input" type="checkbox" <?php echo $item->isrecom ? 'checked' : ''; ?> name="isrecom[<?= $item->tcid; ?>]" value="<?= $item->isrecom ?>" id="flexCheckDefault">
               <label class="form-check-label" for="flexCheckDefault">
                 추천
               </label>
             </div>
           </td>
           <td class="edit_col">
-            <a href="teacher_details.php">
+            <a href="teacher_edit.php?tcid=<?= $item->tcid; ?>">
             <i class="bi bi-pencil-fill"></i>   
             </a>
             <a href="">
@@ -162,7 +165,7 @@ while($data = $result->fetch_object()){
       </tbody> 
     </table>
      <!--//table -->
-    <button type="button" class="btn btn-outline-secondary ms-auto d-block">일괄수정</button>
+    <button class="btn btn-outline-secondary ms-auto d-block">일괄수정</button>
   </form>
 
 
