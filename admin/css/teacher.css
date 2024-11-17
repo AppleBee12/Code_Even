@@ -1,10 +1,6 @@
 /* Form 컨트롤 */
 
-.form-control{
-  width: 480px;
-}
-
-.form-control.w_512, .form-select.w_512{
+.form-control, .form-select{
   width: 480px;
 }
 
@@ -16,7 +12,7 @@
   padding: 1rem .5rem;
 }
 
-.tc_status{
+.list_table .tc_status{
   width: 70%;
   margin: 0 auto;
 }
