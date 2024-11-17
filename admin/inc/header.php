@@ -51,9 +51,8 @@ $current_page = basename($_SERVER['REQUEST_URI'], ".php");
   }
   switch ($page) {
     case 'teacher_list.php':
-    case 'teacher_details.php':
+    case 'teacher_edit.php':
     case 'my_details.php':
-    case 'teacher_details.php':
       echo '<link rel="stylesheet" href="http://' . $_SERVER['HTTP_HOST'] . '/code_even/admin/css/teacher.css">';
       break;
   }
