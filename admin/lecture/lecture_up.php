@@ -9,9 +9,26 @@
   $result_cate = $mysqli->query($sql_cate);
 
   $categories = [];
-  while ($categoriesArr = $result_cate->fetch_assoc()) {
-      $categories[] = $categoriesArr;
+  while ($categoryObj = $result_cate->fetch_object()) {
+    $categories[] = $categoryObj;
+}
+
+  // 선택한 분류가 있으면 그 값 아니면 빈값
+  $selected_cate1 = isset($_POST['cate1']) ? $_POST['cate1'] : '';
+  $selected_cate2 = isset($_POST['cate2']) ? $_POST['cate2'] : '';
+  $selected_cate3 = isset($_POST['cate3']) ? $_POST['cate3'] : '';
+
+  // 강좌 카테고리와 연결된 book 테이블 교재 데이터 불러오기
+  $sqlBooks = "SELECT * FROM book WHERE cate1 = '{$selected_cate1}' AND cate2 = '{$selected_cate2}' AND cate3 = '{$selected_cate3}'";
+  $resultBooks = $mysqli->query($sqlBooks);
+
+  $books = [];
+  while ($bookObj = $resultBooks->fetch_object()) {
+      $books[] = $bookObj;
   }
+
+  // 이미지
+
 
 ?>
 
@@ -30,8 +47,8 @@
             <select name="cate1" id="cate1" class="form-select" aria-label="대분류">
               <option selected>대분류</option>
               <?php foreach ($categories as $category) {
-                if ($category['step'] == 1) { // 대분류만
-                  echo "<option value='{$category['code']}'>{$category['name']}</option>";
+                if ($category->step == 1) { // 대분류만
+                  echo "<option value='{$category->code}'>{$category->name}</option>";
                 }
               } ?>
             </select>
@@ -50,7 +67,7 @@
         <tr>
           <th scope="row">강좌명 <b>*</b></th>
           <td colspan="6">
-            <input type="text" name="title" class="form-control" placeholder="기초부터 확실하게! (페이지의 내용 전달을 위한 HTML, 스타일 설정을 위한 CSS 기초 학습)">
+            <input type="text" name="title" id="title" class="form-control" placeholder="기초부터 확실하게! (페이지의 내용 전달을 위한 HTML, 스타일 설정을 위한 CSS 기초 학습)">
           </td>
         </tr>
         <tr>
@@ -64,7 +81,7 @@
               <div class="image"><img src="" alt=""></div>
             </div>
             <div class="input-group mb-3">
-              <input name="image" accept="image/*" type="file" class="form-control" id="inputGroupFile02">
+              <input name="image" accept="image/*" type="file" id="image" class="form-control">
             </div>
           </td>
         </tr>
@@ -72,7 +89,7 @@
           <th scope="row">수강료 <b>*</b></th>
           <td colspan="2">
             <div class="input-group">
-              <input name="price" type="text" class="form-control" aria-label="원">
+              <input name="price" type="text" class="form-control" aria-label="원" oninput="priceNum(this)">
               <span class="input-group-text">원</span>
             </div>
           </td>
@@ -80,11 +97,13 @@
         <tr>
           <th scope="row">교재 선택 <b>*</b></th>
           <td colspan="2">
-            <select name="" class="form-select">
-              <option selected>SELECT</option>
-              <option value="1">One</option>
-              <option value="2">Two</option>
-              <option value="3">Three</option>
+            <select name="" id="book" class="form-select">
+              <option value="">SELECT</option>
+              <?php if (!empty($books)) {
+                foreach ($books as $book) {
+                  echo "<option value='{$book->boid}'>{$book->title}</option>";
+                }
+              } ?>
             </select>
             <small class="text-muted">* 필요한 교재가 있다면 교재 목록에서 우선 등록해 주세요.</small>
           </td>
@@ -203,7 +222,6 @@
   // 대분류 선택 -> 중분류 업데이트
   $('#cate1').on('change', function() {
     const cate1 = $(this).val();
-    console.log(cate1);
 
     if(cate1) {
       const filterCate2 = categories.filter(category => category.step == 2 && category.pcode == cate1);
@@ -240,6 +258,77 @@
 
     }
   });
+
+  // 수강료 입력 시 1,000 단위 반점
+  function priceNum(input) {
+    let value = input.value.replace(/[^0-9]/g, ''); // 숫자만 입력 가능하게!
+    let priceValue = value.replace(/\B(?=(\d{3})+(?!\d))/g, ','); // 100 단위 반점 추가
+    input.value = priceValue; // input에 입력한 값에 세 자릿수마다 반점 추가
+  }
+  
+  // 카테고리 변경 시 교재 목록 업데이트
+  $('#title').on('input', updateBooks);
+
+  function updateBooks() {
+    console.log({
+        cate1: $('#cate1').val(),
+        cate2: $('#cate2').val(),
+        cate3: $('#cate3').val(),
+        title: $('#title').val()
+    }); // 콘솔 확인용
+
+    let formData = new FormData(); // formData 정의
+    formData.append('cate1', $('#cate1').val());
+    formData.append('cate2', $('#cate2').val());
+    formData.append('cate3', $('#cate3').val());
+    formData.append('title', $('#title').val());
+
+    if (cate1 && cate2 && cate3) { // 모든 카테고리 선택 시
+      $.ajax({
+        url: 'bselect_update.php',
+        data:formData,
+        method: 'POST',
+        dataType:'json',
+        processData: false,
+        contentType: false,
+        success: function (data) {
+          $('#book').html('<option value="">SELECT</option>'); // 기존 옵션 초기화
+          data.forEach(book => {
+            $('#book').append(`<option value="${book.boid}">${book.title}</option>`);
+          });
+        },
+        error: function () {
+          alert('교재 데이터를 가져오는 중 오류가 발생했습니다.');
+        }
+      });
+    } else {
+      $('#book').html('<option value="">SELECT</option>');
+    }
+  }
+
+  // 카테고리 변경 시 교재 목록 업데이트
+  $('#cate1, #cate2, #cate3').on('change', updateBooks);
+
+  
+  // 썸네일 첨부하면 class image에 출력
+  $('#inputGroupFile02').on('change', function (event) {
+        const file = event.target.files[0]; // 선택된 파일 가져오기
+        if (file) {
+            const reader = new FileReader();
+
+            reader.onload = function (e) {
+                // 파일이 로드되면 .image 클래스에 이미지 표시
+                const imgElement = $('.image img');
+                imgElement.attr('src', e.target.result); // Base64 이미지 데이터 설정
+                imgElement.attr('alt', file.name); // 이미지 대체 텍스트 설정
+            };
+
+            reader.readAsDataURL(file); // 파일을 Base64 데이터 URL로 읽기
+        }
+    });
+
+
+
 
 </script>
 
