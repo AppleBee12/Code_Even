@@ -81,19 +81,19 @@ $result = $mysqli->query($sql);
         <div class="row g-0 text-center">
           <div class="p-2 col-2 sst">매출 1위</div>
           <div class="p-2 col-5 text-truncate">[HTML]홈페이지 기본 메뉴부터 투명한 메뉴, 방향전환까지 완벽 마스터</div>
-          <div class="p-2 col-2">김동주</div>
+          <div class="p-2 col-2"><?=$_SESSION['AUNAME'];?></div>
           <div class="p-2 col-3">812,345 <span>원</span></div>
         </div>
         <div class="row g-0 text-center">
           <div class="p-2 col-2 sst">매출 2위</div>
           <div class="p-2 col-5 text-truncate">입문자도 실무에서 바로 써먹는 PHP 기초부터 시니어까지</div>
-          <div class="p-2 col-2">김동주</div>
+          <div class="p-2 col-2"><?=$_SESSION['AUNAME'];?></div>
           <div class="p-2 col-3">712,345<span>원</span></div>
         </div>
         <div class="row g-0 text-center">
           <div class="p-2 col-2 sst">매출 3위</div>
           <div class="p-2 col-5 text-truncate">REACT 커리어를 갈아끼워드립니다</div>
-          <div class="p-2 col-2">김동주</div>
+          <div class="p-2 col-2"><?=$_SESSION['AUNAME'];?></div>
           <div class="p-2 col-3">612,345<span>원</span></div>
         </div>
       </div>
