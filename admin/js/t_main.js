@@ -77,7 +77,7 @@ updateStars(initialRating);
     const lineChart = new Chart(lineCtx, {
       type: 'line',
       data: {
-        labels: ['6월', '7월', '8월', '9월', '10월', '11월'],
+        labels: labels,
         datasets: [{
           label: '신규 가입자 수',
           data: [2000, 2800, 3200, 3800, 4000, 3765],
