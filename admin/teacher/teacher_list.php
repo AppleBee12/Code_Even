@@ -76,13 +76,13 @@ while($data = $result->fetch_object()){
           <td>
             <div class="form-check d-inline-block me-2">
               <input class="form-check-input" type="checkbox" <?php echo $item->isnew ? 'checked' : ''; ?> name="isnew[<?= $item->tcid; ?>]" value="<?= $item->isnew ?>" id="flexCheckDefault">
-              <label class="form-check-label" for="flexCheckDefault">
+              <label class="form-check-label" for="isnew">
                 신규
               </label>
             </div>
             <div class="form-check d-inline-block">
               <input class="form-check-input" type="checkbox" <?php echo $item->isrecom ? 'checked' : ''; ?> name="isrecom[<?= $item->tcid; ?>]" value="<?= $item->isrecom ?>" id="flexCheckDefault">
-              <label class="form-check-label" for="flexCheckDefault">
+              <label class="form-check-label" for="isrecom">
                 추천
               </label>
             </div>
