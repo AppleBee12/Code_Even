@@ -99,6 +99,9 @@ $current_page = basename($_SERVER['REQUEST_URI'], ".php");
 
   ?>
 
+  <!-- jquery 추가 -->
+  <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+
 </head>
 
 <body>
