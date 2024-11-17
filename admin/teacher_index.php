@@ -35,16 +35,18 @@ $result = $mysqli->query($sql);
       </div>
     </div>
     <div>
-      <h3>과정 개설 현황</h3>
-      <p>
-        <span class="top_text">대기</span> 2
-        <span class="top_text"> / 개설</span> 63
-        <span class="top_text"> / 종료</span> 23
-      </p>
+      <a href="">
+        <h3>과정 개설 현황</h3>
+        <p>
+          <span class="top_text">대기</span> 2
+          <span class="top_text"> / 개설</span> 63
+          <span class="top_text"> / 종료</span> 23
+        </p>
+      </a>
     </div>
     <div>
       <h3>평균 평점</h3>
-      <ul id="rating_star" data-rating="2.2">
+      <ul id="rating_star" class="d-flex gap-4 justify-content-center" data-rating="3.5">
         <li data-value="1"><i class="bi bi-star"></i></li>
         <li data-value="2"><i class="bi bi-star"></i></li>
         <li data-value="3"><i class="bi bi-star"></i></li>
@@ -53,8 +55,10 @@ $result = $mysqli->query($sql);
       </ul>
     </div>
     <div>
-      <h3>미답변 질문</h3>
-      <p>2<span class="top_text">건</span></p>
+      <a href="">
+        <h3>미답변 질문</h3>
+        <p>2<span class="top_text"> 건</span></p>
+      </a>
     </div>
   </div>
   <div class="bottom_wrapper d-flex justify-content-between">
