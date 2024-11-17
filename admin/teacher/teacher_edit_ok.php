@@ -81,14 +81,16 @@ include_once($_SERVER['DOCUMENT_ROOT'] . '/CODE_EVEN/admin/inc/dbcon.php');
   $sql .= " WHERE tcid = $tcid";
   $result = $mysqli->query($sql); //teachers테이블에 강사정보 입력(생성)
 
-if($result){ 
-  echo "
-    <script>
-      alert('강사정보 수정 완료');
-      location.href = 'teacher_list.php';
-    </script>
-  ";
-}
+  if($result){ 
+    echo "
+      <script>
+        alert('강사정보 수정 완료');
+        location.href = 'teacher_list.php';
+      </script>
+    ";
+  }else {
+    echo "Error: " . $mysqli->error;
+  }
 
 $mysqli->close();
 
