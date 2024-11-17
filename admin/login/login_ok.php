@@ -16,14 +16,30 @@ if($data){
   $_SESSION['AUNAME'] = $data->username;
   $_SESSION['AULEVEL'] = $data->user_level;
 
-  echo "<script>
-    alert('관리자님, 반갑습니다.');
-    location.href='../index.php'
-  </script>";
-}else{
-  echo "<script>
+  if ($_SESSION['AULEVEL'] == 100) {
+    echo "<script>
+      alert('관리자님, 반갑습니다.');
+      location.href='../index.php';
+    </script>";
+} elseif ($_SESSION['AULEVEL'] == 10) {
+    echo "<script>
+      alert('선생님, 반갑습니다.');
+      location.href='../teacher_index.php';
+    </script>";
+} else {
+    echo "<script>
+      alert('권한이 없습니다.');
+      location.href='../login/login.php';
+    </script>";
+}
+} else {
+// 로그인 실패 처리
+echo "<script>
   alert('로그인에 실패하셨습니다.');
   history.back();
 </script>";
 }
 ?>
+
+
+

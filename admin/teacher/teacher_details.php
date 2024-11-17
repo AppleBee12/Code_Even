@@ -1,6 +1,6 @@
 <?php
-$title = "강사상세정보";
-include_once($_SERVER['DOCUMENT_ROOT'] . '/code_even/admin/inc/header.php');
+  $title = "강사상세정보";
+  include_once($_SERVER['DOCUMENT_ROOT'] . '/code_even/admin/inc/header.php');
 ?>
 
 <div class="container">

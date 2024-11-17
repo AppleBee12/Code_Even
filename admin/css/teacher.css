@@ -16,6 +16,10 @@
   padding: 1rem .5rem;
 }
 
+.tc_status{
+  width: 70%;
+  margin: 0 auto;
+}
 
 /* 프로필 이미지 업로드 */
 .upload{

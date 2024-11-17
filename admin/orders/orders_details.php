@@ -54,7 +54,6 @@ include_once($_SERVER['DOCUMENT_ROOT'] . '/code_even/admin/inc/header.php');
   <div class="content_bar">
     <h3>결제 정보</h3>
   </div>
-  <form action="">
   <table class="table w-100 info_table">
     <colgroup>
       <col width="160">  
@@ -99,7 +98,7 @@ include_once($_SERVER['DOCUMENT_ROOT'] . '/code_even/admin/inc/header.php');
         <th scope="row">결제방법</th>
         <td colspan="3">
           <div class="form-check form-check-inline">
-            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1" checked>
+            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1" checked disabled>
             <label class="form-check-label" for="inlineRadio1">신용카드</label>
           </div>
           <div class="form-check form-check-inline">
@@ -111,7 +110,51 @@ include_once($_SERVER['DOCUMENT_ROOT'] . '/code_even/admin/inc/header.php');
             <label class="form-check-label" for="inlineRadio3">실시간 계좌이체</label>
           </div>
         </td>
+      </tr>   
+    </tbody>
+  </table>
+
+  
+  <div class="content_bar">
+    <h3>수령 정보</h3>
+  </div>
+  <table class="table w-100 info_table">
+    <colgroup>
+      <col width="160">  
+      <col width="516">  
+      <col width="160">
+      <col width="516">  
+    </colgroup>
+    <tbody>
+      <tr>
+        <th scope="row">수령인</th>
+        <td>
+          홍나니
+        </td>
+        <th scope="row">연락처</th>
+        <td>
+          010-1234-5678
+        </td>
       </tr>
+      <tr>
+        <th scope="row">수령주소</th>
+        <td colspan="3">
+          03192
+        </td>
+      </tr>
+      <tr>
+        <th scope="row"></th>
+        <td colspan="3">
+        서울 종로구 수표로 96
+        </td>
+      </tr>
+      <tr>
+        <th scope="row"></th>
+        <td colspan="3">
+          401호
+        </td>
+      </tr>
+
       <tr>
         <td colspan="4">
             <hr>
@@ -120,11 +163,8 @@ include_once($_SERVER['DOCUMENT_ROOT'] . '/code_even/admin/inc/header.php');
       
     </tbody>
   </table>
-  </form>
-
   <div class="d-flex justify-content-end gap-2">
-    <a href="teacher_list.php" type="button" class="btn btn-outline-danger">취소</a>
-    <a href="teacher_list.php" type="button" class="btn btn-outline-secondary">수정</a>
+    <a href="teacher_list.php" type="button" class="btn btn-outline-secondary">목록</a>
   </div>
 </div>
 

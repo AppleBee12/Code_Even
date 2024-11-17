@@ -92,40 +92,50 @@ input.form-control::placeholder,
 }
 
 /* header */
-.logo {
-  font-family: "League Gothic", sans-serif;
-  font-optical-sizing: auto;
-  font-weight: 400;
-  font-size: 45px;
-  line-height: 150%;
-  letter-spacing: 31%;
-  text-transform: uppercase;
-}
 
-.nav_sibling {
-  margin-left: 90px; /* 102-12 = 90// bootstrap container 기본패딩 12px제외*/
-  margin-top: 80px;
-}
-
-nav .btn-toggle {
-  color: var(--bk600);
-  position: absolute;
-  right: 0;
-  top: 5px;
-}
-.bi.bi-caret-down-fill::before {
-  transform: rotate(90deg);
-}
-
-/* header */
 .header {
   min-width: 100%;
   height: 105px;
   background: var(--bk1000);
   display: flex;
+
 }
 
-/* header */
+.header_profile{
+  margin: 14px 35px 22px;
+
+  div{
+    margin-right: 35px;
+  }
+  .alarm {
+    text-align: left;
+  }
+  .alarm .bi{
+    font-size: 30px;
+    color: var(--bk100);
+    cursor: pointer;
+    padding-top:80px;
+
+    span{
+      font-size: 14px;
+      line-height: 14px;
+    }
+  }
+  .alarm .alert{
+    padding: 16px;
+    margin-right:0px;
+    i{
+      font-size: 17px;
+      color: var(--bk900);
+    }
+    a{
+      color: var(--primary);
+      text-decoration:underline;
+    }
+
+  }
+}
+
 header h1 {
   margin: 50px 35px 22px;
 }
@@ -140,6 +150,45 @@ header h1.logo a {
   text-transform: uppercase;
   color: var(--primary);
 }
+
+
+.nav-link.profile_image{
+  width:70px;
+  height:70px;
+  
+  background-image: url(https://picsum.photos/200);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-color: var(--bk300);
+  border-radius: 50%;
+  /* var(--bk0); */
+}
+.greet_name {
+
+  p{
+    margin-bottom: 0;
+  }
+  
+}
+
+.greet_name p:first-child{
+  color: var(--bk200)
+}
+
+.nav_sibling {
+  margin-left: 90px; /* 102-12 = 90// bootstrap container 기본패딩 12px제외*/
+  margin-top: 80px;
+}
+
+nav .btn-toggle {
+  color: var(--bk600);
+  position: absolute;
+  right: 0;
+  top: 5px;
+}
+
+
+
 
 /* navigation (menu) */
 

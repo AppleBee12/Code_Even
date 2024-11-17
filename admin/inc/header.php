@@ -36,17 +36,23 @@ $current_page = basename($_SERVER['REQUEST_URI'], ".php");
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/summernote@0.8.20/dist/summernote-lite.min.css"
     integrity="sha256-IKhQVXDfwbVELwiR0ke6dX+pJt0RSmWky3WB2pNx9Hg=" crossorigin="anonymous">
 
-  <link rel="stylesheet" href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/css/summernote-bs5.css"
-    rel="stylesheet">
+  <!-- <link rel="stylesheet" href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/css/summernote-bs5.css"
+    rel="stylesheet"> -->
 
   <link rel="stylesheet" href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/css/common.css">
-  <link rel="stylesheet" href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/css/main.css">
 
   <!-- 개인 Style CSS -->
   <?php
   $page = basename($_SERVER['PHP_SELF']); // 현재 실행 중인 페이지 이름을 가져옴
   switch ($page) {
+    case 'index.php':
+      echo '<link rel="stylesheet" href="http://' . $_SERVER['HTTP_HOST'] . '/code_even/admin/css/main.css">';
+      break;
+  }
+  switch ($page) {
     case 'teacher_list.php':
+    case 'teacher_details.php':
+    case 'my_details.php':
     case 'teacher_details.php':
       echo '<link rel="stylesheet" href="http://' . $_SERVER['HTTP_HOST'] . '/code_even/admin/css/teacher.css">';
       break;
@@ -93,8 +99,14 @@ $current_page = basename($_SERVER['REQUEST_URI'], ".php");
       echo '<link rel="stylesheet" href="http://' . $_SERVER['HTTP_HOST'] . '/code_even/admin/css/lecture.css">';
       break;
   }
+  switch ($page) {
+    case 'teacher_index.php':
+      echo '<link rel="stylesheet" href="http://' . $_SERVER['HTTP_HOST'] . '/code_even/admin/css/t_main.css">';
+      break;
+  }
   ?>
 
+  <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>   
   <!-- 개인 추가 js -->
   <?php
   if (isset($chart_js)) {
@@ -103,6 +115,9 @@ $current_page = basename($_SERVER['REQUEST_URI'], ".php");
   if (isset($main_js)) {
     echo $main_js;
   }
+  if (isset($t_main_js)) {
+    echo $t_main_js;
+  }
 
   ?>
 
@@ -110,30 +125,39 @@ $current_page = basename($_SERVER['REQUEST_URI'], ".php");
 
 <body>
   <header class="header d-flex justify-content-between">
-    <h1 class="logo"><a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/index.php">code even</a></h1>
-    <div class="header_profile d-flex justify-content-between">
-      <div class="alarm">
+    <h1 class="logo">
+      <a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/index.php">code even</a>
+    </h1>
+    <div class="header_profile d-flex justify-content-between align-items-center">
+      <div class="alarm d-flex flex-column align-items-end justify-content-end">
         <i class="bi bi-bell">
-          <span class="position-absolute top-0 start-80 translate-middle badge rounded-pill bg-danger">
+          <span class="position-absolute top-40 start-80 translate-middle badge rounded-pill bg-danger">
             1
-            <span class="visually-hidden">unread messages</span>
+            <!-- <span class="visually-hidden"></span> -->
           </span>
         </i>
+        <div class="alert alert-light alert-dismissible fade " role="alert">
+          <i class="bi bi-info-circle-fill"></i>
+          　답변이 필요한 학생 문의가 
+          <a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/inquiry/admin_qna.php" class="alert-link">1건</a> 있습니다.
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            　　<span aria-hidden="true">&times;</span>
+          </button>
+        </div>
       </div>
-      <div>
+      <div class="greet_name bd">
         <p><?= $_SESSION['AUNAME'] ?> 님</p>
         <p>환영합니다.</p>
       </div>
       <ul class="nav nav-pills">
         <li class="nav-item">
-          <a class="nav-link" href="#"><img src="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/images/sb_logo.png"
-              alt="" width="50"></a>
+          <a class="nav-link profile_image" href="#"></a>
         </li>
-        <li class="nav-item dropdown">
+        <li class="nav-item dropdown d-flex align-items-center">
           <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button"
             aria-expanded="false"></a>
           <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="#">내 프로필 수정</a></li>
+            <li><a class="dropdown-item"  href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/myprofile/my_details.php">내 프로필 수정</a></li>
             <li><a class="dropdown-item" href="#">관리자 매뉴얼</a></li>
             <li><a class="dropdown-item" href="#">강사 매뉴얼</a></li>
             <li>
