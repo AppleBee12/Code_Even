@@ -48,6 +48,8 @@ $current_page = basename($_SERVER['REQUEST_URI'], ".php");
   switch ($page) {
     case 'teacher_list.php':
     case 'teacher_details.php':
+    case 'my_details.php':
+    case 'teacher_details.php':
       echo '<link rel="stylesheet" href="http://' . $_SERVER['HTTP_HOST'] . '/code_even/admin/css/teacher.css">';
       break;
   }
@@ -110,15 +112,25 @@ $current_page = basename($_SERVER['REQUEST_URI'], ".php");
 
 <body>
   <header class="header d-flex justify-content-between">
-    <h1 class="logo"><a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/index.php">code even</a></h1>
-    <div class="header_profile d-flex justify-content-between">
-      <div class="alarm">
+    <h1 class="logo">
+      <a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/index.php">code even</a>
+    </h1>
+    <div class="header_profile d-flex justify-content-between align-items-center">
+      <div class="alarm d-flex flex-column align-items-end justify-content-end">
         <i class="bi bi-bell">
-          <span class="position-absolute top-0 start-80 translate-middle badge rounded-pill bg-danger">
+          <span class="position-absolute top-40 start-80 translate-middle badge rounded-pill bg-danger">
             1
-            <span class="visually-hidden">unread messages</span>
+            <!-- <span class="visually-hidden"></span> -->
           </span>
         </i>
+        <div class="alert alert-light alert-dismissible fade " role="alert">
+          <i class="bi bi-info-circle-fill"></i>
+          　답변이 필요한 학생 문의가 
+          <a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/inquiry/admin_qna.php" class="alert-link">1건</a> 있습니다.
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            　　<span aria-hidden="true">&times;</span>
+          </button>
+        </div>
       </div>
       <div class="greet_name bd">
         <p><?= $_SESSION['AUNAME'] ?> 님</p>
@@ -128,11 +140,11 @@ $current_page = basename($_SERVER['REQUEST_URI'], ".php");
         <li class="nav-item">
           <a class="nav-link profile_image" href="#"></a>
         </li>
-        <li class="nav-item dropdown">
+        <li class="nav-item dropdown d-flex align-items-center">
           <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button"
             aria-expanded="false"></a>
           <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="#">내 프로필 수정</a></li>
+            <li><a class="dropdown-item"  href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/myprofile/my_details.php">내 프로필 수정</a></li>
             <li><a class="dropdown-item" href="#">관리자 매뉴얼</a></li>
             <li><a class="dropdown-item" href="#">강사 매뉴얼</a></li>
             <li>

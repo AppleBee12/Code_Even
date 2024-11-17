@@ -98,8 +98,43 @@ input.form-control::placeholder,
   height: 105px;
   background: var(--bk1000);
   display: flex;
+
 }
 
+.header_profile{
+  margin: 14px 35px 22px;
+
+  div{
+    margin-right: 35px;
+  }
+  .alarm {
+    text-align: left;
+  }
+  .alarm .bi{
+    font-size: 30px;
+    color: var(--bk100);
+    cursor: pointer;
+    padding-top:80px;
+
+    span{
+      font-size: 14px;
+      line-height: 14px;
+    }
+  }
+  .alarm .alert{
+    padding: 16px;
+    margin-right:0px;
+    i{
+      font-size: 17px;
+      color: var(--bk900);
+    }
+    a{
+      color: var(--primary);
+      text-decoration:underline;
+    }
+
+  }
+}
 
 header h1 {
   margin: 50px 35px 22px;
@@ -117,10 +152,14 @@ header h1.logo a {
 }
 
 
-.nav-link .profile_image{
-  width:50px;
-  height:50px;
-  background: green;
+.nav-link.profile_image{
+  width:70px;
+  height:70px;
+  
+  background-image: url(https://picsum.photos/200);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-color: var(--bk300);
   border-radius: 50%;
   /* var(--bk0); */
 }
