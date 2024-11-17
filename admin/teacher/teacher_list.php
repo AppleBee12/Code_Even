@@ -43,6 +43,7 @@ while($data = $result->fetch_object()){
       <thead>
         <tr>
           <th scope="col">번호</th>
+          <th scope="col">프로필이미지</th>
           <th scope="col">아이디</th>
           <th scope="col">이름</th>
           <th scope="col">이메일</th>
@@ -62,6 +63,9 @@ while($data = $result->fetch_object()){
             <input type="hidden" name="tcid[]" value="<?= $item->tcid; ?>">
             <?= $item->tcid; ?>
           </th>
+          <td>
+            <img src="<?= $item->tc_thumbnail; ?>" class="rounded_circle" width = 35 height = 35 alt="">
+          </td> 
           <td><?= $item->tc_userid; ?></td> 
           <td><?= $item->tc_name; ?></td> 
           <td><?= $item->tc_email; ?></td>

@@ -17,6 +17,11 @@
   margin: 0 auto;
 }
 
+.rounded_circle{
+  border-radius: 50% !important;
+}
+
+
 /* 프로필 이미지 업로드 */
 .upload{
   width: 100px;
