@@ -20,11 +20,12 @@ $faq_sql = "
 $faq_result = $mysqli->query($faq_sql);
 
 if ($faq_result === true) {
+  $redirect_url = ($target === 'teacher') ? 'teacher_faq.php' : (($target === 'student') ? 'student_faq.php' : 'faq.php');
   echo
     "<script>
     confirm('글을 등록하시겠습니까?');
     alert('등록이 완료되었습니다.');
-    location.href='student_faq.php';
+    location.href = '$redirect_url';
   </script>";
 } else {
   echo
