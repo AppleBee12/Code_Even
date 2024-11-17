@@ -1,5 +1,9 @@
 <?php
-include_once($_SERVER['DOCUMENT_ROOT'] . '/CODE_EVEN/admin/inc/header.php');
+  include_once($_SERVER['DOCUMENT_ROOT'] . '/CODE_EVEN/admin/inc/header.php');
+
+  $sql = "SELECT * FROM lecture WHERE leid = $leid";
+  // $result = $mysqli->query($sql);
+  // $data = $result->fetch_object();
 ?>
 
 <div class="container">
@@ -8,6 +12,7 @@ include_once($_SERVER['DOCUMENT_ROOT'] . '/CODE_EVEN/admin/inc/header.php');
     <h3>강좌 기본 정보 입력</h3>
   </div>
   <form action="lecture_up_ok.php" id="lecture_save" enctype="multipart/form-data">
+  <input type="hidden" name="pid" value="<?= $pid; ?>">
     <table class="table">
       <tbody>
         <tr>
