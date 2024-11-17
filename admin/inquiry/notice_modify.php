@@ -15,9 +15,9 @@ $data = $result->fetch_object();
   </div>
 
   <form action="notice_modify_ok.php" method="POST" enctype="multipart/form-data">
-  <input type="hidden" name="username" value="<?= $data->username ?>">
-  <input type="hidden" name="userid" value="<?= $data->userid; ?>">
-  <input type="hidden" name="ntid" value="<?= $data->ntid; ?>">
+    <input type="hidden" name="username" value="<?= $data->username ?>">
+    <input type="hidden" name="userid" value="<?= $data->userid; ?>">
+    <input type="hidden" name="ntid" value="<?= $data->ntid; ?>">
     <table class="table details_table">
       <colgroup>
         <col style="width:160px">

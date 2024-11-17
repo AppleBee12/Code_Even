@@ -3,7 +3,7 @@ $title = "수강생 관리";
 include_once($_SERVER['DOCUMENT_ROOT'] . '/code_even/admin/inc/header.php');
 
 // $selected_target = isset($_POST['target']) ? $_POST['target'] : '';
-
+// print_r($_GET);
 $target = $_GET['target'];
 
 $sql = "SELECT userid, username FROM user";
@@ -38,9 +38,12 @@ $data = $result->fetch_object();
         <tr>
           <th scope="row">유형</th>
           <td>
-            <select class="form-select w-50" aria-label="Default select example" name="target" id="target" disabled>
-              <option value="student" <?php if ($target === "student") echo "selected"; ?>>수강생</option>
-              <option value="teacher" <?php if ($target === "teacher") echo "selected"; ?>>강사</option>
+            <select class="form-select w-50" aria-label="Default select example" name="target" id="target">
+              <option value="<?=$target?>">
+                <?php 
+                  echo $target === "student" ? "수강생" : ($target === "teacher" ? "강사" : "알 수 없음"); 
+                ?>
+              </option>
             </select>
           </td>
           <th scope="row">분류 <b>*</b></th>
