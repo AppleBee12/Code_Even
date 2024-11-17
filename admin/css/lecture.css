@@ -29,7 +29,7 @@ table, th, td {
   margin: 0;
 }
 
-box_container{
+.box_container{
   padding: 0;
   position: relative;
   align-items: end;
@@ -49,8 +49,11 @@ tbody tr td .box {
     position: absolute;
     top: 50%;
     left: 50%;
-    transform: translate(-50%, -50%);
-    
+    transform: translate(-50%, -50%);    
+  }
+
+  .image{
+    height: 300px;
   }
 }
 
