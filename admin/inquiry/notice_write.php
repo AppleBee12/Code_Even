@@ -73,7 +73,6 @@ $data = $result->fetch_object();
       </tbody>
     </table>
     <textarea name="content" id="content" class="form-control" required></textarea>
-    <input type="file" class="form-control w-50" name="file" id="file">
     <div class="custom-hr"></div>
     <div class="d-flex justify-content-end gap-2">
       <a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/inquiry/notice.php" type="button"
@@ -81,8 +80,6 @@ $data = $result->fetch_object();
       <button type="submit" class="btn btn-secondary">등록</button>
     </div>
   </form>
-
-</div>
 
 </div>
 

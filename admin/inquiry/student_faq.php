@@ -111,7 +111,7 @@ while ($data = $result->fetch_object()) {
               <a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/inquiry/faq_modify.php?fqid=<?= $no->fqid; ?>">
                 <i class="bi bi-pencil-fill"></i>
               </a>
-              <a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/inquiry/faq_delete.php">
+              <a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/inquiry/faq_delete.php?fqid=<?= $no->fqid; ?>">
                 <i class="bi bi-trash-fill"></i>
               </a>
             </td>

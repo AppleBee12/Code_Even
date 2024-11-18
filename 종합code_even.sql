@@ -196,8 +196,8 @@ INSERT INTO `category` (`cgid`, `code`, `pcode`, `name`, `step`) VALUES
 CREATE TABLE `class_data` (
   `cdid` int(11) NOT NULL COMMENT '수강데이터ID',
   `uid` int(11) DEFAULT NULL COMMENT '회원고유번호',
-  `leid` int(11) NOT NULL COMMENT '강좌고유번호',
-  `exid` int(11) NOT NULL COMMENT '점수관리ID',
+  `leid` int(11) DEFAULT NULL COMMENT '강좌고유번호',
+  `exid` int(11) DEFAULT NULL COMMENT '점수관리ID',
   `course_cert` varchar(255) NOT NULL COMMENT '수강이수증',
   `progress_rate` decimal(10,0) NOT NULL COMMENT '진도율'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='수강데이터';
@@ -297,7 +297,7 @@ CREATE TABLE `faq` (
   `fqid` int(11) NOT NULL COMMENT 'FAQ고유번호',
   `uid` int(11) DEFAULT NULL COMMENT '회원고유번호',
   `category` int(11) NOT NULL COMMENT '주제분류',
-  `target` enum('일반회원','강사') NOT NULL COMMENT '대상',
+  `target` enum('student','teacher') NOT NULL COMMENT '대상',
   `title` varchar(255) NOT NULL COMMENT '제목',
   `content` text NOT NULL COMMENT '내용',
   `view` int(11) NOT NULL COMMENT '조회수',
@@ -310,9 +310,10 @@ CREATE TABLE `faq` (
 --
 
 INSERT INTO `faq` (`fqid`, `uid`, `category`, `target`, `title`, `content`, `view`, `regdate`, `status`) VALUES
-(1, 1, 2, '', '강의 수강은 어떻게 하나요?', '강의 수강은 어떻게 하나요?', 0, '2024-11-16 17:24:50', 'off'),
-(2, 1, 4, '', '탈퇴는 어떻게 하나요?', '탈퇴는 어떻게 하나요?', 0, '2024-11-16 18:30:18', 'off'),
-(3, 1, 1, '', '환불은 어떻게 진행이 되나요?', '환불은 어떻게 진행이 되나요?', 0, '2024-11-17 02:47:25', 'off');
+(1, 1, 2, 'student', '강의 수강은 어떻게 하나요?', '강의 수강은 어떻게 하나요?', 0, '2024-11-16 17:24:50', 'off'),
+(2, 1, 4, 'student', '탈퇴는 어떻게 하나요?', '탈퇴는 어떻게 하나요?', 0, '2024-11-16 18:30:18', 'off'),
+(3, 1, 1, 'student', '환불은 어떻게 진행이 되나요?', '환불은 어떻게 진행이 되나요?', 0, '2024-11-17 02:47:25', 'off'),
+(4, 1, 7, 'teacher', '정산은 어떻게 진행이 되나요?', '정산은 어떻게 진행이 되나요?', 0, '2024-11-18 16:41:40', 'on');
 
 -- --------------------------------------------------------
 
@@ -972,9 +973,9 @@ ALTER TABLE `category`
 --
 ALTER TABLE `class_data`
   ADD PRIMARY KEY (`cdid`),
-  ADD KEY `uid` (`uid`,`leid`,`exid`),
+  ADD KEY `uid` (`uid`),
   ADD KEY `leid` (`leid`),
-  ADD KEY `class_data_ibfk_3` (`exid`);
+  ADD KEY `exid` (`exid`);
 
 --
 -- 테이블의 인덱스 `company_info`

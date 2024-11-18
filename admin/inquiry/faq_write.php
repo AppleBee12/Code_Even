@@ -39,9 +39,9 @@ $data = $result->fetch_object();
           <th scope="row">유형</th>
           <td>
             <select class="form-select w-50" aria-label="Default select example" name="target" id="target">
-              <option value="<?=$target?>">
-                <?php 
-                  echo $target === "student" ? "수강생" : ($target === "teacher" ? "강사" : "알 수 없음"); 
+              <option value="<?= $target ?>">
+                <?php
+                echo $target === "student" ? "수강생" : ($target === "teacher" ? "강사" : "알 수 없음");
                 ?>
               </option>
             </select>
@@ -62,24 +62,24 @@ $data = $result->fetch_object();
           </td>
         </tr>
         <tr>
-            <th scope="row">이름(아이디)</th>
-            <td><?= $data->username; ?>(<?= $data->userid; ?>)</td>
-            <th scope="row">상태 <b>*</b></th>
-            <td class="d-flex gap-3">
-              <div class="form-check">
-                <input class="form-check-input" type="radio" name="status" id="status" value="on">
-                <label class="form-check-label" for="status">
-                  노출
-                </label>
-              </div>
-              <div class="form-check">
-                <input class=" form-check-input" type="radio" name="status" id="status" value="off" checked>
-                <label class="form-check-label" for="status">
-                  숨김
-                </label>
-              </div>
-            </td>
-          </tr>
+          <th scope="row">이름(아이디)</th>
+          <td><?= $data->username; ?>(<?= $data->userid; ?>)</td>
+          <th scope="row">상태 <b>*</b></th>
+          <td class="d-flex gap-3">
+            <div class="form-check">
+              <input class="form-check-input" type="radio" name="status" id="status" value="on">
+              <label class="form-check-label" for="status">
+                노출
+              </label>
+            </div>
+            <div class="form-check">
+              <input class=" form-check-input" type="radio" name="status" id="status" value="off" checked>
+              <label class="form-check-label" for="status">
+                숨김
+              </label>
+            </div>
+          </td>
+        </tr>
         <tr class="none">
           <th scope="row">제목 <b>*</b></th>
           <td colspan="3">
@@ -90,10 +90,10 @@ $data = $result->fetch_object();
         </tr>
       </tbody>
     </table>
-    <textarea name="content" id="" class="form-control w-75"></textarea>
-    <input type="file" class="form-control" id="inputGroupFile02" class="w-50">
+    <textarea name="content" id="content" class="form-control"></textarea>
+    <input type="file" class="form-control w-50" id="file">
     <div class="custom-hr"></div>
-  
+
     <div class="d-flex justify-content-end gap-2">
       <a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/inquiry/student_faq.php"
         class="btn btn-outline-danger">취소</a>
