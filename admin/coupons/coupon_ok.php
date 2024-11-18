@@ -16,23 +16,34 @@ try{
   $coupon_type = $_POST['coupon_type'] ?? '';
   $coupon_price = $_POST['coupon_price'] ?? '0';
   $coupon_ratio = $_POST['coupon_ratio'] ?? '0';
+  $status = $_POST['status'] ?? '';
   $use_min_price = $_POST['use_min_price'] ?? '0';
   $max_value = $_POST['max_value'] ?? '0';
-  $status = $_POST['status'] ?? '';
 
-  if (isset($_FILES['coupon_image']) && $_FILES['coupon_image']['error'] == UPLOAD_ERR_OK)  {
+  // if (isset($_FILES['thumbnail']) && $_FILES['thumbnail']['error'] == UPLOAD_ERR_OK)  {
 
-    // $fileUploadResult = fileUpload($_FILES['coupon_image']);
+  //   $fileUploadResult = fileUpload($_FILES['thumbnail']);
+  
+  //   if($fileUploadResult) {
+  //       $thumbnail = $fileUploadResult;
+  //   } else {
+  //       echo "<script>
+  //           alert('파일 첨부할 수 없습니다.');
+  //           history.back();
+  //       </script>";
+  //   }
+  
+  // } 
 
-    if($fileUploadResult) {
-        $couponImage = $fileUploadResult;
-    } else {
-        echo "<script>
-            alert('파일 첨부할 수 없습니다.');
-            history.back();
-        </script>";
-    }
-  }
+  $filePath = $_SERVER['DOCUMENT_ROOT'] . "/code_even/admin/coupons/coupon4.png";
+if (file_exists($filePath)) {
+    echo "<img src='/code_even/admin/coupons/coupon4.png' alt='쿠폰 이미지'>";
+} else {
+    echo "이미지를 찾을 수 없습니다.";
+}
+
+
+
   $sql = "INSERT INTO coupons 
   (coupon_name, coupon_image, coupon_type, coupon_price, coupon_ratio, status, userid, max_value, use_min_price) 
   VALUES
@@ -45,7 +56,7 @@ try{
    echo "
      <script>
        alert('쿠폰 등록 완료');
-       location.href = 'coupon_list.php';
+       location.href = 'coupons.php';
      </script>
    ";
    $mysqli->commit();//디비에 커밋한다.
