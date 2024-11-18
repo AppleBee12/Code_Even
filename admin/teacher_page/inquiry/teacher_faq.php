@@ -62,15 +62,14 @@ while ($data = $result->fetch_object()) {
   <table class="table list_table">
     <thead>
       <tr>
+        <th scope="col">
+          <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+        </th>
         <th scope="col">번호</th>
-        <th scope="col">아이디</th>
-        <th scope="col">이름</th>
         <th scope="col">분류</th>
         <th scope="col">제목</th>
         <th scope="col">조회수</th>
         <th scope="col">등록일</th>
-        <th scope="col">상태</th>
-        <th scope="col">관리</th>
       </tr>
     </thead>
     <tbody>
@@ -79,9 +78,10 @@ while ($data = $result->fetch_object()) {
         foreach ($dataArr as $no) {
           ?>
           <tr>
+            <th scope="row">
+              <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+            </th>
             <td><?= $no->fqid; ?></td>
-            <td><?= $no->userid; ?></td>
-            <td><?= $no->username; ?></td>
             <td>
               <?php
               echo $no->category == 1 ? "결제/환불" :
@@ -100,23 +100,8 @@ while ($data = $result->fetch_object()) {
             </td>
             <td><?= $no->view; ?></td>
             <td><?= $no->regdate; ?></td>
-            <td>
-              <?php
-              $class = $no->status == 'on' ? 'text-bg-success' : 'text-bg-light';
-              $text = $no->status == 'on' ? '노출' : '숨김';
-              echo "<span class='badge $class'>$text</span>";
-              ?>
-            </td>
-            <td class="edit_col">
-              <a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/inquiry/faq_modify.php?fqid=<?= $no->fqid; ?>">
-                <i class="bi bi-pencil-fill"></i>
-              </a>
-              <a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/inquiry/faq_delete.php?fqid=<?= $no->fqid; ?>">
-                <i class="bi bi-trash-fill"></i>
-              </a>
-            </td>
           </tr>
-        <?php
+          <?php
         }
       } else {
         echo "<tr><td colspan='8'>검색 결과가 없습니다.</td></tr>";
@@ -124,11 +109,6 @@ while ($data = $result->fetch_object()) {
       ?>
     </tbody>
   </table>
-
-  <div class="d-flex justify-content-end gap-2">
-    <a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/inquiry/faq_write.php?target=teacher"
-      class="btn btn-secondary">등록</a>
-  </div>
 
 </div>
 

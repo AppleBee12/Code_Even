@@ -1,7 +1,7 @@
 <?php
 include_once($_SERVER['DOCUMENT_ROOT'] . '/code_even/admin/inc/header.php');
 
-// 게시글 개수 구하기 (notice -> 테이블명 고쳐주세요)
+// 게시글 개수 구하기
 $keywords = isset($_GET['keywords']) ? $mysqli->real_escape_string($_GET['keywords']) : '';
 $where_clause = '';
 
@@ -67,7 +67,6 @@ while ($data = $result->fetch_object()) {
         <th scope="col">조회수</th>
         <th scope="col">등록일</th>
         <th scope="col">상태</th>
-        <th scope="col">관리</th>
       </tr>
     </thead>
     <tbody>
@@ -91,16 +90,6 @@ while ($data = $result->fetch_object()) {
               echo "<span class='badge $class'>$text</span>";
               ?>
             </td>
-            <td class="edit_col">
-              <a
-                href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/inquiry/notice_modify.php?ntid=<?= $no->ntid; ?>">
-                <i class="bi bi-pencil-fill"></i>
-              </a>
-              <a
-                href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/inquiry/notice_delete.php?ntid=<?= $no->ntid; ?>">
-                <i class="bi bi-trash-fill"></i>
-              </a>
-            </td>
           </tr>
           <?php
         }
@@ -111,10 +100,6 @@ while ($data = $result->fetch_object()) {
     </tbody>
   </table>
 
-  <div class="d-flex justify-content-end gap-2">
-    <a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/inquiry/notice_write.php"
-      class="btn btn-secondary">등록</a>
-  </div>
 </div>
 
 <!-- //Pagination -->
@@ -154,57 +139,60 @@ while ($data = $result->fetch_object()) {
     ?>
   </ul>
 </div>
-<div class="modal-dialog">
-  <div class="modal-content">
-    <div class="modal-header">
-      <h5 class="modal-title">글 상태 변경</h5>
-      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-    </div>
-    <div class="modal-body">
-      <form id="status_form">
-        <table class="table">
-          <colgroup>
-            <col style="width:110px">
-            <col style="width:auto">
-          </colgroup>
-          <thead class="thead-hidden">
-            <tr>
-              <th scope="col">구분</th>
-              <th scope="col">내용</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr class="none">
-              <th scope="row">제목</th>
-              <td><input type="text" class="form-control w-75" id="modal_title" readonly></td>
-            </tr>
-            <tr class="none">
-              <th scope="row">상태 <b>*</b></th>
-              <td class="d-flex gap-3">
-                <div class="form-check">
-                  <input class="form-check-input" type="radio" name="status" id="status_on" value="on">
-                  <label class="form-check-label" for="status">
-                    노출
-                  </label>
-                </div>
-                <div class="form-check">
-                  <input class=" form-check-input" type="radio" name="status" id="status_off" value="off">
-                  <label class="form-check-label" for="status">
-                    숨김
-                  </label>
-                </div>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </form>
-    </div>
-    <div class="modal-footer">
-      <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal">취소</button>
-      <button type="button" class="btn btn-outline-secondary" id="updateStatusBtn">수정</button>
+
+<!-- //상태 변경 모달창 -->
+<!-- <div class="modal" id="status_modal" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">글 상태 변경</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form id="status_form">
+          <table class="table">
+            <colgroup>
+              <col style="width:110px">
+              <col style="width:auto">
+            </colgroup>
+            <thead class="thead-hidden">
+              <tr>
+                <th scope="col">구분</th>
+                <th scope="col">내용</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="none">
+                <th scope="row">제목</th>
+                <td><input type="text" class="form-control w-75" id="modal_title" readonly></td>
+              </tr>
+              <tr class="none">
+                <th scope="row">상태 <b>*</b></th>
+                <td class="d-flex gap-3">
+                  <div class="form-check">
+                    <input class="form-check-input" type="radio" name="status" id="status_on" value="on">
+                    <label class="form-check-label" for="status">
+                      노출
+                    </label>
+                  </div>
+                  <div class="form-check">
+                    <input class=" form-check-input" type="radio" name="status" id="status_off" value="off">
+                    <label class="form-check-label" for="status">
+                      숨김
+                    </label>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal">취소</button>
+        <button type="button" class="btn btn-outline-secondary" id="updateStatusBtn">수정</button>
+      </div>
     </div>
   </div>
-</div>
 </div> -->
 
 <?php

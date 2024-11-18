@@ -1,5 +1,5 @@
 <?php
-$title = "강사 목록";
+$title = "전체회원목록";
 include_once($_SERVER['DOCUMENT_ROOT'] . '/CODE_EVEN/admin/inc/header.php');
 
 
@@ -8,10 +8,10 @@ $keywords = isset($_GET['keywords']) ? $mysqli->real_escape_string($_GET['keywor
 $where_clause = '';
 
 if ($keywords) {
-  $where_clause = "WHERE teachers.tc_userid LIKE '%$keywords%' OR teachers.tc_name LIKE '%$keywords%' OR teachers.tc_email LIKE '%$keywords%'";
+  $where_clause = "WHERE user.userid LIKE '%$keywords%' OR user.username LIKE '%$keywords%' OR user.useremail LIKE '%$keywords%'";
 }
 
-$page_sql = "SELECT COUNT(*) AS cnt FROM teachers $where_clause";
+$page_sql = "SELECT COUNT(*) AS cnt FROM user $where_clause";
 $page_result = $mysqli->query($page_sql);
 $page_data = $page_result->fetch_assoc();
 $row_num = $page_data['cnt'];
@@ -32,8 +32,8 @@ if ($block_end > $total_page) {
 }
 
 
-$sql = "SELECT * FROM teachers $where_clause 
-        ORDER BY teachers.tcid DESC 
+$sql = "SELECT * FROM user $where_clause 
+        ORDER BY user.uid DESC 
         LIMIT $start_num, $list"; //teachers 테이블에서 모든 데이터를 조회
 $result = $mysqli->query($sql); //쿼리 실행 결과
 
@@ -46,18 +46,11 @@ while($data = $result->fetch_object()){
 
 
 <div class="container">
-  <h2 class="page_title">강사목록</h2>
+  <h2 class="page_title">전체회원목록</h2>
 
 
   <form action="" id="search_form" class="row justify-content-end">
-    <div class="col-lg-3">
-      <select class="form-select" aria-label="Default select example">
-        <option selected>대분류를 선택해주세요(임시)</option>
-        <option value="1">웹개발</option>
-        <option value="2">클라우드</option>
-        <option value="3">보안</option>
-      </select>
-    </div>
+    
     <div class="col-lg-3">
     <div class="input-group mb-3">
     <input type="text" class="form-control" placeholder="검색어를 입력하세요." name="keywords" value="<?= htmlspecialchars($keywords); ?>">
@@ -76,13 +69,13 @@ while($data = $result->fetch_object()){
       <thead>
         <tr>
           <th scope="col">번호</th>
-          <th scope="col">프로필이미지</th>
           <th scope="col">아이디</th>
           <th scope="col">이름</th>
           <th scope="col">이메일</th>
-          <th scope="col">분류</th>
+          <th scope="col">마지막접속일</th>
+          <th scope="col">가입일</th>
+          <th scope="col">회원구분</th>
           <th scope="col">상태</th>
-          <th scope="col">강사전시옵션</th>
           <th scope="col">관리</th>
         </tr>
       </thead>
@@ -93,39 +86,18 @@ while($data = $result->fetch_object()){
         ?> 
         <tr>
           <th scope="row">
-            <input type="hidden" name="tcid[]" value="<?= $item->tcid; ?>">
-            <?= $item->tcid; ?>
+            <input type="hidden" name="uid[]" value="<?= $item->uid; ?>">
+            <?= $item->uid; ?>
           </th>
-          <td>
-            <img src="<?= $item->tc_thumbnail; ?>" class="rounded_circle" width = 35 height = 35 alt="">
-          </td> 
-          <td><?= $item->tc_userid; ?></td> 
-          <td><?= $item->tc_name; ?></td> 
-          <td><?= $item->tc_email; ?></td>
-          <td><?= $item->tc_cate; ?></td> <!-- 웹개발 -->
-          <td>
-          <select class="form-select form-select-sm tc_status" aria-label="승인여부" name="tc_ok[<?= $item->tcid; ?>]" id="tc_ok[<?= $item->tcid; ?>]">
-              <option value="-1" <?php if($item->tc_ok == -1){echo 'selected';}?>>승인거절</option>
-              <option value="0" <?php if($item->tc_ok == 0){echo 'selected';}?>>심사중</option>
-              <option value="1" <?php if($item->tc_ok == 1){echo 'selected';}?>>승인완료</option>
-            </select>
-          </td>
-          <td>
-            <div class="form-check d-inline-block me-2">
-              <input class="form-check-input" type="checkbox" <?php echo $item->isnew ? 'checked' : ''; ?> name="isnew[<?= $item->tcid; ?>]" value="<?= $item->isnew ?>" id="flexCheckDefault">
-              <label class="form-check-label" for="isnew">
-                신규
-              </label>
-            </div>
-            <div class="form-check d-inline-block">
-              <input class="form-check-input" type="checkbox" <?php echo $item->isrecom ? 'checked' : ''; ?> name="isrecom[<?= $item->tcid; ?>]" value="<?= $item->isrecom ?>" id="flexCheckDefault">
-              <label class="form-check-label" for="isrecom">
-                추천
-              </label>
-            </div>
-          </td>
+          <td><?= $item->userid; ?></td> 
+          <td><?= $item->username; ?></td> 
+          <td><?= $item->useremail; ?></td>
+          <td><?= $item->signup_date; ?></td>
+          <td><?= $item->last_date; ?></td>
+          <td><?= $item->user_level; ?></td>
+          <td><?= $item->user_status; ?></td>
           <td class="edit_col">
-            <a href="teacher_edit.php?tcid=<?= $item->tcid; ?>">
+            <a href="user_edit.php?uid=<?= $item->uid; ?>">
             <i class="bi bi-pencil-fill"></i>   
             </a>
             <a href="">
@@ -245,15 +217,7 @@ while($data = $result->fetch_object()){
 </div>
 </div>
 
-<script>
-    $('table .form-check-input').change(function(){
-    if($(this).prop( "checked" )){
-      $(this).val('1');
-    } else{
-      $(this).val('0');
-    }
-  });
-</script>
+
 
 <?php
 include_once($_SERVER['DOCUMENT_ROOT'] . '/CODE_EVEN/admin/inc/footer.php');

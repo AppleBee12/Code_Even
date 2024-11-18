@@ -1,7 +1,8 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <?php
-include_once($_SERVER['DOCUMENT_ROOT']. '/code_even/admin/inc/header.php');
+include_once($_SERVER['DOCUMENT_ROOT']. '/CODE_EVEN/admin/inc/header.php');
 
+// session_start();
 
 $sql = "SELECT * FROM category WHERE step=1";
 $result = $mysqli->query($sql);
@@ -10,12 +11,19 @@ while($data = $result->fetch_object()){
 }
 // print_r($cate1);
 
+if (!isset($_SESSION['AUID'])) {
+  echo "<script>
+  alert('로그인을 해주세요');
+  location.href='../login/login.php';
+  </script>";
+}
 ?>
 
 
 
 <div class="container ">
   <h2>카테고리 관리</h2>
+  
   <div class="row justify-content-between mt-5">
     <div class="col-md-4">
       <div class="bd d-flex justify-content-center"> 대분류</div>
@@ -25,6 +33,7 @@ while($data = $result->fetch_object()){
           foreach($cate1 as $c1){
         ?>
         <option value="<?= $c1-> code; ?>"><?= $c1->name; ?>
+        <!-- <button>삭제</button></option> -->
         <?php
           }
         ?>
@@ -38,6 +47,7 @@ while($data = $result->fetch_object()){
       
 
     </div>
+    
     <div class="col-md-4">
     <div class="bd d-flex justify-content-center"> 중분류</div>
       <select class="form-select mt-4" id="cate2" aria-label="Default select example">
@@ -156,7 +166,7 @@ while($data = $result->fetch_object()){
         </div>
         <div class="row">
           <div class="col-md-6">
-            <input class="form-control" type="text"  id="code3" name="code3"  placeholder="분류코드명을 입력하세요" aria-label="default input example" pattern="B\d{4}" required>
+            <input class="form-control" type="text"  id="code3" name="code3"  placeholder="분류코드명을 입력하세요" aria-label="default input example" pattern="C\d{4}" required>
           </div>
           <div class="col-md-6">
             <input class="form-control" type="text"  id="name3" name="name3"  placeholder="카테고리명을 입력하세요" aria-label="default input example" required>
@@ -173,11 +183,15 @@ while($data = $result->fetch_object()){
 
 
 <script>
+  // 대->중->소 출력
 $('#cate1').change(function(){
   makeOption($(this), 2, '중분류', $('#cate2'));
 })
 $('#cate2').change(function(){
   makeOption($(this), 3, '소분류', $('#cate3'));
+})
+$('#pcode3').change(function(){
+  makeOption($(this), 2, '중분류', $('#pcode4'));
 })
 
   function makeOption(e, step, category, target){
@@ -214,15 +228,29 @@ $('#cate2').change(function(){
     $('.modal-content').submit(function(e){
       e.preventDefault();
     let step = Number($(this).attr('data-step'));
+    let pcode = $(`#pcode${step}`).val();
+    let pcode1 = $(`#pcode${step+1}`).val();
     let code = $(`#code${step}`).val();
     let name = $(`#name${step}`).val();
-    category_save(step, code, name);
+    category_save(step, pcode, code, name);
+
+    if(step > 1 && !pcode){
+      alert('대분류를 선택하세요');
+      return;
+    }
+    if(step > 2 && !pcode1){
+      alert('중분류를 선택하세요');
+      return;
+    }
+    if(pcode1){
+      pcode = pcode1;
+    }
   });
 
-  function category_save(step, code, name){
-    console.log(step, code, name);
+  function category_save(step, pcode, code, name){
     let data = {
       name:name,
+      pcode:pcode,
       code:code,
       step:step
     }

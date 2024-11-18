@@ -79,3 +79,19 @@
 }
   
 }
+
+.description {
+  gap: 80px; background: #fff; padding: 40px 60px;
+  box-shadow: 0 3px 50px 0 rgba(0,0,0,.08);
+  border-radius: 20px; margin-bottom: 80px;
+  ul { margin-bottom: 0px !important; padding-left: 1rem !important;
+    li {list-style: inside; line-height: 28px;}
+  }
+}
+
+.bi-chat-right-dots {font-size: 80px; color: var(--bk200); line-height: 80px;}
+.bi-chat-right-dots::before {vertical-align: sub;}
+
+#content, #acontent {width: 1075px !important; height: 300px;}
+
+#file {margin-top: 25px;}

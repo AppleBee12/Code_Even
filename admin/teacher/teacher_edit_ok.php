@@ -1,9 +1,9 @@
 <?php
 include_once($_SERVER['DOCUMENT_ROOT'] . '/CODE_EVEN/admin/inc/dbcon.php');
+include_once($_SERVER['DOCUMENT_ROOT'].'/code_even/admin/inc/img_upload_func.php');
 
   $tcid = $_POST['tcid'];
-
-
+  /* ---------------- 이미지 업로드 변수 정의 --------------------- */
   $thumbnail = $_FILES['tc_thumbnail'] ?? '';
   $tc_name = $_POST['tc_name'];
   $tc_url = $_POST['tc_url'] ?? '';
@@ -18,43 +18,40 @@ include_once($_SERVER['DOCUMENT_ROOT'] . '/CODE_EVEN/admin/inc/dbcon.php');
   $isrecom = $_POST['isrecom'] ?? 0;
   $tc_intro = rawurldecode($_POST['tc_intro']);
 
-  //썸네일 변경 되었다면
-  if(isset($_FILES['tc_thumbnail']) && $_FILES['tc_thumbnail']['error'] == UPLOAD_ERR_OK){
-    //파일 사이즈 검사
-    if($thumbnail['size'] > 10240000 ){
-    echo "
-      <script>
-        alert('10MB이하만 첨부할 수 있습니다.');
-        history.back();
-      </script>
-    ";
-    }
-    
-    //파일 포멧 검사
-    if(strpos($thumbnail['type'], 'image') === false){
-      echo "
-      <script>
-        alert('이미지만 첨부할 수 있습니다.');
-        history.back();
-      </script>
-    ";
-    }
-  
-    //파일 업로드
-    $save_dir = $_SERVER['DOCUMENT_ROOT'].'/CODE_EVEN/admin/upload/tc_thumb/';
-    $filename = $thumbnail['name']; //insta.jpg
-    $ext = pathinfo($filename,PATHINFO_EXTENSION); //파일명의 확장자를 추출, jpg
-    $newFileName = date('YmdHis').substr(rand(), 0, 6);//202410091717123456
-    $savefile = $newFileName.'.'.$ext;//202410091717123456.jpg
-    
-    if(move_uploaded_file($thumbnail['tmp_name'], $save_dir.$savefile)){
-      $thumbnail = '/CODE_EVEN/admin/upload/tc_thumb/'.$savefile;  
-    } else{
-      echo "<script>
-        alert('이미지를 첨부할 수 없습니다.');
-      </script>";
-    }
+
+
+  /* ---------------- 이미지 업로드 함수 호출 로직 시작 --------------------- */
+  // 상위 디렉토리 이름 가져오기 (예: 'teacher')
+  $callingFileDir = basename(dirname(__FILE__)); // 호출하는 파일의 상위 디렉토리 ('teacher'가 반환됨)
+
+  // 기존 이미지 경로 가져오기 (예: DB에서 불러오기) (기존에 업로드된 파일 지우기 위해서 불러옴)
+  $sql = "SELECT tc_thumbnail FROM teachers WHERE tcid = $tcid";
+  $result = $mysqli->query($sql);
+  $existingThumbnail = '';
+  if ($result && $row = $result->fetch_assoc()) {
+      $existingThumbnail = $row['tc_thumbnail'];
   }
+
+  if (isset($_FILES['tc_thumbnail']) && $_FILES['tc_thumbnail']['error'] == UPLOAD_ERR_OK) {
+      // 기존 파일이 있으면 삭제
+      if (!empty($existingThumbnail)) {
+          $fullPath = $_SERVER['DOCUMENT_ROOT'] . $existingThumbnail;
+          deleteFile($fullPath); // 파일 삭제 함수 호출
+      }
+
+      // 새로운 파일 업로드
+      $uploadResult = fileUpload($_FILES['tc_thumbnail'], $callingFileDir);
+      if ($uploadResult) {
+          $thumbnailPath = $uploadResult; // 성공적으로 업로드된 경로
+      } else {
+          echo "<script>
+              alert('파일 첨부할 수 없습니다.');
+              history.back();
+          </script>";
+          exit;
+      }
+  }
+  /* ---------------- 이미지 업로드 함수 호출 끝 --------------------- */
 
 
 
@@ -70,28 +67,36 @@ include_once($_SERVER['DOCUMENT_ROOT'] . '/CODE_EVEN/admin/inc/dbcon.php');
     tc_cate = '$tc_cate',
     tc_ok = $tc_ok,
     isnew = $isnew,
-    isrecom = $isrecom";
+    isrecom = $isrecom,
+    tc_intro = '$tc_intro'";
 
+
+
+
+  /* ---------------- 이미지 업로드 업데이트 sql --------------------- */
   // thumbnail 값이 존재할 때만 thumbnail 컬럼을 업데이트
-
-  if (isset($_FILES['tc_thumbnail']) && $_FILES['tc_thumbnail']['error'] == UPLOAD_ERR_OK)  {
-    $sql .= ", tc_thumbnail = '$thumbnail'";
+  if ($thumbnailPath) {
+    $sql .= ", tc_thumbnail = '$thumbnailPath'";
   }
+  /* ---------------- 이미지 업로드 업데이트 sql 끝 --------------------- */
 
-  $sql .= " WHERE tcid = $tcid";
-  $result = $mysqli->query($sql); //teachers테이블에 강사정보 입력(생성)
 
-  if($result){ 
-    echo "
-      <script>
-        alert('강사정보 수정 완료');
-        location.href = 'teacher_list.php';
-      </script>
-    ";
-  }else {
-    echo "Error: " . $mysqli->error;
-  }
 
-$mysqli->close();
+
+    $sql .= " WHERE tcid = $tcid";
+    $result = $mysqli->query($sql); //teachers테이블에 강사정보 입력(생성)
+
+    if($result){ 
+      echo "
+        <script>
+          alert('강사정보 수정 완료');
+          location.href = 'teacher_list.php';
+        </script>
+      ";
+    }else {
+      echo "Error: " . $mysqli->error;
+    }
+
+  $mysqli->close();
 
 ?>

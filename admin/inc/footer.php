@@ -17,8 +17,9 @@ integrity="sha256-y2bkXLA0VKwUx5hwbBKnaboRThcu7YOFyuYarJbCnoQ=" crossorigin="ano
 <script src="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/js/common.js"></script>
 
 <script>
-  $('#summernote').summernote({
-    placeholder: 'Hello Bootstrap 5',
+  let target = $('#summernote');
+  target.summernote({
+    placeholder: '내용을 입력해주세요.',
     tabsize: 2,
     height: 120,
     lang: 'ko-KR',

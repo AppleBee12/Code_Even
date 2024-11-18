@@ -1,0 +1,30 @@
+/* Form 컨트롤 */
+tbody .form-control, tbody .form-select{
+  width: 480px;
+}
+
+.address_num{
+  width: 360px;
+}
+
+.info_table {
+  border-color: var(--bk0);
+}
+
+.table>:not(caption)>*>* {
+  padding: 1rem .5rem;
+}
+
+.list_table .tc_status{
+  width: 70%;
+  margin: 0 auto;
+}
+
+.rounded_circle{
+  border-radius: 50% !important;
+}
+
+
+.content_bar{
+  margin-top: 50px;
+}

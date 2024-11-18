@@ -9,18 +9,14 @@
 
 /* Form 컨트롤 */
 
-.form-control{
+tbody .form-control, tbody .form-select{
     width: 480px;
   }
-  
-  .form-control.w_512, .form-select.w_512{
-    width: 480px;
-  }
-  
-  .info_table {
-    border-color: var(--bk0);
-  }
-  
-  .table>:not(caption)>*>* {
-    padding: 1rem .5rem;
-  }
+
+.info_table {
+  border-color: var(--bk0);
+}
+
+.table>:not(caption)>*>* {
+  padding: 1rem .5rem;
+}

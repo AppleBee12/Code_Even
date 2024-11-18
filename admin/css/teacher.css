@@ -1,7 +1,11 @@
 /* Form 컨트롤 */
 
-.form-control, .form-select{
+tbody .form-control, tbody .form-select{
   width: 480px;
+}
+
+.address_num{
+  width: 360px;
 }
 
 .info_table {
@@ -22,14 +26,22 @@
 }
 
 
+.content_bar{
+  margin-top: 50px;
+}
+
+
+
 /* 프로필 이미지 업로드 */
 .upload{
   width: 100px;
+  height: 100px;
   position: relative;
   margin: auto;
 }
 
 .upload img{
+  object-fit: cover;
   border-radius: 50%;
   border: 1px solid var(--bk200);
 }
