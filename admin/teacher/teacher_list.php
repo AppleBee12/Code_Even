@@ -2,7 +2,39 @@
 $title = "강사 목록";
 include_once($_SERVER['DOCUMENT_ROOT'] . '/CODE_EVEN/admin/inc/header.php');
 
-$sql = "SELECT * FROM teachers WHERE 1=1"; //teachers 테이블에서 모든 데이터를 조회
+
+// 게시글 개수 구하기
+$keywords = isset($_GET['keywords']) ? $mysqli->real_escape_string($_GET['keywords']) : '';
+$where_clause = '';
+
+if ($keywords) {
+  $where_clause = "WHERE teachers.tc_userid LIKE '%$keywords%' OR teachers.tc_name LIKE '%$keywords%' OR teachers.tc_email LIKE '%$keywords%'";
+}
+
+$page_sql = "SELECT COUNT(*) AS cnt FROM teachers $where_clause";
+$page_result = $mysqli->query($page_sql);
+$page_data = $page_result->fetch_assoc();
+$row_num = $page_data['cnt'];
+
+// 페이지네이션
+$page = isset($_GET['page']) ? $_GET['page'] : 1;
+$list = 10;
+$start_num = ($page - 1) * $list;
+$block_ct = 5;
+$block_num = ceil($page / $block_ct);
+$block_start = (($block_num - 1) * $block_ct) + 1;
+$block_end = $block_start + $block_ct - 1;
+
+$total_page = ceil($row_num / $list);
+$total_block = ceil($total_page / $block_ct);
+if ($block_end > $total_page) {
+  $block_end = $total_page;
+}
+
+
+$sql = "SELECT * FROM teachers $where_clause 
+        ORDER BY teachers.tcid DESC 
+        LIMIT $start_num, $list"; //teachers 테이블에서 모든 데이터를 조회
 $result = $mysqli->query($sql); //쿼리 실행 결과
 
 while($data = $result->fetch_object()){
@@ -28,7 +60,8 @@ while($data = $result->fetch_object()){
     </div>
     <div class="col-lg-3">
     <div class="input-group mb-3">
-      <input type="text" class="form-control" placeholder="분류 선택 또는 검색어를 입력해주세요" aria-label="Recipient's username" aria-describedby="basic-addon2">
+    <input type="text" class="form-control" placeholder="검색어를 입력하세요." name="keywords" value="<?= htmlspecialchars($keywords); ?>">
+      <!-- <input type="text" class="form-control" placeholder="분류 선택 또는 검색어를 입력해주세요" aria-label="Recipient's username" aria-describedby="basic-addon2"> -->
       <button type="button" class="btn btn-secondary">
         <i class="bi bi-search"></i>
       </button>
@@ -174,24 +207,42 @@ while($data = $result->fetch_object()){
 
 
 
-  <div class="list_pagination" aria-label="Page navigation example">
-    <ul class="pagination d-flex justify-content-center">
-      <li class="page-item">
-        <a class="page-link" href="" aria-label="Previous">
-          <i class="bi bi-chevron-left"></i>
-        </a>
-      </li>
-      <li class="page-item active"><a class="page-link" href="">1</a></li>
-      <li class="page-item"><a class="page-link" href="">2</a></li>
-      <li class="page-item"><a class="page-link" href="">3</a></li>
-      <li class="page-item">
-        <a class="page-link" href="" aria-label="Next">
-          <i class="bi bi-chevron-right"></i>
-        </a>
-      </li>
-    </ul>
-  </div>
-   <!-- //Pagination -->
+  <!-- //Pagination -->
+<div class="list_pagination" aria-label="Page navigation example">
+  <ul class="pagination d-flex justify-content-center">
+    <?php
+      $previous = $block_start - $block_ct;
+      if ($previous < 1) $previous = 1;
+      if ($block_num > 1) { 
+    ?>
+    <li class="page-item">
+      <a class="page-link" href="notice.php?page=<?= $previous; ?>" aria-label="Previous">
+        <i class="bi bi-chevron-left"></i>
+      </a>
+    </li>
+    <?php
+      }
+    ?>
+    <?php
+      for ($i = $block_start; $i <= $block_end; $i++) {
+        $active = ($page == $i) ? 'active' : '';
+    ?>
+    <li class="page-item <?= $active; ?>"><a class="page-link" href="notice.php?page=<?= $i; ?>"><?= $i; ?></a></li>
+    <?php
+      }
+      $next = $block_end + 1;
+      if($total_block > $block_num){
+    ?>
+    <li class="page-item">
+      <a class="page-link" href="notice.php?page=<?= $next; ?>" aria-label="Next">
+        <i class="bi bi-chevron-right"></i>
+      </a>
+    </li>
+    <?php
+      }
+    ?>
+  </ul>
+</div>
 </div>
 
 <script>
