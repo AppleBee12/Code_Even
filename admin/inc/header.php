@@ -91,11 +91,15 @@ $level = $_SESSION['AULEVEL'];
   }
   switch ($page) {
     case 'lecture_list.php':
-      echo '<link rel="stylesheet" href="http://' . $_SERVER['HTTP_HOST'] . '/code_even/admin/css/lecture.css">';
+    case 'quiz_test_list.php':
+    case 'quiz_test_outcome.php':
+      echo '<link rel="stylesheet" href="http://' . $_SERVER['HTTP_HOST'] . '/code_even/admin/css/lecture_list.css">';
       break;
   }
   switch ($page) {
     case 'lecture_up.php':
+    case 'lecture_view.php':
+    case 'quiz_test_up.php':
       echo '<link rel="stylesheet" href="http://' . $_SERVER['HTTP_HOST'] . '/code_even/admin/css/lecture.css">';
       break;
   }
@@ -120,6 +124,9 @@ $level = $_SESSION['AULEVEL'];
   }
 
   ?>
+
+  <!-- jquery 추가 -->
+  <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 
 </head>
 
