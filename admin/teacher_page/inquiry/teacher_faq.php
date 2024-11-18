@@ -33,7 +33,7 @@ $sql = "SELECT faq.*, user.username, user.userid
         FROM faq 
         JOIN user ON faq.uid = user.uid 
         $where_clause 
-        AND faq.target = 'student' 
+        AND faq.target = 'teacher' 
         ORDER BY faq.fqid DESC 
         LIMIT $start_num, $list";
 $result = $mysqli->query($sql);
@@ -46,8 +46,8 @@ while ($data = $result->fetch_object()) {
 ?>
 
 <div class="container">
-  <h2>수강생 FAQ</h2>
-  <form action="" method="GET" class="row justify-content-end">
+  <h2>강사 FAQ</h2>
+  <form action="" method="get" class="row justify-content-end">
     <div class="col-lg-4">
       <div class="input-group mb-3">
         <input type="text" class="form-control" placeholder="검색어를 입력하세요." name="keywords"
@@ -62,15 +62,14 @@ while ($data = $result->fetch_object()) {
   <table class="table list_table">
     <thead>
       <tr>
+        <th scope="col">
+          <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+        </th>
         <th scope="col">번호</th>
-        <th scope="col">아이디</th>
-        <th scope="col">이름</th>
         <th scope="col">분류</th>
         <th scope="col">제목</th>
         <th scope="col">조회수</th>
         <th scope="col">등록일</th>
-        <th scope="col">상태</th>
-        <th scope="col">관리</th>
       </tr>
     </thead>
     <tbody>
@@ -79,9 +78,10 @@ while ($data = $result->fetch_object()) {
         foreach ($dataArr as $no) {
           ?>
           <tr>
+            <th scope="row">
+              <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+            </th>
             <td><?= $no->fqid; ?></td>
-            <td><?= $no->userid; ?></td>
-            <td><?= $no->username; ?></td>
             <td>
               <?php
               echo $no->category == 1 ? "결제/환불" :
@@ -100,21 +100,6 @@ while ($data = $result->fetch_object()) {
             </td>
             <td><?= $no->view; ?></td>
             <td><?= $no->regdate; ?></td>
-            <td>
-              <?php
-              $class = $no->status == 'on' ? 'text-bg-success' : 'text-bg-light';
-              $text = $no->status == 'on' ? '노출' : '숨김';
-              echo "<span class='badge $class'>$text</span>";
-              ?>
-            </td>
-            <td class="edit_col">
-              <a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/inquiry/faq_modify.php?fqid=<?= $no->fqid; ?>">
-                <i class="bi bi-pencil-fill"></i>
-              </a>
-              <a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/inquiry/faq_delete.php">
-                <i class="bi bi-trash-fill"></i>
-              </a>
-            </td>
           </tr>
           <?php
         }
@@ -124,11 +109,6 @@ while ($data = $result->fetch_object()) {
       ?>
     </tbody>
   </table>
-
-  <div class="d-flex justify-content-end gap-2">
-    <a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/inquiry/faq_write.php?target=student"
-      class="btn btn-secondary">등록</a>
-  </div>
 
 </div>
 
@@ -142,7 +122,7 @@ while ($data = $result->fetch_object()) {
     if ($block_num > 1) {
       ?>
       <li class="page-item">
-        <a class="page-link" href="student_faq.php?page=<?= $previous; ?>" aria-label="Previous">
+        <a class="page-link" href="teacher_faq.php?page=<?= $previous; ?>" aria-label="Previous">
           <i class="bi bi-chevron-left"></i>
         </a>
       </li>
@@ -153,7 +133,7 @@ while ($data = $result->fetch_object()) {
     for ($i = $block_start; $i <= $block_end; $i++) {
       $active = ($page == $i) ? 'active' : '';
       ?>
-      <li class="page-item <?= $active; ?>"><a class="page-link" href="student_faq.php?page=<?= $i; ?>"><?= $i; ?></a>
+      <li class="page-item <?= $active; ?>"><a class="page-link" href="teacher_faq.php?page=<?= $i; ?>"><?= $i; ?></a>
       </li>
       <?php
     }

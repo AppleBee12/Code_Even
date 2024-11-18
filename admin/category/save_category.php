@@ -5,8 +5,15 @@ ini_set( "display_errors", 1 );
 include_once($_SERVER['DOCUMENT_ROOT'] . '/CODE_EVEN/admin/inc/dbcon.php');
 
 $name = $_POST['name'];
+$pcode = $_POST['pcode'];
 $code = $_POST['code'];
 $step = $_POST['step'];
+
+// pcode가 있을 때 작동
+if(isset($_POST['pcode'])){
+  $pcode = $_POST['pcode'] ;
+}
+
 
 /*
 중복 여부파악하기
@@ -29,7 +36,7 @@ if ($data && $data->cgid) {
 //   exit;
 // }
 //중복되지 않는다면 테이블에 저장한다. 
-$sql = "INSERT INTO category (code, name, step) VALUES ('$code', '$name', $step)";
+$sql = "INSERT INTO category (pcode, code, name, step) VALUES ('$pcode', '$code', '$name', $step)";
 $result = $mysqli->query($sql);
 
 if($result){

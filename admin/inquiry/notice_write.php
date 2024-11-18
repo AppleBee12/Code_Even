@@ -57,21 +57,23 @@ $data = $result->fetch_object();
             </div>
           </td>
         </tr>
-        <tr class="none">
+        <!-- <tr class="none">
           <td colspan="3">
             <div>
               <textarea name="content" id="content" class="form-control" required></textarea>
             </div>
           </td>
-        </tr>
-        <tr class="none">
-          <th scope="row">파일 등록 <b>*</b></th>
+        </tr> -->
+        <!-- <tr class="none">
+          <th scope="row">파일 등록</th>
           <td>
-            <input type="file" class="form-control" id="file" class="w-50">
+            <input type="file" class="form-control" name="file" id="file" class="w-50">
           </td>
-        </tr>
+        </tr> -->
       </tbody>
     </table>
+    <textarea name="content" id="content" class="form-control" required></textarea>
+    <input type="file" class="form-control w-50" name="file" id="file">
     <div class="custom-hr"></div>
     <div class="d-flex justify-content-end gap-2">
       <a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/inquiry/notice.php" type="button"
