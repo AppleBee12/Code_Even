@@ -972,9 +972,9 @@ ALTER TABLE `category`
 --
 ALTER TABLE `class_data`
   ADD PRIMARY KEY (`cdid`),
-  ADD KEY `uid` (`uid`,`leid`,`exid`),
+  ADD KEY `uid` (`uid`),
   ADD KEY `leid` (`leid`),
-  ADD KEY `class_data_ibfk_3` (`exid`);
+  ADD KEY `exid` (`exid`);
 
 --
 -- 테이블의 인덱스 `company_info`
