@@ -1,7 +1,7 @@
 <?php
 include_once($_SERVER['DOCUMENT_ROOT'] . '/code_even/admin/inc/header.php');
 
-// 게시글 개수 구하기
+// 게시글 개수 구하기 (notice -> 테이블명 고쳐주세요)
 $keywords = isset($_GET['keywords']) ? $mysqli->real_escape_string($_GET['keywords']) : '';
 $where_clause = '';
 
@@ -48,7 +48,8 @@ while ($data = $result->fetch_object()) {
   <form action="" method="get" class="row justify-content-end">
     <div class="col-lg-4">
       <div class="input-group mb-3">
-        <input type="text" class="form-control" placeholder="검색어를 입력하세요." name="keywords" value="<?= htmlspecialchars($keywords); ?>">
+        <input type="text" class="form-control" placeholder="검색어를 입력하세요." name="keywords"
+          value="<?= htmlspecialchars($keywords); ?>">
         <button type="submit" class="btn btn-secondary">
           <i class="bi bi-search"></i>
         </button>
@@ -70,81 +71,86 @@ while ($data = $result->fetch_object()) {
       </tr>
     </thead>
     <tbody>
-      <?php   
-        if ($dataArr) {
-          foreach ($dataArr as $no) {
-      ?>
-      <tr>
-        <td><?= $no->ntid; ?></td>
-        <td><?= $no->userid; ?></td>
-        <td><?= $no->username; ?></td>
-        <td><a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/inquiry/notice_modify.php?ntid=<?= $no->ntid; ?>" class="underline"><?= $no->title; ?></a></td>
-        <td><?= $no->view; ?></td>
-        <td><?= $no->regdate; ?></td>
-        <td>
-          <?php
-            $class = $no->status == 'on' ? 'text-bg-success' : 'text-bg-light';
-            $text = $no->status == 'on' ? '노출' : '숨김';
-            echo "<span class='badge $class'>$text</span>";
+      <?php
+      if ($dataArr) {
+        foreach ($dataArr as $no) {
           ?>
-        </td>
-        <td class="edit_col">
-          <a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/inquiry/notice_modify.php?ntid=<?= $no->ntid; ?>">
-            <i class="bi bi-pencil-fill"></i>
-          </a>
-          <a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/inquiry/notice_delete.php?ntid=<?= $no->ntid; ?>">
-            <i class="bi bi-trash-fill"></i>
-          </a>
-        </td>
-      </tr>
-      <?php   
-          }   
-        } else {
-          echo "<tr><td colspan='8'>검색 결과가 없습니다.</td></tr>";
+          <tr>
+            <td><?= $no->ntid; ?></td>
+            <td><?= $no->userid; ?></td>
+            <td><?= $no->username; ?></td>
+            <td><a
+                href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/inquiry/notice_modify.php?ntid=<?= $no->ntid; ?>"
+                class="underline"><?= $no->title; ?></a></td>
+            <td><?= $no->view; ?></td>
+            <td><?= $no->regdate; ?></td>
+            <td>
+              <?php
+              $class = $no->status == 'on' ? 'text-bg-success' : 'text-bg-light';
+              $text = $no->status == 'on' ? '노출' : '숨김';
+              echo "<span class='badge $class'>$text</span>";
+              ?>
+            </td>
+            <td class="edit_col">
+              <a
+                href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/inquiry/notice_modify.php?ntid=<?= $no->ntid; ?>">
+                <i class="bi bi-pencil-fill"></i>
+              </a>
+              <a
+                href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/inquiry/notice_delete.php?ntid=<?= $no->ntid; ?>">
+                <i class="bi bi-trash-fill"></i>
+              </a>
+            </td>
+          </tr>
+          <?php
         }
+      } else {
+        echo "<tr><td colspan='8'>검색 결과가 없습니다.</td></tr>";
+      }
       ?>
     </tbody>
   </table>
 
-    <div class="d-flex justify-content-end gap-2">
-      <a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/inquiry/notice_write.php"
-        class="btn btn-secondary">등록</a>
-    </div>
+  <div class="d-flex justify-content-end gap-2">
+    <a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/inquiry/notice_write.php"
+      class="btn btn-secondary">등록</a>
+  </div>
 </div>
 
 <!-- //Pagination -->
 <div class="list_pagination" aria-label="Page navigation example">
   <ul class="pagination d-flex justify-content-center">
     <?php
-      $previous = $block_start - $block_ct;
-      if ($previous < 1) $previous = 1;
-      if ($block_num > 1) { 
+    $previous = $block_start - $block_ct;
+    if ($previous < 1)
+      $previous = 1;
+    if ($block_num > 1) {
+      ?>
+      <li class="page-item">
+        <a class="page-link" href="notice.php?page=<?= $previous; ?>" aria-label="Previous">
+          <i class="bi bi-chevron-left"></i>
+        </a>
+      </li>
+      <?php
+    }
     ?>
-    <li class="page-item">
-      <a class="page-link" href="notice.php?page=<?= $previous; ?>" aria-label="Previous">
-        <i class="bi bi-chevron-left"></i>
-      </a>
-    </li>
     <?php
-      }
-    ?>
-    <?php
-      for ($i = $block_start; $i <= $block_end; $i++) {
-        $active = ($page == $i) ? 'active' : '';
-    ?>
-    <li class="page-item <?= $active; ?>"><a class="page-link" href="notice.php?page=<?= $i; ?>"><?= $i; ?></a></li>
-    <?php
-      }
-      $next = $block_end + 1;
-      if($total_block > $block_num){
-    ?>
-    <li class="page-item">
-      <a class="page-link" href="notice.php?page=<?= $next; ?>" aria-label="Next">
-        <i class="bi bi-chevron-right"></i>
-      </a>
-    </li>
-    <?php
-      }
+    for ($i = $block_start; $i <= $block_end; $i++) {
+      $active = ($page == $i) ? 'active' : '';
+      ?>
+      <li class="page-item <?= $active; ?>"><a class="page-link" href="notice.php?page=<?= $i; ?>"><?= $i; ?></a></li>
+      <?php
+    }
+    $next = $block_end + 1;
+    if ($total_block > $block_num) {
+      ?>
+      <li class="page-item">
+        <a class="page-link" href="notice.php?page=<?= $next; ?>" aria-label="Next">
+          <i class="bi bi-chevron-right"></i>
+        </a>
+      </li>
+      <?php
+    }
     ?>
   </ul>
 </div>

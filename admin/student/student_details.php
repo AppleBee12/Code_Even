@@ -1,6 +1,15 @@
 <?php
 $title = "수강생 관리";
 include_once($_SERVER['DOCUMENT_ROOT'] . '/code_even/admin/inc/header.php');
+
+$cdid = $_GET['cdid'];
+$sql = "SELECT class_data.*, user.*, lecture.title, lecture.date, lecture.period 
+        FROM class_data 
+        JOIN user ON class_data.uid = user.uid 
+        JOIN lecture ON class_data.leid = lecture.leid 
+        WHERE cdid = $cdid";
+$result = $mysqli->query($sql);
+$data = $result->fetch_object();
 ?>
 
 <div class="container">
@@ -23,20 +32,20 @@ include_once($_SERVER['DOCUMENT_ROOT'] . '/code_even/admin/inc/header.php');
       </thead>
       <tbody>
         <tr class="none">
-          <th scope="row">이름(아이디)</th>
-          <td>홍길동</td>
+          <th scope="row">이름</th>
+          <td><?= $data->username; ?></td>
           <th scope="row">가입일</th>
-          <td>2024/10/10 13:14:15</td>
+          <td><?= $data->signup_date; ?></td>
         </tr>
         <tr class="none">
           <th scope="row">아이디</th>
-          <td>hong1234</td>
+          <td><?= $data->userid; ?></td>
           <th scope="row">마지막접속일</th>
-          <td>2024/10/10 13:14:15</td>
+          <td><?= $data->last_date; ?></td>
         </tr>
         <tr class="none">
           <th scope="row">휴대전화</th>
-          <td>010-1234-6589</td>
+          <td><?= $data->userphonenum; ?></td>
           <th scope="row">상태</th>
           <td class="d-flex gap-3">
             <div class="form-check">
@@ -61,22 +70,22 @@ include_once($_SERVER['DOCUMENT_ROOT'] . '/code_even/admin/inc/header.php');
         </tr>
         <tr class="none">
           <th scope="row">이메일</th>
-          <td>exampla1111@example.com</td>
-          <th scope="row">마지막접속일</th>
-          <td>2024/10/10 13:14:15</td>
+          <td><?= $data->useremail; ?></td>
         </tr>
         <tr class="none">
           <th scope="row">이메일 수신 여부</th>
           <td class="d-flex gap-3">
             <div class="form-check">
-              <input class="form-check-input" type="radio" name="emailCheck" id="emailCheck" checked disabled>
-              <label class="form-check-label" for="flexRadioDisabled">
+              <input class="form-check-input" type="radio" name="emailCheck" id="emailCheck" value="1"
+                <?= ($data->email_ok === '1') ? 'checked' : ''; ?>>
+              <label class="form-check-label" for="emailCheck">
                 동의
               </label>
             </div>
             <div class="form-check">
-              <input class=" form-check-input" type="radio" name="emailCheck" id="flexRadioDisabled" disabled>
-              <label class="form-check-label" for="flexRadioCheckedDisabled">
+              <input class=" form-check-input" type="radio" name="emailCheck" id="emailCheck" value="''"
+                <?= ($data->email_ok === '1') ? 'checked' : ''; ?>>
+              <label class="form-check-label" for="emailCheck">
                 비동의
               </label>
             </div>
