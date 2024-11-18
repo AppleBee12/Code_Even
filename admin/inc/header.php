@@ -49,6 +49,7 @@ $level = $_SESSION['AULEVEL'];
   switch ($page) {
     case 'teacher_list.php':
     case 'teacher_edit.php':
+    case 'user_edit.php':
     case 'my_details.php':
     case 'teacher_details.php':
     case 'store.php':
