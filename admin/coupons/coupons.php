@@ -115,12 +115,11 @@ while ($data = $result->fetch_object()) {
             </div>
             <div class="col-md-5">
               <div class="card-body">
-                <h6><span class="badge text-bg-secondary mb-3">
                     <?php
                     if ($item->status == 1) {
-                      echo '활성화';
+                      echo '<h6><span class="badge text-bg-secondary mb-3">활성화</span>';
                     } else {
-                      echo '비활성화';
+                      echo '<h6><span class="badge text-bd-secondary mb-3">비활성화</span>';
                     }
                     ?>
                   </span></h6>
