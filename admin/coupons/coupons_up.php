@@ -56,6 +56,67 @@ while($data = $result->fetch_object()){
   $dataArr[] = $data;
 }
 
+$coupon_image = $_FILES['coupon_image']??'';
+// POST로 값 받아오기 (HTML 폼의 name 속성에 맞춰주세요)
+$coupon_name = $_POST['coupon_name'] ?? '';
+$coupon_image = $_POST['coupon_image'] ?? ''; // 파일 업로드 시 파일명 사용
+$coupon_type = $_POST['coupon_type'] ?? 0;
+$coupon_price = $_POST['coupon_price'] ?? 0;
+$coupon_ratio = $_POST['coupon_ratio'] ?? 0;
+$status = $_POST['status'] ?? 0;
+$max_value = $_POST['max_value'] ?? 0;
+$use_min_price = $_POST['use_min_price'] ?? 0;
+$use_max_date = $_POST['use_max_date'] ?? 'NULL';
+
+// 세션에서 사용자 아이디 가져오기
+$userid = $_SESSION['AUID'] ?? 'guest'; // 세션이 없으면 'guest'로 대체
+
+
+if(isset($_FILES['coupon_image'])){
+  if($coupon_image['size'] > 10240000 ){
+    echo "
+     <script>
+       alert('10MB이하만 첨부할 수 있습니다.');
+       history.back();
+     </script>
+    ";
+   }
+   
+   //파일 포멧 검사
+   if(strpos($coupon_image['type'], 'image') === false){
+     echo "
+     <script>
+       alert('이미지만 첨부할 수 있습니다.');
+       history.back();
+     </script>
+    ";
+   }
+  
+     //파일 업로드
+     $save_dir = $_SERVER['DOCUMENT_ROOT'].'/code_even/images/';
+     $filename = $coupon_image['name']; //insta.jpg
+     $ext = pathinfo($filename,PATHINFO_EXTENSION); //파일명의 확장자를 추출, jpg
+     $newFileName = date('YmdHis').substr(rand(), 0, 6);//202410091717123456
+     $savefile = $newFileName.'.'.$ext;//202410091717123456.jpg
+     
+     if(move_uploaded_file($coupon_image['tmp_name'], $save_dir.$savefile)){ //tmp_name임시파일
+       $coupon_image = '/code_even/images/'.$savefile;  
+     } else{
+       echo "<script>
+         alert('이미지를 첨부할 수 없습니다.');
+       </script>";
+     }
+
+}
+
+$sql = "INSERT INTO coupons 
+    (coupon_name, coupon_image, coupon_type, coupon_price, coupon_ratio, status, userid, max_value, use_min_price, use_max_date)
+  VALUES
+    ('$coupon_name', '$coupon_image', $coupon_type, $coupon_price, $coupon_ratio, $status, '{$_SESSION['AUID']}', $max_value, $use_min_price, $use_max_date)
+";
+echo $sql;
+// var_dump($_POST);
+
 ?>
 
 <style>
@@ -85,7 +146,9 @@ thead,
     border-style: none;
   }
 
-
+#datepicker{
+  width: 150px !important;
+}
 </style>
 
 <div class="container">
@@ -99,7 +162,7 @@ thead,
           <div class="box mb-3" id="addedImages">
             <span>쿠폰 이미지를 등록해주세요.</span>
             <div class="image">
-              <img id="previewImage" class="image"><img src="" alt="">
+              <img src="" alt="">
             </div>
           </div>
           <input type="file" multiple accept="image/*" class="form-control w-50" name="coupon_image" id="coupon_image" value="file" required>
@@ -116,20 +179,20 @@ thead,
         </tr>
         <div class="d-flex">
           <th scope="row">사용기한</th>
-            <td class="d-flex gap-3">
-              <div class="form-check">
-                <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
-                <label class="form-check-label" for="flexRadioDefault1">
-                  제한
-                </label>
-              </div>
-              <div class="form-check">
-                <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" checked>
-                <label class="form-check-label" for="flexRadioDefault2">
+            <td class="d-flex gap-5" name="use_max_date" id="use_max_date">
+              <div class="form-check" >
+                  <input class="form-check-input" type="radio" name="flexRadioDefault" checked>
+                <label class="form-check-label" for="flexRadioDefault2"  id="ct4">
                   무제한
                 </label>
               </div>
-                <input type="text" name="sale_end_date" id="datepicker" class="form-control w-25 bi bi-calendar-week">
+              <div class="form-check">
+                <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
+                <label class="form-check-label d-flex gap-3" for="flexRadioDefault1"  id="ct3">
+                  제한
+                  <input type="text" name="sale_end_date" id="datepicker" class="form-control w-25 bi bi-calendar-week">
+                </label>
+              </div>
             </td>
                 
         </tr> 
@@ -194,7 +257,7 @@ thead,
         </tr>   
       </tbody>
     </table>
-    <div class="d-flex justify-content-end ">
+    <div class="d-flex justify-content-end gap-2">
         <button class="btn btn-outline-danger mt-3 cancle">취소</button>
         <button type="submit" class="btn btn-secondary mt-3 ">쿠폰등록</button>
     </div>
@@ -202,67 +265,29 @@ thead,
 </div>
 
 <script>
-  // $('#upfile').change(function(){
-  //   let files = $(this).prop('files');
-  //   console.log(files);
-  //   files.foreach((item)=>{ //aattachFile에 일을 시킴 -> 할일
-  //     attachFile(item);
-  //   });
-  // });
+  $('#ct2 input').prop('disabled', true);
 
-  // function attachFile(file){ //파일이 들어오면 할 일
-  //   let formData = new FormData(); //비어있음
-  //   formData.append('savefile',file); //이미지 첨부
-  //   $.ajax({
-  //     url:'coupons_image_save.php',
-  //     data:formData,
-  //     cache: false, //이미지 정보를 브라우저 저장
-  //     contentType:false, //전송되는 데이터 타입
-  //     processData:false, //전송되는 데이터 처리(해석)
-  //     dataType:'json',
-  //     type:'POST',
-  //     success:function(return_data){ //성공한 데이터를 return_data로 받는다. 
-  //       if(return_data.result === 'size'){
-  //         alert('10MB 이하만 첨부할 수 있습니다.');
-  //         return; //아무것도 없는채 내뱉음
-  //       }else if(return_data.result === 'image'){
-  //         alert('이미지만 첨부할 수 있습니다.');
-  //         return; //아무것도 없는채 내뱉음
-  //       }else if(return_data.result === 'error'){
-  //         alert('첨부실패, 관리자에게 문의하세요.');
-  //         return; //아무것도 없는채 내뱉음
-  //       }else{
-  //         $('#addedImages').append('') //
-  //         alert('첨부완료');
-  //       }
-  //     }
-  //   })
-  // }
-  const fileInput = document.getElementById('coupon_image');
-  const previewImage = document.getElementById('previewImage');
-
-  // 파일 입력 변경 시 이미지 미리보기
-  fileInput.addEventListener('change', (event) => {
-    const file = event.target.files[0]; // 선택한 첫 번째 파일
-    if (file && file.type.startsWith('image/')) {
-      const reader = new FileReader();
-
-      // 파일 읽기 완료 시 실행
-      reader.onload = (e) => {
-        previewImage.src = e.target.result; // 이미지 src 설정
-        previewImage.style.display = 'block'; // 이미지 표시
-      };
-
-      reader.readAsDataURL(file); // 파일을 Data URL로 읽기
-    } else {
-      previewImage.src = ''; 
-      previewImage.style.display = 'none'; // 이미지 숨기기
+  $('#coupon_type').change(function(){
+    let value = $(this).val();
+    $('#ct1 input, #ct2 input').prop('disabled', true);
+    if(value == 1){
+      $('#ct1 input').prop('disabled', false);
+    } else{
+      $('#ct2 input').prop('disabled', false);
     }
   });
 
+  $('#ct3 input').prop('disabled', true);
 
-// result size->용량 10메가 넘은것
-//image -> image가아님 
+  $('#use_max_date').change(function(){
+    let value = $(this).val();
+    $('#ct3 input, #ct4 input').prop('disabled', true);
+    if(value == 0){
+      $('#ct3 input').prop('disabled', false);
+    } else{
+      $('#ct4 input').prop('disabled', false);
+    }
+  });
 </script>
 
 

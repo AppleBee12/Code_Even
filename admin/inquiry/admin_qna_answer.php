@@ -101,7 +101,7 @@ $data = $result->fetch_object();
       <h3>답변 내용</h3>
     </div>
 
-    <textarea class="form-control w-75" name="acontent" id="acontent"></textarea>
+    <textarea class="form-control" name="acontent" id="acontent"></textarea>
 
     <div class="custom-hr"></div>
 
