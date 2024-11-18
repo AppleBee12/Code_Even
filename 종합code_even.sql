@@ -297,7 +297,7 @@ CREATE TABLE `faq` (
   `fqid` int(11) NOT NULL COMMENT 'FAQ고유번호',
   `uid` int(11) DEFAULT NULL COMMENT '회원고유번호',
   `category` int(11) NOT NULL COMMENT '주제분류',
-  `target` enum('일반회원','강사') NOT NULL COMMENT '대상',
+  `target` enum('student','teacher') NOT NULL COMMENT '대상',
   `title` varchar(255) NOT NULL COMMENT '제목',
   `content` text NOT NULL COMMENT '내용',
   `view` int(11) NOT NULL COMMENT '조회수',
@@ -310,9 +310,10 @@ CREATE TABLE `faq` (
 --
 
 INSERT INTO `faq` (`fqid`, `uid`, `category`, `target`, `title`, `content`, `view`, `regdate`, `status`) VALUES
-(1, 1, 2, '', '강의 수강은 어떻게 하나요?', '강의 수강은 어떻게 하나요?', 0, '2024-11-16 17:24:50', 'off'),
-(2, 1, 4, '', '탈퇴는 어떻게 하나요?', '탈퇴는 어떻게 하나요?', 0, '2024-11-16 18:30:18', 'off'),
-(3, 1, 1, '', '환불은 어떻게 진행이 되나요?', '환불은 어떻게 진행이 되나요?', 0, '2024-11-17 02:47:25', 'off');
+(1, 1, 2, 'student', '강의 수강은 어떻게 하나요?', '강의 수강은 어떻게 하나요?', 0, '2024-11-16 17:24:50', 'off'),
+(2, 1, 4, 'student', '탈퇴는 어떻게 하나요?', '탈퇴는 어떻게 하나요?', 0, '2024-11-16 18:30:18', 'off'),
+(3, 1, 1, 'student', '환불은 어떻게 진행이 되나요?', '환불은 어떻게 진행이 되나요?', 0, '2024-11-17 02:47:25', 'off'),
+(4, 1, 7, 'teacher', '정산은 어떻게 진행이 되나요?', '정산은 어떻게 진행이 되나요?', 0, '2024-11-18 16:41:40', 'on');
 
 -- --------------------------------------------------------
 
