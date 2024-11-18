@@ -120,15 +120,11 @@ CREATE TABLE `coupons` (
   `use_max_date` datetime DEFAULT NULL COMMENT '사용기한'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
-  INSERT INTO `category` (`cgid`, `code`, `pcode`, `name`, `step`) VALUES
-  (1, 'A0001', '', '웹 개발', 1),
-  (2, 'B0001', 'A0001', '프론트엔드', 2),
-  (3, 'C0001', 'B0001', 'HTML/CSS', 3),
-  (4, 'A0002', NULL, '클라우드 / DB', 1),
-  (5, 'A0003', NULL, '보안 / 네트워크', 1),
-  (6, 'B0002', 'A0001', '백엔드', 2),
-  (7, 'C0002', 'B0001', 'Javascript', 3),
-  (8, 'C0003', 'B0001', 'J-Query', 3);
+  INSERT INTO `coupons` (`cpid`, `couponid`, `coupon_name`, `coupon_image`, `coupon_type`, `coupon_price`, `coupon_ratio`, `status`, `regdate`, `userid`, `max_value`, `use_min_price`, `use_max_date`) VALUES
+(1, 1001, '5,000원 할인 쿠폰', '/code_even/admin/coupons/coupon4.png', 1, 5000, NULL, 1, '2024-11-18 10:09:49', 'admin', NULL, 30000, '2024-12-31 00:00:00'),
+(2, 1002, '10% 할인 쿠폰', 'coupons2.png', 2, NULL, 10, 1, '2024-11-18 10:09:49', 'admin', 10000, 50000, '2024-12-31 00:00:00'),
+(3, 1003, '무료배송 쿠폰', 'coupons3.png', 3, NULL, NULL, 1, '2024-11-18 10:09:49', 'user123', NULL, 0, '2025-01-31 00:00:00'),
+(4, 1004, '신규 회원 15% 할인 쿠폰', 'coupons4.png', 2, NULL, 15, 0, '2024-11-18 10:09:49', 'newuser', 15000, 20000, '2024-12-31 00:00:00');
 
 -- --------------------------------------------------------
 
