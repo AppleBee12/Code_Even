@@ -1,6 +1,6 @@
 /* Form 컨트롤 */
 
-.form-control, .form-select{
+tbody .form-control, tbody .form-select{
   width: 480px;
 }
 
