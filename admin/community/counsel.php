@@ -1,5 +1,6 @@
 <?php
 $title = "고민 상담";
+
 include_once($_SERVER['DOCUMENT_ROOT'] . '/CODE_EVEN/admin/inc/header.php');
 
 // 게시글 개수 구하기
@@ -48,25 +49,19 @@ while ($data = $result->fetch_object()) {
 
 <div class="container">
   <h2 class="page_title">고민 상담</h2>
-
-
   <form action="" id="search_form" class="row justify-content-end">
     <div class="col-lg-3">
       <div class="input-group mb-3">
-      <input type="text" class="form-control" placeholder="검색어를 입력하세요." name="keywords" value="<?= htmlspecialchars($keywords); ?>">
+        <input type="text" class="form-control" placeholder="검색어를 입력하세요." name="keywords" value="<?= htmlspecialchars($keywords); ?>">
         <button type="button" class="btn btn-secondary">
           <i class="bi bi-search"></i>
         </button>
       </div>
     </div>
-
-
   </form>
 
   <form action="">
     <table class="table list_table">
-
-      
       <thead>
         <tr>
           <th scope="col">번호</th>
@@ -82,79 +77,83 @@ while ($data = $result->fetch_object()) {
         </tr>
       </thead>
       <tbody>
-      <?php   
+        <?php
         if ($dataArr) {
           foreach ($dataArr as $counsel) {
-      ?>
-        <tr>
-          <th scope="row"><?=$counsel->post_id?>152</th>
-          <td><?=$counsel->usernick?></td>
-          <td><a href="#"><?=$counsel->titles?></a></td>
-          <td><a href="#"><?=$counsel->contents?></a></td>
-          <td><span class="badge text-bg-light"><?=$counsel->status?></span></td>
-          <td><?=$counsel->likes?><b>개</b></td>
-          <td><?=$counsel->comments?><b>개</b></td>
-          <td><?=$counsel->hits?><b>개</b></td>
-          <td><?=$counsel->regdate?></td>
-          <td class="edit_col">
-            <a href="">
-              <i class="bi bi-pencil-fill"></i>
-            </a>
-            <a href="">
-              <i class="bi bi-trash-fill"></i>
-            </a>
-          </td>
-        </tr>
-        <?php   
-          }   
+        ?>
+            <tr>
+              <th scope="row"><?= $counsel->post_id ?></th>
+              <td><?= $counsel->usernick ?></td>
+              <td><a href="#" class="d-inline-block text-truncate"><?= $counsel->titles ?></a></td>
+              <td><a href="#" class="d-inline-block text-truncate"><?= $counsel->contents ?></a></td>
+              <td>
+                <?= $counsel->status == 0 ?
+                  '<span class="badge text-bg-light">미해결</span>'
+                  : '<span class="badge text-bg-success">해결</span>' ?>
+              </td>
+              <td><?= $counsel->likes ?><b>개</b></td>
+              <td><?= $counsel->comments ?><b>개</b></td>
+              <td><?= $counsel->hits ?><b>개</b></td>
+              <td><?= $counsel->regdate ?></td>
+              <td class="edit_col">
+                <a href="counsel_edit.php?post_id=<?= $counsel->post_id ?>">
+                  <i class="bi bi-pencil-fill"></i>
+                </a>
+                <a href="">
+                  <i class="bi bi-trash-fill"></i>
+                </a>
+              </td>
+            </tr>
+        <?php
+          }
         } else {
           echo "<tr><td colspan='8'>검색 결과가 없습니다.</td></tr>";
         }
-      ?>
+        ?>
       </tbody>
 
 
     </table>
     <!-- //table -->
-    <button type="button" class="btn btn-outline-secondary ms-auto d-block">일괄수정</button>
+    <!-- <button type="button" class="btn btn-outline-secondary ms-auto d-block">일괄수정</button> -->
   </form>
 
-<!-- //Pagination -->
-<div class="list_pagination" aria-label="Page navigation example">
-  <ul class="pagination d-flex justify-content-center">
-    <?php
+  <!-- //Pagination -->
+  <div class="list_pagination" aria-label="Page navigation example">
+    <ul class="pagination d-flex justify-content-center">
+      <?php
       $previous = $block_start - $block_ct;
       if ($previous < 1) $previous = 1;
-      if ($block_num > 1) { 
-    ?>
-    <li class="page-item">
-      <a class="page-link" href="counsel.php?page=<?= $previous; ?>" aria-label="Previous">
-        <i class="bi bi-chevron-left"></i>
-      </a>
-    </li>
-    <?php
+      if ($block_num > 1) {
+      ?>
+        <li class="page-item">
+          <a class="page-link" href="counsel.php?page=<?= $previous; ?>" aria-label="Previous">
+            <i class="bi bi-chevron-left"></i>
+          </a>
+        </li>
+      <?php
       }
-    ?>
-    <?php
+      ?>
+      <?php
       for ($i = $block_start; $i <= $block_end; $i++) {
         $active = ($page == $i) ? 'active' : '';
-    ?>
-    <li class="page-item <?= $active; ?>"><a class="page-link" href="counsel.php?page=<?= $i; ?>"><?= $i; ?></a></li>
-    <?php
+      ?>
+        <li class="page-item <?= $active; ?>"><a class="page-link" href="counsel.php?page=<?= $i; ?>"><?= $i; ?></a></li>
+      <?php
       }
       $next = $block_end + 1;
-      if($total_block > $block_num){
-    ?>
-    <li class="page-item">
-      <a class="page-link" href="counsel.php?page=<?= $next; ?>" aria-label="Next">
-        <i class="bi bi-chevron-right"></i>
-      </a>
-    </li>
-    <?php
+      if ($total_block > $block_num) {
+      ?>
+        <li class="page-item">
+          <a class="page-link" href="counsel.php?page=<?= $next; ?>" aria-label="Next">
+            <i class="bi bi-chevron-right"></i>
+          </a>
+        </li>
+      <?php
       }
-    ?>
-  </ul>
-</div>
+      ?>
+    </ul>
+  </div>
 </div>
 
 
