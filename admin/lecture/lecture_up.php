@@ -4,6 +4,8 @@
 
   include_once($_SERVER['DOCUMENT_ROOT'] . '/CODE_EVEN/admin/inc/header.php');
 
+  $leid = isset($_GET['leid']) ? $_GET['leid'] : '';
+
   // 카테고리 데이터를 불러오기
   $sql_cate = "SELECT * FROM category ORDER BY step, pcode";
   $result_cate = $mysqli->query($sql_cate);
@@ -311,21 +313,26 @@
 
   
   // 썸네일 첨부하면 class image에 출력
-  $('#inputGroupFile02').on('change', function (event) {
-        const file = event.target.files[0]; // 선택된 파일 가져오기
-        if (file) {
-            const reader = new FileReader();
+  $('#image').on('change', function (event) {
+    const file = event.target.files[0]; // 선택된 파일 가져오기
+    if (file) {
+      const reader = new FileReader(); // 파일 읽기 객체 생성
 
-            reader.onload = function (e) {
-                // 파일이 로드되면 .image 클래스에 이미지 표시
-                const imgElement = $('.image img');
-                imgElement.attr('src', e.target.result); // Base64 이미지 데이터 설정
-                imgElement.attr('alt', file.name); // 이미지 대체 텍스트 설정
-            };
+      reader.onload = function (e) {
+          // 파일 로드 완료 후 이미지 태그에 미리 보기 설정
+          const imgView = $('.image img');
+          imgView.attr('src', e.target.result);
+          imgView.attr('alt', file.name); // 이미지 대체 텍스트 설정
 
-            reader.readAsDataURL(file); // 파일을 Base64 데이터 URL로 읽기
-        }
-    });
+          // 텍스트 숨기기
+          $('.box span').hide(); // 텍스트 숨김
+        };
+
+      reader.readAsDataURL(file);
+    }
+  });
+
+
 
 
 

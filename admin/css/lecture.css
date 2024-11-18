@@ -32,7 +32,6 @@ table, th, td {
 .box_container{
   padding: 0;
   position: relative;
-  align-items: end;
 }
 
 tbody tr td .box {
@@ -41,21 +40,25 @@ tbody tr td .box {
   background-color: #ccc !important;
   align-items: end; 
   text-align: center;
-  margin-bottom: 10px;
   position: relative;
+  overflow: hidden;
 
   span{
-    text-wrap: nowrap;
     position: absolute;
     top: 50%;
     left: 50%;
-    transform: translate(-50%, -50%);    
-  }
-
-  .image{
-    height: 300px;
+    transform: translate(-50%, -50%);
+    z-index: 1;
   }
 }
+
+.image img {
+  height: 300px;
+  margin: 0;
+  padding: 0;
+  object-fit: cover;
+}
+
 
 .video{
   margin-top: 10px;
