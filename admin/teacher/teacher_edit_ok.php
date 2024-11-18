@@ -18,6 +18,8 @@ include_once($_SERVER['DOCUMENT_ROOT'] . '/CODE_EVEN/admin/inc/dbcon.php');
   $isrecom = $_POST['isrecom'] ?? 0;
   $tc_intro = rawurldecode($_POST['tc_intro']);
 
+  //print_r($tc_intro);
+
   //썸네일 변경 되었다면
   if(isset($_FILES['tc_thumbnail']) && $_FILES['tc_thumbnail']['error'] == UPLOAD_ERR_OK){
     //파일 사이즈 검사
@@ -70,7 +72,8 @@ include_once($_SERVER['DOCUMENT_ROOT'] . '/CODE_EVEN/admin/inc/dbcon.php');
     tc_cate = '$tc_cate',
     tc_ok = $tc_ok,
     isnew = $isnew,
-    isrecom = $isrecom";
+    isrecom = $isrecom,
+    tc_intro = '$tc_intro'";
 
   // thumbnail 값이 존재할 때만 thumbnail 컬럼을 업데이트
 
