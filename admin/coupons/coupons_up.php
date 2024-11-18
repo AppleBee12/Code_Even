@@ -1,7 +1,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
 <?php
-$title = "쿠폰 목록";
+$title = "쿠폰등록";
 include_once($_SERVER['DOCUMENT_ROOT']. '/code_even/admin/inc/header.php');
 
 if (!isset($_SESSION['AUID'])) {
@@ -114,8 +114,6 @@ $sql = "INSERT INTO coupons
   VALUES
     ('$coupon_name', '$coupon_image', $coupon_type, $coupon_price, $coupon_ratio, $status, '{$_SESSION['AUID']}', $max_value, $use_min_price, $use_max_date)
 ";
-echo $sql;
-// var_dump($_POST);
 
 ?>
 
@@ -175,7 +173,7 @@ thead,
         </tr>
         <tr>
           <th scope="row">쿠폰내용</th>
-          <td><input type="text" class="form-control w-25" name="coupon_name" placeholder="쿠폰내용을 입력하세요" required></td>
+          <td><input type="text" class="form-control w-25" name="description" placeholder="쿠폰내용을 입력하세요" required></td>
         </tr>
         <div class="d-flex">
           <th scope="row">사용기한</th>
@@ -215,7 +213,7 @@ thead,
             <select class="form-select w-25" name="coupon_type" id="coupon_type" aria-label="쿠폰타입">                            
               <option value="1" selected>정액</option>
               <option value="2">정률</option>
-              <div class="input-group mb-3">
+              <div class="input-group mb-3"></div>
             </select>
           </td>
         </tr>
@@ -265,6 +263,10 @@ thead,
 </div>
 
 <script>
+  $('.cancle').click(function(){
+    location.href='coupons.php';
+  });
+
   $('#ct2 input').prop('disabled', true);
 
   $('#coupon_type').change(function(){
