@@ -1,105 +1,174 @@
 <?php
 $title = "수강생 관리";
 include_once($_SERVER['DOCUMENT_ROOT'] . '/code_even/admin/inc/header.php');
+
+// 게시글 개수 구하기
+$keywords = isset($_GET['keywords']) ? $mysqli->real_escape_string($_GET['keywords']) : '';
+$where_clause = '';
+
+if ($keywords) {
+  $where_clause = "WHERE user.username LIKE '%$keywords%' OR user.userid LIKE '%$keywords%'";
+}
+
+$page_sql = "SELECT COUNT(*) AS cnt FROM class_data JOIN user ON class_data.uid = user.uid $where_clause";
+$page_result = $mysqli->query($page_sql);
+$page_data = $page_result->fetch_assoc();
+$row_num = $page_data['cnt'];
+
+// 페이지네이션
+$page = isset($_GET['page']) ? $_GET['page'] : 1;
+$list = 10;
+$start_num = ($page - 1) * $list;
+$block_ct = 5;
+$block_num = ceil($page / $block_ct);
+$block_start = (($block_num - 1) * $block_ct) + 1;
+$block_end = $block_start + $block_ct - 1;
+
+$total_page = ceil($row_num / $list);
+$total_block = ceil($total_page / $block_ct);
+if ($block_end > $total_page) {
+  $block_end = $total_page;
+}
+
+$sql = "SELECT class_data.*, user.username, user.userid, lecture.title, lecture.date, lecture.period 
+        FROM class_data 
+        JOIN user ON class_data.uid = user.uid 
+        JOIN lecture ON class_data.leid = lecture.leid 
+        $where_clause 
+        ORDER BY class_data.cdid DESC 
+        LIMIT $start_num, $list";
+$result = $mysqli->query($sql);
+
+$dataArr = [];
+while ($data = $result->fetch_object()) {
+  $dataArr[] = $data;
+}
+
 ?>
 <div class="container">
   <h2>수강생목록</h2>
   <form class="row justify-content-end">
     <div class="col-lg-4">
       <div class="input-group mb-3">
-        <input type="text" class="form-control" placeholder="검색어를 입력하세요." aria-label="Recipient's username"
-          aria-describedby="basic-addon2">
-        <button type="button" class="btn btn-secondary">
+        <input type="text" class="form-control" placeholder="검색어를 입력하세요." name="keywords"
+          value="<?= htmlspecialchars($keywords); ?>">
+        <button type="submit" class="btn btn-secondary">
           <i class="bi bi-search"></i>
         </button>
       </div>
     </div>
   </form>
 
-  <form action="">
-    <table class="table list_table">
-      <thead>
-        <tr>
-          <th scope="col">
-            <input class="form-check-input" type="checkbox" value="" id="allCheck">
-          </th>
-          <th scope="col">번호</th>
-          <th scope="col">아이디</th>
-          <th scope="col">이름</th>
-          <th scope="col">강좌명</th>
-          <th scope="col">진도율</th>
-          <th scope="col">수강이수</th>
-          <th scope="col">학습기간</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <th scope="row">
-            <input class="form-check-input itemCheckbox" type="checkbox" value="">
-          </th>
-          <td>2</td>
-          <td><a href="student_details.php" class="underline">ping09</a></td>
-          <td><a href="student_details.php" class="underline">피곤핑</a></td>
-          <td>기초부터 확실하게! 페이지의..</td>
-          <td>0%</td>
-          <td>
-            <span class="badge text-bg-light">미이수</span>
-          </td>
-          <td>2024.10.19 ~ 2024.10.31</td>
-        </tr>
-        <tr>
-          <th scope="row">
-            <input class="form-check-input itemCheckbox" type="checkbox" value="" id="flexCheckDefault">
-          </th>
-          <td>1</td>
-          <td><a href="student_details.php" class="underline">hong1234</a></td>
-          <td><a href="student_details.php" class="underline">홍길동</a></td>
-          <td>기초부터 확실하게! 페이지의..</td>
-          <td>100%</td>
-          <td>
-            <button type="button" id="printButton">
-              <span class="badge text-bg-dark">이수증</span>
-            </button>
-          </td>
-          <td>2024.10.19 ~ 2024.10.31</td>
-        </tr>
-      </tbody>
-    </table>
 
-    <div class="d-flex justify-content-end">
-       <button type="button" data-bs-toggle="modal" data-bs-target="#send_email" class="btn btn-outline-secondary">이메일
-         전송</button>
-     </div>
+  <table class="table list_table">
+    <thead>
+      <tr>
+        <th scope="col">
+          <input class="form-check-input" type="checkbox" value="" id="allCheck">
+        </th>
+        <th scope="col">번호</th>
+        <th scope="col">아이디</th>
+        <th scope="col">이름</th>
+        <th scope="col">강좌명</th>
+        <th scope="col">진도율</th>
+        <th scope="col">수강이수</th>
+        <th scope="col">학습기간</th>
+      </tr>
+    </thead>
+    <tbody>
+      <?php
+      if ($dataArr) {
+        foreach ($dataArr as $no) {
+          ?>
+          <tr>
+            <th scope="row">
+              <input class="form-check-input itemCheckbox" type="checkbox" value="" id="flexCheckDefault">
+            </th>
+            <td>1</td>
+            <td><a href="student_details.php?cdid=<?= $no->cdid; ?>" class="underline"><?= $no->userid ?></a></td>
+            <td><a href="student_details.php?cdid=<?= $no->cdid; ?>" class="underline"><?= $no->username ?></a></td>
+            <td><?= $no->title ?></td>
+            <td></td>
+            <td>
+              <button type="button" id="printButton">
+                <span class="badge text-bg-dark">이수증</span>
+              </button>
+            </td>
+            <!-- <td>2024.10.19 ~ 2024.10.31</td> -->
+            <td>
+              <?php
+              $set_date = date('Y-m-d', strtotime($no->date));
+              $start_date = new DateTime($no->date); // DateTime 객체 생성
+              $start_date->modify("+{$no->period} days"); // 기간을 더함
+              $end_date = $start_date->format('Y-m-d'); // 종료 날짜 포맷팅
+              ?>
 
-     <!-- //Pagination -->
-    <div class="list_pagination" aria-label="Page navigation example">
-      <ul class="pagination d-flex justify-content-center">
+              <?= $set_date ?> ~ <?= $end_date ?>
+            </td>
+          </tr>
+        </tbody>
+        <?php
+        }
+      } else {
+        echo "<tr><td colspan='8'>검색 결과가 없습니다.</td></tr>";
+      }
+      ?>
+  </table>
+
+  <div class="d-flex justify-content-end">
+    <button type="button" data-bs-toggle="modal" data-bs-target="#send_email" class="btn btn-outline-secondary">이메일
+      전송</button>
+  </div>
+
+  <!-- //Pagination -->
+  <div class="list_pagination" aria-label="Page navigation example">
+    <ul class="pagination d-flex justify-content-center">
+      <?php
+      $previous = $block_start - $block_ct;
+      if ($previous < 1)
+        $previous = 1;
+      if ($block_num > 1) {
+        ?>
         <li class="page-item">
-          <a class="page-link" href="" aria-label="Previous">
+          <a class="page-link" href="class_data.php?page=<?= $previous; ?>" aria-label="Previous">
             <i class="bi bi-chevron-left"></i>
           </a>
         </li>
-        <li class="page-item active"><a class="page-link" href="">1</a></li>
-        <li class="page-item"><a class="page-link" href="">2</a></li>
-        <li class="page-item"><a class="page-link" href="">3</a></li>
+        <?php
+      }
+      ?>
+      <?php
+      for ($i = $block_start; $i <= $block_end; $i++) {
+        $active = ($page == $i) ? 'active' : '';
+        ?>
+        <li class="page-item <?= $active; ?>"><a class="page-link" href="class_data.php?page=<?= $i; ?>"><?= $i; ?></a>
+        </li>
+        <?php
+      }
+      $next = $block_end + 1;
+      if ($total_block > $block_num) {
+        ?>
         <li class="page-item">
-          <a class="page-link" href="" aria-label="Next">
+          <a class="page-link" href="class_data.php?page=<?= $next; ?>" aria-label="Next">
             <i class="bi bi-chevron-right"></i>
           </a>
         </li>
-      </ul>
-    </div>
-   
-    <!-- //email 모달창 -->
-     <div class="modal modal-lg" id="send_email" tabindex="-1">
-       <div class="modal-dialog">
-         <div class="modal-content">
-           <div class="modal-header">
-             <h5 class="modal-title">이메일 전송</h5>
-             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-           </div>
-           <div class="modal-body">
-           <form action="" method="">
+        <?php
+      }
+      ?>
+    </ul>
+  </div>
+
+  <!-- //email 모달창 -->
+  <div class="modal modal-lg" id="send_email" tabindex="-1">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">이메일 전송</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form action="" method="">
             <table class="table">
               <colgroup>
                 <col style="width:110px">
@@ -129,16 +198,14 @@ include_once($_SERVER['DOCUMENT_ROOT'] . '/code_even/admin/inc/header.php');
               </tbody>
             </table>
           </form>
-           </div>
-           <div class="modal-footer">
-             <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal">취소</button>
-             <button type="button" class="btn btn-secondary">등록</button>
-           </div>
-         </div>
-       </div>
-     </div>
-
-  </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal">취소</button>
+          <button type="button" class="btn btn-secondary">등록</button>
+        </div>
+      </div>
+    </div>
+  </div>
 
 </div>
 
