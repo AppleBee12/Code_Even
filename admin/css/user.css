@@ -29,7 +29,13 @@ tbody .form-control, tbody .form-select{
   margin-top: 50px;
 }
 
-/* Form 컨트롤 - teacher 공통*/
+/* Form 컨트롤 - teacher 공통-------------------------------------*/
+
+
+tbody .form-control.w_sm{
+  width: 240px;
+}
+
 
 .text-outline-secondary{
   color: RGBA(var(--bs-secondary-rgb), var(--bs-bg-opacity, 1)) !important;
@@ -42,4 +48,8 @@ tbody .form-control, tbody .form-select{
 }
 .status_tt{
   font-weight: 700;
+}
+
+.user_addr input{
+  margin-bottom: 10px;
 }
