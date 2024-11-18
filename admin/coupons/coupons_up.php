@@ -146,7 +146,9 @@ thead,
     border-style: none;
   }
 
-
+#datepicker{
+  width: 150px !important;
+}
 </style>
 
 <div class="container">
@@ -177,20 +179,20 @@ thead,
         </tr>
         <div class="d-flex">
           <th scope="row">사용기한</th>
-            <td class="d-flex gap-3">
-              <div class="form-check">
-                <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
-                <label class="form-check-label" for="flexRadioDefault1">
-                  제한
-                </label>
-              </div>
-              <div class="form-check">
-                <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" checked>
-                <label class="form-check-label" for="flexRadioDefault2">
+            <td class="d-flex gap-5" name="use_max_date" id="use_max_date">
+              <div class="form-check" >
+                  <input class="form-check-input" type="radio" name="flexRadioDefault" checked>
+                <label class="form-check-label" for="flexRadioDefault2"  id="ct4">
                   무제한
                 </label>
               </div>
-                <input type="text" name="sale_end_date" id="datepicker" class="form-control w-25 bi bi-calendar-week">
+              <div class="form-check">
+                <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
+                <label class="form-check-label d-flex gap-3" for="flexRadioDefault1"  id="ct3">
+                  제한
+                  <input type="text" name="sale_end_date" id="datepicker" class="form-control w-25 bi bi-calendar-week">
+                </label>
+              </div>
             </td>
                 
         </tr> 
@@ -255,14 +257,38 @@ thead,
         </tr>   
       </tbody>
     </table>
-    <div class="d-flex justify-content-end ">
+    <div class="d-flex justify-content-end gap-2">
         <button class="btn btn-outline-danger mt-3 cancle">취소</button>
         <button type="submit" class="btn btn-secondary mt-3 ">쿠폰등록</button>
     </div>
   </form>
 </div>
 
+<script>
+  $('#ct2 input').prop('disabled', true);
 
+  $('#coupon_type').change(function(){
+    let value = $(this).val();
+    $('#ct1 input, #ct2 input').prop('disabled', true);
+    if(value == 1){
+      $('#ct1 input').prop('disabled', false);
+    } else{
+      $('#ct2 input').prop('disabled', false);
+    }
+  });
+
+  $('#ct3 input').prop('disabled', true);
+
+  $('#use_max_date').change(function(){
+    let value = $(this).val();
+    $('#ct3 input, #ct4 input').prop('disabled', true);
+    if(value == 0){
+      $('#ct3 input').prop('disabled', false);
+    } else{
+      $('#ct4 input').prop('disabled', false);
+    }
+  });
+</script>
 
 
 

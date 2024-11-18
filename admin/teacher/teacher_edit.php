@@ -19,7 +19,7 @@
   </div>
   <form action="teacher_edit_ok.php" id="teacher_save" method="POST" enctype="multipart/form-data">
     <input type="hidden" name="tcid" value="<?= $data->tcid; ?>">
-    <input type="hidden" name="tc_intro" id="tc_intro" value="">
+    <input type="hidden" name="tc_intro" id="contents" value="">
     <div class="upload mt-5 mb-3">
       <img id="thumbnail_preview" src="<?= $data->tc_thumbnail; ?>" width = 100 height = 100 alt="">
       <div class="round">
@@ -44,7 +44,7 @@
           </td>
           <th scope="row">링크</th>
           <td>
-            <input type="text" class="form-control" id="exampleFormControlInput1" name="tc_url" value="<?= $data->tc_url; ?>">
+            <input type="text" class="form-control" id="exampleFormControlInput1" name="tc_url" value="<?= $data->tc_url; ?>" placeholder="https://">
           </td>
         </tr>
         <tr>
@@ -186,6 +186,20 @@
     } else{
       $(this).val('0');
     }
+  });
+
+
+
+
+  $('#teacher_save').submit(function(e){
+    //e.preventDefault();
+    var markup = target.summernote('code');
+    let content = encodeURIComponent(markup);
+    $('#contents').val(markup);
+    
+    //var plainText = $('#summernote').summernote('code').replace(/<\/?[^>]+(>|$)/g, ""); // HTML 태그 제거
+    //$('#contents').val(plainText);
+    //console.log(markup); 
   });
 
 </script>

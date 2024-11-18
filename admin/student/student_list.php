@@ -30,7 +30,7 @@ if ($block_end > $total_page) {
   $block_end = $total_page;
 }
 
-$sql = "SELECT class_data.*, user.username, user.userid, lecture.title, lecture.date, lecture.period 
+$sql = "SELECT class_data.*, user.*, lecture.*  
         FROM class_data 
         JOIN user ON class_data.uid = user.uid 
         JOIN lecture ON class_data.leid = lecture.leid 
@@ -82,7 +82,8 @@ while ($data = $result->fetch_object()) {
           ?>
           <tr>
             <th scope="row">
-              <input class="form-check-input itemCheckbox" type="checkbox" value="" id="flexCheckDefault">
+              <input class="form-check-input itemCheckbox" type="checkbox" value="<?= $no->cdid; ?>" id="checkbox"
+                data-username="<?= $no->username; ?>" data-userid="<?= $no->userid; ?>" data-email="<?= $no->useremail; ?>">
             </th>
             <td>1</td>
             <td><a href="student_details.php?cdid=<?= $no->cdid; ?>" class="underline"><?= $no->userid ?></a></td>
@@ -116,7 +117,8 @@ while ($data = $result->fetch_object()) {
   </table>
 
   <div class="d-flex justify-content-end">
-    <button type="button" data-bs-toggle="modal" data-bs-target="#send_email" class="btn btn-outline-secondary">이메일
+    <button type="button" id="emailBtn" data-bs-toggle="modal" data-bs-target="#send_email"
+      class="btn btn-outline-secondary">이메일
       전송</button>
   </div>
 
@@ -160,7 +162,7 @@ while ($data = $result->fetch_object()) {
   </div>
 
   <!-- //email 모달창 -->
-  <div class="modal modal-lg" id="send_email" tabindex="-1">
+  <div class="modal modal-lg" tabindex="-1">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
@@ -168,7 +170,7 @@ while ($data = $result->fetch_object()) {
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-          <form action="" method="">
+          <form action="" method="" id="contact-form">
             <table class="table">
               <colgroup>
                 <col style="width:110px">
@@ -209,8 +211,12 @@ while ($data = $result->fetch_object()) {
 
 </div>
 
+<?php
+include_once($_SERVER['DOCUMENT_ROOT'] . '/code_even/admin/inc/footer.php');
+?>
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 <script>
-  // 인쇄 버튼
+  /* == 인쇄 버튼 == */
   function printPage() {
     const fileUrl = "../../images/certificate of completion.pdf";
 
@@ -221,31 +227,102 @@ while ($data = $result->fetch_object()) {
     iframe.style.height = "0px";
     iframe.style.border = "none";
     iframe.src = fileUrl;
-
     // iframe을 body에 추가
     document.body.appendChild(iframe);
-
     // PDF 파일이 로드된 후 인쇄
     iframe.onload = function () {
       iframe.contentWindow.print();  // iframe 내에서 print() 호출
     };
   }
-
   document.getElementById("printButton").addEventListener("click", printPage);
 
-  // "전체 선택" 체크박스를 가져옴
+
+  /* == 전체선택 체크박스 == */
   const checkAll = document.getElementById('allCheck');
-  // 각 항목 체크박스를 모두 가져옴
   const itemCheckboxes = document.querySelectorAll('.itemCheckbox');
 
-  // "전체 선택" 체크박스 클릭 이벤트 리스너 추가
   checkAll.addEventListener('change', function () {
     itemCheckboxes.forEach((checkbox) => {
       checkbox.checked = checkAll.checked;
     });
   });
-</script>
 
-<?php
-include_once($_SERVER['DOCUMENT_ROOT'] . '/code_even/admin/inc/footer.php');
-?>
+  /* == 이메일 전송 모달 == */
+  document.getElementById('emailBtn').addEventListener('click', function () {
+    const checkboxes = document.querySelectorAll('.itemCheckbox:checked');
+    const modalBody = document.querySelector('.modal-body tbody');
+
+    // 모달에 표시할 데이터 초기화
+    modalBody.innerHTML = ''; // 기존 데이터를 지움
+
+    if (checkboxes.length > 0) {
+      let htmlContent = '';  // 생성할 HTML 내용 초기화
+
+      checkboxes.forEach(function (checkbox) {
+        const username = checkbox.getAttribute('data-username');
+        const userid = checkbox.getAttribute('data-userid');
+        const email = checkbox.getAttribute('data-email');
+
+        htmlContent += `
+        <tr class="none">
+          <th scope="row">이름(아이디)</th>
+          <td>${username} (${userid})</td>
+          <th scope="row">이메일</th>
+          <td><input class="form-control" value="${email}" name="to_email" readonly></td>
+        </tr>
+        <tr class="none">
+          <th scope="row">제목 <b>*</b></th>
+          <td colspan="3"><input type="text" class="form-control" name="title"></td>
+        </tr>
+        <tr class="none">
+          <th scope="row">내용 <b>*</b></th>
+          <td colspan="3"><textarea name="" id="" class="form-control" name="content"></textarea></td>
+        </tr>
+      `;
+      });
+
+      // 모달 본문에 HTML 내용 삽입
+      modalBody.innerHTML = htmlContent;
+
+      // 모달 띄우기
+      const myModal = new bootstrap.Modal(document.querySelector('.modal'));
+      myModal.show();
+    } else {
+      alert('체크박스를 먼저 선택해주세요.');
+    }
+  });
+
+  /* == 체크박스 하나만 선택하도록 하기 == */
+  const checkboxes = document.querySelectorAll('.itemCheckbox');
+  checkboxes.forEach(function (checkbox) {
+    checkbox.addEventListener('change', function () {
+      checkboxes.forEach(function (item) {
+        if (item !== checkbox) {
+          item.checked = false; // 다른 체크박스는 해제
+        }
+      });
+    });
+  });
+
+  /* 이메일 발송 기능 */
+  (function () {
+    // https://dashboard.emailjs.com/admin/account
+    emailjs.init({
+      publicKey: "CImsaWZWr41o9k1tU",
+    });
+  })();
+
+  document.getElementById('contact-form').addEventListener('submit', function (event) {
+    event.preventDefault();
+    // these IDs from the previous steps
+    emailjs.sendForm('service_hvyqrgl', 'template_b58ndsp', this)
+      .then(() => {
+        console.log('SUCCESS!');
+        alert('메일 발송 완료!')
+      }, (error) => {
+        console.log('FAILED...', error);
+        alert('메일 발송 실패!')
+      });
+  });
+
+</script>
