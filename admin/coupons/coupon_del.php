@@ -9,11 +9,29 @@ if (!isset($_SESSION['AUID'])) {
   location.href='../login/login.php';
   </script>";
 }
-$cid = $_GET['cid'];
+$cid = $_GET['cpid'];
 if (!isset($cid)) {
   echo "<script>alert('쿠폰정보가 없습니다.'); 
   location.href = 'coupons.php';</script>";
 }
 
+
+$coupon_image_sql = "SELECT coupon_image FROM coupons WHERE cpid = $cpid";
+$coupon_result = $mysqli->query($coupon_image_sql);
+$coupon_data = $coupon_result->fetch_object();
+$coupon_image_url = $coupon_data->coupon_image;
+
+unlink($_SERVER['DOCUMENT_ROOT'].$coupon_image_url);
+
+$coupon_del_sql = "DELETE FROM coupons WHERE cpid = $cpid";
+$coupon_del_result = $mysqli->query($coupon_del_sql);
+
+//삭제 완료후 쿠폰 목록으로 이동
+if($coupon_del_result){
+  echo "<script>
+    alert('쿠폰 삭제 완료');
+    location.href = 'coupons.php';
+  </script>";
+}
 
 ?>
