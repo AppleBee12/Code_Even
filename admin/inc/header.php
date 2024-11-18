@@ -168,7 +168,7 @@ $level = $_SESSION['AULEVEL'];
           <a class="nav-link profile_image" href="#"></a>
         </li>
         <li class="nav-item dropdown d-flex align-items-center">
-          <button class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button"
+          <button class="nav-link dropdown-toggle" data-bs-toggle="dropdown"
             aria-expanded="false"></button>
           <ul class="dropdown-menu">
             <?php if ($level == 100): ?>
@@ -214,13 +214,11 @@ $level = $_SESSION['AULEVEL'];
         <ul class="list-group line">
           <?php if ($level == 100): ?>
             <li class="list-group-item" data-link="category">
-              <a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/category/category.php">
-                <i class="bi bi-tags"></i> 　 카테고리 관리
+              <a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/category/category.php">　<i class="bi bi-tags"></i> 　 카테고리 관리
               </a>
             </li>
           <?php endif; ?>
-          <li class="pr list-group-item" data-link="lecture">
-            <i class="bi bi-collection-play"></i> 　 강좌 관리
+          <li class="pr list-group-item" data-link="lecture">　<i class="bi bi-collection-play"></i> 　 강좌 관리
             <button class="btn btn-toggle collapsed" data-bs-toggle="collapse" data-bs-target="#lecture_collapse"
               aria-expanded="false"><i class="bi bi-chevron-down"></i></button>
             <ul class="collapse btn-toggle-nav" id="lecture_collapse">
