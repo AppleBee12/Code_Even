@@ -48,6 +48,8 @@ $level = $_SESSION['AULEVEL'];
     case 'teacher_list.php':
     case 'teacher_edit.php':
     case 'my_details.php':
+    case 'teacher_details.php':
+    case 'store.php':
       echo '<link rel="stylesheet" href="http://' . $_SERVER['HTTP_HOST'] . '/code_even/admin/css/teacher.css">';
       break;
   }
@@ -115,6 +117,12 @@ $level = $_SESSION['AULEVEL'];
   }
   if (isset($t_main_js)) {
     echo $t_main_js;
+  }
+  if (isset($address_js)) {
+    echo $address_js;
+  }
+  if (isset($store_js)) {
+    echo $store_js;
   }
 
   ?>

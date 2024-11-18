@@ -135,9 +135,6 @@ while ($data = $result->fetch_object()) {
         ?>
       </tbody>
     </table>
-    <div class="d-flex justify-content-end">
-      <button type="button" class="btn btn-danger">삭제</button>
-    </div>
 
     <!-- //Pagination -->
     <div class="list_pagination" aria-label="Page navigation example">

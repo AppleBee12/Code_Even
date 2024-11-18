@@ -90,3 +90,4 @@
 }
 
 .bi-chat-right-dots {font-size: 80px; color: var(--bk200); line-height: 80px;}
+.bi-chat-right-dots::before {vertical-align: sub;}
