@@ -85,11 +85,15 @@ $level = $_SESSION['AULEVEL'];
   }
   switch ($page) {
     case 'lecture_list.php':
-      echo '<link rel="stylesheet" href="http://' . $_SERVER['HTTP_HOST'] . '/code_even/admin/css/lecture.css">';
+    case 'quiz_test_list.php':
+    case 'quiz_test_outcome.php':
+      echo '<link rel="stylesheet" href="http://' . $_SERVER['HTTP_HOST'] . '/code_even/admin/css/lecture_list.css">';
       break;
   }
   switch ($page) {
     case 'lecture_up.php':
+    case 'lecture_view.php':
+    case 'quiz_test_up.php':
       echo '<link rel="stylesheet" href="http://' . $_SERVER['HTTP_HOST'] . '/code_even/admin/css/lecture.css">';
       break;
   }
@@ -115,6 +119,9 @@ $level = $_SESSION['AULEVEL'];
 
   ?>
 
+  <!-- jquery 추가 -->
+  <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+
 </head>
 
 <body>
@@ -132,16 +139,18 @@ $level = $_SESSION['AULEVEL'];
         </i>
         <div class="alert alert-light alert-dismissible fade " role="alert">
           <i class="bi bi-info-circle-fill"></i>
-          <?php if ($level == 100) : ?>
-            　강사 
-          <a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/teacher/teacher_list.php" class="alert-link">12명</a> 의 수강승인이 필요합니다.
+          <?php if ($level == 100): ?>
+            강사
+            <a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/teacher/teacher_list.php"
+              class="alert-link">12명</a> 의 수강승인이 필요합니다.
           <?php endif; ?>
-          <?php if ($level == 10) : ?>
-          　답변이 필요한 학생 문의가
-          <a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/student/student_question.php" class="alert-link">1건</a> 있습니다.
+          <?php if ($level == 10): ?>
+            답변이 필요한 학생 문의가
+            <a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/student/student_question.php"
+              class="alert-link">1건</a> 있습니다.
           <?php endif; ?>
           <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-            　　<span aria-hidden="true">&times;</span>
+            <span aria-hidden="true">&times;</span>
           </button>
         </div>
       </div>
@@ -157,16 +166,19 @@ $level = $_SESSION['AULEVEL'];
           <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button"
             aria-expanded="false"></a>
           <ul class="dropdown-menu">
-            <?php if ($level == 100) : ?>
-              <li><a class="dropdown-item" href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/myprofile/my_details.php">내 프로필 수정</a></li>
+            <?php if ($level == 100): ?>
+              <li><a class="dropdown-item"
+                  href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/myprofile/my_details.php">내 프로필 수정</a></li>
             <?php endif; ?>
-            <?php if ($level == 10) : ?>
-              <li><a class="dropdown-item" href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/teacher_page/myprofile/teacher_details.php">내 프로필 수정</a></li>
+            <?php if ($level == 10): ?>
+              <li><a class="dropdown-item"
+                  href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/teacher_page/myprofile/teacher_details.php">내
+                  프로필 수정</a></li>
             <?php endif; ?>
-            <?php if ($level == 100) : ?>
+            <?php if ($level == 100): ?>
               <li><a class="dropdown-item" href="#">관리자 매뉴얼</a></li>
             <?php endif; ?>
-            <?php if ($level == 10) : ?>
+            <?php if ($level == 10): ?>
               <li><a class="dropdown-item" href="#">강사 매뉴얼</a></li>
             <?php endif; ?>
             <li>
@@ -183,30 +195,33 @@ $level = $_SESSION['AULEVEL'];
     <nav class="nav navbar-expand-lg d-flex flex-column justify-content-between">
       <div>
         <ul class="list-group line">
-          <?php if ($level == 100) : ?>
-            <li class="list-group-item" data-link="admin"><a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/index.php">　<i
-                  class="bi bi-grid"></i> 　 대시보드</a></li>
+          <?php if ($level == 100): ?>
+            <li class="list-group-item" data-link="admin"><a
+                href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/index.php">　<i class="bi bi-grid"></i> 　
+                대시보드</a></li>
           <?php endif; ?>
-          <?php if ($level == 10) : ?>
-            <li class="list-group-item" data-link="admin"><a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/teacher_index.php">　<i
-                  class="bi bi-grid"></i> 　 대시보드</a></li>
+          <?php if ($level == 10): ?>
+            <li class="list-group-item" data-link="admin"><a
+                href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/teacher_index.php">　<i class="bi bi-grid"></i>
+                대시보드</a></li>
           <?php endif; ?>
         </ul>
         <ul class="list-group line">
-          <?php if ($level == 100) : ?>
+          <?php if ($level == 100): ?>
             <li class="list-group-item" data-link="category">
               <a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/category/category.php">
-                　<i class="bi bi-tags"></i> 　 카테고리 관리
+                <i class="bi bi-tags"></i> 　 카테고리 관리
               </a>
             </li>
           <?php endif; ?>
           <li class="pr list-group-item" data-link="lecture">
-            　<i class="bi bi-collection-play"></i> 　 강좌 관리
-            <button class="btn btn-toggle collapsed" data-bs-toggle="collapse" data-bs-target="#lecture_collapse" href="#"
-              aria-expanded="false"><i class="bi bi-chevron-down"></i></button>
+            <i class="bi bi-collection-play"></i> 　 강좌 관리
+            <button class="btn btn-toggle collapsed" data-bs-toggle="collapse" data-bs-target="#lecture_collapse"
+              href="#" aria-expanded="false"><i class="bi bi-chevron-down"></i></button>
             <ul class="collapse btn-toggle-nav" id="lecture_collapse">
               <li class="list-group-item dropdown-item"><a
-                  href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/lecture/lecture_list.php">　　-　강좌 목록</a></li>
+                  href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/lecture/lecture_list.php">　　-　강좌 목록</a>
+              </li>
               <li class="list-group-item dropdown-item"><a
                   href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/lecture/lecture_up.php">　　-　강좌 등록</a></li>
               <li class="list-group-item dropdown-item"><a
@@ -227,7 +242,7 @@ $level = $_SESSION['AULEVEL'];
           </li>
         </ul>
         <ul class="list-group line">
-          <?php if ($level == 100) : ?>
+          <?php if ($level == 100): ?>
             <li class="list-group-item" data-link="user">　<a href=""><i class="bi bi-people"></i> 　 전체 회원 관리</a></li>
             <li class="list-group-item" data-link="teacher"><a
                 href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/teacher/teacher_list.php">　<i
@@ -235,16 +250,17 @@ $level = $_SESSION['AULEVEL'];
             </li>
           <?php endif; ?>
           <li class="pr list-group-item" data-link="student">　<i class="bi bi-mortarboard"></i> 　 수강생 관리
-            <button class="btn btn-toggle collapsed" data-bs-toggle="collapse" data-bs-target="#student_collapse" href="#"
-              aria-expanded="false"><i class="bi bi-chevron-down"></i></button>
+            <button class="btn btn-toggle collapsed" data-bs-toggle="collapse" data-bs-target="#student_collapse"
+              href="#" aria-expanded="false"><i class="bi bi-chevron-down"></i></button>
             <ul class="collapse btn-toggle-nav" id="student_collapse">
               <li class="list-group-item dropdown-item"><a
                   href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/student/student_list.php">　　-　수강생 목록</a>
               </li>
               <li class="list-group-item"><a
-                  href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/student/student_question.php">　　-　수강생 질문</a>
+                  href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/student/student_question.php">　　-　수강생
+                  질문</a>
               </li>
-              <?php if ($level == 100) : ?>
+              <?php if ($level == 100): ?>
                 <li class="list-group-item"><a
                     href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/student/send_email.php">　　-　이메일 발송</a></li>
               <?php endif; ?>
@@ -255,18 +271,24 @@ $level = $_SESSION['AULEVEL'];
           </li>
         </ul>
         <ul class="list-group line">
-          <?php if ($level == 100) : ?>
+          <?php if ($level == 100): ?>
             <li class="pr list-group-item" data-link="pay">　<i class="bi bi-truck"></i> 　 결제/배송 관리
               <button class="btn btn-toggle collapsed" data-bs-toggle="collapse" data-bs-target="#payment_collapse"
                 aria-expanded="false"><i class="bi bi-chevron-down"></i></button>
               <ul class="collapse btn-toggle-nav" id="payment_collapse">
-                <li class="list-group-item dropdown-item"><a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/orders/orders_list.php">　　-　주문/결제 목록</a></li>
-                <li class="list-group-item dropdown-item"><a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/orders/delivery_list.php">　　-　교재 배송관리</a></li>
-                <li class="list-group-item dropdown-item"><a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/orders/refunds_list.php">　　-　환불 관리</a></li>
+                <li class="list-group-item dropdown-item"><a
+                    href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/orders/orders_list.php">　　-　주문/결제 목록</a>
+                </li>
+                <li class="list-group-item dropdown-item"><a
+                    href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/orders/delivery_list.php">　　-　교재 배송관리</a>
+                </li>
+                <li class="list-group-item dropdown-item"><a
+                    href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/orders/refunds_list.php">　　-　환불 관리</a></li>
               </ul>
             </li>
             <li class="list-group-item" data-link="coupons"><a
-                href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/coupons/coupons.php">　<i class="bi bi-ticket"></i> 　 쿠폰 관리</a></li>
+                href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/coupons/coupons.php">　<i
+                  class="bi bi-ticket"></i> 　 쿠폰 관리</a></li>
           <?php endif; ?>
           <li class="pr list-group-item">　<i class="bi bi-graph-up-arrow"></i> 　 매출통계 관리
             <button class="btn btn-toggle collapsed" data-bs-toggle="collapse" data-bs-target="#statistics_collapse"
@@ -283,28 +305,38 @@ $level = $_SESSION['AULEVEL'];
             <button class="btn btn-toggle collapsed" data-bs-toggle="collapse" data-bs-target="#bulletinboard_collapse"
               href="#" aria-expanded="false"><i class="bi bi-chevron-down"></i></button>
             <ul class="collapse btn-toggle-nav" id="bulletinboard_collapse">
-              <li class="list-group-item dropdown-item"><a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/inquiry/notice.php">　　-　전체 공지사항</a></li>
+              <li class="list-group-item dropdown-item"><a
+                  href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/inquiry/notice.php">　　-　전체 공지사항</a></li>
 
-              <?php if ($level == 100) : ?>
-                <li class="list-group-item dropdown"><a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/inquiry/student_faq.php">　　-　수강생 FAQ</a></li>
+              <?php if ($level == 100): ?>
+                <li class="list-group-item dropdown"><a
+                    href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/inquiry/student_faq.php">　　-　수강생 FAQ</a>
+                </li>
               <?php endif; ?>
 
-              <li class="list-group-item dropdown"><a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/inquiry/teacher_faq.php">　　-　강사 FAQ</a></li>
+              <li class="list-group-item dropdown"><a
+                  href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/inquiry/teacher_faq.php">　　-　강사 FAQ</a>
+              </li>
 
-              <?php if ($level == 100) : ?>
-                <li class="list-group-item dropdown"><a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/inquiry/admin_qna.php">　　-　1:1 문의</a></li>
+              <?php if ($level == 100): ?>
+                <li class="list-group-item dropdown"><a
+                    href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/inquiry/admin_qna.php">　　-　1:1 문의</a></li>
               <?php endif; ?>
             </ul>
           </li>
 
-          <?php if ($level == 100) : ?>
+          <?php if ($level == 100): ?>
             <li class="pr list-group-item" data-link="community">　<i class="bi bi-chat-dots"></i> 　 커뮤니티 관리
               <button class="btn btn-toggle collapsed" data-bs-toggle="collapse" data-bs-target="#community_collapse"
                 href="#" aria-expanded="false"><i class="bi bi-chevron-down"></i></button>
               <ul class="collapse btn-toggle-nav" id="community_collapse">
-                <li class="list-group-item dropdown-item"><a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/community/counsel.php">　　-　고민상담</a></li>
-                <li class="list-group-item dropdown"><a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/community/team_project.php">　　-　팀 프로젝트</a></li>
-                <li class="list-group-item dropdown"><a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/community/blog.php">　　-　블로그</a></li>
+                <li class="list-group-item dropdown-item"><a
+                    href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/community/counsel.php">　　-　고민상담</a></li>
+                <li class="list-group-item dropdown"><a
+                    href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/community/team_project.php">　　-　팀 프로젝트</a>
+                </li>
+                <li class="list-group-item dropdown"><a
+                    href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/community/blog.php">　　-　블로그</a></li>
               </ul>
             </li>
           <?php endif; ?>
@@ -312,14 +344,22 @@ $level = $_SESSION['AULEVEL'];
       </div>
       <ul class="no_line list-group">
 
-        <?php if ($level == 10) : ?>
-          <li class="list-group-item" data-link=""><a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/inquiry/admin_qna.php">　<i class="bi bi-chat-dots"></i> 　 1:1 문의하기</a></li>
-          <li class="list-group-item" data-link="manual"><a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/manual/for_teacher.php">　<i class="bi bi-journal-bookmark-fill"></i> 　 강사 매뉴얼</a></li>
+        <?php if ($level == 10): ?>
+          <li class="list-group-item" data-link=""><a
+              href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/teacher_page/inquiry/admin_qna.php">　<i
+                class="bi bi-chat-dots"></i> 　 1:1 문의하기</a></li>
+          <li class="list-group-item" data-link="manual"><a
+              href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/manual/for_teacher.php">　<i
+                class="bi bi-journal-bookmark-fill"></i> 　 강사 매뉴얼</a></li>
         <?php endif; ?>
-        <?php if ($level == 100) : ?>
+        <?php if ($level == 100): ?>
 
-          <li class="list-group-item" data-link="manual"><a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/manual/for_admin.php">　<i class="bi bi-journal-bookmark-fill"></i> 　 관리자 매뉴얼</a></li>
-          <li class="list-group-item" data-link="setting"><a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/setting/store.php">　<i class="bi bi-gear-fill"></i> 　 상점 관리</a></li>
+          <li class="list-group-item" data-link="manual"><a
+              href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/manual/for_admin.php">　<i
+                class="bi bi-journal-bookmark-fill"></i> 　 관리자 매뉴얼</a></li>
+          <li class="list-group-item" data-link="setting"><a
+              href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/setting/store.php">　<i
+                class="bi bi-gear-fill"></i> 　 상점 관리</a></li>
         <?php endif; ?>
       </ul>
     </nav>
