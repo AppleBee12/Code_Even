@@ -1,6 +1,7 @@
 <?php
 $title = "전체회원목록";
 include_once($_SERVER['DOCUMENT_ROOT'] . '/CODE_EVEN/admin/inc/header.php');
+include_once($_SERVER['DOCUMENT_ROOT'].'/code_even/admin/inc/date_format_func.php');
 
 
 // 게시글 개수 구하기
@@ -32,10 +33,13 @@ if ($block_end > $total_page) {
 }
 
 
-$sql = "SELECT * FROM user $where_clause 
+$sql = "SELECT *, 
+        DATE_FORMAT(signup_date, '%Y/%m/%d') AS formatted_signup_date, 
+        DATE_FORMAT(last_date, '%Y/%m/%d %H:%i:%s') AS formatted_last_date 
+        FROM user $where_clause 
         ORDER BY user.uid DESC 
-        LIMIT $start_num, $list"; //teachers 테이블에서 모든 데이터를 조회
-$result = $mysqli->query($sql); //쿼리 실행 결과
+        LIMIT $start_num, $list";
+$result = $mysqli->query($sql);
 
 while($data = $result->fetch_object()){
   $dataArr[] = $data;
@@ -97,8 +101,8 @@ while($data = $result->fetch_object()){
         <td><?= $item->userid; ?></td> 
         <td><?= $item->username; ?></td> 
         <td><?= $item->useremail; ?></td>
-        <td><?= $item->signup_date; ?></td>
-        <td><?= $item->last_date; ?></td>
+        <td><?= formatDate($item->signup_date); ?></td>
+        <td><?= $item->formatted_last_date; ?></td>
         <td>
           <?php
             if ($item->user_level == 100) {
