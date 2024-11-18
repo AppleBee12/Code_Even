@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- 생성 시간: 24-11-18 07:30
+-- 생성 시간: 24-11-18 09:22
 -- 서버 버전: 10.4.32-MariaDB
 -- PHP 버전: 8.2.12
 
@@ -18,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- 데이터베이스: `codeeven2`
+-- 데이터베이스: `code_even1`
 --
 
 -- --------------------------------------------------------
@@ -113,13 +113,6 @@ CREATE TABLE `book` (
   `company` varchar(100) NOT NULL COMMENT 'company 출판사'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='교재';
 
---
--- 테이블의 덤프 데이터 `book`
---
-
-INSERT INTO `book` (`boid`, `cate1`, `cate2`, `cate3`, `image`, `title`, `name`, `price`, `pd`, `book`, `writer`, `company`) VALUES
-(1, 'A0001', 'B0001', 'C0001', '', '기초부터 확실하게! (페이지의 내용 전달을 위한 HTML, 스타일 설정을 위한 CSS 기초 학습)', '홍길동', 15000, '2024-11-17 10:08:39', 'html 도장 깨기', '홍길동', '길동사');
-
 -- --------------------------------------------------------
 
 --
@@ -178,14 +171,43 @@ CREATE TABLE `category` (
 --
 
 INSERT INTO `category` (`cgid`, `code`, `pcode`, `name`, `step`) VALUES
-(1, 'A0001', '', '웹 개발', 1),
-(2, 'B0001', 'A0001', '프론트엔드', 2),
-(3, 'C0001', 'B0001', 'HTML/CSS', 3),
-(4, 'A0002', NULL, '클라우드 / DB', 1),
-(5, 'A0003', NULL, '보안 / 네트워크', 1),
-(6, 'B0002', 'A0001', '백엔드', 2),
-(7, 'C0002', 'B0001', 'Javascript', 3),
-(8, 'C0003', 'B0001', 'J-Query', 3);
+(1, 'A0001', NULL, '웹 개발', 1),
+(2, 'A0002', NULL, '클라우드·DB', 1),
+(3, 'A0003', NULL, '보안·네트워크', 1),
+(4, 'B0001', 'A0001', '프론트엔드', 2),
+(5, 'B0002', 'A0001', '백엔드', 2),
+(6, 'B0003', 'A0002', '클라우드 컴퓨팅', 2),
+(7, 'B0004', 'A0002', '데이터베이스', 2),
+(8, 'B0005', 'A0003', '네트워크 관리', 2),
+(9, 'B0006', 'A0003', '보안', 2),
+(10, 'C0001', 'B0001', 'HTML/CSS', 3),
+(11, 'C0002', 'B0001', 'JavaScript', 3),
+(12, 'C0003', 'B0001', 'jQuery', 3),
+(13, 'C0004', 'B0001', 'React', 3),
+(14, 'C0005', 'B0001', 'Angular', 3),
+(15, 'C0006', 'B0001', 'Vue.js', 3),
+(16, 'C0007', 'B0001', 'TypeScript', 3),
+(17, 'C0008', 'B0002', 'Java', 3),
+(18, 'C0009', 'B0002', 'PHP', 3),
+(19, 'C0010', 'B0002', 'Next.js', 3),
+(20, 'C0011', 'B0002', 'Node.js', 3),
+(21, 'C0012', 'B0003', 'AWS', 3),
+(22, 'C0013', 'B0003', 'Azure', 3),
+(23, 'C0014', 'B0003', 'Google Cloud Platform', 3),
+(24, 'C0015', 'B0003', 'DevOps', 3),
+(25, 'C0016', 'B0003', 'Kubernetes', 3),
+(26, 'C0017', 'B0004', 'SQL', 3),
+(27, 'C0018', 'B0004', 'MySQL', 3),
+(28, 'C0019', 'B0004', 'PostgreSQL', 3),
+(29, 'C0020', 'B0004', 'Oracle', 3),
+(30, 'C0021', 'B0004', 'NoSQL', 3),
+(31, 'C0022', 'B0004', 'MongoDB', 3),
+(32, 'C0023', 'B0004', 'Cassandra', 3),
+(33, 'C0024', 'B0004', 'Couchbase', 3),
+(34, 'C0025', 'B0005', 'TCP/IP', 3),
+(35, 'C0026', 'B0005', 'C/C++', 3),
+(36, 'C0027', 'B0006', 'CPPG', 3),
+(37, 'C0028', 'B0006', 'Security', 3);
 
 -- --------------------------------------------------------
 
@@ -259,11 +281,7 @@ CREATE TABLE `counsel` (
 --
 
 INSERT INTO `counsel` (`post_id`, `uid`, `status`, `titles`, `contents`, `likes`, `comments`, `hits`, `regdate`) VALUES
-(1, 3, 1, '실무에 바로 적용해야 하는데 NODEjs 기초 수업 추천해주세요', '지금 프론트엔드 현직자입니다.\r\nAngular는 잘 모르는데 이번에 클라이언트가 Angular로 진행을 원해서 급하게 준비해야하게 되었습니다.\r\n기간이 너무 촉박하기도 하고 강의 들으면서 바로 쓸 수 있는 레시피 강좌 있을까요?\r\n추천 부탁드립니다!', 0, 0, 0, '2024-11-11 19:13:59'),
-(2, 3, 1, '선생님은 학습을 어떻게 하시나요??', '도커를 몰라서 강의를 들으면 빠른데 선생님은 aws에서 객체 라이터를 선택을 해야되는 둥 이런 부가적인 옵션 또는 지식들을 어떻게 습득하신걸까요 궁금합니다', 0, 0, 0, '2024-11-18 05:54:45'),
-(3, 3, 0, '랜덤포레스트 결과가 다르게 나와요', '랜덤포레스트 결과가 다르게 나와요', 0, 0, 0, '2024-11-18 05:55:45'),
-(4, 3, 0, '메모리 누수에 대해서 질문드립니다.', '강의에서 SkillSystem의 Unregister함수를 보면\r\n\r\nDestroy(skill);을 통해 Skill 객체를 지우는데\r\n이때 메모리 누수가 발생하지 않는지 궁금합니다.\r\n예를 들어 Skill은 SetUpStateMachine() 메소드에서\r\nStateMachine.onStateChanged 이벤트에 익명메소드로 구독을 하는데\r\n\r\nStateMachine.onStateChanged += (_, newState, prevState, layer)\r\n\r\n=> onStateChanged?.Invoke(this, newState, prevState, layer);\r\n\r\n \r\n\r\n구독을 해제하는 부분은 따로 찾지 못해서\r\n이런 경우 메모리 누수가 없이 이벤트도 Skill 객체와 함께 정상적으로 삭제가 되는지 궁금합니다.\r\n아직 메모리 관리에 대한 지식이 부족해 이러한 경우 메모리 누수가 발생하는지 아닌지를 어떻게 찾아봐야 할지 모르겠어서 강사님에게 질문드립니다.', 0, 0, 0, '2024-11-18 05:57:32'),
-(5, 3, 0, '어떤식으로 정리하면 좋을까요??', '안녕하세요 강사님 강의 정말 잘 듣고 있습니다.\r\n\r\n강의 내용을 제 블로그에 따로 정리를 해보는 식으로\r\n\r\n정리를 하고 싶은데 어떤식으로 해야할지 감이 안 잡힙니다. 프로그래밍 공부하면서 개념을 정리하는 방법 같은거 혹시 있을까요? 어떤식으로 정리하면 좋을까요?\r\n\r\n \r\n\r\n감사합니다!', 0, 0, 0, '2024-11-18 05:58:01');
+(1, 3, 1, '실무에 바로 적용해야 하는데 NODEjs 기초 수업 추천해주세요', '지금 프론트엔드 현직자입니다.\r\nAngular는 잘 모르는데 이번에 클라이언트가 Angular로 진행을 원해서 급하게 준비해야하게 되었습니다.\r\n기간이 너무 촉박하기도 하고 강의 들으면서 바로 쓸 수 있는 레시피 강좌 있을까요?\r\n추천 부탁드립니다!', 0, 0, 0, '2024-11-11 19:13:59');
 
 -- --------------------------------------------------------
 
@@ -286,6 +304,16 @@ CREATE TABLE `coupons` (
   `use_min_price` double DEFAULT NULL COMMENT '최소사용금액',
   `use_max_date` datetime DEFAULT NULL COMMENT '사용기한'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- 테이블의 덤프 데이터 `coupons`
+--
+
+INSERT INTO `coupons` (`cpid`, `couponid`, `coupon_name`, `coupon_image`, `coupon_type`, `coupon_price`, `coupon_ratio`, `status`, `regdate`, `userid`, `max_value`, `use_min_price`, `use_max_date`) VALUES
+(1, 1001, '5,000원 할인 쿠폰', '/code_even/admin/coupons/coupon4.png', 1, 5000, NULL, 1, '2024-11-18 10:09:49', 'admin', NULL, 30000, '2024-12-31 00:00:00'),
+(2, 1002, '10% 할인 쿠폰', 'coupons2.png', 2, NULL, 10, 1, '2024-11-18 10:09:49', 'admin', 10000, 50000, '2024-12-31 00:00:00'),
+(3, 1003, '무료배송 쿠폰', 'coupons3.png', 3, NULL, NULL, 1, '2024-11-18 10:09:49', 'user123', NULL, 0, '2025-01-31 00:00:00'),
+(4, 1004, '신규 회원 15% 할인 쿠폰', 'coupons4.png', 2, NULL, 15, 0, '2024-11-18 10:09:49', 'newuser', 15000, 20000, '2024-12-31 00:00:00');
 
 -- --------------------------------------------------------
 
@@ -377,14 +405,6 @@ CREATE TABLE `lecture` (
   `date` datetime NOT NULL DEFAULT current_timestamp() COMMENT '날짜'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
---
--- 테이블의 덤프 데이터 `lecture`
---
-
-INSERT INTO `lecture` (`leid`, `lecid`, `cate1`, `cate2`, `cate3`, `image`, `title`, `des`, `name`, `video_url`, `file`, `period`, `isrecipe`, `isgeneral`, `isbest`, `isrecom`, `state`, `approval`, `price`, `level`, `date`) VALUES
-(1, 0, 'A0001', 'B0001', 'C0001', '', '기초부터 확실하게! (페이지의 내용 전달을 위한 HTML, 스타일 설정을 위한 CSS 기초 학습)', '초보자를 위한 쉽고 재미있는 HTML, CSS 기초입니다. 천천히 보면서 이해하면서 따라해 보세요!', '홍길동', 'https://youtu.be/oHTr2fEkmGA?si=fNAGT0cPExpzwXDM', NULL, 30, '', '', '', '', 1, 1, 15000, 50, '2024-11-18 14:40:26'),
-(2, 2, 'A0001', 'B0001', 'C0001', '', '2기초부터 확실하게! (페이지의 내용 전달을 위한 HTML, 스타일 설정을 위한 CSS 기초 학습)', '2초보자를 위한 쉽고 재미있는 HTML, CSS 기초입니다. 천천히 보면서 이해하면서 따라해 보세요!', '이븐선생', 'https://youtu.be/oHTr2fEkmGA?si=fNAGT0cPExpzwXDM', NULL, 30, '', '', '', '', 1, 1, 35000, 50, '0000-00-00 00:00:00');
-
 -- --------------------------------------------------------
 
 --
@@ -413,13 +433,11 @@ CREATE TABLE `lecture_sales` (
 --
 
 CREATE TABLE `lefile` (
-  `fileid` int(11) NOT NULL COMMENT '파일 ID',
-  `lecdid` int(11) NOT NULL COMMENT '해당 강의 ID (외래키)',
-  `lepid` int(11) NOT NULL COMMENT '강사 고유 ID(외래키)',
-  `fname` varchar(255) NOT NULL COMMENT '파일 이름',
-  `fpath` varchar(255) NOT NULL COMMENT '서버에 저장된 파일 경로',
-  `ftype` varchar(50) NOT NULL COMMENT '파일 타입',
-  `uploaded` timestamp NOT NULL DEFAULT current_timestamp() COMMENT '업로드 시간'
+  `fileid` int(11) NOT NULL COMMENT '번호',
+  `levdid` int(11) NOT NULL COMMENT '강의id',
+  `lepid` int(11) NOT NULL COMMENT '강사 고유id',
+  `type` varchar(250) NOT NULL COMMENT '파일 타입',
+  `regdate` datetime NOT NULL DEFAULT current_timestamp() COMMENT '날짜'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='실습 파일';
 
 -- --------------------------------------------------------
@@ -429,20 +447,16 @@ CREATE TABLE `lefile` (
 --
 
 CREATE TABLE `levideo` (
-  `vdid` int(11) NOT NULL COMMENT '동영상 ID',
-  `lecpid` int(11) NOT NULL COMMENT '강좌 ID (외래키)',
-  `lepid` int(11) NOT NULL COMMENT '강사 고유 ID (외래키)',
-  `video_url` varchar(255) NOT NULL COMMENT '동영상 URL',
-  `uploaded` timestamp NOT NULL DEFAULT current_timestamp() COMMENT '등록 시간',
+  `vdid` int(11) NOT NULL COMMENT '번호',
+  `levdid` int(11) NOT NULL COMMENT '강의id',
+  `lecid` int(11) NOT NULL COMMENT '강사 고유id',
+  `lectid` int(11) NOT NULL COMMENT '강좌id',
+  `video_url` varchar(250) NOT NULL COMMENT '강의url',
+  `lvquiz` varchar(100) NOT NULL COMMENT '퀴즈명',
+  `lvtest` varchar(100) NOT NULL COMMENT '시험지명',
+  `lefile` varchar(100) NOT NULL COMMENT '실습 파일',
   `orders` int(11) NOT NULL COMMENT '강의 순서'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='강의';
-
---
--- 테이블의 덤프 데이터 `levideo`
---
-
-INSERT INTO `levideo` (`vdid`, `lecpid`, `lepid`, `video_url`, `uploaded`, `orders`) VALUES
-(1, 1, 0, 'https://youtu.be/oHTr2fEkmGA?si=fNAGT0cPExpzwXDM', '2024-11-18 05:45:33', 1);
 
 -- --------------------------------------------------------
 
@@ -682,7 +696,7 @@ INSERT INTO `post_comment` (`commid`, `uid`, `board_type`, `post_id`, `contents`
 --
 
 CREATE TABLE `quiz` (
-  `exid` int(11) NOT NULL COMMENT '번호',
+  `Exid` int(11) NOT NULL COMMENT '번호',
   `tid` int(11) NOT NULL COMMENT '강사id',
   `cate1` varchar(50) NOT NULL COMMENT '대분류',
   `cate2` varchar(50) NOT NULL COMMENT '중분류',
@@ -756,20 +770,6 @@ CREATE TABLE `student_qna` (
   `regdate` datetime NOT NULL COMMENT '등록일',
   `file` varchar(255) DEFAULT NULL COMMENT '파일'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='수강생 질문';
-
--- --------------------------------------------------------
-
---
--- 테이블 구조 `stuscores`
---
-
-CREATE TABLE `stuscores` (
-  `exid` int(11) NOT NULL COMMENT '번호',
-  `stu_id` int(11) NOT NULL COMMENT '수강생id',
-  `score` int(11) NOT NULL COMMENT '점수',
-  `answer` varchar(100) NOT NULL COMMENT '제출한 정답',
-  `pnlevel` tinyint(4) NOT NULL COMMENT '수준당 점수'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='수강생 점수 관리';
 
 -- --------------------------------------------------------
 
@@ -1027,12 +1027,6 @@ ALTER TABLE `lefile`
   ADD PRIMARY KEY (`fileid`);
 
 --
--- 테이블의 인덱스 `levideo`
---
-ALTER TABLE `levideo`
-  ADD PRIMARY KEY (`vdid`);
-
---
 -- 테이블의 인덱스 `manual`
 --
 ALTER TABLE `manual`
@@ -1090,7 +1084,7 @@ ALTER TABLE `post_comment`
 -- 테이블의 인덱스 `quiz`
 --
 ALTER TABLE `quiz`
-  ADD PRIMARY KEY (`exid`);
+  ADD PRIMARY KEY (`Exid`);
 
 --
 -- 테이블의 인덱스 `refunds`
@@ -1119,12 +1113,6 @@ ALTER TABLE `send_email`
 ALTER TABLE `student_qna`
   ADD PRIMARY KEY (`sqid`),
   ADD KEY `cdid` (`cdid`);
-
---
--- 테이블의 인덱스 `stuscores`
---
-ALTER TABLE `stuscores`
-  ADD PRIMARY KEY (`exid`);
 
 --
 -- 테이블의 인덱스 `teachers`
@@ -1192,7 +1180,7 @@ ALTER TABLE `blog`
 -- 테이블의 AUTO_INCREMENT `book`
 --
 ALTER TABLE `book`
-  MODIFY `boid` int(11) NOT NULL AUTO_INCREMENT COMMENT '번호', AUTO_INCREMENT=2;
+  MODIFY `boid` int(11) NOT NULL AUTO_INCREMENT COMMENT '번호';
 
 --
 -- 테이블의 AUTO_INCREMENT `cart`
@@ -1204,7 +1192,7 @@ ALTER TABLE `cart`
 -- 테이블의 AUTO_INCREMENT `category`
 --
 ALTER TABLE `category`
-  MODIFY `cgid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `cgid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=38;
 
 --
 -- 테이블의 AUTO_INCREMENT `class_data`
@@ -1222,19 +1210,19 @@ ALTER TABLE `company_info`
 -- 테이블의 AUTO_INCREMENT `counsel`
 --
 ALTER TABLE `counsel`
-  MODIFY `post_id` int(11) NOT NULL AUTO_INCREMENT COMMENT '게시물id', AUTO_INCREMENT=6;
+  MODIFY `post_id` int(11) NOT NULL AUTO_INCREMENT COMMENT '게시물id', AUTO_INCREMENT=2;
 
 --
 -- 테이블의 AUTO_INCREMENT `coupons`
 --
 ALTER TABLE `coupons`
-  MODIFY `cpid` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `cpid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- 테이블의 AUTO_INCREMENT `faq`
 --
 ALTER TABLE `faq`
-  MODIFY `fqid` int(11) NOT NULL AUTO_INCREMENT COMMENT 'FAQ고유번호', AUTO_INCREMENT=4;
+  MODIFY `fqid` int(11) NOT NULL AUTO_INCREMENT COMMENT 'FAQ고유번호', AUTO_INCREMENT=5;
 
 --
 -- 테이블의 AUTO_INCREMENT `lecdraft`
@@ -1246,19 +1234,13 @@ ALTER TABLE `lecdraft`
 -- 테이블의 AUTO_INCREMENT `lecture`
 --
 ALTER TABLE `lecture`
-  MODIFY `leid` int(11) NOT NULL AUTO_INCREMENT COMMENT '번호', AUTO_INCREMENT=3;
+  MODIFY `leid` int(11) NOT NULL AUTO_INCREMENT COMMENT '번호';
 
 --
 -- 테이블의 AUTO_INCREMENT `lefile`
 --
 ALTER TABLE `lefile`
-  MODIFY `fileid` int(11) NOT NULL AUTO_INCREMENT COMMENT '파일 ID';
-
---
--- 테이블의 AUTO_INCREMENT `levideo`
---
-ALTER TABLE `levideo`
-  MODIFY `vdid` int(11) NOT NULL AUTO_INCREMENT COMMENT '동영상 ID', AUTO_INCREMENT=2;
+  MODIFY `fileid` int(11) NOT NULL AUTO_INCREMENT COMMENT '번호';
 
 --
 -- 테이블의 AUTO_INCREMENT `manual`
@@ -1306,7 +1288,7 @@ ALTER TABLE `post_comment`
 -- 테이블의 AUTO_INCREMENT `quiz`
 --
 ALTER TABLE `quiz`
-  MODIFY `exid` int(11) NOT NULL AUTO_INCREMENT COMMENT '번호';
+  MODIFY `Exid` int(11) NOT NULL AUTO_INCREMENT COMMENT '번호';
 
 --
 -- 테이블의 AUTO_INCREMENT `refunds`
@@ -1331,12 +1313,6 @@ ALTER TABLE `send_email`
 --
 ALTER TABLE `student_qna`
   MODIFY `sqid` int(11) NOT NULL AUTO_INCREMENT COMMENT '질문고유번호';
-
---
--- 테이블의 AUTO_INCREMENT `stuscores`
---
-ALTER TABLE `stuscores`
-  MODIFY `exid` int(11) NOT NULL AUTO_INCREMENT COMMENT '번호';
 
 --
 -- 테이블의 AUTO_INCREMENT `teachers`
@@ -1445,6 +1421,13 @@ ALTER TABLE `send_email`
 --
 ALTER TABLE `student_qna`
   ADD CONSTRAINT `student_qna_ibfk_1` FOREIGN KEY (`cdid`) REFERENCES `class_data` (`cdid`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- 테이블의 제약사항 `teachers`
+--
+ALTER TABLE `teachers`
+  ADD CONSTRAINT `fk_1_userid` FOREIGN KEY (`uid`) REFERENCES `user` (`uid`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `fk_2_cateid` FOREIGN KEY (`cgid`) REFERENCES `category` (`cgid`) ON DELETE SET NULL ON UPDATE CASCADE;
 
 --
 -- 테이블의 제약사항 `teacher_qna`
