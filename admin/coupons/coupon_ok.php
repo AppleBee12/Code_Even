@@ -20,20 +20,6 @@ try{
   $use_min_price = $_POST['use_min_price'] ?? '0';
   $max_value = $_POST['max_value'] ?? '0';
 
-  // if (isset($_FILES['thumbnail']) && $_FILES['thumbnail']['error'] == UPLOAD_ERR_OK)  {
-
-  //   $fileUploadResult = fileUpload($_FILES['thumbnail']);
-  
-  //   if($fileUploadResult) {
-  //       $thumbnail = $fileUploadResult;
-  //   } else {
-  //       echo "<script>
-  //           alert('파일 첨부할 수 없습니다.');
-  //           history.back();
-  //       </script>";
-  //   }
-  
-  // } 
 
   $filePath = $_SERVER['DOCUMENT_ROOT'] . "/code_even/admin/coupons/coupon4.png";
 if (file_exists($filePath)) {
