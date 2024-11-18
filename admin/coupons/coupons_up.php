@@ -102,8 +102,8 @@ thead,
               <img id="previewImage" class="image"><img src="" alt="">
             </div>
           </div>
+          <input type="file" multiple accept="image/*" class="form-control w-50" name="coupon_image" id="coupon_image" value="file" required>
         </td>
-        <input type="file" multiple accept="image/*" class="form-control w-50" name="coupon_image" id="coupon_image" value="file" required>
         </tr>
         <tr>
         <tr>
@@ -238,6 +238,27 @@ thead,
   //     }
   //   })
   // }
+  const fileInput = document.getElementById('coupon_image');
+  const previewImage = document.getElementById('previewImage');
+
+  // 파일 입력 변경 시 이미지 미리보기
+  fileInput.addEventListener('change', (event) => {
+    const file = event.target.files[0]; // 선택한 첫 번째 파일
+    if (file && file.type.startsWith('image/')) {
+      const reader = new FileReader();
+
+      // 파일 읽기 완료 시 실행
+      reader.onload = (e) => {
+        previewImage.src = e.target.result; // 이미지 src 설정
+        previewImage.style.display = 'block'; // 이미지 표시
+      };
+
+      reader.readAsDataURL(file); // 파일을 Data URL로 읽기
+    } else {
+      previewImage.src = ''; 
+      previewImage.style.display = 'none'; // 이미지 숨기기
+    }
+  });
 
 
 // result size->용량 10메가 넘은것
