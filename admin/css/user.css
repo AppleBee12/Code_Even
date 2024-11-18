@@ -28,3 +28,18 @@ tbody .form-control, tbody .form-select{
 .content_bar{
   margin-top: 50px;
 }
+
+/* Form 컨트롤 - teacher 공통*/
+
+.text-outline-secondary{
+  color: RGBA(var(--bs-secondary-rgb), var(--bs-bg-opacity, 1)) !important;
+  background-color: var(--bk0) !important;
+  border: 1px solid RGBA(var(--bs-secondary-rgb), var(--bs-bg-opacity, 1));
+}
+
+.pt_04 {
+  padding-top: .4rem !important;
+}
+.status_tt{
+  font-weight: 700;
+}
