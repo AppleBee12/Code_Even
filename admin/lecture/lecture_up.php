@@ -269,8 +269,6 @@
   }
   
   // 카테고리 변경 시 교재 목록 업데이트
-  $('#title').on('input', updateBooks);
-
   function updateBooks() {
     console.log({
         cate1: $('#cate1').val(),
@@ -294,9 +292,10 @@
         processData: false,
         contentType: false,
         success: function (data) {
+          console.log(data);
           $('#book').html('<option value="">SELECT</option>'); // 기존 옵션 초기화
           data.forEach(book => {
-            $('#book').append(`<option value="${book.boid}">${book.title}</option>`);
+            $('#book').append(`<option value="${book.boid}">${book.book}</option>`);
           });
         },
         error: function () {
@@ -314,23 +313,20 @@
   
   // 썸네일 첨부하면 class image에 출력
   $('#image').on('change', function (event) {
-    const file = event.target.files[0]; // 선택된 파일 가져오기
-    if (file) {
-      const reader = new FileReader(); // 파일 읽기 객체 생성
+  const file = event.target.files[0];
+  if (file) {
+    const reader = new FileReader();
 
-      reader.onload = function (e) {
-          // 파일 로드 완료 후 이미지 태그에 미리 보기 설정
-          const imgView = $('.image img');
-          imgView.attr('src', e.target.result);
-          imgView.attr('alt', file.name); // 이미지 대체 텍스트 설정
+    reader.onload = function (e) {
+      $('.image img').attr('src', e.target.result);
+      $('.image img').attr('alt', file.name);
+      $('.box span').css('display', 'none'); // 텍스트 숨기기
+    };
 
-          // 텍스트 숨기기
-          $('.box span').hide(); // 텍스트 숨김
-        };
+    reader.readAsDataURL(file);
+  }
+});
 
-      reader.readAsDataURL(file);
-    }
-  });
 
 
 
