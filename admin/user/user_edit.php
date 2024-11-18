@@ -54,40 +54,45 @@
           </td>
           <th scope="row">회원구분</th>
           <td>
-            <input type="text" class="form-control" id="exampleFormControlInput1" name="user_level"  value="">
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" name="user_level" id="inlineRadio1" value="1" <?php if($data->user_level == 1){echo 'checked';}?>>
+              <label class="form-check-label" for="inlineRadio1">일반회원</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" name="user_level" id="inlineRadio2" value="10" <?php if($data->user_level == 10){echo 'checked';}?>> 
+              <label class="form-check-label" for="inlineRadio2">강사</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" name="user_level" id="inlineRadio3" value="100" <?php if($data->user_level == 100){echo 'checked';}?>> 
+              <label class="form-check-label" for="inlineRadio3">관리자</label>
+            </div>
           </td>
         </tr>
         <tr>
-        <th scope="row">비밀번호 확인</th>
+          <th scope="row">비밀번호 확인</th>
           <td>
             <input type="password" class="form-control" id="userpw" name="userpw" value="" placeholder="비밀번호는 변경시에만 입력해주세요.">
           </td>
-        </tr>
-        <tr>
-          <th scope="row">상태 <b>*</b></th>
-          <td>
-            <select class="form-select" name="tc_cate" aria-label="대표분야">
-              <option value="1" selected>웹개발</option>
-              <option value="2">클라우드</option>
-              <option value="3">보안</option>
-            </select>
-          </td>
-        </tr>
-        <tr>
           <th scope="row">회원상태</th>
           <td>
             <div class="form-check form-check-inline">
               <input class="form-check-input" type="radio" name="user_status" id="inlineRadio1" value="0" <?php if($data->user_status == 0){echo 'checked';}?>>
-              <label class="form-check-label" for="inlineRadio1">정상</label>
-            </div>
-            <div class="form-check form-check-inline">
-              <input class="form-check-input" type="radio" name="user_status" id="inlineRadio2" value="1" <?php if($data->user_status == 1){echo 'checked';}?>> 
-              <label class="form-check-label" for="inlineRadio2">정지</label>
+              <label class="form-check-label" for="user_status">정상</label>
             </div>
             <div class="form-check form-check-inline">
               <input class="form-check-input" type="radio" name="user_status" id="inlineRadio3" value="-1" <?php if($data->user_status == -1){echo 'checked';}?>> 
-              <label class="form-check-label" for="inlineRadio3">탈퇴</label>
+              <label class="form-check-label" for="user_status">탈퇴</label>
             </div>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" name="user_status" id="inlineRadio2" value="1" <?php if($data->user_status == 1){echo 'checked';}?>> 
+              <label class="form-check-label" for="user_status">정지</label>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <th scope="row">닉네임 <b>*</b></th>
+          <td>
+            <input type="text" class="form-control" id="exampleFormControlInput1" name="usernick" value="<?= $data->usernick; ?>">
           </td>
           <th scope="row">강사전시옵션</th>
           <td>
@@ -118,21 +123,6 @@
 
 
 <script>
-  let tc_thumbnail = $('#tc_thumbnail');
-  tc_thumbnail.on('change',(e)=>{
-      let file = e.target.files[0];
-
-      const reader = new FileReader(); 
-      reader.onloadend = (e)=>{ 
-        let attachment = e.target.result;
-        if(attachment){
-          let target = $('#thumbnail_preview');
-          target.attr('src',attachment)
-        }
-      }
-      reader.readAsDataURL(file); 
-  });
-
   const hypenTel = (target) => {
   target.value = target.value
     .replace(/[^0-9]/g, '')
@@ -143,7 +133,6 @@
     hypenTel(this);
   });
 
-
     $('table .form-check-input').change(function(){
     if($(this).prop( "checked" )){
       $(this).val('1');
@@ -152,19 +141,6 @@
     }
   });
 
-
-
-
-  $('#teacher_save').submit(function(e){
-    //e.preventDefault();
-    var markup = target.summernote('code');
-    let content = encodeURIComponent(markup);
-    $('#contents').val(markup);
-    
-    //var plainText = $('#summernote').summernote('code').replace(/<\/?[^>]+(>|$)/g, ""); // HTML 태그 제거
-    //$('#contents').val(plainText);
-    //console.log(markup); 
-  });
 
 </script>
 
