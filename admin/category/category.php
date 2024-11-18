@@ -33,7 +33,7 @@ if (!isset($_SESSION['AUID'])) {
           foreach($cate1 as $c1){
         ?>
         <option value="<?= $c1-> code; ?>"><?= $c1->name; ?>
-        <button>삭제</button></option>
+        <!-- <button>삭제</button></option> -->
         <?php
           }
         ?>

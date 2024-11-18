@@ -35,7 +35,8 @@ CREATE TABLE `category` (
   `step` int(11) NOT NULL COMMENT '카테고리 단계 1,2,3'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
--- 대분류 (step 1)
+
+  -- 대분류 (step 1)
 INSERT INTO `category` (`cgid`, `code`, `pcode`, `name`, `step`) VALUES 
 (1, 'A0001', NULL, '웹 개발', 1),
 (2, 'A0002', NULL, '클라우드·DB', 1),
@@ -96,7 +97,6 @@ INSERT INTO `category` (`cgid`, `code`, `pcode`, `name`, `step`) VALUES
 -- 보안 하위 카테고리
 (36, 'C0027', 'B0006', 'CPPG', 3),
 (37, 'C0028', 'B0006', 'Security', 3);
-
 
 -- --------------------------------------------------------
 
