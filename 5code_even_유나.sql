@@ -31,7 +31,7 @@ CREATE TABLE `admin_answer` (
   `aaid` int(11) NOT NULL COMMENT '답변고유번호',
   `aqid` int(11) DEFAULT NULL COMMENT '질문고유번호',
   `acontent` text NOT NULL COMMENT '답변내용',
-  `status` enum('waiting','done') NOT NULL DEFAULT 'waiting' COMMENT '상태',
+  `status` enum('waiting','done') NOT NULL DEFAULT 'done' COMMENT '상태',
   `file` varchar(255) DEFAULT NULL COMMENT '파일'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='1:1 문의 (관리자답변)';
 
