@@ -105,3 +105,20 @@ td {
   height: 38px !important;
   border-color: var(--bk800) !important;
 }
+
+
+/* quiz_test */
+
+.cent small{
+  color: var(--bk400);
+  font-size: 12px;
+  font-weight: normal;
+}
+
+.custom-gap{
+  gap: 100px;
+}
+
+.input-group span{
+height: 38px;
+}
