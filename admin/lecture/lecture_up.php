@@ -29,15 +29,100 @@
       $books[] = $bookObj;
   }
 
-  // 이미지
+  // 실습 파일 엽로드
+  // 요청 방식이 POST 이고, 폼에 사용자가 파일을 업로드 했으며 강사 아이디랑 강의 아이디가 품을 통해 들어왔을 때 실행
+  if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_FILES['practice_file']) && isset($_POST['lecture_id']) && isset($_POST['instructor_id'])) {
+    // 데이터 받기
+    $lectureVideoId = $_POST['lecture_video_id'];
+    $instructorId = $_POST['instructor_id'];
+    $file = $_FILES['practice_file'];
+
+    // 지원되는 파일 형식
+    $fileType = ['application/pdf', 'application/msword', 'application/zip', 'application/x-zip-compressed'];
+    
+    // 파일이 지원되는 형식인지 체크
+    if (in_array($file['type'], $fileType)) {
+      $uploadFile = 'uploads/files/';
+      $filePath = $uploadFile . basename($file['name']);
+      
+      // 파일 저장
+      if (move_uploaded_file($file['tmp_name'], $filePath)) {
+        // 데이터베이스에 삽입
+        // 아래와 같이 다른 이름을 사용해도 됩니다.
+        $uploadfileQuery = $mysqli->prepare("INSERT INTO lefile (lecdid, lepid, fname, fpath, ftype) VALUES (?, ?, ?, ?, ?)");
+        // 쿼리 실행
+        $uploadfileQuery->bind_param("iisss", $lectureId, $instructorId, $file['name'], $filePath, $file['type']);
+        $uploadfileQuery->execute();
+
+        echo "실습 파일이 업로드되었습니다!";
+      } else {
+        echo "파일 업로드 실패!";
+      }
+    } else {
+      echo "지원되지 않는 파일 형식입니다!";
+    }
+  }
+
+  // 강의 저장
+  if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['video_url'], $_POST['lecture_id'], $_POST['instructor_id'], $_POST['video_order'])) {
+    $videoUrl = $_POST['video_url'];
+    $lectureId = $_POST['lecture_id'];
+    $instructorId = $_POST['instructor_id'];
+    $videoOrder = $_POST['video_order'];  // 동영상 순서 (optional)
+
+    // URL 유효성 검사 및 저장
+    if (filter_var($videoUrl, FILTER_VALIDATE_URL)) {
+        // 동영상 정보를 levideo 테이블에 저장
+        $uploadvideoQuery = $mysqli->prepare("
+            INSERT INTO levideo (lecpid, lepid, video_url, orders)
+            VALUES (?, ?, ?, ?)
+        ");
+        $uploadvideoQuery->bind_param("iisi", $lectureId, $instructorId, $videoUrl, $videoOrder);
+        $uploadvideoQuery->execute();
+
+        echo "동영상 URL이 저장되었습니다!";
+    } else {
+        echo "유효하지 않은 URL입니다.";
+    }
+  }
+
+  // 임시 저장 클릭 시
+  // 임시 저장 버튼 클릭 시 처리
+  if (isset($_POST['draft_save'])) {
+  // 폼 데이터 수집
+  $cate1 = $_POST['cate1'];
+  $cate2 = $_POST['cate2'];
+  $cate3 = $_POST['cate3'];
+  $title = $_POST['title'];
+  $name = $_POST['name'];
+  $price = $_POST['price'];
+  $period = $_POST['period'];
+  $isrecipe = isset($_POST['isrecipe']) ? 1 : 0;
+  $isgeneral = isset($_POST['isgeneral']) ? 1 : 0;
+  $image = $_FILES['image']['name'];  // 이미지 파일 처리 로직 추가 필요
+
+    // lecdraft 테이블에 임시 저장 쿼리
+    $sql_draft = "INSERT INTO lecdraft (lecid, cate1, cate2, cate3, title, name, price, period, isrecipe, isgeneral, image, created_at, isfinal)
+                  VALUES ('$pid', '$cate1', '$cate2', '$cate3', '$title', '$name', '$price', '$period', '$isrecipe', '$isgeneral', '$image', NOW(), 0)";
+
+    if ($mysqli->query($sql_draft)) {
+      // 임시 저장 성공 후, 퀴즈/시험 입력 페이지로 이동
+      echo "<script>alert('임시 저장되었습니다. 퀴즈/시험 정보를 입력하세요.');</script>";
+      echo "<script>location.href='quiz_test_up.php?draft_id=" . $mysqli->insert_id . "';</script>";
+    } else {
+      echo "<script>alert('임시 저장에 실패했습니다. 다시 시도해주세요.');</script>";
+    }
+  }
+
 
 
 ?>
 
 <div class="container">
   <h2>강좌 등록</h2>
-  <div class="content_bar cent">
+  <div class="content_bar d-flex justify-content-between align-item-center cent">
     <h3>강좌 기본 정보 입력</h3>
+    <small>* 분류 설정과 강자명은 필수로 입력해야 임시 저장 가능합니다.</small>
   </div>
   <form action="lecture_up_ok.php" id="lecture_save" enctype="multipart/form-data">
   <input type="hidden" name="leid" value="<?= $leid; ?>">
@@ -100,7 +185,8 @@
           <th scope="row">교재 선택 <b>*</b></th>
           <td colspan="2">
             <select name="" id="book" class="form-select">
-              <option value="">SELECT</option>
+              <option value="0">SELECT</option>
+              <option value="1">없음</option>
               <?php if (!empty($books)) {
                 foreach ($books as $book) {
                   echo "<option value='{$book->boid}'>{$book->title}</option>";
@@ -111,13 +197,17 @@
           </td>
         </tr>
         <tr>
-          <th scope="row">교육 기간 <b>*</b></th>
+        <th scope="row">
+          <label for="period">교육 기간 <b>*</b></label>
+        </th>
           <td colspan="2">
-            <select name="period" class="form-select">
-              <option selected>60일</option>
-              <option value="1">One</option>
-              <option value="2">Two</option>
-              <option value="3">Three</option>
+            <select id="period" name="period" class="form-select">
+              <option value="30">30일</option>
+              <option value="60">60일</option>
+              <option value="90">90일</option>
+              <option value="120">120일</option>
+              <option value="150">150일</option>
+              <option value="180">180일</option>
             </select>
             <small class="text-muted">* 교육 기간은 30일 단위로 설정 가능합니다.</small>
           </td>
@@ -192,7 +282,7 @@
           <tr>
             <th scope="row">실습 파일 등록 <b>*</b></th>
             <td>
-              <input class="form-control" type="file">
+              <input name="practice_file" class="form-control" type="file">
             </td>
             <th scope="row">동영상 주소 <b>*</b></th>
             <td>
