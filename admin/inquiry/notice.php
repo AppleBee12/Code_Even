@@ -2,58 +2,53 @@
 include_once($_SERVER['DOCUMENT_ROOT'] . '/code_even/admin/inc/header.php');
 
 // 게시글 개수 구하기
-$page_sql = "SELECT COUNT(*) AS cnt FROM notice";
+$keywords = isset($_GET['keywords']) ? $mysqli->real_escape_string($_GET['keywords']) : '';
+$where_clause = '';
+
+if ($keywords) {
+  $where_clause = "WHERE notice.title LIKE '%$keywords%' OR user.username LIKE '%$keywords%' OR user.userid LIKE '%$keywords%'";
+}
+
+$page_sql = "SELECT COUNT(*) AS cnt FROM notice JOIN user ON notice.uid = user.uid $where_clause";
 $page_result = $mysqli->query($page_sql);
 $page_data = $page_result->fetch_assoc();
 $row_num = $page_data['cnt'];
 
 // 페이지네이션
-if(isset($_GET['page'])){
-  $page = $_GET['page'];
-}else {
-  $page = 1;
-}
-
+$page = isset($_GET['page']) ? $_GET['page'] : 1;
 $list = 10;
-$start_num = ($page - 1)*$list;
+$start_num = ($page - 1) * $list;
 $block_ct = 5;
-$block_num = ceil($page/$block_ct); // ceil 무조건 올리기
-// 총 168개 10개씩 17개
+$block_num = ceil($page / $block_ct);
 $block_start = (($block_num - 1) * $block_ct) + 1;
 $block_end = $block_start + $block_ct - 1;
 
-$total_page = ceil($row_num / $list); // 총 페이지 수
-$total_block = ceil($total_page/$block_ct); // 총 블록 수
+$total_page = ceil($row_num / $list);
+$total_block = ceil($total_page / $block_ct);
 if ($block_end > $total_page) {
   $block_end = $total_page;
 }
 
-// $p_sql = "SELECT * FROM notice ORDER BY ntid DESC LIMIT $start_num, $list";
-// $p_result = $mysqli->query($p_sql);
-
-// 페이징 처리에 필요한 변수들 설정
-$start_num = (int)$start_num; // 시작 번호
-$list = (int)$list; // 한 페이지에 표시할 목록 수
-
-// $sql = "SELECT notice.*, user.username, user.userid FROM notice JOIN user ON notice.uid = user.uid";
-// $result = $mysqli->query($sql);
-
-$sql = "SELECT notice.*, user.username, user.userid FROM notice JOIN user ON notice.uid = user.uid ORDER BY notice.ntid DESC LIMIT $start_num, $list";
+$sql = "SELECT notice.*, user.username, user.userid 
+        FROM notice 
+        JOIN user ON notice.uid = user.uid 
+        $where_clause 
+        ORDER BY notice.ntid DESC 
+        LIMIT $start_num, $list";
 $result = $mysqli->query($sql);
 
 $dataArr = [];
-while($data = $result->fetch_object()){
+while ($data = $result->fetch_object()) {
   $dataArr[] = $data;
 }
-
 ?>
 
 <div class="container">
   <h2>전체 공지사항</h2>
-  <form action="notice_search_result.php" class="row justify-content-end">
+  <form action="" method="get" class="row justify-content-end">
     <div class="col-lg-4">
       <div class="input-group mb-3">
-        <input type="text" class="form-control" placeholder="검색어를 입력하세요." name="keywords">
+        <input type="text" class="form-control" placeholder="검색어를 입력하세요." name="keywords" value="<?= htmlspecialchars($keywords); ?>">
         <button type="submit" class="btn btn-secondary">
           <i class="bi bi-search"></i>
         </button>
@@ -61,64 +56,55 @@ while($data = $result->fetch_object()){
     </div>
   </form>
 
-    <table class="table list_table">
-      <thead>
-        <tr>
-          <th scope="col">번호</th>
-          <th scope="col">아이디</th>
-          <th scope="col">이름</th>
-          <th scope="col">제목</th>
-          <th scope="col">조회수</th>
-          <th scope="col">등록일</th>
-          <th scope="col">상태</th>
-          <th scope="col">관리</th>
-        </tr>
-      </thead>
-      <tbody>
-        <?php   
-          if(isset($dataArr)){
-            foreach($dataArr as $no){
-        ?>
-        <tr>
-          <td><?=$no->ntid;?></td>
-          <td><?=$no->userid;?></td>
-          <td><?=$no->username;?></td>
-          <td><a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/inquiry/notice_modify.php?ntid=<?=$no->ntid;?>"
-              class="underline"><?=$no->title;?></a></td>
-          <td><?=$no->view;?></td>
-          <td><?=$no->regdate;?></td>
-          <td>
-            <!-- <span class="badge text-bg-success">노출</span> -->
-            <?php
-              $class = '';
-              $text = '';
-              if ($no->status == 'on') {
-                // status가 'on'일 경우
-                $class = 'text-bg-success';  // 노출 상태에 맞는 클래스
-                $text = '노출';  // 노출 글씨
-              } else {
-                // status가 'off'일 경우
-                $class = 'text-bg-light';  // 숨김 상태에 맞는 클래스
-                $text = '숨김';  // 숨김 글씨
-              }
-              echo "<span class='badge $class'>$text</span>";
-            ?>
-          </td>
-          <td class="edit_col">
-            <a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/inquiry/notice_modify.php?ntid=<?=$no->ntid;?>">
-              <i class="bi bi-pencil-fill"></i>
-            </a>
-            <a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/inquiry/notice_delete.php?ntid=<?=$no->ntid;?>">
-              <i class="bi bi-trash-fill"></i>
-            </a>
-          </td>
-        </tr>
-        <?php   
-            }   
-          }              
-        ?>
-      </tbody>
-    </table>
+  <table class="table list_table">
+    <thead>
+      <tr>
+        <th scope="col">번호</th>
+        <th scope="col">아이디</th>
+        <th scope="col">이름</th>
+        <th scope="col">제목</th>
+        <th scope="col">조회수</th>
+        <th scope="col">등록일</th>
+        <th scope="col">상태</th>
+        <th scope="col">관리</th>
+      </tr>
+    </thead>
+    <tbody>
+      <?php   
+        if ($dataArr) {
+          foreach ($dataArr as $no) {
+      ?>
+      <tr>
+        <td><?= $no->ntid; ?></td>
+        <td><?= $no->userid; ?></td>
+        <td><?= $no->username; ?></td>
+        <td><a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/inquiry/notice_modify.php?ntid=<?= $no->ntid; ?>" class="underline"><?= $no->title; ?></a></td>
+        <td><?= $no->view; ?></td>
+        <td><?= $no->regdate; ?></td>
+        <td>
+          <?php
+            $class = $no->status == 'on' ? 'text-bg-success' : 'text-bg-light';
+            $text = $no->status == 'on' ? '노출' : '숨김';
+            echo "<span class='badge $class'>$text</span>";
+          ?>
+        </td>
+        <td class="edit_col">
+          <a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/inquiry/notice_modify.php?ntid=<?= $no->ntid; ?>">
+            <i class="bi bi-pencil-fill"></i>
+          </a>
+          <a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/inquiry/notice_delete.php?ntid=<?= $no->ntid; ?>">
+            <i class="bi bi-trash-fill"></i>
+          </a>
+        </td>
+      </tr>
+      <?php   
+          }   
+        } else {
+          echo "<tr><td colspan='8'>검색 결과가 없습니다.</td></tr>";
+        }
+      ?>
+    </tbody>
+  </table>
 
     <div class="d-flex justify-content-end gap-2">
       <a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/inquiry/notice_write.php"
@@ -164,7 +150,7 @@ while($data = $result->fetch_object()){
 </div>
 
 <!-- //상태 변경 모달창 -->
-<div class="modal" id="status_modal" tabindex="-1">
+<!-- <div class="modal" id="status_modal" tabindex="-1">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
@@ -216,7 +202,7 @@ while($data = $result->fetch_object()){
       </div>
     </div>
   </div>
-</div>
+</div> -->
 
 <?php
 include_once($_SERVER['DOCUMENT_ROOT'] . '/code_even/admin/inc/footer.php');

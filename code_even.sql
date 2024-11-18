@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- 생성 시간: 24-11-12 16:09
+-- 생성 시간: 24-11-17 16:56
 -- 서버 버전: 10.4.32-MariaDB
 -- PHP 버전: 8.2.12
 
@@ -29,11 +29,18 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `admin_answer` (
   `aaid` int(11) NOT NULL COMMENT '답변고유번호',
-  `aqid` int(11) NOT NULL COMMENT '질문고유번호',
+  `aqid` int(11) DEFAULT NULL COMMENT '질문고유번호',
   `acontent` text NOT NULL COMMENT '답변내용',
-  `status` enum('답변대기','답변완료') NOT NULL DEFAULT '답변대기' COMMENT '상태',
+  `status` enum('waiting','done') NOT NULL DEFAULT 'waiting' COMMENT '상태',
   `file` varchar(255) DEFAULT NULL COMMENT '파일'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='1:1 문의 (관리자답변)';
+
+--
+-- 테이블의 덤프 데이터 `admin_answer`
+--
+
+INSERT INTO `admin_answer` (`aaid`, `aqid`, `acontent`, `status`, `file`) VALUES
+(1, 1, '답변이 작성되었습니다.', 'done', NULL);
 
 -- --------------------------------------------------------
 
@@ -43,13 +50,21 @@ CREATE TABLE `admin_answer` (
 
 CREATE TABLE `admin_question` (
   `aqid` int(11) NOT NULL COMMENT '질문고유번호',
-  `uid` int(11) NOT NULL COMMENT '회원고유번호',
+  `uid` int(11) DEFAULT NULL COMMENT '회원고유번호',
   `category` int(11) NOT NULL COMMENT '주제분류',
   `qtitle` varchar(255) NOT NULL COMMENT '질문제목',
   `qcontent` text NOT NULL COMMENT '질문내용',
-  `regdate` date NOT NULL COMMENT '등록일',
+  `regdate` date NOT NULL DEFAULT current_timestamp() COMMENT '등록일',
   `file` varchar(255) DEFAULT NULL COMMENT '파일'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='1:1 문의 (사용자질문)';
+
+--
+-- 테이블의 덤프 데이터 `admin_question`
+--
+
+INSERT INTO `admin_question` (`aqid`, `uid`, `category`, `qtitle`, `qcontent`, `regdate`, `file`) VALUES
+(1, 2, 2, '질문이 있습니다.', '질문이 있습니다.', '2024-11-18', NULL),
+(2, 3, 5, '사용 문의 드립니다.', '사용 문의 드립니다.', '2024-11-18', NULL);
 
 -- --------------------------------------------------------
 
@@ -90,12 +105,51 @@ CREATE TABLE `book` (
   `image` varchar(100) NOT NULL COMMENT '이미지',
   `title` varchar(250) NOT NULL COMMENT '강좌명',
   `name` varchar(50) NOT NULL COMMENT '등록자',
-  `price` int(11) NOT NULL COMMENT '가격',
+  `price` decimal(10,0) NOT NULL COMMENT '가격',
   `pd` datetime NOT NULL COMMENT '출판일',
   `book` varchar(250) NOT NULL COMMENT '교재명',
   `writer` varchar(50) NOT NULL COMMENT '저자',
   `company` varchar(100) NOT NULL COMMENT 'company 출판사'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='교재';
+
+-- --------------------------------------------------------
+
+--
+-- 테이블 구조 `book_sales`
+--
+
+CREATE TABLE `book_sales` (
+  `boid` int(11) NOT NULL COMMENT '교재고유번호',
+  `book_title` varchar(250) NOT NULL COMMENT '교재명',
+  `publisher_name` varchar(100) NOT NULL COMMENT '출판사명',
+  `order_count` int(11) NOT NULL DEFAULT 0 COMMENT '교재주문건수',
+  `total_order_amount` decimal(16,2) NOT NULL DEFAULT 0.00 COMMENT '교재총주문금액',
+  `total_refund_amount` decimal(16,2) NOT NULL DEFAULT 0.00 COMMENT '교재환불금액',
+  `refund_count` int(11) NOT NULL DEFAULT 0 COMMENT '교재별환불건수',
+  `total_sales` decimal(16,2) NOT NULL DEFAULT 0.00 COMMENT '교재최종매출액(환불후)',
+  `book_cate` tinyint(4) NOT NULL COMMENT '교재분류(웹개발=1)',
+  `sale_date` date NOT NULL COMMENT '판매날짜'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='교재매출통계';
+
+-- --------------------------------------------------------
+
+--
+-- 테이블 구조 `cart`
+--
+
+CREATE TABLE `cart` (
+  `cartid` int(11) NOT NULL COMMENT '장바구니고유번호',
+  `uid` int(11) DEFAULT NULL COMMENT '회원고유번호',
+  `ssid` varchar(100) DEFAULT NULL COMMENT '세션번호',
+  `product_id` int(11) DEFAULT NULL COMMENT '강좌or교재 고유번호',
+  `product_type` tinyint(4) DEFAULT NULL COMMENT '상품유형(강좌1)',
+  `price` decimal(10,2) DEFAULT NULL COMMENT '강좌or교재가격',
+  `cnt` int(11) DEFAULT NULL COMMENT '수량',
+  `total_price` decimal(10,2) DEFAULT NULL COMMENT '총가격(수량*가격)',
+  `coupon_id` int(11) DEFAULT NULL COMMENT '적용쿠폰',
+  `discount_price` decimal(10,2) DEFAULT NULL COMMENT '쿠폰할인금액',
+  `regdate` datetime NOT NULL DEFAULT current_timestamp() COMMENT '상품추가일자'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='장바구니';
 
 -- --------------------------------------------------------
 
@@ -119,9 +173,9 @@ CREATE TABLE `category` (
 
 CREATE TABLE `class_data` (
   `cdid` int(11) NOT NULL COMMENT '수강데이터ID',
-  `uid` int(11) NOT NULL COMMENT '회원고유번호',
-  `leid` int(11) NOT NULL COMMENT '강좌고유번호',
-  `exid` int(11) NOT NULL COMMENT '점수관리ID',
+  `uid` int(11) DEFAULT NULL COMMENT '회원고유번호',
+  `leid` int(11) DEFAULT NULL COMMENT '강좌고유번호',
+  `exid` int(11) DEFAULT NULL COMMENT '점수관리ID',
   `course_cert` varchar(255) NOT NULL COMMENT '수강이수증',
   `progress_rate` decimal(10,0) NOT NULL COMMENT '진도율'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='수강데이터';
@@ -203,7 +257,8 @@ CREATE TABLE `coupons` (
   `regdate` datetime DEFAULT NULL COMMENT '등록일',
   `userid` varchar(100) DEFAULT NULL COMMENT '등록한유저',
   `max_value` double DEFAULT NULL COMMENT '최대할인금액',
-  `use_min_price` double DEFAULT NULL COMMENT '최소사용금액'
+  `use_min_price` double DEFAULT NULL COMMENT '최소사용금액',
+  `use_max_date` datetime DEFAULT NULL COMMENT '사용기한'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -216,13 +271,22 @@ CREATE TABLE `faq` (
   `fqid` int(11) NOT NULL COMMENT 'FAQ고유번호',
   `uid` int(11) DEFAULT NULL COMMENT '회원고유번호',
   `category` int(11) NOT NULL COMMENT '주제분류',
-  `target` enum('일반회원','강사') NOT NULL COMMENT '대상',
+  `target` enum('student','teacher') NOT NULL COMMENT '대상',
   `title` varchar(255) NOT NULL COMMENT '제목',
   `content` text NOT NULL COMMENT '내용',
   `view` int(11) NOT NULL COMMENT '조회수',
-  `regdate` datetime NOT NULL COMMENT '작성일',
+  `regdate` datetime NOT NULL DEFAULT current_timestamp() COMMENT '작성일',
   `status` enum('on','off') NOT NULL DEFAULT 'off' COMMENT '상태'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='자주묻는질문';
+
+--
+-- 테이블의 덤프 데이터 `faq`
+--
+
+INSERT INTO `faq` (`fqid`, `uid`, `category`, `target`, `title`, `content`, `view`, `regdate`, `status`) VALUES
+(1, 1, 1, 'student', 'ㄹ소', 'ㄹ소', 0, '2024-11-16 17:24:50', 'off'),
+(2, 1, 6, 'teacher', 'ㄴㅇㄻ', 'ㅁㄴㅇㄹ', 0, '2024-11-16 18:30:18', 'off'),
+(3, 1, 1, 'teacher', '인증메일이 오지 않아요.', '인증메일이 오지 않아요.', 0, '2024-11-17 02:47:25', 'off');
 
 -- --------------------------------------------------------
 
@@ -250,7 +314,7 @@ CREATE TABLE `lecdraft` (
   `isrecom` varchar(10) NOT NULL COMMENT '추천',
   `state` tinyint(4) NOT NULL COMMENT '상태',
   `approval` tinyint(4) NOT NULL COMMENT '승인',
-  `price` int(11) NOT NULL COMMENT '수강료',
+  `price` decimal(10,0) NOT NULL COMMENT '가격',
   `level` int(11) NOT NULL COMMENT '레벨',
   `created_at` datetime NOT NULL COMMENT '임시 저장된 날짜 및 시간',
   `isfinal` tinyint(4) NOT NULL COMMENT '최종 저장 여부'
@@ -285,6 +349,27 @@ CREATE TABLE `lecture` (
   `level` int(11) NOT NULL COMMENT '레벨',
   `date` datetime NOT NULL DEFAULT current_timestamp() COMMENT '날짜'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- 테이블 구조 `lecture_sales`
+--
+
+CREATE TABLE `lecture_sales` (
+  `leid` int(11) NOT NULL COMMENT '강좌고유번호',
+  `lec_title` varchar(100) NOT NULL COMMENT '강좌제목',
+  `th_name` varchar(50) NOT NULL COMMENT '강사명',
+  `order_count` int(11) NOT NULL DEFAULT 0 COMMENT '강좌주문건수',
+  `total_order_amount` decimal(20,2) NOT NULL DEFAULT 0.00 COMMENT '강좌총주문금액(쿠폰전)',
+  `total_discount_amount` decimal(16,2) NOT NULL DEFAULT 0.00 COMMENT '강좌총할인금액',
+  `net_order_amount` decimal(16,2) NOT NULL DEFAULT 0.00 COMMENT '강좌실결제금액(쿠폰후)',
+  `total_refund_amount` decimal(16,2) NOT NULL DEFAULT 0.00 COMMENT '강좌환불금액',
+  `final_sales_amount` decimal(16,2) NOT NULL DEFAULT 0.00 COMMENT '강좌최종매출액(환불후)',
+  `lec_type` tinyint(4) NOT NULL COMMENT '강좌유형(일반=1)',
+  `lec_cate` tinyint(4) NOT NULL COMMENT '강좌분류(웹개발=1)',
+  `sale_date` date NOT NULL COMMENT '판매날짜'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='강좌별매출통계';
 
 -- --------------------------------------------------------
 
@@ -368,23 +453,20 @@ INSERT INTO `manual_contents` (`mcid`, `mnnid`, `conid`, `type`, `text`, `image`
 -- --------------------------------------------------------
 
 --
--- 테이블 구조 `members`
+-- 테이블 구조 `monthly_sales`
 --
 
-CREATE TABLE `members` (
-  `mid` int(11) NOT NULL,
-  `username` varchar(50) NOT NULL,
-  `usernick` varchar(50) NOT NULL,
-  `userid` varchar(50) NOT NULL,
-  `userpw` char(128) NOT NULL,
-  `userphonenum` varchar(20) NOT NULL,
-  `useremail` varchar(100) NOT NULL,
-  `regdate` timestamp NOT NULL DEFAULT current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
-
-INSERT INTO `members` (mid, username, usernick, userid, userpw, userphonenum, useremail, regdate)
-VALUES (5, '홍길동', '길동이', 'hong123', '3627909a29c31381a071ec27f7c9ca97726182aed29a7ddd2e...', '010-4934-2679', 'hong123@naver.com', '2024-11-13 00:26:53');
+CREATE TABLE `monthly_sales` (
+  `data_year_month` varchar(7) NOT NULL COMMENT '''YYYY-MM'' 형식',
+  `order_count` int(11) NOT NULL DEFAULT 0 COMMENT '총주문건수',
+  `total_order_amount` decimal(20,2) NOT NULL DEFAULT 0.00 COMMENT '총주문금액(쿠폰적용전)',
+  `discount_count` int(11) NOT NULL DEFAULT 0 COMMENT '할인건수',
+  `total_discount` decimal(16,2) NOT NULL DEFAULT 0.00 COMMENT '총할인금액',
+  `refund_count` int(11) NOT NULL DEFAULT 0 COMMENT '환불건수',
+  `total_refund_amount` decimal(16,2) NOT NULL DEFAULT 0.00 COMMENT '총환불금액',
+  `net_order_amount` decimal(16,2) NOT NULL DEFAULT 0.00 COMMENT '실결제금액(쿠폰적용후)',
+  `final_sales_amount` decimal(16,2) NOT NULL DEFAULT 0.00 COMMENT '총매출액(할인환불계산)'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='월별매출통계';
 
 -- --------------------------------------------------------
 
@@ -397,11 +479,15 @@ CREATE TABLE `notice` (
   `uid` int(11) DEFAULT NULL COMMENT '회원고유번호',
   `title` varchar(255) NOT NULL COMMENT '제목',
   `content` text NOT NULL COMMENT '내용',
-  `view` int(11) DEFAULT NULL COMMENT '조회수',
-  `regdate` date NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '등록일',
+  `view` int(11) NOT NULL COMMENT '조회수',
+  `regdate` date NOT NULL DEFAULT current_timestamp() COMMENT '등록일',
   `status` enum('on','off') NOT NULL DEFAULT 'off' COMMENT '상태',
   `file` varchar(255) DEFAULT NULL COMMENT '파일'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- 테이블의 덤프 데이터 `notice`
+--
 
 INSERT INTO `notice` (`ntid`, `uid`, `title`, `content`, `view`, `regdate`, `status`, `file`) VALUES
 (1, 1, '[공지] 개인정보처리방침 변경 안내', '[공지] 개인정보처리방침 변경 안내', 0, '2024-11-16', 'off', NULL),
@@ -423,7 +509,7 @@ INSERT INTO `notice` (`ntid`, `uid`, `title`, `content`, `view`, `regdate`, `sta
 (17, 1, '[공지] 개인정보처리방침 변경 안내', '[공지] 개인정보처리방침 변경 안내', 0, '2024-11-16', 'off', NULL),
 (18, 1, '[공지] 개인정보처리방침 변경 안내', '[공지] 개인정보처리방침 변경 안내', 0, '2024-11-16', 'off', NULL),
 (19, 1, '[공지] 개인정보처리방침 변경 안내', '[공지] 개인정보처리방침 변경 안내', 0, '2024-11-16', 'off', NULL),
-(20, 1, '[공지] 개인정보처리방침 변경 안내', '[공지] 개인정보처리방침 변경 안내', 0, '2024-11-16', 'off', NULL)
+(20, 1, '[공지] 개인정보처리방침 변경 안내', '[공지] 개인정보처리방침 변경 안내', 0, '2024-11-16', 'off', NULL),
 (21, 1, '[공지] 개인정보처리방침 변경 안내', '[공지] 개인정보처리방침 변경 안내', 0, '2024-11-16', 'off', NULL),
 (22, 1, '[공지] 개인정보처리방침 변경 안내', '[공지] 개인정보처리방침 변경 안내', 0, '2024-11-16', 'off', NULL),
 (23, 1, '[공지] 개인정보처리방침 변경 안내', '[공지] 개인정보처리방침 변경 안내', 0, '2024-11-16', 'off', NULL),
@@ -465,48 +551,65 @@ INSERT INTO `notice` (`ntid`, `uid`, `title`, `content`, `view`, `regdate`, `sta
 (59, 1, '[공지] 개인정보처리방침 변경 안내', '[공지] 개인정보처리방침 변경 안내', 0, '2024-11-16', 'off', NULL),
 (60, 1, '[공지] 개인정보처리방침 변경 안내', '[공지] 개인정보처리방침 변경 안내', 0, '2024-11-16', 'off', NULL);
 
-
 -- --------------------------------------------------------
 
 --
--- 테이블 구조 `order_detail`
+-- 테이블 구조 `orders`
 --
 
-CREATE TABLE `order_detail` (
-  `oddtid` int(11) NOT NULL COMMENT '주문상세고유번호',
+CREATE TABLE `orders` (
   `odid` int(11) NOT NULL COMMENT '주문고유번호',
-  `leid` int(11) NOT NULL COMMENT '강좌고유번호',
-  `price` double NOT NULL COMMENT '강좌가격',
-  `cnt` int(11) NOT NULL DEFAULT 1 COMMENT '수량',
-  `discount_amount` double DEFAULT NULL COMMENT '할인액',
-  `refund_amount` double DEFAULT NULL COMMENT '환불액',
-  `cal_amount` double NOT NULL COMMENT '실결제금액',
-  `od_status` tinyint(4) NOT NULL DEFAULT 0 COMMENT '결제상태'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
--- --------------------------------------------------------
-
---
--- 테이블 구조 `order_main`
---
-
-CREATE TABLE `order_main` (
-  `odid` int(11) NOT NULL COMMENT '주문고유번호',
-  `uid` int(11) NOT NULL COMMENT '회원고유번호',
-  `payment` double NOT NULL COMMENT '결제금액',
-  `order_date` datetime NOT NULL DEFAULT current_timestamp() COMMENT '주문날짜',
+  `uid` int(11) DEFAULT NULL COMMENT '회원고유번호',
+  `total_amount` decimal(10,2) NOT NULL COMMENT '전체결제금액(쿠폰적용 전)',
+  `discount_amount` decimal(10,2) NOT NULL DEFAULT 0.00 COMMENT '할인 금액',
+  `final_amount` decimal(10,2) NOT NULL COMMENT '할인 적용 후 결제 금액',
+  `order_date` datetime NOT NULL DEFAULT current_timestamp() COMMENT '주문일자',
   `pay_method` tinyint(4) NOT NULL COMMENT '결제수단',
-  `pay_status` tinyint(4) NOT NULL DEFAULT 0 COMMENT '주문상태',
-  `reason` varchar(250) DEFAULT NULL COMMENT '환불취소사유',
-  `order_cnt` int(11) NOT NULL COMMENT '주문총개수',
+  `pay_status` tinyint(4) NOT NULL DEFAULT 0 COMMENT '주문상태 (0=정상)',
   `receiver` varchar(50) DEFAULT NULL COMMENT '수령인',
   `zipcode` int(6) DEFAULT NULL COMMENT '우편번호',
   `addr_line1` varchar(100) DEFAULT NULL COMMENT '수령주소',
   `addr_line2` varchar(100) DEFAULT NULL COMMENT '상세주소',
   `receiver_phone` varchar(11) DEFAULT NULL COMMENT '수령인전화번호',
-  `request` varchar(100) DEFAULT NULL COMMENT '요청사항',
-  `deli_status` tinyint(4) DEFAULT NULL COMMENT '배송상태'
+  `request` varchar(100) DEFAULT NULL COMMENT '요청사항'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='주문';
+
+-- --------------------------------------------------------
+
+--
+-- 테이블 구조 `order_delivery`
+--
+
+CREATE TABLE `order_delivery` (
+  `oddvid` int(11) NOT NULL COMMENT '배송고유번호',
+  `odid` int(11) NOT NULL COMMENT '주문고유번호',
+  `oddtid` int(11) NOT NULL COMMENT '주문상세고유번호',
+  `uid` int(11) NOT NULL COMMENT '회원고유번호',
+  `bookid` int(11) NOT NULL COMMENT '교재고유번호',
+  `book_title` varchar(250) NOT NULL COMMENT '교재명',
+  `cnt` int(11) NOT NULL COMMENT '수량',
+  `order_date` datetime NOT NULL COMMENT '주문일자',
+  `pay_status` tinyint(4) NOT NULL COMMENT '주문상태(0정상)',
+  `delivery_status` tinyint(4) NOT NULL DEFAULT 0 COMMENT '배송상태(0배송준비중)',
+  `arrival_date` datetime DEFAULT NULL COMMENT '배송완료일',
+  `tracking_num` int(11) DEFAULT NULL COMMENT '운송장번호'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- 테이블 구조 `order_details`
+--
+
+CREATE TABLE `order_details` (
+  `oddtid` int(11) NOT NULL COMMENT '주문상세고유번호',
+  `odid` int(11) NOT NULL COMMENT '주문고유번호',
+  `product_id` int(11) NOT NULL COMMENT '강좌or교재 고유번호',
+  `product_type` tinyint(4) NOT NULL COMMENT '상품유형(강좌1,교재2)',
+  `price` decimal(10,2) NOT NULL COMMENT '강좌or교재 가격',
+  `cnt` int(11) NOT NULL DEFAULT 1 COMMENT '수량',
+  `pay_status` tinyint(4) NOT NULL DEFAULT 0 COMMENT '주문상태(0정상)'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='주문 상세 항목';
 
 -- --------------------------------------------------------
 
@@ -554,16 +657,33 @@ CREATE TABLE `quiz` (
 -- --------------------------------------------------------
 
 --
+-- 테이블 구조 `refunds`
+--
+
+CREATE TABLE `refunds` (
+  `reid` int(11) NOT NULL COMMENT '환불고유번호',
+  `oddtid` int(11) NOT NULL COMMENT '주문상세항목고유번호',
+  `refund_date` datetime NOT NULL DEFAULT current_timestamp() COMMENT '환불요청일자',
+  `re_amount` decimal(10,2) NOT NULL COMMENT '환불금액',
+  `re_status` tinyint(4) NOT NULL DEFAULT 0 COMMENT '환불상태(환불요청0)',
+  `processed_date` datetime DEFAULT NULL COMMENT '환불처리일자',
+  `admin_id` int(11) NOT NULL COMMENT '환불처리담당자',
+  `reason` varchar(250) NOT NULL COMMENT '환불요청사유'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='환불요청/처리';
+
+-- --------------------------------------------------------
+
+--
 -- 테이블 구조 `review`
 --
 
 CREATE TABLE `review` (
   `rvid` int(11) NOT NULL COMMENT '수강후기ID',
-  `cdid` int(11) NOT NULL COMMENT '수강데이터ID',
+  `cdid` int(11) DEFAULT NULL COMMENT '수강데이터ID',
   `rating` tinyint(4) NOT NULL COMMENT '평점',
   `title` varchar(255) NOT NULL COMMENT '제목',
   `content` text NOT NULL COMMENT '내용',
-  `regdate` datetime NOT NULL COMMENT '등록일'
+  `regdate` datetime NOT NULL DEFAULT current_timestamp() COMMENT '등록일'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='수강 후기';
 
 -- --------------------------------------------------------
@@ -574,10 +694,10 @@ CREATE TABLE `review` (
 
 CREATE TABLE `send_email` (
   `emid` int(11) NOT NULL COMMENT '이메일발송고유번호',
-  `uid` int(11) NOT NULL COMMENT '회원고유번호',
+  `uid` int(11) DEFAULT NULL COMMENT '회원고유번호',
   `title` varchar(255) NOT NULL COMMENT '제목',
   `content` text NOT NULL COMMENT '내용',
-  `regdate` datetime NOT NULL COMMENT '발송일'
+  `regdate` datetime NOT NULL DEFAULT current_timestamp() COMMENT '발송일'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='이메일발송';
 
 -- --------------------------------------------------------
@@ -588,48 +708,34 @@ CREATE TABLE `send_email` (
 
 CREATE TABLE `student_qna` (
   `sqid` int(11) NOT NULL COMMENT '질문고유번호',
-  `cdid` int(11) NOT NULL COMMENT '수강데이터ID',
+  `cdid` int(11) DEFAULT NULL COMMENT '수강데이터ID',
   `qtitle` varchar(255) NOT NULL COMMENT '질문제목',
   `qcontent` text NOT NULL COMMENT '질문내용',
-  `status` enum('답변대기','답변완료') NOT NULL DEFAULT '답변대기' COMMENT '상태',
-  `regdate` datetime NOT NULL COMMENT '등록일',
+  `status` enum('waiting','done') NOT NULL DEFAULT 'waiting' COMMENT '상태',
+  `regdate` datetime NOT NULL DEFAULT current_timestamp() COMMENT '등록일',
   `file` varchar(255) DEFAULT NULL COMMENT '파일'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='수강생 질문';
 
 -- --------------------------------------------------------
 
 --
--- 테이블 구조 `stuscores`
+-- 테이블 구조 `teachers`
 --
 
-CREATE TABLE `stuscores` (
-  `exid` int(11) NOT NULL COMMENT '번호',
-  `stu_id` int(11) NOT NULL COMMENT '수강생id',
-  `score` int(11) NOT NULL COMMENT '점수',
-  `answer` varchar(100) NOT NULL COMMENT '제출한 정답',
-  `pnlevel` tinyint(4) NOT NULL COMMENT '수준당 점수'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='수강생 점수 관리';
-
--- --------------------------------------------------------
-
---
--- 테이블 구조 `teacher`
---
-
-CREATE TABLE `teacher` (
+CREATE TABLE `teachers` (
   `tcid` int(11) NOT NULL COMMENT '강사고유번호',
   `uid` int(11) NOT NULL COMMENT '회원고유번호',
-  `cgid` int(11) NOT NULL COMMENT '카테고리고유번호',
+  `cgid` int(11) DEFAULT NULL COMMENT '카테고리고유번호',
   `tc_cate` varchar(50) NOT NULL COMMENT '대표분야',
   `tc_url` varchar(100) DEFAULT NULL COMMENT '사이트링크',
-  `tc_thumbnail` varchar(50) DEFAULT NULL COMMENT '프로필이미지',
+  `tc_thumbnail` varchar(100) DEFAULT NULL COMMENT '프로필이미지',
   `tc_intro` varchar(250) NOT NULL COMMENT '소개글',
   `tc_bank` varchar(50) DEFAULT NULL COMMENT '은행명',
   `tc_account` int(11) DEFAULT NULL COMMENT '계좌번호',
-  `tc_ok` tinyint(4) NOT NULL DEFAULT 0 COMMENT '승인상태',
+  `tc_ok` tinyint(4) NOT NULL DEFAULT 0 COMMENT '승인상태(심사중=0)',
   `isrecom` tinyint(4) DEFAULT NULL COMMENT '추천강사여부',
   `isnew` tinyint(4) DEFAULT NULL COMMENT '신규강사여부'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='강사';
 
 -- --------------------------------------------------------
 
@@ -639,7 +745,7 @@ CREATE TABLE `teacher` (
 
 CREATE TABLE `teacher_qna` (
   `asid` int(11) NOT NULL COMMENT '답변고유ID',
-  `sqid` int(11) NOT NULL COMMENT '질문고유ID',
+  `sqid` int(11) DEFAULT NULL COMMENT '질문고유ID',
   `tcid` int(11) NOT NULL COMMENT '강사ID',
   `content` text NOT NULL COMMENT '답변내용',
   `file` varchar(255) DEFAULT NULL COMMENT '파일'
@@ -725,7 +831,9 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`uid`, `userid`, `username`, `usernick`, `userpw`, `userphonenum`, `useremail`, `email_ok`, `post_code`, `addr_line1`, `addr_line2`, `signup_date`, `last_date`, `user_level`, `user_status`) VALUES
-(1, 'code_even', '홍이븐', '이븐이', '3627909a29c31381a071ec27f7c9ca97726182aed29a7ddd2e54353322cfb30abb9e3a6df2ac2c20fe23436311d678564d0c8d305930575f60e2d3d048184d79', '010-1234-5678', 'hong@example.com', 1, 12345, '서울특별시 강남구', '101호', '2024-11-01', '2024-11-12 22:34:13', 100, 0);
+(1, 'code_even', '이븐관리자', '이븐이', '3627909a29c31381a071ec27f7c9ca97726182aed29a7ddd2e54353322cfb30abb9e3a6df2ac2c20fe23436311d678564d0c8d305930575f60e2d3d048184d79', '010-1234-5678', 'hong@example.com', 1, 12345, '서울특별시 강남구', '101호', '2024-11-01', '2024-11-12 22:34:13', 100, 0),
+(2, 'even_teacher', '이븐선생', '이븐하게', '3627909a29c31381a071ec27f7c9ca97726182aed29a7ddd2e54353322cfb30abb9e3a6df2ac2c20fe23436311d678564d0c8d305930575f60e2d3d048184d79', '010-4567-8910', 'eventeacher@even.co.kr', 1, 11234, '서울특별시 종로구', '2층 그린컴퓨터 아트학원', '0000-00-00', '2024-11-18 00:34:45', 10, 0),
+(3, 'even_student', '이븐학생', '이도령', '3627909a29c31381a071ec27f7c9ca97726182aed29a7ddd2e54353322cfb30abb9e3a6df2ac2c20fe23436311d678564d0c8d305930575f60e2d3d048184d79', '010-1234-5600', '2doryung@even.co.kr', 1, 11000, '서울시 영등포구', '여의도 한강공원', '0000-00-00', '2024-11-17 08:01:44', 1, 0);
 
 -- --------------------------------------------------------
 
@@ -751,13 +859,15 @@ CREATE TABLE `user_coupons` (
 -- 테이블의 인덱스 `admin_answer`
 --
 ALTER TABLE `admin_answer`
-  ADD PRIMARY KEY (`aaid`);
+  ADD PRIMARY KEY (`aaid`),
+  ADD KEY `aqid` (`aqid`);
 
 --
 -- 테이블의 인덱스 `admin_question`
 --
 ALTER TABLE `admin_question`
-  ADD PRIMARY KEY (`aqid`);
+  ADD PRIMARY KEY (`aqid`),
+  ADD KEY `uid` (`uid`);
 
 --
 -- 테이블의 인덱스 `blog`
@@ -772,6 +882,18 @@ ALTER TABLE `book`
   ADD PRIMARY KEY (`boid`);
 
 --
+-- 테이블의 인덱스 `book_sales`
+--
+ALTER TABLE `book_sales`
+  ADD PRIMARY KEY (`boid`,`sale_date`);
+
+--
+-- 테이블의 인덱스 `cart`
+--
+ALTER TABLE `cart`
+  ADD PRIMARY KEY (`cartid`);
+
+--
 -- 테이블의 인덱스 `category`
 --
 ALTER TABLE `category`
@@ -781,7 +903,10 @@ ALTER TABLE `category`
 -- 테이블의 인덱스 `class_data`
 --
 ALTER TABLE `class_data`
-  ADD PRIMARY KEY (`cdid`);
+  ADD PRIMARY KEY (`cdid`),
+  ADD KEY `uid` (`uid`,`leid`,`exid`),
+  ADD KEY `leid` (`leid`),
+  ADD KEY `class_data_ibfk_3` (`exid`);
 
 --
 -- 테이블의 인덱스 `company_info`
@@ -805,7 +930,8 @@ ALTER TABLE `coupons`
 -- 테이블의 인덱스 `faq`
 --
 ALTER TABLE `faq`
-  ADD PRIMARY KEY (`fqid`);
+  ADD PRIMARY KEY (`fqid`),
+  ADD KEY `uid` (`uid`);
 
 --
 -- 테이블의 인덱스 `lecdraft`
@@ -818,6 +944,12 @@ ALTER TABLE `lecdraft`
 --
 ALTER TABLE `lecture`
   ADD PRIMARY KEY (`leid`);
+
+--
+-- 테이블의 인덱스 `lecture_sales`
+--
+ALTER TABLE `lecture_sales`
+  ADD PRIMARY KEY (`leid`,`sale_date`) USING BTREE;
 
 --
 -- 테이블의 인덱스 `lefile`
@@ -835,34 +967,43 @@ ALTER TABLE `manual`
 -- 테이블의 인덱스 `manual_contents`
 --
 ALTER TABLE `manual_contents`
-  ADD PRIMARY KEY (`mcid`),
-  ADD UNIQUE KEY `mnnid` (`mnnid`,`conid`);
+  ADD PRIMARY KEY (`mcid`);
 
 --
--- 테이블의 인덱스 `members`
+-- 테이블의 인덱스 `monthly_sales`
 --
-ALTER TABLE `members`
-  ADD PRIMARY KEY (`mid`),
-  ADD UNIQUE KEY `userid` (`userid`),
-  ADD UNIQUE KEY `useremail` (`useremail`);
+ALTER TABLE `monthly_sales`
+  ADD PRIMARY KEY (`data_year_month`);
 
 --
 -- 테이블의 인덱스 `notice`
 --
 ALTER TABLE `notice`
-  ADD PRIMARY KEY (`ntid`);
+  ADD PRIMARY KEY (`ntid`),
+  ADD KEY `uid` (`uid`);
 
 --
--- 테이블의 인덱스 `order_detail`
+-- 테이블의 인덱스 `orders`
 --
-ALTER TABLE `order_detail`
-  ADD PRIMARY KEY (`oddtid`);
+ALTER TABLE `orders`
+  ADD PRIMARY KEY (`odid`),
+  ADD KEY `od_uid_IDX` (`uid`) USING BTREE;
 
 --
--- 테이블의 인덱스 `order_main`
+-- 테이블의 인덱스 `order_delivery`
 --
-ALTER TABLE `order_main`
-  ADD PRIMARY KEY (`odid`);
+ALTER TABLE `order_delivery`
+  ADD PRIMARY KEY (`oddvid`),
+  ADD KEY `oddtid_cascade` (`oddtid`),
+  ADD KEY `oddel_uid_INDEX` (`uid`) USING BTREE,
+  ADD KEY `oddel_odid_INDEX` (`odid`) USING BTREE;
+
+--
+-- 테이블의 인덱스 `order_details`
+--
+ALTER TABLE `order_details`
+  ADD PRIMARY KEY (`oddtid`),
+  ADD UNIQUE KEY `oddt_odid_IDX` (`odid`);
 
 --
 -- 테이블의 인덱스 `post_comment`
@@ -877,40 +1018,48 @@ ALTER TABLE `quiz`
   ADD PRIMARY KEY (`Exid`);
 
 --
+-- 테이블의 인덱스 `refunds`
+--
+ALTER TABLE `refunds`
+  ADD PRIMARY KEY (`reid`),
+  ADD KEY `oddtid` (`oddtid`);
+
+--
 -- 테이블의 인덱스 `review`
 --
 ALTER TABLE `review`
-  ADD PRIMARY KEY (`rvid`);
+  ADD PRIMARY KEY (`rvid`),
+  ADD KEY `cdid` (`cdid`);
 
 --
 -- 테이블의 인덱스 `send_email`
 --
 ALTER TABLE `send_email`
-  ADD PRIMARY KEY (`emid`);
+  ADD PRIMARY KEY (`emid`),
+  ADD KEY `uid` (`uid`);
 
 --
 -- 테이블의 인덱스 `student_qna`
 --
 ALTER TABLE `student_qna`
-  ADD PRIMARY KEY (`sqid`);
+  ADD PRIMARY KEY (`sqid`),
+  ADD KEY `cdid` (`cdid`);
 
 --
--- 테이블의 인덱스 `stuscores`
+-- 테이블의 인덱스 `teachers`
 --
-ALTER TABLE `stuscores`
-  ADD PRIMARY KEY (`exid`);
-
---
--- 테이블의 인덱스 `teacher`
---
-ALTER TABLE `teacher`
-  ADD PRIMARY KEY (`tcid`);
+ALTER TABLE `teachers`
+  ADD PRIMARY KEY (`tcid`),
+  ADD KEY `fk_1_userid` (`uid`),
+  ADD KEY `fk_2_cateid` (`cgid`);
 
 --
 -- 테이블의 인덱스 `teacher_qna`
 --
 ALTER TABLE `teacher_qna`
-  ADD PRIMARY KEY (`asid`);
+  ADD PRIMARY KEY (`asid`),
+  ADD UNIQUE KEY `sqid` (`sqid`),
+  ADD KEY `tcid` (`tcid`);
 
 --
 -- 테이블의 인덱스 `teamproject`
@@ -965,6 +1114,18 @@ ALTER TABLE `book`
   MODIFY `boid` int(11) NOT NULL AUTO_INCREMENT COMMENT '번호';
 
 --
+-- 테이블의 AUTO_INCREMENT `cart`
+--
+ALTER TABLE `cart`
+  MODIFY `cartid` int(11) NOT NULL AUTO_INCREMENT COMMENT '장바구니고유번호';
+
+--
+-- 테이블의 AUTO_INCREMENT `category`
+--
+ALTER TABLE `category`
+  MODIFY `cgid` int(11) NOT NULL AUTO_INCREMENT;
+
+--
 -- 테이블의 AUTO_INCREMENT `class_data`
 --
 ALTER TABLE `class_data`
@@ -974,7 +1135,7 @@ ALTER TABLE `class_data`
 -- 테이블의 AUTO_INCREMENT `company_info`
 --
 ALTER TABLE `company_info`
-  MODIFY `comid` int(11) NOT NULL AUTO_INCREMENT COMMENT '상점정보 고유번호(자동)', AUTO_INCREMENT=3;
+  MODIFY `comid` int(11) NOT NULL AUTO_INCREMENT COMMENT '상점정보 고유번호(자동)', AUTO_INCREMENT=2;
 
 --
 -- 테이블의 AUTO_INCREMENT `counsel`
@@ -983,10 +1144,16 @@ ALTER TABLE `counsel`
   MODIFY `post_id` int(11) NOT NULL AUTO_INCREMENT COMMENT '게시물id', AUTO_INCREMENT=2;
 
 --
+-- 테이블의 AUTO_INCREMENT `coupons`
+--
+ALTER TABLE `coupons`
+  MODIFY `cpid` int(11) NOT NULL AUTO_INCREMENT;
+
+--
 -- 테이블의 AUTO_INCREMENT `faq`
 --
 ALTER TABLE `faq`
-  MODIFY `fqid` int(11) NOT NULL AUTO_INCREMENT COMMENT 'FAQ고유번호';
+  MODIFY `fqid` int(11) NOT NULL AUTO_INCREMENT COMMENT 'FAQ고유번호', AUTO_INCREMENT=4;
 
 --
 -- 테이블의 AUTO_INCREMENT `lecdraft`
@@ -1019,28 +1186,28 @@ ALTER TABLE `manual_contents`
   MODIFY `mcid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
--- 테이블의 AUTO_INCREMENT `members`
---
-ALTER TABLE `members`
-  MODIFY `mid` int(11) NOT NULL AUTO_INCREMENT;
-
---
 -- 테이블의 AUTO_INCREMENT `notice`
 --
 ALTER TABLE `notice`
-  MODIFY `ntid` int(11) NOT NULL AUTO_INCREMENT COMMENT '공지사항고유번호';
+  MODIFY `ntid` int(11) NOT NULL AUTO_INCREMENT COMMENT '공지사항고유번호', AUTO_INCREMENT=61;
 
 --
--- 테이블의 AUTO_INCREMENT `order_detail`
+-- 테이블의 AUTO_INCREMENT `orders`
 --
-ALTER TABLE `order_detail`
-  MODIFY `oddtid` int(11) NOT NULL AUTO_INCREMENT COMMENT '주문상세고유번호';
-
---
--- 테이블의 AUTO_INCREMENT `order_main`
---
-ALTER TABLE `order_main`
+ALTER TABLE `orders`
   MODIFY `odid` int(11) NOT NULL AUTO_INCREMENT COMMENT '주문고유번호';
+
+--
+-- 테이블의 AUTO_INCREMENT `order_delivery`
+--
+ALTER TABLE `order_delivery`
+  MODIFY `oddvid` int(11) NOT NULL AUTO_INCREMENT COMMENT '배송고유번호';
+
+--
+-- 테이블의 AUTO_INCREMENT `order_details`
+--
+ALTER TABLE `order_details`
+  MODIFY `oddtid` int(11) NOT NULL AUTO_INCREMENT COMMENT '주문상세고유번호';
 
 --
 -- 테이블의 AUTO_INCREMENT `post_comment`
@@ -1053,6 +1220,12 @@ ALTER TABLE `post_comment`
 --
 ALTER TABLE `quiz`
   MODIFY `Exid` int(11) NOT NULL AUTO_INCREMENT COMMENT '번호';
+
+--
+-- 테이블의 AUTO_INCREMENT `refunds`
+--
+ALTER TABLE `refunds`
+  MODIFY `reid` int(11) NOT NULL AUTO_INCREMENT COMMENT '환불고유번호';
 
 --
 -- 테이블의 AUTO_INCREMENT `review`
@@ -1073,15 +1246,9 @@ ALTER TABLE `student_qna`
   MODIFY `sqid` int(11) NOT NULL AUTO_INCREMENT COMMENT '질문고유번호';
 
 --
--- 테이블의 AUTO_INCREMENT `stuscores`
+-- 테이블의 AUTO_INCREMENT `teachers`
 --
-ALTER TABLE `stuscores`
-  MODIFY `exid` int(11) NOT NULL AUTO_INCREMENT COMMENT '번호';
-
---
--- 테이블의 AUTO_INCREMENT `teacher`
---
-ALTER TABLE `teacher`
+ALTER TABLE `teachers`
   MODIFY `tcid` int(11) NOT NULL AUTO_INCREMENT COMMENT '강사고유번호';
 
 --
@@ -1103,21 +1270,66 @@ ALTER TABLE `test`
   MODIFY `exid` int(11) NOT NULL AUTO_INCREMENT COMMENT '번호';
 
 --
+-- 테이블의 AUTO_INCREMENT `user`
+--
+ALTER TABLE `user`
+  MODIFY `uid` int(11) NOT NULL AUTO_INCREMENT COMMENT '회원고유번호', AUTO_INCREMENT=4;
+
+--
+-- 테이블의 AUTO_INCREMENT `user_coupons`
+--
+ALTER TABLE `user_coupons`
+  MODIFY `ucid` int(11) NOT NULL AUTO_INCREMENT;
+
+--
 -- 덤프된 테이블의 제약사항
 --
 
 --
--- 테이블의 제약사항 `manual_contents`
+-- 테이블의 제약사항 `admin_answer`
 --
-ALTER TABLE `manual_contents`
-  ADD CONSTRAINT `manual_contents_ibfk_1` FOREIGN KEY (`mnnid`) REFERENCES `manual` (`mnid`) ON DELETE CASCADE;
-COMMIT;
+ALTER TABLE `admin_answer`
+  ADD CONSTRAINT `admin_answer_ibfk_1` FOREIGN KEY (`aqid`) REFERENCES `admin_question` (`aqid`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- 테이블의 제약사항 `notice`
+-- 테이블의 제약사항 `admin_question`
 --
-ALTER TABLE `notice`
-  ADD CONSTRAINT `notice_ibfk_1` FOREIGN KEY (`uid`) REFERENCES `user` (`uid`) ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE `admin_question`
+  ADD CONSTRAINT `admin_question_ibfk_1` FOREIGN KEY (`uid`) REFERENCES `user` (`uid`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- 테이블의 제약사항 `orders`
+--
+ALTER TABLE `orders`
+  ADD CONSTRAINT `uid_ondel_setnull` FOREIGN KEY (`uid`) REFERENCES `user` (`uid`) ON DELETE SET NULL ON UPDATE CASCADE;
+
+--
+-- 테이블의 제약사항 `order_delivery`
+--
+ALTER TABLE `order_delivery`
+  ADD CONSTRAINT `oddtid_cascade` FOREIGN KEY (`oddtid`) REFERENCES `order_details` (`oddtid`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `order_delivery_ibfk_1` FOREIGN KEY (`odid`) REFERENCES `orders` (`odid`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `order_delivery_ibfk_2` FOREIGN KEY (`uid`) REFERENCES `user` (`uid`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- 테이블의 제약사항 `order_details`
+--
+ALTER TABLE `order_details`
+  ADD CONSTRAINT `odid_cascade` FOREIGN KEY (`odid`) REFERENCES `orders` (`odid`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- 테이블의 제약사항 `refunds`
+--
+ALTER TABLE `refunds`
+  ADD CONSTRAINT `refunds_ibfk_1` FOREIGN KEY (`oddtid`) REFERENCES `order_details` (`oddtid`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- 테이블의 제약사항 `teachers`
+--
+ALTER TABLE `teachers`
+  ADD CONSTRAINT `fk_1_userid` FOREIGN KEY (`uid`) REFERENCES `user` (`uid`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `fk_2_cateid` FOREIGN KEY (`cgid`) REFERENCES `category` (`cgid`) ON DELETE SET NULL ON UPDATE CASCADE;
+COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

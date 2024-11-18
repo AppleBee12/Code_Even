@@ -1,13 +1,26 @@
+/* Form 컨트롤 */
 
-
-
-.form-control.w_512, .form-select.w_512{
-  width: 509px;
+.form-control, .form-select{
+  width: 480px;
 }
 
 .info_table {
   border-color: var(--bk0);
 }
+
+.table>:not(caption)>*>* {
+  padding: 1rem .5rem;
+}
+
+.list_table .tc_status{
+  width: 70%;
+  margin: 0 auto;
+}
+
+.rounded_circle{
+  border-radius: 50% !important;
+}
+
 
 /* 프로필 이미지 업로드 */
 .upload{
@@ -44,5 +57,7 @@
 input[type=file]::-webkit-file-upload-button{
     cursor: pointer;
 }
+
+
 
 

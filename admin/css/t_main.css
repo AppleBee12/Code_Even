@@ -1,4 +1,4 @@
-/* index */
+/* top_wrapper */
 
 .container .top_wrapper {
   width: 1400px;
@@ -6,8 +6,12 @@
   div {
     border: 1px solid var(--bk100);
     border-radius: 8px;
-    padding: 24px;
-    min-width: 263px;
+    padding: 30px;
+    min-width: 325px;
+
+    img{
+      border-radius: 50%;
+    }
   }
 
   p {
@@ -17,7 +21,6 @@
     margin-top: 20px;
   }
 
-
   .top_text {
     font-size: 20px;
     line-height: 30px;
@@ -25,6 +28,47 @@
   }
 }
 
+.container .top_wrapper div:nth-child(3) ul{
+  margin-top: 15px
+}
+
+.container .top_wrapper div img + div{
+  border: 0;
+  padding: 0;
+  min-width:200px;
+  p{
+    margin-top: 0px;
+    
+  }
+}
+
+.container .top_wrapper div:last-child p{
+  text-align: center;
+}
+
+
+/* 평점 별 */
+#rating_star {
+  list-style: none;
+  padding: 0;
+  
+  li {
+    font-size: 30px;
+  }
+}
+
+#rating_star li i,
+#rating_star li.empty i {
+  color: var(--bk100); 
+}
+
+#rating_star li.full i,
+#rating_star li.half i {
+  color: gold; 
+}
+
+
+/* bottom_wrapper */
 
 .bottom_wrapper{
   width: 1400px;
