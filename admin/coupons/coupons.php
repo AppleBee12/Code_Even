@@ -11,56 +11,46 @@ if (!isset($_SESSION['AUID'])) {
   </script>";
 }
 
-$search_where = '';
 
-$search_keyword = $_GET['search_keyword'] ?? '';
+// 게시글 개수 구하기
+$keywords = isset($_GET['keywords']) ? $mysqli->real_escape_string($_GET['keywords']) : '';
+$where_clause = '';
 
-if ($search_keyword) {
-  $search_where .= " and (coupon_name LIKE '%$search_keyword%')";
+if ($keywords) {
+  $where_clause = "WHERE coupons.coupon_name LIKE '%$keywords%'";
 }
 
-
-$search_where = '';
-
-$search_keyword = $_GET['search_keyword'] ?? '';
-
-if ($search_keyword) {
-  $search_where .= " and (coupon_name LIKE '%$search_keyword%')";
-}
-
-
-//데이터의 개수 조회
-$page_sql = "SELECT COUNT(*) AS cnt FROM coupons WHERE 1=1 $search_where";
+$page_sql = "SELECT COUNT(*) AS cnt FROM coupons $where_clause";
 $page_result = $mysqli->query($page_sql);
 $page_data = $page_result->fetch_assoc();
 $row_num = $page_data['cnt'];
 
-//페이지네이션 
-if (isset($_GET['page'])) {
-  $page = $_GET['page'];
-} else {
-  $page = 1;
-}
-
-$list = 10;
+// 페이지네이션
+$page = isset($_GET['page']) ? $_GET['page'] : 1;
+$list = 4;
 $start_num = ($page - 1) * $list;
 $block_ct = 5;
-$block_num = ceil($page / $block_ct); //$page1/5 0.2 = 1
-
+$block_num = ceil($page / $block_ct);
 $block_start = (($block_num - 1) * $block_ct) + 1;
 $block_end = $block_start + $block_ct - 1;
 
-$total_page = ceil($row_num / $list); //총75개 10개씩, 8
+$total_page = ceil($row_num / $list);
 $total_block = ceil($total_page / $block_ct);
-
-if ($block_end > $total_page)
+if ($block_end > $total_page) {
   $block_end = $total_page;
+}
+
+$sql = "SELECT coupons.* 
+        FROM coupons 
+        $where_clause 
+        ORDER BY coupons.cpid DESC 
+        LIMIT $start_num, $list";
+$result = $mysqli->query($sql);
 
 
-$sql = "SELECT * FROM coupons WHERE 1=1 $search_where ORDER BY cpid DESC LIMIT $start_num, $list"; //products 테이블에서 모든 데이터를 조회
+// $sql = "SELECT * FROM coupons WHERE 1=1 $search_where ORDER BY cpid DESC LIMIT $start_num, $list"; //products 테이블에서 모든 데이터를 조회
 
-$result = $mysqli->query($sql); //쿼리 실행 결과
-
+// $result = $mysqli->query($sql); //쿼리 실행 결과
 
 while ($data = $result->fetch_object()) {
   $dataArr[] = $data;
@@ -150,19 +140,37 @@ while ($data = $result->fetch_object()) {
 
   <div class="list_pagination" aria-label="Page navigation example">
     <ul class="pagination d-flex justify-content-center">
+      <?php
+        $previous = $block_start - $block_ct;
+        if ($previous < 1) $previous = 1;
+        if ($block_num > 1) { 
+      ?>
       <li class="page-item">
-        <a class="page-link" href="" aria-label="Previous">
+        <a class="page-link" href="notice.php?page=<?= $previous; ?>" aria-label="Previous">
           <i class="bi bi-chevron-left"></i>
         </a>
       </li>
-      <li class="page-item active"><a class="page-link" href="">1</a></li>
-      <li class="page-item"><a class="page-link" href="">2</a></li>
-      <li class="page-item"><a class="page-link" href="">3</a></li>
+      <?php
+        }
+      ?>
+      <?php
+        for ($i = $block_start; $i <= $block_end; $i++) {
+          $active = ($page == $i) ? 'active' : '';
+      ?>
+      <li class="page-item <?= $active; ?>"><a class="page-link" href="notice.php?page=<?= $i; ?>"><?= $i; ?></a></li>
+      <?php
+        }
+        $next = $block_end + 1;
+        if($total_block > $block_num){
+      ?>
       <li class="page-item">
-        <a class="page-link" href="" aria-label="Next">
+        <a class="page-link" href="notice.php?page=<?= $next; ?>" aria-label="Next">
           <i class="bi bi-chevron-right"></i>
         </a>
       </li>
+      <?php
+        }
+      ?>
     </ul>
   </div>
 </div>
