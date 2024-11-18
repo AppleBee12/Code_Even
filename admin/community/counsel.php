@@ -94,7 +94,7 @@ while ($data = $result->fetch_object()) {
           <td><span class="badge text-bg-light"><?=$counsel->status?></span></td>
           <td><?=$counsel->likes?><b>개</b></td>
           <td><?=$counsel->comments?><b>개</b></td>
-          <td><?=$counsel->hit?><b>개</b></td>
+          <td><?=$counsel->hits?><b>개</b></td>
           <td><?=$counsel->regdate?></td>
           <td class="edit_col">
             <a href="">
