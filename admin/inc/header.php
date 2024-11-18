@@ -54,6 +54,8 @@ $level = $_SESSION['AULEVEL'];
     case 'teacher_list.php':
     case 'teacher_edit.php':
     case 'my_details.php':
+    case 'teacher_details.php':
+    case 'store.php':
       echo '<link rel="stylesheet" href="http://' . $_SERVER['HTTP_HOST'] . '/code_even/admin/css/teacher.css">';
       break;
   }
@@ -91,10 +93,6 @@ $level = $_SESSION['AULEVEL'];
   }
   switch ($page) {
     case 'lecture_list.php':
-      echo '<link rel="stylesheet" href="http://' . $_SERVER['HTTP_HOST'] . '/code_even/admin/css/lecture.css">';
-      break;
-  }
-  switch ($page) {
     case 'lecture_up.php':
       echo '<link rel="stylesheet" href="http://' . $_SERVER['HTTP_HOST'] . '/code_even/admin/css/lecture.css">';
       break;
