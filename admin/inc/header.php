@@ -45,6 +45,11 @@ $level = $_SESSION['AULEVEL'];
       break;
   }
   switch ($page) {
+    case 'user_list.php':
+      echo '<link rel="stylesheet" href="http://' . $_SERVER['HTTP_HOST'] . '/code_even/admin/css/user.css">';
+      break;
+  }
+  switch ($page) {
     case 'teacher_list.php':
     case 'teacher_edit.php':
     case 'my_details.php':
@@ -251,7 +256,7 @@ $level = $_SESSION['AULEVEL'];
         </ul>
         <ul class="list-group line">
           <?php if ($level == 100): ?>
-            <li class="list-group-item" data-link="user">　<a href=""><i class="bi bi-people"></i> 　 전체 회원 관리</a></li>
+            <li class="list-group-item" data-link="user">　<a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/user/user_list.php"><i class="bi bi-people"></i> 　 전체 회원 관리</a></li>
             <li class="list-group-item" data-link="teacher"><a
                 href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/teacher/teacher_list.php">　<i
                   class="bi bi-incognito"></i> 　 강사 관리</a>
