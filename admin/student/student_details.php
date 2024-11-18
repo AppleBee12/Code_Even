@@ -3,7 +3,7 @@ $title = "수강생 관리";
 include_once($_SERVER['DOCUMENT_ROOT'] . '/code_even/admin/inc/header.php');
 
 $cdid = $_GET['cdid'];
-$sql = "SELECT class_data.*, user.*, lecture.title, lecture.date, lecture.period 
+$sql = "SELECT class_data.*, user.*, lecture.* 
         FROM class_data 
         JOIN user ON class_data.uid = user.uid 
         JOIN lecture ON class_data.leid = lecture.leid 
@@ -49,20 +49,23 @@ $data = $result->fetch_object();
           <th scope="row">상태</th>
           <td class="d-flex gap-3">
             <div class="form-check">
-              <input class="form-check-input" type="radio" name="statusCheck" id="flexRadioDisabled" checked disabled>
-              <label class="form-check-label" for="flexRadioDisabled">
+              <input class="form-check-input" type="radio" name="statusCheck" id="statusCheck" value="0"
+                <?= ($data->user_status === '0') ? 'checked' : ''; ?> disabled>
+              <label class="form-check-label" for="statusCheck">
                 정상
               </label>
             </div>
             <div class="form-check">
-              <input class=" form-check-input" type="radio" name="statusCheck" id="flexRadioDisabled" disabled>
-              <label class="form-check-label" for="flexRadioCheckedDisabled">
+              <input class=" form-check-input" type="radio" name="statusCheck" id="statusCheck" value="1"
+                <?= ($data->user_status === '1') ? 'checked' : ''; ?> disabled>
+              <label class="form-check-label" for="statusCheck">
                 정지
               </label>
             </div>
             <div class="form-check">
-              <input class=" form-check-input" type="radio" name="statusCheck" id="flexRadioDisabled" disabled>
-              <label class="form-check-label" for="flexRadioCheckedDisabled">
+              <input class=" form-check-input" type="radio" name="statusCheck" id="statusCheck" value="-1"
+                <?= ($data->user_status === '-1') ? 'checked' : ''; ?> disabled>
+              <label class="form-check-label" for="statusCheck">
                 탈퇴
               </label>
             </div>
@@ -76,17 +79,10 @@ $data = $result->fetch_object();
           <th scope="row">이메일 수신 여부</th>
           <td class="d-flex gap-3">
             <div class="form-check">
-              <input class="form-check-input" type="radio" name="emailCheck" id="emailCheck" value="1"
-                <?= ($data->email_ok === '1') ? 'checked' : ''; ?>>
+              <input class="form-check-input" type="checkbox" name="emailCheck" id="emailCheck" value="1"
+                <?= ($data->email_ok === '1') ? 'checked' : ''; ?> disabled>
               <label class="form-check-label" for="emailCheck">
                 동의
-              </label>
-            </div>
-            <div class="form-check">
-              <input class=" form-check-input" type="radio" name="emailCheck" id="emailCheck" value="''"
-                <?= ($data->email_ok === '1') ? 'checked' : ''; ?>>
-              <label class="form-check-label" for="emailCheck">
-                비동의
               </label>
             </div>
           </td>
@@ -116,11 +112,21 @@ $data = $result->fetch_object();
       </thead>
       <tbody>
         <tr>
-          <th scope="row">2</th>
+          <th scope="row"><?= $data->cdid; ?></th>
           <td>김동주</td>
-          <td>웹 프로그래밍의 꽃! 웹페이지의 동 적요소를 담당하는...</td>
-          <td>2024/11/02</td>
-          <td>2024/12/01</td>
+          <td><?= $data->title; ?></td>
+          <td>
+            <?= date('Y-m-d', strtotime($data->date)) ?>
+          </td>
+          <td>
+            <?php
+            $set_date = date('Y-m-d', strtotime($data->date));
+            $start_date = new DateTime($data->date); // DateTime 객체 생성
+            $start_date->modify("+{$data->period} days"); // 기간을 더함
+            $end_date = $start_date->format('Y-m-d'); // 종료 날짜 포맷팅
+            ?>
+            <?= $end_date ?>
+          </td>
           <td>100</td>
           <td>80</td>
           <td>100%</td>
@@ -130,19 +136,6 @@ $data = $result->fetch_object();
             </button>
           </td>
         </tr>
-        <tr>
-          <th scope="row">1</th>
-          <td>김동주</td>
-          <td>기초부터 확실하게! 페이지의 내용 전달을 위한 HTML...</td>
-          <td>2024/11/02</td>
-          <td>2024/12/31</td>
-          <td></td>
-          <td>20</td>
-          <td>40%</td>
-          <td>
-            <span class="badge text-bg-light">미이수</span>
-          </td>
-        </tr>
       </tbody>
     </table>
     <div class="d-flex justify-content-end">
@@ -150,6 +143,10 @@ $data = $result->fetch_object();
     </div>
   </form>
 </div>
+
+<?php
+include_once($_SERVER['DOCUMENT_ROOT'] . '/code_even/admin/inc/footer.php');
+?>
 
 <script>
   function printPage() {
@@ -174,7 +171,3 @@ $data = $result->fetch_object();
 
   document.getElementById("printButton").addEventListener("click", printPage);
 </script>
-
-<?php
-include_once($_SERVER['DOCUMENT_ROOT'] . '/code_even/admin/inc/footer.php');
-?>
