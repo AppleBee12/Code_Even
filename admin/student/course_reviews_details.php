@@ -1,6 +1,17 @@
 <?php
 $title = "수강생 관리";
 include_once($_SERVER['DOCUMENT_ROOT'] . '/code_even/admin/inc/header.php');
+
+$rvid = $_GET['rvid'];
+$sql = "SELECT review.*, class_data.*, lecture.*, user.* 
+        FROM review 
+        JOIN class_data ON review.cdid = class_data.cdid 
+        JOIN lecture ON class_data.leid = lecture.leid 
+        JOIN user ON class_data.uid = user.uid 
+        WHERE rvid = $rvid";
+$result = $mysqli->query($sql);
+$data = $result->fetch_object();
+
 ?>
 
 <div class="container">
@@ -23,49 +34,57 @@ include_once($_SERVER['DOCUMENT_ROOT'] . '/code_even/admin/inc/header.php');
     <tbody>
       <tr class="none">
         <th scope="row">강사명</th>
-        <td>김동주</td>
+        <td><?=$data->name;?></td>
       </tr>
       <tr>
         <th scope="row">강좌명</th>
-        <td colspan="5">기초부터 확실하게! (페이지의 내용 전달을 위한 HTML, 스타일 설정을 위한 CSS 기초 학습)</td>
+        <td colspan="5"><?=$data->title;?></td>
       </tr>
       <tr class="none">
         <th scope="row">제목</th>
         <td colspan="3">
           <div>
-            <input type="text" name="title" class="form-control" id="title" placeholder="정말 좋은 강의 감사합니다." disabled>
+            <input type="text" name="title" class="form-control" id="title" value="<?=$data->rtitle;?>" disabled>
           </div>
         </td>
       </tr>
       <tr class="none">
         <th scope="row">이름(아이디)</th>
-        <td>흑백핑(dark1234)</td>
-        <th scope="row">등록일</th>
-        <td>2024/10/19 10:10:10</td>
+        <td><?=$data->username;?>(<?=$data->userid;?>)</td>
       </tr>
       <tr>
         <th scope="row">평점</th>
         <td>
           <div>
-            <i class="bi bi-star-fill"></i>
-            <i class="bi bi-star-fill"></i>
-            <i class="bi bi-star-fill"></i>
-            <i class="bi bi-star-fill"></i>
-            <i class="bi bi-star-fill"></i>
+            <?php
+              for ($i = 0; $i < 5; $i++) { 
+                if ($i < $data->rating) {
+                  if ($i < $data->rating) {
+            ?>
+                    <i class="bi bi-star-fill"></i>
+                <?php } else { ?>
+                    <i class="bi bi-star"></i>
+            <?php 
+                  }
+                }
+              }
+            ?>
           </div>
         </td>
+        <th scope="row">등록일</th>
+        <td><?=$data->regdate;?></td>
       </tr>
       <tr class="none">
         <th scope="row">내용</th>
         <td colspan="3">
-          <textarea name="" id="" class="form-control" placeholder="정말 좋은 강의 감사합니다." disabled></textarea>
+          <textarea name="" id="" class="form-control" disabled><?=$data->content;?></textarea>
         </td>
       </tr>
     </tbody>
   </table>
   <div class="custom-hr"></div>
   <div class="d-flex justify-content-end gap-2">
-    <a href="student_question.php" type="button" class="btn btn-outline-danger">취소</a>
+    <a href="course_reviews.php" class="btn btn-outline-danger">취소</a>
     <a href="" type="button" class="btn btn-danger">삭제</a>
   </div>
 

@@ -71,7 +71,6 @@ while ($data = $result->fetch_object()) {
           <th scope="col">분류</th>
           <th scope="col">등록일</th>
           <th scope="col">상태</th>
-          <th scope="col">관리</th>
         </tr>
       </thead>
       <tbody>
@@ -119,12 +118,6 @@ while ($data = $result->fetch_object()) {
                 $text = !empty($no->aaid) ? '답변완료' : '답변대기';
                 echo "<span class='badge $class'>$text</span>";
                 ?>
-              </td>
-              <td>
-                <a
-                  href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/inquiry/admin_qna_delete.php?aqid=<?= $no->aqid; ?>">
-                  <i class="bi bi-trash-fill"></i>
-                </a>
               </td>
             </tr>
             <?php

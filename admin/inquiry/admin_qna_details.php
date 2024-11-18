@@ -103,13 +103,12 @@ $data = $result->fetch_object();
     ?>
     <div class="card">
       <div class="card-header">
-        <img src="" alt="" id="propfile_thumbnail">
         <p>관리자</p>
       </div>
       <div class="card-body">
-        <blockquote class="blockquote mb-0">
+        <p class="mb-0">
           <?= $data->acontent ?>
-        </blockquote>
+        </p>
       </div>
     </div>
     <?php

@@ -1,5 +1,51 @@
 <?php
 include_once($_SERVER['DOCUMENT_ROOT']. '/code_even/admin/inc/header.php');
+
+
+
+// 게시글 개수 구하기
+$keywords = isset($_GET['keywords']) ? $mysqli->real_escape_string($_GET['keywords']) : '';
+$where_clause = '';
+
+if ($keywords) {
+  $where_clause = "WHERE user.username LIKE '%$keywords%' OR user.userid LIKE '%$keywords%'";
+}
+
+$page_sql = "SELECT COUNT(*) AS cnt FROM class_data JOIN user ON class_data.uid = user.uid $where_clause";
+$page_result = $mysqli->query($page_sql);
+$page_data = $page_result->fetch_assoc();
+$row_num = $page_data['cnt'];
+
+// 페이지네이션
+$page = isset($_GET['page']) ? $_GET['page'] : 1;
+$list = 10;
+$start_num = ($page - 1) * $list;
+$block_ct = 5;
+$block_num = ceil($page / $block_ct);
+$block_start = (($block_num - 1) * $block_ct) + 1;
+$block_end = $block_start + $block_ct - 1;
+
+$total_page = ceil($row_num / $list);
+$total_block = ceil($total_page / $block_ct);
+if ($block_end > $total_page) {
+  $block_end = $total_page;
+}
+
+$sql = "SELECT student_qna.*, class_data.*, lecture.*, user.* 
+        FROM student_qna 
+        JOIN class_data ON student_qna.cdid = class_data.cdid
+        JOIN lecture ON class_data.leid = lecture.leid
+        JOIN user ON class_data.uid = user.uid 
+        $where_clause 
+        ORDER BY student_qna.cdid DESC 
+        LIMIT $start_num, $list";
+$result = $mysqli->query($sql);
+
+$dataArr = [];
+while ($data = $result->fetch_object()) {
+  $dataArr[] = $data;
+}
+
 ?>
 
 <div class="container">
@@ -7,8 +53,8 @@ include_once($_SERVER['DOCUMENT_ROOT']. '/code_even/admin/inc/header.php');
   <form class="row justify-content-end">
     <div class="col-lg-4">
       <div class="input-group mb-3">
-        <input type="text" class="form-control" placeholder="검색어를 입력하세요." aria-label="Recipient's username"
-          aria-describedby="basic-addon2">
+      <input type="text" class="form-control" placeholder="검색어를 입력하세요." name="keywords"
+      value="<?= htmlspecialchars($keywords); ?>">
         <button type="button" class="btn btn-secondary">
           <i class="bi bi-search"></i>
         </button>
@@ -24,81 +70,90 @@ include_once($_SERVER['DOCUMENT_ROOT']. '/code_even/admin/inc/header.php');
             <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
           </th>
           <th scope="col">번호</th>
-          <th scope="col">강사명</th>
-          <th scope="col">강의명</th>
-          <th scope="col">제목</th>
           <th scope="col">아이디</th>
           <th scope="col">이름</th>
+          <th scope="col">제목</th>
+          <th scope="col">강사명</th>
+          <th scope="col">강의명</th>
           <th scope="col">등록일</th>
           <th scope="col">상태</th>
           <th scope="col">관리</th>
         </tr>
       </thead>
       <tbody>
+      <?php
+      if ($dataArr) {
+        foreach ($dataArr as $no) {
+          ?>
         <tr>
           <th scope="row">
             <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
           </th>
-          <td>2</td>
-          <td>김동주</td>
-          <td>기초부터 확실하게!..</td>
-          <td><a href="student_question_details.php" class="underline">sql 쿼리가 작동되지 않습니다.</a></td>
-          <td>hong1234</td>
-          <td>홍길동</td>
-          <td>2024/10/19 10:10:10</td>
+          <td><?=$no->sqid;?></td>
+          <td><?=$no->userid;?></td>
+          <td><?=$no->username;?></td>
+          <td><a href="student_question_details.php?sqid=<?=$no->sqid;?>" class="underline"><?=$no->qtitle;?></a></td>
+          <td><?=$no->name;?></td>
+          <td><?= mb_strlen($no->title) > 15 ? mb_substr($no->title, 0, 15) . '...' : $no->title; ?></td>
+          <td><?=$no->regdate;?></td>
           <td>
             <span class="badge text-bg-success">답변완료</span>
           </td>
           <td>
-            <a href="">
+            <a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/inquiry/student_question_delete.php?sqid=<?=$no->sqid;?>">
               <i class="bi bi-trash-fill"></i>
             </a>
           </td>
         </tr>
-        <tr>
-          <th scope="row">
-            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-          </th>
-          <td>1</td>
-          <td>김동주</td>
-          <td>기초부터 확실하게!..</td>
-          <td><a href="student_question_details.php" class="underline">왜 틀렸는지 모르겠습니다..</a></td>
-          <td>dark1234</td>
-          <td>흑백핑</td>
-          <td>2024/10/19 10:10:10</td>
-          <td>
-            <span class="badge text-bg-light">답변대기</span>
-          </td>
-          <td>
-            <a href="">
-              <i class="bi bi-trash-fill"></i>
-            </a>
-          </td>
-        </tr>
+        <?php
+        }
+      } else {
+        echo "<tr><td colspan='8'>검색 결과가 없습니다.</td></tr>";
+      }
+      ?>
       </tbody>
     </table>
     <div class="d-flex justify-content-end">
       <button type="button" class="btn btn-danger">삭제</button>
     </div>
 
-    <!-- //Pagination -->
-    <div class="list_pagination" aria-label="Page navigation example">
-      <ul class="pagination d-flex justify-content-center">
-        <li class="page-item">
-          <a class="page-link" href="" aria-label="Previous">
-            <i class="bi bi-chevron-left"></i>
-          </a>
-        </li>
-        <li class="page-item active"><a class="page-link" href="">1</a></li>
-        <li class="page-item"><a class="page-link" href="">2</a></li>
-        <li class="page-item"><a class="page-link" href="">3</a></li>
-        <li class="page-item">
-          <a class="page-link" href="" aria-label="Next">
-            <i class="bi bi-chevron-right"></i>
-          </a>
-        </li>
-      </ul>
-    </div>
+<!-- //Pagination -->
+<div class="list_pagination" aria-label="Page navigation example">
+  <ul class="pagination d-flex justify-content-center">
+    <?php
+    $previous = $block_start - $block_ct;
+    if ($previous < 1)
+      $previous = 1;
+    if ($block_num > 1) {
+      ?>
+      <li class="page-item">
+        <a class="page-link" href="student_question.php?page=<?= $previous; ?>" aria-label="Previous">
+          <i class="bi bi-chevron-left"></i>
+        </a>
+      </li>
+      <?php
+    }
+    ?>
+    <?php
+    for ($i = $block_start; $i <= $block_end; $i++) {
+      $active = ($page == $i) ? 'active' : '';
+      ?>
+      <li class="page-item <?= $active; ?>"><a class="page-link" href="student_question.php?page=<?= $i; ?>"><?= $i; ?></a></li>
+      <?php
+    }
+    $next = $block_end + 1;
+    if ($total_block > $block_num) {
+      ?>
+      <li class="page-item">
+        <a class="page-link" href="student_question.php?page=<?= $next; ?>" aria-label="Next">
+          <i class="bi bi-chevron-right"></i>
+        </a>
+      </li>
+      <?php
+    }
+    ?>
+  </ul>
+</div>
     
   </form>
 
