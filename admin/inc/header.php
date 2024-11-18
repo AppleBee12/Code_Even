@@ -116,6 +116,12 @@ $level = $_SESSION['AULEVEL'];
   if (isset($t_main_js)) {
     echo $t_main_js;
   }
+  if (isset($address_js)) {
+    echo $address_js;
+  }
+  if (isset($store_js)) {
+    echo $store_js;
+  }
 
   ?>
 
