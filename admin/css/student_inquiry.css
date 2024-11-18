@@ -4,6 +4,7 @@
     padding: 25px 0;
     box-sizing: border-box;
   }
+  td span {vertical-align: text-top; margin-left: 10px;}
 }
 
 .content_bar {

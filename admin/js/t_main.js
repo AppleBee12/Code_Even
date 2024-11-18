@@ -1,5 +1,42 @@
 document.addEventListener("DOMContentLoaded", function () {
 
+  // 평균 평점
+
+  /*
+     <i class="bi bi-star-fill"></i> 꽉 찬 별
+     <i class="bi bi-star-half"></i>  반만 찬 별
+     <i class="bi bi-star"></i> 비어 있는 별
+  */
+const ratingStar = document.getElementById("rating_star");
+const stars = ratingStar.querySelectorAll("li");
+
+const updateStars = (rating) => {
+  stars.forEach((star) => {
+    const value = parseFloat(star.getAttribute("data-value"));
+    const icon = star.querySelector("i");
+    star.className = "";
+
+    if (value <= Math.floor(rating)) {
+      // 꽉 찬 별
+      star.classList.add("full");
+      icon.className = "bi bi-star-fill";
+    } else if (value === Math.ceil(rating) && !Number.isInteger(rating)) {
+      // 반만 찬 별
+      star.classList.add("half");
+      icon.className = "bi bi-star-half";
+    } else {
+      // 비어 있는 별
+      star.classList.add("empty");
+      icon.className = "bi bi-star";
+    }
+  });
+};
+
+const initialRating = parseFloat(ratingStar.getAttribute("data-rating"));
+updateStars(initialRating);
+
+
+
     const barCtx = document.getElementById('current_six_returns');
     const cateDatas = [250, 390, 580, 610, 692, 712]
     let now = new Date();
@@ -40,7 +77,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const lineChart = new Chart(lineCtx, {
       type: 'line',
       data: {
-        labels: ['6월', '7월', '8월', '9월', '10월', '11월'],
+        labels: labels,
         datasets: [{
           label: '신규 가입자 수',
           data: [2000, 2800, 3200, 3800, 4000, 3765],

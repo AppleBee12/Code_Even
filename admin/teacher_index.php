@@ -2,7 +2,7 @@
 
 $chart_js = "<script src=\"https://cdn.jsdelivr.net/npm/chart.js\"></script>";
 $host = $_SERVER['HTTP_HOST'];
-$main_js = "<script src=\"http://$host/code_even/admin/js/main.js\"></script>";
+$t_main_js = "<script src=\"http://$host/code_even/admin/js/t_main.js\"></script>";
 
 include_once($_SERVER['DOCUMENT_ROOT'] . '/CODE_EVEN/admin/inc/header.php');
 
@@ -12,31 +12,53 @@ if (!isset($_SESSION['AUID'])) {
   location.href='admin/login/login.php';
   </script>";
 }
+$user_id = $_SESSION['AUID'];
+$user_level = $_SESSION['AULEVEL'];
+$user_name = $_SESSION['AUNAME'];
+
+$sql = "SELECT useremail FROM user WHERE userid = '$user_id' && username = '$user_name'";
+$result = $mysqli->query($sql);
+
+
+// print_r($result->fetch_assoc());
 
 
 ?>
 
 <div class="container">
   <div class="top_wrapper d-flex justify-content-between">
-    <div>
-      <h3>11월 수익</h3>
-      <p>7,123,000<span class="top_text"> 원</span></p>
+    <div class="d-flex justify-content-between">
+      <img src="https://picsum.photos/200" width=100 height=100 alt="강사 프로필 사진">
+      <div class="d-flex flex-column justify-content-end align-items-end">
+        <h3><?= $user_name ?><span class="top_text"> Teacher</span></h3>
+        <p><span class="top_text">code@even.co.kr</span></p>
+      </div>
     </div>
     <div>
-      <h3>직전달 대비 수익률</h3>
-      <p>3%</p>
+      <a href="">
+        <h3>과정 개설 현황</h3>
+        <p>
+          <span class="top_text">대기</span> 2
+          <span class="top_text"> / 개설</span> 63
+          <span class="top_text"> / 종료</span> 23
+        </p>
+      </a>
     </div>
     <div>
-      <h3>과정 개설 현황</h3>
-      <p><span class="top_text">대기 </span>12 <span class="top_text">/ 개설 </span>1,234</p>
+      <h3>평균 평점</h3>
+      <ul id="rating_star" class="d-flex gap-4 justify-content-center" data-rating="3.5">
+        <li data-value="1"><i class="bi bi-star"></i></li>
+        <li data-value="2"><i class="bi bi-star"></i></li>
+        <li data-value="3"><i class="bi bi-star"></i></li>
+        <li data-value="4"><i class="bi bi-star"></i></li>
+        <li data-value="5"><i class="bi bi-star"></i></li>
+      </ul>
     </div>
     <div>
-      <h3>판매 강좌수</h3>
-      <p>1,234<span class="top_text"> 개</span></p>
-    </div>
-    <div>
-      <h3>오늘 접속자 수</h3>
-      <p>53<span class="top_text"> 명</span></p>
+      <a href="">
+        <h3>미답변 질문</h3>
+        <p>2<span class="top_text"> 건</span></p>
+      </a>
     </div>
   </div>
   <div class="bottom_wrapper d-flex justify-content-between">
@@ -59,19 +81,19 @@ if (!isset($_SESSION['AUID'])) {
         <div class="row g-0 text-center">
           <div class="p-2 col-2 sst">매출 1위</div>
           <div class="p-2 col-5 text-truncate">[HTML]홈페이지 기본 메뉴부터 투명한 메뉴, 방향전환까지 완벽 마스터</div>
-          <div class="p-2 col-2">김동주</div>
+          <div class="p-2 col-2"><?=$_SESSION['AUNAME'];?></div>
           <div class="p-2 col-3">812,345 <span>원</span></div>
         </div>
         <div class="row g-0 text-center">
           <div class="p-2 col-2 sst">매출 2위</div>
           <div class="p-2 col-5 text-truncate">입문자도 실무에서 바로 써먹는 PHP 기초부터 시니어까지</div>
-          <div class="p-2 col-2">김동주</div>
+          <div class="p-2 col-2"><?=$_SESSION['AUNAME'];?></div>
           <div class="p-2 col-3">712,345<span>원</span></div>
         </div>
         <div class="row g-0 text-center">
           <div class="p-2 col-2 sst">매출 3위</div>
           <div class="p-2 col-5 text-truncate">REACT 커리어를 갈아끼워드립니다</div>
-          <div class="p-2 col-2">김동주</div>
+          <div class="p-2 col-2"><?=$_SESSION['AUNAME'];?></div>
           <div class="p-2 col-3">612,345<span>원</span></div>
         </div>
       </div>
