@@ -46,6 +46,7 @@ $_SESSION['AUNAME'] = $username;
   }
   switch ($page) {
     case 'user_list.php':
+    case 'user_edit.php':
       echo '<link rel="stylesheet" href="http://' . $_SERVER['HTTP_HOST'] . '/code_even/admin/css/user.css">';
       break;
   }
