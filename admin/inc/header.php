@@ -7,9 +7,6 @@ if (!isset($title)) {
   $title = '';
 }
 
-
-include_once($_SERVER['DOCUMENT_ROOT'] . '/CODE_EVEN/admin/inc/header.php');
-
 $current_page = basename($_SERVER['REQUEST_URI'], ".php");
 $level = $_SESSION['AULEVEL'];
 ?>
@@ -176,8 +173,8 @@ $level = $_SESSION['AULEVEL'];
           <a class="nav-link profile_image" href="#"></a>
         </li>
         <li class="nav-item dropdown d-flex align-items-center">
-          <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button"
-            aria-expanded="false"></a>
+          <button class="nav-link dropdown-toggle" data-bs-toggle="dropdown"
+            aria-expanded="false"></button>
           <ul class="dropdown-menu">
             <?php if ($level == 100): ?>
               <li><a class="dropdown-item"
@@ -222,15 +219,13 @@ $level = $_SESSION['AULEVEL'];
         <ul class="list-group line">
           <?php if ($level == 100): ?>
             <li class="list-group-item" data-link="category">
-              <a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/category/category.php">
-                <i class="bi bi-tags"></i> 　 카테고리 관리
+              <a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/category/category.php">　<i class="bi bi-tags"></i> 　 카테고리 관리
               </a>
             </li>
           <?php endif; ?>
-          <li class="pr list-group-item" data-link="lecture">
-            <i class="bi bi-collection-play"></i> 　 강좌 관리
+          <li class="pr list-group-item" data-link="lecture">　<i class="bi bi-collection-play"></i> 　 강좌 관리
             <button class="btn btn-toggle collapsed" data-bs-toggle="collapse" data-bs-target="#lecture_collapse"
-              href="#" aria-expanded="false"><i class="bi bi-chevron-down"></i></button>
+              aria-expanded="false"><i class="bi bi-chevron-down"></i></button>
             <ul class="collapse btn-toggle-nav" id="lecture_collapse">
               <li class="list-group-item dropdown-item"><a
                   href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/lecture/lecture_list.php">　　-　강좌 목록</a>
@@ -246,8 +241,8 @@ $level = $_SESSION['AULEVEL'];
             </ul>
           </li>
           <li class="pr list-group-item" data-link="book">　<i class="bi bi-book"></i> 　 교재 관리
-            <button class="btn btn-toggle collapsed" data-bs-toggle="collapse" data-bs-target="#book_collapse" href="#"
-              aria-expanded="false"><i class="bi bi-chevron-down"></i></button>
+            <button class="btn btn-toggle collapsed" data-bs-toggle="collapse" data-bs-target="#book_collapse" 
+            aria-expanded="false"><i class="bi bi-chevron-down"></i></button>
             <ul class="collapse btn-toggle-nav" id="book_collapse">
               <li class="list-group-item dropdown-item"><a href="">　　-　교재 목록</a></li>
               <li class="list-group-item dropdown-item"><a href="">　　-　교재 등록</a></li>
@@ -264,7 +259,7 @@ $level = $_SESSION['AULEVEL'];
           <?php endif; ?>
           <li class="pr list-group-item" data-link="student">　<i class="bi bi-mortarboard"></i> 　 수강생 관리
             <button class="btn btn-toggle collapsed" data-bs-toggle="collapse" data-bs-target="#student_collapse"
-              href="#" aria-expanded="false"><i class="bi bi-chevron-down"></i></button>
+              aria-expanded="false"><i class="bi bi-chevron-down"></i></button>
             <ul class="collapse btn-toggle-nav" id="student_collapse">
               <li class="list-group-item dropdown-item"><a
                   href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/student/student_list.php">　　-　수강생 목록</a>
@@ -305,7 +300,7 @@ $level = $_SESSION['AULEVEL'];
           <?php endif; ?>
           <li class="pr list-group-item">　<i class="bi bi-graph-up-arrow"></i> 　 매출통계 관리
             <button class="btn btn-toggle collapsed" data-bs-toggle="collapse" data-bs-target="#statistics_collapse"
-              href="#" aria-expanded="false"><i class="bi bi-chevron-down"></i></button>
+              aria-expanded="false"><i class="bi bi-chevron-down"></i></button>
             <ul class="collapse btn-toggle-nav" id="statistics_collapse">
               <li class="list-group-item dropdown-item"><a href="">　　-　강의 매출통계</a></li>
               <li class="list-group-item dropdown"><a href="">　　-　교재 매출통계</a></li>
@@ -316,7 +311,7 @@ $level = $_SESSION['AULEVEL'];
         <ul class="list-group line">
           <li class="pr list-group-item" data-link="inquiry">　<i class="bi bi-patch-question"></i> 　 문의 게시판 관리
             <button class="btn btn-toggle collapsed" data-bs-toggle="collapse" data-bs-target="#bulletinboard_collapse"
-              href="#" aria-expanded="false"><i class="bi bi-chevron-down"></i></button>
+            aria-expanded="false"><i class="bi bi-chevron-down"></i></button>
             <ul class="collapse btn-toggle-nav" id="bulletinboard_collapse">
               <li class="list-group-item dropdown-item"><a
                   href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/inquiry/notice.php">　　-　전체 공지사항</a></li>
@@ -341,7 +336,7 @@ $level = $_SESSION['AULEVEL'];
           <?php if ($level == 100): ?>
             <li class="pr list-group-item" data-link="community">　<i class="bi bi-chat-dots"></i> 　 커뮤니티 관리
               <button class="btn btn-toggle collapsed" data-bs-toggle="collapse" data-bs-target="#community_collapse"
-                href="#" aria-expanded="false"><i class="bi bi-chevron-down"></i></button>
+                aria-expanded="false"><i class="bi bi-chevron-down"></i></button>
               <ul class="collapse btn-toggle-nav" id="community_collapse">
                 <li class="list-group-item dropdown-item"><a
                     href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/community/counsel.php">　　-　고민상담</a></li>

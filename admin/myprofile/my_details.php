@@ -79,8 +79,8 @@ include_once($_SERVER['DOCUMENT_ROOT'] . '/code_even/admin/inc/header.php');
   <p>* 상점 정보에 대한 수정은 좌측 하단 "상점 관리"에서 가능합니다. </p>
 
   <div class="d-flex justify-content-end gap-2">
-    <a href="javascript:history.back();" type="button" class="btn btn-outline-danger">취소</a>
-    <a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/index.php" type="button" class="btn btn-outline-secondary">수정</a>
+    <a href="javascript:history.back();" ><button class="btn btn-outline-danger">취소</button></a>
+    <a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/index.php"><button class="btn btn-outline-secondary">수정</button></a>
   </div>
 </div>
 
