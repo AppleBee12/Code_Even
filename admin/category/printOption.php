@@ -1,6 +1,6 @@
 <!-- html형식으로 옵션을 출력해서 알려준다. -->
 <?php
-include_once($_SERVER['DOCUMENT_ROOT'] . '/CODE_EVEN/admin/inc/dbcon.php');
+include_once($_SERVER['DOCUMENT_ROOT'] . '/code_even/admin/inc/dbcon.php');
 
 /* 
 1. 세 개의 인수를 변수에 담는다.
@@ -17,7 +17,7 @@ include_once($_SERVER['DOCUMENT_ROOT'] . '/CODE_EVEN/admin/inc/dbcon.php');
 $cate = $_POST['cate'];
 $step = $_POST['step'];
 $category = $_POST['category'];
-
+print_r($cate);
 $sql = "SELECT * FROM category WHERE step = $step and pcode = '$cate' ";
 $result = $mysqli->query($sql);
 
@@ -29,4 +29,5 @@ while($data = $result->fetch_object()){
 var_dump($_POST); // POST 데이터 확인
 
 echo $html;
+$mysqli->close();
 ?>
