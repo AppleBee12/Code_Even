@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- 생성 시간: 24-11-18 05:22
+-- 생성 시간: 24-11-18 06:51
 -- 서버 버전: 10.4.32-MariaDB
 -- PHP 버전: 8.2.12
 
@@ -111,6 +111,13 @@ CREATE TABLE `lecture` (
   `date` datetime NOT NULL DEFAULT current_timestamp() COMMENT '날짜'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- 테이블의 덤프 데이터 `lecture`
+--
+
+INSERT INTO `lecture` (`leid`, `lecid`, `cate1`, `cate2`, `cate3`, `image`, `title`, `des`, `name`, `video_url`, `file`, `period`, `isrecipe`, `isgeneral`, `isbest`, `isrecom`, `state`, `approval`, `price`, `level`, `date`) VALUES
+(1, 0, 'A0001', 'B0001', 'C0001', '', '기초부터 확실하게! (페이지의 내용 전달을 위한 HTML, 스타일 설정을 위한 CSS 기초 학습)', '초보자를 위한 쉽고 재미있는 HTML, CSS 기초입니다. 천천히 보면서 이해하면서 따라해 보세요!', '홍길동', 'https://youtu.be/oHTr2fEkmGA?si=fNAGT0cPExpzwXDM', NULL, 30, '', '', '', '', 1, 1, 15000, 50, '2024-11-18 14:40:26');
+
 -- --------------------------------------------------------
 
 --
@@ -142,6 +149,13 @@ CREATE TABLE `levideo` (
   `orders` int(11) NOT NULL COMMENT '강의 순서'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='강의';
 
+--
+-- 테이블의 덤프 데이터 `levideo`
+--
+
+INSERT INTO `levideo` (`vdid`, `lecpid`, `lepid`, `video_url`, `uploaded`, `orders`) VALUES
+(1, 1, 0, 'https://youtu.be/oHTr2fEkmGA?si=fNAGT0cPExpzwXDM', '2024-11-18 05:45:33', 1);
+
 -- --------------------------------------------------------
 
 --
@@ -149,7 +163,7 @@ CREATE TABLE `levideo` (
 --
 
 CREATE TABLE `quiz` (
-  `Exid` int(11) NOT NULL COMMENT '번호',
+  `exid` int(11) NOT NULL COMMENT '번호',
   `tid` int(11) NOT NULL COMMENT '강사id',
   `cate1` varchar(50) NOT NULL COMMENT '대분류',
   `cate2` varchar(50) NOT NULL COMMENT '중분류',
@@ -161,6 +175,20 @@ CREATE TABLE `quiz` (
   `explan` text NOT NULL COMMENT '해설',
   `pnlevel` tinyint(4) NOT NULL COMMENT '문제 수준'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='퀴즈';
+
+-- --------------------------------------------------------
+
+--
+-- 테이블 구조 `stuscores`
+--
+
+CREATE TABLE `stuscores` (
+  `exid` int(11) NOT NULL COMMENT '번호',
+  `stu_id` int(11) NOT NULL COMMENT '수강생id',
+  `score` int(11) NOT NULL COMMENT '점수',
+  `answer` varchar(100) NOT NULL COMMENT '제출한 정답',
+  `pnlevel` tinyint(4) NOT NULL COMMENT '수준당 점수'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='수강생 점수 관리';
 
 -- --------------------------------------------------------
 
@@ -220,7 +248,13 @@ ALTER TABLE `levideo`
 -- 테이블의 인덱스 `quiz`
 --
 ALTER TABLE `quiz`
-  ADD PRIMARY KEY (`Exid`);
+  ADD PRIMARY KEY (`exid`);
+
+--
+-- 테이블의 인덱스 `stuscores`
+--
+ALTER TABLE `stuscores`
+  ADD PRIMARY KEY (`exid`);
 
 --
 -- 테이블의 인덱스 `test`
@@ -248,7 +282,7 @@ ALTER TABLE `lecdraft`
 -- 테이블의 AUTO_INCREMENT `lecture`
 --
 ALTER TABLE `lecture`
-  MODIFY `leid` int(11) NOT NULL AUTO_INCREMENT COMMENT '번호';
+  MODIFY `leid` int(11) NOT NULL AUTO_INCREMENT COMMENT '번호', AUTO_INCREMENT=2;
 
 --
 -- 테이블의 AUTO_INCREMENT `lefile`
@@ -260,13 +294,19 @@ ALTER TABLE `lefile`
 -- 테이블의 AUTO_INCREMENT `levideo`
 --
 ALTER TABLE `levideo`
-  MODIFY `vdid` int(11) NOT NULL AUTO_INCREMENT COMMENT '동영상 ID';
+  MODIFY `vdid` int(11) NOT NULL AUTO_INCREMENT COMMENT '동영상 ID', AUTO_INCREMENT=2;
 
 --
 -- 테이블의 AUTO_INCREMENT `quiz`
 --
 ALTER TABLE `quiz`
-  MODIFY `Exid` int(11) NOT NULL AUTO_INCREMENT COMMENT '번호';
+  MODIFY `exid` int(11) NOT NULL AUTO_INCREMENT COMMENT '번호';
+
+--
+-- 테이블의 AUTO_INCREMENT `stuscores`
+--
+ALTER TABLE `stuscores`
+  MODIFY `exid` int(11) NOT NULL AUTO_INCREMENT COMMENT '번호';
 
 --
 -- 테이블의 AUTO_INCREMENT `test`
@@ -278,4 +318,3 @@ COMMIT;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
-
