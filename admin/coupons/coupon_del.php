@@ -9,8 +9,8 @@ if (!isset($_SESSION['AUID'])) {
   location.href='../login/login.php';
   </script>";
 }
-$cid = $_GET['cpid'];
-if (!isset($cid)) {
+$cpid = $_GET['cpid'];
+if (!isset($cpid)) {
   echo "<script>alert('쿠폰정보가 없습니다.'); 
   location.href = 'coupons.php';</script>";
 }
@@ -29,7 +29,7 @@ $coupon_del_result = $mysqli->query($coupon_del_sql);
 //삭제 완료후 쿠폰 목록으로 이동
 if($coupon_del_result){
   echo "<script>
-    alert('쿠폰 삭제 완료');
+    alert('쿠폰삭제 완료');
     location.href = 'coupons.php';
   </script>";
 }
