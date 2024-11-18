@@ -1,53 +1,6 @@
 <?php
 include_once($_SERVER['DOCUMENT_ROOT'] . '/CODE_EVEN/admin/inc/header.php');
 ?>
-<style>
-
-  .cent small{
-    color: var(--bk400);
-    font-size: 12px;
-    font-weight: normal;
-  }
-    /* 테이블 고정 너비와 레이아웃 */
-  table {
-    width: 100%;
-    table-layout: fixed;
-    border-spacing: 0 8px; /* 행 사이에만 8px 간격을 줍니다 */
-    border-collapse: separate;
-  }
-
-  table, th, td {
-    border: none;
-  }
-
-  .content_bar{
-    margin-top: 50px;
-  }
-
-  .custom-gap{
-    gap: 100px;
-  }
-
-  .video{
-  margin-top: 10px;
-  height: 48px;
-  background-color: var(--bk50);
-  border-color: var(--200);
-
-  h5{
-    margin-left: 24px;
-  }
-
-  i{
-    margin-right: 24px;
-  }
-}
-
-.input-group span{
-  height: 38px;
-}
-
-</style>
 
 <div class="container">
   <h2>퀴즈 / 시험 등록</h2>
