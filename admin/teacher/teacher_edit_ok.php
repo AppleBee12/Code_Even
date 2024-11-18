@@ -1,5 +1,6 @@
 <?php
 include_once($_SERVER['DOCUMENT_ROOT'] . '/CODE_EVEN/admin/inc/dbcon.php');
+include_once($_SERVER['DOCUMENT_ROOT'].'/code_even/admin/inc/file_upload_func.php');
 
   $tcid = $_POST['tcid'];
 
@@ -19,7 +20,7 @@ include_once($_SERVER['DOCUMENT_ROOT'] . '/CODE_EVEN/admin/inc/dbcon.php');
   $tc_intro = rawurldecode($_POST['tc_intro']);
 
   //print_r($tc_intro);
-
+/* 함수로 이동
   //썸네일 변경 되었다면
   if(isset($_FILES['tc_thumbnail']) && $_FILES['tc_thumbnail']['error'] == UPLOAD_ERR_OK){
     //파일 사이즈 검사
@@ -58,6 +59,26 @@ include_once($_SERVER['DOCUMENT_ROOT'] . '/CODE_EVEN/admin/inc/dbcon.php');
     }
   }
 
+*/
+
+  $thumbnailPath = '';
+  if (isset($_FILES['tc_thumbnail']) && $_FILES['tc_thumbnail']['error'] == UPLOAD_ERR_OK) {
+      // 현재 파일이 위치한 상위 폴더 이름 가져오기
+      $parentDirName = basename(dirname(__DIR__)); //ex)teachers, student
+
+      // 파일 업로드 호출
+      $uploadResult = fileUpload($_FILES['tc_thumbnail'], $parentDirName);
+      if ($uploadResult) {
+          $thumbnailPath = $uploadResult; // 성공 시 경로 설정
+      } else {
+          echo "<script>
+              alert('파일 첨부할 수 없습니다.');
+              history.back();
+          </script>";
+          exit;
+      }
+  }
+
 
 
   //썸네일의 값이 없고
@@ -75,11 +96,11 @@ include_once($_SERVER['DOCUMENT_ROOT'] . '/CODE_EVEN/admin/inc/dbcon.php');
     isrecom = $isrecom,
     tc_intro = '$tc_intro'";
 
-  // thumbnail 값이 존재할 때만 thumbnail 컬럼을 업데이트
 
-  if (isset($_FILES['tc_thumbnail']) && $_FILES['tc_thumbnail']['error'] == UPLOAD_ERR_OK)  {
-    $sql .= ", tc_thumbnail = '$thumbnail'";
-  }
+  // thumbnail 값이 존재할 때만 thumbnail 컬럼을 업데이트
+  if ($thumbnailPath) {
+    $sql .= ", tc_thumbnail = '$thumbnailPath'";
+}
 
   $sql .= " WHERE tcid = $tcid";
   $result = $mysqli->query($sql); //teachers테이블에 강사정보 입력(생성)
