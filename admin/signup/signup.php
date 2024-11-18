@@ -63,7 +63,7 @@
 
 
           <div class="form-check mt-3">
-            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+            <input class="form-check-input" type="checkbox" value="" id="agree">
             <label class="form-check-label" for="flexCheckDefault" checked >
               [필수] 개인정보 수집  및 이용에 동의합니다.
             </label>
@@ -82,6 +82,17 @@
 
 
   <script>
+  $(document).ready(function(){
+    $(".signup_con").on("submit", function(event){
+      // 체크박스가 체크되지 않은 경우
+      if(!$("#agree").is(":checked")){
+        alert("이용약관에 동의해 주세요.");
+        event.preventDefault(); // 폼 제출 중단
+      }
+    });
+  });
+
+
     let idChecked = false;
 
     $('#idcheck').click(function(){
