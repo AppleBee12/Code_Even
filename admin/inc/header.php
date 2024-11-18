@@ -9,6 +9,9 @@ if (!isset($title)) {
 
 $current_page = basename($_SERVER['REQUEST_URI'], ".php");
 $level = $_SESSION['AULEVEL'];
+
+$_SESSION['AUNAME'] = $username;
+// $_SESSION['AULEVEL'] = $user_level;
 ?>
 
 <!DOCTYPE html>
@@ -165,7 +168,12 @@ $level = $_SESSION['AULEVEL'];
         </div>
       </div>
       <div class="greet_name bd">
-        <p><?= $_SESSION['AUNAME'] ?> 님</p>
+        <p>
+        <?php if(isset($_SESSION['AUNAME'])):?>  
+        <?= $_SESSION['AUNAME'] ?> 님
+        <?php else: ?>
+            <span>로그인이 필요합니다.</span>
+        <?php endif; ?>
         <p>환영합니다.</p>
       </div>
       <ul class="nav nav-pills">
