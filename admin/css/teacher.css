@@ -21,6 +21,10 @@
   margin: 0 auto;
 }
 
+.content_bar{
+  margin-top: 50px;
+}
+
 /* 프로필 이미지 업로드 */
 .upload{
   width: 100px;
