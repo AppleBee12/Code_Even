@@ -106,6 +106,11 @@ $level = $_SESSION['AULEVEL'];
       echo '<link rel="stylesheet" href="http://' . $_SERVER['HTTP_HOST'] . '/code_even/admin/css/t_main.css">';
       break;
   }
+  switch ($page) {
+    case 'counsel.php':
+      echo '<link rel="stylesheet" href="http://' . $_SERVER['HTTP_HOST'] . '/code_even/admin/css/counsel.css">';
+      break;
+  }
   ?>
 
   <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
@@ -280,7 +285,7 @@ $level = $_SESSION['AULEVEL'];
         </ul>
         <ul class="list-group line">
           <?php if ($level == 100): ?>
-            <li class="pr list-group-item" data-link="pay">　<i class="bi bi-truck"></i> 　 결제/배송 관리
+            <li class="pr list-group-item" data-link="orders">　<i class="bi bi-truck"></i> 　 결제/배송 관리
               <button class="btn btn-toggle collapsed" data-bs-toggle="collapse" data-bs-target="#payment_collapse"
                 aria-expanded="false"><i class="bi bi-chevron-down"></i></button>
               <ul class="collapse btn-toggle-nav" id="payment_collapse">
