@@ -9,6 +9,9 @@ if (!isset($title)) {
 
 $current_page = basename($_SERVER['REQUEST_URI'], ".php");
 $level = $_SESSION['AULEVEL'];
+
+$_SESSION['AUNAME'] = $username;
+// $_SESSION['AULEVEL'] = $user_level;
 ?>
 
 <!DOCTYPE html>
@@ -39,6 +42,11 @@ $level = $_SESSION['AULEVEL'];
   switch ($page) {
     case 'index.php':
       echo '<link rel="stylesheet" href="http://' . $_SERVER['HTTP_HOST'] . '/code_even/admin/css/main.css">';
+      break;
+  }
+  switch ($page) {
+    case 'user_list.php':
+      echo '<link rel="stylesheet" href="http://' . $_SERVER['HTTP_HOST'] . '/code_even/admin/css/user.css">';
       break;
   }
   switch ($page) {
@@ -101,6 +109,11 @@ $level = $_SESSION['AULEVEL'];
       echo '<link rel="stylesheet" href="http://' . $_SERVER['HTTP_HOST'] . '/code_even/admin/css/t_main.css">';
       break;
   }
+  switch ($page) {
+    case 'counsel.php':
+      echo '<link rel="stylesheet" href="http://' . $_SERVER['HTTP_HOST'] . '/code_even/admin/css/counsel.css">';
+      break;
+  }
   ?>
 
   <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
@@ -160,7 +173,12 @@ $level = $_SESSION['AULEVEL'];
         </div>
       </div>
       <div class="greet_name bd">
-        <p><?= $_SESSION['AUNAME'] ?> 님</p>
+        <p>
+        <?php if(isset($_SESSION['AUNAME'])):?>  
+        <?= $_SESSION['AUNAME'] ?> 님
+        <?php else: ?>
+            <span>로그인이 필요합니다.</span>
+        <?php endif; ?>
         <p>환영합니다.</p>
       </div>
       <ul class="nav nav-pills">
@@ -246,7 +264,7 @@ $level = $_SESSION['AULEVEL'];
         </ul>
         <ul class="list-group line">
           <?php if ($level == 100): ?>
-            <li class="list-group-item" data-link="user">　<a href=""><i class="bi bi-people"></i> 　 전체 회원 관리</a></li>
+            <li class="list-group-item" data-link="user">　<a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/user/user_list.php"><i class="bi bi-people"></i> 　 전체 회원 관리</a></li>
             <li class="list-group-item" data-link="teacher"><a
                 href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/teacher/teacher_list.php">　<i
                   class="bi bi-incognito"></i> 　 강사 관리</a>
@@ -275,7 +293,7 @@ $level = $_SESSION['AULEVEL'];
         </ul>
         <ul class="list-group line">
           <?php if ($level == 100): ?>
-            <li class="pr list-group-item" data-link="pay">　<i class="bi bi-truck"></i> 　 결제/배송 관리
+            <li class="pr list-group-item" data-link="orders">　<i class="bi bi-truck"></i> 　 결제/배송 관리
               <button class="btn btn-toggle collapsed" data-bs-toggle="collapse" data-bs-target="#payment_collapse"
                 aria-expanded="false"><i class="bi bi-chevron-down"></i></button>
               <ul class="collapse btn-toggle-nav" id="payment_collapse">

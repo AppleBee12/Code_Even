@@ -1,0 +1,12 @@
+.list_table tbody tr td:nth-child(3),
+.list_table tbody tr td:nth-child(3) a{
+  max-width: 220px;
+}
+.list_table tbody tr td:nth-child(4),
+.list_table tbody tr td:nth-child(4) a{
+  max-width: 320px;
+}
+
+td.editor div#summernote{
+  width: 150px;
+}
