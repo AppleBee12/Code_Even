@@ -76,8 +76,8 @@ INSERT INTO `admin_question` (`aqid`, `uid`, `category`, `qtitle`, `qcontent`, `
 CREATE TABLE `class_data` (
   `cdid` int(11) NOT NULL COMMENT '수강데이터ID',
   `uid` int(11) DEFAULT NULL COMMENT '회원고유번호',
-  `leid` int(11) NOT NULL COMMENT '강좌고유번호',
-  `exid` int(11) NOT NULL COMMENT '점수관리ID',
+  `leid` int(11) DEFAULT NULL COMMENT '강좌고유번호',
+  `exid` int(11) DEFAULT NULL COMMENT '점수관리ID',
   `course_cert` varchar(255) NOT NULL COMMENT '수강이수증',
   `progress_rate` decimal(10,0) NOT NULL COMMENT '진도율'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='수강데이터';
