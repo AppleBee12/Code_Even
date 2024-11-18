@@ -4,6 +4,10 @@
   width: 480px;
 }
 
+.address_num{
+  width: 360px;
+}
+
 .info_table {
   border-color: var(--bk0);
 }
@@ -20,6 +24,12 @@
 .rounded_circle{
   border-radius: 50% !important;
 }
+
+
+.content_bar{
+  margin-top: 50px;
+}
+
 
 
 /* 프로필 이미지 업로드 */

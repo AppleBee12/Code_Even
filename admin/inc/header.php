@@ -10,12 +10,6 @@ if (!isset($title)) {
 
 include_once($_SERVER['DOCUMENT_ROOT'] . '/CODE_EVEN/admin/inc/header.php');
 
-if (!isset($_SESSION['AUID'])) {
-  echo "<script>
-  alert('로그인을 해주세요');
-  location.href='login/login.php';
-  </script>";
-}
 $current_page = basename($_SERVER['REQUEST_URI'], ".php");
 $level = $_SESSION['AULEVEL'];
 ?>
@@ -54,6 +48,8 @@ $level = $_SESSION['AULEVEL'];
     case 'teacher_list.php':
     case 'teacher_edit.php':
     case 'my_details.php':
+    case 'teacher_details.php':
+    case 'store.php':
       echo '<link rel="stylesheet" href="http://' . $_SERVER['HTTP_HOST'] . '/code_even/admin/css/teacher.css">';
       break;
   }
@@ -121,6 +117,12 @@ $level = $_SESSION['AULEVEL'];
   }
   if (isset($t_main_js)) {
     echo $t_main_js;
+  }
+  if (isset($address_js)) {
+    echo $address_js;
+  }
+  if (isset($store_js)) {
+    echo $store_js;
   }
 
   ?>
