@@ -43,6 +43,7 @@ while($data = $result->fetch_object()){
       <thead>
         <tr>
           <th scope="col">번호</th>
+          <th scope="col">프로필이미지</th>
           <th scope="col">아이디</th>
           <th scope="col">이름</th>
           <th scope="col">이메일</th>
@@ -62,6 +63,9 @@ while($data = $result->fetch_object()){
             <input type="hidden" name="tcid[]" value="<?= $item->tcid; ?>">
             <?= $item->tcid; ?>
           </th>
+          <td>
+            <img src="<?= $item->tc_thumbnail; ?>" class="rounded_circle" width = 35 height = 35 alt="">
+          </td> 
           <td><?= $item->tc_userid; ?></td> 
           <td><?= $item->tc_name; ?></td> 
           <td><?= $item->tc_email; ?></td>
@@ -76,13 +80,13 @@ while($data = $result->fetch_object()){
           <td>
             <div class="form-check d-inline-block me-2">
               <input class="form-check-input" type="checkbox" <?php echo $item->isnew ? 'checked' : ''; ?> name="isnew[<?= $item->tcid; ?>]" value="<?= $item->isnew ?>" id="flexCheckDefault">
-              <label class="form-check-label" for="flexCheckDefault">
+              <label class="form-check-label" for="isnew">
                 신규
               </label>
             </div>
             <div class="form-check d-inline-block">
               <input class="form-check-input" type="checkbox" <?php echo $item->isrecom ? 'checked' : ''; ?> name="isrecom[<?= $item->tcid; ?>]" value="<?= $item->isrecom ?>" id="flexCheckDefault">
-              <label class="form-check-label" for="flexCheckDefault">
+              <label class="form-check-label" for="isrecom">
                 추천
               </label>
             </div>

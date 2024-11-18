@@ -3,9 +3,7 @@
   include_once($_SERVER['DOCUMENT_ROOT'] . '/code_even/admin/inc/header.php');
 
   $tcid = $_GET['tcid'];
-  if (!isset($tcid)) {
-    echo "<script>alert('강사 정보가 없습니다.'); location.href = 'teacher_list.php';</script>";
-  }
+
 
   $sql = "SELECT * FROM teachers WHERE tcid = $tcid";
   $result = $mysqli->query($sql);
@@ -19,8 +17,8 @@
   <div class="content_bar">
     <h3>강사 상세정보</h3>
   </div>
-  <form action="teacher_edit_ok.php" id="teacher_save"  method="POST">
-    <input type="hidden" name="tcid" value="<?= $tcid; ?>">
+  <form action="teacher_edit_ok.php" id="teacher_save" method="POST" enctype="multipart/form-data">
+    <input type="hidden" name="tcid" value="<?= $data->tcid; ?>">
     <input type="hidden" name="tc_intro" id="tc_intro" value="">
     <div class="upload mt-5 mb-3">
       <img id="thumbnail_preview" src="<?= $data->tc_thumbnail; ?>" width = 100 height = 100 alt="">
@@ -42,44 +40,43 @@
         <tr>
           <th scope="row">이름 <b>*</b></th>
           <td>
-            <input type="text" class="form-control" id="exampleFormControlInput1" value="<?= $data->tc_name; ?>" required>
+            <input type="text" class="form-control" id="exampleFormControlInput1" name="tc_name" value="<?= $data->tc_name; ?>" required>
           </td>
           <th scope="row">링크</th>
           <td>
-            <input type="text" class="form-control" id="exampleFormControlInput1" value="<?= $data->tc_url; ?>">
+            <input type="text" class="form-control" id="exampleFormControlInput1" name="tc_url" value="<?= $data->tc_url; ?>">
           </td>
         </tr>
         <tr>
           <th scope="row">아이디 <b>*</b></th>
           <td>
-            <input type="text" class="form-control" id="exampleFormControlInput1" value="<?= $data->tc_userid; ?>">
+            <input type="text" class="form-control" id="exampleFormControlInput1" name="tc_userid" value="<?= $data->tc_userid; ?>">
           </td>
           <th scope="row">은행명</th>
           <td>
-            <input type="text" class="form-control" id="exampleFormControlInput1" value="<?= $data->tc_bank; ?>">
+            <input type="text" class="form-control" id="exampleFormControlInput1" name="tc_bank" value="<?= $data->tc_bank; ?>">
           </td>
         </tr>
         <tr>
           <th scope="row">연락처 <b>*</b></th>
           <td>
-            <input type="text" class="form-control" id="exampleFormControlInput1" value="<?= $data->tc_name; ?>">
+            <input type="text" class="form-control" id="tc_phone" name="tc_userphone" value="<?= $data->tc_userphone; ?>">
           </td>
           <th scope="row">계좌번호</th>
           <td>
-            <input type="text" class="form-control" id="exampleFormControlInput1" value="<?= $data->tc_account; ?>">
+            <input type="text" class="form-control" id="exampleFormControlInput1" name="tc_account"  value="<?= $data->tc_account; ?>">
           </td>
         </tr>
         <tr>
           <th scope="row">이메일 <b>*</b></th>
           <td colspan="3">
-            <input type="text" class="form-control w_512" id="exampleFormControlInput1" value="<?= $data->tc_email; ?>">
+            <input type="text" class="form-control" id="exampleFormControlInput1" name="tc_email"  value="<?= $data->tc_email; ?>">
           </td>
         </tr>
         <tr>
           <th scope="row">대표분야 <b>*</b></th>
           <td colspan="3">
-            <select class="form-select w_512" aria-label="Default select example">
-
+            <select class="form-select" name="tc_cate" aria-label="대표분야">
               <option value="1" selected>웹개발</option>
               <option value="2">클라우드</option>
               <option value="3">보안</option>
@@ -96,8 +93,14 @@
         <tr>
           <th scope="row">승인상태</th>
           <td>
+            <select class="form-select tc_status" aria-label="승인여부" name="tc_ok" id="tc_ok">
+                <option value="-1" <?php if($data->tc_ok == -1){echo 'selected';}?>>승인거절</option>
+                <option value="0" <?php if($data->tc_ok == 0){echo 'selected';}?>>심사중</option>
+                <option value="1" <?php if($data->tc_ok == 1){echo 'selected';}?>>승인완료</option>
+            </select>
+            <!-- 드롭다운메뉴로 변경, 확정 시 삭제하기
             <div class="form-check form-check-inline">
-              <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="0" <?php if($data->tc_ok == 0){echo 'checked';}?>>
+              <input class="form-check-input" type="radio" name="tc_ok" id="inlineRadio1" value="0" <?php if($data->tc_ok == 0){echo 'checked';}?>>
               <label class="form-check-label" for="inlineRadio1">심사중</label>
             </div>
             <div class="form-check form-check-inline">
@@ -107,7 +110,7 @@
             <div class="form-check form-check-inline">
               <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio3" value="-1" <?php if($data->tc_ok == -1){echo 'checked';}?>> 
               <label class="form-check-label" for="inlineRadio3">승인거절</label>
-            </div>
+            </div> -->
           </td>
         <th scope="row">강사전시옵션</th>
           <td>
@@ -140,12 +143,13 @@
         
       </tbody>
     </table>
+    <div class="d-flex justify-content-end gap-2">
+      <a href="teacher_list.php" type="button" class="btn btn-outline-danger">취소</a>
+      <button class="btn btn-outline-secondary">수정</button>
+    </div>
   </form>
 
-  <div class="d-flex justify-content-end gap-2">
-    <a href="teacher_list.php" type="button" class="btn btn-outline-danger">취소</a>
-    <a href="teacher_list.php" type="button" class="btn btn-outline-secondary">수정</a>
-  </div>
+  
 </div>
 
 
@@ -163,7 +167,27 @@
         }
       }
       reader.readAsDataURL(file); 
-    });
+  });
+
+  const hypenTel = (target) => {
+  target.value = target.value
+    .replace(/[^0-9]/g, '')
+    .replace(/^(\d{2,3})(\d{3,4})(\d{4})$/, `$1-$2-$3`);
+  }
+
+  $('#tc_phone').on('input', function() {
+    hypenTel(this);
+  });
+
+
+    $('table .form-check-input').change(function(){
+    if($(this).prop( "checked" )){
+      $(this).val('1');
+    } else{
+      $(this).val('0');
+    }
+  });
+
 </script>
 
 
