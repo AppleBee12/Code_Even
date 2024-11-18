@@ -96,12 +96,14 @@ thead,
         <tr>
           <th scope="row">쿠폰이미지</th>
           <td>
-          <div class="box mb-3">
+          <div class="box mb-3" id="addedImages">
             <span>쿠폰 이미지를 등록해주세요.</span>
-            <div class="image"><img src="" alt=""></div>
+            <div class="image">
+              <img id="previewImage" class="image"><img src="" alt="">
+            </div>
           </div>
-            <input type="file" accept="image/*" class="form-control w-50" name="coupon_image" value="file" required>
-          </td>
+        </td>
+        <input type="file" multiple accept="image/*" class="form-control w-50" name="coupon_image" id="coupon_image" value="file" required>
         </tr>
         <tr>
         <tr>
@@ -189,101 +191,57 @@ thead,
               <span class="input-group-text" id="max_value">원</span>
             </div>
           </td>
-        </tr>    
-                
+        </tr>   
       </tbody>
     </table>
-    <div class="d-flex justify-content-end">
-      <a href="coupons_up.php" >
-        <button class="btn btn-outline-danger mt-3 ">취소</button>
-        <button class="btn btn-secondary mt-3 ">쿠폰등록</button>
-      </a>
+    <div class="d-flex justify-content-end ">
+        <button class="btn btn-outline-danger mt-3 cancle">취소</button>
+        <button type="submit" class="btn btn-secondary mt-3 ">쿠폰등록</button>
     </div>
   </form>
 </div>
 
 <script>
-  $(document).ready(function() {
-  $('.use-coupon').on('click', function() {
-    let cpid = $(this).closest('li').data('cpid');
-    alert(`쿠폰 ID: ${cpid}를 사용합니다.`);
-    
-    // Ajax 요청 등을 추가하여 쿠폰 사용 처리 가능
-    /*
-    $.ajax({
-      type: 'POST',
-      url: 'use_coupon.php',
-      data: { cpid: cpid },
-      success: function(response) {
-        alert('쿠폰이 성공적으로 사용되었습니다.');
-      },
-      error: function(error) {
-        alert('쿠폰 사용에 실패했습니다.');
-      }
-    });
-    */
-  });
-});
+  // $('#upfile').change(function(){
+  //   let files = $(this).prop('files');
+  //   console.log(files);
+  //   files.foreach((item)=>{ //aattachFile에 일을 시킴 -> 할일
+  //     attachFile(item);
+  //   });
+  // });
+
+  // function attachFile(file){ //파일이 들어오면 할 일
+  //   let formData = new FormData(); //비어있음
+  //   formData.append('savefile',file); //이미지 첨부
+  //   $.ajax({
+  //     url:'coupons_image_save.php',
+  //     data:formData,
+  //     cache: false, //이미지 정보를 브라우저 저장
+  //     contentType:false, //전송되는 데이터 타입
+  //     processData:false, //전송되는 데이터 처리(해석)
+  //     dataType:'json',
+  //     type:'POST',
+  //     success:function(return_data){ //성공한 데이터를 return_data로 받는다. 
+  //       if(return_data.result === 'size'){
+  //         alert('10MB 이하만 첨부할 수 있습니다.');
+  //         return; //아무것도 없는채 내뱉음
+  //       }else if(return_data.result === 'image'){
+  //         alert('이미지만 첨부할 수 있습니다.');
+  //         return; //아무것도 없는채 내뱉음
+  //       }else if(return_data.result === 'error'){
+  //         alert('첨부실패, 관리자에게 문의하세요.');
+  //         return; //아무것도 없는채 내뱉음
+  //       }else{
+  //         $('#addedImages').append('') //
+  //         alert('첨부완료');
+  //       }
+  //     }
+  //   })
+  // }
 
 
-
-
-  $('#ct2 input').prop('disabled', true);
-
-  $('#coupon_type').change(function(){
-    let value = $(this).val();
-    $('#ct1 input, #ct2 input').prop('disabled', true);
-    if(value == 1){
-      $('#ct1 input').prop('disabled', false);
-    } else{
-      $('#ct2 input').prop('disabled', false);
-    }
-  });
-
-
-
-  function attachFile(file){
-
-  let formData = new FormData(); //페이지전환 없이, 폼전송없이(submit 이벤트 없이) 파일 전송, 빈폼을 생성
-  formData.append('coupon_image',file); //<input type="file" name="savefile" value="file"> 이미지 첨부
-
-  $.ajax({
-    url:'product_image_save.php',
-    data:formData,
-    cache: false, //이미지 정보를 브라우저 저장, 안한다
-    contentType:false, //전송되는 데이터 타입지정, 안한다.
-    processData:false, //전송되는 데이터 처리(해석), 안한다.
-    dataType:'json', //product_image_save.php이 반환하는 값의 타입
-    type:'POST', //파일 정보를 전달하는 방법
-    success:function(returned_data){ //product_image_save.php과 연결(성공)되면 할일
-      console.log(returned_data);
-
-      if(returned_data.result === 'size'){
-        alert('10MB 이하만 첨부할 수 있습니다.');
-        return;
-      } else if(returned_data.result === 'image'){
-        alert('이미지만 첨부할 수 있습니다.');
-        return;   
-      } else if(returned_data.result === 'error'){
-        alert('첨부실패, 관리자에게 문의하세요');
-        return;
-      } else{ //파일 첨부가 성공하면
-        let imgids = $('#product_image_id').val() + returned_data.imgid + ',';
-        $('#product_image_id').val(imgids);
-        let html = `
-          <div class="card" style="width: 9rem;" id="${returned_data.imgid}">
-            <img src="${returned_data.savefile}" class="card-img-top" alt="...">
-            <div class="card-body">                
-              <button type="button" class="btn btn-danger btn-sm">삭제</button>
-            </div>
-          </div>
-        `;
-        $('#addedImages').append(html);
-      }
-    }
-
-  })
-  }
+// result size->용량 10메가 넘은것
+//image -> image가아님 
 </script>
 
 
