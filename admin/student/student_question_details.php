@@ -1,6 +1,18 @@
 <?php
 $title = "수강생 관리";
 include_once($_SERVER['DOCUMENT_ROOT'] . '/code_even/admin/inc/header.php');
+
+$sqid = $_GET['sqid'];
+$sql = "SELECT student_qna.*, class_data.*, lecture.*, user.* 
+        FROM student_qna 
+        JOIN class_data ON student_qna.cdid = class_data.cdid
+        JOIN lecture ON class_data.leid = lecture.leid
+        JOIN user ON class_data.uid = user.uid 
+        WHERE sqid = $sqid
+        ";
+$result = $mysqli->query($sql);
+$data = $result->fetch_object();
+
 ?>
 
 <div class="container">
@@ -21,32 +33,28 @@ include_once($_SERVER['DOCUMENT_ROOT'] . '/code_even/admin/inc/header.php');
       </tr>
     </thead>
     <tbody>
-      <tr class="none">
-        <th scope="row">강사명</th>
-        <td>김동주</td>
-      </tr>
       <tr>
         <th scope="row">강좌명</th>
-        <td colspan="3">기초부터 확실하게! (페이지의 내용 전달을 위한 HTML, 스타일 설정을 위한 CSS 기초 학습)</td>
+        <td colspan="3"><?=$data->title;?></td>
       </tr>
       <tr class="none">
         <th scope="row">제목</th>
         <td colspan="3">
           <div>
-            <input type="text" name="title" class="form-control w-75" id="title" placeholder="왜 틀렸는지 모르겠습니다.." disabled>
+            <input type="text" name="title" class="form-control w-75" id="title" value="<?=$data->qtitle;?>" disabled>
           </div>
         </td>
       </tr>
       <tr>
         <th scope="row">이름(아이디)</th>
-        <td>흑백핑(dark1234)</td>
+        <td><?=$data->username;?>(<?=$data->userid;?>)</td>
         <th scope="row">등록일</th>
-        <td>2024/10/19 10:10:10</td>
+        <td><?=$data->regdate;?></td>
       </tr>
       <tr class="none">
         <th scope="row">질문 내용</th>
         <td colspan="3">
-          <textarea name="" id="" class="form-control w-75" placeholder="왜 틀렸는지 모르겠습니다.." disabled></textarea>
+          <textarea name="" id="" class="form-control w-75" disabled><?=$data->qcontent;?></textarea>
         </td>
       </tr>
     </tbody>
@@ -56,8 +64,8 @@ include_once($_SERVER['DOCUMENT_ROOT'] . '/code_even/admin/inc/header.php');
   </div>
   <div class="card">
     <div class="card-header">
-      <img src="" alt="" id="propfile_thumbnail">
-      <p>김동주 강사</p>
+      <img src="https://picsum.photos/200" alt="" id="propfile_thumbnail">
+      <p><?=$data->name;?></p>
     </div>
     <div class="card-body">
       <blockquote class="blockquote mb-0">
