@@ -14,16 +14,6 @@ table, th, td {
   margin-top: 50px;
 }
 
-.cent{
-  position: relative;
-
-  h3{
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-  }
-}
-
 td {
   vertical-align: top; /* 테이블 셀 내 정렬 */
 }
@@ -109,7 +99,7 @@ td {
 
 /* quiz_test */
 
-.cent small{
+.content_bar small{
   color: var(--bk400);
   font-size: 12px;
   font-weight: normal;
