@@ -186,16 +186,30 @@ CREATE TABLE `teachers` (
   `tcid` int(11) NOT NULL COMMENT '강사고유번호',
   `uid` int(11) NOT NULL COMMENT '회원고유번호',
   `cgid` int(11) DEFAULT NULL COMMENT '카테고리고유번호',
+  `tc_userid` varchar(50) NOT NULL COMMENT '회원아이디',
+  `tc_name` varchar(50) NOT NULL COMMENT '회원이름',
+  `tc_userphone` varchar(50) NOT NULL,
+  `tc_email` varchar(100) NOT NULL COMMENT '회원이메일',
   `tc_cate` varchar(50) NOT NULL COMMENT '대표분야',
   `tc_url` varchar(100) DEFAULT NULL COMMENT '사이트링크',
   `tc_thumbnail` varchar(100) DEFAULT NULL COMMENT '프로필이미지',
   `tc_intro` varchar(250) NOT NULL COMMENT '소개글',
   `tc_bank` varchar(50) DEFAULT NULL COMMENT '은행명',
-  `tc_account` int(11) DEFAULT NULL COMMENT '계좌번호',
+  `tc_account` varchar(50) DEFAULT NULL COMMENT '계좌번호',
   `tc_ok` tinyint(4) NOT NULL DEFAULT 0 COMMENT '승인상태(심사중=0)',
   `isrecom` tinyint(4) DEFAULT NULL COMMENT '추천강사여부',
   `isnew` tinyint(4) DEFAULT NULL COMMENT '신규강사여부'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='강사';
+
+--
+-- 테이블의 덤프 데이터 `teachers`
+--
+
+INSERT INTO `teachers` (`tcid`, `uid`, `cgid`, `tc_userid`, `tc_name`, `tc_userphone`, `tc_email`, `tc_cate`, `tc_url`, `tc_thumbnail`, `tc_intro`, `tc_bank`, `tc_account`, `tc_ok`, `isrecom`, `isnew`) VALUES
+(1, 2, 1, 'teacher1', '이코딩', '0', 'teacher1111@gmail.com', '1', '', '/CODE_EVEN/admin/upload/tc_thumb/20241117230347634682.jpg', '안녕하세요, 코딩짱 이코딩 강사입니다.', '신한', '2147483647', 0, 0, 0),
+(2, 3, 1, 'ezweb', '김동주', '0', 'abc@abc.com', '1', '', '/CODE_EVEN/admin/upload/tc_thumb/20241117230149196326.jpg', '안녕하세요, 김동주 강사입니다.', '신한', '2147483647', 1, 0, 1),
+(3, 4, 1, 'tc1', '홍이름', '010-5645-6283', 'abc@abc.com', '1', '', '/CODE_EVEN/admin/upload/tc_thumb/20241117225035107300.jpg', '안녕하세요. 졸림핑이네요.', '', '110222333333', 1, 1, 1);
+
 
 --
 -- 덤프된 테이블의 인덱스
