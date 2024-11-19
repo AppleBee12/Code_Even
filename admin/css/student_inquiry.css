@@ -59,7 +59,9 @@
   p {margin-bottom: 0 !important;}
 }
 
-#propfile_thumbnail {width: 24px; height: 24px;}
+#propfile_thumbnail {width: 24px; height: 24px; margin-right: 10px; border-radius: 20px;}
+
+.card-header p {line-height: 17px;}
 
 /* 페이지네이션 */
 .list_pagination{
@@ -95,3 +97,9 @@
 #content, #acontent {width: 1075px !important; height: 300px;}
 
 #file {margin-top: 25px;}
+
+.bi-star-fill {color: var(--primary)}
+
+p {word-break: break-word; white-space: normal; width: 500px;}
+
+.card {width: 1075px !important;}

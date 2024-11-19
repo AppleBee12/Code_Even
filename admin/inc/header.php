@@ -46,12 +46,14 @@ $_SESSION['AUNAME'] = $username;
   }
   switch ($page) {
     case 'user_list.php':
+    case 'user_edit.php':
       echo '<link rel="stylesheet" href="http://' . $_SERVER['HTTP_HOST'] . '/code_even/admin/css/user.css">';
       break;
   }
   switch ($page) {
     case 'teacher_list.php':
     case 'teacher_edit.php':
+    case 'user_edit.php':
     case 'my_details.php':
     case 'teacher_details.php':
     case 'store.php':
@@ -107,6 +109,11 @@ $_SESSION['AUNAME'] = $username;
   switch ($page) {
     case 'teacher_index.php':
       echo '<link rel="stylesheet" href="http://' . $_SERVER['HTTP_HOST'] . '/code_even/admin/css/t_main.css">';
+      break;
+  }
+  switch ($page) {
+    case 'counsel.php':
+      echo '<link rel="stylesheet" href="http://' . $_SERVER['HTTP_HOST'] . '/code_even/admin/css/counsel.css">';
       break;
   }
   ?>
@@ -288,7 +295,7 @@ $_SESSION['AUNAME'] = $username;
         </ul>
         <ul class="list-group line">
           <?php if ($level == 100): ?>
-            <li class="pr list-group-item" data-link="pay">　<i class="bi bi-truck"></i> 　 결제/배송 관리
+            <li class="pr list-group-item" data-link="orders">　<i class="bi bi-truck"></i> 　 결제/배송 관리
               <button class="btn btn-toggle collapsed" data-bs-toggle="collapse" data-bs-target="#payment_collapse"
                 aria-expanded="false"><i class="bi bi-chevron-down"></i></button>
               <ul class="collapse btn-toggle-nav" id="payment_collapse">
