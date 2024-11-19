@@ -66,6 +66,7 @@ $_SESSION['AUNAME'] = $username;
     case 'my_details.php':
     case 'teacher_details.php':
     case 'store.php':
+    case 'counsel_edit.php':
       echo '<link rel="stylesheet" href="http://' . $_SERVER['HTTP_HOST'] . '/code_even/admin/css/teacher.css">';
       break;
   }
