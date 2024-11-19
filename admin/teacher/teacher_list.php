@@ -17,7 +17,6 @@
   }
 
 
-
   //게시글 분류 검색 추가
   $category_filter = isset($_GET['category']) ? $mysqli->real_escape_string($_GET['category']) : '';
   $where_clause = '';
@@ -114,9 +113,16 @@
             <input type="hidden" name="tcid[]" value="<?= $item->tcid; ?>">
             <?= $item->tcid; ?>
           </th>
-          <td>
+          <!-- <td>
             <img src="<?= !empty($item->tc_thumbnail) ? $item->tc_thumbnail : '../upload/teacher/tc_dummy.png'; ?>" class="rounded_circle" width="35" height="35" alt="프로필 이미지">
-          </td> 
+          </td>  -->
+          <td>
+            <?php 
+              $thumbnail_path = !empty($item->tc_thumbnail) ? $_SERVER['DOCUMENT_ROOT'] . $item->tc_thumbnail : '';
+              $image_src = (!empty($item->tc_thumbnail) && file_exists($thumbnail_path)) ? $item->tc_thumbnail : '/CODE_EVEN/admin/upload/teacher/no_image.png';
+            ?>
+            <img src="<?= $image_src; ?>" class="rounded_circle" width="35" height="35" alt="프로필 이미지">
+          </td>
           <td><?= $item->tc_userid; ?></td> 
           <td><?= $item->tc_name; ?></td> 
           <td><?= $item->tc_email; ?></td>
