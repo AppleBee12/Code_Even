@@ -4,8 +4,8 @@
 [![Issues][issues-shield]][issues-url]
 <div align=center>
   <a href="https://github.com/AppleBee12/Code_Even">
-    <img src="images/sb_logo.png" alt="Logo" width="200" height="150">
-    <p><img src="images/txt_logo.png" alt="Logo" width="309" height="46"></p>
+    <img src="admin/images/sb_logo.png" alt="Logo" width="200" height="150">
+    <p><img src="admin/images/txt_logo.png" alt="Logo" width="309" height="46"></p>
   </a>
   
 

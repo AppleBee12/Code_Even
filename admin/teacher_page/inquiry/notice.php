@@ -94,7 +94,7 @@ while ($data = $result->fetch_object()) {
           <?php
         }
       } else {
-        echo "<tr><td colspan='8'>검색 결과가 없습니다.</td></tr>";
+        echo "<tr><td colspan='10'>검색 결과가 없습니다.</td></tr>";
       }
       ?>
     </tbody>

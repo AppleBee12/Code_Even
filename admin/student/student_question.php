@@ -1,7 +1,6 @@
 <?php
-include_once($_SERVER['DOCUMENT_ROOT']. '/code_even/admin/inc/header.php');
-
-
+$title = "수강생 관리";
+include_once($_SERVER['DOCUMENT_ROOT'] . '/code_even/admin/inc/header.php');
 
 // 게시글 개수 구하기
 $keywords = isset($_GET['keywords']) ? $mysqli->real_escape_string($_GET['keywords']) : '';
@@ -31,14 +30,16 @@ if ($block_end > $total_page) {
   $block_end = $total_page;
 }
 
-$sql = "SELECT student_qna.*, class_data.*, lecture.*, user.* 
+$sql = "SELECT student_qna.*, class_data.*, lecture.*, user.*, teacher_qna.asid 
         FROM student_qna 
+        LEFT JOIN teacher_qna ON student_qna.sqid = teacher_qna.sqid 
         JOIN class_data ON student_qna.cdid = class_data.cdid
         JOIN lecture ON class_data.leid = lecture.leid
         JOIN user ON class_data.uid = user.uid 
         $where_clause 
-        ORDER BY student_qna.cdid DESC 
+        ORDER BY student_qna.sqid DESC 
         LIMIT $start_num, $list";
+
 $result = $mysqli->query($sql);
 
 $dataArr = [];
@@ -53,8 +54,8 @@ while ($data = $result->fetch_object()) {
   <form class="row justify-content-end">
     <div class="col-lg-4">
       <div class="input-group mb-3">
-      <input type="text" class="form-control" placeholder="검색어를 입력하세요." name="keywords"
-      value="<?= htmlspecialchars($keywords); ?>">
+        <input type="text" class="form-control" placeholder="검색어를 입력하세요." name="keywords"
+          value="<?= htmlspecialchars($keywords); ?>">
         <button type="button" class="btn btn-secondary">
           <i class="bi bi-search"></i>
         </button>
@@ -66,9 +67,6 @@ while ($data = $result->fetch_object()) {
     <table class="table list_table">
       <thead>
         <tr>
-          <th scope="col">
-            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-          </th>
           <th scope="col">번호</th>
           <th scope="col">아이디</th>
           <th scope="col">이름</th>
@@ -77,88 +75,82 @@ while ($data = $result->fetch_object()) {
           <th scope="col">강의명</th>
           <th scope="col">등록일</th>
           <th scope="col">상태</th>
-          <th scope="col">관리</th>
         </tr>
       </thead>
       <tbody>
-      <?php
-      if ($dataArr) {
-        foreach ($dataArr as $no) {
-          ?>
-        <tr>
-          <th scope="row">
-            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-          </th>
-          <td><?=$no->sqid;?></td>
-          <td><?=$no->userid;?></td>
-          <td><?=$no->username;?></td>
-          <td><a href="student_question_details.php?sqid=<?=$no->sqid;?>" class="underline"><?=$no->qtitle;?></a></td>
-          <td><?=$no->name;?></td>
-          <td><?= mb_strlen($no->title) > 15 ? mb_substr($no->title, 0, 15) . '...' : $no->title; ?></td>
-          <td><?=$no->regdate;?></td>
-          <td>
-            <span class="badge text-bg-success">답변완료</span>
-          </td>
-          <td>
-            <a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/inquiry/student_question_delete.php?sqid=<?=$no->sqid;?>">
-              <i class="bi bi-trash-fill"></i>
-            </a>
-          </td>
-        </tr>
         <?php
+        if ($dataArr) {
+          foreach ($dataArr as $no) {
+            ?>
+            <tr>
+              <td><?= $no->sqid; ?></td>
+              <td><?= $no->userid; ?></td>
+              <td><?= $no->username; ?></td>
+              <td><a href="student_question_details.php?sqid=<?= $no->sqid; ?>" class="underline"><?= $no->qtitle; ?></a>
+              </td>
+              <td><?= $no->name; ?></td>
+              <td><?= mb_strlen($no->title) > 15 ? mb_substr($no->title, 0, 15) . '...' : $no->title; ?></td>
+              <td><?= $no->regdate; ?></td>
+              <td>
+                <?php
+                $class = !empty($no->asid) ? 'text-bg-success' : 'text-bg-light';
+                $text = !empty($no->asid) ? '답변완료' : '답변대기';
+                echo "<span class='badge $class'>$text</span>";
+                ?>
+              </td>
+            </tr>
+            <?php
+          }
+        } else {
+          echo "<tr><td colspan='10'>검색 결과가 없습니다.</td></tr>";
         }
-      } else {
-        echo "<tr><td colspan='8'>검색 결과가 없습니다.</td></tr>";
-      }
-      ?>
+        ?>
       </tbody>
     </table>
-    <div class="d-flex justify-content-end">
-      <button type="button" class="btn btn-danger">삭제</button>
+
+    <!-- //Pagination -->
+    <div class="list_pagination" aria-label="Page navigation example">
+      <ul class="pagination d-flex justify-content-center">
+        <?php
+        $previous = $block_start - $block_ct;
+        if ($previous < 1)
+          $previous = 1;
+        if ($block_num > 1) {
+          ?>
+          <li class="page-item">
+            <a class="page-link" href="student_question.php?page=<?= $previous; ?>" aria-label="Previous">
+              <i class="bi bi-chevron-left"></i>
+            </a>
+          </li>
+          <?php
+        }
+        ?>
+        <?php
+        for ($i = $block_start; $i <= $block_end; $i++) {
+          $active = ($page == $i) ? 'active' : '';
+          ?>
+          <li class="page-item <?= $active; ?>"><a class="page-link"
+              href="student_question.php?page=<?= $i; ?>"><?= $i; ?></a></li>
+          <?php
+        }
+        $next = $block_end + 1;
+        if ($total_block > $block_num) {
+          ?>
+          <li class="page-item">
+            <a class="page-link" href="student_question.php?page=<?= $next; ?>" aria-label="Next">
+              <i class="bi bi-chevron-right"></i>
+            </a>
+          </li>
+          <?php
+        }
+        ?>
+      </ul>
     </div>
 
-<!-- //Pagination -->
-<div class="list_pagination" aria-label="Page navigation example">
-  <ul class="pagination d-flex justify-content-center">
-    <?php
-    $previous = $block_start - $block_ct;
-    if ($previous < 1)
-      $previous = 1;
-    if ($block_num > 1) {
-      ?>
-      <li class="page-item">
-        <a class="page-link" href="student_question.php?page=<?= $previous; ?>" aria-label="Previous">
-          <i class="bi bi-chevron-left"></i>
-        </a>
-      </li>
-      <?php
-    }
-    ?>
-    <?php
-    for ($i = $block_start; $i <= $block_end; $i++) {
-      $active = ($page == $i) ? 'active' : '';
-      ?>
-      <li class="page-item <?= $active; ?>"><a class="page-link" href="student_question.php?page=<?= $i; ?>"><?= $i; ?></a></li>
-      <?php
-    }
-    $next = $block_end + 1;
-    if ($total_block > $block_num) {
-      ?>
-      <li class="page-item">
-        <a class="page-link" href="student_question.php?page=<?= $next; ?>" aria-label="Next">
-          <i class="bi bi-chevron-right"></i>
-        </a>
-      </li>
-      <?php
-    }
-    ?>
-  </ul>
-</div>
-    
   </form>
 
 </div>
 
 <?php
-include_once($_SERVER['DOCUMENT_ROOT']. '/code_even/admin/inc/footer.php');
+include_once($_SERVER['DOCUMENT_ROOT'] . '/code_even/admin/inc/footer.php');
 ?>

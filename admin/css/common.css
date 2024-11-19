@@ -353,6 +353,17 @@ a {
 }
 
 /* 상세정보 table */
+
+
+.col-width-160 {
+  width: 160px;
+}
+
+.col-width-516 {
+  width: 516px;
+}
+
+
 .nav_sibling h2 {
   /* 임시 */
   margin-bottom: 30px;

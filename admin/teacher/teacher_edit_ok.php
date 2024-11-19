@@ -32,6 +32,9 @@ include_once($_SERVER['DOCUMENT_ROOT'].'/code_even/admin/inc/img_upload_func.php
       $existingThumbnail = $row['tc_thumbnail'];
   }
 
+
+  $thumbnailPath = ''; // 초기화 추가(썸네일 변경 안하는 경우)
+
   if (isset($_FILES['tc_thumbnail']) && $_FILES['tc_thumbnail']['error'] == UPLOAD_ERR_OK) {
       // 기존 파일이 있으면 삭제
       if (!empty($existingThumbnail)) {
@@ -79,7 +82,6 @@ include_once($_SERVER['DOCUMENT_ROOT'].'/code_even/admin/inc/img_upload_func.php
     $sql .= ", tc_thumbnail = '$thumbnailPath'";
   }
   /* ---------------- 이미지 업로드 업데이트 sql 끝 --------------------- */
-
 
 
 

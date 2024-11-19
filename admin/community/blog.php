@@ -1,5 +1,5 @@
 <?php
-$title = "고민 상담";
+$title = "블로그";
 
 include_once($_SERVER['DOCUMENT_ROOT'] . '/CODE_EVEN/admin/inc/header.php');
 
@@ -8,10 +8,10 @@ $keywords = isset($_GET['keywords']) ? $mysqli->real_escape_string($_GET['keywor
 $where_clause = '';
 
 if ($keywords) {
-  $where_clause = "WHERE counsel.title LIKE '%$keywords%' OR counsel.contents LIKE '%$keywords%' OR user.usernick LIKE '%$keywords%' ";
+  $where_clause = "WHERE blog.title LIKE '%$keywords%' OR blog.contents LIKE '%$keywords%' OR user.usernick LIKE '%$keywords%' ";
 }
 
-$page_sql = "SELECT COUNT(*) AS cnt FROM counsel JOIN user ON counsel.uid = user.uid $where_clause";
+$page_sql = "SELECT COUNT(*) AS cnt FROM blog JOIN user ON blog.uid = user.uid $where_clause";
 $page_result = $mysqli->query($page_sql);
 $page_data = $page_result->fetch_assoc();
 $row_num = $page_data['cnt'];
@@ -31,11 +31,11 @@ if ($block_end > $total_page) {
   $block_end = $total_page;
 }
 
-$sql = "SELECT counsel.*, user.uid, user.usernick 
-        FROM counsel 
-        JOIN user ON counsel.uid = user.uid 
+$sql = "SELECT blog.*, user.uid, user.usernick 
+        FROM blog 
+        JOIN user ON blog.uid = user.uid 
         $where_clause 
-        ORDER BY counsel.post_id DESC 
+        ORDER BY blog.post_id DESC 
         LIMIT $start_num, $list";
 $result = $mysqli->query($sql);
 
@@ -48,7 +48,7 @@ while ($data = $result->fetch_object()) {
 
 
 <div class="container">
-  <h2 class="page_title">고민 상담</h2>
+  <h2 class="page_title">블로그</h2>
   <form action="" id="search_form" class="row justify-content-end">
     <div class="col-lg-3">
       <div class="input-group mb-3">
@@ -64,11 +64,10 @@ while ($data = $result->fetch_object()) {
     <table class="table list_table">
       <thead>
         <tr>
-          <th scope="col">번호</th>
-          <th scope="col">닉네임</th>
+          <th scope="col">글번호</th>
+          <th scope="col">썸네일</th>
           <th scope="col">제목</th>
           <th scope="col">내용</th>
-          <th scope="col">상태</th>
           <th scope="col">좋아요</th>
           <th scope="col">댓글수</th>
           <th scope="col">조회수</th>
@@ -79,24 +78,19 @@ while ($data = $result->fetch_object()) {
       <tbody>
         <?php
         if ($dataArr) {
-          foreach ($dataArr as $counsel) {
+          foreach ($dataArr as $blog) {
         ?>
             <tr>
-              <th scope="row"><?= $counsel->post_id ?></th>
-              <td><?= $counsel->usernick ?></td>
-              <td><a href="#" class="d-inline-block text-truncate"><?= $counsel->titles ?></a></td>
-              <td><a href="#" class="d-inline-block text-truncate"><?= $counsel->contents ?></a></td>
-              <td>
-                <?= $counsel->status == 0 ?
-                  '<span class="badge text-bg-light">미해결</span>'
-                  : '<span class="badge text-bg-success">해결</span>' ?>
-              </td>
-              <td><?= $counsel->likes ?><b>개</b></td>
-              <td><?= $counsel->comments ?><b>개</b></td>
-              <td><?= $counsel->hits ?><b>개</b></td>
-              <td><?= $counsel->regdate ?></td>
+              <th scope="row"><?= $blog->post_id ?></th>
+              <td class="img"> <img src="http://<?= $_SERVER['HTTP_HOST'] . $blog->thumnails ?>" alt=""></td>
+              <td><a href="#" class="d-inline-block text-truncate"><?= $blog->titles ?></a></td>
+              <td><a href="#" class="d-inline-block text-truncate"><?= $blog->contents ?></a></td>
+              <td><?= $blog->likes ?><b>개</b></td>
+              <td><?= $blog->comments ?><b>개</b></td>
+              <td><?= $blog->hits ?><b>개</b></td>
+              <td><?= $blog->regdate ?></td>
               <td class="edit_col">
-                <a href="counsel_edit.php?post_id=<?= $counsel->post_id ?>">
+                <a href="blog_edit.php?post_id=<?= $blog->post_id ?>">
                   <i class="bi bi-pencil-fill"></i>
                 </a>
                 <a href="">
@@ -127,7 +121,7 @@ while ($data = $result->fetch_object()) {
       if ($block_num > 1) {
       ?>
         <li class="page-item">
-          <a class="page-link" href="counsel.php?page=<?= $previous; ?>" aria-label="Previous">
+          <a class="page-link" href="blog.php?page=<?= $previous; ?>" aria-label="Previous">
             <i class="bi bi-chevron-left"></i>
           </a>
         </li>
@@ -138,14 +132,14 @@ while ($data = $result->fetch_object()) {
       for ($i = $block_start; $i <= $block_end; $i++) {
         $active = ($page == $i) ? 'active' : '';
       ?>
-        <li class="page-item <?= $active; ?>"><a class="page-link" href="counsel.php?page=<?= $i; ?>"><?= $i; ?></a></li>
+        <li class="page-item <?= $active; ?>"><a class="page-link" href="blog.php?page=<?= $i; ?>"><?= $i; ?></a></li>
       <?php
       }
       $next = $block_end + 1;
       if ($total_block > $block_num) {
       ?>
         <li class="page-item">
-          <a class="page-link" href="counsel.php?page=<?= $next; ?>" aria-label="Next">
+          <a class="page-link" href="blog.php?page=<?= $next; ?>" aria-label="Next">
             <i class="bi bi-chevron-right"></i>
           </a>
         </li>
