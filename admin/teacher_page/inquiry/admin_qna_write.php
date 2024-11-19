@@ -20,10 +20,10 @@ $data = $result->fetch_object();
   <form action="admin_qna_write_ok.php" method="POST" enctype="multipart/form-data">
     <table class="table details_table">
       <colgroup>
-        <col style="width:160px">
-        <col style="width:516px">
-        <col style="width:160px">
-        <col style="width:516px">
+        <col class="col-width-160">
+        <col class="col-width-516">
+        <col class="col-width-160">
+        <col class="col-width-516">
       </colgroup>
       <thead class="thead-hidden">
         <tr>

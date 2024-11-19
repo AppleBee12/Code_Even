@@ -23,10 +23,10 @@ $data = $result->fetch_object();
     <input type="hidden" name="userid" value="<?= $data->userid; ?>">
     <table class="table details_table">
       <colgroup>
-        <col style="width:160px">
-        <col style="width:516px">
-        <col style="width:160px">
-        <col style="width:516px">
+        <col class="col-width-160">
+        <col class="col-width-516">
+        <col class="col-width-160">
+        <col class="col-width-516">
       </colgroup>
       <thead class="thead-hidden">
         <tr>
