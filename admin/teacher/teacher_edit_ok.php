@@ -92,7 +92,7 @@ include_once($_SERVER['DOCUMENT_ROOT'].'/code_even/admin/inc/img_upload_func.php
 
 
 
-
+/*
   if ($result) {
     // 승인완료(tc_ok == 1)인 경우 user 테이블의 user_level 값 업데이트
     if ($tc_ok == 1) {
@@ -109,7 +109,7 @@ include_once($_SERVER['DOCUMENT_ROOT'].'/code_even/admin/inc/img_upload_func.php
 } else {
     echo "Error: " . $mysqli->error;
 }
-
+*/
 
 
 
