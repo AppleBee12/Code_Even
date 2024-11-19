@@ -80,12 +80,13 @@ $sql .= " WHERE tcid = $tcid";
 $result = $mysqli->query($sql); // teachers 테이블에 강사정보 업데이트
 
 if ($result) {
-    // 승인완료(tc_ok == 1)인 경우 user 테이블의 user_level 값 업데이트
-    if ($tc_ok == 1) {
-        $user_sql = "UPDATE user SET user_level = 10 WHERE userid = '$tc_userid'";
+    // tc_ok 값에 따라 user_level 값을 설정
+    if ($tc_ok == 1 || $tc_ok == -1) {
+        $new_user_level = ($tc_ok == 1) ? 10 : 1;
+        $user_sql = "UPDATE user SET user_level = $new_user_level WHERE userid = '$tc_userid'";
         $mysqli->query($user_sql);
     }
-
+    
     echo "
         <script>
             alert('강사정보 수정 완료');
