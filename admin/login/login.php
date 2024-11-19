@@ -29,12 +29,12 @@
     <div class="d-flex gap-5 align-items-center bgsz">
       <div class="img-wrap  w-50 d-flex justify-content-center">
         <div class="images1">
-          <img src="../../images/sb_logo.png" alt="">
+          <img src="../images/sb_logo.png" alt="">
         </div>
       </div>
       <div class="w-50 container d-flex justify-content-center align-items-center">
         <div class="w-50 d-flex flex-column align-items-center">
-          <img src="../../images/txt_logo.png" class="images2" alt="">
+          <img src="../images/txt_logo.png" class="images2" alt="">
           <h1 class="mt-5">로그인</h1>
           <h2>관리자 로그인</h2>
           <form action="login_ok.php" method="POST" class="w-100">

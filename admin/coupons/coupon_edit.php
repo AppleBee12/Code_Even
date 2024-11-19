@@ -106,6 +106,9 @@ thead,
 #datepicker{
   width: 150px !important;
 }
+#addedImages span{
+  color: #a5a5a5;
+}
 </style>
 
 <div class="container">
@@ -120,7 +123,7 @@ thead,
           <div class="box mb-3" id="addedImages">
             <span>쿠폰 이미지를 등록해주세요.</span>
             <div class="image">
-              <img src="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/upload/coupons/<?= $data->coupon_image; ?>" >
+              <img src="<?= $data->coupon_image; ?>" >
             </div>
           </div>
           <input type="file" multiple accept="image/*" class="form-control w-50" name="coupon_image" id="coupon_image" value="file" required>
@@ -138,15 +141,15 @@ thead,
         <div class="d-flex">
           <th scope="row">사용기한</th>
             <td class="d-flex gap-5" name="use_max_date" id="use_max_date">
-              <div class="form-check" >
-                  <input class="form-check-input" type="radio" name="flexRadioDefault"  value="">
-                <label class="form-check-label" for="flexRadioDefault2"  id="ct4" >
+              <div class="form-check"  id="ct4">
+                  <input class="form-check-input" type="radio" name="flexRadioDefault"   value="1" <?php if($data->use_max_date == 1){echo 'checked';} ?> checked>
+                <label class="form-check-label" for="flexRadioDefault2"  >
                   무제한
                 </label>
               </div>
-              <div class="form-check">
-                <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" value="<?= $data->use_max_date; ?>">
-                <label class="form-check-label d-flex gap-3" for="flexRadioDefault1"  id="ct3">
+              <div class="form-check"  id="ct3">
+                <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1"  value="2" <?php if($data->use_max_date == 2){echo 'checked';} ?>>
+                <label class="form-check-label d-flex gap-3" for="flexRadioDefault1" >
                   제한
                   <input type="text" name="use_max_date" id="datepicker" class="form-control w-25 bi bi-calendar-week" value="<?= $data->use_max_date; ?>">
                 </label>
@@ -180,7 +183,7 @@ thead,
         <tr id="ct1">
           <th scope="row">할인가</th>
           <td>
-            <div class="input-group mb-3">
+            <div class="input-group mb-3 w-50">
               <input type="text" name="coupon_price" class="form-control" aria-label="할인가" value=" <?= $data->coupon_price;?>" aria-describedby="coupon_price"> 
               <span class="input-group-text" id="coupon_price">원</span>
             </div>
@@ -189,7 +192,7 @@ thead,
         <tr id="ct2">
           <th scope="row">할인비율</th>
           <td>
-            <div class="input-group mb-3">
+            <div class="input-group mb-3 w-50">
               <input type="text" name="coupon_ratio" class="form-control" aria-label="할인비율" value="0" aria-describedby="coupon_ratio">
               <span class="input-group-text" id="coupon_ratio">%</span>
             </div>
@@ -216,8 +219,8 @@ thead,
       </tbody>
     </table>
     <div class="d-flex justify-content-end gap-2">
-        <button class="btn btn-outline-danger mt-3 cancle">취소</button>
-        <button type="submit" class="btn btn-secondary mt-3 ">쿠폰수정</button>
+        <button class="btn btn-outline-danger mb-5 cancle">취소</button>
+        <button type="submit" class="btn btn-secondary mb-5 ">쿠폰수정</button>
     </div>
   </form>
 </div>
@@ -243,11 +246,11 @@ thead,
 
   $('#use_max_date').change(function(){
     let value = $(this).val();
-    $('#ct3 input, #ct4 input').prop('disabled', true);
-    if(value == 0){
-      $('#ct3 input').prop('disabled', false);
-    } else{
+    $('#ct4 input, #ct4 input').prop('disabled', true);
+    if(value == 1){
       $('#ct4 input').prop('disabled', false);
+    } else{
+      $('#ct3 input').prop('disabled', false);
     }
   });
 </script>

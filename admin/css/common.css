@@ -324,7 +324,7 @@ a {
   padding: 15px 24px 15px 24px;
 
   h3 {
-    line-height: 18px;
+    line-height: 14px;
   }
 }
 
@@ -361,6 +361,10 @@ a {
 
 .col-width-516 {
   width: 516px;
+}
+
+.col-width-130 {
+  width: 130px;
 }
 
 

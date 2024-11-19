@@ -67,7 +67,7 @@ if ($result->num_rows > 0) {
       // 첫 번째 데이터만 따로 저장
       if ($firstData === null) {
         $firstData = $u;
-        print_r($firstData);
+        // print_r($firstData);
     }
   }
 }
@@ -171,8 +171,8 @@ if ($result->num_rows > 0) {
           <div class="modal-body">
             <table class="table">
               <colgroup>
-                <col style="width:120px">
-                <col style="width:300px">
+                <col class="col-width-130">
+                <col>
               </colgroup>
               <thead class="thead-hidden">
                 <tr>
@@ -185,7 +185,7 @@ if ($result->num_rows > 0) {
                   <th scope="row">이름(아이디)</th>
                   <td class="modal_username"></td>
                 </tr>
-                <tr class="none">
+                <tr>
                   <th scope="row">이메일</th>
                   <td class="modal_useremail"></td>
                 </tr>

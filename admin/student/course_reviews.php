@@ -80,7 +80,6 @@ while ($data = $result->fetch_object()) {
           <th scope="col">강사</th>
           <th scope="col">평점</th>
           <th scope="col">등록일</th>
-          <th scope="col">관리</th>
         </tr>
       </thead>
       <tbody>
@@ -116,11 +115,6 @@ while ($data = $result->fetch_object()) {
             </div>
           </td>
           <td><?=$no->regdate;?></td>
-          <td>
-            <a href="">
-              <i class="bi bi-trash-fill"></i>
-            </a>
-          </td>
         </tr>
         <?php
         }
@@ -130,10 +124,6 @@ while ($data = $result->fetch_object()) {
       ?>
       </tbody>
     </table>
-
-    <div class="d-flex justify-content-end">
-       <button type="button" class="btn btn-danger">삭제</button>
-     </div>
 
   <!-- //Pagination -->
   <div class="list_pagination" aria-label="Page navigation example">

@@ -2,8 +2,6 @@
 $title = "수강생 관리";
 include_once($_SERVER['DOCUMENT_ROOT'] . '/code_even/admin/inc/header.php');
 
-$aqid = $_GET['aqid'];
-// print_r($aqid);
 $sql = "SELECT 
           admin_question.*,
           user.username, 
@@ -16,7 +14,7 @@ $sql = "SELECT
         JOIN 
             user ON admin_question.uid = user.uid
         LEFT JOIN 
-            admin_answer ON admin_question.aqid = admin_answer.aqid WHERE admin_question.aqid = $aqid";
+            admin_answer ON admin_question.aqid = admin_answer.aqid";
 $result = $mysqli->query($sql);
 $data = $result->fetch_object();
 

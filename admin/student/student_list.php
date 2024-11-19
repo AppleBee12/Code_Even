@@ -66,65 +66,64 @@ while ($data = $result->fetch_object()) {
   </form>
 
 
-  <table class="table list_table">
-    <thead>
-      <tr>
-        <th scope="col">
-          <input class="form-check-input" type="checkbox" value="" id="allCheck">
-        </th>
-        <th scope="col">번호</th>
-        <th scope="col">아이디</th>
-        <th scope="col">이름</th>
-        <th scope="col">강좌명</th>
-        <th scope="col">진도율</th>
-        <th scope="col">수강이수</th>
-        <th scope="col">학습기간</th>
-      </tr>
-    </thead>
-    <tbody>
-      <?php
-      if ($dataArr) {
-        foreach ($dataArr as $cl) {
-          ?>
-          <tr>
-            <th scope="row">
-              <input class="form-check-input itemCheckbox" type="checkbox" value="<?= $cl->cdid; ?>" id="checkbox"
-                  data-username="<?= $cl->username; ?>" data-userid="<?= $cl->userid; ?>" data-email="<?= $cl->useremail; ?>" data-uid="<?= $cl->uid; ?>">
-            </th>
-            <td><?= $cl->cdid; ?></td>
-            <td><a href="student_details.php?cdid=<?= $cl->cdid; ?>" class="underline"><?= $cl->userid ?></a></td>
-            <td><a href="student_details.php?cdid=<?= $cl->cdid; ?>" class="underline"><?= $cl->username ?></a></td>
-            <td><?= mb_strlen($cl->title) > 20 ? mb_substr($cl->title, 0, 20) . '...' : $cl->title; ?></td>
-            <td></td>
-            <td>
-              <button type="button" id="printButton">
-                <span class="badge text-bg-dark">이수증</span>
-              </button>
-            </td>
-            <td>
-              <?php
-              $set_date = date('Y-m-d', strtotime($cl->date));
-              $start_date = new DateTime($cl->date); // DateTime 객체 생성
-              $start_date->modify("+{$cl->period} days"); // 기간을 더함
-              $end_date = $start_date->format('Y-m-d'); // 종료 날짜 포맷팅
-              ?>
-
-              <?= $set_date ?> ~ <?= $end_date ?>
-            </td>
-          </tr>
-        </tbody>
+  <form>
+    <table class="table list_table">
+      <thead>
+        <tr>
+          <th scope="col">
+            <input class="form-check-input" type="checkbox" value="" id="allCheck">
+          </th>
+          <th scope="col">번호</th>
+          <th scope="col">아이디</th>
+          <th scope="col">이름</th>
+          <th scope="col">강좌명</th>
+          <th scope="col">진도율</th>
+          <th scope="col">수강이수</th>
+          <th scope="col">학습기간</th>
+        </tr>
+      </thead>
+      <tbody>
         <?php
+        if ($dataArr) {
+          foreach ($dataArr as $cl) {
+            ?>
+            <tr>
+              <th scope="row">
+                <input class="form-check-input itemCheckbox" type="checkbox" value="<?= $cl->cdid; ?>" id="checkbox"
+                    data-username="<?= $cl->username; ?>" data-userid="<?= $cl->userid; ?>" data-email="<?= $cl->useremail; ?>" data-uid="<?= $cl->uid; ?>">
+              </th>
+              <td><?= $cl->cdid; ?></td>
+              <td><a href="student_details.php?cdid=<?= $cl->cdid; ?>" class="underline"><?= $cl->userid ?></a></td>
+              <td><a href="student_details.php?cdid=<?= $cl->cdid; ?>" class="underline"><?= $cl->username ?></a></td>
+              <td><?= mb_strlen($cl->title) > 20 ? mb_substr($cl->title, 0, 20) . '...' : $cl->title; ?></td>
+              <td></td>
+              <td>
+                <button type="button" id="printButton">
+                  <span class="badge text-bg-dark">이수증</span>
+                </button>
+              </td>
+              <td>
+                <?php
+                $set_date = date('Y-m-d', strtotime($cl->date));
+                $start_date = new DateTime($cl->date); // DateTime 객체 생성
+                $start_date->modify("+{$cl->period} days"); // 기간을 더함
+                $end_date = $start_date->format('Y-m-d'); // 종료 날짜 포맷팅
+                ?>
+  
+                <?= $set_date ?> ~ <?= $end_date ?>
+              </td>
+            </tr>
+          </tbody>
+          <?php
+          }
+        } else {
+          echo "<tr><td colspan='10'>검색 결과가 없습니다.</td></tr>";
         }
-      } else {
-        echo "<tr><td colspan='10'>검색 결과가 없습니다.</td></tr>";
-      }
-      ?>
-  </table>
-
-  <div class="d-flex justify-content-end">
+        ?>
+    </table>
     <button type="submit" id="emailBtn" data-bs-toggle="modal" data-bs-target="#send_email"
-      class="btn btn-outline-secondary">이메일 전송</button>
-  </div>
+      class="btn btn-outline-secondary ms-auto d-block">이메일 전송</button>
+  </form>
 
   <!-- //Pagination -->
   <div class="list_pagination" aria-label="Page navigation example">
@@ -166,7 +165,7 @@ while ($data = $result->fetch_object()) {
   </div>
 
   <!-- //email 모달창 -->
-  <div class="modal modal-lg" tabindex="-1">
+  <div class="modal" tabindex="-1">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
@@ -177,10 +176,8 @@ while ($data = $result->fetch_object()) {
           <div class="modal-body">
             <table class="table">
               <colgroup>
-                <col style="width:110px">
-                <col style="width:230px">
-                <col style="width:110px">
-                <col style="width:230px">
+                <col class="col-width-130">
+                <col>
               </colgroup>
               <thead class="thead-hidden">
                 <tr>
@@ -189,20 +186,6 @@ while ($data = $result->fetch_object()) {
                 </tr>
               </thead>
               <tbody>
-                <tr class="none">
-                  <th scope="row"></th>
-                  <td></td>
-                  <th scope="row"></th>
-                  <td></td>
-                </tr>
-                <tr class="none">
-                  <th scope="row">제목 <b>*</b></th>
-                  <td colspan="3"><input type="text" name="title" class="form-control"></td>
-                </tr>
-                <tr class="none">
-                  <th scope="row">내용 <b>*</b></th>
-                  <td colspan="3"><textarea name="content" class="form-control"></textarea></td>
-                </tr>
               </tbody>
             </table>
           </div>
@@ -276,16 +259,18 @@ include_once($_SERVER['DOCUMENT_ROOT'] . '/code_even/admin/inc/footer.php');
         <tr class="none">
           <th scope="row">이름(아이디)</th>
           <td>${username} (${userid})</td>
+        </tr>
+        <tr>
           <th scope="row">이메일</th>
           <td><input class="form-control" value="${email}" name="to_email" readonly></td>
         </tr>
         <tr class="none">
           <th scope="row">제목 <b>*</b></th>
-          <td colspan="3"><input type="text" class="form-control" name="title"></td>
+          <td colspan="3"><input type="text" class="form-control" name="title" required></td>
         </tr>
         <tr class="none">
           <th scope="row">내용 <b>*</b></th>
-          <td colspan="3"><textarea class="form-control" name="content"></textarea></td>
+          <td colspan="3"><textarea class="form-control" name="content" required></textarea></td>
         </tr>
         <tr class="none">
           <input type="hidden" name="uid" value="${uid}">
