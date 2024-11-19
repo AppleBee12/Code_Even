@@ -93,7 +93,7 @@ while ($data = $result->fetch_object()) {
               </td>
               <td><?= $counsel->likes ?><b>개</b></td>
               <td><?= $counsel->comments ?><b>개</b></td>
-              <td><?= $counsel->hits ?><b>개</b></td>
+              <td><?= $counsel->hits ?><b>회</b></td>
               <td><?= $counsel->regdate ?></td>
               <td class="edit_col">
                 <a href="counsel_edit.php?post_id=<?= $counsel->post_id ?>">

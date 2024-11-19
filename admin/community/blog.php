@@ -87,7 +87,7 @@ while ($data = $result->fetch_object()) {
               <td><a href="#" class="d-inline-block text-truncate"><?= $blog->contents ?></a></td>
               <td><?= $blog->likes ?><b>개</b></td>
               <td><?= $blog->comments ?><b>개</b></td>
-              <td><?= $blog->hits ?><b>개</b></td>
+              <td><?= $blog->hits ?><b>회</b></td>
               <td><?= $blog->regdate ?></td>
               <td class="edit_col">
                 <a href="blog_edit.php?post_id=<?= $blog->post_id ?>">
