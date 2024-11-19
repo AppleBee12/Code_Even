@@ -113,13 +113,10 @@
             <input type="hidden" name="tcid[]" value="<?= $item->tcid; ?>">
             <?= $item->tcid; ?>
           </th>
-          <!-- <td>
-            <img src="<?= !empty($item->tc_thumbnail) ? $item->tc_thumbnail : '../upload/teacher/tc_dummy.png'; ?>" class="rounded_circle" width="35" height="35" alt="프로필 이미지">
-          </td>  -->
           <td>
             <?php 
               $thumbnail_path = !empty($item->tc_thumbnail) ? $_SERVER['DOCUMENT_ROOT'] . $item->tc_thumbnail : '';
-              $image_src = (!empty($item->tc_thumbnail) && file_exists($thumbnail_path)) ? $item->tc_thumbnail : '/CODE_EVEN/admin/upload/teacher/no_image.png';
+              $image_src = (!empty($item->tc_thumbnail) && file_exists($thumbnail_path)) ? $item->tc_thumbnail : '/CODE_EVEN/admin/upload/teacher/tc_dummy.png';
             ?>
             <img src="<?= $image_src; ?>" class="rounded_circle" width="35" height="35" alt="프로필 이미지">
           </td>
@@ -153,8 +150,8 @@
             <i class="bi bi-pencil-fill"></i>
             <span class="visually-hidden">수정</span>   
             </a>
-            <a href="teacher_del.php?tcid=<?= $item->tcid; ?>">
-            <i class="bi bi-trash-fill"></i>
+            <a href="teacher_del.php?tcid=<?= $item->tcid; ?>" >
+            <i class="bi bi-trash-fill del_link"></i>
             <span class="visually-hidden">삭제</span>
             </a>
           </td>
@@ -211,13 +208,19 @@
 </div>
 
 <script>
-    $('table .form-check-input').change(function(){
+    $('table .form-check-input[type="checkbox"]').change(function(){
     if($(this).prop( "checked" )){
       $(this).val('1');
     } else{
       $(this).val('0');
     }
   });
+
+  $('.del_link').click(function(e) {
+      if (!confirm('정말 삭제하시겠습니까? 삭제 후에는 복구가 불가능합니다.')) {
+        e.preventDefault();
+      }
+    });
 
   //새로고침 시 주소창 리셋
   if (window.location.search) {

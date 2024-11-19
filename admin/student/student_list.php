@@ -65,65 +65,62 @@ while ($data = $result->fetch_object()) {
     </div>
   </form>
 
+  <table class="table list_table">
+    <thead>
+      <tr>
+        <th scope="col">
+          <input class="form-check-input" type="checkbox" value="" id="allCheck">
+        </th>
+        <th scope="col">번호</th>
+        <th scope="col">아이디</th>
+        <th scope="col">이름</th>
+        <th scope="col">강좌명</th>
+        <th scope="col">진도율</th>
+        <th scope="col">수강이수</th>
+        <th scope="col">학습기간</th>
+      </tr>
+    </thead>
+    <tbody>
+      <?php
+      if ($dataArr) {
+        foreach ($dataArr as $cl) {
+          ?>
+          <tr>
+            <th scope="row">
+              <input class="form-check-input itemCheckbox" type="checkbox" value="<?= $cl->cdid; ?>" id="checkbox"
+                  data-username="<?= $cl->username; ?>" data-userid="<?= $cl->userid; ?>" data-email="<?= $cl->useremail; ?>" data-uid="<?= $cl->uid; ?>">
+            </th>
+            <td><?= $cl->cdid; ?></td>
+            <td><a href="student_details.php?cdid=<?= $cl->cdid; ?>" class="underline"><?= $cl->userid ?></a></td>
+            <td><a href="student_details.php?cdid=<?= $cl->cdid; ?>" class="underline"><?= $cl->username ?></a></td>
+            <td><?= mb_strlen($cl->title) > 20 ? mb_substr($cl->title, 0, 20) . '...' : $cl->title; ?></td>
+            <td></td>
+            <td>
+              <button type="button" id="printButton">
+                <span class="badge text-bg-dark">이수증</span>
+              </button>
+            </td>
+            <td>
+              <?php
+              $set_date = date('Y-m-d', strtotime($cl->date));
+              $start_date = new DateTime($cl->date); // DateTime 객체 생성
+              $start_date->modify("+{$cl->period} days"); // 기간을 더함
+              $end_date = $start_date->format('Y-m-d'); // 종료 날짜 포맷팅
+              ?>
 
-  <form>
-    <table class="table list_table">
-      <thead>
-        <tr>
-          <th scope="col">
-            <input class="form-check-input" type="checkbox" value="" id="allCheck">
-          </th>
-          <th scope="col">번호</th>
-          <th scope="col">아이디</th>
-          <th scope="col">이름</th>
-          <th scope="col">강좌명</th>
-          <th scope="col">진도율</th>
-          <th scope="col">수강이수</th>
-          <th scope="col">학습기간</th>
-        </tr>
-      </thead>
-      <tbody>
+              <?= $set_date ?> ~ <?= $end_date ?>
+            </td>
+          </tr>
+        </tbody>
         <?php
-        if ($dataArr) {
-          foreach ($dataArr as $cl) {
-            ?>
-            <tr>
-              <th scope="row">
-                <input class="form-check-input itemCheckbox" type="checkbox" value="<?= $cl->cdid; ?>" id="checkbox"
-                    data-username="<?= $cl->username; ?>" data-userid="<?= $cl->userid; ?>" data-email="<?= $cl->useremail; ?>" data-uid="<?= $cl->uid; ?>">
-              </th>
-              <td><?= $cl->cdid; ?></td>
-              <td><a href="student_details.php?cdid=<?= $cl->cdid; ?>" class="underline"><?= $cl->userid ?></a></td>
-              <td><a href="student_details.php?cdid=<?= $cl->cdid; ?>" class="underline"><?= $cl->username ?></a></td>
-              <td><?= mb_strlen($cl->title) > 20 ? mb_substr($cl->title, 0, 20) . '...' : $cl->title; ?></td>
-              <td></td>
-              <td>
-                <button type="button" id="printButton">
-                  <span class="badge text-bg-dark">이수증</span>
-                </button>
-              </td>
-              <td>
-                <?php
-                $set_date = date('Y-m-d', strtotime($cl->date));
-                $start_date = new DateTime($cl->date); // DateTime 객체 생성
-                $start_date->modify("+{$cl->period} days"); // 기간을 더함
-                $end_date = $start_date->format('Y-m-d'); // 종료 날짜 포맷팅
-                ?>
-  
-                <?= $set_date ?> ~ <?= $end_date ?>
-              </td>
-            </tr>
-          </tbody>
-          <?php
-          }
-        } else {
-          echo "<tr><td colspan='10'>검색 결과가 없습니다.</td></tr>";
         }
-        ?>
-    </table>
-    <button type="submit" id="emailBtn" data-bs-toggle="modal" data-bs-target="#send_email"
-      class="btn btn-outline-secondary ms-auto d-block">이메일 전송</button>
-  </form>
+      } else {
+        echo "<tr><td colspan='10'>검색 결과가 없습니다.</td></tr>";
+      }
+      ?>
+  </table>
+  <button type="button" id="emailBtn" data-bs-toggle="modal" data-bs-target="#send_email"
+    class="btn btn-outline-secondary ms-auto d-block">이메일 전송</button>
 
   <!-- //Pagination -->
   <div class="list_pagination" aria-label="Page navigation example">
@@ -206,6 +203,7 @@ include_once($_SERVER['DOCUMENT_ROOT'] . '/code_even/admin/inc/footer.php');
 
 <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 <script>
+
   /* == 인쇄 버튼 == */
   function printPage() {
     const fileUrl = "../../images/certificate of completion.pdf";

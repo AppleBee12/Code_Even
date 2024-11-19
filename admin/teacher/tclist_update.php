@@ -19,6 +19,22 @@ foreach($tcid as $tc){
   WHERE tcid = $tc";
 
   $result = $mysqli->query($sql);  
+
+  // tc_ok 값에 따라 user 테이블의 user_level 업데이트
+  if ($tc_ok[$tc] == 1 || $tc_ok[$tc] == -1) {
+    // 해당 tcid와 연결된 uid를 가져오는 쿼리
+    $uid_sql = "SELECT uid FROM teachers WHERE tcid = $tc";
+    $uid_result = $mysqli->query($uid_sql);
+    if ($uid_result && $uid_result->num_rows > 0) {
+        $uid_data = $uid_result->fetch_assoc();
+        $uid = $uid_data['uid'];
+
+        // tc_ok 값에 따라 user_level 업데이트
+        $new_user_level = ($tc_ok[$tc] == 1) ? 10 : 1; // tc_ok == 1일 때 10, tc_ok == -1일 때 1
+        $user_update_sql = "UPDATE user SET user_level = $new_user_level WHERE uid = $uid";
+        $mysqli->query($user_update_sql);
+    }
+  }
 }
 
 if($result){

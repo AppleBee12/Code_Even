@@ -16,6 +16,12 @@
   while($cate_data = $category_result->fetch_object()){
       $categories[] = $cate_data;
   }
+
+  //user 레벨 조회
+  $user_sql = "SELECT user_level FROM user WHERE uid = $data->uid";
+  $user_result = $mysqli->query($user_sql);
+  $user_data = $user_result->fetch_object();
+  $user_level = $user_data ? $user_data->user_level : 'N/A'; // 값이 없을 경우 'N/A'로 표시
 ?>
 
 <div class="container">
@@ -27,7 +33,11 @@
     <input type="hidden" name="tcid" value="<?= $data->tcid; ?>">
     <input type="hidden" name="tc_intro" id="contents" value="">
     <div class="upload mt-5 mb-3">
-      <img id="thumbnail_preview" src="<?= !empty($data->tc_thumbnail) ? $data->tc_thumbnail : '../upload/teacher/tc_dummy.png'; ?>" class="rounded_circle" width = 100 height = 100 alt="프로필 이미지">
+      <?php 
+        $thumbnail_path = !empty($data->tc_thumbnail) ? $_SERVER['DOCUMENT_ROOT'] . $data->tc_thumbnail : '';
+        $image_src = (!empty($data->tc_thumbnail) && file_exists($thumbnail_path)) ? $data->tc_thumbnail : '/CODE_EVEN/admin/upload/teacher/tc_dummy.png';
+      ?>
+      <img id="thumbnail_preview" src="<?= $image_src; ?>" class="rounded_circle" width = 100 height = 100 alt="프로필 이미지">
       <div class="round">
         <input type="file" accept="image/*" name="tc_thumbnail" id="tc_thumbnail">
         <i class="bi bi-camera-fill"></i>
@@ -137,6 +147,12 @@
                 추천
               </label>
             </div>
+          </td>
+        </tr>
+        <tr>
+          <th scope="row">회원레벨</th>
+          <td colspan="3">
+          <?= htmlspecialchars($user_level); ?>
           </td>
         </tr>     
       </tbody>
