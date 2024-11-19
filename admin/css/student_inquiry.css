@@ -5,6 +5,7 @@
     box-sizing: border-box;
   }
   td span {vertical-align: text-top; margin-left: 10px;}
+  td textarea {height: 100px;}
 }
 
 .content_bar {
