@@ -16,6 +16,12 @@
   while($cate_data = $category_result->fetch_object()){
       $categories[] = $cate_data;
   }
+
+  //user 레벨 조회
+  $user_sql = "SELECT user_level FROM user WHERE uid = $data->uid";
+  $user_result = $mysqli->query($user_sql);
+  $user_data = $user_result->fetch_object();
+  $user_level = $user_data ? $user_data->user_level : 'N/A'; // 값이 없을 경우 'N/A'로 표시
 ?>
 
 <div class="container">
@@ -137,6 +143,12 @@
                 추천
               </label>
             </div>
+          </td>
+        </tr>
+        <tr>
+          <th scope="row">회원레벨</th>
+          <td colspan="3">
+          <?= htmlspecialchars($user_level); ?>
           </td>
         </tr>     
       </tbody>
