@@ -1,6 +1,7 @@
 <?php
 $title = "전체회원목록";
 include_once($_SERVER['DOCUMENT_ROOT'] . '/CODE_EVEN/admin/inc/header.php');
+include_once($_SERVER['DOCUMENT_ROOT'].'/code_even/admin/inc/date_format_func.php');
 
 
 // 게시글 개수 구하기
@@ -32,10 +33,13 @@ if ($block_end > $total_page) {
 }
 
 
-$sql = "SELECT * FROM user $where_clause 
+$sql = "SELECT *, 
+        DATE_FORMAT(signup_date, '%Y/%m/%d') AS formatted_signup_date, 
+        DATE_FORMAT(last_date, '%Y/%m/%d %H:%i:%s') AS formatted_last_date 
+        FROM user $where_clause 
         ORDER BY user.uid DESC 
-        LIMIT $start_num, $list"; //teachers 테이블에서 모든 데이터를 조회
-$result = $mysqli->query($sql); //쿼리 실행 결과
+        LIMIT $start_num, $list";
+$result = $mysqli->query($sql);
 
 while($data = $result->fetch_object()){
   $dataArr[] = $data;
@@ -43,140 +47,100 @@ while($data = $result->fetch_object()){
 
 ?>
 
-
-
 <div class="container">
   <h2 class="page_title">전체회원목록</h2>
-
-
   <form action="" id="search_form" class="row justify-content-end">
-    
+    <div class="col-lg-3 pt_04">
+      <span class="status_tt me-4">회원상태</span>
+      <div class="form-check form-check-inline">
+        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="0">
+        <label class="form-check-label" for="inlineRadio1">정상</label>
+      </div>
+      <div class="form-check form-check-inline">
+        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="-1" > 
+        <label class="form-check-label" for="inlineRadio2">탈퇴</label>
+      </div>
+      <div class="form-check form-check-inline">
+        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio3" value="1" > 
+        <label class="form-check-label" for="inlineRadio3">정지</label>
+      </div>
+    </div>  
     <div class="col-lg-3">
-    <div class="input-group mb-3">
-    <input type="text" class="form-control" placeholder="검색어를 입력하세요." name="keywords" value="<?= htmlspecialchars($keywords); ?>">
-      <!-- <input type="text" class="form-control" placeholder="분류 선택 또는 검색어를 입력해주세요" aria-label="Recipient's username" aria-describedby="basic-addon2"> -->
-      <button type="button" class="btn btn-secondary">
-        <i class="bi bi-search"></i>
-      </button>
+      <div class="input-group mb-3">
+        <input type="text" class="form-control" placeholder="상태 선택 또는 검색어를 입력하세요." name="keywords" value="<?= htmlspecialchars($keywords); ?>">
+        <button type="button" class="btn btn-secondary">
+          <i class="bi bi-search"></i>
+        </button>
       </div>
     </div>
-   
-    
   </form>
-
-  <form action="tclist_update.php" method="GET">
-    <table class="table list_table">
-      <thead>
-        <tr>
-          <th scope="col">번호</th>
-          <th scope="col">아이디</th>
-          <th scope="col">이름</th>
-          <th scope="col">이메일</th>
-          <th scope="col">마지막접속일</th>
-          <th scope="col">가입일</th>
-          <th scope="col">회원구분</th>
-          <th scope="col">상태</th>
-          <th scope="col">관리</th>
-        </tr>
-      </thead>
-      <tbody>
-      <?php
-          if(isset($dataArr)){
-            foreach($dataArr as $item){
-        ?> 
-        <tr>
-          <th scope="row">
-            <input type="hidden" name="uid[]" value="<?= $item->uid; ?>">
-            <?= $item->uid; ?>
-          </th>
-          <td><?= $item->userid; ?></td> 
-          <td><?= $item->username; ?></td> 
-          <td><?= $item->useremail; ?></td>
-          <td><?= $item->signup_date; ?></td>
-          <td><?= $item->last_date; ?></td>
-          <td><?= $item->user_level; ?></td>
-          <td><?= $item->user_status; ?></td>
-          <td class="edit_col">
-            <a href="user_edit.php?uid=<?= $item->uid; ?>">
-            <i class="bi bi-pencil-fill"></i>   
-            </a>
-            <a href="">
-            <i class="bi bi-trash-fill"></i>
-            </a>
-          </td>
-        </tr>
-        <?php
+  <table class="table list_table">
+    <thead>
+      <tr>
+        <th scope="col">번호</th>
+        <th scope="col">아이디</th>
+        <th scope="col">이름</th>
+        <th scope="col">이메일</th>
+        <th scope="col">가입일</th>
+        <th scope="col">마지막접속일</th>
+        <th scope="col">회원구분</th>
+        <th scope="col">상태</th>
+        <th scope="col">관리</th>
+      </tr>
+    </thead>
+    <tbody>
+    <?php
+        if(isset($dataArr)){
+          foreach($dataArr as $item){
+      ?> 
+      <tr>
+        <th scope="row">
+          <input type="hidden" name="uid[]" value="<?= $item->uid; ?>">
+          <?= $item->uid; ?>
+        </th>
+        <td><?= $item->userid; ?></td> 
+        <td><?= $item->username; ?></td> 
+        <td><?= $item->useremail; ?></td>
+        <td><?= formatDate($item->signup_date); ?></td>
+        <td><?= $item->formatted_last_date; ?></td>
+        <td>
+          <?php
+            if ($item->user_level == 100) {
+                echo "관리자";
+            } elseif ($item->user_level == 10) {
+                echo "강사";
+            } elseif ($item->user_level == 1) {
+                echo "일반회원";
             }
+          ?>
+        </td>
+        <td>
+          <?php
+            if ($item->user_status == 0) {
+              echo "<span class=\"badge text-bg-light\">정상</span>";
+            } elseif ($item->user_status == 1) {
+              echo "<span class=\"badge text-bg-secondary\">정지</span>";
+            } elseif ($item->user_status == -1) {
+              echo "<span class=\"badge text-outline-secondary\">탈퇴</span>";
+            }
+          ?>
+        </td>
+        <td class="edit_col">
+          <a href="user_edit.php?uid=<?= $item->uid; ?>">
+          <i class="bi bi-pencil-fill"></i>   
+          </a>
+          <a href="user_del.php?uid=<?= $item->uid; ?>">
+          <i class="bi bi-trash-fill"></i>
+          </a>
+        </td>
+      </tr>
+      <?php
           }
-        ?>
-        <!--
-        <tr>
-          <th scope="row">1</th>
-          <td>teacher01</td>
-          <td>이코딩</td>
-          <td>teacher1@mdo.com</td>
-          <td>웹개발</td>
-          <td><span class="badge text-bg-secondary">승인완료</span></td>
-          <td>
-            <div class="form-check d-inline-block me-2">
-              <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-              <label class="form-check-label" for="flexCheckDefault">
-                신규
-              </label>
-            </div>
-            <div class="form-check d-inline-block">
-              <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-              <label class="form-check-label" for="flexCheckDefault">
-                추천
-              </label>
-            </div>
-          </td>
-          <td class="edit_col">
-            <a href="">
-            <i class="bi bi-pencil-fill"></i>   
-            </a>
-            <a href="">
-            <i class="bi bi-trash-fill"></i>
-            </a>
-          </td>
-        </tr>
-        <tr>
-          <th scope="row">1</th>
-          <td>teacher01</td>
-          <td>이코딩</td>
-          <td>teacher1@mdo.com</td>
-          <td>웹개발</td>
-          <td><span class="badge text-bd-secondary">승인거절</span></td>
-          <td>
-            <div class="form-check d-inline-block me-2">
-              <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-              <label class="form-check-label" for="flexCheckDefault">
-                신규
-              </label>
-            </div>
-            <div class="form-check d-inline-block">
-              <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-              <label class="form-check-label" for="flexCheckDefault">
-                추천
-              </label>
-            </div>
-          </td>
-          <td class="edit_col">
-            <a href="">
-            <i class="bi bi-pencil-fill"></i>   
-            </a>
-            <a href="">
-            <i class="bi bi-trash-fill"></i>
-            </a>
-          </td>
-        </tr>
-        -->
-      </tbody> 
-    </table>
-     <!--//table -->
-    <button class="btn btn-outline-secondary ms-auto d-block">일괄수정</button>
-  </form>
-
+        }
+      ?>
+    </tbody> 
+  </table>
+    <!--//table -->
 
 
   <!-- //Pagination -->
@@ -216,8 +180,6 @@ while($data = $result->fetch_object()){
   </ul>
 </div>
 </div>
-
-
 
 <?php
 include_once($_SERVER['DOCUMENT_ROOT'] . '/CODE_EVEN/admin/inc/footer.php');

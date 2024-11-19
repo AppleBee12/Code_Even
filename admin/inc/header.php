@@ -55,12 +55,14 @@ $_SESSION['AUNAME'] = $username;
   }
   switch ($page) {
     case 'user_list.php':
+    case 'user_edit.php':
       echo '<link rel="stylesheet" href="http://' . $_SERVER['HTTP_HOST'] . '/code_even/admin/css/user.css">';
       break;
   }
   switch ($page) {
     case 'teacher_list.php':
     case 'teacher_edit.php':
+    case 'user_edit.php':
     case 'my_details.php':
     case 'teacher_details.php':
     case 'store.php':

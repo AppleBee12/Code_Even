@@ -1,78 +1,121 @@
 <?php
-$title = "강좌 등록";
-include_once($_SERVER['DOCUMENT_ROOT'] . '/CODE_EVEN/admin/inc/header.php');
 
-// 강좌 등록 아이디
-$leid = isset($_GET['leid']) ? $_GET['leid'] : '';
+  $title = "강좌 등록";
 
-// 카테고리 데이터 불러오기
-$sql_cate = "SELECT * FROM category ORDER BY step, pcode";
-$result_cate = $mysqli->query($sql_cate);
+  include_once($_SERVER['DOCUMENT_ROOT'] . '/CODE_EVEN/admin/inc/header.php');
 
-$categories = [];
-while ($categoryObj = $result_cate->fetch_object()) {
+  $leid = isset($_GET['leid']) ? $_GET['leid'] : '';
+
+  // 카테고리 데이터를 불러오기
+  $sql_cate = "SELECT * FROM category ORDER BY step, pcode";
+  $result_cate = $mysqli->query($sql_cate);
+
+  $categories = [];
+  while ($categoryObj = $result_cate->fetch_object()) {
     $categories[] = $categoryObj;
 }
 
-// 선택한 분류
-$selected_cate1 = isset($_POST['cate1']) ? $_POST['cate1'] : '';
-$selected_cate2 = isset($_POST['cate2']) ? $_POST['cate2'] : '';
-$selected_cate3 = isset($_POST['cate3']) ? $_POST['cate3'] : '';
+  // 선택한 분류가 있으면 그 값 아니면 빈값
+  $selected_cate1 = isset($_POST['cate1']) ? $_POST['cate1'] : '';
+  $selected_cate2 = isset($_POST['cate2']) ? $_POST['cate2'] : '';
+  $selected_cate3 = isset($_POST['cate3']) ? $_POST['cate3'] : '';
 
-// 임시 저장 처리
-if (isset($_POST['draft_save']) && $_POST['draft_save'] == '1') {
-    // 폼 데이터 수집 (필수 항목만)
-    $cate1 = $_POST['cate1']; // 대분류
-    $cate2 = $_POST['cate2']; // 중분류
-    $cate3 = $_POST['cate3']; // 소분류
-    $title = $_POST['title']; // 강좌명
+  // 강좌 카테고리와 연결된 book 테이블 교재 데이터 불러오기
+  $sqlBooks = "SELECT * FROM book WHERE cate1 = '{$selected_cate1}' AND cate2 = '{$selected_cate2}' AND cate3 = '{$selected_cate3}'";
+  $resultBooks = $mysqli->query($sqlBooks);
 
-    // 나머지 항목은 생략하거나 기본값 설정
-    $name = '';  // 강사명은 생략
-    $price = 0;  // 수강료는 0원
-    $period = 30; // 기본 교육 기간: 30일
-    $isrecipe = 0; // 레시피 강좌는 아니라고 가정
-    $isgeneral = 1; // 일반 강좌
-    $imagePath = 'uploads/images/default.png'; // 기본 이미지
+  $books = [];
+  while ($bookObj = $resultBooks->fetch_object()) {
+      $books[] = $bookObj;
+  }
 
-    // 강좌 데이터 임시 저장 쿼리
-    $sql_lecture = "
-        INSERT INTO lecture 
-        (cate1, cate2, cate3, title, name, price, period, isrecipe, isgeneral, image, date, state, approval) 
-        VALUES 
-        (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, NOW(), 0, '대기')
-    ";
+  // 실습 파일 엽로드
+  // 요청 방식이 POST 이고, 폼에 사용자가 파일을 업로드 했으며 강사 아이디랑 강의 아이디가 품을 통해 들어왔을 때 실행
+  if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_FILES['practice_file']) && isset($_POST['lecture_id']) && isset($_POST['instructor_id'])) {
+    // 데이터 받기
+    $lectureVideoId = $_POST['lecture_video_id'];
+    $instructorId = $_POST['instructor_id'];
+    $file = $_FILES['practice_file'];
 
-    // 데이터 준비
-    if ($stmt = $mysqli->prepare($sql_lecture)) {
-        $stmt->bind_param(
-            "issssssssi",  // 데이터 타입 문자열 (12개 파라미터)
-            $cate1, 
-            $cate2, 
-            $cate3, 
-            $title, 
-            $name, 
-            $price, 
-            $period, 
-            $isrecipe, 
-            $isgeneral, 
-            $imagePath
-        );
+    // 지원되는 파일 형식
+    $fileType = ['application/pdf', 'application/msword', 'application/zip', 'application/x-zip-compressed'];
+    
+    // 파일이 지원되는 형식인지 체크
+    if (in_array($file['type'], $fileType)) {
+      $uploadFile = 'uploads/files/';
+      $filePath = $uploadFile . basename($file['name']);
+      
+      // 파일 저장
+      if (move_uploaded_file($file['tmp_name'], $filePath)) {
+        // 데이터베이스에 삽입
+        // 아래와 같이 다른 이름을 사용해도 됩니다.
+        $uploadfileQuery = $mysqli->prepare("INSERT INTO lefile (lecdid, lepid, fname, fpath, ftype) VALUES (?, ?, ?, ?, ?)");
+        // 쿼리 실행
+        $uploadfileQuery->bind_param("iisss", $lectureId, $instructorId, $file['name'], $filePath, $file['type']);
+        $uploadfileQuery->execute();
 
-        // 쿼리 실행 후 결과 체크
-        if ($stmt->execute()) {
-            // 강좌 저장 성공 후 리다이렉트
-            echo "<script>alert('임시 저장되었습니다.');</script>";
-            echo "<script>location.href='lecture_list.php';</script>"; // 강좌 목록 페이지로 리다이렉트
-        } else {
-            // 쿼리 실행 실패 시 에러 메시지 출력
-            echo "<script>alert('임시 저장에 실패했습니다: " . $stmt->error . "');</script>";
-        }
+        echo "실습 파일이 업로드되었습니다!";
+      } else {
+        echo "파일 업로드 실패!";
+      }
     } else {
-        // 쿼리 준비 실패 시 에러 메시지
-        echo "<script>alert('쿼리 준비에 실패했습니다: " . $mysqli->error . "');</script>";
+      echo "지원되지 않는 파일 형식입니다!";
     }
-}
+  }
+
+  // 강의 저장
+  if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['video_url'], $_POST['lecture_id'], $_POST['instructor_id'], $_POST['video_order'])) {
+    $videoUrl = $_POST['video_url'];
+    $lectureId = $_POST['lecture_id'];
+    $instructorId = $_POST['instructor_id'];
+    $videoOrder = $_POST['video_order'];  // 동영상 순서 (optional)
+
+    // URL 유효성 검사 및 저장
+    if (filter_var($videoUrl, FILTER_VALIDATE_URL)) {
+        // 동영상 정보를 levideo 테이블에 저장
+        $uploadvideoQuery = $mysqli->prepare("
+            INSERT INTO levideo (lecpid, lepid, video_url, orders)
+            VALUES (?, ?, ?, ?)
+        ");
+        $uploadvideoQuery->bind_param("iisi", $lectureId, $instructorId, $videoUrl, $videoOrder);
+        $uploadvideoQuery->execute();
+
+        echo "동영상 URL이 저장되었습니다!";
+    } else {
+        echo "유효하지 않은 URL입니다.";
+    }
+  }
+
+  // 임시 저장 클릭 시
+  // 임시 저장 버튼 클릭 시 처리
+  if (isset($_POST['draft_save'])) {
+  // 폼 데이터 수집
+  $cate1 = $_POST['cate1'];
+  $cate2 = $_POST['cate2'];
+  $cate3 = $_POST['cate3'];
+  $title = $_POST['title'];
+  $name = $_POST['name'];
+  $price = $_POST['price'];
+  $period = $_POST['period'];
+  $isrecipe = isset($_POST['isrecipe']) ? 1 : 0;
+  $isgeneral = isset($_POST['isgeneral']) ? 1 : 0;
+  $image = $_FILES['image']['name'];  // 이미지 파일 처리 로직 추가 필요
+
+    // lecdraft 테이블에 임시 저장 쿼리
+    $sql_draft = "INSERT INTO lecdraft (lecid, cate1, cate2, cate3, title, name, price, period, isrecipe, isgeneral, image, created_at, isfinal)
+                  VALUES ('$pid', '$cate1', '$cate2', '$cate3', '$title', '$name', '$price', '$period', '$isrecipe', '$isgeneral', '$image', NOW(), 0)";
+
+    if ($mysqli->query($sql_draft)) {
+      // 임시 저장 성공 후, 퀴즈/시험 입력 페이지로 이동
+      echo "<script>alert('임시 저장되었습니다. 퀴즈/시험 정보를 입력하세요.');</script>";
+      echo "<script>location.href='quiz_test_up.php?draft_id=" . $mysqli->insert_id . "';</script>";
+    } else {
+      echo "<script>alert('임시 저장에 실패했습니다. 다시 시도해주세요.');</script>";
+    }
+  }
+
+
+
 ?>
 
 <div class="container">
@@ -81,9 +124,8 @@ if (isset($_POST['draft_save']) && $_POST['draft_save'] == '1') {
     <h3>강좌 기본 정보 입력</h3>
     <small>* 분류 설정과 강자명은 필수로 입력해야 임시 저장 가능합니다.</small>
   </div>
-  <form method="POST" action="lecture_up_ok.php" id="lecture_save" enctype="multipart/form-data">
+  <form action="lecture_up_ok.php" id="lecture_save" enctype="multipart/form-data">
   <input type="hidden" name="leid" value="<?= $leid; ?>">
-  <input type="hidden" name="draft_save" value="1"> <!-- 임시 저장을 위한 hidden input -->
     <table class="table">
       <tbody>
         <tr>
@@ -257,10 +299,8 @@ if (isset($_POST['draft_save']) && $_POST['draft_save'] == '1') {
       </div>
     </div>
     <div class="d-flex justify-content-end gap-2 mt-4 mb-5">
-      <input type="hidden" name="final_save" value="1"> <!-- 최종 등록을 위한 hidden input -->
-      <button type="submit" class="btn btn-primary">등록</button>
-      <!-- 임시 저장 버튼 -->
-      <button type="submit" class="btn btn-secondary">임시 저장</button>
+      <a href="" type="button" class="btn btn-secondary">등록</a>
+      <a href="" type="button" class="btn btn-secondary">임시 저장</a>
       <a href="" type="button" class="btn btn-danger">취소</a>
     </div>
   </form>
