@@ -8,23 +8,27 @@ $session_userid = $_SESSION['AUID'] ?? null; // 세션의 AUID는 user 테이블
 $session_username = $_SESSION['AUNAME'] ?? null; // 세션의 AUNAME은 user 테이블의 username과 매칭
 
 // 세션 값 검증
-if (!$session_userid || !$session_username) {
-    echo "<script>alert('로그인 정보가 없습니다. 다시 로그인해 주세요.');</script>";
-    echo "<script>location.href='/CODE_EVEN/admin/login.php';</script>";
-    exit;
+if (!isset($_SESSION['AUID']) || !isset($_SESSION['AUNAME'])) {
+  echo "<pre>";
+  print_r($_SESSION);
+  echo "</pre>";
+  echo "<script>alert('로그인 정보가 없습니다. 다시 로그인해 주세요.');</script>";
+  echo "<script>location.href='/CODE_EVEN/admin/login.php';</script>";
+  exit;
 }
 
 // 사용자 정보 가져오기 (확인용)
 $sql_user = "SELECT uid, username FROM user WHERE userid = ?";
 if ($stmt_user = $mysqli->prepare($sql_user)) {
-    $stmt_user->bind_param("s", $session_userid);
-    $stmt_user->execute();
-    $stmt_user->bind_result($uid, $username);
-    $stmt_user->fetch();
-    $stmt_user->close();
+  $stmt_user->bind_param("s", $session_userid);
+  $stmt_user->execute();
+  $stmt_user->bind_result($uid, $username);
+  $stmt_user->fetch();
+  $stmt_user->close();
 } else {
-    echo "<script>alert('사용자 정보를 가져오는 데 실패했습니다.');</script>";
-    exit;
+  echo "<script>alert('사용자 정보를 가져오는 데 실패했습니다. 관리자에게 문의하세요.');</script>";
+  echo "<script>location.href='/CODE_EVEN/admin/login.php';</script>";
+  exit;
 }
 
 $leid = isset($_GET['leid']) ? $_GET['leid'] : '';
@@ -62,7 +66,12 @@ if (isset($_POST['draft_save']) && $_POST['draft_save'] == '1') {
 
     // 데이터 검증
     if (empty($cate1) || empty($cate2) || empty($cate3) || empty($title)) {
-        echo "<script>alert('필수 항목을 모두 입력해주세요.');</script>";
+      echo "<script>alert('분류와 강좌명은 필수 입력 항목입니다.');</script>";
+      exit;
+    }
+    
+    if (!is_numeric($price) || $price < 0) {
+        echo "<script>alert('수강료는 0 이상의 숫자여야 합니다.');</script>";
         exit;
     }
 
@@ -202,7 +211,7 @@ if (isset($_POST['draft_save']) && $_POST['draft_save'] == '1') {
     <h3>강좌 기본 정보 입력</h3>
     <small>* 분류 설정과 강자명은 필수로 입력해야 임시 저장 가능합니다.</small>
   </div>
-  <form method="POST" action="lecture_up_ok.php" id="lecture_save" enctype="multipart/form-data">
+  <form method="POST" action="lecture_up_ok.php" enctype="multipart/form-data" id="lecture_save">
   <input type="hidden" name="leid" value="<?= $leid; ?>">
     <table class="table">
       <tbody>
@@ -361,7 +370,7 @@ if (isset($_POST['draft_save']) && $_POST['draft_save'] == '1') {
             <td>
               <div class="input-group">
                 <span class="input-group-text">https://</span>
-                <input type="text" class="form-control" placeholder="www.code_even.com">
+                <input type="text" name="video_url" class="form-control" placeholder="www.code_even.com">
               </div>
             </td>
           </tr>
@@ -425,11 +434,15 @@ if (isset($_POST['draft_save']) && $_POST['draft_save'] == '1') {
   });
 
   // 수강료 입력 시 1,000 단위 반점
-  function priceNum(input) {
-    let value = input.value.replace(/[^0-9]/g, ''); // 숫자만 입력 가능하게!
-    let priceValue = value.replace(/\B(?=(\d{3})+(?!\d))/g, ','); // 100 단위 반점 추가
-    input.value = priceValue; // input에 입력한 값에 세 자릿수마다 반점 추가
-  }
+    $('#price').on('input', function () {
+        let value = this.value.replace(/[^0-9]/g, ''); // 숫자만 입력 가능
+        let formattedValue = new Intl.NumberFormat().format(value); // 1,000 단위로 반점 추가
+        this.value = formattedValue;
+
+        // Hidden input에 순수 숫자만 저장
+        $('#hidden_price').val(value);
+    });
+
   
   // 카테고리 변경 시 교재 목록 업데이트
   function updateBooks() {
@@ -498,42 +511,78 @@ function updateQuizAndTest() {
     const title = $('#title').val();
 
     if (cate1 && cate2 && cate3 && title) {
-        $.ajax({
-            url: 'lecture_up_ok.php', // 요청을 보낼 URL
-            type: 'POST',
-            data: {
-                action: 'get_quiz_test', // AJAX 요청임을 알리는 필드
-                cate1: cate1,
-                cate2: cate2,
-                cate3: cate3,
-                title: title,
-            },
-            dataType: 'json',
-            success: function (response) {
+      $.ajax({
+        url: 'lecture_up_ok.php',
+        type: 'POST',
+        data: {
+            action: 'get_quiz_test',
+            cate1: cate1,
+            cate2: cate2,
+            cate3: cate3,
+            title: title
+        },
+        success: function(response) {
+            var data = JSON.parse(response);
+
+            var quizData = data.quiz;
+            var testData = data.test;
+
+            if (quizData.length === 0 && testData.length === 0) {
+                // 퀴즈와 시험 데이터가 없을 때 처리
+                console.log('퀴즈와 시험 데이터가 없습니다.');
+                // 필요하다면, UI에서 퀴즈/시험 선택 드롭다운을 비울 수도 있습니다.
+                $('select[name="quiz_id"]').html('<option value="">퀴즈를 선택해 주세요.</option>');
+                $('select[name="test_id"]').html('<option value="">시험을 선택해 주세요.</option>');
+            } else {
+                // 퀴즈와 시험 데이터가 있을 때 처리
+                console.log('퀴즈 데이터:', quizData);
+                console.log('시험 데이터:', testData);
+
                 // 퀴즈 목록 업데이트
                 const quizSelect = $('select[name="quiz_id"]');
                 quizSelect.html('<option value="">퀴즈를 선택해 주세요.</option>');
-                response.quiz.forEach(quiz => {
-                    quizSelect.append(`<option value="${quiz.exid}">${quiz.tt}</option>`);
+                quizData.forEach(function(quiz) {
+                    quizSelect.append('<option value="' + quiz.exid + '">' + quiz.tt + '</option>');
                 });
 
                 // 시험 목록 업데이트
                 const testSelect = $('select[name="test_id"]');
                 testSelect.html('<option value="">시험을 선택해 주세요.</option>');
-                response.test.forEach(test => {
-                    testSelect.append(`<option value="${test.exid}">${test.tt}</option>`);
+                testData.forEach(function(test) {
+                    testSelect.append('<option value="' + test.exid + '">' + test.tt + '</option>');
                 });
-            },
-            error: function (xhr, status, error) {
-                console.error(xhr.responseText);
-                alert('퀴즈와 시험 데이터를 가져오는 데 실패했습니다.');
             }
-        });
+        },
+        error: function(xhr, status, error) {
+            // 서버 오류가 발생했을 때만 처리
+            console.error('AJAX Error:', error);
+        }
+      });
+
     }
 }
 
 // 카테고리나 강좌명이 변경될 때 이벤트 실행
 $('#cate1, #cate2, #cate3, #title').on('change', updateQuizAndTest);
+
+$('#lecture_save').on('submit', function (e) {
+   const lectureDetails = [];
+   $('.lecture-detail-row').each(function () {
+      lectureDetails.push({
+         title: $(this).find('input[name="lecture_title"]').val(),
+         description: $(this).find('textarea[name="lecture_description"]').val(),
+         quiz_id: $(this).find('select[name="quiz_id"]').val(),
+         test_id: $(this).find('select[name="test_id"]').val(),
+      });
+   });
+
+   $('<input>').attr({
+      type: 'hidden',
+      name: 'lecture_detail',
+      value: JSON.stringify(lectureDetails),
+   }).appendTo('#lecture_save');
+});
+
 
 
 
