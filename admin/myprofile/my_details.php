@@ -8,11 +8,11 @@ include_once($_SERVER['DOCUMENT_ROOT'] . '/code_even/admin/inc/header.php');
   <h2>내 프로필 수정</h2>
   <div class="content_bar">
     <h3>관리자 상세정보</h3>
-  </div>
+  </div> 
 
   <form action="">
   <div class="upload adminprofile mt-5 mb-3">
-    <img src="<?=$_SERVER['DOCUMENT_ROOT']; ?>/code_even/admin/images/adminprofile.png"  alt="코드이븐 관리자 프로필">
+    <img src="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/images/adminprofile.png"  alt="코드이븐 관리자 프로필">
   </div>
   <p class="text-center mb-5">프로필 이미지</p>
 

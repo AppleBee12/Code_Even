@@ -39,6 +39,18 @@ tbody .form-control, tbody .form-select{
   margin: auto;
 }
 
+.upload img{
+  object-fit: cover;
+  border-radius: 50%;
+  border: 1px solid var(--bk200);
+}
+
+/* 관리자페이지 이미지 */
+.adminprofile img{
+  width: 100px;
+  height: 100px;
+}
+
 /*토스트 알림창*/
 .toast{
   position: absolute; top: 35%; left: 45%; 
@@ -49,11 +61,6 @@ tbody .form-control, tbody .form-select{
 }
 
 
-.upload img{
-  object-fit: cover;
-  border-radius: 50%;
-  border: 1px solid var(--bk200);
-}
 
 .upload .round{
   position: absolute;
