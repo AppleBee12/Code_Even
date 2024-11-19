@@ -44,7 +44,6 @@ $mysqli->close();
           foreach($cate1 as $c1){
         ?>
         <option value="<?= $c1-> code; ?>"><?= $c1->name; ?>
-        <!-- <button>삭제</button></option> -->
         <?php
           }
         ?>
@@ -58,6 +57,7 @@ $mysqli->close();
       
 
     </div>
+    
     
     <div class="col-md-4">
     <div class="bd d-flex justify-content-center"> 중분류</div>
@@ -86,6 +86,7 @@ $mysqli->close();
     </div>
   </div>
 </div>
+
 <!-- 모달 창 -->
 <!-- Modal 1-->
 <div class="modal fade" id="cate1_modal" tabindex="-1" aria-labelledby="대분류 등록" aria-hidden="true">
