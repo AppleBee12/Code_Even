@@ -66,14 +66,18 @@ while ($data = $result->fetch_object()) {
       <thead>
         <tr>
           <th scope="col">번호</th>
+        <?php if ($level == 100): ?>
           <th scope="col">아이디</th>
           <th scope="col">이름</th>
+        <?php endif; ?>
           <th scope="col">분류</th>
           <th scope="col">제목</th>
           <th scope="col">조회수</th>
           <th scope="col">등록일</th>
+        <?php if ($level == 100): ?>
           <th scope="col">상태</th>
           <th scope="col">관리</th>
+        <?php endif; ?>
         </tr>
       </thead>
       <tbody>
@@ -83,8 +87,10 @@ while ($data = $result->fetch_object()) {
             ?>
             <tr>
               <td><?= $faq->fqid; ?></td>
+            <?php if ($level == 100): ?>
               <td><?= $faq->userid; ?></td>
               <td><?= $faq->username; ?></td>
+            <?php endif; ?>
               <td>
                 <?php
                 echo $faq->category == 1 ? "결제/환불" :
@@ -98,11 +104,20 @@ while ($data = $result->fetch_object()) {
                 ?>
               </td>
               <td>
+              <?php if ($level == 100): ?>
                 <a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/inquiry/faq_modify.php?fqid=<?= $faq->fqid; ?>"
-                  class="underline"><?= $faq->title; ?></a>
+                  class="underline"><?= $faq->title; ?>
+                </a>
+              <?php endif; ?>
+              <?php if ($level == 10): ?>
+                <a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/inquiry/faq_details.php?fqid=<?= $faq->fqid; ?>"
+                  class="underline"><?= $faq->title; ?>
+                </a>
+              <?php endif; ?>
               </td>
               <td><?= $faq->view; ?></td>
               <td><?= $faq->regdate; ?></td>
+            <?php if ($level == 100): ?>
               <td>
                 <?php
                 $class = $faq->status == 'on' ? 'text-bg-success' : 'text-bg-light';
@@ -118,6 +133,7 @@ while ($data = $result->fetch_object()) {
                   <i class="bi bi-trash-fill"></i>
                 </a>
               </td>
+            <?php endif; ?>
             </tr>
           <?php
           }
