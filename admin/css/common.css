@@ -156,12 +156,15 @@ header h1.logo a {
   width:70px;
   height:70px;
   
-  background-image: url(https://picsum.photos/200);
+  background-image: url(../images/adminprofile.png);
   background-repeat: no-repeat;
   background-size: cover;
   background-color: var(--bk300);
   border-radius: 50%;
-  /* var(--bk0); */
+}
+.nav-link.tc_profile_image{
+  width:70px;
+  height:70px;
 }
 .greet_name {
 
