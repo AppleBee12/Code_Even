@@ -363,6 +363,10 @@ a {
   width: 516px;
 }
 
+.col-width-130 {
+  width: 130px;
+}
+
 
 .nav_sibling h2 {
   /* 임시 */
