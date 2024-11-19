@@ -22,7 +22,7 @@ $level = $_SESSION['AULEVEL'];
 $_SESSION['AUNAME'] = $username;
 // $_SESSION['AULEVEL'] = $user_level;
 ?>
-
+  
 <!DOCTYPE html>
 <html lang="en">
 
