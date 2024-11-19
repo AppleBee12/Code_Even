@@ -246,6 +246,14 @@ CREATE TABLE `class_data` (
   `progress_rate` decimal(10,0) NOT NULL COMMENT '진도율'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='수강데이터';
 
+--
+-- 테이블의 덤프 데이터 `class_data`
+--
+
+INSERT INTO `class_data` (`cdid`, `uid`, `leid`, `exid`, `course_cert`, `progress_rate`) VALUES
+(1, 3, 1, NULL, '', 0),
+(2, 3, 2, NULL, '', 0);
+
 -- --------------------------------------------------------
 
 --
@@ -753,6 +761,13 @@ CREATE TABLE `review` (
   `content` text NOT NULL COMMENT '내용',
   `regdate` datetime NOT NULL COMMENT '등록일'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='수강 후기';
+
+--
+-- 테이블의 덤프 데이터 `review`
+--
+
+INSERT INTO `review` (`rvid`, `cdid`, `rating`, `rtitle`, `content`, `regdate`) VALUES
+(1, 1, 5, 'HTML & CSS 기초 학습 후기', 'HTML과 CSS 기초에 대해 명확히 배우기 좋은 수업이었습니다. 내용 전달이 잘 정리되어 있고, 실습 중심의 학습이 스타일 설정에 대한 이해를 높이는 데 매우 도움이 되었습니다.', '2024-11-19 01:33:15');
 
 -- --------------------------------------------------------
 
