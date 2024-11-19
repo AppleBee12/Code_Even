@@ -1,0 +1,4 @@
+.text-bg-red {
+  color: #fff !important;
+  background-color: var(--red700) !important;
+}
