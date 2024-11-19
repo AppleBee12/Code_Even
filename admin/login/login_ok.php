@@ -15,6 +15,7 @@ if($data){
   $_SESSION['AUID'] = $data->userid;
   $_SESSION['AUNAME'] = $data->username;
   $_SESSION['AULEVEL'] = $data->user_level;
+  $_SESSION['UID'] = $data->uid;
 
   if ($_SESSION['AULEVEL'] == 100) {
     echo "<script>
