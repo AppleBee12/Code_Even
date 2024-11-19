@@ -4,33 +4,30 @@
 
   $uid = $_GET['uid'];
 
-
   $sql = "SELECT * FROM user WHERE uid = $uid";
   $result = $mysqli->query($sql);
   $data = $result->fetch_object();
 ?>
-
-
 
 <div class="container">
   <h2>회원정보수정</h2>
   <div class="content_bar">
     <h3>회원정보</h3>
   </div>
-  <form action="teacher_edit_ok.php" id="teacher_save" method="POST" enctype="multipart/form-data">
+  <form action="user_edit_ok.php" id="user_save" method="POST" enctype="multipart/form-data">
     <input type="hidden" name="uid" value="<?= $data->uid; ?>">
     <table class="table w-100 info_table">
       <colgroup>
-        <col width="160">  
-        <col width="516">  
-        <col width="160">
-        <col width="516">  
+        <col class="col-width-160">
+        <col class="col-width-516">
+        <col class="col-width-160">
+        <col class="col-width-516">
       </colgroup>
       <tbody>
         <tr>
-          <th scope="row">이름 <b>*</b></th>
+          <th scope="row"><label for="username">이름 <b>*</b></label></th>
           <td>
-            <input type="text" class="form-control" id="exampleFormControlInput1" name="username" value="<?= $data->username; ?>" required>
+            <input type="text" class="form-control" id="username" name="username" value="<?= $data->username; ?>" required>
           </td>
           <th scope="row">가입일</th>
           <td>
@@ -38,9 +35,9 @@
           </td>
         </tr>
         <tr>
-          <th scope="row">아이디 <b>*</b></th>
+          <th scope="row"><label for="userid">아이디 <b>*</b></label></th>
           <td>
-            <input type="text" class="form-control" id="exampleFormControlInput1" name="userid" value="<?= $data->userid; ?>">
+            <input type="text" class="form-control" id="userid" name="userid" value="<?= $data->userid; ?>">
           </td>
           <th scope="row">마지막접속일</th>
           <td>
@@ -48,51 +45,51 @@
           </td>
         </tr>
         <tr>
-          <th scope="row">비밀번호</th>
+          <th scope="row"><label for="userpw">비밀번호</label></th>
           <td>
-            <input type="password" class="form-control" id="userpw" name="userpw" value="" placeholder="비밀번호는 변경시에만 입력해주세요.">
+            <input type="password" class="form-control" id="userpw" name="userpw" value="" placeholder="* 비밀번호는 변경시에만 입력해주세요.">
           </td>
           <th scope="row">회원구분</th>
           <td>
             <div class="form-check form-check-inline">
-              <input class="form-check-input" type="radio" name="user_level" id="inlineRadio1" value="1" <?php if($data->user_level == 1){echo 'checked';}?>>
-              <label class="form-check-label" for="inlineRadio1">일반회원</label>
+              <input class="form-check-input" type="radio" name="user_level" id="user_level1" value="1" <?php if($data->user_level == 1){echo 'checked';}?>>
+              <label class="form-check-label" for="user_level">일반회원</label>
             </div>
             <div class="form-check form-check-inline">
-              <input class="form-check-input" type="radio" name="user_level" id="inlineRadio2" value="10" <?php if($data->user_level == 10){echo 'checked';}?>> 
-              <label class="form-check-label" for="inlineRadio2">강사</label>
+              <input class="form-check-input" type="radio" name="user_level" id="user_level10" value="10" <?php if($data->user_level == 10){echo 'checked';}?>> 
+              <label class="form-check-label" for="user_level">강사</label>
             </div>
             <div class="form-check form-check-inline">
-              <input class="form-check-input" type="radio" name="user_level" id="inlineRadio3" value="100" <?php if($data->user_level == 100){echo 'checked';}?>> 
-              <label class="form-check-label" for="inlineRadio3">관리자</label>
+              <input class="form-check-input" type="radio" name="user_level" id="user_level100" value="100" <?php if($data->user_level == 100){echo 'checked';}?>> 
+              <label class="form-check-label" for="user_level">관리자</label>
             </div>
           </td>
         </tr>
         <tr>
-          <th scope="row">비밀번호 확인</th>
+          <th scope="row"><label for="userpw">비밀번호 확인</label></th>
           <td>
-            <input type="password" class="form-control" id="userpw" name="userpw" value="" placeholder="비밀번호는 변경시에만 입력해주세요.">
+            <input type="password" class="form-control" id="userpw" name="userpw" value="" placeholder="* 비밀번호는 변경시에만 입력해주세요.">
           </td>
-          <th scope="row">회원상태</th>
+          <th scope="row"><label for="user_status">회원상태</label></th>
           <td>
             <div class="form-check form-check-inline">
-              <input class="form-check-input" type="radio" name="user_status" id="inlineRadio1" value="0" <?php if($data->user_status == 0){echo 'checked';}?>>
+              <input class="form-check-input" type="radio" name="user_status" id="user_status0" value="0" <?php if($data->user_status == 0){echo 'checked';}?>>
               <label class="form-check-label" for="user_status">정상</label>
             </div>
             <div class="form-check form-check-inline">
-              <input class="form-check-input" type="radio" name="user_status" id="inlineRadio3" value="-1" <?php if($data->user_status == -1){echo 'checked';}?>> 
+              <input class="form-check-input" type="radio" name="user_status" id="user_status-1" value="-1" <?php if($data->user_status == -1){echo 'checked';}?>> 
               <label class="form-check-label" for="user_status">탈퇴</label>
             </div>
             <div class="form-check form-check-inline">
-              <input class="form-check-input" type="radio" name="user_status" id="inlineRadio2" value="1" <?php if($data->user_status == 1){echo 'checked';}?>> 
+              <input class="form-check-input" type="radio" name="user_status" id="user_status1" value="1" <?php if($data->user_status == 1){echo 'checked';}?>> 
               <label class="form-check-label" for="user_status">정지</label>
             </div>
           </td>
         </tr>
         <tr>
-          <th scope="row">닉네임 <b>*</b></th>
+          <th scope="row"><label for="usernick">닉네임 <b>*</b></label></th>
           <td>
-            <input type="text" class="form-control" id="exampleFormControlInput1" name="usernick" value="<?= $data->usernick; ?>">
+            <input type="text" class="form-control" id="usernick" name="usernick" value="<?= $data->usernick; ?>">
           </td>
           <th scope="row" rowspan="4">주소</th>
           <td rowspan="4" class="user_addr">
@@ -106,23 +103,23 @@
             </div>
             <input type="text" id="sample6_address" class="form-control" name="addr_line1" placeholder="주소" value="<?= $data->addr_line1 ?>">
             <input type="text" id="sample6_detailAddress" class="form-control" name="addr_line2" placeholder="상세주소" value="<?= $data->addr_line2 ?>"> 
-            <input type="text" id="sample6_extraAddress" class="form-control" name="addr_line3" placeholder="참고항목" value="<?= $data->addr_line3 ?>">
+            <input type="text" id="sample6_extraAddress" class="form-control" name="addr_line3" placeholder="참고항목(동이름)" value="<?= $data->addr_line3 ?>">
           </td>
         </tr>
         <tr>
-          <th scope="row">연락처 <b>*</b></th>
+          <th scope="row"><label for="userphonenum">연락처 <b>*</b></label></th>
           <td>
             <input type="text" class="form-control" id="userphonenum" name="userphonenum" value="<?= $data->userphonenum; ?>">
           </td>
         </tr>
         <tr>
-          <th scope="row">이메일 <b>*</b></th>
+          <th scope="row"><label for="useremail">이메일 <b>*</b></label></th>
           <td>
-            <input type="text" class="form-control" id="exampleFormControlInput1" name="useremail" value="<?= $data->useremail; ?>">
+            <input type="email" class="form-control" id="useremail" name="useremail" value="<?= $data->useremail; ?>">
           </td>
         </tr>
         <tr>
-          <th scope="row">이메일 수신여부 <b>*</b></th>
+          <th scope="row">이메일 수신여부</th>
           <td>
             <div class="form-check form-check-inline d-inline-block">
               <input class="form-check-input" type="checkbox" <?php echo $data->email_ok ? 'checked' : ''; ?> value="<?= $data->email_ok ?>" name="email_ok" id="email_ok">
@@ -168,7 +165,7 @@
     </table>
 
     <div class="d-flex justify-content-end gap-2">
-      <a href="teacher_list.php" type="button" class="btn btn-outline-danger">취소</a>
+      <a href="user_list.php" class="btn btn-outline-danger" role="button">취소</a>
       <button class="btn btn-outline-secondary">수정</button>
     </div>
   </form>
@@ -237,7 +234,7 @@
     hypenTel(this);
   });
 
-    $('table .form-check-input').change(function(){
+    $('table .form-check-input[type="checkbox"]').change(function(){
     if($(this).prop( "checked" )){
       $(this).val('1');
     } else{
