@@ -122,6 +122,8 @@ $_SESSION['AUNAME'] = $username;
   }
   switch ($page) {
     case 'counsel.php':
+    case 'blog.php':
+    case 'team_project.php':
       echo '<link rel="stylesheet" href="http://' . $_SERVER['HTTP_HOST'] . '/code_even/admin/css/counsel.css">';
       break;
   }
