@@ -14,16 +14,6 @@ table, th, td {
   margin-top: 50px;
 }
 
-.cent{
-  position: relative;
-
-  h3{
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-  }
-}
-
 td {
   vertical-align: top; /* 테이블 셀 내 정렬 */
 }
@@ -104,4 +94,21 @@ td {
   margin-top: 10px !important;
   height: 38px !important;
   border-color: var(--bk800) !important;
+}
+
+
+/* quiz_test */
+
+.content_bar small{
+  color: var(--bk400);
+  font-size: 12px;
+  font-weight: normal;
+}
+
+.custom-gap{
+  gap: 100px;
+}
+
+.input-group span{
+height: 38px;
 }
