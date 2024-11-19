@@ -258,6 +258,7 @@ INSERT INTO `class_data` (`cdid`, `uid`, `leid`, `exid`, `course_cert`, `progres
 (1, 3, 1, NULL, '', 0),
 (2, 3, 2, NULL, '', 0);
 
+
 -- --------------------------------------------------------
 
 --
@@ -433,6 +434,7 @@ CREATE TABLE `lecdraft` (
 
 CREATE TABLE `lecture` (
   `leid` int(11) NOT NULL COMMENT '번호',
+  `cgid` int(11) DEFAULT NULL,
   `lecid` int(11) NOT NULL COMMENT '강사고유id',
   `cate1` varchar(50) NOT NULL COMMENT '대분류',
   `cate2` varchar(50) NOT NULL COMMENT '중분류',
@@ -459,8 +461,11 @@ CREATE TABLE `lecture` (
 -- 테이블의 덤프 데이터 `lecture`
 --
 
-INSERT INTO `lecture` (`leid`, `lecid`, `cate1`, `cate2`, `cate3`, `image`, `title`, `des`, `name`, `video_url`, `file`, `period`, `isrecipe`, `isgeneral`, `isbest`, `isrecom`, `state`, `approval`, `price`, `level`, `date`) VALUES
-(1, 0, 'A0001', 'B0001', 'C0001', '', '기초부터 확실하게! (페이지의 내용 전달을 위한 HTML, 스타일 설정을 위한 CSS 기초 학습)', '초보자를 위한 쉽고 재미있는 HTML, CSS 기초입니다. 천천히 보면서 이해하면서 따라해 보세요!', '홍길동', 'https://youtu.be/oHTr2fEkmGA?si=fNAGT0cPExpzwXDM', NULL, 30, '', '', '', '', 1, 1, 15000, 50, '2024-11-18 14:40:26');
+INSERT INTO `lecture` (`leid`, `cgid`, `lecid`, `cate1`, `cate2`, `cate3`, `image`, `title`, `des`, `name`, `video_url`, `file`, `period`, `isrecipe`, `isgeneral`, `isbest`, `isrecom`, `state`, `approval`, `price`, `level`, `date`) VALUES
+(1, NULL, 0, 'A0001', 'B0001', 'C0001', '', '기초부터 확실하게! (페이지의 내용 전달을 위한 HTML, 스타일 설정을 위한 CSS 기초 학습)', '초보자를 위한 쉽고 재미있는 HTML, CSS 기초입니다. 천천히 보면서 이해하면서 따라해 보세요!', '홍길동', 'https://youtu.be/oHTr2fEkmGA?si=fNAGT0cPExpzwXDM', NULL, 30, '', '', '', '', 1, 1, 15000, 50, '2024-11-18 14:40:26'),
+(2, NULL, 2, 'A0001', 'B0001', 'C0001', '', '2기초부터 확실하게! (페이지의 내용 전달을 위한 HTML, 스타일 설정을 위한 CSS 기초 학습)', '2초보자를 위한 쉽고 재미있는 HTML, CSS 기초입니다. 천천히 보면서 이해하면서 따라해 보세요!', '이븐선생', 'https://youtu.be/oHTr2fEkmGA?si=fNAGT0cPExpzwXDM', NULL, 30, '', '', '', '', 1, 1, 35000, 50, '0000-00-00 00:00:00'),
+(3, NULL, 0, 'A0001', 'B0001', 'C0001', '', 'HTML 정도는 껌이지', '', '', '', NULL, 0, '', '', '', '', 0, 0, 0, 0, '2024-11-19 02:12:51');
+
 
 -- --------------------------------------------------------
 
@@ -1279,7 +1284,7 @@ ALTER TABLE `category`
 -- 테이블의 AUTO_INCREMENT `class_data`
 --
 ALTER TABLE `class_data`
-  MODIFY `cdid` int(11) NOT NULL AUTO_INCREMENT COMMENT '수강데이터ID', AUTO_INCREMENT=3;
+  MODIFY `cdid` int(11) NOT NULL AUTO_INCREMENT COMMENT '수강데이터ID', AUTO_INCREMENT=1;
 
 --
 -- 테이블의 AUTO_INCREMENT `company_info`
@@ -1458,6 +1463,14 @@ ALTER TABLE `admin_answer`
 --
 ALTER TABLE `admin_question`
   ADD CONSTRAINT `admin_question_ibfk_1` FOREIGN KEY (`uid`) REFERENCES `user` (`uid`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- 테이블의 제약사항 `class_data`
+--
+ALTER TABLE `class_data`
+  ADD CONSTRAINT `class_data_ibfk_1` FOREIGN KEY (`uid`) REFERENCES `user` (`uid`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `class_data_ibfk_2` FOREIGN KEY (`leid`) REFERENCES `lecture` (`leid`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `class_data_ibfk_3` FOREIGN KEY (`exid`) REFERENCES `stuscores` (`exid`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- 테이블의 제약사항 `faq`
