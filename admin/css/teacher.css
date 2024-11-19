@@ -1,3 +1,7 @@
+.nav_sibling{
+  padding-bottom: 80px;
+}
+
 /* Form 컨트롤 */
 
 tbody .form-control, tbody .form-select{
