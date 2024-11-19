@@ -11,21 +11,8 @@ if (!isset($tcid)) {
 $thumbnail_sql = "SELECT tc_thumbnail FROM teachers WHERE tcid = $tcid";
 $thumbnail_result = $mysqli->query($thumbnail_sql);
 $thumbnail_data = $thumbnail_result->fetch_object();
-$thumbnail = $thumbnail_data->thumbnail;
+$thumbnail = $thumbnail_data->tc_thumbnail;
 
-// 디버깅 출력
-/*
-var_dump($thumbnail_data);
-
-$thumbnail = '';
-if ($thumbnail_data && !empty($thumbnail_data->tc_thumbnail)) {
-    $thumbnail = $thumbnail_data->tc_thumbnail;
-    echo "Thumbnail path: " . $thumbnail; // 출력 확인
-    unlink($_SERVER['DOCUMENT_ROOT'] . $thumbnail);
-} else {
-    echo "Thumbnail 데이터가 없습니다.";
-}
-*/
 
 unlink($_SERVER['DOCUMENT_ROOT'].$thumbnail);
 
