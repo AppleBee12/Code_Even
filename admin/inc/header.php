@@ -22,7 +22,7 @@ $level = $_SESSION['AULEVEL'];
 $_SESSION['AUNAME'] = $username;
 // $_SESSION['AULEVEL'] = $user_level;
 ?>
-
+  
 <!DOCTYPE html>
 <html lang="en">
 
@@ -200,7 +200,15 @@ $_SESSION['AUNAME'] = $username;
       </div>
       <ul class="nav nav-pills">
         <li class="nav-item">
-          <a class="nav-link profile_image" href="#"></a>
+            <?php
+             if($level == 100):?>
+              <a class="nav-link profile_image" href="#"></a>
+              <?php endif; ?>
+            <?php if($level == 10):?>
+              <a class="nav-link tc_profile_image" href="#"></a>
+              <?php endif; ?>
+          
+          
         </li>
         <li class="nav-item dropdown d-flex align-items-center">
           <button class="nav-link dropdown-toggle" data-bs-toggle="dropdown"
@@ -237,13 +245,11 @@ $_SESSION['AUNAME'] = $username;
         <ul class="list-group line">
           <?php if ($level == 100): ?>
             <li class="list-group-item" data-link="admin"><a
-                href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/index.php">　<i class="bi bi-grid"></i> 　
-                대시보드</a></li>
+                href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/index.php">　<i class="bi bi-grid"></i> 　 대시보드</a></li>
           <?php endif; ?>
           <?php if ($level == 10): ?>
             <li class="list-group-item" data-link="admin"><a
-                href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/teacher_index.php">　<i class="bi bi-grid"></i>
-                대시보드</a></li>
+                href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/teacher_index.php">　<i class="bi bi-grid"></i> 　 대시보드</a></li>
           <?php endif; ?>
         </ul>
         <ul class="list-group line">
