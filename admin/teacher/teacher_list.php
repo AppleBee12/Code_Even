@@ -153,8 +153,8 @@
             <i class="bi bi-pencil-fill"></i>
             <span class="visually-hidden">수정</span>   
             </a>
-            <a href="teacher_del.php?tcid=<?= $item->tcid; ?>">
-            <i class="bi bi-trash-fill"></i>
+            <a href="teacher_del.php?tcid=<?= $item->tcid; ?>" >
+            <i class="bi bi-trash-fill del_link"></i>
             <span class="visually-hidden">삭제</span>
             </a>
           </td>
@@ -218,6 +218,12 @@
       $(this).val('0');
     }
   });
+
+  $('.del_link').click(function(e) {
+      if (!confirm('정말 삭제하시겠습니까? 삭제 후에는 복구가 불가능합니다.')) {
+        e.preventDefault();
+      }
+    });
 
   //새로고침 시 주소창 리셋
   if (window.location.search) {
