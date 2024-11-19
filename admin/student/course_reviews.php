@@ -69,9 +69,6 @@ while ($data = $result->fetch_object()) {
     <table class="table list_table">
       <thead>
         <tr>
-          <th scope="col">
-            <input class="form-check-input" type="checkbox" value="" id="allCheck">
-          </th>
           <th scope="col">번호</th>
           <th scope="col">아이디</th>
           <th scope="col">이름</th>
@@ -80,7 +77,6 @@ while ($data = $result->fetch_object()) {
           <th scope="col">강사</th>
           <th scope="col">평점</th>
           <th scope="col">등록일</th>
-          <th scope="col">관리</th>
         </tr>
       </thead>
       <tbody>
@@ -89,9 +85,6 @@ while ($data = $result->fetch_object()) {
         foreach ($dataArr as $no) {
           ?>
         <tr>
-          <th scope="row">
-            <input class="form-check-input itemCheckbox" type="checkbox" value="">
-          </th>
           <td><?=$no->rvid;?></td>
           <td><?=$no->userid;?></td>
           <td><?=$no->username;?></td>
@@ -116,11 +109,6 @@ while ($data = $result->fetch_object()) {
             </div>
           </td>
           <td><?=$no->regdate;?></td>
-          <td>
-            <a href="">
-              <i class="bi bi-trash-fill"></i>
-            </a>
-          </td>
         </tr>
         <?php
         }
@@ -130,10 +118,6 @@ while ($data = $result->fetch_object()) {
       ?>
       </tbody>
     </table>
-
-    <div class="d-flex justify-content-end">
-       <button type="button" class="btn btn-danger">삭제</button>
-     </div>
 
   <!-- //Pagination -->
   <div class="list_pagination" aria-label="Page navigation example">

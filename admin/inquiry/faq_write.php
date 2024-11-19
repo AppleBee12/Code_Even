@@ -23,10 +23,10 @@ $data = $result->fetch_object();
     <input type="hidden" name="userid" value="<?= $data->userid; ?>">
     <table class="table details_table">
       <colgroup>
-        <col style="width:160px">
-        <col style="width:516px">
-        <col style="width:160px">
-        <col style="width:516px">
+        <col class="col-width-160">
+        <col class="col-width-516">
+        <col class="col-width-160">
+        <col class="col-width-516">
       </colgroup>
       <thead class="thead-hidden">
         <tr>
@@ -48,7 +48,7 @@ $data = $result->fetch_object();
           </td>
           <th scope="row">분류 <b>*</b></th>
           <td>
-            <select class="form-select w-50" aria-label="Default select example" name="category">
+            <select class="form-select w-50" aria-label="category select" name="category" required>
               <option value="">분류 선택</option>
               <option value="1">결제/환불</option>
               <option value="2">강의</option>
@@ -67,7 +67,7 @@ $data = $result->fetch_object();
           <th scope="row">상태 <b>*</b></th>
           <td class="d-flex gap-3">
             <div class="form-check">
-              <input class="form-check-input" type="radio" name="status" id="status" value="on">
+              <input class="form-check-input" type="radio" name="status" id="status" value="on" required>
               <label class="form-check-label" for="status">
                 노출
               </label>
@@ -84,13 +84,13 @@ $data = $result->fetch_object();
           <th scope="row">제목 <b>*</b></th>
           <td colspan="3">
             <div>
-              <input type="text" name="title" class="form-control w-75" id="title" placeholder="제목을 입력해주세요.">
+              <input type="text" name="title" class="form-control w-75" id="title" placeholder="제목을 입력해주세요." required>
             </div>
           </td>
         </tr>
       </tbody>
     </table>
-    <textarea name="content" id="content" class="form-control"></textarea>
+    <textarea name="content" id="content" class="form-control" placeholder="내용을 입력해주세요." required></textarea>
     <input type="file" class="form-control w-50" id="file">
     <div class="custom-hr"></div>
 

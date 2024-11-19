@@ -1,3 +1,7 @@
+.nav_sibling{
+  padding-bottom: 80px;
+}
+
 /* Form 컨트롤 */
 
 tbody .form-control, tbody .form-select{
@@ -41,6 +45,23 @@ tbody .form-control, tbody .form-select{
   border: 1px solid var(--bk200);
 }
 
+/* 관리자페이지 이미지 */
+.adminprofile img{
+  width: 100px;
+  height: 100px;
+}
+
+/*토스트 알림창*/
+.toast{
+  position: absolute; top: 35%; left: 45%; 
+  z-index: 10;
+  max-width: 300px;
+  --bs-toast-header-bg: var(--red100);
+  --bs-toast-bg: var(--red100);
+}
+
+
+
 .upload .round{
   position: absolute;
   bottom: 0;
@@ -65,6 +86,8 @@ input[type=file]::-webkit-file-upload-button{
     cursor: pointer;
 }
 
-
+.bi-camera-fill::before {
+  vertical-align: 0;
+}
 
 

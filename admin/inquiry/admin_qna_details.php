@@ -30,10 +30,10 @@ $data = $result->fetch_object();
 
   <table class="table details_table">
     <colgroup>
-      <col style="width:160px">
-      <col style="width:516px">
-      <col style="width:160px">
-      <col style="width:516px">
+      <col class="col-width-160">
+      <col class="col-width-516">
+      <col class="col-width-160">
+      <col class="col-width-516">
     </colgroup>
     <thead class="thead-hidden">
       <tr>
@@ -94,44 +94,56 @@ $data = $result->fetch_object();
       </tr>
     </tbody>
   </table>
-  <div class="content_bar">
-    <h3>답변 내용</h3>
-  </div>
 
-  <?php
-  if (!empty($data->aaid)) {
-    ?>
-    <div class="card">
-      <div class="card-header">
-        <p>관리자</p>
-      </div>
-      <div class="card-body">
-        <p class="mb-0">
-          <?= $data->acontent ?>
-        </p>
-      </div>
+    <div class="content_bar">
+      <h3>답변 내용</h3>
     </div>
+  
     <?php
-  }
-  ?>
-
-  <div class="custom-hr"></div>
-
-  <div class="d-flex justify-content-end gap-2">
-    <a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/inquiry/admin_qna.php"
-      class="btn btn-outline-danger">취소</a>
-    <!-- <a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/inquiry/admin_qna_answer.php?aqid=<?= $aqid; ?>"
-      class="btn btn-secondary">답변 작성</a> -->
-    <?php
-    if (empty($data->acontent)) {
+    if (!empty($data->aaid)) {
       ?>
-      <a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/inquiry/admin_qna_answer.php?aqid=<?= $aqid; ?>"
-        class="btn btn-secondary">답변 작성</a>
+      <div class="card">
+        <div class="card-header">
+          <p>관리자</p>
+        </div>
+        <div class="card-body">
+          <p class="mb-0">
+            <?= $data->acontent ?>
+          </p>
+        </div>
+      </div>
       <?php
     }
     ?>
+  
+    <div class="custom-hr"></div>
+  
+    <div class="d-flex justify-content-end gap-2">
+      <a 
+      <?php if ($level == 100): ?>
+        href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/inquiry/admin_qna.php"
+      <?php endif; ?>
+      <?php if ($level == 10): ?>
+        href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/teacher_page/inquiry/admin_qna_teacher.php"
+      <?php endif; ?>
+        class="btn btn-outline-danger" role="button">취소</a>
 
-  </div>
+      <?php if ($level == 10): ?>
+        <a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/inquiry/admin_qna_answer.php?aqid=<?= $aqid; ?>"
+          class="btn btn-danger">삭제</a>
+      <?php endif; ?>
+
+      <?php
+        if ($level == 100):
+          if (empty($data->acontent)) {
+        ?>
+        <a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/inquiry/admin_qna_answer.php?aqid=<?= $aqid; ?>" class="btn btn-secondary">답변 작성</a>
+        <?php
+          }
+        endif;
+      ?>
+  
+    </div>
 
 </div>
 

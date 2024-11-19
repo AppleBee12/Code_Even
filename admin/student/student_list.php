@@ -65,7 +65,6 @@ while ($data = $result->fetch_object()) {
     </div>
   </form>
 
-
   <table class="table list_table">
     <thead>
       <tr>
@@ -79,6 +78,7 @@ while ($data = $result->fetch_object()) {
         <th scope="col">진도율</th>
         <th scope="col">수강이수</th>
         <th scope="col">학습기간</th>
+        <th scope="col">이메일 수신</th>
       </tr>
     </thead>
     <tbody>
@@ -111,6 +111,9 @@ while ($data = $result->fetch_object()) {
 
               <?= $set_date ?> ~ <?= $end_date ?>
             </td>
+            <td>
+              <?= $cl->email_ok == 1 ? '동의' : '비동의'; ?>
+            </td>
           </tr>
         </tbody>
         <?php
@@ -121,10 +124,10 @@ while ($data = $result->fetch_object()) {
       ?>
   </table>
 
-  <div class="d-flex justify-content-end">
-    <button type="submit" id="emailBtn" data-bs-toggle="modal" data-bs-target="#send_email"
-      class="btn btn-outline-secondary">이메일 전송</button>
-  </div>
+<?php if ($level == 100): ?>
+  <button type="button" id="emailBtn" data-bs-toggle="modal" data-bs-target="#send_email"
+    class="btn btn-outline-secondary ms-auto d-block">이메일 전송</button>
+<?php endif; ?>
 
   <!-- //Pagination -->
   <div class="list_pagination" aria-label="Page navigation example">
@@ -166,21 +169,19 @@ while ($data = $result->fetch_object()) {
   </div>
 
   <!-- //email 모달창 -->
-  <div class="modal modal-lg" tabindex="-1">
+  <div class="modal" tabindex="-1">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
           <h5 class="modal-title">이메일 전송</h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
-        <form action="send_email.php" method="POST" id="contact-form">
+        <form action="student_send_email_ok.php" method="POST" id="contact-form">
           <div class="modal-body">
             <table class="table">
               <colgroup>
-                <col style="width:110px">
-                <col style="width:230px">
-                <col style="width:110px">
-                <col style="width:230px">
+                <col class="col-width-130">
+                <col>
               </colgroup>
               <thead class="thead-hidden">
                 <tr>
@@ -189,26 +190,12 @@ while ($data = $result->fetch_object()) {
                 </tr>
               </thead>
               <tbody>
-                <tr class="none">
-                  <th scope="row"></th>
-                  <td></td>
-                  <th scope="row"></th>
-                  <td></td>
-                </tr>
-                <tr class="none">
-                  <th scope="row">제목 <b>*</b></th>
-                  <td colspan="3"><input type="text" name="title" class="form-control"></td>
-                </tr>
-                <tr class="none">
-                  <th scope="row">내용 <b>*</b></th>
-                  <td colspan="3"><textarea name="content" class="form-control"></textarea></td>
-                </tr>
               </tbody>
             </table>
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal">취소</button>
-            <button type="submit" class="btn btn-secondary">등록</button>
+            <button type="submit" class="btn btn-secondary">전송</button>
           </div>
         </form>
       </div>
@@ -223,6 +210,7 @@ include_once($_SERVER['DOCUMENT_ROOT'] . '/code_even/admin/inc/footer.php');
 
 <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 <script>
+
   /* == 인쇄 버튼 == */
   function printPage() {
     const fileUrl = "../../images/certificate of completion.pdf";
@@ -276,16 +264,18 @@ include_once($_SERVER['DOCUMENT_ROOT'] . '/code_even/admin/inc/footer.php');
         <tr class="none">
           <th scope="row">이름(아이디)</th>
           <td>${username} (${userid})</td>
+        </tr>
+        <tr>
           <th scope="row">이메일</th>
           <td><input class="form-control" value="${email}" name="to_email" readonly></td>
         </tr>
         <tr class="none">
           <th scope="row">제목 <b>*</b></th>
-          <td colspan="3"><input type="text" class="form-control" name="title"></td>
+          <td colspan="3"><input type="text" class="form-control" name="title" required></td>
         </tr>
         <tr class="none">
           <th scope="row">내용 <b>*</b></th>
-          <td colspan="3"><textarea class="form-control" name="content"></textarea></td>
+          <td colspan="3"><textarea class="form-control" name="content" required></textarea></td>
         </tr>
         <tr class="none">
           <input type="hidden" name="uid" value="${uid}">
@@ -344,7 +334,7 @@ include_once($_SERVER['DOCUMENT_ROOT'] . '/code_even/admin/inc/footer.php');
     });
 
     // 서버로 POST 요청 보내기
-    fetch('send_email.php', {
+    fetch('student_send_email_ok.php', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded',

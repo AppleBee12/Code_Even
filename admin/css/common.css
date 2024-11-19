@@ -156,12 +156,15 @@ header h1.logo a {
   width:70px;
   height:70px;
   
-  background-image: url(https://picsum.photos/200);
+  background-image: url(../images/adminprofile.png);
   background-repeat: no-repeat;
   background-size: cover;
   background-color: var(--bk300);
   border-radius: 50%;
-  /* var(--bk0); */
+}
+.nav-link.tc_profile_image{
+  width:70px;
+  height:70px;
 }
 .greet_name {
 
@@ -324,7 +327,7 @@ a {
   padding: 15px 24px 15px 24px;
 
   h3 {
-    line-height: 18px;
+    line-height: 14px;
   }
 }
 
@@ -353,14 +356,16 @@ a {
 }
 
 /* 상세정보 table */
-
-
 .col-width-160 {
   width: 160px;
 }
 
 .col-width-516 {
   width: 516px;
+}
+
+.col-width-130 {
+  width: 130px;
 }
 
 
