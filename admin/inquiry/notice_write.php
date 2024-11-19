@@ -62,8 +62,7 @@ $data = $result->fetch_object();
     <textarea name="content" id="content" class="form-control" required></textarea>
     <div class="custom-hr"></div>
     <div class="d-flex justify-content-end gap-2">
-      <a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/inquiry/notice.php" type="button"
-        class="btn btn-outline-danger">취소</a>
+      <button type="button" class="btn btn-outline-danger" onclick="window.history.back();" aria-label="취소">취소</button>
       <button type="submit" class="btn btn-secondary">등록</button>
     </div>
   </form>
