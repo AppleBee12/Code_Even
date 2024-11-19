@@ -47,28 +47,30 @@ $dataArr = [];
 $firstData = null;
 if ($result->num_rows > 0) {
   while ($u = $result->fetch_object()) {
-    // 사용자 정보를 가져오는 쿼리
+
     $user_query = "SELECT username, useremail, userid FROM user WHERE uid = '$u->uid'";
     $user_result = $mysqli->query($user_query);
     $user_data = $user_result->fetch_object();
     
-    // 배열에 데이터를 추가
+
     $dataArr[] = (object)[
       'emid' => $u->emid,
       'userid' => $user_data->userid,
       'username' => $user_data->username,
       'useremail' => $user_data->useremail,
       'title' => $u->title,
+      'content' => $u->content,
       'regdate' => $u->regdate
     ];
 
       // 첫 번째 데이터만 따로 저장
       if ($firstData === null) {
-        $firstData = $u; // 첫 번째 데이터가 발견되면 저장
+        $firstData = $u;
         print_r($firstData);
     }
   }
 }
+
 
 ?>
 
@@ -107,7 +109,7 @@ if ($result->num_rows > 0) {
         <td><?= htmlspecialchars($e->userid); ?></td>
         <td><?= htmlspecialchars($e->username); ?></td>
         <td><?= htmlspecialchars($e->useremail); ?></td>
-        <td><a href="" class="underline" data-bs-toggle="modal" data-bs-target="#email_details"><?= $e->title ?></a></td>
+        <td><a href="#" class="underline email-detail-link" data-bs-toggle="modal" data-bs-target="#email_details" data-id="<?= $e->emid ?>" ><?= $e->title ?></a></td>
         <td><?= $e->regdate ?></td>
       </tr>
       <?php
@@ -129,7 +131,7 @@ if ($result->num_rows > 0) {
       if ($block_num > 1) {
         ?>
         <li class="page-item">
-          <a class="page-link" href="notice.php?page=<?= $previous; ?>" aria-label="Previous">
+          <a class="page-link" href="send_email.php?page=<?= $previous; ?>" aria-label="Previous">
             <i class="bi bi-chevron-left"></i>
           </a>
         </li>
@@ -140,14 +142,14 @@ if ($result->num_rows > 0) {
       for ($i = $block_start; $i <= $block_end; $i++) {
         $active = ($page == $i) ? 'active' : '';
         ?>
-        <li class="page-item <?= $active; ?>"><a class="page-link" href="notice.php?page=<?= $i; ?>"><?= $i; ?></a></li>
+        <li class="page-item <?= $active; ?>"><a class="page-link" href="send_email.php?page=<?= $i; ?>"><?= $i; ?></a></li>
         <?php
       }
       $next = $block_end + 1;
       if ($total_block > $block_num) {
         ?>
         <li class="page-item">
-          <a class="page-link" href="notice.php?page=<?= $next; ?>" aria-label="Next">
+          <a class="page-link" href="send_email.php?page=<?= $next; ?>" aria-label="Next">
             <i class="bi bi-chevron-right"></i>
           </a>
         </li>
@@ -158,7 +160,7 @@ if ($result->num_rows > 0) {
   </div>
 
     <!-- //email 상세 모달창 -->
-  <div class="modal modal-lg" tabindex="-1" id="email_details">
+  <div class="modal" tabindex="-1" id="email_details" aria-labelledby="emailModalLabel">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
@@ -168,10 +170,8 @@ if ($result->num_rows > 0) {
           <div class="modal-body">
             <table class="table">
               <colgroup>
-                <col style="width:110px">
-                <col style="width:230px">
-                <col style="width:110px">
-                <col style="width:230px">
+                <col style="width:120px">
+                <col style="width:300px">
               </colgroup>
               <thead class="thead-hidden">
                 <tr>
@@ -182,17 +182,19 @@ if ($result->num_rows > 0) {
               <tbody>
                 <tr class="none">
                   <th scope="row">이름(아이디)</th>
-                  <td></td>
+                  <td class="modal_username"></td>
+                </tr>
+                <tr class="none">
                   <th scope="row">이메일</th>
-                  <td></td>
+                  <td class="modal_useremail"></td>
                 </tr>
                 <tr class="none">
                   <th scope="row">제목</th>
-                  <td colspan="3"><input type="text" name="title" class="form-control"></td>
+                  <td colspan="3"><input type="text" name="title" class="form-control" disabled></td>
                 </tr>
                 <tr class="none">
                   <th scope="row">내용</th>
-                  <td colspan="3"><textarea name="content" class="form-control"></textarea></td>
+                  <td colspan="3"><textarea name="content" class="form-control" disabled></textarea></td>
                 </tr>
               </tbody>
             </table>
@@ -209,3 +211,23 @@ if ($result->num_rows > 0) {
 <?php
 include_once($_SERVER['DOCUMENT_ROOT']. '/code_even/admin/inc/footer.php');
 ?>
+
+<script>
+
+    const emailData = <?= json_encode($dataArr); ?>;
+    $(document).on('click', '.email-detail-link', function (e) {
+      e.preventDefault();
+    const id = $(this).data('id'); // 클릭한 링크의 id 값 가져오기
+    const email = emailData.find(e => e.emid == id); // 배열에서 해당 id의 데이터 찾기
+
+    if (email) {
+        // 모달창 업데이트
+        $('.modal_username').text(`${email.username} (${email.userid})`);
+        $('.modal_useremail').text(email.useremail);
+        $('input[name="title"]').val(email.title);
+        $('textarea[name="content"]').val(email.content); // 콘텐츠 수정
+    } else {
+        alert('데이터를 찾을 수 없습니다.');
+    }
+});
+</script>
