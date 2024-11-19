@@ -28,7 +28,7 @@ while($cate_data = $category_result->fetch_object()){
     <h3>강사 상세정보</h3>
   </div>
 
-  <form action="teacher_edit_ok.php" id="teacher_save" method="POST" enctype="multipart/form-data">
+  <form action="teacher_details_ok.php" id="teacher_save" method="POST" enctype="multipart/form-data">
   <input type="hidden" name="tcid" value="<?= $tc->tcid; ?>">
     <div class="upload mt-5 mb-3">
       <img src="http://<?= $_SERVER['HTTP_HOST'] . $tc->tc_thumbnail ?>" width=100 height=100 alt="강사 프로필 섬네일">
