@@ -21,7 +21,7 @@ integrity="sha256-y2bkXLA0VKwUx5hwbBKnaboRThcu7YOFyuYarJbCnoQ=" crossorigin="ano
   target.summernote({
     placeholder: '내용을 입력해주세요.',
     tabsize: 2,
-    height: 120,
+    height: 160,
     lang: 'ko-KR',
         toolbar: [
           ['style', ['style']],
