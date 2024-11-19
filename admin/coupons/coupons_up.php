@@ -148,6 +148,10 @@ thead,
 #datepicker{
   width: 150px !important;
 }
+
+#addedImages span{
+    color: #a5a5a5;
+  }
 </style>
 
 <div class="container">
@@ -186,7 +190,7 @@ thead,
                 </label>
               </div>
               <div class="form-check">
-                <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" value="0" checked>
+                <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" value="0" >
                 <label class="form-check-label d-flex gap-3" for="flexRadioDefault1"  id="ct3">
                   제한
                   <input type="text" name="sale_end_date" id="datepicker" class="form-control w-25 bi bi-calendar-week">
