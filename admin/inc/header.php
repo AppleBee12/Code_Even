@@ -89,6 +89,13 @@ $_SESSION['AUNAME'] = $username;
       break;
   }
   switch ($page) {
+    case 'book_sales.php':
+    case 'lectuer_sales.php':
+    case 'monthly_sales.php':
+      echo '<link rel="stylesheet" href="http://' . $_SERVER['HTTP_HOST'] . '/code_even/admin/css/sales.css">';
+      break;
+  }
+  switch ($page) {
     case 'student_list.php':
     case 'student_details.php':
     case 'student_question.php':
