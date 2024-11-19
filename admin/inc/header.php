@@ -172,14 +172,13 @@ $_SESSION['AUNAME'] = $username;
 <body>
   <header class="header d-flex justify-content-between">
     <h1 class="logo">
-      <a href="http://
-        <?php if ($level == 100): ?>
-          <?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/index.php
-        <?php endif; ?>
-        <?php if ($level == 10): ?>
-           <?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/teacher_index.php
-         <?php endif; ?>
-      ">code even</a>
+      <a href="http://<?php 
+        $link = '';
+          if ($level == 100) { $link = '/code_even/admin/index.php';
+          } elseif ($level == 10) { $link = '/code_even/admin/teacher_index.php';
+          }if (!empty($link)) {
+            echo trim($_SERVER['HTTP_HOST']) . $link;
+        }?>">code even</a>
     </h1>
     <div class="header_profile d-flex justify-content-between align-items-center">
       <div class="alarm d-flex flex-column align-items-end justify-content-end">
