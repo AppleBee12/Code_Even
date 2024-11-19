@@ -113,13 +113,10 @@
             <input type="hidden" name="tcid[]" value="<?= $item->tcid; ?>">
             <?= $item->tcid; ?>
           </th>
-          <!-- <td>
-            <img src="<?= !empty($item->tc_thumbnail) ? $item->tc_thumbnail : '../upload/teacher/tc_dummy.png'; ?>" class="rounded_circle" width="35" height="35" alt="프로필 이미지">
-          </td>  -->
           <td>
             <?php 
               $thumbnail_path = !empty($item->tc_thumbnail) ? $_SERVER['DOCUMENT_ROOT'] . $item->tc_thumbnail : '';
-              $image_src = (!empty($item->tc_thumbnail) && file_exists($thumbnail_path)) ? $item->tc_thumbnail : '/CODE_EVEN/admin/upload/teacher/no_image.png';
+              $image_src = (!empty($item->tc_thumbnail) && file_exists($thumbnail_path)) ? $item->tc_thumbnail : '/CODE_EVEN/admin/upload/teacher/tc_dummy.png';
             ?>
             <img src="<?= $image_src; ?>" class="rounded_circle" width="35" height="35" alt="프로필 이미지">
           </td>
@@ -211,7 +208,7 @@
 </div>
 
 <script>
-    $('table .form-check-input').change(function(){
+    $('table .form-check-input[type="checkbox"]').change(function(){
     if($(this).prop( "checked" )){
       $(this).val('1');
     } else{
