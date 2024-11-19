@@ -110,10 +110,11 @@ while ($data = $result->fetch_object()) {
       ?>
     </tbody>
   </table>
-
+  <?php if ($_SESSION['AULEVEL'] == 100): ?>
   <div class="d-flex justify-content-end gap-2">
     <a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/inquiry/notice_write.php" class="btn btn-secondary">등록</a>
   </div>
+  <?php endif; ?>
 </div>
 
 <!-- //Pagination -->
