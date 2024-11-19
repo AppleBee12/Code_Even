@@ -21,8 +21,18 @@ $level = $_SESSION['AULEVEL'];
 
 $_SESSION['AUNAME'] = $username;
 // $_SESSION['AULEVEL'] = $user_level;
+
+// if($level == 10){
+//   $uid = $_SESSION['UID'];
+
+//   $sql = "SELECT * FROM teachers WHERE uid = $uid";
+//   $result = $mysqli->query($sql);
+//   $tc = $result->fetch_object();
+// }
+
+
 ?>
-  
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -162,7 +172,14 @@ $_SESSION['AUNAME'] = $username;
 <body>
   <header class="header d-flex justify-content-between">
     <h1 class="logo">
-      <a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/index.php">code even</a>
+      <a href="http://
+        <?php if ($level == 100): ?>
+          <?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/index.php
+        <?php endif; ?>
+        <?php if ($level == 10): ?>
+           <?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/teacher_index.php
+         <?php endif; ?>
+      ">code even</a>
     </h1>
     <div class="header_profile d-flex justify-content-between align-items-center">
       <div class="alarm d-flex flex-column align-items-end justify-content-end">
@@ -191,24 +208,23 @@ $_SESSION['AUNAME'] = $username;
       </div>
       <div class="greet_name bd">
         <p>
-        <?php if(isset($_SESSION['AUNAME'])):?>  
-        <?= $_SESSION['AUNAME'] ?> 님
-        <?php else: ?>
+          <?php if (isset($_SESSION['AUNAME'])): ?>
+            <?= $_SESSION['AUNAME'] ?> 님
+          <?php else: ?>
             <span>로그인이 필요합니다.</span>
-        <?php endif; ?>
+          <?php endif; ?>
         <p>환영합니다.</p>
       </div>
       <ul class="nav nav-pills">
         <li class="nav-item">
-            <?php
-             if($level == 100):?>
-              <a class="nav-link profile_image" href="#"></a>
-              <?php endif; ?>
-            <?php if($level == 10):?>
-              <a class="nav-link tc_profile_image" href="#"></a>
-              <?php endif; ?>
-          
-          
+          <a class="nav-link profile_image" href="
+          <?php if ($level == 100): ?>
+            http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/myprofile/my_details.php
+          <?php endif; ?>
+          <?php if ($level == 10): ?>
+             http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/teacher_page/myprofile/teacher_details.php
+          <?php endif; ?>
+          "></a>
         </li>
         <li class="nav-item dropdown d-flex align-items-center">
           <button class="nav-link dropdown-toggle" data-bs-toggle="dropdown"
@@ -277,11 +293,11 @@ $_SESSION['AUNAME'] = $username;
             </ul>
           </li>
           <li class="pr list-group-item" data-link="book">　<i class="bi bi-book"></i> 　 교재 관리
-            <button class="btn btn-toggle collapsed" data-bs-toggle="collapse" data-bs-target="#book_collapse" 
-            aria-expanded="false"><i class="bi bi-chevron-down"></i></button>
+            <button class="btn btn-toggle collapsed" data-bs-toggle="collapse" data-bs-target="#book_collapse"
+              aria-expanded="false"><i class="bi bi-chevron-down"></i></button>
             <ul class="collapse btn-toggle-nav" id="book_collapse">
-              <li class="list-group-item dropdown-item"><a href="">　　-　교재 목록</a></li>
-              <li class="list-group-item dropdown-item"><a href="">　　-　교재 등록</a></li>
+              <li class="list-group-item dropdown-item"><a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/book/book_list.php">　　-　교재 목록</a></li>
+              <li class="list-group-item dropdown-item"><a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/book/book_up.php">　　-　교재 등록</a></li>
             </ul>
           </li>
         </ul>
@@ -334,7 +350,7 @@ $_SESSION['AUNAME'] = $username;
                 href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/coupons/coupons.php">　<i
                   class="bi bi-ticket"></i> 　 쿠폰 관리</a></li>
           <?php endif; ?>
-          <li class="pr list-group-item">　<i class="bi bi-graph-up-arrow"></i> 　 매출통계 관리
+          <li class="pr list-group-item" data-link="statistic">　<i class="bi bi-graph-up-arrow"></i> 　 매출통계 관리
             <button class="btn btn-toggle collapsed" data-bs-toggle="collapse" data-bs-target="#statistics_collapse"
               aria-expanded="false"><i class="bi bi-chevron-down"></i></button>
             <ul class="collapse btn-toggle-nav" id="statistics_collapse">
@@ -347,7 +363,7 @@ $_SESSION['AUNAME'] = $username;
         <ul class="list-group line">
           <li class="pr list-group-item" data-link="inquiry">　<i class="bi bi-patch-question"></i> 　 문의 게시판 관리
             <button class="btn btn-toggle collapsed" data-bs-toggle="collapse" data-bs-target="#bulletinboard_collapse"
-            aria-expanded="false"><i class="bi bi-chevron-down"></i></button>
+              aria-expanded="false"><i class="bi bi-chevron-down"></i></button>
             <ul class="collapse btn-toggle-nav" id="bulletinboard_collapse">
               <li class="list-group-item dropdown-item"><a
                   href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/inquiry/notice.php">　　-　전체 공지사항</a></li>
