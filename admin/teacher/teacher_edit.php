@@ -8,6 +8,14 @@
   $sql = "SELECT * FROM teachers WHERE tcid = $tcid";
   $result = $mysqli->query($sql);
   $data = $result->fetch_object();
+
+  // 'code'가 'A'로 시작하는 category 데이터를 가져오기
+  $category_sql = "SELECT * FROM category WHERE code LIKE 'A%' ORDER BY cgid ASC";
+  $category_result = $mysqli->query($category_sql);
+
+  while($cate_data = $category_result->fetch_object()){
+      $categories[] = $cate_data;
+  }
 ?>
 
 
@@ -31,10 +39,10 @@
 
     <table class="table w-100 info_table">
       <colgroup>
-        <col width="160">  
-        <col width="516">  
-        <col width="160">
-        <col width="516">  
+        <col class="col-width-160">
+        <col class="col-width-516">
+        <col class="col-width-160">
+        <col class="col-width-516">
       </colgroup>
       <tbody>
         <tr>
@@ -77,9 +85,11 @@
           <th scope="row">대표분야 <b>*</b></th>
           <td colspan="3">
             <select class="form-select" name="tc_cate" aria-label="대표분야">
-              <option value="1" selected>웹개발</option>
-              <option value="2">클라우드</option>
-              <option value="3">보안</option>
+              <?php foreach($categories as $category): ?>
+                <option value="<?= $category->name;?>" <?= $data->tc_cate == $category->cgid ? 'selected' : ''; ?>>
+                  <?= $category->name;?>
+                </option>
+              <?php endforeach; ?>
             </select>
           </td>
         </tr>

@@ -1,7 +1,6 @@
 <?php
+$title = "수강생 관리";
 include_once($_SERVER['DOCUMENT_ROOT'] . '/code_even/admin/inc/header.php');
-
-
 
 // 게시글 개수 구하기
 $keywords = isset($_GET['keywords']) ? $mysqli->real_escape_string($_GET['keywords']) : '';
@@ -103,7 +102,7 @@ while ($data = $result->fetch_object()) {
             <?php
           }
         } else {
-          echo "<tr><td colspan='8'>검색 결과가 없습니다.</td></tr>";
+          echo "<tr><td colspan='10'>검색 결과가 없습니다.</td></tr>";
         }
         ?>
       </tbody>

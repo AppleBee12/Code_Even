@@ -5,6 +5,7 @@
     box-sizing: border-box;
   }
   td span {vertical-align: text-top; margin-left: 10px;}
+  td textarea {height: 100px;}
 }
 
 .content_bar {
@@ -100,6 +101,8 @@
 
 .bi-star-fill {color: var(--primary)}
 
-p {word-break: break-word; white-space: normal; width: 500px;}
-
 .card {width: 1075px !important;}
+
+input[readonly] {background-color: #e9ecef; border: 1px solid #dee2e6; color: #666; cursor: not-allowed;}
+
+.modal textarea {height: 100px;}

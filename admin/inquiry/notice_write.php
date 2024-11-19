@@ -18,10 +18,10 @@ $data = $result->fetch_object();
     <input type="hidden" name="userid" value="<?= $data->userid; ?>">
     <table class="table details_table">
       <colgroup>
-        <col style="width:160px">
-        <col style="width:516px">
-        <col style="width:160px">
-        <col style="width:516px">
+        <col class="col-width-160">
+        <col class="col-width-516">
+        <col class="col-width-160">
+        <col class="col-width-516">
       </colgroup>
       <thead class="thead-hidden">
         <tr>
@@ -36,7 +36,7 @@ $data = $result->fetch_object();
           <th scope="row">상태 <b>*</b></th>
           <td class="d-flex gap-3">
             <div class="form-check">
-              <input class="form-check-input" type="radio" name="status" id="status" value="on">
+              <input class="form-check-input" type="radio" name="status" id="status" value="on" required>
               <label class="form-check-label" for="status">
                 노출
               </label>
