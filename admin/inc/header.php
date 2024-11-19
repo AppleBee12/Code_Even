@@ -89,6 +89,13 @@ $_SESSION['AUNAME'] = $username;
       break;
   }
   switch ($page) {
+    case 'book_sales.php':
+    case 'lectuer_sales.php':
+    case 'monthly_sales.php':
+      echo '<link rel="stylesheet" href="http://' . $_SERVER['HTTP_HOST'] . '/code_even/admin/css/sales.css">';
+      break;
+  }
+  switch ($page) {
     case 'student_list.php':
     case 'student_details.php':
     case 'student_question.php':
@@ -109,6 +116,7 @@ $_SESSION['AUNAME'] = $username;
     case 'teacher_faq_write.php':
     case 'teacher_faq_modify.php':
     case 'admin_qna.php':
+    case 'admin_qna_teacher.php':
     case 'admin_qna_details.php':
     case 'admin_qna_question.php':
     case 'admin_qna_answer.php':
@@ -353,9 +361,9 @@ $_SESSION['AUNAME'] = $username;
             <button class="btn btn-toggle collapsed" data-bs-toggle="collapse" data-bs-target="#statistics_collapse"
               aria-expanded="false"><i class="bi bi-chevron-down"></i></button>
             <ul class="collapse btn-toggle-nav" id="statistics_collapse">
-              <li class="list-group-item dropdown-item"><a href="">　　-　강의 매출통계</a></li>
-              <li class="list-group-item dropdown"><a href="">　　-　교재 매출통계</a></li>
-              <li class="list-group-item dropdown"><a href="">　　-　월별 매출통계</a></li>
+              <li class="list-group-item dropdown-item"><a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/sales/lectuer_sales.php">　　-　강의 매출통계</a></li>
+              <li class="list-group-item dropdown"><a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/sales/book_sales.php">　　-　교재 매출통계</a></li>
+              <li class="list-group-item dropdown"><a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/sales/monthly_sales.php">　　-　월별 매출통계</a></li>
             </ul>
           </li>
         </ul>
@@ -405,7 +413,7 @@ $_SESSION['AUNAME'] = $username;
 
         <?php if ($level == 10): ?>
           <li class="list-group-item" data-link=""><a
-              href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/teacher_page/inquiry/admin_qna.php">　<i
+              href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/teacher_page/inquiry/admin_qna_teacher.php">　<i
                 class="bi bi-chat-dots"></i> 　 1:1 문의하기</a></li>
           <li class="list-group-item" data-link="manual"><a
               href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/manual/for_teacher.php">　<i

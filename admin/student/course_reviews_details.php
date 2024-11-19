@@ -85,7 +85,10 @@ $data = $result->fetch_object();
   <div class="custom-hr"></div>
   <div class="d-flex justify-content-end gap-2">
     <a href="course_reviews.php" class="btn btn-outline-danger">취소</a>
-    <a href="" type="button" class="btn btn-danger">삭제</a>
+
+  <?php if ($level == 100): ?>
+    <a href="course_reviews_delete.php?rvid=<?=$rvid;?>" type="button" class="btn btn-danger">삭제</a>
+  <?php endif; ?>
   </div>
 
   <?php

@@ -64,8 +64,7 @@ $data = $result->fetch_object();
   </div>
   <div class="card">
     <div class="card-header">
-      <img src="https://picsum.photos/200" alt="" id="propfile_thumbnail">
-      <p><?=$data->name;?></p>
+      <p><?=$data->name;?> 강사</p>
     </div>
     <div class="card-body">
       <blockquote class="blockquote mb-0">
@@ -76,7 +75,11 @@ $data = $result->fetch_object();
 
   <div class="d-flex justify-content-end gap-2">
     <a href="student_question.php" class="btn btn-outline-danger">취소</a>
+
+  <?php if ($level == 100): ?>
     <a href="student_question_delete.php?sqid=<?=$data->sqid;?>" class="btn btn-danger">삭제</a>
+  <?php endif; ?>
+  
   </div>
 
 </div>

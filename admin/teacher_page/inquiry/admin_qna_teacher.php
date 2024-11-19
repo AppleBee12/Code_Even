@@ -2,12 +2,14 @@
 $title = "문의게시판 관리";
 include_once($_SERVER['DOCUMENT_ROOT'] . '/code_even/admin/inc/header.php');
 
+$auid = $_SESSION['AUID'];
+
 // 게시글 개수 구하기
 $keywords = isset($_GET['keywords']) ? $mysqli->real_escape_string($_GET['keywords']) : '';
-$where_clause = '';
+$where_clause = "WHERE user.userid = '$auid'";  // 로그인한 사용자의 게시글만 필터링
 
 if ($keywords) {
-  $where_clause = "WHERE admin_question.qtitle LIKE '%$keywords%' OR user.username LIKE '%$keywords%' OR user.userid LIKE '%$keywords%'";
+    $where_clause .= " AND (admin_question.qtitle LIKE '%$keywords%' OR user.username LIKE '%$keywords%' OR user.userid LIKE '%$keywords%')";
 }
 
 $page_sql = "SELECT COUNT(*) AS cnt FROM admin_question JOIN user ON admin_question.uid = user.uid $where_clause";
@@ -136,11 +138,11 @@ while ($data = $result->fetch_object()) {
               </td>
             </tr>
             <?php
-          }
-        } else {
-          echo "<tr><td colspan='10'>검색 결과가 없습니다.</td></tr>";
-        }
-        ?>
+              }
+            } else {
+              echo "<tr><td colspan='10'>검색 결과가 없습니다.</td></tr>";
+            }
+            ?>
       </tbody>
     </table>
     <button type="submit" class="btn btn-secondary ms-auto d-block">등록</button>

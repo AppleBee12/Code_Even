@@ -59,7 +59,7 @@ $data = $result->fetch_object();
         </tr>
       </tbody>
     </table>
-    <textarea name="content" id="content" class="form-control" required></textarea>
+    <textarea name="content" id="content" class="form-control" placeholder="내용을 입력해주세요." required></textarea>
     <div class="custom-hr"></div>
     <div class="d-flex justify-content-end gap-2">
       <button type="button" class="btn btn-outline-danger" onclick="window.history.back();" aria-label="취소">취소</button>

@@ -69,9 +69,6 @@ while ($data = $result->fetch_object()) {
     <table class="table list_table">
       <thead>
         <tr>
-          <th scope="col">
-            <input class="form-check-input" type="checkbox" value="" id="allCheck">
-          </th>
           <th scope="col">번호</th>
           <th scope="col">아이디</th>
           <th scope="col">이름</th>
@@ -88,9 +85,6 @@ while ($data = $result->fetch_object()) {
         foreach ($dataArr as $no) {
           ?>
         <tr>
-          <th scope="row">
-            <input class="form-check-input itemCheckbox" type="checkbox" value="">
-          </th>
           <td><?=$no->rvid;?></td>
           <td><?=$no->userid;?></td>
           <td><?=$no->username;?></td>

@@ -78,6 +78,7 @@ while ($data = $result->fetch_object()) {
         <th scope="col">진도율</th>
         <th scope="col">수강이수</th>
         <th scope="col">학습기간</th>
+        <th scope="col">이메일 수신</th>
       </tr>
     </thead>
     <tbody>
@@ -110,6 +111,9 @@ while ($data = $result->fetch_object()) {
 
               <?= $set_date ?> ~ <?= $end_date ?>
             </td>
+            <td>
+              <?= $cl->email_ok == 1 ? '동의' : '비동의'; ?>
+            </td>
           </tr>
         </tbody>
         <?php
@@ -119,8 +123,11 @@ while ($data = $result->fetch_object()) {
       }
       ?>
   </table>
+
+<?php if ($level == 100): ?>
   <button type="button" id="emailBtn" data-bs-toggle="modal" data-bs-target="#send_email"
     class="btn btn-outline-secondary ms-auto d-block">이메일 전송</button>
+<?php endif; ?>
 
   <!-- //Pagination -->
   <div class="list_pagination" aria-label="Page navigation example">
@@ -169,7 +176,7 @@ while ($data = $result->fetch_object()) {
           <h5 class="modal-title">이메일 전송</h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
-        <form action="send_email.php" method="POST" id="contact-form">
+        <form action="student_send_email_ok.php" method="POST" id="contact-form">
           <div class="modal-body">
             <table class="table">
               <colgroup>
@@ -188,7 +195,7 @@ while ($data = $result->fetch_object()) {
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal">취소</button>
-            <button type="submit" class="btn btn-secondary">등록</button>
+            <button type="submit" class="btn btn-secondary">전송</button>
           </div>
         </form>
       </div>
@@ -327,7 +334,7 @@ include_once($_SERVER['DOCUMENT_ROOT'] . '/code_even/admin/inc/footer.php');
     });
 
     // 서버로 POST 요청 보내기
-    fetch('send_email.php', {
+    fetch('student_send_email_ok.php', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded',
