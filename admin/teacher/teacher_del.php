@@ -1,19 +1,19 @@
 <?php
-include_once($_SERVER['DOCUMENT_ROOT'] . '/CODE_EVEN/admin/inc/dbcon.php');
+  include_once($_SERVER['DOCUMENT_ROOT'] . '/CODE_EVEN/admin/inc/dbcon.php');
 
-$tcid = $_GET['tcid'];
-if (!isset($tcid)) {
-  echo "<script>alert('강사 정보가 없습니다.'); location.href = 'teacher_list.php';</script>";
-  exit;
-}
+  $tcid = $_GET['tcid'];
+  if (!isset($tcid)) {
+    echo "<script>alert('강사 정보가 없습니다.'); location.href = 'teacher_list.php';</script>";
+    exit;
+  }
 
-// teachers 테이블에서 tcid에 해당하는 uid와 썸네일 가져오기
-$teacher_sql = "SELECT uid, tc_thumbnail FROM teachers WHERE tcid = $tcid";
-$teacher_result = $mysqli->query($teacher_sql);
-if ($teacher_result->num_rows > 0) {
-  $teacher_data = $teacher_result->fetch_object();
-  $uid = $teacher_data->uid;
-  $thumbnail = $teacher_data->tc_thumbnail;
+  // teachers 테이블에서 tcid에 해당하는 uid와 썸네일 가져오기
+  $teacher_sql = "SELECT uid, tc_thumbnail FROM teachers WHERE tcid = $tcid";
+  $teacher_result = $mysqli->query($teacher_sql);
+  if ($teacher_result->num_rows > 0) {
+    $teacher_data = $teacher_result->fetch_object();
+    $uid = $teacher_data->uid;
+    $thumbnail = $teacher_data->tc_thumbnail;
 
   // 썸네일 파일 삭제
   if ($thumbnail && file_exists($_SERVER['DOCUMENT_ROOT'] . $thumbnail)) {
@@ -24,10 +24,10 @@ if ($teacher_result->num_rows > 0) {
   $teacher_del_sql = "DELETE FROM teachers WHERE tcid = $tcid";
   $teacher_del_result = $mysqli->query($teacher_del_sql);
 
-  // user 테이블에서 uid와 일치하는 데이터 삭제
+   // user 테이블에서 uid와 일치하는 데이터의 user_level 값을 10에서 1로 변경
   if ($teacher_del_result) {
-    $user_del_sql = "DELETE FROM user WHERE uid = $uid";
-    $user_del_result = $mysqli->query($user_del_sql);
+    $user_update_sql = "UPDATE user SET user_level = 1 WHERE uid = $uid AND user_level = 10";
+    $user_update_result = $mysqli->query($user_update_sql);
 
     // 삭제 완료 후 강사 목록으로 이동
     echo "<script>
@@ -37,7 +37,8 @@ if ($teacher_result->num_rows > 0) {
   } else {
     echo "<script>alert('강사 정보 삭제 중 오류 발생'); history.back();</script>";
   }
-} else {
-  echo "<script>alert('해당 강사 정보를 찾을 수 없습니다.'); location.href = 'teacher_list.php';</script>";
-}
+  } else {
+    echo "<script>alert('해당 강사 정보를 찾을 수 없습니다.'); 
+    location.href = 'teacher_list.php';</script>";
+  }
 ?>
