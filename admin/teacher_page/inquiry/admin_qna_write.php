@@ -37,7 +37,7 @@ $data = $result->fetch_object();
           <td><?= $data->username; ?>(<?= $data->userid; ?>)</td>
           <th scope="row">분류 <b>*</b></th>
           <td>
-            <select class="form-select w-50" aria-label="Default select example" name="category">
+            <select class="form-select w-50" aria-label="category select" name="category" required>
               <option value="">분류 선택</option>
               <option value="1">결제/환불</option>
               <option value="2">강의</option>
@@ -54,7 +54,7 @@ $data = $result->fetch_object();
           <th scope="row">제목 <b>*</b></th>
           <td colspan="3">
             <div>
-              <input type="text" name="title" class="form-control w-75" id="title" placeholder="제목을 입력해주세요.">
+              <input type="text" name="title" class="form-control w-75" id="title" placeholder="제목을 입력해주세요." aria-label="target select">
             </div>
           </td>
         </tr>

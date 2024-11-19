@@ -197,11 +197,11 @@ while ($data = $result->fetch_object()) {
                 </tr>
                 <tr class="none">
                   <th scope="row">제목 <b>*</b></th>
-                  <td colspan="3"><input type="text" name="title" class="form-control"></td>
+                  <td colspan="3"><input type="text" name="title" class="form-control" required></td>
                 </tr>
                 <tr class="none">
                   <th scope="row">내용 <b>*</b></th>
-                  <td colspan="3"><textarea name="content" class="form-control"></textarea></td>
+                  <td colspan="3"><textarea name="content" class="form-control" required></textarea></td>
                 </tr>
               </tbody>
             </table>
@@ -281,11 +281,11 @@ include_once($_SERVER['DOCUMENT_ROOT'] . '/code_even/admin/inc/footer.php');
         </tr>
         <tr class="none">
           <th scope="row">제목 <b>*</b></th>
-          <td colspan="3"><input type="text" class="form-control" name="title"></td>
+          <td colspan="3"><input type="text" class="form-control" name="title" required></td>
         </tr>
         <tr class="none">
           <th scope="row">내용 <b>*</b></th>
-          <td colspan="3"><textarea class="form-control" name="content"></textarea></td>
+          <td colspan="3"><textarea class="form-control" name="content" required></textarea></td>
         </tr>
         <tr class="none">
           <input type="hidden" name="uid" value="${uid}">

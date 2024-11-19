@@ -37,7 +37,7 @@ $data = $result->fetch_object();
           <td class="d-flex gap-3">
             <div class="form-check">
               <input class="form-check-input" type="radio" name="status" id="status" value="on"
-                <?= ($data->status === 'on') ? 'checked' : ''; ?>>
+                <?= ($data->status === 'on') ? 'checked' : ''; ?> required>
               <label class="form-check-label" for="status">
                 노출
               </label>
@@ -56,7 +56,7 @@ $data = $result->fetch_object();
           <td colspan="3">
             <div>
               <input type="text" name="title" class="form-control w-75" id="title" placeholder="제목을 입력해주세요."
-                value="<?= $data->title; ?>">
+                value="<?= $data->title; ?>" required>
             </div>
           </td>
         </tr>

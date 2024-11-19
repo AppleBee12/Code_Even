@@ -48,7 +48,7 @@ $data = $result->fetch_object();
           </td>
           <th scope="row">분류 <b>*</b></th>
           <td>
-            <select class="form-select w-50" aria-label="Default select example" name="category">
+            <select class="form-select w-50" aria-label="category select" name="category" required>
               <option value="">분류 선택</option>
               <option value="1">결제/환불</option>
               <option value="2">강의</option>
@@ -67,7 +67,7 @@ $data = $result->fetch_object();
           <th scope="row">상태 <b>*</b></th>
           <td class="d-flex gap-3">
             <div class="form-check">
-              <input class="form-check-input" type="radio" name="status" id="status" value="on">
+              <input class="form-check-input" type="radio" name="status" id="status" value="on" required>
               <label class="form-check-label" for="status">
                 노출
               </label>
@@ -84,7 +84,7 @@ $data = $result->fetch_object();
           <th scope="row">제목 <b>*</b></th>
           <td colspan="3">
             <div>
-              <input type="text" name="title" class="form-control w-75" id="title" placeholder="제목을 입력해주세요.">
+              <input type="text" name="title" class="form-control w-75" id="title" placeholder="제목을 입력해주세요." required>
             </div>
           </td>
         </tr>

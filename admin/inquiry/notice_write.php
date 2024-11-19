@@ -36,7 +36,7 @@ $data = $result->fetch_object();
           <th scope="row">상태 <b>*</b></th>
           <td class="d-flex gap-3">
             <div class="form-check">
-              <input class="form-check-input" type="radio" name="status" id="status" value="on">
+              <input class="form-check-input" type="radio" name="status" id="status" value="on" required>
               <label class="form-check-label" for="status">
                 노출
               </label>
