@@ -40,8 +40,14 @@ $sql = "SELECT class_data.*, user.*, lecture.*
 $result = $mysqli->query($sql);
 
 $dataArr = [];
+$firstData = null;
 while ($data = $result->fetch_object()) {
   $dataArr[] = $data;
+
+    // 첫 번째 데이터만 따로 저장
+    if ($firstData === null) {
+      $firstData = $data; // 첫 번째 데이터가 발견되면 저장
+  }
 }
 
 ?>
@@ -83,9 +89,9 @@ while ($data = $result->fetch_object()) {
           <tr>
             <th scope="row">
               <input class="form-check-input itemCheckbox" type="checkbox" value="<?= $cl->cdid; ?>" id="checkbox"
-                data-username="<?= $cl->username; ?>" data-userid="<?= $cl->userid; ?>" data-email="<?= $cl->useremail; ?>">
+                  data-username="<?= $cl->username; ?>" data-userid="<?= $cl->userid; ?>" data-email="<?= $cl->useremail; ?>" data-uid="<?= $cl->uid; ?>">
             </th>
-            <td>1</td>
+            <td><?= $cl->cdid; ?></td>
             <td><a href="student_details.php?cdid=<?= $cl->cdid; ?>" class="underline"><?= $cl->userid ?></a></td>
             <td><a href="student_details.php?cdid=<?= $cl->cdid; ?>" class="underline"><?= $cl->username ?></a></td>
             <td><?= mb_strlen($cl->title) > 20 ? mb_substr($cl->title, 0, 20) . '...' : $cl->title; ?></td>
@@ -168,7 +174,7 @@ while ($data = $result->fetch_object()) {
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <form action="send_email.php" method="POST" id="contact-form">
-        <div class="modal-body">
+          <div class="modal-body">
             <table class="table">
               <colgroup>
                 <col style="width:110px">
@@ -214,6 +220,7 @@ while ($data = $result->fetch_object()) {
 <?php
 include_once($_SERVER['DOCUMENT_ROOT'] . '/code_even/admin/inc/footer.php');
 ?>
+
 <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 <script>
   /* == 인쇄 버튼 == */
@@ -259,9 +266,11 @@ include_once($_SERVER['DOCUMENT_ROOT'] . '/code_even/admin/inc/footer.php');
       let htmlContent = '';  // 생성할 HTML 내용 초기화
 
       checkboxes.forEach(function (checkbox) {
+        // data-* 속성에서 값 추출
         const username = checkbox.getAttribute('data-username');
         const userid = checkbox.getAttribute('data-userid');
         const email = checkbox.getAttribute('data-email');
+        const uid = checkbox.getAttribute('data-uid');
 
         htmlContent += `
         <tr class="none">
@@ -277,6 +286,9 @@ include_once($_SERVER['DOCUMENT_ROOT'] . '/code_even/admin/inc/footer.php');
         <tr class="none">
           <th scope="row">내용 <b>*</b></th>
           <td colspan="3"><textarea class="form-control" name="content"></textarea></td>
+        </tr>
+        <tr class="none">
+          <input type="hidden" name="uid" value="${uid}">
         </tr>
       `;
       });
@@ -320,38 +332,40 @@ include_once($_SERVER['DOCUMENT_ROOT'] . '/code_even/admin/inc/footer.php');
     const title = form.querySelector('[name="title"]').value;
     const content = form.querySelector('[name="content"]').value;
     const emailInputs = document.querySelectorAll('input[name="to_email"]');
-    let uid = null;
+    const uid = document.querySelector('[name="uid"]').value;
 
     emailInputs.forEach(input => {
-        if (input.readOnly) {
-            const email = input.value;
-            const parentRow = input.closest('tr');
-            const username = parentRow.querySelector('td').innerText;
-            uid = parentRow.querySelector('td').dataset.userid; // 데이터에서 회원 ID 추출
-        }
+      if (input.readOnly) {
+        const email = input.value;
+        const parentRow = input.closest('tr');
+        const username = parentRow.querySelector('td').innerText;
+        const userid = parentRow.querySelector('input').dataset.userid;
+      }
     });
 
     // 서버로 POST 요청 보내기
     fetch('send_email.php', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/x-www-form-urlencoded',
-        },
-        body: new URLSearchParams({
-            uid: uid,
-            title: title,
-            content: content,
-        })
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+      },
+      body: new URLSearchParams({
+        uid: uid,
+        title: title,
+        content: content 
+      })
     })
-    .then(response => response.text())
-    .then(data => {
+      .then(response => response.text())
+      .then(data => {
         console.log(data);
-        alert('메일 발송 및 데이터 저장 완료!');
-    })
-    .catch(error => {
+        confirm('해당 수강생에게 이메일을 보내시겠습니까?');
+        alert('발송이 완료되었습니다.')
+        location.href='/CODE_EVEN/admin/student/student_list.php';
+      })
+      .catch(error => {
         console.error('Error:', error);
-        alert('메일 발송 실패!');
-    });
-});
+        alert('발송이 실패되었습니다.');
+      });
+  });
 
 </script>

@@ -1,61 +1,14 @@
 <?php
 include_once($_SERVER['DOCUMENT_ROOT'] . '/CODE_EVEN/admin/inc/header.php');
 ?>
-<style>
-
-  .cent small{
-    color: var(--bk400);
-    font-size: 12px;
-    font-weight: normal;
-  }
-    /* 테이블 고정 너비와 레이아웃 */
-  table {
-    width: 100%;
-    table-layout: fixed;
-    border-spacing: 0 8px; /* 행 사이에만 8px 간격을 줍니다 */
-    border-collapse: separate;
-  }
-
-  table, th, td {
-    border: none;
-  }
-
-  .content_bar{
-    margin-top: 50px;
-  }
-
-  .custom-gap{
-    gap: 100px;
-  }
-
-  .video{
-  margin-top: 10px;
-  height: 48px;
-  background-color: var(--bk50);
-  border-color: var(--200);
-
-  h5{
-    margin-left: 24px;
-  }
-
-  i{
-    margin-right: 24px;
-  }
-}
-
-.input-group span{
-  height: 38px;
-}
-
-</style>
 
 <div class="container">
   <h2>퀴즈 / 시험 등록</h2>
-  <div class="content_bar cent">
+  <div class="content_bar cent d-flex justify-content-bettwen align-item-center">
     <h3>
       기본 정보 입력
-      <small>* 과정이 생성된 상태(임시 저장)에서만 퀴즈 / 시험 등록이 가능합니다.</small>
     </h3>
+    <small>* 과정이 생성된 상태(임시 저장)에서만 퀴즈 / 시험 등록이 가능합니다.</small>
   </div>
   <form>
     <table class="table">
@@ -105,11 +58,11 @@ include_once($_SERVER['DOCUMENT_ROOT'] . '/CODE_EVEN/admin/inc/header.php');
           <td>
             <div class="d-flex custom-gap">
               <div class="form-check">
-                <input class="form-check-input" type="radio" name="courseType" id="recipeCourse">
+                <input class="form-check-input" type="radio" name="courseType" id="recipeCourse" value="exam">
                 <label class="form-check-label" for="recipeCourse">시험</label>
               </div>
               <div class="form-check">
-                <input class="form-check-input" type="radio" name="courseType" id="generalCourse" checked>
+                <input class="form-check-input" type="radio" name="courseType" id="generalCourse" value="quiz" checked>
                 <label class="form-check-label" for="generalCourse">퀴즈</label>
               </div>
             </div>

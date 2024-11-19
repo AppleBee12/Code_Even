@@ -75,8 +75,8 @@ $data = $result->fetch_object();
   <div class="custom-hr"></div>
 
   <div class="d-flex justify-content-end gap-2">
-    <a href="student_question.php" type="button" class="btn btn-outline-danger">취소</a>
-    <a href="" type="button" class="btn btn-danger">삭제</a>
+    <a href="student_question.php" class="btn btn-outline-danger">취소</a>
+    <a href="student_question_delete.php?sqid=<?=$data->sqid;?>" class="btn btn-danger">삭제</a>
   </div>
 
 </div>
