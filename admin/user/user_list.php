@@ -145,6 +145,7 @@ while($data = $result->fetch_object()){
     </tbody> 
   </table>
   <!--//table -->
+  
   <div class="list_pagination">
     <ul class="pagination d-flex justify-content-center">
       <?php
