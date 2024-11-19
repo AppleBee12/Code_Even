@@ -3,6 +3,7 @@ include_once($_SERVER['DOCUMENT_ROOT'] . '/CODE_EVEN/admin/inc/dbcon.php');
 include_once($_SERVER['DOCUMENT_ROOT'].'/code_even/admin/inc/img_upload_func.php');
 
   $tcid = $_POST['tcid'];
+
   /* ---------------- 이미지 업로드 변수 정의 --------------------- */
   $thumbnail = $_FILES['tc_thumbnail'] ?? '';
   $tc_name = $_POST['tc_name'];
@@ -87,6 +88,32 @@ include_once($_SERVER['DOCUMENT_ROOT'].'/code_even/admin/inc/img_upload_func.php
 
     $sql .= " WHERE tcid = $tcid";
     $result = $mysqli->query($sql); //teachers테이블에 강사정보 입력(생성)
+
+
+
+
+
+  if ($result) {
+    // 승인완료(tc_ok == 1)인 경우 user 테이블의 user_level 값 업데이트
+    if ($tc_ok == 1) {
+        $user_sql = "UPDATE user SET user_level = 10 WHERE userid = '$tc_userid'";
+        $mysqli->query($user_sql);
+    }
+
+    echo "
+        <script>
+            alert('강사정보 수정 완료');
+            location.href = 'teacher_list.php';
+        </script>
+    ";
+} else {
+    echo "Error: " . $mysqli->error;
+}
+
+
+
+
+
 
     if($result){ 
       echo "
