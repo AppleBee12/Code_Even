@@ -86,7 +86,7 @@
           <td colspan="3">
             <select class="form-select" name="tc_cate" aria-label="대표분야">
               <?php foreach($categories as $category): ?>
-                <option value="<?= $category->name;?>" <?= $data->tc_cate == $category->cgid ? 'selected' : ''; ?>>
+                <option value="<?= $category->cgid;?>" <?= $data->tc_cate == $category->cgid ? 'selected' : ''; ?>>
                   <?= $category->name;?>
                 </option>
               <?php endforeach; ?>
