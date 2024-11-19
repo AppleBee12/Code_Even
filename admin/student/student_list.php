@@ -166,7 +166,7 @@ while ($data = $result->fetch_object()) {
   </div>
 
   <!-- //email 모달창 -->
-  <div class="modal modal-lg" tabindex="-1">
+  <div class="modal" tabindex="-1">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
@@ -177,10 +177,8 @@ while ($data = $result->fetch_object()) {
           <div class="modal-body">
             <table class="table">
               <colgroup>
-                <col style="width:110px">
-                <col style="width:230px">
-                <col style="width:110px">
-                <col style="width:230px">
+                <col class="col-width-130">
+                <col>
               </colgroup>
               <thead class="thead-hidden">
                 <tr>
@@ -189,20 +187,6 @@ while ($data = $result->fetch_object()) {
                 </tr>
               </thead>
               <tbody>
-                <tr class="none">
-                  <th scope="row"></th>
-                  <td></td>
-                  <th scope="row"></th>
-                  <td></td>
-                </tr>
-                <tr class="none">
-                  <th scope="row">제목 <b>*</b></th>
-                  <td colspan="3"><input type="text" name="title" class="form-control" required></td>
-                </tr>
-                <tr class="none">
-                  <th scope="row">내용 <b>*</b></th>
-                  <td colspan="3"><textarea name="content" class="form-control" required></textarea></td>
-                </tr>
               </tbody>
             </table>
           </div>
@@ -276,6 +260,8 @@ include_once($_SERVER['DOCUMENT_ROOT'] . '/code_even/admin/inc/footer.php');
         <tr class="none">
           <th scope="row">이름(아이디)</th>
           <td>${username} (${userid})</td>
+        </tr>
+        <tr>
           <th scope="row">이메일</th>
           <td><input class="form-control" value="${email}" name="to_email" readonly></td>
         </tr>
