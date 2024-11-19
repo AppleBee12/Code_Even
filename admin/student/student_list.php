@@ -169,7 +169,7 @@ while ($data = $result->fetch_object()) {
           <h5 class="modal-title">이메일 전송</h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
-        <form action="send_email.php" method="POST" id="contact-form">
+        <form action="student_send_email_ok.php" method="POST" id="contact-form">
           <div class="modal-body">
             <table class="table">
               <colgroup>
@@ -188,7 +188,7 @@ while ($data = $result->fetch_object()) {
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal">취소</button>
-            <button type="submit" class="btn btn-secondary">등록</button>
+            <button type="submit" class="btn btn-secondary">전송</button>
           </div>
         </form>
       </div>
@@ -327,7 +327,7 @@ include_once($_SERVER['DOCUMENT_ROOT'] . '/code_even/admin/inc/footer.php');
     });
 
     // 서버로 POST 요청 보내기
-    fetch('send_email.php', {
+    fetch('student_send_email_ok.php', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded',
