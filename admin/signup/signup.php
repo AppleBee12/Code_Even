@@ -20,12 +20,12 @@
   <div class="d-flex gap-5 align-items-center bgsz">
     <div class="img-wrap  w-50 d-flex justify-content-center">
       <div class="images1">
-        <img src="../../images/sb_logo.png" alt="">
+        <img src="../images/sb_logo.png" alt="">
       </div>
     </div>
     <div class="w-50 container d-flex justify-content-center align-items-center">
       <div class="w-50 d-flex flex-column align-items-center">
-        <img src="../../images/txt_logo.png" alt="">
+        <img src="../images/txt_logo.png" alt="">
         <h1 class="mt-5">회원가입</h1>
         <form action="../signup/signup_ok.php" method="POST" class="signup_con">
           <label for="username" class="form-label mt-3">이름 <b>*</b></label>
