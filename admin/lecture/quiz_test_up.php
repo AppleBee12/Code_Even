@@ -134,10 +134,10 @@
             </td>
           </tr>
           <tr>
-              <th scope="row">해설</th>
-              <td colspan="3">
-                  <textarea name="explan" class="form-control" rows="3" placeholder="강의 설명을 입력해 주세요."></textarea>
-              </td>
+            <th scope="row">해설</th>
+            <td colspan="3">
+              <textarea name="explan" class="form-control" rows="3" placeholder="강의 설명을 입력해 주세요."></textarea>
+            </td>
           </tr>
           <tr>
             <th scope="row">문제 수준 <b>*</b></th>
