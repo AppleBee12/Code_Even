@@ -44,9 +44,9 @@
       </colgroup>
       <tbody>
         <tr>
-          <th scope="row">이름 <b>*</b></th>
+          <th scope="row"><label for="tc_name">이름 <b>*</b></label></th>
           <td>
-            <input type="text" class="form-control" id="exampleFormControlInput1" name="tc_name" value="<?= $data->tc_name; ?>" required>
+            <input type="text" class="form-control" id="tc_name" name="tc_name" value="<?= $data->tc_name; ?>" required>
           </td>
           <th scope="row">대표분야 <b>*</b></th>
           <td>
@@ -201,7 +201,7 @@
   });
 
 
-    $('table .form-check-input').change(function(){
+    $('table .form-check-input[type="checkbox"]').change(function(){
     if($(this).prop( "checked" )){
       $(this).val('1');
     } else{
