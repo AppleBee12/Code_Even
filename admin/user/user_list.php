@@ -33,9 +33,11 @@ if ($block_end > $total_page) {
 }
 
 
-$sql = "SELECT *, 
+$sql = "SELECT * 
+        /*
         DATE_FORMAT(signup_date, '%Y/%m/%d') AS formatted_signup_date, 
         DATE_FORMAT(last_date, '%Y/%m/%d %H:%i:%s') AS formatted_last_date 
+        */
         FROM user $where_clause 
         ORDER BY user.uid DESC 
         LIMIT $start_num, $list";
@@ -101,8 +103,8 @@ while($data = $result->fetch_object()){
         <td><?= $item->userid; ?></td> 
         <td><?= $item->username; ?></td> 
         <td><?= $item->useremail; ?></td>
-        <td><?= formatDate($item->signup_date); ?></td>
-        <td><?= $item->formatted_last_date; ?></td>
+        <td><?= $item->signup_date; ?></td>
+        <td><?= $item->last_date; ?></td>
         <td>
           <?php
             if ($item->user_level == 100) {
@@ -127,10 +129,12 @@ while($data = $result->fetch_object()){
         </td>
         <td class="edit_col">
           <a href="user_edit.php?uid=<?= $item->uid; ?>">
-          <i class="bi bi-pencil-fill"></i>   
+            <i class="bi bi-pencil-fill"></i> 
+            <span class="visually-hidden">수정</span>  
           </a>
           <a href="user_del.php?uid=<?= $item->uid; ?>">
-          <i class="bi bi-trash-fill"></i>
+            <i class="bi bi-trash-fill del_link"></i>
+            <span class="visually-hidden">삭제</span>
           </a>
         </td>
       </tr>
@@ -140,47 +144,59 @@ while($data = $result->fetch_object()){
       ?>
     </tbody> 
   </table>
-    <!--//table -->
-
-
+  <!--//table -->
+  <div class="list_pagination">
+    <ul class="pagination d-flex justify-content-center">
+      <?php
+        $previous = $block_start - $block_ct;
+        if ($previous < 1) $previous = 1;
+        if ($block_num > 1) { 
+      ?>
+      <li class="page-item">
+        <a class="page-link" href="user_list.php?page=<?= $previous; ?>" aria-label="Previous">
+          <i class="bi bi-chevron-left"></i>
+        </a>
+      </li>
+      <?php
+        }
+      ?>
+      <?php
+        for ($i = $block_start; $i <= $block_end; $i++) {
+          $active = ($page == $i) ? 'active' : '';
+      ?>
+      <li class="page-item <?= $active; ?>"><a class="page-link" href="user_list.php?page=<?= $i; ?>"><?= $i; ?></a></li>
+      <?php
+        }
+        $next = $block_end + 1;
+        if($total_block > $block_num){
+      ?>
+      <li class="page-item">
+        <a class="page-link" href="user_list.php?page=<?= $next; ?>" aria-label="Next">
+          <i class="bi bi-chevron-right"></i>
+        </a>
+      </li>
+      <?php
+        }
+      ?>
+    </ul>
+  </div>
   <!-- //Pagination -->
-<div class="list_pagination" aria-label="Page navigation example">
-  <ul class="pagination d-flex justify-content-center">
-    <?php
-      $previous = $block_start - $block_ct;
-      if ($previous < 1) $previous = 1;
-      if ($block_num > 1) { 
-    ?>
-    <li class="page-item">
-      <a class="page-link" href="notice.php?page=<?= $previous; ?>" aria-label="Previous">
-        <i class="bi bi-chevron-left"></i>
-      </a>
-    </li>
-    <?php
-      }
-    ?>
-    <?php
-      for ($i = $block_start; $i <= $block_end; $i++) {
-        $active = ($page == $i) ? 'active' : '';
-    ?>
-    <li class="page-item <?= $active; ?>"><a class="page-link" href="notice.php?page=<?= $i; ?>"><?= $i; ?></a></li>
-    <?php
-      }
-      $next = $block_end + 1;
-      if($total_block > $block_num){
-    ?>
-    <li class="page-item">
-      <a class="page-link" href="notice.php?page=<?= $next; ?>" aria-label="Next">
-        <i class="bi bi-chevron-right"></i>
-      </a>
-    </li>
-    <?php
-      }
-    ?>
-  </ul>
-</div>
 </div>
 
+<script>
+  $('.del_link').click(function(e) {
+        if (!confirm('정말 삭제하시겠습니까? 삭제 후에는 복구가 불가능합니다.')) {
+          e.preventDefault();
+        }
+      });
+
+  //새로고침 시 주소창 리셋
+  if (window.location.search) {
+    // URL에 파라미터가 있을 때만 실행
+    const url = window.location.href.split('?')[0];
+    window.history.replaceState(null, null, url);
+  }
+</script>
 <?php
 include_once($_SERVER['DOCUMENT_ROOT'] . '/CODE_EVEN/admin/inc/footer.php');
 ?>
