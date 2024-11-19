@@ -2,6 +2,14 @@
 $title = "강사 목록";
 include_once($_SERVER['DOCUMENT_ROOT'] . '/CODE_EVEN/admin/inc/header.php');
 
+// 'code'가 'A'로 시작하는 category 데이터를 가져오기
+$category_sql = "SELECT * FROM category WHERE code LIKE 'A%' ORDER BY cgid ASC";
+$category_result = $mysqli->query($category_sql);
+
+while($cate_data = $category_result->fetch_object()){
+    $categories[] = $cate_data;
+}
+
 
 // 게시글 개수 구하기
 $keywords = isset($_GET['keywords']) ? $mysqli->real_escape_string($_GET['keywords']) : '';
@@ -51,11 +59,13 @@ while($data = $result->fetch_object()){
 
   <form action="" id="search_form" class="row justify-content-end">
     <div class="col-lg-3">
-      <select class="form-select" aria-label="Default select example">
-        <option selected>대분류를 선택해주세요(임시)</option>
-        <option value="1">웹개발</option>
-        <option value="2">클라우드</option>
-        <option value="3">보안</option>
+      <select class="form-select" name="" aria-label="대표분야">
+        <option value="">-전체분야선택-</option>
+        <?php foreach($categories as $category): ?>
+          <option value="<?= $category->cgid; ?>">
+            <?= $category->name;?>
+          </option>
+        <?php endforeach; ?>
       </select>
     </div>
     <div class="col-lg-3">
@@ -67,8 +77,6 @@ while($data = $result->fetch_object()){
       </button>
       </div>
     </div>
-   
-    
   </form>
 
   <form action="tclist_update.php" method="GET">
@@ -80,7 +88,7 @@ while($data = $result->fetch_object()){
           <th scope="col">아이디</th>
           <th scope="col">이름</th>
           <th scope="col">이메일</th>
-          <th scope="col">분류</th>
+          <th scope="col">분야</th>
           <th scope="col">상태</th>
           <th scope="col">강사전시옵션</th>
           <th scope="col">관리</th>
@@ -102,7 +110,7 @@ while($data = $result->fetch_object()){
           <td><?= $item->tc_userid; ?></td> 
           <td><?= $item->tc_name; ?></td> 
           <td><?= $item->tc_email; ?></td>
-          <td><?= $item->tc_cate; ?></td> <!-- 웹개발 -->
+          <td><?= $item->tc_cate; ?></td>
           <td>
           <select class="form-select form-select-sm tc_status" aria-label="승인여부" name="tc_ok[<?= $item->tcid; ?>]" id="tc_ok[<?= $item->tcid; ?>]">
               <option value="-1" <?php if($item->tc_ok == -1){echo 'selected';}?>>승인거절</option>
@@ -128,7 +136,7 @@ while($data = $result->fetch_object()){
             <a href="teacher_edit.php?tcid=<?= $item->tcid; ?>">
             <i class="bi bi-pencil-fill"></i>   
             </a>
-            <a href="">
+            <a href="teacher_del.php?tcid=<?= $item->tcid; ?>">
             <i class="bi bi-trash-fill"></i>
             </a>
           </td>
@@ -137,68 +145,6 @@ while($data = $result->fetch_object()){
             }
           }
         ?>
-        <!--
-        <tr>
-          <th scope="row">1</th>
-          <td>teacher01</td>
-          <td>이코딩</td>
-          <td>teacher1@mdo.com</td>
-          <td>웹개발</td>
-          <td><span class="badge text-bg-secondary">승인완료</span></td>
-          <td>
-            <div class="form-check d-inline-block me-2">
-              <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-              <label class="form-check-label" for="flexCheckDefault">
-                신규
-              </label>
-            </div>
-            <div class="form-check d-inline-block">
-              <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-              <label class="form-check-label" for="flexCheckDefault">
-                추천
-              </label>
-            </div>
-          </td>
-          <td class="edit_col">
-            <a href="">
-            <i class="bi bi-pencil-fill"></i>   
-            </a>
-            <a href="">
-            <i class="bi bi-trash-fill"></i>
-            </a>
-          </td>
-        </tr>
-        <tr>
-          <th scope="row">1</th>
-          <td>teacher01</td>
-          <td>이코딩</td>
-          <td>teacher1@mdo.com</td>
-          <td>웹개발</td>
-          <td><span class="badge text-bd-secondary">승인거절</span></td>
-          <td>
-            <div class="form-check d-inline-block me-2">
-              <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-              <label class="form-check-label" for="flexCheckDefault">
-                신규
-              </label>
-            </div>
-            <div class="form-check d-inline-block">
-              <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-              <label class="form-check-label" for="flexCheckDefault">
-                추천
-              </label>
-            </div>
-          </td>
-          <td class="edit_col">
-            <a href="">
-            <i class="bi bi-pencil-fill"></i>   
-            </a>
-            <a href="">
-            <i class="bi bi-trash-fill"></i>
-            </a>
-          </td>
-        </tr>
-        -->
       </tbody> 
     </table>
      <!--//table -->
