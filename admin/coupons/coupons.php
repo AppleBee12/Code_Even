@@ -72,6 +72,7 @@ while ($data = $result->fetch_object()) {
     /* gap: 110px; */
     height: 250px;
   }
+  
 </style>
 
 <div class="container">
@@ -101,7 +102,7 @@ while ($data = $result->fetch_object()) {
       <div class="col-6 card p-0 m-3">
           <div class="row g-0">
             <div class="col-md-7 c-img">
-              <img src="<?= $item->coupon_image; ?>" class="img-fluid rounded-start" alt="...">
+            <img src="<?= $item->coupon_image; ?>" class="img-fluid rounded-start" alt="Coupon Image">
             </div>
             <div class="col-md-5">
               <div class="card-body">
@@ -146,7 +147,7 @@ while ($data = $result->fetch_object()) {
         if ($block_num > 1) { 
       ?>
       <li class="page-item">
-        <a class="page-link" href="notice.php?page=<?= $previous; ?>" aria-label="Previous">
+        <a class="page-link" href="coupons.php?page=<?= $previous; ?>" aria-label="Previous">
           <i class="bi bi-chevron-left"></i>
         </a>
       </li>
@@ -157,14 +158,14 @@ while ($data = $result->fetch_object()) {
         for ($i = $block_start; $i <= $block_end; $i++) {
           $active = ($page == $i) ? 'active' : '';
       ?>
-      <li class="page-item <?= $active; ?>"><a class="page-link" href="notice.php?page=<?= $i; ?>"><?= $i; ?></a></li>
+      <li class="page-item <?= $active; ?>"><a class="page-link" href="coupons.php?page=<?= $i; ?>"><?= $i; ?></a></li>
       <?php
         }
         $next = $block_end + 1;
         if($total_block > $block_num){
       ?>
       <li class="page-item">
-        <a class="page-link" href="notice.php?page=<?= $next; ?>" aria-label="Next">
+        <a class="page-link" href="coupons.php?page=<?= $next; ?>" aria-label="Next">
           <i class="bi bi-chevron-right"></i>
         </a>
       </li>

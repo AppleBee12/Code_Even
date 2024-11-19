@@ -7,12 +7,15 @@ $keywords = isset($_GET['keywords']) ? $mysqli->real_escape_string($_GET['keywor
 $where_clause = '';
 
 if ($keywords) {
-  $where_clause = "WHERE user.username LIKE '%$keywords%' OR user.userid LIKE '%$keywords%'";
+  $where_clause = "WHERE user.username LIKE '%$keywords%' OR user.userid LIKE '%$keywords%' 
+                  OR review.rtitle LIKE '%$keywords%' OR lecture.title LIKE '%$keywords%'";
 }
 
 $page_sql = "SELECT COUNT(*) AS cnt 
             FROM review 
             JOIN class_data ON class_data.cdid = review.cdid 
+            JOIN user ON class_data.uid = user.uid 
+            JOIN lecture ON class_data.leid = lecture.leid 
             $where_clause";
 $page_result = $mysqli->query($page_sql);
 $page_data = $page_result->fetch_assoc();
@@ -56,7 +59,7 @@ while ($data = $result->fetch_object()) {
       <div class="input-group mb-3">
       <input type="text" class="form-control" placeholder="검색어를 입력하세요." name="keywords"
       value="<?= htmlspecialchars($keywords); ?>">
-        <button type="button" class="btn btn-secondary">
+        <button type="submit" class="btn btn-secondary">
           <i class="bi bi-search"></i>
         </button>
       </div>
@@ -77,7 +80,6 @@ while ($data = $result->fetch_object()) {
           <th scope="col">강사</th>
           <th scope="col">평점</th>
           <th scope="col">등록일</th>
-          <th scope="col">관리</th>
         </tr>
       </thead>
       <tbody>
@@ -113,24 +115,15 @@ while ($data = $result->fetch_object()) {
             </div>
           </td>
           <td><?=$no->regdate;?></td>
-          <td>
-            <a href="">
-              <i class="bi bi-trash-fill"></i>
-            </a>
-          </td>
         </tr>
         <?php
         }
       } else {
-        echo "<tr><td colspan='8'>검색 결과가 없습니다.</td></tr>";
+        echo "<tr><td colspan='10'>검색 결과가 없습니다.</td></tr>";
       }
       ?>
       </tbody>
     </table>
-
-    <div class="d-flex justify-content-end">
-       <button type="button" class="btn btn-danger">삭제</button>
-     </div>
 
   <!-- //Pagination -->
   <div class="list_pagination" aria-label="Page navigation example">
@@ -142,7 +135,7 @@ while ($data = $result->fetch_object()) {
       if ($block_num > 1) {
         ?>
         <li class="page-item">
-          <a class="page-link" href="class_data.php?page=<?= $previous; ?>" aria-label="Previous">
+          <a class="page-link" href="course_reviews.php?page=<?= $previous; ?>" aria-label="Previous">
             <i class="bi bi-chevron-left"></i>
           </a>
         </li>
@@ -153,7 +146,7 @@ while ($data = $result->fetch_object()) {
       for ($i = $block_start; $i <= $block_end; $i++) {
         $active = ($page == $i) ? 'active' : '';
         ?>
-        <li class="page-item <?= $active; ?>"><a class="page-link" href="class_data.php?page=<?= $i; ?>"><?= $i; ?></a>
+        <li class="page-item <?= $active; ?>"><a class="page-link" href="course_reviews.php?page=<?= $i; ?>"><?= $i; ?></a>
         </li>
         <?php
       }
@@ -161,7 +154,7 @@ while ($data = $result->fetch_object()) {
       if ($total_block > $block_num) {
         ?>
         <li class="page-item">
-          <a class="page-link" href="class_data.php?page=<?= $next; ?>" aria-label="Next">
+          <a class="page-link" href="course_reviews.php?page=<?= $next; ?>" aria-label="Next">
             <i class="bi bi-chevron-right"></i>
           </a>
         </li>

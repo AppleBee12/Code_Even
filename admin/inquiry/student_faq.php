@@ -1,4 +1,5 @@
 <?php
+$title = "문의게시판 관리";
 include_once($_SERVER['DOCUMENT_ROOT'] . '/code_even/admin/inc/header.php');
 
 // 게시글 개수 구하기
@@ -59,76 +60,75 @@ while ($data = $result->fetch_object()) {
     </div>
   </form>
 
-  <table class="table list_table">
-    <thead>
-      <tr>
-        <th scope="col">번호</th>
-        <th scope="col">아이디</th>
-        <th scope="col">이름</th>
-        <th scope="col">분류</th>
-        <th scope="col">제목</th>
-        <th scope="col">조회수</th>
-        <th scope="col">등록일</th>
-        <th scope="col">상태</th>
-        <th scope="col">관리</th>
-      </tr>
-    </thead>
-    <tbody>
-      <?php
-      if (isset($dataArr)) {
-        foreach ($dataArr as $faq) {
-          ?>
-          <tr>
-            <td><?= $faq->fqid; ?></td>
-            <td><?= $faq->userid; ?></td>
-            <td><?= $faq->username; ?></td>
-            <td>
-              <?php
-              echo $faq->category == 1 ? "결제/환불" :
-                ($faq->category == 2 ? "강의" :
-                ($faq->category == 3 ? "쿠폰" :
-                ($faq->category == 4 ? "가입/탈퇴" :
-                ($faq->category == 5 ? "기타" :
-                ($faq->category == 6 ? "수료" :
-                ($faq->category == 7 ? "정산" :
-                ($faq->category == 8 ? "강사" : "알 수 없음")))))));
-              ?>
-            </td>
-            <td>
-              <a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/inquiry/faq_modify.php?fqid=<?= $faq->fqid; ?>"
-                class="underline"><?= $faq->title; ?></a>
-            </td>
-            <td><?= $faq->view; ?></td>
-            <td><?= $faq->regdate; ?></td>
-            <td>
-              <?php
-              $class = $faq->status == 'on' ? 'text-bg-success' : 'text-bg-light';
-              $text = $faq->status == 'on' ? '노출' : '숨김';
-              echo "<span class='badge $class'>$text</span>";
-              ?>
-            </td>
-            <td class="edit_col">
-              <a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/inquiry/faq_modify.php?fqid=<?= $faq->fqid; ?>">
-                <i class="bi bi-pencil-fill"></i>
-              </a>
-              <a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/inquiry/faq_delete.php?fqid=<?= $faq->fqid; ?>">
-                <i class="bi bi-trash-fill"></i>
-              </a>
-            </td>
-          </tr>
-          <?php
+  <form action="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/inquiry/faq_write.php" method="GET">
+    <input type="hidden" name="target" value="student">
+    <table class="table list_table">
+      <thead>
+        <tr>
+          <th scope="col">번호</th>
+          <th scope="col">아이디</th>
+          <th scope="col">이름</th>
+          <th scope="col">분류</th>
+          <th scope="col">제목</th>
+          <th scope="col">조회수</th>
+          <th scope="col">등록일</th>
+          <th scope="col">상태</th>
+          <th scope="col">관리</th>
+        </tr>
+      </thead>
+      <tbody>
+        <?php
+        if (isset($dataArr)) {
+          foreach ($dataArr as $faq) {
+            ?>
+            <tr>
+              <td><?= $faq->fqid; ?></td>
+              <td><?= $faq->userid; ?></td>
+              <td><?= $faq->username; ?></td>
+              <td>
+                <?php
+                echo $faq->category == 1 ? "결제/환불" :
+                  ($faq->category == 2 ? "강의" :
+                  ($faq->category == 3 ? "쿠폰" :
+                  ($faq->category == 4 ? "가입/탈퇴" :
+                  ($faq->category == 5 ? "기타" :
+                  ($faq->category == 6 ? "수료" :
+                  ($faq->category == 7 ? "정산" :
+                  ($faq->category == 8 ? "강사" : "알 수 없음")))))));
+                ?>
+              </td>
+              <td>
+                <a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/inquiry/faq_modify.php?fqid=<?= $faq->fqid; ?>"
+                  class="underline"><?= $faq->title; ?></a>
+              </td>
+              <td><?= $faq->view; ?></td>
+              <td><?= $faq->regdate; ?></td>
+              <td>
+                <?php
+                $class = $faq->status == 'on' ? 'text-bg-success' : 'text-bg-light';
+                $text = $faq->status == 'on' ? '노출' : '숨김';
+                echo "<span class='badge $class'>$text</span>";
+                ?>
+              </td>
+              <td class="edit_col">
+                <a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/inquiry/faq_modify.php?fqid=<?= $faq->fqid; ?>">
+                  <i class="bi bi-pencil-fill"></i>
+                </a>
+                <a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/inquiry/faq_delete.php?fqid=<?= $faq->fqid; ?>">
+                  <i class="bi bi-trash-fill"></i>
+                </a>
+              </td>
+            </tr>
+            <?php
+          }
+        } else {
+          echo "<tr><td colspan='10'>검색 결과가 없습니다.</td></tr>";
         }
-      } else {
-        echo "<tr><td colspan='8'>검색 결과가 없습니다.</td></tr>";
-      }
-      ?>
-    </tbody>
-  </table>
-
-  <div class="d-flex justify-content-end gap-2">
-    <a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/inquiry/faq_write.php?target=student"
-      class="btn btn-secondary">등록</a>
-  </div>
+        ?>
+      </tbody>
+    </table>
+    <button type="submit" class="btn btn-secondary ms-auto d-block">등록</button>
+  </form>
 
 </div>
 

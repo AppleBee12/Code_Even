@@ -40,8 +40,14 @@ $sql = "SELECT class_data.*, user.*, lecture.*
 $result = $mysqli->query($sql);
 
 $dataArr = [];
+$firstData = null;
 while ($data = $result->fetch_object()) {
   $dataArr[] = $data;
+
+    // 첫 번째 데이터만 따로 저장
+    if ($firstData === null) {
+      $firstData = $data; // 첫 번째 데이터가 발견되면 저장
+  }
 }
 
 ?>
@@ -60,65 +66,64 @@ while ($data = $result->fetch_object()) {
   </form>
 
 
-  <table class="table list_table">
-    <thead>
-      <tr>
-        <th scope="col">
-          <input class="form-check-input" type="checkbox" value="" id="allCheck">
-        </th>
-        <th scope="col">번호</th>
-        <th scope="col">아이디</th>
-        <th scope="col">이름</th>
-        <th scope="col">강좌명</th>
-        <th scope="col">진도율</th>
-        <th scope="col">수강이수</th>
-        <th scope="col">학습기간</th>
-      </tr>
-    </thead>
-    <tbody>
-      <?php
-      if ($dataArr) {
-        foreach ($dataArr as $cl) {
-          ?>
-          <tr>
-            <th scope="row">
-              <input class="form-check-input itemCheckbox" type="checkbox" value="<?= $cl->cdid; ?>" id="checkbox"
-                data-username="<?= $cl->username; ?>" data-userid="<?= $cl->userid; ?>" data-email="<?= $cl->useremail; ?>">
-            </th>
-            <td><?= $cl->cdid; ?></td>
-            <td><a href="student_details.php?cdid=<?= $cl->cdid; ?>" class="underline"><?= $cl->userid ?></a></td>
-            <td><a href="student_details.php?cdid=<?= $cl->cdid; ?>" class="underline"><?= $cl->username ?></a></td>
-            <td><?= mb_strlen($cl->title) > 20 ? mb_substr($cl->title, 0, 20) . '...' : $cl->title; ?></td>
-            <td></td>
-            <td>
-              <button type="button" id="printButton">
-                <span class="badge text-bg-dark">이수증</span>
-              </button>
-            </td>
-            <td>
-              <?php
-              $set_date = date('Y-m-d', strtotime($cl->date));
-              $start_date = new DateTime($cl->date); // DateTime 객체 생성
-              $start_date->modify("+{$cl->period} days"); // 기간을 더함
-              $end_date = $start_date->format('Y-m-d'); // 종료 날짜 포맷팅
-              ?>
-
-              <?= $set_date ?> ~ <?= $end_date ?>
-            </td>
-          </tr>
-        </tbody>
+  <form>
+    <table class="table list_table">
+      <thead>
+        <tr>
+          <th scope="col">
+            <input class="form-check-input" type="checkbox" value="" id="allCheck">
+          </th>
+          <th scope="col">번호</th>
+          <th scope="col">아이디</th>
+          <th scope="col">이름</th>
+          <th scope="col">강좌명</th>
+          <th scope="col">진도율</th>
+          <th scope="col">수강이수</th>
+          <th scope="col">학습기간</th>
+        </tr>
+      </thead>
+      <tbody>
         <?php
+        if ($dataArr) {
+          foreach ($dataArr as $cl) {
+            ?>
+            <tr>
+              <th scope="row">
+                <input class="form-check-input itemCheckbox" type="checkbox" value="<?= $cl->cdid; ?>" id="checkbox"
+                    data-username="<?= $cl->username; ?>" data-userid="<?= $cl->userid; ?>" data-email="<?= $cl->useremail; ?>" data-uid="<?= $cl->uid; ?>">
+              </th>
+              <td><?= $cl->cdid; ?></td>
+              <td><a href="student_details.php?cdid=<?= $cl->cdid; ?>" class="underline"><?= $cl->userid ?></a></td>
+              <td><a href="student_details.php?cdid=<?= $cl->cdid; ?>" class="underline"><?= $cl->username ?></a></td>
+              <td><?= mb_strlen($cl->title) > 20 ? mb_substr($cl->title, 0, 20) . '...' : $cl->title; ?></td>
+              <td></td>
+              <td>
+                <button type="button" id="printButton">
+                  <span class="badge text-bg-dark">이수증</span>
+                </button>
+              </td>
+              <td>
+                <?php
+                $set_date = date('Y-m-d', strtotime($cl->date));
+                $start_date = new DateTime($cl->date); // DateTime 객체 생성
+                $start_date->modify("+{$cl->period} days"); // 기간을 더함
+                $end_date = $start_date->format('Y-m-d'); // 종료 날짜 포맷팅
+                ?>
+  
+                <?= $set_date ?> ~ <?= $end_date ?>
+              </td>
+            </tr>
+          </tbody>
+          <?php
+          }
+        } else {
+          echo "<tr><td colspan='10'>검색 결과가 없습니다.</td></tr>";
         }
-      } else {
-        echo "<tr><td colspan='8'>검색 결과가 없습니다.</td></tr>";
-      }
-      ?>
-  </table>
-
-  <div class="d-flex justify-content-end">
+        ?>
+    </table>
     <button type="submit" id="emailBtn" data-bs-toggle="modal" data-bs-target="#send_email"
-      class="btn btn-outline-secondary">이메일 전송</button>
-  </div>
+      class="btn btn-outline-secondary ms-auto d-block">이메일 전송</button>
+  </form>
 
   <!-- //Pagination -->
   <div class="list_pagination" aria-label="Page navigation example">
@@ -160,7 +165,7 @@ while ($data = $result->fetch_object()) {
   </div>
 
   <!-- //email 모달창 -->
-  <div class="modal modal-lg" tabindex="-1">
+  <div class="modal" tabindex="-1">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
@@ -171,10 +176,8 @@ while ($data = $result->fetch_object()) {
           <div class="modal-body">
             <table class="table">
               <colgroup>
-                <col style="width:110px">
-                <col style="width:230px">
-                <col style="width:110px">
-                <col style="width:230px">
+                <col class="col-width-130">
+                <col>
               </colgroup>
               <thead class="thead-hidden">
                 <tr>
@@ -183,20 +186,6 @@ while ($data = $result->fetch_object()) {
                 </tr>
               </thead>
               <tbody>
-                <tr class="none">
-                  <th scope="row"></th>
-                  <td></td>
-                  <th scope="row"></th>
-                  <td></td>
-                </tr>
-                <tr class="none">
-                  <th scope="row">제목 <b>*</b></th>
-                  <td colspan="3"><input type="text" name="title" class="form-control"></td>
-                </tr>
-                <tr class="none">
-                  <th scope="row">내용 <b>*</b></th>
-                  <td colspan="3"><textarea name="content" class="form-control"></textarea></td>
-                </tr>
               </tbody>
             </table>
           </div>
@@ -214,6 +203,7 @@ while ($data = $result->fetch_object()) {
 <?php
 include_once($_SERVER['DOCUMENT_ROOT'] . '/code_even/admin/inc/footer.php');
 ?>
+
 <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 <script>
   /* == 인쇄 버튼 == */
@@ -259,24 +249,31 @@ include_once($_SERVER['DOCUMENT_ROOT'] . '/code_even/admin/inc/footer.php');
       let htmlContent = '';  // 생성할 HTML 내용 초기화
 
       checkboxes.forEach(function (checkbox) {
+        // data-* 속성에서 값 추출
         const username = checkbox.getAttribute('data-username');
         const userid = checkbox.getAttribute('data-userid');
         const email = checkbox.getAttribute('data-email');
+        const uid = checkbox.getAttribute('data-uid');
 
         htmlContent += `
         <tr class="none">
           <th scope="row">이름(아이디)</th>
           <td>${username} (${userid})</td>
+        </tr>
+        <tr>
           <th scope="row">이메일</th>
           <td><input class="form-control" value="${email}" name="to_email" readonly></td>
         </tr>
         <tr class="none">
           <th scope="row">제목 <b>*</b></th>
-          <td colspan="3"><input type="text" class="form-control" name="title"></td>
+          <td colspan="3"><input type="text" class="form-control" name="title" required></td>
         </tr>
         <tr class="none">
           <th scope="row">내용 <b>*</b></th>
-          <td colspan="3"><textarea class="form-control" name="content"></textarea></td>
+          <td colspan="3"><textarea class="form-control" name="content" required></textarea></td>
+        </tr>
+        <tr class="none">
+          <input type="hidden" name="uid" value="${uid}">
         </tr>
       `;
       });
@@ -320,14 +317,14 @@ include_once($_SERVER['DOCUMENT_ROOT'] . '/code_even/admin/inc/footer.php');
     const title = form.querySelector('[name="title"]').value;
     const content = form.querySelector('[name="content"]').value;
     const emailInputs = document.querySelectorAll('input[name="to_email"]');
-    let uid = null;
+    const uid = document.querySelector('[name="uid"]').value;
 
     emailInputs.forEach(input => {
       if (input.readOnly) {
         const email = input.value;
         const parentRow = input.closest('tr');
         const username = parentRow.querySelector('td').innerText;
-        uid = parentRow.querySelector('td').dataset.userid; // 데이터에서 회원 ID 추출
+        const userid = parentRow.querySelector('input').dataset.userid;
       }
     });
 
@@ -340,17 +337,19 @@ include_once($_SERVER['DOCUMENT_ROOT'] . '/code_even/admin/inc/footer.php');
       body: new URLSearchParams({
         uid: uid,
         title: title,
-        content: content,
+        content: content 
       })
     })
       .then(response => response.text())
       .then(data => {
         console.log(data);
-        alert('메일 발송 및 데이터 저장 완료!');
+        confirm('해당 수강생에게 이메일을 보내시겠습니까?');
+        alert('발송이 완료되었습니다.')
+        location.href='/CODE_EVEN/admin/student/student_list.php';
       })
       .catch(error => {
         console.error('Error:', error);
-        alert('메일 발송 실패!');
+        alert('발송이 실패되었습니다.');
       });
   });
 

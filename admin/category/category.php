@@ -44,20 +44,20 @@ $mysqli->close();
           foreach($cate1 as $c1){
         ?>
         <option value="<?= $c1-> code; ?>"><?= $c1->name; ?>
-        <!-- <button>삭제</button></option> -->
         <?php
           }
         ?>
       </select>
       <!-- Button trigger modal -->
       <div class="btns d-flex justify-content-center mt-4">
-        <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#cate1_modal">
+        <button type="submit" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#cate1_modal">
           대분류 등록
         </button>
       </div>
       
 
     </div>
+    
     
     <div class="col-md-4">
     <div class="bd d-flex justify-content-center"> 중분류</div>
@@ -66,7 +66,7 @@ $mysqli->close();
       </select>
             <!-- Button trigger modal -->
       <div class="btns d-flex justify-content-center mt-4 ">
-        <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#cate2_modal">
+        <button type="submit" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#cate2_modal">
           중분류 등록
         </button>
       </div>
@@ -86,11 +86,12 @@ $mysqli->close();
     </div>
   </div>
 </div>
+
 <!-- 모달 창 -->
 <!-- Modal 1-->
 <div class="modal fade" id="cate1_modal" tabindex="-1" aria-labelledby="대분류 등록" aria-hidden="true">
   <div class="modal-dialog">
-    <form action="" class="modal-content" data-step="1">
+    <form action="" class="modal-content"  method="post" data-step="1">
       <div class="modal-header">
         <h1 class="modal-title fs-5" id="exampleModalLabel">대분류 등록</h1>
         <button type="submit" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -113,7 +114,7 @@ $mysqli->close();
 <!-- Modal 2-->
 <div class="modal fade" id="cate2_modal" tabindex="-1" aria-labelledby="중분류 등록" aria-hidden="true">
   <div class="modal-dialog">
-    <form action="" class="modal-content" data-step="2">
+    <form action="" class="modal-content"  method="post" data-step="2">
       <div class="modal-header">
         <h1 class="modal-title fs-5" id="exampleModalLabel">중분류 등록</h1>
         <button type="submit" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -149,7 +150,7 @@ $mysqli->close();
 <!-- Modal 3-->
 <div class="modal fade" id="cate3_modal" tabindex="-1" aria-labelledby="소분류 등록" aria-hidden="true">
   <div class="modal-dialog">
-    <form action="" class="modal-content" data-step="3">
+    <form action="" class="modal-content"  method="post" data-step="3">
       <div class="modal-header">
         <h1 class="modal-title fs-5" id="exampleModalLabel">소분류 등록</h1>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -231,10 +232,6 @@ $('#pcode3').change(function(){
         }
     });
   }
-
-
-
-  
   
     $('.modal-content').submit(function(e){
       e.preventDefault();

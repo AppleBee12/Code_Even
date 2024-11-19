@@ -134,7 +134,6 @@ CREATE TABLE `book` (
 
 INSERT INTO `book` (`boid`, `cate1`, `cate2`, `cate3`, `image`, `title`, `name`, `price`, `pd`, `book`, `writer`, `company`) VALUES
 (1, 'A0001', 'B0001', 'C0001', '', '기초부터 확실하게! (페이지의 내용 전달을 위한 HTML, 스타일 설정을 위한 CSS 기초 학습)', '홍길동', 15000, '2024-11-17 10:08:39', 'html 도장 깨기', '홍길동', '길동사');
-
 -- --------------------------------------------------------
 
 --
@@ -393,43 +392,12 @@ INSERT INTO `faq` (`fqid`, `uid`, `category`, `target`, `title`, `content`, `vie
 -- --------------------------------------------------------
 
 --
--- 테이블 구조 `lecdraft`
---
-
-CREATE TABLE `lecdraft` (
-  `draft_id` int(11) NOT NULL COMMENT '번호',
-  `leid` int(11) NOT NULL COMMENT '강좌id',
-  `lecid` int(11) NOT NULL COMMENT '강사 고유id',
-  `cate1` varchar(50) NOT NULL COMMENT '대분류',
-  `cate2` varchar(50) NOT NULL COMMENT '중분류',
-  `cate3` varchar(50) NOT NULL COMMENT '소분류',
-  `image` varchar(250) NOT NULL COMMENT '이미지',
-  `title` varchar(100) NOT NULL COMMENT '강좌명',
-  `des` text NOT NULL COMMENT '강좌 소개',
-  `name` varchar(50) NOT NULL COMMENT '등록자',
-  `video_url` varchar(250) NOT NULL COMMENT '강의',
-  `file` varchar(100) DEFAULT NULL COMMENT '실습 파일',
-  `period` int(11) NOT NULL COMMENT '학습 기간',
-  `isrecipe` varchar(10) NOT NULL COMMENT '레시피',
-  `isgeneral` varchar(10) NOT NULL COMMENT '일반',
-  `isbest` varchar(10) NOT NULL COMMENT '베스트',
-  `isrecom` varchar(10) NOT NULL COMMENT '추천',
-  `state` tinyint(4) NOT NULL COMMENT '상태',
-  `approval` tinyint(4) NOT NULL COMMENT '승인',
-  `price` decimal(10,0) NOT NULL COMMENT '가격',
-  `level` int(11) NOT NULL COMMENT '레벨',
-  `created_at` datetime NOT NULL COMMENT '임시 저장된 날짜 및 시간',
-  `isfinal` tinyint(4) NOT NULL COMMENT '최종 저장 여부'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
--- --------------------------------------------------------
-
---
 -- 테이블 구조 `lecture`
 --
 
 CREATE TABLE `lecture` (
   `leid` int(11) NOT NULL COMMENT '번호',
+  `cgid` int(11) DEFAULT NULL,
   `lecid` int(11) NOT NULL COMMENT '강사고유id',
   `cate1` varchar(50) NOT NULL COMMENT '대분류',
   `cate2` varchar(50) NOT NULL COMMENT '중분류',
@@ -456,9 +424,29 @@ CREATE TABLE `lecture` (
 -- 테이블의 덤프 데이터 `lecture`
 --
 
-INSERT INTO `lecture` (`leid`, `lecid`, `cate1`, `cate2`, `cate3`, `image`, `title`, `des`, `name`, `video_url`, `file`, `period`, `isrecipe`, `isgeneral`, `isbest`, `isrecom`, `state`, `approval`, `price`, `level`, `date`) VALUES
-(1, 0, 'A0001', 'B0001', 'C0001', '', '기초부터 확실하게! (페이지의 내용 전달을 위한 HTML, 스타일 설정을 위한 CSS 기초 학습)', '초보자를 위한 쉽고 재미있는 HTML, CSS 기초입니다. 천천히 보면서 이해하면서 따라해 보세요!', '홍길동', 'https://youtu.be/oHTr2fEkmGA?si=fNAGT0cPExpzwXDM', NULL, 30, '', '', '', '', 1, 1, 15000, 50, '2024-11-18 14:40:26'),
-(2, 0, 'A0001', 'B0001', 'C0001', '', '[HTML]홈페이지 기본 메뉴부터 투명한 메뉴까지 ', '홈페이지의 상단 메뉴부터 버튼 클릭시 부드럽게 나오는 버튼, 배경에 영향을 주지 않는 투명 메뉴까지 매번 쓸 때마다 헷갈리는 메뉴를 완전 정복해 봅시다', '홍길동', 'https://youtu.be/oHTr2fEkmGA?si=fNAGT0cPExpzwXDM', NULL, 30, '', '', '', '', 1, 1, 15000, 50, '2024-11-18 14:40:26');
+INSERT INTO `lecture` (`leid`, `cgid`, `lecid`, `cate1`, `cate2`, `cate3`, `image`, `title`, `des`, `name`, `video_url`, `file`, `period`, `isrecipe`, `isgeneral`, `isbest`, `isrecom`, `state`, `approval`, `price`, `level`, `date`) VALUES
+(1, NULL, 0, 'A0001', 'B0001', 'C0001', '', '기초부터 확실하게! (페이지의 내용 전달을 위한 HTML, 스타일 설정을 위한 CSS 기초 학습)', '초보자를 위한 쉽고 재미있는 HTML, CSS 기초입니다. 천천히 보면서 이해하면서 따라해 보세요!', '홍길동', 'https://youtu.be/oHTr2fEkmGA?si=fNAGT0cPExpzwXDM', NULL, 30, '', '', '', '', 1, 1, 15000, 50, '2024-11-18 14:40:26'),
+(2, NULL, 2, 'A0001', 'B0001', 'C0001', '', '2기초부터 확실하게! (페이지의 내용 전달을 위한 HTML, 스타일 설정을 위한 CSS 기초 학습)', '2초보자를 위한 쉽고 재미있는 HTML, CSS 기초입니다. 천천히 보면서 이해하면서 따라해 보세요!', '이븐선생', 'https://youtu.be/oHTr2fEkmGA?si=fNAGT0cPExpzwXDM', NULL, 30, '', '', '', '', 1, 1, 35000, 50, '0000-00-00 00:00:00'),
+(3, NULL, 0, 'A0001', 'B0001', 'C0001', '', 'HTML 정도는 껌이지', '', '', '', NULL, 0, '', '', '', '', 0, 0, 0, 0, '2024-11-19 02:12:51');
+
+-- --------------------------------------------------------
+
+--
+-- 테이블 구조 `lecture_detail`
+--
+
+CREATE TABLE `lecture_detail` (
+  `id` int(11) NOT NULL COMMENT '강의 ID',
+  `lecture_id` int(11) NOT NULL COMMENT '강좌 ID (외래키)',
+  `title` varchar(255) NOT NULL COMMENT '강의명',
+  `description` text DEFAULT NULL COMMENT '강의 설명',
+  `quiz_id` int(11) DEFAULT NULL COMMENT '퀴즈 ID (외래키)',
+  `test_id` int(11) DEFAULT NULL COMMENT '시험 ID (외래키)',
+  `file_id` int(11) DEFAULT NULL COMMENT '실습 파일 ID (외래키)',
+  `video_url` varchar(255) DEFAULT NULL COMMENT '동영상 URL',
+  `video_order` int(11) DEFAULT NULL COMMENT '강의 순서',
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp() COMMENT '생성 시간'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -507,6 +495,7 @@ CREATE TABLE `levideo` (
   `vdid` int(11) NOT NULL COMMENT '동영상 ID',
   `lecpid` int(11) NOT NULL COMMENT '강좌 ID (외래키)',
   `lepid` int(11) NOT NULL COMMENT '강사 고유 ID (외래키)',
+  `videoname` varchar(250) NOT NULL COMMENT '강의명',
   `video_url` varchar(255) NOT NULL COMMENT '동영상 URL',
   `uploaded` timestamp NOT NULL DEFAULT current_timestamp() COMMENT '등록 시간',
   `orders` int(11) NOT NULL COMMENT '강의 순서'
@@ -516,8 +505,8 @@ CREATE TABLE `levideo` (
 -- 테이블의 덤프 데이터 `levideo`
 --
 
-INSERT INTO `levideo` (`vdid`, `lecpid`, `lepid`, `video_url`, `uploaded`, `orders`) VALUES
-(1, 1, 0, 'https://youtu.be/oHTr2fEkmGA?si=fNAGT0cPExpzwXDM', '2024-11-18 05:45:33', 1);
+INSERT INTO `levideo` (`vdid`, `lecpid`, `lepid`, `videoname`, `video_url`, `uploaded`, `orders`) VALUES
+(1, 1, 0, '', 'https://youtu.be/oHTr2fEkmGA?si=fNAGT0cPExpzwXDM', '2024-11-18 05:45:33', 1);
 
 -- --------------------------------------------------------
 
@@ -726,7 +715,8 @@ CREATE TABLE `quiz` (
   `tt` varchar(250) NOT NULL COMMENT '시험지명',
   `answer` varchar(10) NOT NULL COMMENT '정답',
   `pn` varchar(250) NOT NULL COMMENT '문제명',
-  `explan` text NOT NULL COMMENT '해설',
+  `question` varchar(250) NOT NULL '문항', 
+  `explan` text DEFAULT NULL COMMENT '해설',
   `pnlevel` tinyint(4) NOT NULL COMMENT '문제 수준'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='퀴즈';
 
@@ -782,6 +772,22 @@ CREATE TABLE `send_email` (
   `content` text NOT NULL COMMENT '내용',
   `regdate` datetime NOT NULL COMMENT '발송일'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='이메일발송';
+
+--
+-- 테이블의 덤프 데이터 `send_email`
+--
+
+INSERT INTO `send_email` (`emid`, `uid`, `title`, `content`, `regdate`) VALUES
+(1, 3, '코딩 수업 일정 변경 안내', '안녕하세요, 수업 일정이 변경되었습니다. 새로운 수업 일정은 2024년 11월 21일 10시입니다. 참고 부탁드립니다.', '2024-11-19 04:30:42'),
+(2, 3, '수업 진도 안내', '이번 주 수업에서 다룰 내용은 "PHP 기초"입니다. 미리 복습하고 오시면 도움이 됩니다.', '2024-11-19 04:35:00'),
+(3, 3, '과제 제출 기한 안내', '코딩 수업 과제 제출 기한이 2024년 11월 25일까지입니다. 제출을 잊지 마세요.', '2024-11-19 04:40:00'),
+(4, 3, '주간 실습 시간 안내', '이번 주 실습 시간은 11월 20일 오후 2시부터 4시까지입니다. 실습실에서 만나요!', '2024-11-19 04:45:00'),
+(5, 3, '코딩 실력 향상을 위한 팁', '코딩 실력을 키우려면 꾸준한 연습과 문제 해결 능력 향상이 중요합니다. 매일 1시간씩 연습해 보세요!', '2024-11-19 04:50:00'),
+(6, 3, '수업 자료 다운로드 링크', '지난 수업 자료는 아래 링크에서 다운로드 가능합니다. 복습에 유용하게 활용하세요.\n[다운로드 링크]', '2024-11-19 04:55:00'),
+(7, 3, '과제 피드백 안내', '이번 과제에 대한 피드백을 2024년 11월 22일에 제공할 예정입니다. 피드백을 참고하여 다음 과제를 준비하세요.', '2024-11-19 05:00:00'),
+(8, 3, '프로젝트 발표 준비 안내', '수업 마지막 주에 프로젝트 발표가 있을 예정입니다. 발표 준비를 미리 해두시기 바랍니다.', '2024-11-19 05:05:00'),
+(9, 3, '코딩 수업 진도표 확인', '이번 학기 코딩 수업의 전체 진도표를 확인하세요. 각 주차별 수업 내용과 과제에 대한 정보가 포함되어 있습니다.', '2024-11-19 05:10:00'),
+(10, 3, '수업 참여율 체크', '수업 참여율이 낮은 학생에게는 별도로 안내를 드릴 예정입니다. 꾸준히 참여해 주세요!', '2024-11-19 05:15:00');
 
 -- --------------------------------------------------------
 
@@ -908,9 +914,17 @@ CREATE TABLE `test` (
   `tt` varchar(250) NOT NULL COMMENT '시험지명',
   `answer` varchar(10) NOT NULL COMMENT '정답',
   `pn` varchar(250) NOT NULL COMMENT '문제명',
-  `explan` text NOT NULL COMMENT '해설',
+  `question` varchar(250) NOT NULL,
+  `explan` text DEFAULT NULL COMMENT '해설',
   `pnlevel` tinyint(4) NOT NULL COMMENT '문제 수준'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='시험';
+
+--
+-- 테이블의 덤프 데이터 `test`
+--
+
+INSERT INTO `test` (`exid`, `tid`, `cate1`, `cate2`, `cate3`, `title`, `tt`, `answer`, `pn`, `question`, `explan`, `pnlevel`) VALUES
+(1, 3, 'A0001', 'B0001', 'C0001', 'HTML 정도는 껌이지', 'HTML 기초 시험', '3', 'HTML 문서의 기본 구조를 시작하는 올바른 DOCTYPE 선언은 무엇인가?', '[\"&lt;!DOCTYPE html PUBLIC&gt;\",\"&lt;!DOCTYPE HTML PUBLIC \\\"-\\/\\/W3C\\/\\/DTD HTML 4.01 Transitional\\/\\/EN&\\\"gt;\",\"&lt;!DOCTYPE html&gt;\",\"&lt;!DOCTYPE&gt;\"]', '', 3);
 
 -- --------------------------------------------------------
 
@@ -1277,13 +1291,7 @@ ALTER TABLE `coupons`
 --
 ALTER TABLE `faq`
   MODIFY `fqid` int(11) NOT NULL AUTO_INCREMENT COMMENT 'FAQ고유번호', AUTO_INCREMENT=5;
-
---
--- 테이블의 AUTO_INCREMENT `lecdraft`
---
-ALTER TABLE `lecdraft`
-  MODIFY `draft_id` int(11) NOT NULL AUTO_INCREMENT COMMENT '번호';
-
+  
 --
 -- 테이블의 AUTO_INCREMENT `lecture`
 --
@@ -1301,6 +1309,16 @@ ALTER TABLE `lefile`
 --
 ALTER TABLE `levideo`
   MODIFY `vdid` int(11) NOT NULL AUTO_INCREMENT COMMENT '동영상 ID', AUTO_INCREMENT=2;
+
+--
+-- 테이블의 제약사항 `lecture_detail`
+--
+ALTER TABLE `lecture_detail`
+  ADD CONSTRAINT `lecture_detail_ibfk_1` FOREIGN KEY (`lecture_id`) REFERENCES `lecture` (`leid`) ON DELETE CASCADE,
+  ADD CONSTRAINT `lecture_detail_ibfk_2` FOREIGN KEY (`quiz_id`) REFERENCES `quiz` (`exid`),
+  ADD CONSTRAINT `lecture_detail_ibfk_3` FOREIGN KEY (`test_id`) REFERENCES `test` (`exid`),
+  ADD CONSTRAINT `lecture_detail_ibfk_4` FOREIGN KEY (`file_id`) REFERENCES `lefile` (`fileid`);
+COMMIT;
 
 --
 -- 테이블의 AUTO_INCREMENT `manual`
