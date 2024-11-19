@@ -31,15 +31,16 @@ if ($block_end > $total_page) {
   $block_end = $total_page;
 }
 
-$sql = "SELECT student_qna.*, class_data.*, lecture.*, user.*, teacher_qna.* 
+$sql = "SELECT student_qna.*, class_data.*, lecture.*, user.*, teacher_qna.asid 
         FROM student_qna 
+        LEFT JOIN teacher_qna ON student_qna.sqid = teacher_qna.sqid 
         JOIN class_data ON student_qna.cdid = class_data.cdid
         JOIN lecture ON class_data.leid = lecture.leid
         JOIN user ON class_data.uid = user.uid 
-        JOIN teacher_qna ON student_qna.sqid = teacher_qna.sqid 
         $where_clause 
         ORDER BY student_qna.sqid DESC 
         LIMIT $start_num, $list";
+
 $result = $mysqli->query($sql);
 
 $dataArr = [];
@@ -67,9 +68,6 @@ while ($data = $result->fetch_object()) {
     <table class="table list_table">
       <thead>
         <tr>
-          <th scope="col">
-            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-          </th>
           <th scope="col">번호</th>
           <th scope="col">아이디</th>
           <th scope="col">이름</th>
@@ -78,7 +76,6 @@ while ($data = $result->fetch_object()) {
           <th scope="col">강의명</th>
           <th scope="col">등록일</th>
           <th scope="col">상태</th>
-          <th scope="col">관리</th>
         </tr>
       </thead>
       <tbody>
@@ -87,9 +84,6 @@ while ($data = $result->fetch_object()) {
           foreach ($dataArr as $no) {
             ?>
             <tr>
-              <th scope="row">
-                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-              </th>
               <td><?= $no->sqid; ?></td>
               <td><?= $no->userid; ?></td>
               <td><?= $no->username; ?></td>
@@ -99,18 +93,11 @@ while ($data = $result->fetch_object()) {
               <td><?= mb_strlen($no->title) > 15 ? mb_substr($no->title, 0, 15) . '...' : $no->title; ?></td>
               <td><?= $no->regdate; ?></td>
               <td>
-                <span class="badge text-bg-success">답변완료</span>
                 <?php
-                $class = !empty($no->sqid) ? 'text-bg-success' : 'text-bg-light';
-                $text = !empty($no->sqid) ? '답변완료' : '답변대기';
+                $class = !empty($no->asid) ? 'text-bg-success' : 'text-bg-light';
+                $text = !empty($no->asid) ? '답변완료' : '답변대기';
                 echo "<span class='badge $class'>$text</span>";
                 ?>
-              </td>
-              <td>
-                <a
-                  href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/inquiry/student_question_delete.php?sqid=<?= $no->sqid; ?>">
-                  <i class="bi bi-trash-fill"></i>
-                </a>
               </td>
             </tr>
             <?php
@@ -121,9 +108,6 @@ while ($data = $result->fetch_object()) {
         ?>
       </tbody>
     </table>
-    <div class="d-flex justify-content-end">
-      <button type="button" class="btn btn-danger">삭제</button>
-    </div>
 
     <!-- //Pagination -->
     <div class="list_pagination" aria-label="Page navigation example">
