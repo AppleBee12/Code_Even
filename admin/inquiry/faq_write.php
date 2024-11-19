@@ -90,7 +90,7 @@ $data = $result->fetch_object();
         </tr>
       </tbody>
     </table>
-    <textarea name="content" id="content" class="form-control"></textarea>
+    <textarea name="content" id="content" class="form-control" placeholder="내용을 입력해주세요." required></textarea>
     <input type="file" class="form-control w-50" id="file">
     <div class="custom-hr"></div>
 
