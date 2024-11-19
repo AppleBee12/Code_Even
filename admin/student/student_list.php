@@ -78,6 +78,7 @@ while ($data = $result->fetch_object()) {
         <th scope="col">진도율</th>
         <th scope="col">수강이수</th>
         <th scope="col">학습기간</th>
+        <th scope="col">이메일 수신</th>
       </tr>
     </thead>
     <tbody>
@@ -110,6 +111,9 @@ while ($data = $result->fetch_object()) {
 
               <?= $set_date ?> ~ <?= $end_date ?>
             </td>
+            <td>
+              <?= $cl->email_ok == 1 ? '동의' : '비동의'; ?>
+            </td>
           </tr>
         </tbody>
         <?php
@@ -119,8 +123,11 @@ while ($data = $result->fetch_object()) {
       }
       ?>
   </table>
+
+<?php if ($level == 100): ?>
   <button type="button" id="emailBtn" data-bs-toggle="modal" data-bs-target="#send_email"
     class="btn btn-outline-secondary ms-auto d-block">이메일 전송</button>
+<?php endif; ?>
 
   <!-- //Pagination -->
   <div class="list_pagination" aria-label="Page navigation example">
