@@ -54,7 +54,7 @@ $data = $result->fetch_object();
       <tr class="none">
         <th scope="row">질문 내용</th>
         <td colspan="3">
-          <textarea name="" id="" class="form-control w-75" disabled><?=$data->qcontent;?></textarea>
+          <textarea class="form-control w-75" disabled><?=$data->qcontent;?></textarea>
         </td>
       </tr>
     </tbody>
