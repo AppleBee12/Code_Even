@@ -3,6 +3,7 @@
 <?php
 $title = "쿠폰등록";
 include_once($_SERVER['DOCUMENT_ROOT']. '/code_even/admin/inc/header.php');
+// include_once($_SERVER['DOCUMENT_ROOT']. '/code_even/admin/inc/img_upload_func.php');
 
 if (!isset($_SESSION['AUID'])) {
   echo "<script>
@@ -93,14 +94,14 @@ if(isset($_FILES['coupon_image'])){
    }
   
      //파일 업로드
-     $save_dir = $_SERVER['DOCUMENT_ROOT'].'/code_even/images/';
+     $save_dir = $_SERVER['DOCUMENT_ROOT'].'code_even/admin/upload/coupons/';
      $filename = $coupon_image['name']; //insta.jpg
      $ext = pathinfo($filename,PATHINFO_EXTENSION); //파일명의 확장자를 추출, jpg
      $newFileName = date('YmdHis').substr(rand(), 0, 6);//202410091717123456
      $savefile = $newFileName.'.'.$ext;//202410091717123456.jpg
      
      if(move_uploaded_file($coupon_image['tmp_name'], $save_dir.$savefile)){ //tmp_name임시파일
-       $coupon_image = '/code_even/images/'.$savefile;  
+       $coupon_image = 'code_even/admin/upload/coupons/'.$savefile;  
      } else{
        echo "<script>
          alert('이미지를 첨부할 수 없습니다.');
@@ -156,15 +157,15 @@ thead,
       <tbody>
         <tr>
           <th scope="row">쿠폰이미지</th>
-          <td>
-          <div class="box mb-3" id="addedImages">
-            <span>쿠폰 이미지를 등록해주세요.</span>
-            <div class="image">
-              <img src="" alt="">
-            </div>
-          </div>
-          <input type="file" multiple accept="image/*" class="form-control w-50" name="coupon_image" id="coupon_image" value="file" required>
-        </td>
+            <td>
+              <div class="box mb-3" id="addedImages">
+                <span>쿠폰 이미지를 등록해주세요.</span>
+                <div class="image">
+                  <img src="" alt="">
+                </div>
+              </div>
+              <input type="file" multiple accept="image/*" class="form-control w-50" name="coupon_image" id="coupon_image" value="file" required>
+            </td>
         </tr>
         <tr>
         <tr>
@@ -185,7 +186,7 @@ thead,
                 </label>
               </div>
               <div class="form-check">
-                <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
+                <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" value="0" checked>
                 <label class="form-check-label d-flex gap-3" for="flexRadioDefault1"  id="ct3">
                   제한
                   <input type="text" name="sale_end_date" id="datepicker" class="form-control w-25 bi bi-calendar-week">
@@ -220,7 +221,7 @@ thead,
         <tr id="ct1">
           <th scope="row">할인가</th>
           <td>
-            <div class="input-group mb-3">
+            <div class="input-group mb-3 w-50">
               <input type="text" name="coupon_price" class="form-control" aria-label="할인가" value="0" aria-describedby="coupon_price"> 
               <span class="input-group-text" id="coupon_price">원</span>
             </div>
@@ -229,7 +230,7 @@ thead,
         <tr id="ct2">
           <th scope="row">할인비율</th>
           <td>
-            <div class="input-group mb-3">
+            <div class="input-group mb-3 w-50">
               <input type="text" name="coupon_ratio" class="form-control" aria-label="할인비율" value="0" aria-describedby="coupon_ratio">
               <span class="input-group-text" id="coupon_ratio">%</span>
             </div>
