@@ -44,26 +44,26 @@ while($data = $category_result->fetch_object()){
 <body>
 <div class="container mt-5 col-3">
     <h1 class="mb-5">강사 신청(임시)</h1>
-    <form action="tc_apply_process.php" method="POST">
+    <form action="tc_apply_ok.php" method="POST">
       <div class="mb-3">
-        <label for="name" class="form-label">이름</label>
-        <input type="text" class="form-control" id="name" name="name" value="<?= $user_data->username; ?>" disabled readonly>
+        <label for="tc_name" class="form-label">이름</label>
+        <input type="text" class="form-control" id="name" name="tc_name" value="<?= $user_data->username; ?>" disabled readonly>
       </div>
       <div class="mb-3">
-        <label for="contact" class="form-label">연락처</label>
-        <input type="text" class="form-control" id="contact" name="contact" value="<?= $user_data->userphonenum; ?>" disabled readonly>
+        <label for="tc_userphone" class="form-label">연락처</label>
+        <input type="text" class="form-control" id="contact" name="tc_userphone" value="<?= $user_data->userphonenum; ?>" disabled readonly>
       </div>
       <div class="mb-3">
-        <label for="email" class="form-label">이메일</label>
-        <input type="email" class="form-control" id="email" name="email" value="<?= $user_data->useremail; ?>" disabled readonly>
+        <label for="tc_email" class="form-label">이메일</label>
+        <input type="email" class="form-control" id="email" name="tc_email" value="<?= $user_data->useremail; ?>" disabled readonly>
       </div>
       <div class="mb-3">
-        <label for="exampleFormControlTextarea1" class="form-label">소개글</label>
-        <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" placeholder="간단한 자기소개 부탁드려요."></textarea>
+        <label for="tc_intro" class="form-label">소개글</label>
+        <textarea class="form-control" id="tc_intro" rows="3" name="tc_intro" placeholder="간단한 자기소개 부탁드려요."></textarea>
       </div>
       <div class="mb-3">
-        <label for="contact" class="form-label">URL</label>
-        <input type="text" class="form-control" id="exampleFormControlInput1" name="tc_url" value="" placeholder="https://">
+        <label for="tc_url" class="form-label">URL</label>
+        <input type="text" class="form-control" id="tc_url" name="tc_url" value="" placeholder="https://">
       </div>
       <div class="mb-3">
             <label for="categories" class="form-label">희망 분야</label><br>
@@ -75,12 +75,6 @@ while($data = $category_result->fetch_object()){
                 <p>선택 가능한 희망 분야가 없습니다.</p>
             <?php } ?>
         </div>
-      <div class="form-check mb-3">
-        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-        <label class="form-check-label" for="flexCheckDefault">
-          이메일 수신동의
-        </label>
-      </div>
       <button type="submit" class="btn btn-primary">신청하기</button>
     </form>
 </div>
