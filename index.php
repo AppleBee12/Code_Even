@@ -9,7 +9,7 @@
 </head>
 <body>
   <div class="mx-auto pt-5" style="width: 320px;">
-    <img src="images/sb_logo.png" width="300" height="200" alt="코드이븐로고">
+    <img src="admin/images/sb_logo.png" width="300" height="200" alt="코드이븐로고">
     <div>To be continue...</div>
     <p>코드이븐 프론트 페이지는 제작예정입니다</p>
     <ul class="list-group pt-3">
