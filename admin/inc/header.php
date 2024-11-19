@@ -338,9 +338,9 @@ $_SESSION['AUNAME'] = $username;
             <button class="btn btn-toggle collapsed" data-bs-toggle="collapse" data-bs-target="#statistics_collapse"
               aria-expanded="false"><i class="bi bi-chevron-down"></i></button>
             <ul class="collapse btn-toggle-nav" id="statistics_collapse">
-              <li class="list-group-item dropdown-item"><a href="">　　-　강의 매출통계</a></li>
-              <li class="list-group-item dropdown"><a href="">　　-　교재 매출통계</a></li>
-              <li class="list-group-item dropdown"><a href="">　　-　월별 매출통계</a></li>
+              <li class="list-group-item dropdown-item"><a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/sales/lectuer_sales.php">　　-　강의 매출통계</a></li>
+              <li class="list-group-item dropdown"><a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/sales/book_sales.php">　　-　교재 매출통계</a></li>
+              <li class="list-group-item dropdown"><a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/sales/monthly_sales.php">　　-　월별 매출통계</a></li>
             </ul>
           </li>
         </ul>
