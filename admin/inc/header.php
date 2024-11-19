@@ -3,6 +3,15 @@ session_start();
 
 include_once($_SERVER['DOCUMENT_ROOT'] . '/CODE_EVEN/admin/inc/dbcon.php');
 
+
+if (!isset($_SESSION['AUID'])) {
+  echo '<script>
+      alert("로그인을 해주세요");
+      location.href = "http://' . $_SERVER['HTTP_HOST'] . '/code_even/admin/login/login.php";
+  </script>';
+}
+
+
 if (!isset($title)) {
   $title = '';
 }
@@ -57,6 +66,7 @@ $_SESSION['AUNAME'] = $username;
     case 'my_details.php':
     case 'teacher_details.php':
     case 'store.php':
+    case 'counsel_edit.php':
       echo '<link rel="stylesheet" href="http://' . $_SERVER['HTTP_HOST'] . '/code_even/admin/css/teacher.css">';
       break;
   }
@@ -113,6 +123,8 @@ $_SESSION['AUNAME'] = $username;
   }
   switch ($page) {
     case 'counsel.php':
+    case 'blog.php':
+    case 'team_project.php':
       echo '<link rel="stylesheet" href="http://' . $_SERVER['HTTP_HOST'] . '/code_even/admin/css/counsel.css">';
       break;
   }

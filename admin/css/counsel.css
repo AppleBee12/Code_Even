@@ -10,3 +10,7 @@
 td.editor div#summernote{
   width: 150px;
 }
+
+td.img img{
+  width: 100px;
+  height: 100px;}
