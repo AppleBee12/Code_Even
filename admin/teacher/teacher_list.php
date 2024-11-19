@@ -105,7 +105,7 @@ while($data = $result->fetch_object()){
             <?= $item->tcid; ?>
           </th>
           <td>
-            <img src="<?= $item->tc_thumbnail; ?>" class="rounded_circle" width = 35 height = 35 alt="">
+            <img src="<?= !empty($item->tc_thumbnail) ? $item->tc_thumbnail : '../upload/teacher/tc_dummy.png'; ?>" class="rounded_circle" width="35" height="35" alt="프로필 이미지">
           </td> 
           <td><?= $item->tc_userid; ?></td> 
           <td><?= $item->tc_name; ?></td> 

@@ -29,7 +29,7 @@
     <input type="hidden" name="tcid" value="<?= $data->tcid; ?>">
     <input type="hidden" name="tc_intro" id="contents" value="">
     <div class="upload mt-5 mb-3">
-      <img id="thumbnail_preview" src="<?= $data->tc_thumbnail; ?>" width = 100 height = 100 alt="">
+      <img id="thumbnail_preview" src="<?= !empty($data->tc_thumbnail) ? $data->tc_thumbnail : '../upload/teacher/tc_dummy.png'; ?>" class="rounded_circle" width = 100 height = 100 alt="프로필 이미지">
       <div class="round">
         <input type="file" accept="image/*" name="tc_thumbnail" id="tc_thumbnail">
         <i class="bi bi-camera-fill"></i>
@@ -158,11 +158,33 @@
       <button class="btn btn-outline-secondary">수정</button>
     </div>
   </form>
-
   
+  <!-- 토스트 알림창 -->
+  <div id="profileToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+    <div class="toast-header">
+      <strong class="me-auto">&#x1F525; 알림</strong>
+      <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+    </div>
+    <div class="toast-body">
+     먼저, 프로필 이미지를 등록해주세요!
+    </div>
+  </div>
 </div>
 
-
+<script src="path/to/bootstrap.bundle.min.js"></script>
+<script>
+  //토스트 알림창 제어
+  $(document).ready(function() {
+    let $thumbnailPreview = $('#thumbnail_preview');
+    if ($thumbnailPreview.length && $thumbnailPreview.attr('src') === '../upload/teacher/tc_dummy.png') {
+      let toastElement = new bootstrap.Toast($('#profileToast')[0], {
+        autohide: true,
+        delay: 2000 // 2초
+      });
+      toastElement.show();
+    }
+  });
+</script>
 <script>
   let tc_thumbnail = $('#tc_thumbnail');
   tc_thumbnail.on('change',(e)=>{
