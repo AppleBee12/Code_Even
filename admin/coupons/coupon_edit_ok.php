@@ -8,9 +8,13 @@ if (!isset($_SESSION['AUID'])) {
   location.href='../login/login.php';
   </script>";
 }
-$mysqli->autocommit(FALSE);//커밋이 안되도록 지정, 일단 바로 저장하지 못하도록
 
-try{
+$cpid = $_POST['cpid'];
+if (!isset($cpid)) {
+  echo "<script>alert('쿠폰정보가 없습니다.'); 
+  location.href = 'coupons.php';</script>";
+}
+
 
   $coupon_name = $_POST['coupon_name'] ?? '';
   $coupon_image = $_FILES['coupon_image'] ??'';
@@ -39,30 +43,48 @@ try{
   }
   
 
-  $sql = "INSERT INTO coupons 
-  (coupon_name, coupon_image, coupon_type, coupon_price, coupon_ratio, status, userid, max_value, use_min_price) 
-  VALUES
-  ('$coupon_name', '$coupon_image', '$coupon_type', $coupon_price, $coupon_ratio, $status, '{$_SESSION['AUID']}', $max_value, $use_min_price)";
+//   $sql = "INSERT INTO coupons 
+//   (coupon_name, coupon_image, coupon_type, coupon_price, coupon_ratio, status, userid, max_value, use_min_price) 
+//   VALUES
+//   ('$coupon_name', '$coupon_image', '$coupon_type', $coupon_price, $coupon_ratio, $status, '{$_SESSION['AUID']}', $max_value, $use_min_price)";
  
 
- $result = $mysqli->query($sql); 
+//  $result = $mysqli->query($sql); 
+
+$sql = "UPDATE coupons SET 
+  coupon_name = '$coupon_name',
+  coupon_image = '$coupon_image',
+  coupon_type = '$coupon_type',
+  coupon_price = $coupon_price,
+  coupon_ratio = $coupon_ratio,
+  status = $status,
+  max_value = $max_value,
+  use_min_price = $use_min_price
+  ";
+
+// thumbnail 값이 존재할 때만 thumbnail 컬럼을 업데이트
+
+if (isset($_FILES['coupon_image']) && $_FILES['coupon_image']['error'] == UPLOAD_ERR_OK)  {
+  $sql .= ", coupon_image = '$coupon_image'";
+}
+
+$sql .= " WHERE cpid = $cpid";
+
+$result = $mysqli->query($sql); 
+
 
  //입력성공하면 쿠폰등록 완료 경고창 띄우고 쿠폰목록 페이지로 이동
  if($result){
    echo "
      <script>
-       alert('쿠폰 등록 완료');
+       alert('쿠폰수정 완료');
        location.href = 'coupons.php';
      </script>
    ";
    $mysqli->commit();//디비에 커밋한다.
   }
  
-}catch (Exception $e) {
-    $mysqli->rollback();//저장한 테이블이 있다면 롤백한다.
-    //에러문구
-    exit;
-}
+
 
 
 if(isset($_FILES['coupon_image'])){

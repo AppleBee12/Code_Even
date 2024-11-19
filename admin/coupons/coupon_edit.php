@@ -80,7 +80,7 @@ $data = $result->fetch_object();
 
 .box {
   height: 280px !important;
-  width: 400px !important;
+  width: 383px !important;
   background-color: #ccc !important;
   position: relative;
 
@@ -110,20 +110,21 @@ thead,
 
 <div class="container">
   <h2 class="mb-5">쿠폰 수정</h2>
-  <form action="coupon_ok.php" method="POST" enctype="multipart/form-data">
+  <form action="coupon_edit_ok.php" method="POST" enctype="multipart/form-data">
+  <input type="hidden" name="cpid" value="<?= $cpid; ?>"> 
     <table class="table">
       <tbody>
         <tr>
           <th scope="row">쿠폰이미지</th>
-            <td>
-            <div class="box mb-3" id="addedImages">
-              <span>쿠폰 이미지를 등록해주세요.</span>
-              <div class="image">
-                <img src="<?= $data->coupon_image; ?>" alt="<?= $data->coupon_name; ?>">
-              </div>
+          <td>
+          <div class="box mb-3" id="addedImages">
+            <span>쿠폰 이미지를 등록해주세요.</span>
+            <div class="image">
+              <img src="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/upload/coupons/<?= $data->coupon_image; ?>" >
             </div>
-            <input type="file" multiple accept="image/*" class="form-control w-50" name="coupon_image" id="coupon_image" value="file" required>
-          </td>
+          </div>
+          <input type="file" multiple accept="image/*" class="form-control w-50" name="coupon_image" id="coupon_image" value="file" required>
+        </td>
         </tr>
         <tr>
         <tr>
@@ -138,16 +139,16 @@ thead,
           <th scope="row">사용기한</th>
             <td class="d-flex gap-5" name="use_max_date" id="use_max_date">
               <div class="form-check" >
-                  <input class="form-check-input" type="radio" name="flexRadioDefault" checked <?= $data->coupon_name; ?>>
-                <label class="form-check-label" for="flexRadioDefault2"  id="ct4">
+                  <input class="form-check-input" type="radio" name="flexRadioDefault"  value="">
+                <label class="form-check-label" for="flexRadioDefault2"  id="ct4" >
                   무제한
                 </label>
               </div>
               <div class="form-check">
-                <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" <?= $data->coupon_name; ?>>
+                <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" value="<?= $data->use_max_date; ?>">
                 <label class="form-check-label d-flex gap-3" for="flexRadioDefault1"  id="ct3">
                   제한
-                  <input type="text" name="sale_end_date" id="datepicker" class="form-control w-25 bi bi-calendar-week">
+                  <input type="text" name="use_max_date" id="datepicker" class="form-control w-25 bi bi-calendar-week" value="<?= $data->use_max_date; ?>">
                 </label>
               </div>
             </td>
@@ -171,7 +172,7 @@ thead,
           <td>
             <select class="form-select w-25" name="coupon_type" id="coupon_type" aria-label="쿠폰타입">                            
               <option value="1"  <?php if($data->coupon_type == 1){echo 'selected';} ?>>정액</option>
-              <option value="2" <?php if($data->coupon_type == 1){echo 'selected';} ?>>정률</option>
+              <option value="2" <?php if($data->coupon_type == 2){echo 'selected';} ?>>정률</option>
               <div class="input-group mb-3">
             </select>
           </td>
@@ -216,7 +217,7 @@ thead,
     </table>
     <div class="d-flex justify-content-end gap-2">
         <button class="btn btn-outline-danger mt-3 cancle">취소</button>
-        <button type="submit" class="btn btn-secondary mt-3 ">쿠폰등록</button>
+        <button type="submit" class="btn btn-secondary mt-3 ">쿠폰수정</button>
     </div>
   </form>
 </div>

@@ -101,7 +101,7 @@ while ($data = $result->fetch_object()) {
       <div class="col-6 card p-0 m-3">
           <div class="row g-0">
             <div class="col-md-7 c-img">
-              <img src="<?= $item->coupon_image; ?>" class="img-fluid rounded-start" alt="...">
+            <img src="<?= $item->coupon_image; ?>" class="img-fluid rounded-start" alt="Coupon Image">
             </div>
             <div class="col-md-5">
               <div class="card-body">
