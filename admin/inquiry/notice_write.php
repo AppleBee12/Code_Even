@@ -57,19 +57,6 @@ $data = $result->fetch_object();
             </div>
           </td>
         </tr>
-        <!-- <tr class="none">
-          <td colspan="3">
-            <div>
-              <textarea name="content" id="content" class="form-control" required></textarea>
-            </div>
-          </td>
-        </tr> -->
-        <!-- <tr class="none">
-          <th scope="row">파일 등록</th>
-          <td>
-            <input type="file" class="form-control" name="file" id="file" class="w-50">
-          </td>
-        </tr> -->
       </tbody>
     </table>
     <textarea name="content" id="content" class="form-control" required></textarea>

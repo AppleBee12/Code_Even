@@ -20,13 +20,7 @@ include_once($_SERVER['DOCUMENT_ROOT'] . '/code_even/admin/inc/header.php');
   </div>
   <p class="text-center mb-5">프로필 이미지</p>
 
-  <table class="table w-100 info_table">
-    <colgroup>
-      <col width="160">  
-      <col width="516">  
-      <col width="160">
-      <col width="516">  
-    </colgroup>
+  <table class="table info_table">
     <tbody>
     <?php
         $user_id = $_SESSION['AUID'];

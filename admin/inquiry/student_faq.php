@@ -76,42 +76,42 @@ while ($data = $result->fetch_object()) {
     <tbody>
       <?php
       if (isset($dataArr)) {
-        foreach ($dataArr as $no) {
+        foreach ($dataArr as $faq) {
           ?>
           <tr>
-            <td><?= $no->fqid; ?></td>
-            <td><?= $no->userid; ?></td>
-            <td><?= $no->username; ?></td>
+            <td><?= $faq->fqid; ?></td>
+            <td><?= $faq->userid; ?></td>
+            <td><?= $faq->username; ?></td>
             <td>
               <?php
-              echo $no->category == 1 ? "결제/환불" :
-                ($no->category == 2 ? "강의" :
-                  ($no->category == 3 ? "쿠폰" :
-                    ($no->category == 4 ? "가입/탈퇴" :
-                      ($no->category == 5 ? "기타" :
-                        ($no->category == 6 ? "수료" :
-                          ($no->category == 7 ? "정산" :
-                            ($no->category == 8 ? "강사" : "알 수 없음")))))));
+              echo $faq->category == 1 ? "결제/환불" :
+                ($faq->category == 2 ? "강의" :
+                ($faq->category == 3 ? "쿠폰" :
+                ($faq->category == 4 ? "가입/탈퇴" :
+                ($faq->category == 5 ? "기타" :
+                ($faq->category == 6 ? "수료" :
+                ($faq->category == 7 ? "정산" :
+                ($faq->category == 8 ? "강사" : "알 수 없음")))))));
               ?>
             </td>
             <td>
-              <a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/inquiry/faq_modify.php?fqid=<?= $no->fqid; ?>"
-                class="underline"><?= $no->title; ?></a>
+              <a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/inquiry/faq_modify.php?fqid=<?= $faq->fqid; ?>"
+                class="underline"><?= $faq->title; ?></a>
             </td>
-            <td><?= $no->view; ?></td>
-            <td><?= $no->regdate; ?></td>
+            <td><?= $faq->view; ?></td>
+            <td><?= $faq->regdate; ?></td>
             <td>
               <?php
-              $class = $no->status == 'on' ? 'text-bg-success' : 'text-bg-light';
-              $text = $no->status == 'on' ? '노출' : '숨김';
+              $class = $faq->status == 'on' ? 'text-bg-success' : 'text-bg-light';
+              $text = $faq->status == 'on' ? '노출' : '숨김';
               echo "<span class='badge $class'>$text</span>";
               ?>
             </td>
             <td class="edit_col">
-              <a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/inquiry/faq_modify.php?fqid=<?= $no->fqid; ?>">
+              <a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/inquiry/faq_modify.php?fqid=<?= $faq->fqid; ?>">
                 <i class="bi bi-pencil-fill"></i>
               </a>
-              <a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/inquiry/faq_delete.php?fqid=<?= $no->fqid; ?>">
+              <a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/inquiry/faq_delete.php?fqid=<?= $faq->fqid; ?>">
                 <i class="bi bi-trash-fill"></i>
               </a>
             </td>

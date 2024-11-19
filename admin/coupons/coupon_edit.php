@@ -1,7 +1,5 @@
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-
 <?php
-$title = "쿠폰등록";
+$title = "쿠폰수정";
 include_once($_SERVER['DOCUMENT_ROOT']. '/code_even/admin/inc/header.php');
 
 if (!isset($_SESSION['AUID'])) {
@@ -9,51 +7,6 @@ if (!isset($_SESSION['AUID'])) {
   alert('로그인을 해주세요');
   location.href='../login/login.php';
   </script>";
-}
-
-$search_where = '';
-
-$search_keyword = $_GET['search_keyword'] ?? '';
-
-if($search_keyword){ 
-  $search_where .= " and (coupon_name LIKE '%$search_keyword%')";
-}
-
-
-//데이터의 개수 조회
-$page_sql = "SELECT COUNT(*) AS cnt FROM coupons WHERE 1=1 $search_where";
-$page_result = $mysqli->query($page_sql);
-$page_data = $page_result->fetch_assoc();
-$row_num = $page_data['cnt'];
-
-//페이지네이션 
-if(isset($_GET['page'])){
-  $page = $_GET['page'];
-}else{
-  $page = 1;
-}
-
-$list = 10;
-$start_num=($page-1)*$list;
-$block_ct = 5;
-$block_num = ceil($page/$block_ct); //$page1/5 0.2 = 1
-
-$block_start = (($block_num-1)*$block_ct) + 1;
-$block_end = $block_start + $block_ct - 1;
-
-$total_page = ceil($row_num/$list); //총75개 10개씩, 8
-$total_block = ceil($total_page/$block_ct);
-
-if($block_end > $total_page ) $block_end = $total_page;
-
- 
-$sql = "SELECT * FROM coupons WHERE 1=1 $search_where ORDER BY cpid DESC LIMIT $start_num, $list"; //products 테이블에서 모든 데이터를 조회
-
-$result = $mysqli->query($sql); //쿼리 실행 결과
-
-
-while($data = $result->fetch_object()){
-  $dataArr[] = $data;
 }
 
 $coupon_image = $_FILES['coupon_image']??'';
@@ -115,6 +68,12 @@ $sql = "INSERT INTO coupons
     ('$coupon_name', '$coupon_image', $coupon_type, $coupon_price, $coupon_ratio, $status, '{$_SESSION['AUID']}', $max_value, $use_min_price, $use_max_date)
 ";
 
+
+$cpid = $_GET['cpid'];
+
+$sql = "SELECT * FROM coupons WHERE cpid = $cpid";
+$result = $mysqli->query($sql);
+$data = $result->fetch_object();
 ?>
 
 <style>
@@ -150,26 +109,26 @@ thead,
 </style>
 
 <div class="container">
-  <h2 class="mb-5">쿠폰 등록</h2>
+  <h2 class="mb-5">쿠폰 수정</h2>
   <form action="coupon_ok.php" method="POST" enctype="multipart/form-data">
     <table class="table">
       <tbody>
         <tr>
           <th scope="row">쿠폰이미지</th>
-          <td>
-          <div class="box mb-3" id="addedImages">
-            <span>쿠폰 이미지를 등록해주세요.</span>
-            <div class="image">
-              <img src="" alt="">
+            <td>
+            <div class="box mb-3" id="addedImages">
+              <span>쿠폰 이미지를 등록해주세요.</span>
+              <div class="image">
+                <img src="<?= $data->coupon_image; ?>" alt="<?= $data->coupon_name; ?>">
+              </div>
             </div>
-          </div>
-          <input type="file" multiple accept="image/*" class="form-control w-50" name="coupon_image" id="coupon_image" value="file" required>
-        </td>
+            <input type="file" multiple accept="image/*" class="form-control w-50" name="coupon_image" id="coupon_image" value="file" required>
+          </td>
         </tr>
         <tr>
         <tr>
           <th scope="row">쿠폰명</th>
-          <td><input type="text" class="form-control w-25" name="coupon_name" placeholder="쿠폰명을 입력하세요" required></td>
+          <td><input type="text" class="form-control w-25" name="coupon_name" placeholder="쿠폰명을 입력하세요" required value="<?= $data->coupon_name; ?>" ></td>
         </tr>
         <tr>
           <th scope="row">쿠폰내용</th>
@@ -179,13 +138,13 @@ thead,
           <th scope="row">사용기한</th>
             <td class="d-flex gap-5" name="use_max_date" id="use_max_date">
               <div class="form-check" >
-                  <input class="form-check-input" type="radio" name="flexRadioDefault" checked>
+                  <input class="form-check-input" type="radio" name="flexRadioDefault" checked <?= $data->coupon_name; ?>>
                 <label class="form-check-label" for="flexRadioDefault2"  id="ct4">
                   무제한
                 </label>
               </div>
               <div class="form-check">
-                <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
+                <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" <?= $data->coupon_name; ?>>
                 <label class="form-check-label d-flex gap-3" for="flexRadioDefault1"  id="ct3">
                   제한
                   <input type="text" name="sale_end_date" id="datepicker" class="form-control w-25 bi bi-calendar-week">
@@ -200,8 +159,8 @@ thead,
             <th scope="row">상태</th>
             <td>
               <select class="form-select w-25" name="status" aria-label="상태">                            
-                <option value="1">활성화</option>
-                <option value="2">비활성화</option>
+                <option value="1" <?php if($data->status == 1){echo 'selected';} ?>>활성화</option>
+                <option value="2" <?php if($data->status == 2){echo 'selected';} ?>>비활성화</option>
               </select>
             </td>
           </tr>    
@@ -211,9 +170,9 @@ thead,
           <th scope="row">쿠폰타입</th>
           <td>
             <select class="form-select w-25" name="coupon_type" id="coupon_type" aria-label="쿠폰타입">                            
-              <option value="1" selected>정액</option>
-              <option value="2">정률</option>
-              <div class="input-group mb-3"></div>
+              <option value="1"  <?php if($data->coupon_type == 1){echo 'selected';} ?>>정액</option>
+              <option value="2" <?php if($data->coupon_type == 1){echo 'selected';} ?>>정률</option>
+              <div class="input-group mb-3">
             </select>
           </td>
         </tr>
@@ -221,7 +180,7 @@ thead,
           <th scope="row">할인가</th>
           <td>
             <div class="input-group mb-3">
-              <input type="text" name="coupon_price" class="form-control" aria-label="할인가" value="0" aria-describedby="coupon_price"> 
+              <input type="text" name="coupon_price" class="form-control" aria-label="할인가" value=" <?= $data->coupon_price;?>" aria-describedby="coupon_price"> 
               <span class="input-group-text" id="coupon_price">원</span>
             </div>
           </td>
@@ -239,7 +198,7 @@ thead,
           <th scope="row">최소사용금액</th>
           <td>
             <div class="input-group mb-3 w-50">
-              <input type="text" name="use_min_price" class="form-control" aria-label="최소사용금액" value="0" aria-describedby="use_min_price">
+              <input type="text" name="use_min_price" class="form-control" aria-label="최소사용금액" value=" <?= $data->use_min_price;?>" aria-describedby="use_min_price">
               <span class="input-group-text" id="use_min_price">원</span>
             </div>
           </td>
@@ -248,7 +207,7 @@ thead,
           <th scope="row">최대할인금액</th>
           <td>
             <div class="input-group mb-3  w-50">
-              <input type="text" name="max_value" class="form-control" aria-label="최대할인금액" value="0" aria-describedby="max_value">
+              <input type="text" name="max_value" class="form-control" aria-label="최대할인금액" value=" <?= $data->max_value;?>" aria-describedby="max_value">
               <span class="input-group-text" id="max_value">원</span>
             </div>
           </td>

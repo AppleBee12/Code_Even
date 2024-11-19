@@ -78,29 +78,28 @@ while ($data = $result->fetch_object()) {
     <tbody>
       <?php
       if ($dataArr) {
-        foreach ($dataArr as $no) {
+        foreach ($dataArr as $cl) {
           ?>
           <tr>
             <th scope="row">
-              <input class="form-check-input itemCheckbox" type="checkbox" value="<?= $no->cdid; ?>" id="checkbox"
-                data-username="<?= $no->username; ?>" data-userid="<?= $no->userid; ?>" data-email="<?= $no->useremail; ?>">
+              <input class="form-check-input itemCheckbox" type="checkbox" value="<?= $cl->cdid; ?>" id="checkbox"
+                data-username="<?= $cl->username; ?>" data-userid="<?= $cl->userid; ?>" data-email="<?= $cl->useremail; ?>">
             </th>
             <td>1</td>
-            <td><a href="student_details.php?cdid=<?= $no->cdid; ?>" class="underline"><?= $no->userid ?></a></td>
-            <td><a href="student_details.php?cdid=<?= $no->cdid; ?>" class="underline"><?= $no->username ?></a></td>
-            <td><?= $no->title ?></td>
+            <td><a href="student_details.php?cdid=<?= $cl->cdid; ?>" class="underline"><?= $cl->userid ?></a></td>
+            <td><a href="student_details.php?cdid=<?= $cl->cdid; ?>" class="underline"><?= $cl->username ?></a></td>
+            <td><?= mb_strlen($cl->title) > 20 ? mb_substr($cl->title, 0, 20) . '...' : $cl->title; ?></td>
             <td></td>
             <td>
               <button type="button" id="printButton">
                 <span class="badge text-bg-dark">이수증</span>
               </button>
             </td>
-            <!-- <td>2024.10.19 ~ 2024.10.31</td> -->
             <td>
               <?php
-              $set_date = date('Y-m-d', strtotime($no->date));
-              $start_date = new DateTime($no->date); // DateTime 객체 생성
-              $start_date->modify("+{$no->period} days"); // 기간을 더함
+              $set_date = date('Y-m-d', strtotime($cl->date));
+              $start_date = new DateTime($cl->date); // DateTime 객체 생성
+              $start_date->modify("+{$cl->period} days"); // 기간을 더함
               $end_date = $start_date->format('Y-m-d'); // 종료 날짜 포맷팅
               ?>
 
@@ -117,9 +116,8 @@ while ($data = $result->fetch_object()) {
   </table>
 
   <div class="d-flex justify-content-end">
-    <button type="button" id="emailBtn" data-bs-toggle="modal" data-bs-target="#send_email"
-      class="btn btn-outline-secondary">이메일
-      전송</button>
+    <button type="submit" id="emailBtn" data-bs-toggle="modal" data-bs-target="#send_email"
+      class="btn btn-outline-secondary">이메일 전송</button>
   </div>
 
   <!-- //Pagination -->
@@ -169,12 +167,14 @@ while ($data = $result->fetch_object()) {
           <h5 class="modal-title">이메일 전송</h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
+        <form action="send_email.php" method="POST" id="contact-form">
         <div class="modal-body">
-          <form action="" method="" id="contact-form">
             <table class="table">
               <colgroup>
                 <col style="width:110px">
-                <col style="width:250px">
+                <col style="width:230px">
+                <col style="width:110px">
+                <col style="width:230px">
               </colgroup>
               <thead class="thead-hidden">
                 <tr>
@@ -184,27 +184,27 @@ while ($data = $result->fetch_object()) {
               </thead>
               <tbody>
                 <tr class="none">
-                  <th scope="row">이름(아이디)</th>
-                  <td>홍길동</td>
-                  <th scope="row">이메일</th>
-                  <td>hong1234@hong.com</td>
+                  <th scope="row"></th>
+                  <td></td>
+                  <th scope="row"></th>
+                  <td></td>
                 </tr>
                 <tr class="none">
                   <th scope="row">제목 <b>*</b></th>
-                  <td colspan="3"><input type="text" class="form-control"></td>
+                  <td colspan="3"><input type="text" name="title" class="form-control"></td>
                 </tr>
                 <tr class="none">
                   <th scope="row">내용 <b>*</b></th>
-                  <td colspan="3"><textarea name="" id="" class="form-control"></textarea></td>
+                  <td colspan="3"><textarea name="content" class="form-control"></textarea></td>
                 </tr>
               </tbody>
             </table>
-          </form>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal">취소</button>
-          <button type="button" class="btn btn-secondary">등록</button>
-        </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal">취소</button>
+            <button type="submit" class="btn btn-secondary">등록</button>
+          </div>
+        </form>
       </div>
     </div>
   </div>
@@ -276,7 +276,7 @@ include_once($_SERVER['DOCUMENT_ROOT'] . '/code_even/admin/inc/footer.php');
         </tr>
         <tr class="none">
           <th scope="row">내용 <b>*</b></th>
-          <td colspan="3"><textarea name="" id="" class="form-control" name="content"></textarea></td>
+          <td colspan="3"><textarea class="form-control" name="content"></textarea></td>
         </tr>
       `;
       });
@@ -308,21 +308,50 @@ include_once($_SERVER['DOCUMENT_ROOT'] . '/code_even/admin/inc/footer.php');
   (function () {
     // https://dashboard.emailjs.com/admin/account
     emailjs.init({
-      publicKey: "CImsaWZWr41o9k1tU",
+      publicKey: "yXbH-fCwkFw9v_Bz9",
     });
   })();
 
   document.getElementById('contact-form').addEventListener('submit', function (event) {
     event.preventDefault();
-    // these IDs from the previous steps
-    emailjs.sendForm('service_hvyqrgl', 'template_b58ndsp', this)
-      .then(() => {
-        console.log('SUCCESS!');
-        alert('메일 발송 완료!')
-      }, (error) => {
-        console.log('FAILED...', error);
-        alert('메일 발송 실패!')
-      });
-  });
+
+    // 입력값 가져오기
+    const form = event.target;
+    const title = form.querySelector('[name="title"]').value;
+    const content = form.querySelector('[name="content"]').value;
+    const emailInputs = document.querySelectorAll('input[name="to_email"]');
+    let uid = null;
+
+    emailInputs.forEach(input => {
+        if (input.readOnly) {
+            const email = input.value;
+            const parentRow = input.closest('tr');
+            const username = parentRow.querySelector('td').innerText;
+            uid = parentRow.querySelector('td').dataset.userid; // 데이터에서 회원 ID 추출
+        }
+    });
+
+    // 서버로 POST 요청 보내기
+    fetch('send_email.php', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+        },
+        body: new URLSearchParams({
+            uid: uid,
+            title: title,
+            content: content,
+        })
+    })
+    .then(response => response.text())
+    .then(data => {
+        console.log(data);
+        alert('메일 발송 및 데이터 저장 완료!');
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        alert('메일 발송 실패!');
+    });
+});
 
 </script>

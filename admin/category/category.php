@@ -17,6 +17,17 @@ if (!isset($_SESSION['AUID'])) {
   location.href='../login/login.php';
   </script>";
 }
+
+// if($_SESSION['AULEVEL'] !== 100){
+//   echo "
+//     <script>
+//       alert('권한이 없습니다.');
+//       location.href = '../index.php';
+//     </script>
+//   ";
+// }
+
+$mysqli->close();
 ?>
 
 
@@ -128,12 +139,12 @@ if (!isset($_SESSION['AUID'])) {
             </div>
           </div>
         </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal">취소</button>
-        <button type="submit" class="btn btn-secondary">등록</button>
-      </div>
-    </form>
-  </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal">취소</button>
+          <button type="submit" class="btn btn-secondary">등록</button>
+        </div>
+      </form>
+    </div>
   </div>
 <!-- Modal 3-->
 <div class="modal fade" id="cate3_modal" tabindex="-1" aria-labelledby="소분류 등록" aria-hidden="true">
@@ -250,7 +261,7 @@ $('#pcode3').change(function(){
   function category_save(step, pcode, code, name){
     let data = {
       name:name,
-      pcode:pcode,
+      pcode:pcode || '',
       code:code,
       step:step
     }
