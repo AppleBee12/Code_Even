@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- 생성 시간: 24-11-19 08:03
+-- 생성 시간: 24-11-20 03:30
 -- 서버 버전: 10.4.32-MariaDB
 -- PHP 버전: 8.2.12
 
@@ -64,7 +64,7 @@ CREATE TABLE `lecture` (
   `cate3` varchar(50) NOT NULL COMMENT '소분류',
   `image` varchar(250) NOT NULL COMMENT '이미지',
   `title` varchar(100) NOT NULL COMMENT '강좌명',
-  `des` text NOT NULL COMMENT '강좌 소개',
+  `des` text DEFAULT NULL COMMENT '강좌 소개',
   `name` varchar(50) NOT NULL COMMENT '등록자',
   `video_url` varchar(250) NOT NULL COMMENT '강의',
   `file` varchar(100) DEFAULT NULL COMMENT '실습 파일',
@@ -87,7 +87,23 @@ CREATE TABLE `lecture` (
 INSERT INTO `lecture` (`leid`, `cgid`, `lecid`, `cate1`, `cate2`, `cate3`, `image`, `title`, `des`, `name`, `video_url`, `file`, `period`, `isrecipe`, `isgeneral`, `isbest`, `isrecom`, `state`, `approval`, `price`, `level`, `date`) VALUES
 (1, NULL, 0, 'A0001', 'B0001', 'C0001', '', '기초부터 확실하게! (페이지의 내용 전달을 위한 HTML, 스타일 설정을 위한 CSS 기초 학습)', '초보자를 위한 쉽고 재미있는 HTML, CSS 기초입니다. 천천히 보면서 이해하면서 따라해 보세요!', '홍길동', 'https://youtu.be/oHTr2fEkmGA?si=fNAGT0cPExpzwXDM', NULL, 30, '', '', '', '', 1, 1, 15000, 50, '2024-11-18 14:40:26'),
 (2, NULL, 2, 'A0001', 'B0001', 'C0001', '', '2기초부터 확실하게! (페이지의 내용 전달을 위한 HTML, 스타일 설정을 위한 CSS 기초 학습)', '2초보자를 위한 쉽고 재미있는 HTML, CSS 기초입니다. 천천히 보면서 이해하면서 따라해 보세요!', '이븐선생', 'https://youtu.be/oHTr2fEkmGA?si=fNAGT0cPExpzwXDM', NULL, 30, '', '', '', '', 1, 1, 35000, 50, '0000-00-00 00:00:00'),
-(3, NULL, 0, 'A0001', 'B0001', 'C0001', '', 'HTML 정도는 껌이지', '', '', '', NULL, 0, '', '', '', '', 0, 0, 0, 0, '2024-11-19 02:12:51');
+(3, NULL, 0, 'A0001', 'B0001', 'C0001', '', 'HTML 정도는 껌이지', '', '', '', NULL, 0, '', '', '', '', 0, 0, 0, 0, '2024-11-19 02:12:51'),
+(4, NULL, 1, 'A0001', 'B0001', 'C0001', '/uploads/images/default.png', '기초부터 확실하게! (페이지의 내용 전달을 위한 HTML, 스타일 설정을 위한 CSS 기초 학습)', NULL, '이븐관리자', '', NULL, 30, '0', '0', '', '', 0, 0, 0, 0, '2024-11-20 02:57:33'),
+(5, NULL, 1, 'A0001', 'B0001', 'C0001', '/uploads/images/IMG_2450.jpeg', '기초부터 확실하게! (페이지의 내용 전달을 위한 HTML, 스타일 설정을 위한 CSS 기초 학습)', NULL, '이븐관리자', '', NULL, 30, '0', '0', '', '', 1, 0, 50, 0, '2024-11-20 03:01:12'),
+(6, NULL, 1, 'A0001', 'B0001', 'C0001', '/uploads/images/IMG_2450.jpeg', '기초부터 확실하게! (페이지의 내용 전달을 위한 HTML, 스타일 설정을 위한 CSS 기초 학습)', NULL, '이븐관리자', 'default_video_url', NULL, 30, '0', '0', '', '', 1, 0, 50000, 0, '2024-11-20 04:35:15'),
+(7, NULL, 1, 'A0001', 'B0001', 'C0001', '/uploads/images/IMG_2450.jpeg', '기초부터 확실하게! (페이지의 내용 전달을 위한 HTML, 스타일 설정을 위한 CSS 기초 학습)', NULL, '이븐관리자', 'default_video_url', NULL, 30, '0', '0', '', '', 1, 0, 50000, 0, '2024-11-20 04:36:00'),
+(8, NULL, 1, 'A0001', 'B0001', 'C0001', '/uploads/images/IMG_2450.jpeg', '기초부터 확실하게! (페이지의 내용 전달을 위한 HTML, 스타일 설정을 위한 CSS 기초 학습)', NULL, '이브관리자', 'https://youtu.be/oHTt2fEkmGA?si=fNAGtOcPEzpxwXDM', NULL, 30, '0', '1', '', '', 1, 0, 50000, 0, '2024-11-20 05:10:39'),
+(9, NULL, 1, 'A0001', 'B0001', 'C0001', '/uploads/images/IMG_2450.jpeg', '기초부터 확실하게! (페이지의 내용 전달을 위한 HTML, 스타일 설정을 위한 CSS 기초 학습)', NULL, '이븐관리자', 'https://youtu.be/oHTr2fEkmGA?si=fNAGT0cPExpzwXDM', NULL, 30, '0', 'on', '', '', 1, 0, 50000, 0, '2024-11-20 05:35:37'),
+(10, NULL, 1, 'A0001', 'B0001', 'C0001', '/uploads/images/cat-5270323_1280.jpg', '기초부터 확실하게! (페이지의 내용 전달을 위한 HTML, 스타일 설정을 위한 CSS 기초 학습)', NULL, '이븐관리자', 'https://youtu.be/oHTr2fEkmGA?si=fNAGT0cPExpzwXDM', NULL, 30, '0', 'on', '', '', 1, 0, 100000, 0, '2024-11-20 09:51:34'),
+(11, NULL, 1, 'A0001', 'B0001', 'C0001', '/uploads/images/cat-4738796_1280.jpg', '기초부터 확실하게! (페이지의 내용 전달을 위한 HTML, 스타일 설정을 위한 CSS 기초 학습)', NULL, '이븐관리자', 'https://youtu.be/oHTr2fEkmGA?si=fNAGT0cPExpzwXDM', NULL, 30, '0', 'on', '', '', 1, 0, 100000, 0, '2024-11-20 09:57:07'),
+(12, NULL, 1, 'A0001', 'B0001', 'C0001', '/uploads/images/cat-4738796_1280.jpg', '기초부터 확실하게! (페이지의 내용 전달을 위한 HTML, 스타일 설정을 위한 CSS 기초 학습)', NULL, '이븐관리자', 'https://youtu.be/oHTr2fEkmGA?si=fNAGT0cPExpzwXDM', NULL, 30, '0', 'on', '', '', 1, 0, 100000, 0, '2024-11-20 10:00:54'),
+(13, NULL, 1, 'A0001', 'B0001', 'C0001', '/uploads/images/cat-2480777_1280.jpg', '기초부터 확실하게! (페이지의 내용 전달을 위한 HTML, 스타일 설정을 위한 CSS 기초 학습)', NULL, '이븐관리자', 'https://youtu.be/oHTr2fEkmGA?si=fNAGT0cPExpzwXDM', NULL, 30, '0', 'on', '', '', 1, 0, 100000, 0, '2024-11-20 10:01:35'),
+(14, NULL, 1, 'A0001', 'B0001', 'C0001', '/uploads/images/cat-2480777_1280.jpg', '기초부터 확실하게! (페이지의 내용 전달을 위한 HTML, 스타일 설정을 위한 CSS 기초 학습)', NULL, '이븐관리자', 'https://youtu.be/oHTr2fEkmGA?si=fNAGT0cPExpzwXDM', NULL, 30, '0', 'on', '', '', 1, 0, 100000, 0, '2024-11-20 10:01:55'),
+(15, NULL, 1, 'A0001', 'B0001', 'C0001', '/uploads/images/cat-2480777_1280.jpg', '기초부터 확실하게! (페이지의 내용 전달을 위한 HTML, 스타일 설정을 위한 CSS 기초 학습)', NULL, '이븐관리자', 'https://youtu.be/oHTr2fEkmGA?si=fNAGT0cPExpzwXDM', NULL, 30, '0', 'on', '', '', 1, 0, 50000, 0, '2024-11-20 10:10:10'),
+(16, NULL, 1, 'A0001', 'B0001', 'C0001', '/uploads/images/cat-5270323_1280.jpg', '기초부터 확실하게! (페이지의 내용 전달을 위한 HTML, 스타일 설정을 위한 CSS 기초 학습)', NULL, '이븐관리자', 'https://youtu.be/oHTr2fEkmGA?si=fNAGT0cPExpzwXDM', NULL, 30, '0', 'on', '', '', 1, 0, 100000, 0, '2024-11-20 10:10:52'),
+(17, NULL, 1, 'A0001', 'B0001', 'C0001', '/uploads/images/cat-5270323_1280.jpg', '기초부터 확실하게! (페이지의 내용 전달을 위한 HTML, 스타일 설정을 위한 CSS 기초 학습)', NULL, '이븐관리자', 'https://youtu.be/oHTr2fEkmGA?si=fNAGT0cPExpzwXDM', NULL, 30, '0', 'on', '', '', 1, 0, 100000, 0, '2024-11-20 10:14:24'),
+(18, NULL, 1, 'A0001', 'B0001', 'C0001', '/uploads/images/mikhail-vasilyev-IFxjDdqK_0U-unsplash.jpg', '기초부터 확실하게! (페이지의 내용 전달을 위한 HTML, 스타일 설정을 위한 CSS 기초 학습)', NULL, '이븐관리자', 'https://youtu.be/oHTr2fEkmGA?si=fNAGT0cPExpzwXDM', NULL, 30, '0', 'on', '', '', 1, 0, 30000, 0, '2024-11-20 10:20:11'),
+(19, NULL, 1, 'A0001', 'B0001', 'C0001', '/uploads/images/mikhail-vasilyev-IFxjDdqK_0U-unsplash.jpg', '기초부터 확실하게! (페이지의 내용 전달을 위한 HTML, 스타일 설정을 위한 CSS 기초 학습)', NULL, '이븐관리자', 'https://youtu.be/oHTr2fEkmGA?si=fNAGT0cPExpzwXDM', NULL, 30, '0', 'on', '', '', 1, 0, 30000, 0, '2024-11-20 10:22:33');
 
 -- --------------------------------------------------------
 
@@ -124,6 +140,17 @@ CREATE TABLE `lefile` (
   `uploaded` timestamp NOT NULL DEFAULT current_timestamp() COMMENT '업로드 시간'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='실습 파일';
 
+--
+-- 테이블의 덤프 데이터 `lefile`
+--
+
+INSERT INTO `lefile` (`fileid`, `lecdid`, `lepid`, `fname`, `fpath`, `ftype`, `uploaded`) VALUES
+(1, 0, 1, 'lecture_detail.sql', '/uploads/files/lecture_detail.sql', 'application/octet-stream', '2024-11-20 01:10:10'),
+(2, 0, 1, 'lecture_detail.sql', '/uploads/files/lecture_detail.sql', 'application/octet-stream', '2024-11-20 01:10:52'),
+(3, 17, 1, 'lecture_detail.sql', '/uploads/files/lecture_detail.sql', 'application/octet-stream', '2024-11-20 01:14:24'),
+(4, 18, 1, 'lecture_detail.sql', '/uploads/files/lecture_detail.sql', 'application/octet-stream', '2024-11-20 01:20:11'),
+(5, 19, 1, 'lecture_detail.sql', '/uploads/files/lecture_detail.sql', 'application/octet-stream', '2024-11-20 01:22:33');
+
 -- --------------------------------------------------------
 
 --
@@ -134,7 +161,6 @@ CREATE TABLE `levideo` (
   `vdid` int(11) NOT NULL COMMENT '동영상 ID',
   `lecpid` int(11) NOT NULL COMMENT '강좌 ID (외래키)',
   `lepid` int(11) NOT NULL COMMENT '강사 고유 ID (외래키)',
-  `videoname` varchar(250) NOT NULL COMMENT '강의명',
   `video_url` varchar(255) NOT NULL COMMENT '동영상 URL',
   `uploaded` timestamp NOT NULL DEFAULT current_timestamp() COMMENT '등록 시간',
   `orders` int(11) NOT NULL COMMENT '강의 순서'
@@ -144,8 +170,13 @@ CREATE TABLE `levideo` (
 -- 테이블의 덤프 데이터 `levideo`
 --
 
-INSERT INTO `levideo` (`vdid`, `lecpid`, `lepid`, `videoname`, `video_url`, `uploaded`, `orders`) VALUES
-(1, 1, 0, '', 'https://youtu.be/oHTr2fEkmGA?si=fNAGT0cPExpzwXDM', '2024-11-18 05:45:33', 1);
+INSERT INTO `levideo` (`vdid`, `lecpid`, `lepid`, `video_url`, `uploaded`, `orders`) VALUES
+(1, 1, 0, 'https://youtu.be/oHTr2fEkmGA?si=fNAGT0cPExpzwXDM', '2024-11-18 05:45:33', 1),
+(2, 0, 1, 'https://youtu.be/oHTr2fEkmGA?si=fNAGT0cPExpzwXDM', '2024-11-20 01:10:10', 1),
+(3, 0, 1, 'https://youtu.be/oHTr2fEkmGA?si=fNAGT0cPExpzwXDM', '2024-11-20 01:10:52', 1),
+(4, 17, 1, 'https://youtu.be/oHTr2fEkmGA?si=fNAGT0cPExpzwXDM', '2024-11-20 01:14:24', 1),
+(5, 18, 1, 'https://youtu.be/oHTr2fEkmGA?si=fNAGT0cPExpzwXDM', '2024-11-20 01:20:11', 1),
+(6, 19, 1, 'https://youtu.be/oHTr2fEkmGA?si=fNAGT0cPExpzwXDM', '2024-11-20 01:22:33', 1);
 
 -- --------------------------------------------------------
 
@@ -163,8 +194,8 @@ CREATE TABLE `quiz` (
   `tt` varchar(250) NOT NULL COMMENT '시험지명',
   `answer` varchar(10) NOT NULL COMMENT '정답',
   `pn` varchar(250) NOT NULL COMMENT '문제명',
-  `question` varchar(250) NOT NULL,
-  `explan` text DEFAULT NULL COMMENT '해설',
+  `question` varchar(255) NOT NULL COMMENT '문항',
+  `explan` text NOT NULL COMMENT '해설',
   `pnlevel` tinyint(4) NOT NULL COMMENT '문제 수준'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='퀴즈';
 
@@ -173,10 +204,7 @@ CREATE TABLE `quiz` (
 --
 
 INSERT INTO `quiz` (`exid`, `tid`, `cate1`, `cate2`, `cate3`, `title`, `tt`, `answer`, `pn`, `question`, `explan`, `pnlevel`) VALUES
-(1, 3, 'A0001', 'B0001', 'C0001', 'HTML 정도는 껌이지', '', '', '', '', NULL, 0),
-(2, 3, 'A0001', 'B0001', 'C0001', 'HTML 정도는 껌이지', 'HTML 문서의 기본 구조를 시작하는 올바른 DOCTYPE 선언은 무엇인가?', '3', '[\"&lt;!DOCTYPE html PUBLIC&gt;\",\"&lt;!DOCTYPE HTML PUBLIC \\\"-\\/\\/W3C\\/\\/DTD HTML 4.01 Transitional\\/\\/EN&\\\"gt;\",\"&lt;!DOCTYPE html&gt;\",\"&lt;!DOCTYPE&gt;\"]', '', '', 3),
-(3, 3, 'A0001', 'B0001', 'C0001', 'HTML 정도는 껌이지', 'HTML 기초 퀴즈', '3', '[\"&lt;!DOCTYPE html PUBLIC&gt;\",\"&lt;!DOCTYPE HTML PUBLIC \\\"-\\/\\/W3C\\/\\/DTD HTML 4.01 Transitional\\/\\/EN&\\\"gt;\",\"&lt;!DOCTYPE html&gt;\",\"&lt;!DOCTYPE&gt;\"]', '', '', 3),
-(4, 3, 'A0001', 'B0001', 'C0001', 'HTML 정도는 껌이지', 'HTML 기초 퀴즈', '3', 'HTML 문서의 기본 구조를 시작하는 올바른 DOCTYPE 선언은 무엇인가?', '[\"&lt;!DOCTYPE html PUBLIC&gt;\",\"&lt;!DOCTYPE HTML PUBLIC \\\"-\\/\\/W3C\\/\\/DTD HTML 4.01 Transitional\\/\\/EN&\\\"gt;\",\"&lt;!DOCTYPE html&gt;\",\"&lt;!DOCTYPE&gt;\"]', '', 3);
+(1, 4, 'A0001', 'B0001', 'C0001', '기초부터 확실하게! (페이지의 내용 전달을 위한 HTML, 스타일 설정을 위한 CSS 기초 학습)', 'HTML 기초 퀴즈', '3', 'HTML 문서의 기본 구조를 시작하는 올바른 DOCTYPE 선언은 무엇인가?', '[\"&lt;!DOCTYPE html PUBLIC&gt;\",\"&lt;!DOCTYPE html PUBLIC&gt;\",\"&lt;!DOCTYPE html PUBLIC&gt;\",\"&lt;!DOCTYPE html PUBLIC&gt;\"]', '', 3);
 
 -- --------------------------------------------------------
 
@@ -208,8 +236,8 @@ CREATE TABLE `test` (
   `tt` varchar(250) NOT NULL COMMENT '시험지명',
   `answer` varchar(10) NOT NULL COMMENT '정답',
   `pn` varchar(250) NOT NULL COMMENT '문제명',
-  `question` varchar(250) NOT NULL,
-  `explan` text DEFAULT NULL COMMENT '해설',
+  `question` varchar(255) NOT NULL COMMENT '문항',
+  `explan` text NOT NULL COMMENT '해설',
   `pnlevel` tinyint(4) NOT NULL COMMENT '문제 수준'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='시험';
 
@@ -218,7 +246,7 @@ CREATE TABLE `test` (
 --
 
 INSERT INTO `test` (`exid`, `tid`, `cate1`, `cate2`, `cate3`, `title`, `tt`, `answer`, `pn`, `question`, `explan`, `pnlevel`) VALUES
-(1, 3, 'A0001', 'B0001', 'C0001', 'HTML 정도는 껌이지', 'HTML 기초 시험', '3', 'HTML 문서의 기본 구조를 시작하는 올바른 DOCTYPE 선언은 무엇인가?', '[\"&lt;!DOCTYPE html PUBLIC&gt;\",\"&lt;!DOCTYPE HTML PUBLIC \\\"-\\/\\/W3C\\/\\/DTD HTML 4.01 Transitional\\/\\/EN&\\\"gt;\",\"&lt;!DOCTYPE html&gt;\",\"&lt;!DOCTYPE&gt;\"]', '', 3);
+(1, 4, 'A0001', 'B0001', 'C0001', '기초부터 확실하게! (페이지의 내용 전달을 위한 HTML, 스타일 설정을 위한 CSS 기초 학습)', 'HTML 기초 시험', '3', 'HTML 문서의 기본 구조를 시작하는 올바른 DOCTYPE 선언은 무엇인가?', '[\"&lt;!DOCTYPE html PUBLIC&gt;\",\"&lt;!DOCTYPE html PUBLIC&gt;\",\"&lt;!DOCTYPE html PUBLIC&gt;\",\"&lt;!DOCTYPE html PUBLIC&gt;\"]', '', 3);
 
 --
 -- 덤프된 테이블의 인덱스
@@ -234,18 +262,7 @@ ALTER TABLE `book`
 -- 테이블의 인덱스 `lecture`
 --
 ALTER TABLE `lecture`
-  ADD PRIMARY KEY (`leid`),
-  ADD KEY `cgid` (`cgid`);
-
---
--- 테이블의 인덱스 `lecture_detail`
---
-ALTER TABLE `lecture_detail`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `lecture_id` (`lecture_id`),
-  ADD KEY `quiz_id` (`quiz_id`),
-  ADD KEY `test_id` (`test_id`),
-  ADD KEY `file_id` (`file_id`);
+  ADD PRIMARY KEY (`leid`);
 
 --
 -- 테이블의 인덱스 `lefile`
@@ -291,31 +308,25 @@ ALTER TABLE `book`
 -- 테이블의 AUTO_INCREMENT `lecture`
 --
 ALTER TABLE `lecture`
-  MODIFY `leid` int(11) NOT NULL AUTO_INCREMENT COMMENT '번호', AUTO_INCREMENT=4;
-
---
--- 테이블의 AUTO_INCREMENT `lecture_detail`
---
-ALTER TABLE `lecture_detail`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '강의 ID';
+  MODIFY `leid` int(11) NOT NULL AUTO_INCREMENT COMMENT '번호', AUTO_INCREMENT=20;
 
 --
 -- 테이블의 AUTO_INCREMENT `lefile`
 --
 ALTER TABLE `lefile`
-  MODIFY `fileid` int(11) NOT NULL AUTO_INCREMENT COMMENT '파일 ID';
+  MODIFY `fileid` int(11) NOT NULL AUTO_INCREMENT COMMENT '파일 ID', AUTO_INCREMENT=6;
 
 --
 -- 테이블의 AUTO_INCREMENT `levideo`
 --
 ALTER TABLE `levideo`
-  MODIFY `vdid` int(11) NOT NULL AUTO_INCREMENT COMMENT '동영상 ID', AUTO_INCREMENT=2;
+  MODIFY `vdid` int(11) NOT NULL AUTO_INCREMENT COMMENT '동영상 ID', AUTO_INCREMENT=7;
 
 --
 -- 테이블의 AUTO_INCREMENT `quiz`
 --
 ALTER TABLE `quiz`
-  MODIFY `exid` int(11) NOT NULL AUTO_INCREMENT COMMENT '번호', AUTO_INCREMENT=5;
+  MODIFY `exid` int(11) NOT NULL AUTO_INCREMENT COMMENT '번호', AUTO_INCREMENT=2;
 
 --
 -- 테이블의 AUTO_INCREMENT `stuscores`
@@ -328,25 +339,6 @@ ALTER TABLE `stuscores`
 --
 ALTER TABLE `test`
   MODIFY `exid` int(11) NOT NULL AUTO_INCREMENT COMMENT '번호', AUTO_INCREMENT=2;
-
---
--- 덤프된 테이블의 제약사항
---
-
---
--- 테이블의 제약사항 `lecture`
---
-ALTER TABLE `lecture`
-  ADD CONSTRAINT `lecture_ibfk_1` FOREIGN KEY (`cgid`) REFERENCES `category` (`cgid`) ON DELETE CASCADE ON UPDATE CASCADE;
-
---
--- 테이블의 제약사항 `lecture_detail`
---
-ALTER TABLE `lecture_detail`
-  ADD CONSTRAINT `lecture_detail_ibfk_1` FOREIGN KEY (`lecture_id`) REFERENCES `lecture` (`leid`) ON DELETE CASCADE,
-  ADD CONSTRAINT `lecture_detail_ibfk_2` FOREIGN KEY (`quiz_id`) REFERENCES `quiz` (`exid`),
-  ADD CONSTRAINT `lecture_detail_ibfk_3` FOREIGN KEY (`test_id`) REFERENCES `test` (`exid`),
-  ADD CONSTRAINT `lecture_detail_ibfk_4` FOREIGN KEY (`file_id`) REFERENCES `lefile` (`fileid`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
