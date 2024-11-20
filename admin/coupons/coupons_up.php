@@ -58,7 +58,6 @@ while($data = $result->fetch_object()){
 }
 
 $coupon_image = $_FILES['coupon_image']??'';
-// POST로 값 받아오기 (HTML 폼의 name 속성에 맞춰주세요)
 $coupon_name = $_POST['coupon_name'] ?? '';
 $coupon_image = $_POST['coupon_image'] ?? ''; // 파일 업로드 시 파일명 사용
 $coupon_type = $_POST['coupon_type'] ?? 0;
@@ -68,7 +67,7 @@ $status = $_POST['status'] ?? 0;
 $max_value = $_POST['max_value'] ?? 0;
 $use_min_price = $_POST['use_min_price'] ?? 0;
 $use_max_date = $_POST['use_max_date'] ?? 'NULL';
-
+$cp_desc = $_POST['cp_desc'] ?? '';
 // 세션에서 사용자 아이디 가져오기
 $userid = $_SESSION['AUID'] ?? 'guest'; // 세션이 없으면 'guest'로 대체
 
@@ -111,10 +110,14 @@ if(isset($_FILES['coupon_image'])){
 }
 
 $sql = "INSERT INTO coupons 
-    (coupon_name, coupon_image, coupon_type, coupon_price, coupon_ratio, status, userid, max_value, use_min_price, use_max_date)
+    (coupon_name, coupon_image, coupon_type, coupon_price, coupon_ratio, status, userid, max_value, use_min_price, use_max_date, cp_desc)
   VALUES
-    ('$coupon_name', '$coupon_image', $coupon_type, $coupon_price, $coupon_ratio, $status, '{$_SESSION['AUID']}', $max_value, $use_min_price, $use_max_date)
+    ('$coupon_name', '$coupon_image', $coupon_type, $coupon_price, $coupon_ratio, $status, '{$_SESSION['AUID']}', $max_value, $use_min_price, $use_max_date, '$cp_desc')
 ";
+
+$use_max_date = !empty($_POST['use_max_date']) 
+    ? "'".date('Y-m-d', strtotime($_POST['use_max_date']))."'" 
+    : "NULL";
 
 ?>
 
@@ -178,22 +181,22 @@ thead,
         </tr>
         <tr>
           <th scope="row">쿠폰내용</th>
-          <td><input type="text" class="form-control w-25" name="description" placeholder="쿠폰내용을 입력하세요" required></td>
+          <td><input type="text" class="form-control w-25" name="cp_desc" placeholder="쿠폰내용을 입력하세요" required></td>
         </tr>
         <div class="d-flex">
           <th scope="row">사용기한</th>
             <td class="d-flex gap-5" name="use_max_date" id="use_max_date">
-              <div class="form-check" >
-                  <input class="form-check-input" type="radio" name="use_max_date" checked>
-                <label class="form-check-label" for="flexRadioDefault2"  id="ct4">
+              <div class="form-check"  id="ct4" >
+                  <input class="form-check-input" type="radio" name="flexRadioDefault" >
+                <label class="form-check-label" for="flexRadioDefault2" >
                   무제한
                 </label>
               </div>
-              <div class="form-check">
-                <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" value="0" >
-                <label class="form-check-label d-flex gap-3" for="flexRadioDefault1"  id="ct3">
+              <div class="form-check" id="ct3">
+                <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault" value="0" >
+                <label class="form-check-label d-flex gap-3" for="flexRadioDefault" >
                   제한
-                  <input type="text" name="sale_end_date" id="datepicker" class="form-control w-25 bi bi-calendar-week">
+                  <input type="date" name="use_max_date" id="datepicker" class="form-control w-25 " >
                 </label>
               </div>
             </td>
@@ -260,9 +263,9 @@ thead,
         </tr>   
       </tbody>
     </table>
-    <div class="d-flex justify-content-end gap-2">
-        <button class="btn btn-outline-danger mt-3 cancle">취소</button>
-        <button type="submit" class="btn btn-secondary mt-3 ">쿠폰등록</button>
+    <div class="d-flex justify-content-end gap-2 mb-5">
+      <a href="coupons.php" class="btn btn-outline-danger  cancle">취소</a>
+      <button type="submit" class="btn btn-secondary ">쿠폰등록</button>
     </div>
   </form>
 </div>
@@ -284,17 +287,17 @@ thead,
     }
   });
 
-  $('#ct3 input').prop('disabled', true);
+  // $('#ct3 input').prop('disabled', true);
 
-  $('#use_max_date').change(function(){
-    let value = $(this).val();
-    $('#ct3 input, #ct4 input').prop('disabled', true);
-    if(value == 0){
-      $('#ct3 input').prop('disabled', false);
-    } else{
-      $('#ct4 input').prop('disabled', false);
-    }
-  });
+  // $('#use_max_date').change(function(){
+  //   let value = $(this).val();
+  //   $('#ct3 input, #ct4 input').prop('disabled', true);
+  //   if(value == 0){
+  //     $('#ct3 input').prop('disabled', false);
+  //   } else{
+  //     $('#ct4 input').prop('disabled', false);
+  //   }
+  // });
 </script>
 
 
