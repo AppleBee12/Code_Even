@@ -36,7 +36,20 @@ td {
   position: relative;
 }
 
-.box span {
+.bookBox{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column; /* 이미지와 텍스트 수직 정렬 */
+  height: 200px; /* 고정 높이 */
+  width: 100%; /* 테이블 셀과 너비 일치 */
+  background-color: #ccc;
+  overflow: hidden;
+  position: relative;
+}
+
+.box span,
+.bookBox span {
   position: absolute;
   z-index: 1;
   color: #666;

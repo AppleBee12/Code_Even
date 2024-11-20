@@ -1,14 +1,14 @@
 <?php
-  $title = "강좌 목록";
+$title = "강좌 목록";
 
-  include_once($_SERVER['DOCUMENT_ROOT']. '/code_even/admin/inc/header.php');
+include_once($_SERVER['DOCUMENT_ROOT'] . '/code_even/admin/inc/header.php');
 
-  // 게시글 개수 구하기
+// 게시글 개수 구하기
 $keywords = isset($_GET['keywords']) ? $mysqli->real_escape_string($_GET['keywords']) : '';
 $where_clause = '';
 
 if ($keywords) {
-  $where_clause = "WHERE lecture.title LIKE '%$keywords%' LIKE '%$keywords%'";
+  $where_clause = "WHERE lecture.title LIKE '%$keywords%'";
 }
 
 $page_sql = "SELECT COUNT(*) AS cnt FROM lecture $where_clause";
@@ -32,10 +32,10 @@ if ($block_end > $total_page) {
 }
 
 $sql = "SELECT lecture.* 
-        FROM lecture 
-        $where_clause 
-        ORDER BY lecture.leid DESC 
-        LIMIT $start_num, $list";
+          FROM lecture 
+          $where_clause 
+          ORDER BY lecture.leid DESC 
+          LIMIT $start_num, $list";
 $result = $mysqli->query($sql);
 
 $dataArr = [];
@@ -49,11 +49,12 @@ while ($data = $result->fetch_object()) {
   <h2>강좌 목록</h2>
   <form action="" class="d-flex justify-content-end">
     <div class="d-flex w-25 mb-3">
-      <input type="text" class="form-control" placeholder="검색어를 입력하세요." name="keywords" value="<?= htmlspecialchars($keywords); ?>">
+      <input type="text" class="form-control" placeholder="검색어를 입력하세요." name="keywords"
+        value="<?= htmlspecialchars($keywords); ?>">
       <button type="button" class="btn lesearch"><i class="bi bi-search"></i></button>
     </div>
   </form>
-  <form action="lelist_update.php" method="GET">
+  <form action="best_recom_modify.php" method="POST">
     <table class="table list_table">
       <thead>
         <tr>
@@ -71,66 +72,75 @@ while ($data = $result->fetch_object()) {
       </thead>
       <tbody>
         <?php foreach ($dataArr as $index => $lecture): ?>
-        <tr data-id="<?= $lecture->leid; ?>"> <!-- 데이터 ID를 설정 -->
-          <th scope="row"><?= $index + 1; ?></th>
-          <td class="lecture-img"><img src="<?= $lecture->image; ?>" alt="강좌 이미지"></td>
-          <td class="title-cell"><?= htmlspecialchars($lecture->title); ?></td>
-          <td><?= htmlspecialchars($lecture->name); ?></td>
-          <td><?= $lecture->period; ?>일</td>
-          <td>
-            <div>
-              <?php if ((int)$lecture->isgeneral === 1): ?>
-                <span class="badge text-bg-secondary">일반</span>
-              <?php endif; ?>
-              <?php if ((int)$lecture->isrecipe === 1): ?>
-                <span class="badge recipe">레시피</span>
-              <?php endif; ?>
-            </div>
-          </td>
-          <td>
-            <div class="form-check d-inline-block me-2">
-              <input class="form-check-input" type="checkbox" value="" id="best_<?= $lecture->leid; ?>" <?= $lecture->isbest ? 'checked' : ''; ?>>
-              <label class="form-check-label" for="best_<?= $lecture->leid; ?>"> 베스트 </label>
-            </div>
-            <div class="form-check d-inline-block">
-            <input class="form-check-input" type="checkbox" value="" id="recommend_<?= $lecture->leid; ?>" <?= isset($lecture->isrecom) && $lecture->isrecom ? 'checked' : ''; ?>>
-            <label class="form-check-label" for="recommend_<?= $lecture->leid; ?>"> 추천 </label>
-            </div>
-          </td>
-          <td>
-            <span 
-              id="status-badge-<?= $lecture->leid; ?>" 
-              class="badge <?= $lecture->state == 0 ? 'waitopen' : ($lecture->state == 2 ? 'text-bg-secondary' : 'waitopen'); ?>">
-              <?= $lecture->state == 0 ? '임시 저장' : ($lecture->state == 2 ? '개설' : '개설 대기'); ?>
-            </span>
-          </td>
-          <td>
-            <div class="d-flex justify-content-center align-items-center">
-              <div class="form-check form-switch">
-                <input
-                  id="toggle-<?= $lecture->leid; ?>" 
-                  class="form-check-input tog toggle-switch" 
-                  type="checkbox" 
-                  role="switch" 
-                  data-id="<?= $lecture->leid; ?>" 
-                  <?= $lecture->state == 2 ? 'checked' : ''; ?>
-                >
+          <tr data-id="<?= $lecture->leid; ?>"> <!-- 데이터 ID를 설정 -->
+            <th scope="row"><?= $index + 1; ?></th>
+            <td class="lecture-img"><img src="<?= $lecture->image; ?>" alt="강좌 이미지"></td>
+            <td class="title-cell"><?= htmlspecialchars($lecture->title); ?></td>
+            <td><?= htmlspecialchars($lecture->name); ?></td>
+            <td><?= $lecture->period; ?>일</td>
+            <td>
+              <div>
+                <?php if ((int) $lecture->isgeneral === 1): ?>
+                  <span class="badge text-bg-secondary">일반</span>
+                <?php endif; ?>
+                <?php if ((int) $lecture->isrecipe === 1): ?>
+                  <span class="badge recipe">레시피</span>
+                <?php endif; ?>
               </div>
-            </div>
-          </td>
-          <td>
-            <div class="d-flex justify-content-center gap-4">
+            </td>
+            <td>
+              <div class="form-check d-inline-block me-2">
+                <!-- 숨겨진 필드로 기본값 0 전송 -->
+                <input type="hidden" name="isbest[<?= $lecture->leid; ?>]" value="0">
+                <input type="hidden" name="leid[<?= $lecture->leid; ?>]" value="<?= $lecture->leid; ?>">
+                <!-- 체크박스 -->
+                <input class="form-check-input" type="checkbox" id="isbest[<?= $lecture->leid; ?>]"
+                  name="isbest[<?= $lecture->leid; ?>]" value="1" <?= $lecture->isbest ? 'checked' : ''; ?>>
+                <label class="form-check-label" for="isbest[<?= $lecture->leid; ?>]">
+                  베스트
+                </label>
+              </div>
+              <div class="form-check d-inline-block">
+                <!-- 숨겨진 필드로 기본값 0 전송 -->
+                <input type="hidden" name="isrecom[<?= $lecture->leid; ?>]" value="0">
+                <input type="hidden" name="leid[<?= $lecture->leid; ?>]" value="<?= $lecture->leid; ?>">
+                <!-- 체크박스 -->
+                <input class="form-check-input" type="checkbox" id="isrecom[<?= $lecture->leid; ?>]"
+                  name="isrecom[<?= $lecture->leid; ?>]" value="1" <?= $lecture->isrecom ? 'checked' : ''; ?>>
+                <label class="form-check-label" for="isrecom[<?= $lecture->leid; ?>]">
+                  추천
+                </label>
+              </div>
+            </td>
+            <td>
+              <span id="status-badge-<?= $lecture->leid; ?>"
+                class="badge <?= $lecture->state == 0 ? 'waitopen' : ($lecture->state == 2 ? 'text-bg-secondary' : 'waitopen'); ?>">
+                <?= $lecture->state == 0 ? '임시 저장' : ($lecture->state == 2 ? '개설' : '개설 대기'); ?>
+              </span>
+            </td>
+            <td>
+              <div class="d-flex justify-content-center align-items-center">
+                <div class="form-check form-switch">
+                  <input id="toggle-<?= $lecture->leid; ?>" class="form-check-input tog toggle-switch" type="checkbox"
+                    role="switch" data-id="<?= $lecture->leid; ?>" <?= $lecture->state == 2 ? 'checked' : ''; ?>
+                    <?= $lecture->state == 0 ? 'disabled' : ''; ?>> <!-- state가 0일 때 비활성화 -->
+                  >
+                </div>
+              </div>
+            </td>
+            <td>
+              <div class="d-flex justify-content-center gap-4">
                 <!-- 수정 버튼 -->
                 <a href="lecture_edit.php?id=<?= $lecture->leid; ?>">
-                    <i class="bi bi-pencil-fill"></i>
+                  <i class="bi bi-pencil-fill"></i>
                 </a>
                 <!-- 삭제 버튼 -->
                 <a href="lecture_delete.php?id=<?= $lecture->leid; ?>" onclick="return confirm('이 강좌를 삭제하시겠습니까?');">
-                    <i class="bi bi-trash"></i>
+                  <i class="bi bi-trash"></i>
                 </a>
-            </div>
-        </td>
-        </tr>
+              </div>
+            </td>
+          </tr>
         <?php endforeach; ?>
       </tbody>
     </table>
@@ -139,105 +149,110 @@ while ($data = $result->fetch_object()) {
       <a href="lecture_up.php" type="button" class="btn nlecture">강좌 등록</a>
     </div>
   </form>
-
   <!-- //Pagination -->
   <div class="list_pagination" aria-label="Page navigation example">
     <ul class="pagination d-flex justify-content-center">
       <?php
-        $previous = $block_start - $block_ct;
-        if ($previous < 1) $previous = 1;
-        if ($block_num > 1) { 
+      $previous = $block_start - $block_ct;
+      if ($previous < 1)
+        $previous = 1;
+      if ($block_num > 1) {
+        ?>
+        <li class="page-item">
+          <a class="page-link" href="lecture_list.php?page=<?= $previous; ?>" aria-label="Previous">
+            <i class="bi bi-chevron-left"></i>
+          </a>
+        </li>
+        <?php
+      }
       ?>
-      <li class="page-item">
-        <a class="page-link" href="lecture_list.php?page=<?= $previous; ?>" aria-label="Previous">
-          <i class="bi bi-chevron-left"></i>
-        </a>
-      </li>
       <?php
-        }
-      ?>
-      <?php
-        for ($i = $block_start; $i <= $block_end; $i++) {
-          $active = ($page == $i) ? 'active' : '';
-      ?>
-      <li class="page-item <?= $active; ?>">
-        <a class="page-link" href="lecture_list.php?page=<?= $i; ?>"><?= $i; ?></a>
-      </li>
-      <?php
-        }
-        $next = $block_end + 1;
-        if ($total_block > $block_num) {
-      ?>
-      <li class="page-item">
-        <a class="page-link" href="lecture_list.php?page=<?= $next; ?>" aria-label="Next">
-          <i class="bi bi-chevron-right"></i>
-        </a>
-      </li>
-      <?php
-        }
+      for ($i = $block_start; $i <= $block_end; $i++) {
+        $active = ($page == $i) ? 'active' : '';
+        ?>
+        <li class="page-item <?= $active; ?>">
+          <a class="page-link" href="lecture_list.php?page=<?= $i; ?>"><?= $i; ?></a>
+        </li>
+        <?php
+      }
+      $next = $block_end + 1;
+      if ($total_block > $block_num) {
+        ?>
+        <li class="page-item">
+          <a class="page-link" href="lecture_list.php?page=<?= $next; ?>" aria-label="Next">
+            <i class="bi bi-chevron-right"></i>
+          </a>
+        </li>
+        <?php
+      }
       ?>
     </ul>
   </div>
-
-
 </div>
 <script>
   $('.toggle-switch').on('change', function () {
-  const lectureId = $(this).data('id'); // 강좌 ID
-  const isChecked = $(this).prop('checked'); // 토글 상태
-  const newState = isChecked ? 2 : 1; // 상태 값 설정 (2: 개설, 1: 개설 대기)
-  const $statusBadge = $(`#status-badge-${lectureId}`); // 상태 배지 선택
+    const lectureId = $(this).data('id'); // 강좌 ID
+    const isChecked = $(this).prop('checked'); // 토글 상태
+    const newState = isChecked ? 2 : 1; // 상태 값 설정 (2: 개설, 1: 개설 대기)
+    const $statusBadge = $(`#status-badge-${lectureId}`); // 상태 배지 선택
 
-  $.ajax({
-    url: '/code_even/admin/lecture/lecture_toggle.php',
-    type: 'POST',
-    data: JSON.stringify({ id: lectureId, state: newState }),
-    contentType: 'application/json',
-    dataType: 'json',
-    success: function (response) {
-      if (response.success) {
-        // 상태 배지 업데이트
-        if (newState === 2) {
-          $statusBadge
-            .text('개설')
-            .removeClass('waitopen')
-            .addClass('text-bg-secondary');
+    $.ajax({
+      url: '/code_even/admin/lecture/lecture_toggle.php',
+      type: 'POST',
+      data: JSON.stringify({ id: lectureId, state: newState }),
+      contentType: 'application/json',
+      dataType: 'json',
+      success: function (response) {
+        if (response.success) {
+          // 상태 배지 업데이트
+          if (newState === 2) {
+            $statusBadge
+              .text('개설')
+              .removeClass('waitopen')
+              .addClass('text-bg-secondary');
+          } else {
+            $statusBadge
+              .text('개설 대기')
+              .removeClass('text-bg-secondary')
+              .addClass('waitopen');
+          }
         } else {
-          $statusBadge
-            .text('개설 대기')
-            .removeClass('text-bg-secondary')
-            .addClass('waitopen');
+          alert('상태 변경에 실패했습니다: ' + response.error);
         }
-      } else {
-        alert('상태 변경에 실패했습니다: ' + response.error);
+      },
+      error: function (xhr, status, error) {
+        console.error('Ajax 요청 실패:', status, error, xhr.responseText);
+        alert('서버와 통신 중 오류가 발생했습니다.');
       }
-    },
-    error: function (xhr, status, error) {
-      console.error('Ajax 요청 실패:', status, error, xhr.responseText);
-      alert('서버와 통신 중 오류가 발생했습니다.');
+    });
+  });
+
+
+  $('.title-cell').each(function () {
+    const originalText = $(this).text().trim(); // 셀의 원래 텍스트를 가져옴
+    if (originalText.length > 20) {
+      $(this).text(originalText.substring(0, 20) + '...'); // 20자 이후 잘라내고 ... 추가
     }
   });
-});
 
+  // 일괄 수정
+  $('table .form-check-input[type="checkbox"]').change(function () {
+    if ($(this).prop("checked")) {
+      $(this).val('1');
+    } else {
+      $(this).val('0');
+    }
+  });
 
+  $('.selecmodify').on('click', function() {
+    $('form').submit();  // form 제출
+  });
 
-
-
-
-
-
-
-$('.title-cell').each(function () {
-  const originalText = $(this).text().trim(); // 셀의 원래 텍스트를 가져옴
-  if (originalText.length > 20) {
-    $(this).text(originalText.substring(0, 20) + '...'); // 20자 이후 잘라내고 ... 추가
-  }
-});
 
 </script>
 
 <?php
 
-include_once($_SERVER['DOCUMENT_ROOT']. '/code_even/admin/inc/footer.php');
+include_once($_SERVER['DOCUMENT_ROOT'] . '/code_even/admin/inc/footer.php');
 
 ?>
