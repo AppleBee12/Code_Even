@@ -46,7 +46,7 @@ while ($data = $result->fetch_object()) {
 
 <div class="container">
   <h2>전체 공지사항</h2>
-  <form action="" method="get" class="row justify-content-end">
+  <form method="get" class="row justify-content-end">
     <div class="col-lg-4">
       <div class="input-group mb-3">
         <input type="text" class="form-control" placeholder="검색어를 입력하세요." name="keywords"
@@ -134,7 +134,7 @@ while ($data = $result->fetch_object()) {
 </div>
 
 <!-- //Pagination -->
-<div class="list_pagination" aria-label="Page navigation example">
+<div class="list_pagination" aria-label="notice pagination">
   <ul class="pagination d-flex justify-content-center">
     <?php
     $previous = $block_start - $block_ct;

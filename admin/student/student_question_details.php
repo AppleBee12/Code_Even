@@ -25,9 +25,13 @@ $data = $result->fetch_object();
     <colgroup>
         <col class="col-width-160">
         <col class="col-width-516">
+        <col class="col-width-160">
+        <col class="col-width-516">
     </colgroup>
     <thead class="thead-hidden">
       <tr>
+        <th scope="col">구분</th>
+        <th scope="col">내용</th>
         <th scope="col">구분</th>
         <th scope="col">내용</th>
       </tr>

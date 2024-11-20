@@ -69,7 +69,7 @@ while ($data = $result->fetch_object()) {
     <thead>
       <tr>
         <th scope="col">
-          <input class="form-check-input" type="checkbox" value="" id="allCheck">
+          <input class="form-check-input" type="checkbox" id="allCheck">
         </th>
         <th scope="col">번호</th>
         <th scope="col">아이디</th>
@@ -88,8 +88,8 @@ while ($data = $result->fetch_object()) {
           ?>
           <tr>
             <th scope="row">
-              <input class="form-check-input itemCheckbox" type="checkbox" value="<?= $cl->cdid; ?>" id="checkbox"
-                  data-username="<?= $cl->username; ?>" data-userid="<?= $cl->userid; ?>" data-email="<?= $cl->useremail; ?>" data-uid="<?= $cl->uid; ?>">
+              <input class="form-check-input itemCheckbox" type="checkbox" value="<?= $cl->cdid; ?>" 
+              data-username="<?= $cl->username; ?>" data-userid="<?= $cl->userid; ?>" data-email="<?= $cl->useremail; ?>" data-uid="<?= $cl->uid; ?>">
             </th>
             <td><?= $cl->cdid; ?></td>
             <td><a href="student_details.php?uid=<?= $cl->uid; ?>" class="underline"><?= $cl->userid ?></a></td>
@@ -97,7 +97,7 @@ while ($data = $result->fetch_object()) {
             <td><?= mb_strlen($cl->title) > 20 ? mb_substr($cl->title, 0, 20) . '...' : $cl->title; ?></td>
             <td></td>
             <td>
-              <button type="button" id="printButton">
+              <button type="button" class="printButton">
                 <span class="badge text-bg-dark">이수증</span>
               </button>
             </td>
@@ -204,10 +204,6 @@ while ($data = $result->fetch_object()) {
 
 </div>
 
-<?php
-include_once($_SERVER['DOCUMENT_ROOT'] . '/code_even/admin/inc/footer.php');
-?>
-
 <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 <script>
 
@@ -229,7 +225,10 @@ include_once($_SERVER['DOCUMENT_ROOT'] . '/code_even/admin/inc/footer.php');
       iframe.contentWindow.print();  // iframe 내에서 print() 호출
     };
   }
-  document.getElementById("printButton").addEventListener("click", printPage);
+  
+  document.querySelectorAll(".printButton").forEach(function(button) {
+    button.addEventListener("click", printPage);
+});
 
 
   /* == 전체선택 체크박스 == */
@@ -366,3 +365,7 @@ include_once($_SERVER['DOCUMENT_ROOT'] . '/code_even/admin/inc/footer.php');
   });
 
 </script>
+
+<?php
+include_once($_SERVER['DOCUMENT_ROOT'] . '/code_even/admin/inc/footer.php');
+?>

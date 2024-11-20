@@ -60,7 +60,6 @@ while ($data = $result->fetch_object()) {
     </div>
   </form>
 
-  <form action="" method="">
     <table class="table list_table">
       <thead>
         <tr>
@@ -131,7 +130,7 @@ while ($data = $result->fetch_object()) {
     </table>
 
     <!-- //Pagination -->
-    <div class="list_pagination" aria-label="Page navigation example">
+    <div class="list_pagination">
       <ul class="pagination d-flex justify-content-center">
         <?php
         $previous = $block_start - $block_ct;
@@ -140,7 +139,7 @@ while ($data = $result->fetch_object()) {
         if ($block_num > 1) {
           ?>
           <li class="page-item">
-            <a class="page-link" href="notice.php?page=<?= $previous; ?>" aria-label="Previous">
+            <a class="page-link" href="notice.php?page=<?= $previous; ?>">
               <i class="bi bi-chevron-left"></i>
             </a>
           </li>
@@ -158,7 +157,7 @@ while ($data = $result->fetch_object()) {
         if ($total_block > $block_num) {
           ?>
           <li class="page-item">
-            <a class="page-link" href="notice.php?page=<?= $next; ?>" aria-label="Next">
+            <a class="page-link" href="notice.php?page=<?= $next; ?>">
               <i class="bi bi-chevron-right"></i>
             </a>
           </li>
@@ -167,8 +166,6 @@ while ($data = $result->fetch_object()) {
         ?>
       </ul>
     </div>
-
-  </form>
 
 </div>
 
