@@ -92,8 +92,8 @@ while ($data = $result->fetch_object()) {
                   data-username="<?= $cl->username; ?>" data-userid="<?= $cl->userid; ?>" data-email="<?= $cl->useremail; ?>" data-uid="<?= $cl->uid; ?>">
             </th>
             <td><?= $cl->cdid; ?></td>
-            <td><a href="student_details.php?cdid=<?= $cl->cdid; ?>" class="underline"><?= $cl->userid ?></a></td>
-            <td><a href="student_details.php?cdid=<?= $cl->cdid; ?>" class="underline"><?= $cl->username ?></a></td>
+            <td><a href="student_details.php?uid=<?= $cl->uid; ?>" class="underline"><?= $cl->userid ?></a></td>
+            <td><a href="student_details.php?uid=<?= $cl->uid; ?>" class="underline"><?= $cl->username ?></a></td>
             <td><?= mb_strlen($cl->title) > 20 ? mb_substr($cl->title, 0, 20) . '...' : $cl->title; ?></td>
             <td></td>
             <td>
@@ -316,6 +316,13 @@ include_once($_SERVER['DOCUMENT_ROOT'] . '/code_even/admin/inc/footer.php');
 
   document.getElementById('contact-form').addEventListener('submit', function (event) {
     event.preventDefault();
+
+    emailjs.sendForm('service_yyvqm9i', 'template_xt9x6yz', this)
+    .then(() => {
+        console.log('SUCCESS!');
+    }, (error) => {
+        console.log('FAILED...', error);
+    });
 
     // 입력값 가져오기
     const form = event.target;
