@@ -4,44 +4,44 @@
   include_once($_SERVER['DOCUMENT_ROOT']. '/code_even/admin/inc/header.php');
 
   // 게시글 개수 구하기
-$keywords = isset($_GET['keywords']) ? $mysqli->real_escape_string($_GET['keywords']) : '';
-$where_clause = '';
+  $keywords = isset($_GET['keywords']) ? $mysqli->real_escape_string($_GET['keywords']) : '';
+  $where_clause = '';
 
-if ($keywords) {
-  $where_clause = "WHERE lecture.title LIKE '%$keywords%' LIKE '%$keywords%'";
-}
+  if ($keywords) {
+    $where_clause = "WHERE lecture.title LIKE '%$keywords%' LIKE '%$keywords%'";
+  }
 
-$page_sql = "SELECT COUNT(*) AS cnt FROM lecture $where_clause";
-$page_result = $mysqli->query($page_sql);
-$page_data = $page_result->fetch_assoc();
-$row_num = $page_data['cnt'];
+  $page_sql = "SELECT COUNT(*) AS cnt FROM lecture $where_clause";
+  $page_result = $mysqli->query($page_sql);
+  $page_data = $page_result->fetch_assoc();
+  $row_num = $page_data['cnt'];
 
-// 페이지네이션
-$page = isset($_GET['page']) ? $_GET['page'] : 1;
-$list = 10;
-$start_num = ($page - 1) * $list;
-$block_ct = 5;
-$block_num = ceil($page / $block_ct);
-$block_start = (($block_num - 1) * $block_ct) + 1;
-$block_end = $block_start + $block_ct - 1;
+  // 페이지네이션
+  $page = isset($_GET['page']) ? $_GET['page'] : 1;
+  $list = 10;
+  $start_num = ($page - 1) * $list;
+  $block_ct = 5;
+  $block_num = ceil($page / $block_ct);
+  $block_start = (($block_num - 1) * $block_ct) + 1;
+  $block_end = $block_start + $block_ct - 1;
 
-$total_page = ceil($row_num / $list);
-$total_block = ceil($total_page / $block_ct);
-if ($block_end > $total_page) {
-  $block_end = $total_page;
-}
+  $total_page = ceil($row_num / $list);
+  $total_block = ceil($total_page / $block_ct);
+  if ($block_end > $total_page) {
+    $block_end = $total_page;
+  }
 
-$sql = "SELECT lecture.* 
-        FROM lecture 
-        $where_clause 
-        ORDER BY lecture.leid DESC 
-        LIMIT $start_num, $list";
-$result = $mysqli->query($sql);
+  $sql = "SELECT lecture.* 
+          FROM lecture 
+          $where_clause 
+          ORDER BY lecture.leid DESC 
+          LIMIT $start_num, $list";
+  $result = $mysqli->query($sql);
 
-$dataArr = [];
-while ($data = $result->fetch_object()) {
-  $dataArr[] = $data;
-}
+  $dataArr = [];
+  while ($data = $result->fetch_object()) {
+    $dataArr[] = $data;
+  }
 
 ?>
 
