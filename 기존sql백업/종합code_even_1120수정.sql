@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- 생성 시간: 24-11-19 04:31
+-- 생성 시간: 24-11-20 03:18
 -- 서버 버전: 10.4.32-MariaDB
 -- PHP 버전: 8.2.12
 
@@ -18,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- 데이터베이스: `codeeven2`
+-- 데이터베이스: `code_even`
 --
 
 -- --------------------------------------------------------
@@ -258,7 +258,6 @@ INSERT INTO `class_data` (`cdid`, `uid`, `leid`, `exid`, `course_cert`, `progres
 (1, 3, 1, NULL, '', 0),
 (2, 3, 2, NULL, '', 0);
 
-
 -- --------------------------------------------------------
 
 --
@@ -269,8 +268,10 @@ CREATE TABLE `company_info` (
   `comid` int(11) NOT NULL COMMENT '상점정보 고유번호(자동)',
   `company` varchar(250) NOT NULL COMMENT '회사명',
   `ceo_name` varchar(100) NOT NULL COMMENT '대표자이름',
+  `post_code` int(11) NOT NULL COMMENT '우편번호',
   `address_one` varchar(250) NOT NULL COMMENT '기본주소',
   `address_two` varchar(250) NOT NULL COMMENT '상세주소',
+  `address_three` varchar(100) NOT NULL COMMENT '첨부주소',
   `bussiness_registration_num` varchar(50) NOT NULL COMMENT '사업자등록번호',
   `commerce_registration_num` varchar(50) NOT NULL COMMENT '통신판매업신고 번호',
   `cs_number` varchar(20) NOT NULL COMMENT '고객센터 전화번호',
@@ -290,8 +291,8 @@ CREATE TABLE `company_info` (
 -- 테이블의 덤프 데이터 `company_info`
 --
 
-INSERT INTO `company_info` (`comid`, `company`, `ceo_name`, `address_one`, `address_two`, `bussiness_registration_num`, `commerce_registration_num`, `cs_number`, `email`, `created_at`, `tax_manager_department`, `tax_manager_name`, `tax_bill_email`, `tax_manager_phone`, `privacy_manager_department`, `privacy_manager_name`, `privacy_manager_email`, `privacy_manager_phone`) VALUES
-(1, '주식회사 디제이컴퍼니', '김동주', '03192 서울 종로구 수표로 96 드림팰리스', '드림팰리스2층 종로캠퍼스', '192-01-23456', '2024-서울종로-1234', '1544-1234', 'djcompany@djcompany.com', '2024-11-11 19:08:38', '회계과', '홍길동 주임', 'gildong1234@djcompan', '010-1234-6589', '총무과', '이도령 대리', 'djcompany@djcompany.', '010-4567-8900');
+INSERT INTO `company_info` (`comid`, `company`, `ceo_name`, `post_code`, `address_one`, `address_two`, `address_three`, `bussiness_registration_num`, `commerce_registration_num`, `cs_number`, `email`, `created_at`, `tax_manager_department`, `tax_manager_name`, `tax_bill_email`, `tax_manager_phone`, `privacy_manager_department`, `privacy_manager_name`, `privacy_manager_email`, `privacy_manager_phone`) VALUES
+(1, '주식회사 디제이컴퍼니', '김동주', 12345, '03192 서울 종로구 수표로 96 드림팰리스', '드림팰리스2층 종로캠퍼스', '(관수동, 국일관드림펠리스)', '192-01-23456', '2024-서울종로-1234', '1544-1234', 'djcompany@djcompany.com', '2024-11-20 01:13:06', '회계과', '홍길동 주임', 'gildong1234@djcompan', '010-1234-6589', '총무과', '이도령 대리', 'djcompany@djcompany.', '010-4567-8900');
 
 -- --------------------------------------------------------
 
@@ -316,7 +317,18 @@ CREATE TABLE `counsel` (
 --
 
 INSERT INTO `counsel` (`post_id`, `uid`, `status`, `titles`, `contents`, `likes`, `comments`, `hits`, `regdate`) VALUES
-(1, 3, 1, '실무에 바로 적용해야 하는데 NODEjs 기초 수업 추천해주세요', '지금 프론트엔드 현직자입니다.\r\nAngular는 잘 모르는데 이번에 클라이언트가 Angular로 진행을 원해서 급하게 준비해야하게 되었습니다.\r\n기간이 너무 촉박하기도 하고 강의 들으면서 바로 쓸 수 있는 레시피 강좌 있을까요?\r\n추천 부탁드립니다!', 0, 0, 0, '2024-11-11 19:13:59');
+(1, 3, 1, '실무에 바로 적용해야 하는데 NODEjs 기초 수업 추천해주세요', '지금 프론트엔드 현직자입니다.\r\nAngular는 잘 모르는데 이번에 클라이언트가 Angular로 진행을 원해서 급하게 준비해야하게 되었습니다.\r\n기간이 너무 촉박하기도 하고 강의 들으면서 바로 쓸 수 있는 레시피 강좌 있을까요?\r\n추천 부탁드립니다!', 0, 0, 0, '2024-11-11 19:13:59'),
+(2, 3, 1, 'find함수 사용해서 다수의 데이터 가져오기', 'post맨으로\r\n\r\nhttp://localhost:3000/posts\r\n\r\n조회 했더니\r\n\r\n[]로 안뜨고 \r\n\r\nasync getAllPosts() {\r\nreturn this.postsRepository.find();\r\n}\r\n로 뜹니다. 왜그러죠?', 0, 0, 0, '2024-11-12 19:13:59'),
+(3, 3, 1, 'c++,c# wpf 프로젝트 어떤강의듣으면되죠?', '콘솔 앱을 만들고 싶은데\r\n제작언어를 물어보니\r\nC++, C# WPF를 사용했다고 합니다.\r\n어떤강의 듣으면되죠?', 0, 0, 0, '2024-11-12 19:13:59'),
+(4, 3, 1, '선생님은 학습을 어떻게 하시나요??', '도커를 몰라서 강의를 들으면 빠른데 선생님은 aws에서 객체 라이터를 선택을 해야되는 둥 이런 부가적인 옵션 또는 지식들을 어떻게 습득하신걸까요 궁금합니다', 0, 0, 0, '2024-11-14 19:13:59'),
+(5, 3, 1, '안녕하세요 혼자 열심히 공부하고 있는데 질문이 있습니다.', 'RTOS코드를 짰습니다. 문제는 UltraSoundTask에 if문을 추가하면, distance가 6혹은7로 고정이 되면서, 바로 시스템이 맛이 가게 됩니다. 이유가 뭘까요?', 0, 0, 0, '2024-11-14 23:13:59'),
+(6, 3, 1, '메모리 누수에 대해서 질문드립니다.', '강의에서 SkillSystem의 Unregister함수를 보면\r\n\r\nDestroy(skill);을 통해 Skill 객체를 지우는데\r\n이때 메모리 누수가 발생하지 않는지 궁금합니다.\r\n예를 들어 Skill은 SetUpStateMachine() 메소드에서\r\nStateMachine.onStateChanged 이벤트에 익명메소드로 구독을 하는데\r\n\r\nStateMachine.onStateChanged += (_, newState, prevState, layer)\r\n\r\n=> onStateChanged?.Invoke(this, newState, prevState, layer);\r\n\r\n \r\n\r\n구독을 해제하는 부분은 따로 찾지 못해서\r\n이런 경우 메모리 누수가 없이 이벤트도 Skill 객체와 함께 정상적으로 삭제가 되는지 궁금합니다.\r\n아직 메모리 관리에 대한 지식이 부족해 이러한 경우 메모리 누수가 발생하는지 아닌지를 어떻게 찾아봐야 할지 모르겠어서 강사님에게 질문드립니다.', 0, 0, 0, '2024-11-15 09:13:59'),
+(7, 3, 1, '스프링 공부 시기 + 자바', '현재 백엔드를 공부해보고 싶어 JAVA를 공부중인 1학년 학생입니다!\r\n\r\n김영한 강사님 강의 듣고 있는데 중급편 2까지 듣고 스프링 로드맵 들으면 되는 걸까요?\r\n\r\n강의 자료에 나오는 문제 말고도 클래스,상속 같은 것에 익숙해질 수 있는 문제 사이트나? 예시들이 있는 곳도 궁금합니다!!', 0, 0, 0, '2024-11-15 12:13:59'),
+(8, 3, 2, '까먹더라도 이해하는 시간을 가져야 할까요 ?', '강의를 봐도 심도 있게 이해하려고 하면 진도가 안 나가고 시간이 너무 걸려요 그렇게 해도 까먹고요 ㅠㅠ 까먹더라도 이해하는 시간을 가져야 할까요 ?', 0, 0, 0, '2024-11-20 02:01:59'),
+(9, 3, 1, '구글 코랩 대신 사용할 환경은 없을까요?', '구글 코랩등 이런 접속 제한이 있는 환경에서 공부를 하려 합니다.\r\n\r\n대체 환경없나요?', 0, 0, 0, '2024-11-16 16:13:59'),
+(10, 3, 1, '강의 수강 관련', '강의를 새로 구매하기에는 비용이 부담되어 현재 수강 중인 것 기간만료 후 연장하고 싶은데, 방법이 있을까요?\r\n\r\n비용을 조금 추가하는 방법이라도 좋으니, 2주정도만 연장하고 싶습니다. 양해 부탁드립니다.', 0, 0, 0, '2024-11-15 16:13:59'),
+(11, 3, 1, '일단 기초적인 것부터 시작을 하려고 하는데요', '일단 로드맵을 따라 가면서 백엔드를 공부하고자 합니다그래서 예전에는 아무것도 모르는 상태로 웹사이트에 도전했는데 이해가 잘안가서 철수를 했습니다.그러나 이번에는 차곡차곡 어떤순서로 접해야 기초를 잡고 java백엔드쪽을 배울 수 있는지 여쭙고자 합니다.기초란 어떤 순서를 통해야 프로그래밍세계에 입문할 수 있는지 정도요!', 0, 0, 0, '2024-11-15 23:13:59'),
+(12, 3, 1, '질문프론트엔드 취업에 대해 질문있습니다.', '현재 프론트엔드 신입으로 취업을 위해 공부중에 있습니다. 작년에 국비학원을 수료후 인강을 보면서 공부를 하고 있는데 혼자서 간단한거라도 만들어봐야되는데 뭔가 계속 실력이 많이 부족하다라는 생각이 계속들어서 인강을 보면서 계속 공부만 하다가 일단 한번 해보자라는 생각에 api를 이용하여 간단한 지역 명소 사이트를 간단하게 만들었습니다. 한국관광공사api를 사용하여 axios로 인스턴스를 만들어서 사용했고 라우터, 그리고 클릭시 모달 상세창 등을 혼자 만들수 있는 정도가 되었는데 하지만 이걸로 취업을 할 수있는정도가 아니기때문에 제가 여쭤보고 싶은것이 이 상황에서 리액트를 더 공부를 해야되는지 아니면 타입스크립트와 next.js를 계속 이어서 공부를 하면되는지 마지막으로 그렇다면 신입으로 어느정도 알고있고 어느정도 실력이면 이력서를 내도되는지 궁금합니다.', 0, 0, 0, '2024-11-16 03:13:59');
 
 -- --------------------------------------------------------
 
@@ -345,11 +357,11 @@ CREATE TABLE `coupons` (
 --
 
 INSERT INTO `coupons` (`cpid`, `couponid`, `coupon_name`, `coupon_image`, `coupon_type`, `coupon_price`, `coupon_ratio`, `status`, `regdate`, `userid`, `max_value`, `use_min_price`, `use_max_date`) VALUES
-INSERT INTO `coupons` (`cpid`, `couponid`, `coupon_name`, `coupon_image`, `coupon_type`, `coupon_price`, `coupon_ratio`, `status`, `regdate`, `userid`, `max_value`, `use_min_price`, `use_max_date`) VALUES
 (1, 1001, '리뷰쿠폰', '/code_even/admin/upload/coupons/20241120014236135047.png', 1, 5000, 0, 1, '2024-11-18 10:09:49', 'admin', 5000, 30000, '2024-12-31 00:00:00'),
 (2, 1002, '10% 할인 쿠폰', '/code_even/admin/upload/coupons/20241120014055112829.png', 2, 0, 10, 1, '2024-11-18 10:09:49', 'admin', 10000, 50000, '2024-12-31 00:00:00'),
 (3, 1003, '수강 환승쿠폰', '/code_even/admin/upload/coupons/20241120014000753232.png', 1, 10000, 0, 1, '2024-11-18 10:09:49', 'user123', 10000, 25000, '2025-01-31 00:00:00'),
 (4, 1004, '신규 회원 15% 할인 쿠폰', '/code_even/admin/upload/coupons/20241120014327175286.png', 2, 0, 0, 2, '2024-11-18 10:09:49', 'newuser', 15000, 20000, '2024-12-31 00:00:00');
+
 -- --------------------------------------------------------
 
 --
@@ -397,38 +409,6 @@ INSERT INTO `faq` (`fqid`, `uid`, `category`, `target`, `title`, `content`, `vie
 -- --------------------------------------------------------
 
 --
--- 테이블 구조 `lecdraft`
---
-
-CREATE TABLE `lecdraft` (
-  `draft_id` int(11) NOT NULL COMMENT '번호',
-  `leid` int(11) NOT NULL COMMENT '강좌id',
-  `lecid` int(11) NOT NULL COMMENT '강사 고유id',
-  `cate1` varchar(50) NOT NULL COMMENT '대분류',
-  `cate2` varchar(50) NOT NULL COMMENT '중분류',
-  `cate3` varchar(50) NOT NULL COMMENT '소분류',
-  `image` varchar(250) NOT NULL COMMENT '이미지',
-  `title` varchar(100) NOT NULL COMMENT '강좌명',
-  `des` text NOT NULL COMMENT '강좌 소개',
-  `name` varchar(50) NOT NULL COMMENT '등록자',
-  `video_url` varchar(250) NOT NULL COMMENT '강의',
-  `file` varchar(100) DEFAULT NULL COMMENT '실습 파일',
-  `period` int(11) NOT NULL COMMENT '학습 기간',
-  `isrecipe` varchar(10) NOT NULL COMMENT '레시피',
-  `isgeneral` varchar(10) NOT NULL COMMENT '일반',
-  `isbest` varchar(10) NOT NULL COMMENT '베스트',
-  `isrecom` varchar(10) NOT NULL COMMENT '추천',
-  `state` tinyint(4) NOT NULL COMMENT '상태',
-  `approval` tinyint(4) NOT NULL COMMENT '승인',
-  `price` decimal(10,0) NOT NULL COMMENT '가격',
-  `level` int(11) NOT NULL COMMENT '레벨',
-  `created_at` datetime NOT NULL COMMENT '임시 저장된 날짜 및 시간',
-  `isfinal` tinyint(4) NOT NULL COMMENT '최종 저장 여부'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
--- --------------------------------------------------------
-
---
 -- 테이블 구조 `lecture`
 --
 
@@ -466,6 +446,24 @@ INSERT INTO `lecture` (`leid`, `cgid`, `lecid`, `cate1`, `cate2`, `cate3`, `imag
 (2, NULL, 2, 'A0001', 'B0001', 'C0001', '', '2기초부터 확실하게! (페이지의 내용 전달을 위한 HTML, 스타일 설정을 위한 CSS 기초 학습)', '2초보자를 위한 쉽고 재미있는 HTML, CSS 기초입니다. 천천히 보면서 이해하면서 따라해 보세요!', '이븐선생', 'https://youtu.be/oHTr2fEkmGA?si=fNAGT0cPExpzwXDM', NULL, 30, '', '', '', '', 1, 1, 35000, 50, '0000-00-00 00:00:00'),
 (3, NULL, 0, 'A0001', 'B0001', 'C0001', '', 'HTML 정도는 껌이지', '', '', '', NULL, 0, '', '', '', '', 0, 0, 0, 0, '2024-11-19 02:12:51');
 
+-- --------------------------------------------------------
+
+--
+-- 테이블 구조 `lecture_detail`
+--
+
+CREATE TABLE `lecture_detail` (
+  `id` int(11) NOT NULL COMMENT '강의 ID',
+  `lecture_id` int(11) NOT NULL COMMENT '강좌 ID (외래키)',
+  `title` varchar(255) NOT NULL COMMENT '강의명',
+  `description` text DEFAULT NULL COMMENT '강의 설명',
+  `quiz_id` int(11) DEFAULT NULL COMMENT '퀴즈 ID (외래키)',
+  `test_id` int(11) DEFAULT NULL COMMENT '시험 ID (외래키)',
+  `file_id` int(11) DEFAULT NULL COMMENT '실습 파일 ID (외래키)',
+  `video_url` varchar(255) DEFAULT NULL COMMENT '동영상 URL',
+  `video_order` int(11) DEFAULT NULL COMMENT '강의 순서',
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp() COMMENT '생성 시간'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -514,6 +512,7 @@ CREATE TABLE `levideo` (
   `vdid` int(11) NOT NULL COMMENT '동영상 ID',
   `lecpid` int(11) NOT NULL COMMENT '강좌 ID (외래키)',
   `lepid` int(11) NOT NULL COMMENT '강사 고유 ID (외래키)',
+  `videoname` varchar(250) NOT NULL COMMENT '강의명',
   `video_url` varchar(255) NOT NULL COMMENT '동영상 URL',
   `uploaded` timestamp NOT NULL DEFAULT current_timestamp() COMMENT '등록 시간',
   `orders` int(11) NOT NULL COMMENT '강의 순서'
@@ -523,8 +522,8 @@ CREATE TABLE `levideo` (
 -- 테이블의 덤프 데이터 `levideo`
 --
 
-INSERT INTO `levideo` (`vdid`, `lecpid`, `lepid`, `video_url`, `uploaded`, `orders`) VALUES
-(1, 1, 0, 'https://youtu.be/oHTr2fEkmGA?si=fNAGT0cPExpzwXDM', '2024-11-18 05:45:33', 1);
+INSERT INTO `levideo` (`vdid`, `lecpid`, `lepid`, `videoname`, `video_url`, `uploaded`, `orders`) VALUES
+(1, 1, 0, '', 'https://youtu.be/oHTr2fEkmGA?si=fNAGT0cPExpzwXDM', '2024-11-18 05:45:33', 1);
 
 -- --------------------------------------------------------
 
@@ -734,9 +733,20 @@ CREATE TABLE `quiz` (
   `tt` varchar(250) NOT NULL COMMENT '시험지명',
   `answer` varchar(10) NOT NULL COMMENT '정답',
   `pn` varchar(250) NOT NULL COMMENT '문제명',
-  `explan` text NOT NULL COMMENT '해설',
+  `question` varchar(250) NOT NULL,
+  `explan` text DEFAULT NULL COMMENT '해설',
   `pnlevel` tinyint(4) NOT NULL COMMENT '문제 수준'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='퀴즈';
+
+--
+-- 테이블의 덤프 데이터 `quiz`
+--
+
+INSERT INTO `quiz` (`exid`, `tid`, `cate1`, `cate2`, `cate3`, `title`, `tt`, `answer`, `pn`, `question`, `explan`, `pnlevel`) VALUES
+(1, 3, 'A0001', 'B0001', 'C0001', 'HTML 정도는 껌이지', '', '', '', '', NULL, 0),
+(2, 3, 'A0001', 'B0001', 'C0001', 'HTML 정도는 껌이지', 'HTML 문서의 기본 구조를 시작하는 올바른 DOCTYPE 선언은 무엇인가?', '3', '[\"&lt;!DOCTYPE html PUBLIC&gt;\",\"&lt;!DOCTYPE HTML PUBLIC \\\"-\\/\\/W3C\\/\\/DTD HTML 4.01 Transitional\\/\\/EN&\\\"gt;\",\"&lt;!DOCTYPE html&gt;\",\"&lt;!DOCTYPE&gt;\"]', '', '', 3),
+(3, 3, 'A0001', 'B0001', 'C0001', 'HTML 정도는 껌이지', 'HTML 기초 퀴즈', '3', '[\"&lt;!DOCTYPE html PUBLIC&gt;\",\"&lt;!DOCTYPE HTML PUBLIC \\\"-\\/\\/W3C\\/\\/DTD HTML 4.01 Transitional\\/\\/EN&\\\"gt;\",\"&lt;!DOCTYPE html&gt;\",\"&lt;!DOCTYPE&gt;\"]', '', '', 3),
+(4, 3, 'A0001', 'B0001', 'C0001', 'HTML 정도는 껌이지', 'HTML 기초 퀴즈', '3', 'HTML 문서의 기본 구조를 시작하는 올바른 DOCTYPE 선언은 무엇인가?', '[\"&lt;!DOCTYPE html PUBLIC&gt;\",\"&lt;!DOCTYPE HTML PUBLIC \\\"-\\/\\/W3C\\/\\/DTD HTML 4.01 Transitional\\/\\/EN&\\\"gt;\",\"&lt;!DOCTYPE html&gt;\",\"&lt;!DOCTYPE&gt;\"]', '', 3);
 
 -- --------------------------------------------------------
 
@@ -797,7 +807,7 @@ CREATE TABLE `send_email` (
 
 INSERT INTO `send_email` (`emid`, `uid`, `title`, `content`, `regdate`) VALUES
 (1, 3, '코딩 수업 일정 변경 안내', '안녕하세요, 수업 일정이 변경되었습니다. 새로운 수업 일정은 2024년 11월 21일 10시입니다. 참고 부탁드립니다.', '2024-11-19 04:30:42'),
-(2, 3, '수업 진도 안내', '이번 주 수업에서 다룰 내용은 "PHP 기초"입니다. 미리 복습하고 오시면 도움이 됩니다.', '2024-11-19 04:35:00'),
+(2, 3, '수업 진도 안내', '이번 주 수업에서 다룰 내용은 \"PHP 기초\"입니다. 미리 복습하고 오시면 도움이 됩니다.', '2024-11-19 04:35:00'),
 (3, 3, '과제 제출 기한 안내', '코딩 수업 과제 제출 기한이 2024년 11월 25일까지입니다. 제출을 잊지 마세요.', '2024-11-19 04:40:00'),
 (4, 3, '주간 실습 시간 안내', '이번 주 실습 시간은 11월 20일 오후 2시부터 4시까지입니다. 실습실에서 만나요!', '2024-11-19 04:45:00'),
 (5, 3, '코딩 실력 향상을 위한 팁', '코딩 실력을 키우려면 꾸준한 연습과 문제 해결 능력 향상이 중요합니다. 매일 1시간씩 연습해 보세요!', '2024-11-19 04:50:00'),
@@ -921,7 +931,9 @@ CREATE TABLE `teamproject` (
 --
 
 INSERT INTO `teamproject` (`post_id`, `uid`, `status`, `titles`, `start_date`, `mode`, `dev_env`, `durations`, `contact_url`, `roles`, `contents`, `likes`, `comments`, `hits`, `regdate`) VALUES
-(1, 3, '모집중', '[프론트엔드 모집] LMS 강의사이트 제작 프로젝트', '2024-11-30', '온라인', '피그마, 리액트 혹은 뷰, AWS, Docker, Nestjs, 노션, 디스코드', '단기(1~2개월)', 'forms.gle/A1b2Cdef3gHijk', 10, '[프로젝트 주제] 온라인 강좌를 등록할 수 있는 LMS 사이트의 관리자, 강사, 수강생 버전 웹 개발\r\n[프로젝트 목표] 유저 레벨에 따라 차등 작동되는 관리자 페이지와 강사페이지와  수강생 페이지의 연계를 보여주는 LMS사이트의 개발\r\n\r\n[예상 프로젝트 일정]  매주 평일 하루 + 토요일, 토요일은 오전 9시부터 4시간정도 온라인 회의 / 목표 일정: 합류시작 ~ 12월 말 예정\r\n[개발환경] 리액트를 사용하시면 좋겠지만 뷰도 괜찮습니다\r\n[팀 구성]  디자이너 1명을 구인하고 있으며 현재 팀구성은 기획자 1명, 프론트엔드 2명, 백엔드 2명입니다.', 0, 0, 0, '2024-11-11 19:33:41');
+(1, 3, '모집중', '[프론트엔드 모집] LMS 강의사이트 제작 프로젝트', '2024-11-30', '온라인', '피그마, 리액트 혹은 뷰, AWS, Docker, Nestjs, 노션, 디스코드', '단기(1~2개월)', 'forms.gle/A1b2Cdef3gHijk', 10, '[프로젝트 주제] 온라인 강좌를 등록할 수 있는 LMS 사이트의 관리자, 강사, 수강생 버전 웹 개발\r\n[프로젝트 목표] 유저 레벨에 따라 차등 작동되는 관리자 페이지와 강사페이지와  수강생 페이지의 연계를 보여주는 LMS사이트의 개발\r\n\r\n[예상 프로젝트 일정]  매주 평일 하루 + 토요일, 토요일은 오전 9시부터 4시간정도 온라인 회의 / 목표 일정: 합류시작 ~ 12월 말 예정\r\n[개발환경] 리액트를 사용하시면 좋겠지만 뷰도 괜찮습니다\r\n[팀 구성]  디자이너 1명을 구인하고 있으며 현재 팀구성은 기획자 1명, 프론트엔드 2명, 백엔드 2명입니다.', 0, 0, 0, '2024-11-11 19:33:41'),
+(2, 3, '모집중', '지도 기반 운동 커뮤니티 플랫폼 사이드프로젝트 (마케팅/UIUX/앱개발자 구인)', '2024-11-25', '온라인', '피그마, ios / andriod 앱 개발', '장기(6개월이상)', 'forms.gle/A1b2Cdef3gHijk', 10, '사이드 프로젝트 모집 공고\r\n\r\n취준/이직자 7명 정도가 모여서 지도 기반 운동 커뮤니티 플랫폼을 개발 중입니다. 사용자가 운동 관련 정보를 공유하고, 온라인에서 오프라인으로 연결될 수 있는 소셜 플랫폼을 목표로 합니다.\r\n\r\n취준용 포트폴리오로 쓰일 예정입니다. 진지하게 사업화를 하거나 수익화를 하는 방향은 아직 생각하지 않았습니다.\r\n\r\n \r\n\r\n현재 진행 상황:\r\n\r\n서비스 컨셉 완료\r\n상세 기획 단계 \r\n목표:\r\n\r\n연내 MVP 앱 개발\r\n내년 운영 시작 \r\n기능 컨셉:\r\n\r\n지도 기반으로 운동 관련 정보를 공유하고, 원하는 위치에서 커뮤니티를 형성할 수 있는 기능 제공\r\n사용자가 직접 위치별 게시판을 생성하고 게시글 작성 및 소통 가능\r\n실시간 정보 업데이트와 관심사 기반 네트워킹 지원\r\n운동 메이트 찾기 및 오프라인 모임 연결 기능 ', 0, 0, 0, '2024-11-13 19:33:41'),
+(3, 3, '모집중', '[웹 디자이너 모집] 취준/스터디용 프로젝트를 같이 진행하실 분 모집합니다!', '2024-12-02', '온라인', '피그마, ios / andriod 앱 개발', '중기(3~6개월)', 'forms.gle/A1b2Cdef3gHijk', 2, '⭐취준/스터디용 프로젝트⭐를 함께 진행할 웹 디자이너 팀원 1명을 모집합니다!\r\n \r\n\r\n저희는 현재 백엔드 2명, 프론트엔드 2명으로 구성되어 있으며, 공공 데이터 API를 기반으로 여행 일정을 계획할 수 있는 여행 일정 프로젝트를 진행하고 있습니다. 자세한 정보는 아래 참고 부탁드립니다!\r\n\r\n \r\n\r\n현재 진행 상황\r\n프로젝트 초안 완료 \r\n와이어 프레임 존재🙆‍♀\r\n웹 디자이너 1명 모집중!\r\n \r\n\r\n회의 및 진행 방식\r\n주 1회 온라인 회의 (화요일 저녁 8시 반) -> Discord 사용중\r\n원하실 경우, 오프라인 회의도 가능합니다!\r\n \r\n\r\n함께하고 싶은 분\r\n웹 디자인 경험이 있으신 분\r\n온라인 회의 위에 써진 요일, 시간대에 참여 가능하신 분 ', 0, 0, 0, '2024-11-20 02:11:00');
 
 -- --------------------------------------------------------
 
@@ -939,9 +951,17 @@ CREATE TABLE `test` (
   `tt` varchar(250) NOT NULL COMMENT '시험지명',
   `answer` varchar(10) NOT NULL COMMENT '정답',
   `pn` varchar(250) NOT NULL COMMENT '문제명',
-  `explan` text NOT NULL COMMENT '해설',
+  `question` varchar(250) NOT NULL,
+  `explan` text DEFAULT NULL COMMENT '해설',
   `pnlevel` tinyint(4) NOT NULL COMMENT '문제 수준'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='시험';
+
+--
+-- 테이블의 덤프 데이터 `test`
+--
+
+INSERT INTO `test` (`exid`, `tid`, `cate1`, `cate2`, `cate3`, `title`, `tt`, `answer`, `pn`, `question`, `explan`, `pnlevel`) VALUES
+(1, 3, 'A0001', 'B0001', 'C0001', 'HTML 정도는 껌이지', 'HTML 기초 시험', '3', 'HTML 문서의 기본 구조를 시작하는 올바른 DOCTYPE 선언은 무엇인가?', '[\"&lt;!DOCTYPE html PUBLIC&gt;\",\"&lt;!DOCTYPE HTML PUBLIC \\\"-\\/\\/W3C\\/\\/DTD HTML 4.01 Transitional\\/\\/EN&\\\"gt;\",\"&lt;!DOCTYPE html&gt;\",\"&lt;!DOCTYPE&gt;\"]', '', 3);
 
 -- --------------------------------------------------------
 
@@ -1077,16 +1097,21 @@ ALTER TABLE `faq`
   ADD KEY `uid` (`uid`);
 
 --
--- 테이블의 인덱스 `lecdraft`
---
-ALTER TABLE `lecdraft`
-  ADD PRIMARY KEY (`draft_id`);
-
---
 -- 테이블의 인덱스 `lecture`
 --
 ALTER TABLE `lecture`
-  ADD PRIMARY KEY (`leid`);
+  ADD PRIMARY KEY (`leid`),
+  ADD KEY `cgid` (`cgid`);
+
+--
+-- 테이블의 인덱스 `lecture_detail`
+--
+ALTER TABLE `lecture_detail`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `lecture_id` (`lecture_id`),
+  ADD KEY `quiz_id` (`quiz_id`),
+  ADD KEY `test_id` (`test_id`),
+  ADD KEY `file_id` (`file_id`);
 
 --
 -- 테이블의 인덱스 `lecture_sales`
@@ -1284,7 +1309,7 @@ ALTER TABLE `category`
 -- 테이블의 AUTO_INCREMENT `class_data`
 --
 ALTER TABLE `class_data`
-  MODIFY `cdid` int(11) NOT NULL AUTO_INCREMENT COMMENT '수강데이터ID', AUTO_INCREMENT=1;
+  MODIFY `cdid` int(11) NOT NULL AUTO_INCREMENT COMMENT '수강데이터ID', AUTO_INCREMENT=3;
 
 --
 -- 테이블의 AUTO_INCREMENT `company_info`
@@ -1296,7 +1321,7 @@ ALTER TABLE `company_info`
 -- 테이블의 AUTO_INCREMENT `counsel`
 --
 ALTER TABLE `counsel`
-  MODIFY `post_id` int(11) NOT NULL AUTO_INCREMENT COMMENT '게시물id', AUTO_INCREMENT=2;
+  MODIFY `post_id` int(11) NOT NULL AUTO_INCREMENT COMMENT '게시물id', AUTO_INCREMENT=13;
 
 --
 -- 테이블의 AUTO_INCREMENT `coupons`
@@ -1311,16 +1336,16 @@ ALTER TABLE `faq`
   MODIFY `fqid` int(11) NOT NULL AUTO_INCREMENT COMMENT 'FAQ고유번호', AUTO_INCREMENT=21;
 
 --
--- 테이블의 AUTO_INCREMENT `lecdraft`
---
-ALTER TABLE `lecdraft`
-  MODIFY `draft_id` int(11) NOT NULL AUTO_INCREMENT COMMENT '번호';
-
---
 -- 테이블의 AUTO_INCREMENT `lecture`
 --
 ALTER TABLE `lecture`
-  MODIFY `leid` int(11) NOT NULL AUTO_INCREMENT COMMENT '번호', AUTO_INCREMENT=2;
+  MODIFY `leid` int(11) NOT NULL AUTO_INCREMENT COMMENT '번호', AUTO_INCREMENT=4;
+
+--
+-- 테이블의 AUTO_INCREMENT `lecture_detail`
+--
+ALTER TABLE `lecture_detail`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '강의 ID';
 
 --
 -- 테이블의 AUTO_INCREMENT `lefile`
@@ -1380,7 +1405,7 @@ ALTER TABLE `post_comment`
 -- 테이블의 AUTO_INCREMENT `quiz`
 --
 ALTER TABLE `quiz`
-  MODIFY `exid` int(11) NOT NULL AUTO_INCREMENT COMMENT '번호';
+  MODIFY `exid` int(11) NOT NULL AUTO_INCREMENT COMMENT '번호', AUTO_INCREMENT=5;
 
 --
 -- 테이블의 AUTO_INCREMENT `refunds`
@@ -1398,7 +1423,7 @@ ALTER TABLE `review`
 -- 테이블의 AUTO_INCREMENT `send_email`
 --
 ALTER TABLE `send_email`
-  MODIFY `emid` int(11) NOT NULL AUTO_INCREMENT COMMENT '이메일발송고유번호';
+  MODIFY `emid` int(11) NOT NULL AUTO_INCREMENT COMMENT '이메일발송고유번호', AUTO_INCREMENT=11;
 
 --
 -- 테이블의 AUTO_INCREMENT `student_qna`
@@ -1428,13 +1453,13 @@ ALTER TABLE `teacher_qna`
 -- 테이블의 AUTO_INCREMENT `teamproject`
 --
 ALTER TABLE `teamproject`
-  MODIFY `post_id` int(11) NOT NULL AUTO_INCREMENT COMMENT '게시물id(자동)', AUTO_INCREMENT=2;
+  MODIFY `post_id` int(11) NOT NULL AUTO_INCREMENT COMMENT '게시물id(자동)', AUTO_INCREMENT=4;
 
 --
 -- 테이블의 AUTO_INCREMENT `test`
 --
 ALTER TABLE `test`
-  MODIFY `exid` int(11) NOT NULL AUTO_INCREMENT COMMENT '번호';
+  MODIFY `exid` int(11) NOT NULL AUTO_INCREMENT COMMENT '번호', AUTO_INCREMENT=2;
 
 --
 -- 테이블의 AUTO_INCREMENT `user`
