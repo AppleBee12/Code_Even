@@ -5,15 +5,13 @@ $store_js = "<script src=\"http://$host/code_even/admin/js/store.js\"></script>"
 $title = "상점 관리";
 include_once($_SERVER['DOCUMENT_ROOT'] . '/CODE_EVEN/admin/inc/header.php');
 
-"<script>
- new daum.Postcode({
-        oncomplete: function(data) {
-            // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분입니다.
-            // 예제를 참고하여 다양한 활용법을 확인해 보세요.
-        }
-    }).open();
-</script>"
-  ?>
+
+
+$sql = "SELECT * FROM company_info WHERE comid = 1";
+$result = $mysqli->query($sql);
+$cidata = $result->fetch_object();
+
+?>
 
 
 <div class="container">
@@ -22,25 +20,17 @@ include_once($_SERVER['DOCUMENT_ROOT'] . '/CODE_EVEN/admin/inc/header.php');
 </div>
 
 
-<form action="">
-  <div class="upload mt-5 mb-3">
-    <img src="https://picsum.photos/200" width=100 height=100 alt="">
-    <div class="round">
-      <input type="file">
-      <i class="bi bi-camera-fill"></i>
-    </div>
-  </div>
-  <p class="text-center mb-5">프로필 이미지</p>
-
+<form action="store_edit_ok.php" method="POST">
+  <input type="hidden" name="comid" value="<?= $cidata->comid; ?>">
   <div class="content_bar cent">
     <h3>회사 정보 설정</h3>
   </div>
   <table class="table w-100 info_table">
     <colgroup>
-      <col width="160">
-      <col width="516">
-      <col width="160">
-      <col width="516">
+      <col class="col-width-160">
+      <col class="col-width-516">
+      <col class="col-width-160">
+      <col class="col-width-516">
     </colgroup>
     <tbody>
       <?php
@@ -51,55 +41,19 @@ include_once($_SERVER['DOCUMENT_ROOT'] . '/CODE_EVEN/admin/inc/header.php');
       // print_r($result->fetch_assoc());
       //print_r($user_id);
       
-      // # 상점 정보
-// type CompanyInfo {
-      
-      //   # 상세주소
-//   addressTwo: String!
-//   # 사업자등록번호
-//   bussinessRegistrationNum: String!
-//   # 통신판매업신고 번호
-//   commerceRegistrationNum: String!
-//   # 고객센터 전화번호
-//   csNumber: String!
-//   # 이메일
-//   email: String!
-//   # 상점개설일
-//   createdAt: String!
-//   # 세무 담당자 부서
-//   taxManagerDepartment: String
-//   # 세무 담당자
-//   taxManagerName: String!
-//   # 세금계산서 발급 이메일
-//   taxBillEmail: String!
-//   # 세무 담당자 전화번호
-//   taxManagerPhone: String!
-//   # 개인정보
-//   담당자 부서
-//   privacyManagerDepartment: String
-//   # 개인정보  담당자 
-//   privacyManagerName: String!
-//   # 개인정보
-//   담당자 이메일
-//   privacyManagerEmail: String!
-//   # 개인정보
-//   담당자 전화번호
-//   privacyManagerPhone: String
-// }
-      
       ?>
       <tr>
         <th scope="row">
           <label for="company">회사명 <b>*</b></label>
         </th>
         <td>
-          <input type="text" id="company" name="company" class="form-control" placeholder="입력 필수 값 입니다." value="">
+          <input type="text" id="company" name="company" class="form-control" placeholder="입력 필수 값 입니다." value="<?=$cidata->company?>">
         </td>
         <th scope="row">
           <label for="bank">사업자 등록번호 <b>*</b></label>
         </th>
         <td>
-          <input type="text" id="bank" name="bank" class="form-control" placeholder="입력 필수 값 입니다." value="">
+          <input type="text" id="bank" name="bank" class="form-control" placeholder="입력 필수 값 입니다." value="<?=$cidata->bussiness_registration_num?>">
         </td>
       </tr>
       <tr>
@@ -107,65 +61,58 @@ include_once($_SERVER['DOCUMENT_ROOT'] . '/CODE_EVEN/admin/inc/header.php');
           <label for="ceoName">대표이사 <b>*</b></label>
         </th>
         <td>
-          <input type="text" id="ceoName" name="ceoName" class="form-control" placeholder="입력 필수 값 입니다." value="">
+          <input type="text" id="ceoName" name="ceoName" class="form-control" placeholder="입력 필수 값 입니다." value="<?=$cidata->ceo_name?>">
         </td>
         <th scope="row">
           <label for="bank">통신판매업 신고 <b>*</b></label>
         </th>
         <td>
-          <input type="text" id="bank" name="bank" class="form-control" placeholder="입력 필수 값 입니다." value="">
+          <input type="text" id="bank" name="bank" class="form-control" placeholder="입력 필수 값 입니다." value="<?=$cidata->commerce_registration_num?>">
         </td>
       </tr>
-      <input type="text" id="sample3_postcode" placeholder="우편번호">
-<input type="button" onclick="sample3_execDaumPostcode()" value="우편번호 찾기"><br>
-<input type="text" id="sample3_address" placeholder="주소"><br>
-<input type="text" id="sample3_detailAddress" placeholder="상세주소">
-<input type="text" id="sample3_extraAddress" placeholder="참고항목">
 
-<div id="wrap" style="display:none;border:1px solid;width:500px;height:300px;margin:5px 0;position:relative">
-<img src="//t1.daumcdn.net/postcode/resource/images/close.png" id="btnFoldWrap" style="cursor:pointer;position:absolute;right:0px;top:-1px;z-index:1" onclick="foldDaumPostcode()" alt="접기 버튼">
-</div>
       <tr>
         <th scope="row">
-          <label for="address_num">주소 <b>*</b></label>
+          <label for="address_num">우편번호 <b>*</b></label>
         </th>
         <td colspan="3" class="d-flex gap-2">
-          <input type="text" id="address_num" name="address_num" class="form-control address_num" placeholder="우편번호" >
-          <input type="button" onclick="findPostcode()" id="find-postcode" value="우편번호 찾기">
+          <input type="text" id="postcode" name="address_num" class="form-control address_num" placeholder="우편번호" value="<?=$cidata->post_code?>" >
+          <input type="button" onclick="execDaumPostcode()" value="우편번호 찾기"><br>
         </td>
         <th scope="row">
           <label for="bank">대표 연락처<b>*</b></label>
         </th>
         <td colspan="3">
-          <input type="text" id="bank" name="bank" class="form-control" placeholder="입력 필수 값 입니다." value="">
+          <input type="text" id="bank" name="bank" class="form-control" placeholder="입력 필수 값 입니다." value="<?=$cidata->cs_number?>">
         </td>
       </tr>
       <tr>
         <th scope="row">
-          <label for="addressOne">주소 <b>*</b></label>
+          <label for="addressOne">기본 주소 <b>*</b></label>
         </th>
         <td>
-        <input type="text" id="addressOne" name="addressOne" class="form-control" placeholder="입력 필수 값 입니다." value="">
+          <input type="text" id="address" name="address_one" class="form-control" placeholder="입력 필수 값 입니다." value="<?=$cidata->address_one?>">
         </td>
         <th scope="row">
           <label for="email">이메일 <b>*</b></label>
         </th>
         <td colspan="3">
-          <input type="email" id="email" name="email" class="form-control w_512" placeholder="입력 필수 값 입니다." value="">
+          <input type="email" id="email" name="email" class="form-control w_512" placeholder="입력 필수 값 입니다." value="<?=$cidata->email?>">
         </td>
       </tr>
       <tr>
         <th scope="row">
-          <label for="addressTwo">주소 <b>*</b></label>
+          <label for="addressTwo">상세 주소 <b>*</b></label>
         </th>
-        <td>
-          <input type="text" id="addressTwo" name="addressTwo" class="form-control" placeholder="입력 필수 값 입니다." value="">
+        <td class="d-flex gap-2">
+        <input type="text" id="extraAddress" name="address_three" class="form-control address" placeholder="참고 주소(동이름)" value="<?=$cidata->address_three?>">
+          <input type="text" id="detailAddress" name="address_two" class="form-control address" placeholder="입력 필수 값 입니다." value="<?=$cidata->address_two?>">
         </td>
         <th scope="row">
           <label for="email">서비스 시작일 </label>
         </th>
         <td colspan="3">
-          <input type="email" id="email" name="email" class="form-control w_512" placeholder="입력 필수 값 입니다." value=""
+          <input type="email" id="email" name="email" class="form-control w_512" placeholder="입력 필수 값 입니다." value="<?=$cidata->created_at?>"
             disabled readonly>
         </td>
       </tr>
@@ -174,23 +121,20 @@ include_once($_SERVER['DOCUMENT_ROOT'] . '/CODE_EVEN/admin/inc/header.php');
           <div class="content_bar cent">
             <h3>회사 정보 설정</h3>
           </div>
-
         </td>
       </tr>
-
-
       <tr>
         <th scope="row">
           <label for="username">세무 담당부서</label>
         </th>
         <td>
-          <input type="text" id="username" name="username" class="form-control" placeholder="입력해 주세요." value="">
+          <input type="text" id="username" name="username" class="form-control" placeholder="입력해 주세요." value="<?=$cidata->tax_manager_department?>">
         </td>
         <th scope="row">
           <label for="email">계산서 발급 이메일 <b>*</b></label>
         </th>
         <td colspan="3">
-          <input type="email" id="email" name="email" class="form-control w_512" placeholder="입력 필수 값 입니다." value="">
+          <input type="email" id="email" name="email" class="form-control w_512" placeholder="입력 필수 값 입니다." value="<?=$cidata->tax_bill_email?>">
         </td>
       </tr>
       <tr>
@@ -198,13 +142,13 @@ include_once($_SERVER['DOCUMENT_ROOT'] . '/CODE_EVEN/admin/inc/header.php');
           <label for="userid">세무 담당자 <b>*</b></label>
         </th>
         <td>
-          <input type="text" id="userid" name="userid" class="form-control" placeholder="입력 필수 값 입니다." value="">
+          <input type="text" id="userid" name="userid" class="form-control" placeholder="입력 필수 값 입니다." value="<?=$cidata->tax_manager_name?>">
         </td>
         <th scope="row">
           <label for="contact">세무 담당자 연락처</label>
         </th>
         <td>
-          <input type="text" id="contact" name="contact" class="form-control" placeholder="입력해 주세요." value="">
+          <input type="text" id="contact" name="contact" class="form-control" placeholder="입력해 주세요." value="<?=$cidata->tax_manager_phone?>">
         </td>
       </tr>
       <tr>
@@ -217,13 +161,13 @@ include_once($_SERVER['DOCUMENT_ROOT'] . '/CODE_EVEN/admin/inc/header.php');
           <label for="username">개인정보 담당부서</label>
         </th>
         <td>
-          <input type="text" id="username" name="username" class="form-control" placeholder="입력해 주세요." value="">
+          <input type="text" id="username" name="username" class="form-control" placeholder="입력해 주세요." value="<?=$cidata->privacy_manager_department?>">
         </td>
         <th scope="row">
           <label for="email">개인정보 담당 이메일 <b>*</b></label>
         </th>
         <td colspan="3">
-          <input type="email" id="email" name="email" class="form-control w_512" placeholder="입력 필수 값 입니다." value="">
+          <input type="email" id="email" name="email" class="form-control w_512" placeholder="입력 필수 값 입니다." value="<?=$cidata->privacy_manager_email?>">
         </td>
       </tr>
       <tr>
@@ -231,13 +175,13 @@ include_once($_SERVER['DOCUMENT_ROOT'] . '/CODE_EVEN/admin/inc/header.php');
           <label for="userid">개인정보 담당자 <b>*</b></label>
         </th>
         <td>
-          <input type="text" id="userid" name="userid" class="form-control" placeholder="입력 필수 값 입니다." value="">
+          <input type="text" id="userid" name="userid" class="form-control" placeholder="입력 필수 값 입니다." value="<?=$cidata->privacy_manager_name?>">
         </td>
         <th scope="row">
           <label for="contact">개인정보 담당 연락처</label>
         </th>
         <td>
-          <input type="text" id="contact" name="contact" class="form-control" placeholder="입력해 주세요." value="">
+          <input type="text" id="contact" name="contact" class="form-control" placeholder="입력해 주세요." value="<?=$cidata->privacy_manager_phone?>">
         </td>
       </tr>
     </tbody>
@@ -251,6 +195,57 @@ include_once($_SERVER['DOCUMENT_ROOT'] . '/CODE_EVEN/admin/inc/header.php');
 </div>
 </div>
 
+
+
+<script>
+    function execDaumPostcode() {
+        new daum.Postcode({
+            oncomplete: function(data) {
+                // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
+
+                // 각 주소의 노출 규칙에 따라 주소를 조합한다.
+                // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
+                var addr = ''; // 주소 변수
+                var extraAddr = ''; // 참고항목 변수
+
+                //사용자가 선택한 주소 타입에 따라 해당 주소 값을 가져온다.
+                if (data.userSelectedType === 'R') { // 사용자가 도로명 주소를 선택했을 경우
+                    addr = data.roadAddress;
+                } else { // 사용자가 지번 주소를 선택했을 경우(J)
+                    addr = data.jibunAddress;
+                }
+
+                // 사용자가 선택한 주소가 도로명 타입일때 참고항목을 조합한다.
+                if(data.userSelectedType === 'R'){
+                    // 법정동명이 있을 경우 추가한다. (법정리는 제외)
+                    // 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
+                    if(data.bname !== '' && /[동|로|가]$/g.test(data.bname)){
+                        extraAddr += data.bname;
+                    }
+                    // 건물명이 있고, 공동주택일 경우 추가한다.
+                    if(data.buildingName !== '' && data.apartment === 'Y'){
+                        extraAddr += (extraAddr !== '' ? ', ' + data.buildingName : data.buildingName);
+                    }
+                    // 표시할 참고항목이 있을 경우, 괄호까지 추가한 최종 문자열을 만든다.
+                    if(extraAddr !== ''){
+                        extraAddr = ' (' + extraAddr + ')';
+                    }
+                    // 조합된 참고항목을 해당 필드에 넣는다.
+                    document.getElementById("extraAddress").value = extraAddr;
+                
+                } else {
+                    document.getElementById("extraAddress").value = '';
+                }
+
+                // 우편번호와 주소 정보를 해당 필드에 넣는다.
+                document.getElementById('postcode').value = data.zonecode;
+                document.getElementById("address").value = addr;
+                // 커서를 상세주소 필드로 이동한다.
+                document.getElementById("detailAddress").focus();
+            }
+        }).open();
+    }
+</script>
 <?php
 include_once($_SERVER['DOCUMENT_ROOT'] . '/CODE_EVEN/admin/inc/footer.php');
 ?>

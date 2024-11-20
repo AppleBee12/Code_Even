@@ -8,8 +8,12 @@ tbody .form-control, tbody .form-select{
   width: 480px;
 }
 
-.address_num{
+tbody td input.address_num{
   width: 360px;
+}
+
+tbody td input.address{
+  width: 236px;
 }
 
 .info_table {
