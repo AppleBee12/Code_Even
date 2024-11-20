@@ -1,16 +1,27 @@
 <?php
-$title = "문의게시판 관리";
+$title = "수강생 질문";
 include_once($_SERVER['DOCUMENT_ROOT'] . '/code_even/admin/inc/header.php');
+
+$instructor_name = $_SESSION['AUNAME'];
+
+// print_r($instructor_name);
 
 // 게시글 개수 구하기
 $keywords = isset($_GET['keywords']) ? $mysqli->real_escape_string($_GET['keywords']) : '';
-$where_clause = '';
+$where_clause = "WHERE lecture.name = '$instructor_name'";
 
 if ($keywords) {
-  $where_clause = "WHERE admin_question.qtitle LIKE '%$keywords%' OR user.username LIKE '%$keywords%' OR user.userid LIKE '%$keywords%'";
+  $where_clause .= " AND (user.username LIKE '%$keywords%' 
+  OR user.userid LIKE '%$keywords%')";
 }
 
-$page_sql = "SELECT COUNT(*) AS cnt FROM admin_question JOIN user ON admin_question.uid = user.uid $where_clause";
+$page_sql = "SELECT COUNT(*) AS cnt 
+            FROM student_qna 
+            JOIN class_data ON class_data.cdid = class_data.cdid 
+            JOIN user ON class_data.uid = user.uid 
+            JOIN lecture ON class_data.leid = lecture.leid 
+            $where_clause";
+
 $page_result = $mysqli->query($page_sql);
 $page_data = $page_result->fetch_assoc();
 $row_num = $page_data['cnt'];
@@ -30,12 +41,14 @@ if ($block_end > $total_page) {
   $block_end = $total_page;
 }
 
-$sql = "SELECT admin_question.*, user.username, user.userid, user.user_level, admin_answer.aaid 
-        FROM admin_question 
-        JOIN user ON admin_question.uid = user.uid 
-        LEFT JOIN admin_answer ON admin_question.aqid = admin_answer.aqid 
+$sql = "SELECT student_qna.*, class_data.*, lecture.*, user.*, teacher_qna.asid 
+        FROM student_qna 
+        LEFT JOIN teacher_qna ON student_qna.sqid = teacher_qna.sqid 
+        JOIN class_data ON student_qna.cdid = class_data.cdid
+        JOIN lecture ON class_data.leid = lecture.leid
+        JOIN user ON class_data.uid = user.uid 
         $where_clause 
-        ORDER BY admin_question.aqid DESC 
+        ORDER BY student_qna.sqid DESC 
         LIMIT $start_num, $list";
 
 $result = $mysqli->query($sql);
@@ -44,31 +57,33 @@ $dataArr = [];
 while ($data = $result->fetch_object()) {
   $dataArr[] = $data;
 }
+
 ?>
 
 <div class="container">
-  <h2>1:1 문의</h2>
+  <h2>수강생 질문</h2>
   <form class="row justify-content-end">
     <div class="col-lg-4">
       <div class="input-group mb-3">
         <input type="text" class="form-control" placeholder="검색어를 입력하세요." name="keywords"
           value="<?= htmlspecialchars($keywords); ?>">
-        <button type="submit" class="btn btn-secondary">
+        <button type="button" class="btn btn-secondary">
           <i class="bi bi-search"></i>
         </button>
       </div>
     </div>
   </form>
 
+  <form action="" method="">
     <table class="table list_table">
       <thead>
         <tr>
           <th scope="col">번호</th>
-          <th scope="col">회원유형</th>
           <th scope="col">아이디</th>
           <th scope="col">이름</th>
           <th scope="col">제목</th>
-          <th scope="col">분류</th>
+          <th scope="col">강사명</th>
+          <th scope="col">강의명</th>
           <th scope="col">등록일</th>
           <th scope="col">상태</th>
         </tr>
@@ -79,43 +94,18 @@ while ($data = $result->fetch_object()) {
           foreach ($dataArr as $no) {
             ?>
             <tr>
-              <td><?= $no->aqid; ?></td>
-              <td>
-                <?php
-                $user_levels = [
-                  1 => "수강생",
-                  10 => "강사"
-                ];
-
-                echo isset($user_levels[$no->user_level]) ? $user_levels[$no->user_level] : "알 수 없음";
-                ?>
-              </td>
+              <td><?= $no->sqid; ?></td>
               <td><?= $no->userid; ?></td>
               <td><?= $no->username; ?></td>
-              <td><a
-                  href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/inquiry/admin_qna_details.php?aqid=<?= $no->aqid; ?>"
-                  class="underline"><?= $no->qtitle; ?></a></td>
-              <td>
-                <?php
-                $categories = [
-                  1 => "결제/환불",
-                  2 => "강의",
-                  3 => "쿠폰",
-                  4 => "가입/탈퇴",
-                  5 => "기타",
-                  6 => "수료",
-                  7 => "정산",
-                  8 => "강사"
-                ];
-
-                echo isset($categories[$no->category]) ? $categories[$no->category] : "알 수 없음";
-                ?>
+              <td><a href="student_question_details.php?sqid=<?= $no->sqid; ?>" class="underline"><?= $no->qtitle; ?></a>
               </td>
+              <td><?= $no->name; ?></td>
+              <td><?= mb_strlen($no->title) > 15 ? mb_substr($no->title, 0, 15) . '...' : $no->title; ?></td>
               <td><?= $no->regdate; ?></td>
               <td>
                 <?php
-                $class = !empty($no->aaid) ? 'text-bg-success' : 'text-bg-light';
-                $text = !empty($no->aaid) ? '답변완료' : '답변대기';
+                $class = !empty($no->asid) ? 'text-bg-success' : 'text-bg-light';
+                $text = !empty($no->asid) ? '답변완료' : '답변대기';
                 echo "<span class='badge $class'>$text</span>";
                 ?>
               </td>
@@ -130,7 +120,7 @@ while ($data = $result->fetch_object()) {
     </table>
 
     <!-- //Pagination -->
-    <div class="list_pagination">
+    <div class="list_pagination" aria-label="Page navigation example">
       <ul class="pagination d-flex justify-content-center">
         <?php
         $previous = $block_start - $block_ct;
@@ -139,7 +129,7 @@ while ($data = $result->fetch_object()) {
         if ($block_num > 1) {
           ?>
           <li class="page-item">
-            <a class="page-link" href="notice.php?page=<?= $previous; ?>">
+            <a class="page-link" href="student_question.php?page=<?= $previous; ?>" aria-label="Previous">
               <i class="bi bi-chevron-left"></i>
             </a>
           </li>
@@ -150,14 +140,15 @@ while ($data = $result->fetch_object()) {
         for ($i = $block_start; $i <= $block_end; $i++) {
           $active = ($page == $i) ? 'active' : '';
           ?>
-          <li class="page-item <?= $active; ?>"><a class="page-link" href="notice.php?page=<?= $i; ?>"><?= $i; ?></a></li>
+          <li class="page-item <?= $active; ?>"><a class="page-link"
+              href="student_question.php?page=<?= $i; ?>"><?= $i; ?></a></li>
           <?php
         }
         $next = $block_end + 1;
         if ($total_block > $block_num) {
           ?>
           <li class="page-item">
-            <a class="page-link" href="notice.php?page=<?= $next; ?>">
+            <a class="page-link" href="student_question.php?page=<?= $next; ?>" aria-label="Next">
               <i class="bi bi-chevron-right"></i>
             </a>
           </li>
@@ -166,6 +157,8 @@ while ($data = $result->fetch_object()) {
         ?>
       </ul>
     </div>
+
+  </form>
 
 </div>
 
