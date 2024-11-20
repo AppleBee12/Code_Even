@@ -78,12 +78,12 @@ include_once($_SERVER['DOCUMENT_ROOT'] . '/CODE_EVEN/admin/inc/header.php');
   <form action="" method="">
     <table class="table details_table">
       <colgroup>
-        <col style="width:160px">
-        <col style="">
-        <col style="width:160px">
-        <col style="">
-        <col style="width:160px">
-        <col style="">
+        <col class="col-width-160">
+        <col class="">
+        <col class="col-width-160">
+        <col class="">
+        <col class="col-width-160">
+        <col class="">
       </colgroup>
       <tbody>
         <tr>
