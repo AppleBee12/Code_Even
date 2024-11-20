@@ -332,7 +332,13 @@ $_SESSION['AUNAME'] = $username;
                     href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/student/send_email.php">　　-　이메일 발송</a></li>
               <?php endif; ?>
               <li class="list-group-item"><a
-                  href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/student/course_reviews.php">　　-　수강 후기</a>
+                <?php if ($level == 100): ?>
+                  href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/student/course_reviews.php"
+                <?php endif; ?>
+                <?php if ($level == 10): ?>
+                  href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/teacher_page/student/teacher_course_reviews.php"
+                <?php endif; ?>
+                  >　　-　수강 후기</a>
               </li>
             </ul>
           </li>

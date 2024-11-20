@@ -511,77 +511,66 @@ function updateQuizAndTest() {
     const title = $('#title').val();
 
     if (cate1 && cate2 && cate3 && title) {
-      $.ajax({
-        url: 'lecture_up_ok.php',
-        type: 'POST',
-        data: {
-            action: 'get_quiz_test',
-            cate1: cate1,
-            cate2: cate2,
-            cate3: cate3,
-            title: title
-        },
-        success: function(response) {
-            var data = JSON.parse(response);
+        $.ajax({
+            url: 'lecture_up_ok.php',
+            type: 'POST',
+            data: {
+                action: 'get_quiz_test',
+                cate1: cate1,
+                cate2: cate2,
+                cate3: cate3,
+                title: title
+            },
+            success: function(response) {
+                var data = JSON.parse(response);
 
-            var quizData = data.quiz;
-            var testData = data.test;
-
-            if (quizData.length === 0 && testData.length === 0) {
-                // 퀴즈와 시험 데이터가 없을 때 처리
-                console.log('퀴즈와 시험 데이터가 없습니다.');
-                // 필요하다면, UI에서 퀴즈/시험 선택 드롭다운을 비울 수도 있습니다.
-                $('select[name="quiz_id"]').html('<option value="">퀴즈를 선택해 주세요.</option>');
-                $('select[name="test_id"]').html('<option value="">시험을 선택해 주세요.</option>');
-            } else {
-                // 퀴즈와 시험 데이터가 있을 때 처리
-                console.log('퀴즈 데이터:', quizData);
-                console.log('시험 데이터:', testData);
-
-                // 퀴즈 목록 업데이트
-                const quizSelect = $('select[name="quiz_id"]');
+                // 퀴즈와 시험 데이터 업데이트
+                var quizSelect = $('select[name="quiz_id"]');
                 quizSelect.html('<option value="">퀴즈를 선택해 주세요.</option>');
-                quizData.forEach(function(quiz) {
+                data.quiz.forEach(function(quiz) {
                     quizSelect.append('<option value="' + quiz.exid + '">' + quiz.tt + '</option>');
                 });
 
-                // 시험 목록 업데이트
-                const testSelect = $('select[name="test_id"]');
+                var testSelect = $('select[name="test_id"]');
                 testSelect.html('<option value="">시험을 선택해 주세요.</option>');
-                testData.forEach(function(test) {
+                data.test.forEach(function(test) {
                     testSelect.append('<option value="' + test.exid + '">' + test.tt + '</option>');
                 });
+            },
+            error: function(xhr, status, error) {
+                console.error('AJAX Error:', error);
             }
-        },
-        error: function(xhr, status, error) {
-            // 서버 오류가 발생했을 때만 처리
-            console.error('AJAX Error:', error);
-        }
-      });
-
+        });
     }
 }
 
 // 카테고리나 강좌명이 변경될 때 이벤트 실행
 $('#cate1, #cate2, #cate3, #title').on('change', updateQuizAndTest);
 
-$('#lecture_save').on('submit', function (e) {
-   const lectureDetails = [];
-   $('.lecture-detail-row').each(function () {
-      lectureDetails.push({
-         title: $(this).find('input[name="lecture_title"]').val(),
-         description: $(this).find('textarea[name="lecture_description"]').val(),
-         quiz_id: $(this).find('select[name="quiz_id"]').val(),
-         test_id: $(this).find('select[name="test_id"]').val(),
-      });
-   });
 
-   $('<input>').attr({
-      type: 'hidden',
-      name: 'lecture_detail',
-      value: JSON.stringify(lectureDetails),
-   }).appendTo('#lecture_save');
+$('#lecture_save').on('submit', function (e) {
+    const lectureDetails = [];
+    $('.lecture-detail-row').each(function () {
+        lectureDetails.push({
+            title: $(this).find('input[name="lecture_title"]').val(),
+            description: $(this).find('textarea[name="lecture_description"]').val(),
+            quiz_id: $(this).find('select[name="quiz_id"]').val(),
+            test_id: $(this).find('select[name="test_id"]').val(),
+        });
+    });
+
+    console.log(lectureDetails); // 데이터를 콘솔에 출력
+
+    $('<input>').attr({
+        type: 'hidden',
+        name: 'lecture_detail',
+        value: JSON.stringify(lectureDetails),
+    }).appendTo('#lecture_save');
 });
+
+
+
+
 
 
 
