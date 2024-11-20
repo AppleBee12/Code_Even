@@ -251,6 +251,23 @@ CREATE TABLE `class_data` (
   `progress_rate` decimal(10,0) NOT NULL COMMENT '진도율'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='수강데이터';
 
+--
+-- 테이블의 덤프 데이터 `class_data`
+--
+
+INSERT INTO `class_data` (`cdid`, `uid`, `leid`, `exid`, `course_cert`, `progress_rate`) VALUES
+(1, 3, 1, NULL, '', 0),  -- odid = 1, product_id = 1 (강좌)
+(2, 42, 2, NULL, '', 0), -- odid = 3, product_id = 2 (강좌)
+(3, 53, 1, NULL, '', 0), -- odid = 5, product_id = 1 (강좌)
+(4, 61, 2, NULL, '', 0), -- odid = 7, product_id = 2 (강좌)
+(5, 12, 2, NULL, '', 0), -- odid = 9, product_id = 2 (강좌)
+(6, 25, 1, NULL, '', 0), -- odid = 10, product_id = 1 (강좌)
+(7, 67, 1, NULL, '', 0), -- odid = 12, product_id = 1 (강좌)
+(8, 55, 2, NULL, '', 0), -- odid = 14, product_id = 2 (강좌)
+(9, 8, 1, NULL, '', 0),  -- odid = 15, product_id = 1 (강좌)
+(10, 14, 1, NULL, '', 0), -- odid = 17, product_id = 1 (강좌)
+(11, 28, 1, NULL, '', 0); -- odid = 19, product_id = 1 (강좌);
+
 -- --------------------------------------------------------
 
 --
