@@ -24,6 +24,7 @@ if (!isset($cpid)) {
   $status = $_POST['status'] ?? '';
   $use_min_price = $_POST['use_min_price'] ?? '0';
   $max_value = $_POST['max_value'] ?? '0';
+  $cp_desc = $_POST['cp_desc'] ?? '';
 
   $save_dir = $_SERVER['DOCUMENT_ROOT'].'/code_even/admin/upload/coupons/';
   $filename = $coupon_image['name']; //insta.jpg
@@ -59,7 +60,8 @@ $sql = "UPDATE coupons SET
   coupon_ratio = $coupon_ratio,
   status = $status,
   max_value = $max_value,
-  use_min_price = $use_min_price
+  use_min_price = $use_min_price,
+  cp_desc = '$cp_desc'
   ";
 
 // thumbnail 값이 존재할 때만 thumbnail 컬럼을 업데이트
