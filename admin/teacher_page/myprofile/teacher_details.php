@@ -28,8 +28,9 @@ while($cate_data = $category_result->fetch_object()){
     <h3>강사 상세정보</h3>
   </div>
 
-  <form action="teacher_edit_ok.php" id="teacher_save" method="POST" enctype="multipart/form-data">
-  <input type="hidden" name="tcid" value="<?= $tc->tcid; ?>">
+  <form action="teacher_details_ok.php" id="teacher_save" method="POST" enctype="multipart/form-data">
+  <input type="hidden" name="tcid" value="<?= $tcid; ?>">
+  <input type="hidden" name="tc_intro" id="contents" value="">
     <div class="upload mt-5 mb-3">
       <img src="http://<?= $_SERVER['HTTP_HOST'] . $tc->tc_thumbnail ?>" width=100 height=100 alt="강사 프로필 섬네일">
       <div class="round">
@@ -131,7 +132,7 @@ while($cate_data = $category_result->fetch_object()){
 
   <div class="d-flex justify-content-end gap-2">
     <a href="javascript:history.back();" type="button" class="btn btn-outline-danger">취소</a>
-    <a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/index.php" type="button" class="btn btn-outline-secondary">수정</a>
+    <a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/teacher_page/myprofile/teacher_details_ok.php" type="button" class="btn btn-outline-secondary">수정</a>
   </div>
 </div>
 

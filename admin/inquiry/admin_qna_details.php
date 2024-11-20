@@ -129,7 +129,12 @@ $data = $result->fetch_object();
         class="btn btn-outline-danger" role="button">취소</a>
 
       <?php if ($level == 10): ?>
-        <a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/inquiry/admin_qna_answer.php?aqid=<?= $aqid; ?>"
+        <a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/inquiry/admin_qna_teacher_delete.php?aqid=<?= $aqid; ?>"
+          class="btn btn-danger">삭제</a>
+      <?php endif; ?>
+
+      <?php if ($level == 100): ?>
+        <a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/inquiry/admin_qna_delete.php?aqid=<?= $aqid; ?>"
           class="btn btn-danger">삭제</a>
       <?php endif; ?>
 
