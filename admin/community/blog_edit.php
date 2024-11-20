@@ -41,12 +41,12 @@ include_once($_SERVER['DOCUMENT_ROOT'] . '/code_even/admin/inc/header.php');
                 <input type="text" id="titles" name="titles" class="form-control" placeholder="입력 필수 값 입니다." value="<?= $row['titles'] ?>">
               </td>
               <th scope="row" rowspan="3">썸네일 미리보기</th>
-              <td rowspan="3">
+              <td rowspan="3" class="thumb_parent">
                 <?php 
                   $thumbnail_path = !empty($row['thumnails']) ? 'http://' . $_SERVER['HTTP_HOST'] . $row['thumnails'] : '';
                   $image_src = (!empty($row['thumnails']) && file_exists($thumbnail_path)) ? $row['thumnails'] : '/CODE_EVEN/admin/upload/teacher/tc_dummy.png';
                 ?>
-                <img id="thumbnail_preview" src="<?= $thumbnail_path; ?>" class="rounded_circle" width = 150 height = 150 alt="프로필 이미지">
+                <img id="thumbnail_preview" src="<?= $thumbnail_path; ?>" class="angled_square thumb_child" width = 200 height = 200 alt="프로필 이미지">
 
               </td>
             </tr>
@@ -113,3 +113,9 @@ include_once($_SERVER['DOCUMENT_ROOT'] . '/code_even/admin/inc/header.php');
 <?php
 include_once($_SERVER['DOCUMENT_ROOT'] . '/code_even/admin/inc/footer.php');
 ?>
+<script>
+  let target = $('#summernote');
+  target.summernote({
+    height: 400,
+  });
+</script>

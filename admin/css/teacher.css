@@ -33,6 +33,16 @@ tbody td input.address{
   border-radius: 50% !important;
 }
 
+.thumb_parent{
+  position: relative;
+  width: 480px;
+}
+
+.thumb_child{
+  position: absolute;
+  left: 20px;
+  bottom: 0;
+}
 
 
 /* 프로필 이미지 업로드 */

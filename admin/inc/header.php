@@ -83,6 +83,7 @@ if($level == 10){
     case 'teacher_details.php':
     case 'store.php':
     case 'counsel_edit.php':
+    case 'team_project_edit.php':
     case 'blog_edit.php':
       echo '<link rel="stylesheet" href="http://' . $_SERVER['HTTP_HOST'] . '/code_even/admin/css/teacher.css">';
       break;
