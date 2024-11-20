@@ -107,9 +107,12 @@ if($level == 10){
     case 'student_list.php':
     case 'student_details.php':
     case 'student_question.php':
+    case 'teacher_student_question.php':
+    case 'student_question_answer.php':
     case 'student_question_details.php':
     case 'send_email.php':
     case 'course_reviews.php':
+    case 'teacher_course_reviews.php':
     case 'course_reviews_details.php':
     case 'notice.php':
     case 'notice_write.php':
@@ -214,8 +217,8 @@ if($level == 10){
           <?php endif; ?>
           <?php if ($level == 10): ?>
             답변이 필요한 학생 문의가
-            <a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/student/student_question.php"
-              class="alert-link">1건</a> 있습니다.
+            <a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/teacher_page/student/teacher_student_question.php"
+              class="alert-link"><?=$qna->no_answer_count?>건</a> 있습니다.
           <?php endif; ?>
           <button type="button" class="close" data-dismiss="alert" aria-label="Close">
             <span aria-hidden="true">&times;</span>
