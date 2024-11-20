@@ -62,7 +62,7 @@ while ($data = $result->fetch_object()) {
 
 
   <form action="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/community/blog_write.php" method="GET">
-    <input type="hidden" name="post" value="blog">
+    <!-- <input type="hidden" name="post" value="blog"> -->
     <table class="table list_table">
       <thead>
         <tr>
