@@ -220,7 +220,7 @@ if($level == 10){
           <?php if ($level == 10): ?>
             답변이 필요한 학생 문의가
             <a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/teacher_page/student/teacher_student_question.php"
-              class="alert-link"><?=$qna->no_answer_count?>건</a> 있습니다.
+              class="alert-link">건</a> 있습니다.
           <?php endif; ?>
           <button type="button" class="close" data-dismiss="alert" aria-label="Close">
             <span aria-hidden="true">&times;</span>
