@@ -1,10 +1,10 @@
 <?php
-$title = "고민 상담";
+$title = "팀 프로젝트";
 include_once($_SERVER['DOCUMENT_ROOT'] . '/code_even/admin/inc/header.php');
 ?>
 
 <div class="container">
-  <h2>고민 상담</h2>
+  <h2><?=$title?></h2>
   <div class="content_bar">
     <h3>글 수정하기</h3>
   </div>
@@ -13,7 +13,6 @@ include_once($_SERVER['DOCUMENT_ROOT'] . '/code_even/admin/inc/header.php');
     <table class="table info_table">
       <tbody>
         <?php
-        // URL에서 post_id 가져오기
         $post_id = $_GET['post_id'] ?? null;
 
         if ($post_id) {
