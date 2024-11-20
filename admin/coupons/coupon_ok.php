@@ -19,7 +19,9 @@ try{
   $coupon_ratio = $_POST['coupon_ratio'] ?? '0';
   $status = $_POST['status'] ?? '';
   $use_min_price = $_POST['use_min_price'] ?? '0';
+  $use_max_date = $_POST['use_max_date'] ?? 'NULL';
   $max_value = $_POST['max_value'] ?? '0';
+  $cp_desc = $_POST['cp_desc'] ?? '';
 
   $save_dir = $_SERVER['DOCUMENT_ROOT'].'/code_even/admin/upload/coupons/';
   $filename = $coupon_image['name']; //insta.jpg
@@ -40,9 +42,9 @@ try{
   
 
   $sql = "INSERT INTO coupons 
-  (coupon_name, coupon_image, coupon_type, coupon_price, coupon_ratio, status, userid, max_value, use_min_price) 
+  (coupon_name, coupon_image, coupon_type, coupon_price, coupon_ratio, status, userid, use_min_price, use_max_date, max_value, cp_desc) 
   VALUES
-  ('$coupon_name', '$coupon_image', '$coupon_type', $coupon_price, $coupon_ratio, $status, '{$_SESSION['AUID']}', $max_value, $use_min_price)";
+  ('$coupon_name', '$coupon_image', '$coupon_type', $coupon_price, $coupon_ratio, $status, '{$_SESSION['AUID']}', $use_min_price, '$use_max_date', $max_value, '$cp_desc')";
  
 
  $result = $mysqli->query($sql); 
@@ -51,14 +53,14 @@ try{
  if($result){
    echo "
      <script>
-       alert('쿠폰 등록 완료');
-       location.href = 'coupons.php';
+     alert('쿠폰 등록 완료');
+     location.href = 'coupons.php';
      </script>
-   ";
-   $mysqli->commit();//디비에 커밋한다.
-  }
- 
-}catch (Exception $e) {
+     ";
+     $mysqli->commit();//디비에 커밋한다.
+    }
+    
+  }catch (Exception $e) {
     $mysqli->rollback();//저장한 테이블이 있다면 롤백한다.
     //에러문구
     exit;

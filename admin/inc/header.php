@@ -20,6 +20,7 @@ $current_page = basename($_SERVER['REQUEST_URI'], ".php");
 $level = $_SESSION['AULEVEL'];
 
 $_SESSION['AUNAME'] = $username;
+
 // $_SESSION['AULEVEL'] = $user_level;
 
 // if($level == 10){
@@ -30,6 +31,13 @@ $_SESSION['AUNAME'] = $username;
 //   $tc = $result->fetch_object();
 // }
 
+// if($level == 10){ $_SESSION['UID'] = $uid;
+// $tc_sql = "SELECT tc_thumbnail FROM teachers WHERE uid = $uid";
+// $tc_result = $mysqli->query($tc_sql);
+// $row = $tc_result->fetch_assoc();
+
+//   echo "http://" . $_SERVER['HTTP_HOST'] . $tc_thumbnail;
+//}
 
 ?>
 
@@ -229,7 +237,7 @@ $_SESSION['AUNAME'] = $username;
             http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/myprofile/my_details.php
           <?php endif; ?>
           <?php if ($level == 10): ?>
-             http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/teacher_page/myprofile/teacher_details.php
+            http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/teacher_page/myprofile/teacher_details.php
           <?php endif; ?>
           "></a>
         </li>

@@ -42,7 +42,7 @@ while($cate_data = $category_result->fetch_object()){
 
     <table class="table w-100 info_table">
       <colgroup>
-      <col class="col-width-160">
+        <col class="col-width-160">
         <col class="col-width-516">
         <col class="col-width-160">
         <col class="col-width-516">
