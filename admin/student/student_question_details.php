@@ -3,15 +3,18 @@ $title = "수강생 질문";
 include_once($_SERVER['DOCUMENT_ROOT'] . '/code_even/admin/inc/header.php');
 
 $sqid = $_GET['sqid'];
-$sql = "SELECT student_qna.*, class_data.*, lecture.*, user.* 
+$sql = "SELECT student_qna.*, teacher_qna.*, class_data.*, lecture.*, user.* 
         FROM student_qna 
+        LEFT JOIN teacher_qna ON student_qna.sqid = teacher_qna.sqid
         JOIN class_data ON student_qna.cdid = class_data.cdid
         JOIN lecture ON class_data.leid = lecture.leid
         JOIN user ON class_data.uid = user.uid 
-        WHERE sqid = $sqid
+        WHERE student_qna.sqid = $sqid
         ";
 $result = $mysqli->query($sql);
 $data = $result->fetch_object();
+
+// print_r($data); 
 
 ?>
 
@@ -71,17 +74,33 @@ $data = $result->fetch_object();
       <p><?=$data->name;?> 강사</p>
     </div>
     <div class="card-body">
+    <?php
+    if (!empty($data->asid)) {
+      ?>
       <blockquote class="blockquote mb-0">
+        <?=$data->content;?>
       </blockquote>
+      <?php
+    }
+    ?>
     </div>
   </div>
   <div class="custom-hr"></div>
 
   <div class="d-flex justify-content-end gap-2">
-    <a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/stdent/student_question.php" class="btn btn-outline-danger">취소</a>
+    <a 
+    <?php if ($level == 100): ?>
+    href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/stdent/student_question.php" class="btn btn-outline-danger"
+    <?php endif; ?>
+    <?php if ($level == 10): ?>
+    href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/teacher_page/student/teacher_student_question.php" class="btn btn-outline-danger"
+    <?php endif; ?>
+    >취소</a>
 
   <?php if ($level == 10): ?>
+  <?php if (!isset($data->asid)): ?>
     <a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/teacher_page/student/student_question_answer.php?sqid=<?=$sqid?>" class="btn btn-outline-secondary">답변작성</a>
+  <?php endif; ?>
   <?php endif; ?>
 
   <?php if ($level == 100): ?>
