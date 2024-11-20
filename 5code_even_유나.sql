@@ -102,8 +102,17 @@ CREATE TABLE `class_data` (
 --
 
 INSERT INTO `class_data` (`cdid`, `uid`, `leid`, `exid`, `course_cert`, `progress_rate`) VALUES
-(1, 3, 1, NULL, '', 0),
-(2, 3, 2, NULL, '', 0);
+(NULL, 3, 1, NULL, '', 0),  -- odid = 1, product_id = 1 (강좌)
+(NULL, 42, 2, NULL, '', 0), -- odid = 3, product_id = 2 (강좌)
+(NULL, 53, 1, NULL, '', 0), -- odid = 5, product_id = 1 (강좌)
+(NULL, 61, 2, NULL, '', 0), -- odid = 7, product_id = 2 (강좌)
+(NULL, 12, 2, NULL, '', 0), -- odid = 9, product_id = 2 (강좌)
+(NULL, 25, 1, NULL, '', 0), -- odid = 10, product_id = 1 (강좌)
+(NULL, 67, 1, NULL, '', 0), -- odid = 12, product_id = 1 (강좌)
+(NULL, 55, 2, NULL, '', 0), -- odid = 14, product_id = 2 (강좌)
+(NULL, 8, 1, NULL, '', 0),  -- odid = 15, product_id = 1 (강좌)
+(NULL, 14, 1, NULL, '', 0), -- odid = 17, product_id = 1 (강좌)
+(NULL, 28, 1, NULL, '', 0); -- odid = 19, product_id = 1 (강좌);
 
 -- --------------------------------------------------------
 
