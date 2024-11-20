@@ -121,10 +121,11 @@ CREATE TABLE `coupons` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
   INSERT INTO `coupons` (`cpid`, `couponid`, `coupon_name`, `coupon_image`, `coupon_type`, `coupon_price`, `coupon_ratio`, `status`, `regdate`, `userid`, `max_value`, `use_min_price`, `use_max_date`) VALUES
-(1, 1001, '5,000원 할인 쿠폰', '/code_even/admin/coupons/coupon4.png', 1, 5000, NULL, 1, '2024-11-18 10:09:49', 'admin', NULL, 30000, '2024-12-31 00:00:00'),
-(2, 1002, '10% 할인 쿠폰', 'coupons2.png', 2, NULL, 10, 1, '2024-11-18 10:09:49', 'admin', 10000, 50000, '2024-12-31 00:00:00'),
-(3, 1003, '무료배송 쿠폰', 'coupons3.png', 3, NULL, NULL, 1, '2024-11-18 10:09:49', 'user123', NULL, 0, '2025-01-31 00:00:00'),
-(4, 1004, '신규 회원 15% 할인 쿠폰', 'coupons4.png', 2, NULL, 15, 0, '2024-11-18 10:09:49', 'newuser', 15000, 20000, '2024-12-31 00:00:00');
+(1, 1001, '리뷰쿠폰', '/code_even/admin/upload/coupons/20241120014236135047.png', 1, 5000, 0, 1, '2024-11-18 10:09:49', 'admin', 5000, 30000, '2024-12-31 00:00:00'),
+(2, 1002, '10% 할인 쿠폰', '/code_even/admin/upload/coupons/20241120014055112829.png', 2, 0, 10, 1, '2024-11-18 10:09:49', 'admin', 10000, 50000, '2024-12-31 00:00:00'),
+(3, 1003, '수강 환승쿠폰', '/code_even/admin/upload/coupons/20241120014000753232.png', 1, 10000, 0, 1, '2024-11-18 10:09:49', 'user123', 10000, 25000, '2025-01-31 00:00:00'),
+(4, 1004, '신규 회원 15% 할인 쿠폰', '/code_even/admin/upload/coupons/20241120014327175286.png', 2, 0, 0, 2, '2024-11-18 10:09:49', 'newuser', 15000, 20000, '2024-12-31 00:00:00');
+
 
 -- --------------------------------------------------------
 
