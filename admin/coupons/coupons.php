@@ -115,7 +115,7 @@ while ($data = $result->fetch_object()) {
                     ?>
                   </span></h6>
                 <h5 class="card-title "><?= $item->coupon_name; ?></h5>
-                <p class="card-text bd">사용기한 : <?= $item->use_max_date; ?></p>
+                <p class="card-text bd">사용기한 : <?= date('Y-m-d', strtotime($item->use_max_date)); ?></p>
                 <p class="card-text bd">할인금액 : <?= $item->max_value; ?>원</p>
                 <p class="card-text bd"> 최소 사용금액 :<?= $item->use_min_price; ?>원</p>
                 <div class="icons d-flex justify-content-end gap-2">
