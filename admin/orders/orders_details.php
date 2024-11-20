@@ -56,10 +56,10 @@ include_once($_SERVER['DOCUMENT_ROOT'] . '/code_even/admin/inc/header.php');
   </div>
   <table class="table w-100 info_table">
     <colgroup>
-      <col width="160">  
-      <col width="516">  
-      <col width="160">
-      <col width="516">  
+    <col class="col-width-160">
+    <col class="col-width-516">
+    <col class="col-width-160">
+    <col class="col-width-516"> 
     </colgroup>
     <tbody>
       <tr>
@@ -120,10 +120,10 @@ include_once($_SERVER['DOCUMENT_ROOT'] . '/code_even/admin/inc/header.php');
   </div>
   <table class="table w-100 info_table">
     <colgroup>
-      <col width="160">  
-      <col width="516">  
-      <col width="160">
-      <col width="516">  
+    <col class="col-width-160">
+    <col class="col-width-516">
+    <col class="col-width-160">
+    <col class="col-width-516">
     </colgroup>
     <tbody>
       <tr>

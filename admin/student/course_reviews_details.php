@@ -1,5 +1,5 @@
 <?php
-$title = "수강생 관리";
+$title = "수강 후기";
 include_once($_SERVER['DOCUMENT_ROOT'] . '/code_even/admin/inc/header.php');
 
 $rvid = $_GET['rvid'];
@@ -22,8 +22,8 @@ $data = $result->fetch_object();
 
   <table class="table details_table">
     <colgroup>
-      <col style="width:160px">
-      <col style="width:516px">
+      <col class="col-width-160">
+      <col class="col-width-516">
     </colgroup>
     <thead class="thead-hidden">
       <tr>

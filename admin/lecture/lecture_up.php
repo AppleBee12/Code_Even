@@ -329,10 +329,10 @@ if (isset($_POST['draft_save']) && $_POST['draft_save'] == '1') {
       </div>
       <table class="table">
         <colgroup>
-          <col width="160">  
-          <col width="516">  
-          <col width="160">
-          <col width="516">  
+        <col class="col-width-160">
+        <col class="col-width-516">
+        <col class="col-width-160">
+        <col class="col-width-516">
         </colgroup>
         <tbody>
           <tr>

@@ -20,16 +20,22 @@ $current_page = basename($_SERVER['REQUEST_URI'], ".php");
 $level = $_SESSION['AULEVEL'];
 
 $_SESSION['AUNAME'] = $username;
-// $_SESSION['AULEVEL'] = $user_level;
 
-// if($level == 10){
-//   $uid = $_SESSION['UID'];
+if($level == 10){
+  $uid = $_SESSION['UID'];
 
-//   $sql = "SELECT * FROM teachers WHERE uid = $uid";
-//   $result = $mysqli->query($sql);
-//   $tc = $result->fetch_object();
-// }
+  $sql = "SELECT * FROM teachers WHERE uid = $uid";
+  $result = $mysqli->query($sql);
+  $tc = $result->fetch_object();
+}
 
+// if($level == 10){ $_SESSION['UID'] = $uid;
+// $tc_sql = "SELECT tc_thumbnail FROM teachers WHERE uid = $uid";
+// $tc_result = $mysqli->query($tc_sql);
+// $row = $tc_result->fetch_assoc();
+
+//   echo "http://" . $_SERVER['HTTP_HOST'] . $tc_thumbnail;
+//}
 
 ?>
 
@@ -39,7 +45,7 @@ $_SESSION['AUNAME'] = $username;
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>코드이븐 솔루션-관리자 페이지</title>
+  <title>코드이븐-<?=$title?> 관리자 페이지</title>
 
   <!-- 공통 Style CSS -->
   <link rel="stylesheet" href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/css/reset.css">
@@ -225,14 +231,17 @@ $_SESSION['AUNAME'] = $username;
       </div>
       <ul class="nav nav-pills">
         <li class="nav-item">
-          <a class="nav-link profile_image" href="
-          <?php if ($level == 100): ?>
-            http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/myprofile/my_details.php
-          <?php endif; ?>
-          <?php if ($level == 10): ?>
-             http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/teacher_page/myprofile/teacher_details.php
-          <?php endif; ?>
-          "></a>
+          <a class="nav-link" 
+          <?php if ($level == 100){ ?>
+           href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/myprofile/my_details.php">
+          <img class="profile_image" src="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/images/adminprofile.png" alt="관리자 프로필사진">
+          </a>
+          <?php }else if($level == 10){ ?>
+            href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/teacher_page/myprofile/teacher_details.php">
+            <img class="profile_image" src="http://<?= $_SERVER['HTTP_HOST'] . $tc->tc_thumbnail ?>" alt="강사 프로필 사진">
+          </a>
+          <?php }; ?>
+          
         </li>
         <li class="nav-item dropdown d-flex align-items-center">
           <button class="nav-link dropdown-toggle" data-bs-toggle="dropdown"
@@ -325,7 +334,13 @@ $_SESSION['AUNAME'] = $username;
                   href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/student/student_list.php">　　-　수강생 목록</a>
               </li>
               <li class="list-group-item"><a
-                  href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/student/student_question.php">　　-　수강생
+                <?php if ($level == 100): ?>
+                  href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/student/student_question.php"
+                <?php endif; ?>
+                <?php if ($level == 10): ?>
+                  href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/teacher_page/student/teacher_student_question.php"
+                <?php endif; ?>
+                  >　　-　수강생
                   질문</a>
               </li>
               <?php if ($level == 100): ?>

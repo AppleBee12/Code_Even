@@ -1,5 +1,5 @@
 <?php
-$title = "수강생 관리";
+$title = "수강생 질문";
 include_once($_SERVER['DOCUMENT_ROOT'] . '/code_even/admin/inc/header.php');
 
 // 게시글 개수 구하기
@@ -7,7 +7,8 @@ $keywords = isset($_GET['keywords']) ? $mysqli->real_escape_string($_GET['keywor
 $where_clause = '';
 
 if ($keywords) {
-  $where_clause = "WHERE user.username LIKE '%$keywords%' OR user.userid LIKE '%$keywords%'";
+  $where_clause = "WHERE user.username LIKE '%$keywords%' 
+  OR user.userid LIKE '%$keywords%'";
 }
 
 $page_sql = "SELECT COUNT(*) AS cnt FROM class_data JOIN user ON class_data.uid = user.uid $where_clause";
@@ -63,7 +64,6 @@ while ($data = $result->fetch_object()) {
     </div>
   </form>
 
-  <form action="" method="">
     <table class="table list_table">
       <thead>
         <tr>
@@ -109,7 +109,7 @@ while ($data = $result->fetch_object()) {
     </table>
 
     <!-- //Pagination -->
-    <div class="list_pagination" aria-label="Page navigation example">
+    <div class="list_pagination">
       <ul class="pagination d-flex justify-content-center">
         <?php
         $previous = $block_start - $block_ct;
@@ -146,8 +146,6 @@ while ($data = $result->fetch_object()) {
         ?>
       </ul>
     </div>
-
-  </form>
 
 </div>
 

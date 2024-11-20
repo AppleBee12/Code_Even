@@ -8,10 +8,10 @@ $keywords = isset($_GET['keywords']) ? $mysqli->real_escape_string($_GET['keywor
 $where_clause = '';
 
 if ($keywords) {
-  $where_clause = "WHERE team_project.title LIKE '%$keywords%' OR team_project.contents LIKE '%$keywords%' OR user.usernick LIKE '%$keywords%' ";
+  $where_clause = "WHERE teamproject.titles LIKE '%$keywords%' OR teamproject.contents LIKE '%$keywords%' OR user.usernick LIKE '%$keywords%' ";
 }
 
-$page_sql = "SELECT COUNT(*) AS cnt FROM team_project JOIN user ON team_project.uid = user.uid $where_clause";
+$page_sql = "SELECT COUNT(*) AS cnt FROM teamproject JOIN user ON teamproject.uid = user.uid $where_clause";
 $page_result = $mysqli->query($page_sql);
 $page_data = $page_result->fetch_assoc();
 $row_num = $page_data['cnt'];
@@ -31,11 +31,11 @@ if ($block_end > $total_page) {
   $block_end = $total_page;
 }
 
-$sql = "SELECT team_project.*, user.uid, user.usernick 
-        FROM team_project 
-        JOIN user ON team_project.uid = user.uid 
+$sql = "SELECT teamproject.*, user.uid, user.usernick 
+        FROM teamproject 
+        JOIN user ON teamproject.uid = user.uid 
         $where_clause 
-        ORDER BY team_project.post_id DESC 
+        ORDER BY teamproject.post_id DESC 
         LIMIT $start_num, $list";
 $result = $mysqli->query($sql);
 
@@ -44,8 +44,6 @@ while ($data = $result->fetch_object()) {
   $dataArr[] = $data;
 }
 ?>
-
-
 
 <div class="container">
   <h2 class="page_title">팀 프로젝트</h2>
@@ -79,24 +77,24 @@ while ($data = $result->fetch_object()) {
       <tbody>
         <?php
         if ($dataArr) {
-          foreach ($dataArr as $team_project) {
+          foreach ($dataArr as $tp) {
         ?>
             <tr>
-              <th scope="row"><?= $team_project->post_id ?></th>
-              <td><?= $team_project->usernick ?></td>
-              <td><a href="#" class="d-inline-block text-truncate"><?= $team_project->titles ?></a></td>
-              <td><a href="#" class="d-inline-block text-truncate"><?= $team_project->contents ?></a></td>
+              <th scope="row"><?= $tp->post_id ?></th>
+              <td><?= $tp->usernick ?></td>
+              <td><a href="#" class="d-inline-block text-truncate"><?= $tp->titles ?></a></td>
+              <td><a href="#" class="d-inline-block text-truncate"><?= $tp->contents ?></a></td>
               <td>
-                <?= $team_project->status == 0 ?
+                <?= $tp->status == 0 ?
                   '<span class="badge text-bg-light">미해결</span>'
                   : '<span class="badge text-bg-success">해결</span>' ?>
               </td>
-              <td><?= $team_project->likes ?><b>개</b></td>
-              <td><?= $team_project->comments ?><b>개</b></td>
-              <td><?= $team_project->hits ?><b>회</b></td>
-              <td><?= $team_project->regdate ?></td>
+              <td><?= $tp->likes ?><b>개</b></td>
+              <td><?= $tp->comments ?><b>개</b></td>
+              <td><?= $tp->hits ?><b>회</b></td>
+              <td><?= $tp->regdate ?></td>
               <td class="edit_col">
-                <a href="team_project_edit.php?post_id=<?= $team_project->post_id ?>">
+                <a href="team_project_edit.php?post_id=<?= $tp->post_id ?>">
                   <i class="bi bi-pencil-fill"></i>
                 </a>
                 <a href="">
@@ -107,7 +105,7 @@ while ($data = $result->fetch_object()) {
         <?php
           }
         } else {
-          echo "<tr><td colspan='10'>검색 결과가 없습니다.</td></tr>";
+          echo "<tr><td colspan='8'>검색 결과가 없습니다.</td></tr>";
         }
         ?>
       </tbody>
