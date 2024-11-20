@@ -4,11 +4,12 @@ include_once($_SERVER['DOCUMENT_ROOT'] . '/code_even/admin/inc/header.php');
 
 $instructor_name = $_SESSION['AUNAME'];
 
-// print_r($instructor_name);
+// 현재 로그인한 강사의 UID
+$teacher_id = $mysqli->real_escape_string($_SESSION['UID']);
 
 // 게시글 개수 구하기
 $keywords = isset($_GET['keywords']) ? $mysqli->real_escape_string($_GET['keywords']) : '';
-$where_clause = "WHERE lecture.name = '$instructor_name'";
+$where_clause = "WHERE lecture.lecid = '$teacher_id'"; // 로그인한 강사의 게시글만 필터링
 
 if ($keywords) {
   $where_clause .= " AND (user.username LIKE '%$keywords%' 
@@ -101,18 +102,14 @@ while ($data = $result->fetch_object()) {
           <td>
             <div>
             <?php
-              for ($i = 0; $i < 5; $i++) { 
-                if ($i < $no->rating) {
+                for ($i = 0; $i < 5; $i++) { 
                   if ($i < $no->rating) {
-            ?>
-                    <i class="bi bi-star-fill"></i>
-                <?php } else { ?>
-                    <i class="bi bi-star"></i>
-            <?php 
+                      echo '<i class="bi bi-star-fill"></i>';
+                  } else {
+                      echo '<i class="bi bi-star-fill star_null"></i>';
                   }
                 }
-              }
-            ?>
+              ?>
             </div>
           </td>
           <td><?=$no->regdate;?></td>
