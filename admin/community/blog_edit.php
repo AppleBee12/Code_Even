@@ -1,10 +1,10 @@
 <?php
-$title = "고민 상담";
+$title = "블로그";
 include_once($_SERVER['DOCUMENT_ROOT'] . '/code_even/admin/inc/header.php');
 ?>
 
 <div class="container">
-  <h2>블로그</h2>
+  <h2><?php $title ?></h2>
   <div class="content_bar">
     <h3>글 수정하기</h3>
   </div>
