@@ -40,9 +40,14 @@ include_once($_SERVER['DOCUMENT_ROOT'] . '/code_even/admin/inc/header.php');
               <td>
                 <input type="text" id="titles" name="titles" class="form-control" placeholder="입력 필수 값 입니다." value="<?= $row['titles'] ?>">
               </td>
-              <th scope="row" rowspan="4">썸네일 미리보기</th>
-              <td rowspan="4">
-                <img src="" alt="">
+              <th scope="row" rowspan="3">썸네일 미리보기</th>
+              <td rowspan="3">
+                <?php 
+                  $thumbnail_path = !empty($row['thumnails']) ? 'http://' . $_SERVER['HTTP_HOST'] . $row['thumnails'] : '';
+                  $image_src = (!empty($row['thumnails']) && file_exists($thumbnail_path)) ? $row['thumnails'] : '/CODE_EVEN/admin/upload/teacher/tc_dummy.png';
+                ?>
+                <img id="thumbnail_preview" src="<?= $thumbnail_path; ?>" class="rounded_circle" width = 150 height = 150 alt="프로필 이미지">
+
               </td>
             </tr>
             <tr>
@@ -58,7 +63,7 @@ include_once($_SERVER['DOCUMENT_ROOT'] . '/code_even/admin/inc/header.php');
                 <label for="thumnails">썸네일 등록</label>
               </th>
               <td>
-                <input type="text" id="thumnails" name="thumnails" class="form-control"  value="<?= $row['thumnails'] ?>" >
+                <input type="file" accept="image/*" id="thumnails" name="thumnails" class="form-control" value="<?= $row['thumnails'] ?>" >
               </td>
             </tr>
             <tr>
@@ -89,7 +94,22 @@ include_once($_SERVER['DOCUMENT_ROOT'] . '/code_even/admin/inc/header.php');
 </div>
 
 
+<script>
+   let thumbnail = $('#thumnails');
+  thumbnail.on('change',(e)=>{
+      let file = e.target.files[0];
 
+      const reader = new FileReader(); 
+      reader.onloadend = (e)=>{ 
+        let attachment = e.target.result;
+        if(attachment){
+          let target = $('#thumbnail_preview');
+          target.attr('src',attachment)
+        }
+      }
+      reader.readAsDataURL(file); 
+  });
+</script>
 <?php
 include_once($_SERVER['DOCUMENT_ROOT'] . '/code_even/admin/inc/footer.php');
 ?>
