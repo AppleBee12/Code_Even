@@ -184,7 +184,7 @@ thead,
           <th scope="row">사용기한</th>
             <td class="d-flex gap-5" name="use_max_date" id="use_max_date">
               <div class="form-check" >
-                  <input class="form-check-input" type="radio" name="flexRadioDefault" checked>
+                  <input class="form-check-input" type="radio" name="use_max_date" checked>
                 <label class="form-check-label" for="flexRadioDefault2"  id="ct4">
                   무제한
                 </label>
