@@ -18,7 +18,7 @@
     </ul>
   </div>
 
-  <div class="d-flex gap-5 align-items-center bgsz ">
+  <div class="gap-5 align-items-center bgsz ">
       <div class="img-wrap  w-50 d-flex justify-content-center">
         <div class="images1">
           <img src="../images/sb_logo.png" alt="">
@@ -28,7 +28,7 @@
         <div class="w-50 d-flex flex-column align-items-center">
           <img src="../images/txt_logo.png" class="images2" alt="">
           <h1 class="mt-5">로그인</h1>
-          <form action="member/login/login_ok.php" method="POST" class="w-100">
+          <form action="members/login/login_ok.php" method="POST" class="w-100">
             <label for="inputId" class="form-label mt-3">아이디</label>
             <input type="text" id="inputId" class="form-control" placeholder="아이디를 입력하세요" name="userid" required>
             
@@ -40,7 +40,7 @@
             <div class="mt-3 d-flex flex-columns justify-content-center gap-3">
               <a href="#" class="link-body-emphasis ">아이디 찾기</a>
               <a href="#" class="link-body-emphasis">비밀번호 찾기</a>
-              <a href="admin/signup/signup.php" class="link-body-emphasis text-decoration-underline">회원가입</a>
+              <a href="members/signup/signup.php" class="link-body-emphasis text-decoration-underline">회원가입</a>
             </div>
           </form>
         </div>
