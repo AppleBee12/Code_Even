@@ -139,7 +139,7 @@ while ($data = $result->fetch_object()) {
       if ($block_num > 1) {
         ?>
         <li class="page-item">
-          <a class="page-link" href="class_data.php?page=<?= $previous; ?>" aria-label="Previous">
+          <a class="page-link" href="student_list.php?page=<?= $previous; ?>" aria-label="Previous">
             <i class="bi bi-chevron-left"></i>
           </a>
         </li>
@@ -150,7 +150,7 @@ while ($data = $result->fetch_object()) {
       for ($i = $block_start; $i <= $block_end; $i++) {
         $active = ($page == $i) ? 'active' : '';
         ?>
-        <li class="page-item <?= $active; ?>"><a class="page-link" href="class_data.php?page=<?= $i; ?>"><?= $i; ?></a>
+        <li class="page-item <?= $active; ?>"><a class="page-link" href="student_list.php?page=<?= $i; ?>"><?= $i; ?></a>
         </li>
         <?php
       }
@@ -158,7 +158,7 @@ while ($data = $result->fetch_object()) {
       if ($total_block > $block_num) {
         ?>
         <li class="page-item">
-          <a class="page-link" href="class_data.php?page=<?= $next; ?>" aria-label="Next">
+          <a class="page-link" href="student_list.php?page=<?= $next; ?>" aria-label="Next">
             <i class="bi bi-chevron-right"></i>
           </a>
         </li>

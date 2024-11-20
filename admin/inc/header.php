@@ -111,9 +111,12 @@ $tc_count = $row['cnt'];
     case 'student_list.php':
     case 'student_details.php':
     case 'student_question.php':
+    case 'teacher_student_question.php':
+    case 'student_question_answer.php':
     case 'student_question_details.php':
     case 'send_email.php':
     case 'course_reviews.php':
+    case 'teacher_course_reviews.php':
     case 'course_reviews_details.php':
     case 'notice.php':
     case 'notice_write.php':
@@ -139,6 +142,7 @@ $tc_count = $row['cnt'];
     case 'lecture_list.php':
     case 'quiz_test_list.php':
     case 'quiz_test_outcome.php':
+    case 'book_list.php':
       echo '<link rel="stylesheet" href="http://' . $_SERVER['HTTP_HOST'] . '/code_even/admin/css/lecture_list.css">';
       break;
   }
@@ -147,6 +151,7 @@ $tc_count = $row['cnt'];
     case 'lecture_view.php':
     case 'lecture_edit.php':
     case 'quiz_test_up.php':
+    case 'book_up.php':
       echo '<link rel="stylesheet" href="http://' . $_SERVER['HTTP_HOST'] . '/code_even/admin/css/lecture.css">';
       break;
   }

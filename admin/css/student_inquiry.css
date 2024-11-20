@@ -99,7 +99,7 @@
 
 #file {margin-top: 25px;}
 
-.bi-star-fill {color: var(--primary)}
+.bi-star-fill {color: var(--primary); margin: 0px 1px;}
 
 .card {width: 1075px !important; height: 300px;
   p { margin-bottom: 0px !important;}

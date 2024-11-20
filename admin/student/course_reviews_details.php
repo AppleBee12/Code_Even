@@ -85,7 +85,7 @@ $data = $result->fetch_object();
     href="course_reviews.php" 
     <?php endif; ?>
     <?php if ($level == 10): ?>
-    href="teacher_course_reviews.php" 
+    href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/teacher_page/student/teacher_course_reviews.php" 
     <?php endif; ?>
     class="btn btn-outline-danger">취소</a>
 

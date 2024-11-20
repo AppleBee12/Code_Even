@@ -1,50 +1,49 @@
 <?php
+
+$title = "교재 등록";
+
 include_once($_SERVER['DOCUMENT_ROOT'] . '/CODE_EVEN/admin/inc/header.php');
+
+// 현재 로그인된 사용자 세션 값 가져오기
+$session_userid = $_SESSION['AUID'] ?? null; // 세션의 AUID는 user 테이블의 userid와 매칭
+$session_username = $_SESSION['AUNAME'] ?? null; // 세션의 AUNAME은 user 테이블의 username과 매칭
+
+// 세션 값 검증
+if (!isset($_SESSION['AUID']) || !isset($_SESSION['AUNAME'])) {
+  echo "<pre>";
+  print_r($_SESSION);
+  echo "</pre>";
+  echo "<script>alert('로그인 정보가 없습니다. 다시 로그인해 주세요.');</script>";
+  echo "<script>location.href='/CODE_EVEN/admin/login.php';</script>";
+  exit;
+}
+
+// 사용자 정보 가져오기 (확인용)
+$sql_user = "SELECT uid, username FROM user WHERE userid = ?";
+if ($stmt_user = $mysqli->prepare($sql_user)) {
+  $stmt_user->bind_param("s", $session_userid);
+  $stmt_user->execute();
+  $stmt_user->bind_result($uid, $username);
+  $stmt_user->fetch();
+  $stmt_user->close();
+} else {
+  echo "<script>alert('사용자 정보를 가져오는 데 실패했습니다. 관리자에게 문의하세요.');</script>";
+  echo "<script>location.href='/CODE_EVEN/admin/login.php';</script>";
+  exit;
+}
+
+$leid = isset($_GET['leid']) ? $_GET['leid'] : '';
+
+// DB에서 카테고리 데이터 가져오기
+$sql_cate = "SELECT * FROM category ORDER BY step, pcode";
+$result_cate = $mysqli->query($sql_cate);
+
+$categories = [];
+while ($row = $result_cate->fetch_object()) {
+  $categories[] = $row;
+}
+
 ?>
-<style>
-    /* 테이블 고정 너비와 레이아웃 */
-  table {
-    width: 100%;
-    table-layout: fixed;
-    border-spacing: 0 8px; /* 행 사이에만 8px 간격을 줍니다 */
-    border-collapse: separate;
-  }
-
-  table, th, td {
-    border: none;
-  }
-
-  th[scope="row"] {
-    width: 15%;
-  }
-
-  td[colspan="6"] {
-    width: 85%;
-  }
-
-  .content_bar{
-    margin-top: 50px;
-  }
-
-  tbody tr td .box {
-    height: 170px !important;
-    width: 100% !important;
-    background-color: #ccc !important;
-    align-items: end; 
-    text-align: center;
-    margin-bottom: 10px;
-    position: relative;
-
-    span{
-      text-wrap: nowrap;
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      
-    }
-  }
-</style>
 
 <div class="container">
   <h2>교재 등록</h2>
@@ -62,27 +61,23 @@ include_once($_SERVER['DOCUMENT_ROOT'] . '/CODE_EVEN/admin/inc/header.php');
       <tr>
         <th scope="row">분류 설정 <b>*</b></th>
         <td colspan="2">
-          <select class="form-select" aria-label="대분류">
+          <select name="cate1" id="cate1" class="form-select" aria-label="대분류">
             <option selected>대분류</option>
-            <option value="1">One</option>
-            <option value="2">Two</option>
-            <option value="3">Three</option>
+            <?php foreach ($categories as $category) {
+              if ($category->step == 1) {
+                echo "<option value='{$category->code}'>{$category->name}</option>";
+              }
+            } ?>
           </select>
         </td>
         <td colspan="2">
-          <select class="form-select" aria-label="중분류">
-            <option selected>중분류</option>
-            <option value="1">One</option>
-            <option value="2">Two</option>
-            <option value="3">Three</option>
+          <select name="cate2" id="cate2" class="form-select" aria-label="Default select example">
+            <option selected value="">중분류</option>
           </select>
         </td>
         <td colspan="2">
-          <select class="form-select" aria-label="소분류">
-            <option selected>소분류</option>
-            <option value="1">One</option>
-            <option value="2">Two</option>
-            <option value="3">Three</option>
+          <select name="cate3" id="cate3" class="form-select" aria-label="Default select example">
+            <option selected value="">소분류</option>
           </select>
         </td>
       </tr>
@@ -97,8 +92,8 @@ include_once($_SERVER['DOCUMENT_ROOT'] . '/CODE_EVEN/admin/inc/header.php');
         <td colspan="2">
           <input type="text" class="form-control" placeholder="길동사">
         </td>
-        <td class="box_container" colspan="3" rowspan="5">
-          <div class="box">
+        <td class="box_container" colspan="4" rowspan="4">
+          <div class=" bookBox">
             <span>강좌 썸네일 이미지를 선택해주세요.</span>
             <div class="image"><img src="" alt=""></div>
           </div>
@@ -134,14 +129,57 @@ include_once($_SERVER['DOCUMENT_ROOT'] . '/CODE_EVEN/admin/inc/header.php');
         </td>
       </tr>
       <tr>
-          <th scope="row">교재 설명 <b>*</b></th>
-          <td colspan="6">
-            <textarea class="form-control" rows="3" placeholder="교재 설명을 입력해 주세요."></textarea>
-          </td>
-        </tr>
+        <th scope="row">교재 설명 <b>*</b></th>
+        <td colspan="6">
+          <textarea class="form-control" rows="3" placeholder="교재 설명을 입력해 주세요."></textarea>
+        </td>
+      </tr>
     </tbody>
   </table>
+  <script>
+    // 카테고리 데이터 변환
+    const categories = <?php echo json_encode($categories); ?>;
 
-<?php
-include_once($_SERVER['DOCUMENT_ROOT'] . '/code_even/admin/inc/footer.php');
-?>
+    // 대분류 선택 -> 중분류 업데이트
+    $('#cate1').on('change', function () {
+      const cate1 = $(this).val();
+
+      if (cate1) {
+        const filterCate2 = categories.filter(category => category.step == 2 && category.pcode == cate1);
+
+        $('#cate2').html('<option value="">중분류</option>');
+        filterCate2.forEach(category => {
+          $('#cate2').append(`<option value="${category.code}">${category.name}</option>`);
+        });
+        $('#cate3').html('<option value="">소분류</option>');
+
+      } else {
+
+        $('#cate2').html('<option value="">중분류</option>');
+        $('#cate3').html('<option value="">소분류</option>');
+
+      }
+    });
+
+    // 중분류 선택 -> 소분류 업데이트
+    $('#cate2').on('change', function () {
+      const cate2 = $(this).val();
+
+      if (cate2) {
+        const filterCate3 = categories.filter(category => category.step == 3 && category.pcode == cate2);
+
+        $('#cate3').html('<option value="">소분류</option>')
+        filterCate3.forEach(category => {
+          $('#cate3').append(`<option value="${category.code}">${category.name}</option>`);
+        });
+
+      } else {
+
+        $('#cate3').html('<option value="">소분류</option>');
+
+      }
+    });
+  </script>
+  <?php
+  include_once($_SERVER['DOCUMENT_ROOT'] . '/code_even/admin/inc/footer.php');
+  ?>
