@@ -94,7 +94,7 @@ while ($data = $result->fetch_object()) {
               <td><?= $tp->hits ?><b>회</b></td>
               <td><?= $tp->regdate ?></td>
               <td class="edit_col">
-                <a href="teamproject_edit.php?post_id=<?= $tp->post_id ?>">
+                <a href="team_project_edit.php?post_id=<?= $tp->post_id ?>">
                   <i class="bi bi-pencil-fill"></i>
                 </a>
                 <a href="">
@@ -125,7 +125,7 @@ while ($data = $result->fetch_object()) {
       if ($block_num > 1) {
       ?>
         <li class="page-item">
-          <a class="page-link" href="teamproject.php?page=<?= $previous; ?>" aria-label="Previous">
+          <a class="page-link" href="team_project.php?page=<?= $previous; ?>" aria-label="Previous">
             <i class="bi bi-chevron-left"></i>
           </a>
         </li>
@@ -136,14 +136,14 @@ while ($data = $result->fetch_object()) {
       for ($i = $block_start; $i <= $block_end; $i++) {
         $active = ($page == $i) ? 'active' : '';
       ?>
-        <li class="page-item <?= $active; ?>"><a class="page-link" href="teamproject.php?page=<?= $i; ?>"><?= $i; ?></a></li>
+        <li class="page-item <?= $active; ?>"><a class="page-link" href="team_project.php?page=<?= $i; ?>"><?= $i; ?></a></li>
       <?php
       }
       $next = $block_end + 1;
       if ($total_block > $block_num) {
       ?>
         <li class="page-item">
-          <a class="page-link" href="teamproject.php?page=<?= $next; ?>" aria-label="Next">
+          <a class="page-link" href="team_project.php?page=<?= $next; ?>" aria-label="Next">
             <i class="bi bi-chevron-right"></i>
           </a>
         </li>
