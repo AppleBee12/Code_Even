@@ -47,7 +47,7 @@ $_SESSION['AUNAME'] = $username;
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>코드이븐 솔루션-관리자 페이지</title>
+  <title>코드이븐-<?=$title?> 관리자 페이지</title>
 
   <!-- 공통 Style CSS -->
   <link rel="stylesheet" href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/css/reset.css">
