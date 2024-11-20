@@ -27,15 +27,19 @@ if($level == 10){
   $sql = "SELECT * FROM teachers WHERE uid = $uid";
   $result = $mysqli->query($sql);
   $tc = $result->fetch_object();
+
+  $st_sql = "SELECT COUNT(*) as cnt FROM student_qna WHERE status='waiting'";
+  $result = $mysqli->query($st_sql);
+  $row = $result->fetch_assoc();
+  $st_count = $row['cnt'];
+
 }
-
-// if($level == 10){ $_SESSION['UID'] = $uid;
-// $tc_sql = "SELECT tc_thumbnail FROM teachers WHERE uid = $uid";
-// $tc_result = $mysqli->query($tc_sql);
-// $row = $tc_result->fetch_assoc();
-
-//   echo "http://" . $_SERVER['HTTP_HOST'] . $tc_thumbnail;
-//}
+if($level == 100){
+$tc_sql = "SELECT COUNT(*) as cnt FROM teachers WHERE tc_ok = 0";
+$result = $mysqli->query($tc_sql);
+$row = $result->fetch_assoc();
+$tc_count = $row['cnt'];
+}
 
 ?>
 
@@ -200,21 +204,26 @@ if($level == 10){
     <div class="header_profile d-flex justify-content-between align-items-center">
       <div class="alarm d-flex flex-column align-items-end justify-content-end">
         <i class="bi bi-bell">
-          <span class="position-absolute top-40 start-80 translate-middle badge rounded-pill bg-danger">
-            1
-            <!-- <span class="visually-hidden"></span> -->
+        <?php if ($level == 100){ ?>
+          <span class="<?= ($level == 100 && $tc_count == 0) ? 'visually-hidden' : '' ?> position-absolute top-40 start-80 translate-middle badge rounded-pill bg-danger">
+            <?=$tc_count?>
           </span>
+          <?php }else if($level == 10){ ?>
+            <span class="<?= ($level == 10 && $st_count == 0) ? 'visually-hidden' : '' ?> position-absolute top-40 start-80 translate-middle badge rounded-pill bg-danger">
+            <?=$st_count?>
+          </span>
+          <?php }; ?>
         </i>
         <div class="alert alert-light alert-dismissible fade " role="alert">
           <i class="bi bi-info-circle-fill"></i>
-          <?php if ($level == 100){ ?>
+          <?php if ($level == 100 && $tc_count > 0){ ?>
             강사
             <a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/teacher/teacher_list.php"
-              class="alert-link">12명</a> 의 수강승인이 필요합니다.
-          <?php }else if($level == 10){ ?>
+              class="alert-link"><?=$tc_count?>명</a> 의 수강승인이 필요합니다.
+          <?php }else if($level == 10 && $st_count > 0){ ?>
             답변이 필요한 학생 문의가
             <a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/student/student_question.php"
-              class="alert-link">1건</a> 있습니다.
+              class="alert-link"><?=$st_count?>명</a> 있습니다.
           <?php }; ?>
           <button type="button" class="close" data-dismiss="alert" aria-label="Close">
             <span aria-hidden="true">&times;</span>
@@ -223,11 +232,11 @@ if($level == 10){
       </div>
       <div class="greet_name bd">
         <p>
-          <?php if (isset($_SESSION['AUNAME'])): ?>
+          <?php if (isset($_SESSION['AUNAME'])){ ?>
             <?= $_SESSION['AUNAME'] ?> 님
-          <?php else: ?>
+          <?php }else{ ?>
             <span>로그인이 필요합니다.</span>
-          <?php endif; ?>
+          <?php }; ?>
         <p>환영합니다.</p>
       </div>
       <ul class="nav nav-pills">
