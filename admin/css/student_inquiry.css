@@ -108,3 +108,5 @@
 input[readonly] {background-color: #e9ecef; border: 1px solid #dee2e6; color: #666; cursor: not-allowed;}
 
 .modal textarea {height: 100px;}
+
+.star_null {color: #ccc;}

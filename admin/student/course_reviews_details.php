@@ -56,16 +56,12 @@ $data = $result->fetch_object();
         <th scope="row">평점</th>
         <td>
           <div>
-            <?php
+          <?php
               for ($i = 0; $i < 5; $i++) { 
                 if ($i < $data->rating) {
-                  if ($i < $data->rating) {
-            ?>
-                    <i class="bi bi-star-fill"></i>
-                <?php } else { ?>
-                    <i class="bi bi-star"></i>
-            <?php 
-                  }
+                    echo '<i class="bi bi-star-fill"></i>';
+                } else {
+                    echo '<i class="bi bi-star-fill star_null"></i>';
                 }
               }
             ?>

@@ -67,6 +67,10 @@ while ($data = $result->fetch_object()) {
 
   .card {
     width: 45%;
+    .c-img img{
+      height: 243px;
+
+    }
   }
   .cps {
     /* gap: 110px; */
@@ -94,7 +98,7 @@ while ($data = $result->fetch_object()) {
     </div>
   </form>
 
-  <div class="row  mb-5 ">
+  <div class="row  mb-5 justify-content-center">
     <?php
     if (isset($dataArr)) {
       foreach ($dataArr as $item) {

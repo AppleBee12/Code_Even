@@ -8,6 +8,15 @@ $sql = "SELECT faq.*, user.username, user.userid FROM faq JOIN user ON faq.uid =
 $result = $mysqli->query($sql);
 $data = $result->fetch_object();
 
+$view = $data->view + 1;
+
+$viewSql = "UPDATE faq SET view = $view WHERE fqid = $fqid;";
+$v_result = $mysqli->query($viewSql);
+
+$sql = "SELECT faq.*, user.username, user.userid FROM faq JOIN user ON faq.uid = user.uid WHERE fqid = $fqid";
+$result = $mysqli->query($sql);
+$data = $result->fetch_object();
+
 ?>
 
 <div class="container">

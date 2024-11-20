@@ -96,13 +96,9 @@ while ($data = $result->fetch_object()) {
             <?php
               for ($i = 0; $i < 5; $i++) { 
                 if ($i < $no->rating) {
-                  if ($i < $no->rating) {
-            ?>
-                    <i class="bi bi-star-fill"></i>
-                <?php } else { ?>
-                    <i class="bi bi-star"></i>
-            <?php 
-                  }
+                    echo '<i class="bi bi-star-fill"></i>';
+                } else {
+                    echo '<i class="bi bi-star-fill star_null"></i>';
                 }
               }
             ?>

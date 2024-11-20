@@ -146,27 +146,43 @@ include_once($_SERVER['DOCUMENT_ROOT'] . '/code_even/admin/inc/header.php');
               </td>
               <th scope="row">모집 분야 <b>*</b></th>
               <td class="d-flex gap-3">
-                <div class="form-check">
-                  <input class="form-check-input" type="checkbox" name="" id="status" value="0" <?= ($row['status'] === '모집중') ? 'checked' : ''; ?>>
-                  <label class="form-check-label" for="status">
-                    모집중 
-                  </label>
-                </div>
-                <div class="form-check">
-                  <input class=" form-check-input" type="checkbox" name="" id="status" value="1"<?= ($row['status'] === '모집완료') ? 'checked' : ''; ?>>
-                  <label class="form-check-label" for="status">
-                    모집 완료
-                  </label>
-                </div>
+              <?php
+                // 예시로 가져온 roles 값
+                $roles = $row['roles']; // teamproject 테이블에서 roles 값 가져오기
+
+                // 역할을 비트 플래그로 정의
+                $rolesMap = [
+                    '기획자' => 1,      // 2^0
+                    '디자이너' => 2,    // 2^1
+                    '프론트엔드' => 4,  // 2^2
+                    '백엔드' => 8,      // 2^3
+                    '기타' => 16,     // 2^4
+                    // '기타' => 32        // 2^5
+                ];
+
+                function checkRole($roles, $roleValue) {
+                  return ($roles & $roleValue) === $roleValue;}
+
+                  foreach ($rolesMap as $roleName => $roleValue) {
+                    $checked = checkRole($roles, $roleValue) ? 'checked' : ''; // 해당 역할이 있으면 체크
+                    echo '
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" name="roles[]" id="role_' . $roleName . '" value="' . $roleValue . '" ' . $checked . '>
+                        <label class="form-check-label" for="role_' . $roleName . '">
+                          ' . $roleName . '
+                        </label>
+                    </div>';
+                    }
+                  ?>
               </td>
             </tr>
             <tr>
               <th scope="row">글 내용 <b>*</b></th>
-              <td colspan="5" class="editor">
+              <td colspan="3" class="editor">
                 <div id="summernote"><?= $row['contents'] ?></div>
               </td>
             </tr>
-        <?php
+            <?php
           } else {
             echo "해당 게시글을 찾을 수 없습니다.";
           }
