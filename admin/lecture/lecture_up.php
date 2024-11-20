@@ -501,72 +501,72 @@ if (isset($_POST['draft_save']) && $_POST['draft_save'] == '1') {
 
     reader.readAsDataURL(file);
   }
-});
+  });
 
-// 카테고리 및 강좌명 변경 시 퀴즈/시험 데이터를 업데이트
-function updateQuizAndTest() {
-    const cate1 = $('#cate1').val();
-    const cate2 = $('#cate2').val();
-    const cate3 = $('#cate3').val();
-    const title = $('#title').val();
+  // 카테고리 및 강좌명 변경 시 퀴즈/시험 데이터를 업데이트
+  function updateQuizAndTest() {
+      const cate1 = $('#cate1').val();
+      const cate2 = $('#cate2').val();
+      const cate3 = $('#cate3').val();
+      const title = $('#title').val();
 
-    if (cate1 && cate2 && cate3 && title) {
-        $.ajax({
-            url: 'lecture_up_ok.php',
-            type: 'POST',
-            data: {
-                action: 'get_quiz_test',
-                cate1: cate1,
-                cate2: cate2,
-                cate3: cate3,
-                title: title
-            },
-            success: function(response) {
-                var data = JSON.parse(response);
+      if (cate1 && cate2 && cate3 && title) {
+          $.ajax({
+              url: 'lecture_up_ok.php',
+              type: 'POST',
+              data: {
+                  action: 'get_quiz_test',
+                  cate1: cate1,
+                  cate2: cate2,
+                  cate3: cate3,
+                  title: title
+              },
+              success: function(response) {
+                  var data = JSON.parse(response);
 
-                // 퀴즈와 시험 데이터 업데이트
-                var quizSelect = $('select[name="quiz_id"]');
-                quizSelect.html('<option value="">퀴즈를 선택해 주세요.</option>');
-                data.quiz.forEach(function(quiz) {
-                    quizSelect.append('<option value="' + quiz.exid + '">' + quiz.tt + '</option>');
-                });
+                  // 퀴즈와 시험 데이터 업데이트
+                  var quizSelect = $('select[name="quiz_id"]');
+                  quizSelect.html('<option value="">퀴즈를 선택해 주세요.</option>');
+                  data.quiz.forEach(function(quiz) {
+                      quizSelect.append('<option value="' + quiz.exid + '">' + quiz.tt + '</option>');
+                  });
 
-                var testSelect = $('select[name="test_id"]');
-                testSelect.html('<option value="">시험을 선택해 주세요.</option>');
-                data.test.forEach(function(test) {
-                    testSelect.append('<option value="' + test.exid + '">' + test.tt + '</option>');
-                });
-            },
-            error: function(xhr, status, error) {
-                console.error('AJAX Error:', error);
-            }
-        });
-    }
-}
+                  var testSelect = $('select[name="test_id"]');
+                  testSelect.html('<option value="">시험을 선택해 주세요.</option>');
+                  data.test.forEach(function(test) {
+                      testSelect.append('<option value="' + test.exid + '">' + test.tt + '</option>');
+                  });
+              },
+              error: function(xhr, status, error) {
+                  console.error('AJAX Error:', error);
+              }
+          });
+      }
+  }
 
-// 카테고리나 강좌명이 변경될 때 이벤트 실행
-$('#cate1, #cate2, #cate3, #title').on('change', updateQuizAndTest);
+  // 카테고리나 강좌명이 변경될 때 이벤트 실행
+  $('#cate1, #cate2, #cate3, #title').on('change', updateQuizAndTest);
 
 
-$('#lecture_save').on('submit', function (e) {
-    const lectureDetails = [];
-    $('.lecture-detail-row').each(function () {
-        lectureDetails.push({
-            title: $(this).find('input[name="lecture_title"]').val(),
-            description: $(this).find('textarea[name="lecture_description"]').val(),
-            quiz_id: $(this).find('select[name="quiz_id"]').val(),
-            test_id: $(this).find('select[name="test_id"]').val(),
-        });
-    });
+  $('#lecture_save').on('submit', function (e) {
+      const lectureDetails = [];
+      $('.lecture-detail-row').each(function () {
+          lectureDetails.push({
+              title: $(this).find('input[name="lecture_title"]').val(),
+              description: $(this).find('textarea[name="lecture_description"]').val(),
+              quiz_id: $(this).find('select[name="quiz_id"]').val(),
+              test_id: $(this).find('select[name="test_id"]').val(),
+          });
+      });
 
-    console.log(lectureDetails); // 데이터를 콘솔에 출력
+      console.log(lectureDetails); // 데이터를 콘솔에 출력
 
-    $('<input>').attr({
-        type: 'hidden',
-        name: 'lecture_detail',
-        value: JSON.stringify(lectureDetails),
-    }).appendTo('#lecture_save');
-});
+      $('<input>').attr({
+          type: 'hidden',
+          name: 'lecture_detail',
+          value: JSON.stringify(lectureDetails),
+      }).appendTo('#lecture_save');
+  });
 
 
 
