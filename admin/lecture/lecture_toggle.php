@@ -1,19 +1,20 @@
 <?php
 header('Content-Type: application/json'); // JSON 응답 설정
 
-include_once($_SERVER['DOCUMENT_ROOT'] . '/code_even/admin/inc/db.php');
+// 데이터베이스 연결
+include_once($_SERVER['DOCUMENT_ROOT'] . '/code_even/admin/inc/dbcon.php');
 
 // 요청 데이터 읽기
 $data = json_decode(file_get_contents('php://input'), true);
 
-// 데이터 확인
+// 입력 데이터 검증
 $lectureId = isset($data['id']) ? intval($data['id']) : null;
 $state = isset($data['state']) ? intval($data['state']) : null;
 
-$response = ['success' => false]; // 기본 응답
+$response = ['success' => false];
 
 if ($lectureId !== null && $state !== null) {
-    // state 값 업데이트 쿼리
+    // 강좌 state 값만 업데이트
     $sql = "UPDATE lecture SET state = ? WHERE leid = ?";
     $stmt = $mysqli->prepare($sql);
 
@@ -21,17 +22,17 @@ if ($lectureId !== null && $state !== null) {
         $stmt->bind_param('ii', $state, $lectureId);
 
         if ($stmt->execute()) {
-            $response['success'] = true;
+            $response['success'] = true; // 업데이트 성공
         } else {
-            $response['error'] = 'Database execution error: ' . $stmt->error;
+            $response['error'] = '쿼리 실행 오류: ' . $stmt->error;
         }
 
         $stmt->close();
     } else {
-        $response['error'] = 'Database preparation error: ' . $mysqli->error;
+        $response['error'] = '쿼리 준비 오류: ' . $mysqli->error;
     }
 } else {
-    $response['error'] = 'Invalid input data. ID or State is missing.';
+    $response['error'] = '유효하지 않은 입력 데이터입니다.';
 }
 
 // JSON 응답 반환

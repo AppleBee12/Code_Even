@@ -94,7 +94,7 @@ while ($data = $result->fetch_object()) {
             <td><?= $cl->cdid; ?></td>
             <td><a href="student_details.php?uid=<?= $cl->uid; ?>" class="underline"><?= $cl->userid ?></a></td>
             <td><a href="student_details.php?uid=<?= $cl->uid; ?>" class="underline"><?= $cl->username ?></a></td>
-            <td><?= mb_strlen($cl->title) > 20 ? mb_substr($cl->title, 0, 20) . '...' : $cl->title; ?></td>
+            <td><?= mb_strlen($cl->title) > 25 ? mb_substr($cl->title, 0, 25) . '...' : $cl->title; ?></td>
             <td></td>
             <td>
               <button type="button" class="printButton">

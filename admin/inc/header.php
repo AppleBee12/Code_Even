@@ -139,6 +139,7 @@ if($level == 10){
   switch ($page) {
     case 'lecture_up.php':
     case 'lecture_view.php':
+    case 'lecture_edit.php':
     case 'quiz_test_up.php':
       echo '<link rel="stylesheet" href="http://' . $_SERVER['HTTP_HOST'] . '/code_even/admin/css/lecture.css">';
       break;

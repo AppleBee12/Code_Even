@@ -2,29 +2,39 @@
 
 include_once($_SERVER['DOCUMENT_ROOT'] . '/CODE_EVEN/admin/inc/dbcon.php'); // DB 연결
 
+header('Content-Type: application/json'); // JSON 응답 헤더 설정
+
 $cate1 = isset($_POST['cate1']) ? $_POST['cate1'] : '';
 $cate2 = isset($_POST['cate2']) ? $_POST['cate2'] : '';
 $cate3 = isset($_POST['cate3']) ? $_POST['cate3'] : '';
-$title = isset($_POST['title']) ? $_POST['title'] : '';
 
 $books = [];
 
-// 카테고리에 맞는 교재를 검색
-if ($cate1 ) {
-    $sql_books = " SELECT boid, book FROM book WHERE cate1 = '$cate1' AND cate2 = '$cate2' AND cate3 = '$cate3' ";
-    $result_books = $mysqli->query($sql_books);
+if (!empty($cate1) && !empty($cate2) && !empty($cate3)) {
+    $sql_books = "SELECT boid, book FROM book WHERE cate1 = ? AND cate2 = ? AND cate3 = ?";
+    $stmt = $mysqli->prepare($sql_books);
 
-    // 교재 목록을 배열에 저장
-    while ($book = $result_books->fetch_object()) {
-        $books[] = $book;
+    if ($stmt) {
+        $stmt->bind_param('sss', $cate1, $cate2, $cate3);
+        $stmt->execute();
+        $result_books = $stmt->get_result();
+
+        while ($book = $result_books->fetch_object()) {
+            $books[] = $book;
+        }
+        $stmt->close();
+    } else {
+        error_log("SQL 준비 실패: " . $mysqli->error); // 오류 로그 기록
+        echo json_encode(['error' => '서버 오류 발생']);
+        exit;
     }
-    // echo json_encode($sql_books);
+} else {
+    echo json_encode(['error' => '모든 분류를 선택하세요.']); // 오류 메시지 반환
+    exit;
 }
 
-// 교재 목록을 JSON 형식으로
+// JSON 데이터 반환
 echo json_encode($books);
-
-
-
+exit;
 
 ?>
