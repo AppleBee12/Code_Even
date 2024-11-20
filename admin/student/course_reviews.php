@@ -89,7 +89,7 @@ while ($data = $result->fetch_object()) {
           <td><?=$no->userid;?></td>
           <td><?=$no->username;?></td>
           <td><a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/student/course_reviews_details.php?rvid=<?=$no->rvid;?>" class="underline"><?=$no->rtitle;?></a></td>
-          <td><?= mb_strlen($no->title) > 20 ? mb_substr($no->title, 0, 20) . '...' : $no->title; ?></td>
+          <td><?= mb_strlen($no->title) > 15 ? mb_substr($no->title, 0, 15) . '...' : $no->title; ?></td>
           <td><?=$no->name;?></td>
           <td>
             <div>
