@@ -15,7 +15,7 @@
  
     }
     .bgsz{
-      margin-top: 5%;
+      margin-top: 10%;
     }
     .images2{
       /* background: #000; */
