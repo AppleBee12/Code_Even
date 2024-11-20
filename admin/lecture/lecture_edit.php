@@ -544,4 +544,3 @@ $('.leplus').on('click', function () {
 <?php
 include_once($_SERVER['DOCUMENT_ROOT'] . '/code_even/admin/inc/footer.php');
 ?>
-

@@ -135,6 +135,7 @@ if($level == 10){
     case 'lecture_list.php':
     case 'quiz_test_list.php':
     case 'quiz_test_outcome.php':
+    case 'book_list.php':
       echo '<link rel="stylesheet" href="http://' . $_SERVER['HTTP_HOST'] . '/code_even/admin/css/lecture_list.css">';
       break;
   }
@@ -143,6 +144,7 @@ if($level == 10){
     case 'lecture_view.php':
     case 'lecture_edit.php':
     case 'quiz_test_up.php':
+    case 'book_up.php':
       echo '<link rel="stylesheet" href="http://' . $_SERVER['HTTP_HOST'] . '/code_even/admin/css/lecture.css">';
       break;
   }
