@@ -324,7 +324,13 @@ $_SESSION['AUNAME'] = $username;
                   href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/student/student_list.php">　　-　수강생 목록</a>
               </li>
               <li class="list-group-item"><a
-                  href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/student/student_question.php">　　-　수강생
+                <?php if ($level == 100): ?>
+                  href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/student/student_question.php"
+                <?php endif; ?>
+                <?php if ($level == 10): ?>
+                  href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/teacher_page/student/teacher_student_question.php"
+                <?php endif; ?>
+                  >　　-　수강생
                   질문</a>
               </li>
               <?php if ($level == 100): ?>
