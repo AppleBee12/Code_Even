@@ -1,3 +1,10 @@
+.lecture-img > img{
+  width: 60px !important;
+  height: 40px !important;
+  object-fit: cover !important;
+  display: block; /* 이미지 블록화 */
+}
+
 .table {
   width: 100%;
   border-collapse: collapse;
