@@ -919,7 +919,6 @@ CREATE TABLE `student_qna` (
   `cdid` int(11) DEFAULT NULL COMMENT '수강데이터ID',
   `qtitle` varchar(255) NOT NULL COMMENT '질문제목',
   `qcontent` text NOT NULL COMMENT '질문내용',
-  `status` enum('waiting','done') NOT NULL DEFAULT 'waiting' COMMENT '상태',
   `regdate` datetime NOT NULL COMMENT '등록일',
   `file` varchar(255) DEFAULT NULL COMMENT '파일'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='수강생 질문';
@@ -997,10 +996,16 @@ INSERT INTO `teachers` (`tcid`, `uid`, `cgid`, `tc_userid`, `tc_name`, `tc_userp
 CREATE TABLE `teacher_qna` (
   `asid` int(11) NOT NULL COMMENT '답변고유ID',
   `sqid` int(11) DEFAULT NULL COMMENT '질문고유ID',
-  `tcid` int(11) NOT NULL COMMENT '강사ID',
-  `content` text NOT NULL COMMENT '답변내용',
-  `file` varchar(255) DEFAULT NULL COMMENT '파일'
+  `content` text NOT NULL COMMENT '답변내용'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='강사 답변';
+
+--
+-- 테이블의 덤프 데이터 `teacher_qna`
+--
+
+INSERT INTO `teacher_qna` (`asid`, `sqid`, `content`) VALUES
+(1, 2, '외부 스타일시트 (External Style Sheet):\r\n\r\n외부 스타일시트는 별도의 .css 파일에 스타일을 작성하고, HTML 문서 내에서 해당 파일을 <link> 태그를 사용해 연결하는 방식입니다.\r\nHTML 파일에서 CSS를 독립적으로 관리할 수 있어 여러 HTML 파일에서 동일한 스타일을 재사용할 수 있습니다.'),
+(4, 3, 'CSS에서 선택자는 HTML 요소를 선택하여 스타일을 적용하는 데 사용됩니다. 선택자는 다양한 형태로 존재하며, 각각의 특성에 따라 우선순위가 다르게 적용됩니다.');
 
 -- --------------------------------------------------------
 
@@ -1407,8 +1412,7 @@ ALTER TABLE `teachers`
 --
 ALTER TABLE `teacher_qna`
   ADD PRIMARY KEY (`asid`),
-  ADD UNIQUE KEY `sqid` (`sqid`),
-  ADD KEY `tcid` (`tcid`);
+  ADD KEY `sqid` (`sqid`);
 
 --
 -- 테이블의 인덱스 `teamproject`
@@ -1726,8 +1730,7 @@ ALTER TABLE `student_qna`
 -- 테이블의 제약사항 `teacher_qna`
 --
 ALTER TABLE `teacher_qna`
-  ADD CONSTRAINT `teacher_qna_ibfk_1` FOREIGN KEY (`sqid`) REFERENCES `student_qna` (`sqid`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `teacher_qna_ibfk_2` FOREIGN KEY (`tcid`) REFERENCES `teachers` (`tcid`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `teacher_qna_ibfk_1` FOREIGN KEY (`sqid`) REFERENCES `student_qna` (`sqid`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
