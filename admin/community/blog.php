@@ -8,7 +8,7 @@ $keywords = isset($_GET['keywords']) ? $mysqli->real_escape_string($_GET['keywor
 $where_clause = '';
 
 if ($keywords) {
-  $where_clause = "WHERE blog.title LIKE '%$keywords%' OR blog.contents LIKE '%$keywords%' OR user.usernick LIKE '%$keywords%' ";
+  $where_clause = "WHERE blog.titles LIKE '%$keywords%' OR blog.contents LIKE '%$keywords%' OR user.usernick LIKE '%$keywords%' ";
 }
 
 $page_sql = "SELECT COUNT(*) AS cnt FROM blog JOIN user ON blog.uid = user.uid $where_clause";
@@ -60,7 +60,9 @@ while ($data = $result->fetch_object()) {
     </div>
   </form>
 
-  <form action="">
+
+  <form action="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/community/blog_write.php" method="GET">
+    <input type="hidden" name="post" value="blog">
     <table class="table list_table">
       <thead>
         <tr>
@@ -105,11 +107,9 @@ while ($data = $result->fetch_object()) {
         }
         ?>
       </tbody>
-
-
     </table>
     <!-- //table -->
-    <!-- <button type="button" class="btn btn-outline-secondary ms-auto d-block">일괄수정</button> -->
+    <button type="submit" class="btn btn-secondary ms-auto d-block">등록</button>
   </form>
 
   <!-- //Pagination -->
