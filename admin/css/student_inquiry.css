@@ -12,7 +12,7 @@
   margin-bottom: 25px;
 }
 
-#printButton {
+.printButton {
   position: relative;
   width: 50px;
   height: 21px;

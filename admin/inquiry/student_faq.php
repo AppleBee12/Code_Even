@@ -48,7 +48,7 @@ while ($data = $result->fetch_object()) {
 
 <div class="container">
   <h2>수강생 FAQ</h2>
-  <form action="" method="GET" class="row justify-content-end">
+  <form method="GET" class="row justify-content-end">
     <div class="col-lg-4">
       <div class="input-group mb-3">
         <input type="text" class="form-control" placeholder="검색어를 입력하세요." name="keywords"

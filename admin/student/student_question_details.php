@@ -1,5 +1,5 @@
 <?php
-$title = "수강생 관리";
+$title = "수강생 질문";
 include_once($_SERVER['DOCUMENT_ROOT'] . '/code_even/admin/inc/header.php');
 
 $sqid = $_GET['sqid'];
@@ -25,9 +25,13 @@ $data = $result->fetch_object();
     <colgroup>
         <col class="col-width-160">
         <col class="col-width-516">
+        <col class="col-width-160">
+        <col class="col-width-516">
     </colgroup>
     <thead class="thead-hidden">
       <tr>
+        <th scope="col">구분</th>
+        <th scope="col">내용</th>
         <th scope="col">구분</th>
         <th scope="col">내용</th>
       </tr>
@@ -74,10 +78,14 @@ $data = $result->fetch_object();
   <div class="custom-hr"></div>
 
   <div class="d-flex justify-content-end gap-2">
-    <a href="student_question.php" class="btn btn-outline-danger">취소</a>
+    <a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/stdent/student_question.php" class="btn btn-outline-danger">취소</a>
+
+  <?php if ($level == 10): ?>
+    <a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/teacher_page/student/student_question_answer.php?sqid=<?=$sqid?>" class="btn btn-outline-secondary">답변작성</a>
+  <?php endif; ?>
 
   <?php if ($level == 100): ?>
-    <a href="student_question_delete.php?sqid=<?=$data->sqid;?>" class="btn btn-danger">삭제</a>
+    <a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/student/student_question_delete.php?sqid=<?=$data->sqid;?>" class="btn btn-danger">삭제</a>
   <?php endif; ?>
   
   </div>

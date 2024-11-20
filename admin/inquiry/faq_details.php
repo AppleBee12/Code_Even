@@ -40,7 +40,7 @@ $data = $result->fetch_object();
         <tr>
           <th scope="row">유형</th>
           <td>
-            <select class="form-select w-50" aria-label="target select" name="target" id="target" disabled>
+            <select class="form-select w-50" name="target" id="target" disabled>
               <option value="<?= $data->target; ?>">
                 <?php
                 echo $data->target === "student" ? "수강생" : ($data->target === "teacher" ? "강사" : "알 수 없음");

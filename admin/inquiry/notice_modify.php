@@ -22,9 +22,13 @@ $data = $result->fetch_object();
       <colgroup>
         <col class="col-width-160">
         <col class="col-width-516">
+        <col class="col-width-160">
+        <col class="col-width-516">
       </colgroup>
       <thead class="thead-hidden">
         <tr>
+          <th scope="col">구분</th>
+          <th scope="col">내용</th>
           <th scope="col">구분</th>
           <th scope="col">내용</th>
         </tr>
@@ -36,16 +40,16 @@ $data = $result->fetch_object();
           <th scope="row">상태 <b>*</b></th>
           <td class="d-flex gap-3">
             <div class="form-check">
-              <input class="form-check-input" type="radio" name="status" id="status" value="on"
+              <input class="form-check-input" type="radio" name="status" id="statusOn" value="on"
                 <?= ($data->status === 'on') ? 'checked' : ''; ?> required>
-              <label class="form-check-label" for="status">
+              <label class="form-check-label" for="statusOn">
                 노출
               </label>
             </div>
             <div class="form-check">
-              <input class=" form-check-input" type="radio" name="status" id="status" value="off"
+              <input class=" form-check-input" type="radio" name="status" id="statusOff" value="off"
                 <?= ($data->status === 'off') ? 'checked' : ''; ?>>
-              <label class="form-check-label" for="status">
+              <label class="form-check-label" for="statusOff">
                 숨김
               </label>
             </div>
@@ -65,12 +69,10 @@ $data = $result->fetch_object();
     <textarea name="content" id="content" class="form-control"><?= $data->content; ?></textarea>
     <div class="custom-hr"></div>
     <div class="d-flex justify-content-end gap-2">
-      <button type="button" class="btn btn-outline-danger" onclick="window.history.back();" aria-label="취소">취소</button>
+      <button type="button" class="btn btn-outline-danger" onclick="window.history.back();" >취소</button>
       <button type="submit" class="btn btn-secondary">등록</button>
     </div>
   </form>
-
-</div>
 
 </div>
 

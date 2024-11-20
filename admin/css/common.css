@@ -152,26 +152,16 @@ header h1.logo a {
 }
 
 
-.nav-link.profile_image{
+.nav-link .profile_image{
   width:70px;
   height:70px;
-  
-  background-image: url(../images/adminprofile.png);
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-color: var(--bk300);
   border-radius: 50%;
 }
-.nav-link.tc_profile_image{
-  width:70px;
-  height:70px;
-}
-.greet_name {
 
+.greet_name {
   p{
     margin-bottom: 0;
   }
-  
 }
 
 .greet_name p:first-child{

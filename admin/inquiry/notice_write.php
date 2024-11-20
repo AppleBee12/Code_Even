@@ -27,6 +27,8 @@ $data = $result->fetch_object();
         <tr>
           <th scope="col">구분</th>
           <th scope="col">내용</th>
+          <th scope="col">구분</th>
+          <th scope="col">내용</th>
         </tr>
       </thead>
       <tbody>
@@ -36,14 +38,14 @@ $data = $result->fetch_object();
           <th scope="row">상태 <b>*</b></th>
           <td class="d-flex gap-3">
             <div class="form-check">
-              <input class="form-check-input" type="radio" name="status" id="status" value="on" required>
-              <label class="form-check-label" for="status">
+              <input class="form-check-input" type="radio" name="status" id="statusOn" value="on" required>
+              <label class="form-check-label" for="statusOn">
                 노출
               </label>
             </div>
             <div class="form-check">
-              <input class=" form-check-input" type="radio" name="status" id="status" value="off" checked>
-              <label class="form-check-label" for="status">
+              <input class=" form-check-input" type="radio" name="status" id="statusOff" value="off" checked>
+              <label class="form-check-label" for="statusOff">
                 숨김
               </label>
             </div>

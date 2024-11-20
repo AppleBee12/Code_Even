@@ -241,10 +241,10 @@
       </div>
       <table class="table">
         <colgroup>
-          <col width="160">  
-          <col width="516">  
-          <col width="160">
-          <col width="516">  
+        <col class="col-width-160">
+        <col class="col-width-516">
+        <col class="col-width-160">
+        <col class="col-width-516">
         </colgroup>
         <tbody>
           <tr>

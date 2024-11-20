@@ -1,5 +1,5 @@
 <?php
-$title = "수강생 관리";
+$title = "이메일 발송";
 include_once($_SERVER['DOCUMENT_ROOT']. '/code_even/admin/inc/header.php');
 
 // 게시글 개수 구하기
@@ -71,8 +71,6 @@ if ($result->num_rows > 0) {
     }
   }
 }
-
-
 ?>
 
 <div class="container">
@@ -123,7 +121,7 @@ if ($result->num_rows > 0) {
   </table>
 
   <!-- //Pagination -->
-  <div class="list_pagination" aria-label="Page navigation example">
+  <div class="list_pagination">
     <ul class="pagination d-flex justify-content-center">
       <?php
       $previous = $block_start - $block_ct;
@@ -161,7 +159,7 @@ if ($result->num_rows > 0) {
   </div>
 
     <!-- //email 상세 모달창 -->
-  <div class="modal" tabindex="-1" id="email_details" aria-labelledby="emailModalLabel">
+  <div class="modal" tabindex="-1" id="email_details">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
@@ -191,11 +189,11 @@ if ($result->num_rows > 0) {
                 </tr>
                 <tr class="none">
                   <th scope="row">제목</th>
-                  <td colspan="3"><input type="text" name="title" class="form-control" disabled></td>
+                  <td><input type="text" name="title" class="form-control" disabled></td>
                 </tr>
                 <tr class="none">
                   <th scope="row">내용</th>
-                  <td colspan="3"><textarea name="content" class="form-control" disabled></textarea></td>
+                  <td><textarea name="content" class="form-control" disabled></textarea></td>
                 </tr>
               </tbody>
             </table>
@@ -208,10 +206,6 @@ if ($result->num_rows > 0) {
   </div>
 
 </div>
-
-<?php
-include_once($_SERVER['DOCUMENT_ROOT']. '/code_even/admin/inc/footer.php');
-?>
 
 <script>
 
@@ -232,3 +226,7 @@ include_once($_SERVER['DOCUMENT_ROOT']. '/code_even/admin/inc/footer.php');
     }
 });
 </script>
+
+<?php
+include_once($_SERVER['DOCUMENT_ROOT']. '/code_even/admin/inc/footer.php');
+?>
