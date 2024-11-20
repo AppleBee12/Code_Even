@@ -8,10 +8,10 @@ $keywords = isset($_GET['keywords']) ? $mysqli->real_escape_string($_GET['keywor
 $where_clause = '';
 
 if ($keywords) {
-  $where_clause = "WHERE team_project.titles LIKE '%$keywords%' OR team_project.contents LIKE '%$keywords%' OR user.usernick LIKE '%$keywords%' ";
+  $where_clause = "WHERE teamproject.titles LIKE '%$keywords%' OR teamproject.contents LIKE '%$keywords%' OR user.usernick LIKE '%$keywords%' ";
 }
 
-$page_sql = "SELECT COUNT(*) AS cnt FROM team_project JOIN user ON team_project.uid = user.uid $where_clause";
+$page_sql = "SELECT COUNT(*) AS cnt FROM teamproject JOIN user ON teamproject.uid = user.uid $where_clause";
 $page_result = $mysqli->query($page_sql);
 $page_data = $page_result->fetch_assoc();
 $row_num = $page_data['cnt'];
@@ -31,11 +31,11 @@ if ($block_end > $total_page) {
   $block_end = $total_page;
 }
 
-$sql = "SELECT team_project.*, user.uid, user.usernick 
-        FROM team_project 
-        JOIN user ON team_project.uid = user.uid 
+$sql = "SELECT teamproject.*, user.uid, user.usernick 
+        FROM teamproject 
+        JOIN user ON teamproject.uid = user.uid 
         $where_clause 
-        ORDER BY team_project.post_id DESC 
+        ORDER BY teamproject.post_id DESC 
         LIMIT $start_num, $list";
 $result = $mysqli->query($sql);
 
