@@ -2,34 +2,34 @@
 $title = "수강생 질문";
 include_once($_SERVER['DOCUMENT_ROOT'] . '/CODE_EVEN/admin/inc/dbcon.php');
 
-print_r($_POST);
-// $aqid = $_POST['aqid'];
-// $acontent = $_POST['acontent'];
+// print_r($_POST);
+$sqid = $_POST['sqid'];
+$content = $_POST['content'];
 
-// $admin_qna_sql = "
-//     INSERT INTO teacher_qna (aqid , acontent)
-//     SELECT aqid, '$acontent' 
-//     FROM admin_question 
-//     WHERE aqid = $aqid
-//     ";
+$teacher_qna_sql = "
+    INSERT INTO teacher_qna (sqid , content)
+    SELECT sqid, '$content' 
+    FROM student_qna 
+    WHERE sqid = $sqid
+    ";
 
-// // print_r($admin_qna_sql);
+// print_r($teacher_qna_sql);
 
-// $admin_qna_result = $mysqli->query($admin_qna_sql);
+$teacher_qna_result = $mysqli->query($teacher_qna_sql);
 
-// if ($admin_qna_result === true) {
-//   echo
-//     "<script>
-//     confirm('글을 등록하시겠습니까?');
-//     alert('등록이 완료되었습니다.');
-//     location.href = 'admin_qna.php';
-//   </script>";
-// } else {
-//   echo
-//     "<script>
-//     alert('글쓰기 실패');
-//     history.back();
-//   </script>";
-// }
+if ($teacher_qna_result === true) {
+  echo
+    "<script>
+    confirm('답변을 등록하시겠습니까?');
+    alert('등록이 완료되었습니다.');
+    location.href = 'teacher_student_question.php';
+  </script>";
+} else {
+  echo
+    "<script>
+    alert('글쓰기 실패');
+    history.back();
+  </script>";
+}
 
 ?>
