@@ -2,14 +2,18 @@
 $title = "수강생 관리";
 include_once($_SERVER['DOCUMENT_ROOT'] . '/code_even/admin/inc/header.php');
 
-$cdid = $_GET['cdid'];
+$uid = $_GET['uid'];
 $sql = "SELECT class_data.*, user.*, lecture.* 
         FROM class_data 
         JOIN user ON class_data.uid = user.uid 
         JOIN lecture ON class_data.leid = lecture.leid 
-        WHERE cdid = $cdid";
+        WHERE user.uid = $uid 
+        ORDER BY class_data.cdid DESC";
 $result = $mysqli->query($sql);
-$data = $result->fetch_object();
+$data = [];
+while ($row = $result->fetch_object()) {
+    $data[] = $row; // 각 행을 배열에 추가
+}
 ?>
 
 <div class="container">
@@ -31,40 +35,44 @@ $data = $result->fetch_object();
         </tr>
       </thead>
       <tbody>
+        <?php
+          if (!empty($data)) {
+            $userData = $data[0];
+        ?>
         <tr class="none">
           <th scope="row">이름</th>
-          <td><?= $data->username; ?></td>
+          <td><?= $userData->username; ?></td>
           <th scope="row">가입일</th>
-          <td><?= $data->signup_date; ?></td>
+          <td><?= $userData->signup_date; ?></td>
         </tr>
         <tr class="none">
           <th scope="row">아이디</th>
-          <td><?= $data->userid; ?></td>
+          <td><?= $userData->userid; ?></td>
           <th scope="row">마지막접속일</th>
-          <td><?= $data->last_date; ?></td>
+          <td><?= $userData->last_date; ?></td>
         </tr>
         <tr class="none">
           <th scope="row">휴대전화</th>
-          <td><?= $data->userphonenum; ?></td>
+          <td><?= $userData->userphonenum; ?></td>
           <th scope="row">상태</th>
           <td class="d-flex gap-3">
             <div class="form-check">
               <input class="form-check-input" type="radio" name="statusCheck" id="statusCheck" value="0"
-                <?= ($data->user_status === '0') ? 'checked' : ''; ?> disabled>
+                <?= ($userData->user_status === '0') ? 'checked' : ''; ?> disabled>
               <label class="form-check-label" for="statusCheck">
                 정상
               </label>
             </div>
             <div class="form-check">
               <input class=" form-check-input" type="radio" name="statusCheck" id="statusCheck" value="1"
-                <?= ($data->user_status === '1') ? 'checked' : ''; ?> disabled>
+                <?= ($userData->user_status === '1') ? 'checked' : ''; ?> disabled>
               <label class="form-check-label" for="statusCheck">
                 정지
               </label>
             </div>
             <div class="form-check">
               <input class=" form-check-input" type="radio" name="statusCheck" id="statusCheck" value="-1"
-                <?= ($data->user_status === '-1') ? 'checked' : ''; ?> disabled>
+                <?= ($userData->user_status === '-1') ? 'checked' : ''; ?> disabled>
               <label class="form-check-label" for="statusCheck">
                 탈퇴
               </label>
@@ -73,20 +81,23 @@ $data = $result->fetch_object();
         </tr>
         <tr class="none">
           <th scope="row">이메일</th>
-          <td><?= $data->useremail; ?></td>
+          <td><?= $userData->useremail; ?></td>
         </tr>
         <tr class="none">
           <th scope="row">이메일 수신 여부</th>
           <td class="d-flex gap-3">
             <div class="form-check">
               <input class="form-check-input" type="checkbox" name="emailCheck" id="emailCheck" value="1"
-                <?= ($data->email_ok === '1') ? 'checked' : ''; ?> disabled>
+                <?= ($userData->email_ok === '1') ? 'checked' : ''; ?> disabled>
               <label class="form-check-label" for="emailCheck">
                 동의
               </label>
             </div>
           </td>
         </tr>
+        <?php
+          }
+        ?>
       </tbody>
     </table>
   </form>
@@ -111,18 +122,21 @@ $data = $result->fetch_object();
         </tr>
       </thead>
       <tbody>
+        <?php
+          foreach ($data as $row) {
+        ?>
         <tr>
-          <th scope="row"><?= $data->cdid; ?></th>
+          <th scope="row"><?= $row->cdid; ?></th>
           <td>김동주</td>
-          <td><?= $data->title; ?></td>
+          <td><?= $row->title; ?></td>
           <td>
-            <?= date('Y-m-d', strtotime($data->date)) ?>
+            <?= date('Y-m-d', strtotime($row->date)) ?>
           </td>
           <td>
             <?php
-            $set_date = date('Y-m-d', strtotime($data->date));
-            $start_date = new DateTime($data->date); // DateTime 객체 생성
-            $start_date->modify("+{$data->period} days"); // 기간을 더함
+            $set_date = date('Y-m-d', strtotime($row->date));
+            $start_date = new DateTime($row->date); // DateTime 객체 생성
+            $start_date->modify("+{$row->period} days"); // 기간을 더함
             $end_date = $start_date->format('Y-m-d'); // 종료 날짜 포맷팅
             ?>
             <?= $end_date ?>
@@ -136,6 +150,9 @@ $data = $result->fetch_object();
             </button>
           </td>
         </tr>
+        <?php
+          }
+        ?>
       </tbody>
     </table>
     <div class="d-flex justify-content-end">
