@@ -1,5 +1,5 @@
 <?php
-$title = "수강생 관리";
+$title = "수강생 상세";
 include_once($_SERVER['DOCUMENT_ROOT'] . '/code_even/admin/inc/header.php');
 
 $uid = $_GET['uid'];

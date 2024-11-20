@@ -1,4 +1,5 @@
 <?php
+$title = "수강생 질문";
 include_once($_SERVER['DOCUMENT_ROOT'] . '/CODE_EVEN/admin/inc/dbcon.php');
 
 print_r($_POST);

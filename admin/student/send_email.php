@@ -1,5 +1,5 @@
 <?php
-$title = "수강생 관리";
+$title = "이메일 발송";
 include_once($_SERVER['DOCUMENT_ROOT']. '/code_even/admin/inc/header.php');
 
 // 게시글 개수 구하기
