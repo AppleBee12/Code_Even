@@ -31,11 +31,11 @@
           <label for="username" class="form-label mt-3">이름 <b>*</b></label>
           <input type="text" id="username" name="username" class="form-control" placeholder="홍이븐" required>
         
-          <label for="usernick" class="form-label mt-3">닉네임</label>
+          <label for="usernick" class="form-label mt-3">닉네임 <b>*</b></label>
 
           <div class="d-flex gap-1">
             <input type="text" id="usernick" name="usernick" class="form-control" placeholder="이븐이">
-            <button type="button" class="btn btn-outline-secondary col-md-4">중복확인</button>
+            <button type="button" id="idcheck2" class="btn btn-outline-secondary col-md-4">중복확인</button>
           </div>
 
           <label for="userid" class="form-label mt-3">아이디 <b>*</b></label>
@@ -52,7 +52,7 @@
           <div class=" mt-3 ">
             <div class="">
               <label for="userphonenum" class="form-label mt-3">연락처 <b>*</b></label>
-              <input type="text" id="userphonenum" class="form-control" placeholder="010-1234-5678" name="userphonenum" required>
+              <input type="text" id="userphonenum" class="form-control" placeholder="010-1234-5678" name="userphonenum"  required>
             </div>
             
             <div class="">
@@ -82,6 +82,18 @@
 
 
   <script>
+  const hypenTel = (target) => {
+  target.value = target.value
+    .replace(/[^0-9]/g, '')
+    .replace(/^(\d{2,3})(\d{3,4})(\d{4})$/, `$1-$2-$3`);
+  }
+
+  $('#userphonenum').on('input', function() {
+    hypenTel(this);
+  });
+
+
+
   $(document).ready(function(){
     $(".signup_con").on("submit", function(event){
       // 체크박스가 체크되지 않은 경우
@@ -104,10 +116,19 @@
         idCheck_func(userid);
       }
     });
+    $('#idcheck2').click(function(){
+      let usernick = $('#usernick').val();
+      if(usernick == ''){
+        alert('닉네임을 입력해주세요.');
+        $('#usernick').focus();
+      }else{
+        idCheck_func(usernick);
+      }
+    });
 
     function idCheck_func(userid){
       let data = {
-        userid:userid
+        userid:userid,
       }
 
       $.ajax({
@@ -120,7 +141,6 @@
           if(returned_data.result == 'ok'){
             alert('사용할 수 있는 아이디입니다.');
             idChecked = true;
-            $('#userid').attr('readonly','readonly');
             return;
           }else if(returned_data.result == 'error'){
             alert('중복되는 아이디입니다.');
@@ -129,6 +149,64 @@
         }
       })
     }
+    function idCheck_func(usernick){
+      let data = {
+        usernick:usernick
+      }
+
+      $.ajax({
+        async:false,
+        url:'id_check.php',
+        data:data,
+        type : 'post',
+        dataType:'json',
+        success:function(returned_data){
+          if(returned_data.result == 'ok'){
+            alert('사용할 수 있는 닉네임입니다.');
+            idChecked = true;
+            return;
+          }else if(returned_data.result == 'error'){
+            alert('중복되는 닉네임입니다.');
+            return;
+          }
+        }
+      })
+    }
+
+//     function checkDuplication(field, value) {
+//     let data = {};
+//     data[field] = value; // field(아이디 또는 닉네임) 값 전송
+
+//     $.ajax({
+//       async: false,
+//       url: 'id_check.php', // 동일한 PHP 파일 사용
+//       data: data,
+//       type: 'post',
+//       dataType: 'json',
+//       success: function(returned_data) {
+//         if (returned_data.result === 'ok') {
+//           alert('사용할 수 있는 아이디입니다.');
+//           // 닉네임, 아이디에 맞게 처리
+//           if (field === 'userid') {
+//             idChecked = true;
+//           } else if (field === 'usernick') {
+//             nicknameChecked = true;
+//           }
+//         } else if (returned_data.result === 'error') {
+//           alert(`${field}은(는) 이미 사용 중입니다.`);
+//         }
+//       }
+//     });
+// }
+
+// function idCheck_func(userid) {
+//     checkDuplication('userid', userid); // userid 중복 체크
+// }
+
+// function nicknameCheck_func(usernick) {
+//     checkDuplication('usernick', usernick); // nickname 중복 체크
+// }
+
   </script>
 </body>
 </html>
