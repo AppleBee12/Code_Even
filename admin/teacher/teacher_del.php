@@ -31,7 +31,7 @@
 
     // 삭제 완료 후 강사 목록으로 이동
     echo "<script>
-      alert('강사 정보 및 관련 회원 정보 삭제 완료');
+      alert('강사 정보 삭제 완료');
       location.href = 'teacher_list.php';
     </script>";
   } else {
