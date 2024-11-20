@@ -42,11 +42,12 @@ $dataArr = [];
 while ($data = $result->fetch_object()) {
   $dataArr[] = $data;
 }
+
 ?>
 
 <div class="container">
   <h2>전체 공지사항</h2>
-  <form action="" method="get" class="row justify-content-end">
+  <form method="get" class="row justify-content-end">
     <div class="col-lg-4">
       <div class="input-group mb-3">
         <input type="text" class="form-control" placeholder="검색어를 입력하세요." name="keywords"
@@ -134,7 +135,7 @@ while ($data = $result->fetch_object()) {
 </div>
 
 <!-- //Pagination -->
-<div class="list_pagination" aria-label="Page navigation example">
+<div class="list_pagination">
   <ul class="pagination d-flex justify-content-center">
     <?php
     $previous = $block_start - $block_ct;
@@ -170,6 +171,61 @@ while ($data = $result->fetch_object()) {
     ?>
   </ul>
 </div>
+
+<!-- //상태 변경 모달창 -->
+<!-- <div class="modal" id="status_modal" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">글 상태 변경</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form id="status_form">
+          <table class="table">
+            <colgroup>
+              <col style="width:110px">
+              <col style="width:auto">
+            </colgroup>
+            <thead class="thead-hidden">
+              <tr>
+                <th scope="col">구분</th>
+                <th scope="col">내용</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="none">
+                <th scope="row">제목</th>
+                <td><input type="text" class="form-control w-75" id="modal_title" readonly></td>
+              </tr>
+              <tr class="none">
+                <th scope="row">상태 <b>*</b></th>
+                <td class="d-flex gap-3">
+                  <div class="form-check">
+                    <input class="form-check-input" type="radio" name="status" id="status_on" value="on">
+                    <label class="form-check-label" for="status">
+                      노출
+                    </label>
+                  </div>
+                  <div class="form-check">
+                    <input class=" form-check-input" type="radio" name="status" id="status_off" value="off">
+                    <label class="form-check-label" for="status">
+                      숨김
+                    </label>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal">취소</button>
+        <button type="button" class="btn btn-outline-secondary" id="updateStatusBtn">수정</button>
+      </div>
+    </div>
+  </div>
+</div> -->
 
 <?php
 include_once($_SERVER['DOCUMENT_ROOT'] . '/code_even/admin/inc/footer.php');

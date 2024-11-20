@@ -10,7 +10,7 @@
     $user_level = $_POST['user_level'];
     $user_status = $_POST['user_status'];
     $usernick = $_POST['usernick'];
-    $post_code = $_POST['post_code'] ?? '';
+    $post_code = isset($_POST['post_code']) && $_POST['post_code'] !== '' ? $_POST['post_code'] : 'NULL';
     $addr_line1 = $_POST['addr_line1'] ?? '';
     $addr_line2 = $_POST['addr_line2'] ?? '';
     $addr_line3 = $_POST['addr_line3'] ?? '';

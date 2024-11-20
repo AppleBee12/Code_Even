@@ -8,6 +8,15 @@ $sql = "SELECT faq.*, user.username, user.userid FROM faq JOIN user ON faq.uid =
 $result = $mysqli->query($sql);
 $data = $result->fetch_object();
 
+$view = $data->view + 1;
+
+$viewSql = "UPDATE faq SET view = $view WHERE fqid = $fqid;";
+$v_result = $mysqli->query($viewSql);
+
+$sql = "SELECT faq.*, user.username, user.userid FROM faq JOIN user ON faq.uid = user.uid WHERE fqid = $fqid";
+$result = $mysqli->query($sql);
+$data = $result->fetch_object();
+
 ?>
 
 <div class="container">
@@ -40,7 +49,7 @@ $data = $result->fetch_object();
         <tr>
           <th scope="row">유형</th>
           <td>
-            <select class="form-select w-50" aria-label="target select" name="target" id="target" disabled>
+            <select class="form-select w-50" name="target" id="target" disabled>
               <option value="<?= $data->target; ?>">
                 <?php
                 echo $data->target === "student" ? "수강생" : ($data->target === "teacher" ? "강사" : "알 수 없음");

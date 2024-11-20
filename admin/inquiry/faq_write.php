@@ -32,13 +32,15 @@ $data = $result->fetch_object();
         <tr>
           <th scope="col">구분</th>
           <th scope="col">내용</th>
+          <th scope="col">구분</th>
+          <th scope="col">내용</th>
         </tr>
       </thead>
       <tbody>
         <tr>
           <th scope="row">유형</th>
           <td>
-            <select class="form-select w-50" aria-label="Default select example" name="target" id="target">
+            <select class="form-select w-50" name="target" id="target">
               <option value="<?= $target ?>">
                 <?php
                 echo $target === "student" ? "수강생" : ($target === "teacher" ? "강사" : "알 수 없음");
@@ -48,7 +50,7 @@ $data = $result->fetch_object();
           </td>
           <th scope="row">분류 <b>*</b></th>
           <td>
-            <select class="form-select w-50" aria-label="category select" name="category" required>
+            <select class="form-select w-50" name="category" required>
               <option value="">분류 선택</option>
               <option value="1">결제/환불</option>
               <option value="2">강의</option>
@@ -67,14 +69,14 @@ $data = $result->fetch_object();
           <th scope="row">상태 <b>*</b></th>
           <td class="d-flex gap-3">
             <div class="form-check">
-              <input class="form-check-input" type="radio" name="status" id="status" value="on" required>
-              <label class="form-check-label" for="status">
+              <input class="form-check-input" type="radio" name="status" id="statusOn" value="on" required>
+              <label class="form-check-label" for="statusOn">
                 노출
               </label>
             </div>
             <div class="form-check">
-              <input class=" form-check-input" type="radio" name="status" id="status" value="off" checked>
-              <label class="form-check-label" for="status">
+              <input class=" form-check-input" type="radio" name="status" id="statusOff" value="off" checked>
+              <label class="form-check-label" for="statusOff">
                 숨김
               </label>
             </div>

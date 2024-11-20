@@ -31,23 +31,24 @@ $data = $result->fetch_object();
         <tr>
           <th scope="col">구분</th>
           <th scope="col">내용</th>
+          <th scope="col">구분</th>
+          <th scope="col">내용</th>
         </tr>
       </thead>
       <tbody>
         <tr>
           <th scope="row">유형 <b>*</b></th>
           <td>
-            <select class="form-select w-50" aria-label="target select" name="target" id="target" required>
-              <option value="<?= $data->target; ?>">
-                <?php
-                echo $data->target === "student" ? "수강생" : ($data->target === "teacher" ? "강사" : "알 수 없음");
-                ?>
-              </option>
-            </select>
+          <select class="form-select w-50" name="target" id="target">
+          <!-- student가 선택되었으면 teacher는 비활성화 -->
+          <option value="student" <?= ($data->target === "student") ? 'selected' : ''; ?> <?= ($data->target !== "student") ? 'disabled' : ''; ?>>수강생</option>
+          <!-- teacher가 선택되었으면 student는 비활성화 -->
+          <option value="teacher" <?= ($data->target === "teacher") ? 'selected' : ''; ?> <?= ($data->target !== "teacher") ? 'disabled' : ''; ?>>강사</option>
+        </select>
           </td>
           <th scope="row">분류 <b>*</b></th>
           <td>
-            <select class="form-select w-50" aria-label="category select" name="category" required>
+            <select class="form-select w-50" name="category" required>
               <option value="">분류 선택</option>
               <option value="1" <?= $data->category == 1 ? 'selected' : '' ?>>결제/환불</option>
               <option value="2" <?= $data->category == 2 ? 'selected' : '' ?>>강의</option>
@@ -66,16 +67,16 @@ $data = $result->fetch_object();
           <th scope="row">상태 <b>*</b></th>
           <td class="d-flex gap-3">
             <div class="form-check">
-              <input class="form-check-input" type="radio" name="status" id="status" value="on"
+              <input class="form-check-input" type="radio" name="status" id="statusOn" value="on"
                 <?= ($data->status === 'on') ? 'checked' : ''; ?> required>
-              <label class="form-check-label" for="status">
+              <label class="form-check-label" for="statusOn">
                 노출
               </label>
             </div>
             <div class="form-check">
-              <input class=" form-check-input" type="radio" name="status" id="status" value="off"
+              <input class=" form-check-input" type="radio" name="status" id="statusOff" value="off"
                 <?= ($data->status === 'off') ? 'checked' : ''; ?>>
-              <label class="form-check-label" for="status">
+              <label class="form-check-label" for="statusOff">
                 숨김
               </label>
             </div>

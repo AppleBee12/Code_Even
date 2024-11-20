@@ -1,5 +1,5 @@
 <?php
-$title = "수강생 관리";
+$title = "수강 후기";
 include_once($_SERVER['DOCUMENT_ROOT'] . '/code_even/admin/inc/header.php');
 
 // 게시글 개수 구하기
@@ -120,7 +120,7 @@ while ($data = $result->fetch_object()) {
     </table>
 
   <!-- //Pagination -->
-  <div class="list_pagination" aria-label="Page navigation example">
+  <div class="list_pagination">
     <ul class="pagination d-flex justify-content-center">
       <?php
       $previous = $block_start - $block_ct;

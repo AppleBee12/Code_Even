@@ -41,12 +41,14 @@ $data = $result->fetch_object();
         <tr>
           <th scope="col">구분</th>
           <th scope="col">내용</th>
+          <th scope="col">구분</th>
+          <th scope="col">내용</th>
         </tr>
       </thead>
       <tbody>
         <tr class="none">
           <th scope="row">이름(아이디)</th>
-          <td>
+          <td colspan="3">
             <?= $data->username ?>(<?= $data->userid ?>)
             <?php
             $class = $data->user_level == '10' ? 'text-bg-dark' : 'text-bg-light';
@@ -58,7 +60,7 @@ $data = $result->fetch_object();
         <tr>
           <th scope="row">분류</th>
           <td>
-            <select class="form-select w-50" aria-label="Default select example" name="category">
+            <select class="form-select w-50" name="category">
               <option value="<?= $data->category ?>">
                 <?php
                 $categories = [
@@ -92,7 +94,7 @@ $data = $result->fetch_object();
         <tr class="none">
           <th scope="row">질문 내용</th>
           <td colspan="3">
-            <textarea name="" id="" class="form-control w-75" disabled><?= $data->qcontent ?></textarea>
+            <textarea name="qcontent" class="form-control w-75" disabled><?= $data->qcontent ?></textarea>
           </td>
         </tr>
       </tbody>

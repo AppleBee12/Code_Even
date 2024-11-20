@@ -79,8 +79,12 @@ while ($data = $result->fetch_object()) {
           <td><?= $lecture->period; ?>일</td>
           <td>
             <div>
-              <span class="badge <?= $lecture->isgeneral ? 'text-bg-secondary' : ''; ?>">일반</span>
-              <span class="badge <?= $lecture->isrecipe ? 'recipe' : 'd-none'; ?>">레시피</span>
+              <?php if ((int)$lecture->isgeneral === 1): ?>
+                <span class="badge text-bg-secondary">일반</span>
+              <?php endif; ?>
+              <?php if ((int)$lecture->isrecipe === 1): ?>
+                <span class="badge recipe">레시피</span>
+              <?php endif; ?>
             </div>
           </td>
           <td>
@@ -93,56 +97,46 @@ while ($data = $result->fetch_object()) {
             <label class="form-check-label" for="recommend_<?= $lecture->leid; ?>"> 추천 </label>
             </div>
           </td>
-            <td>
-              <div>
-                <?php
-                  // 상태에 따른 클래스와 텍스트 정의
-                  $stateClasses = [
-                    0 => 'badge waitopen',         // 임시 저장
-                    1 => 'badge waitopen',         // 개설 대기
-                    2 => 'badge text-bg-secondary' // 개설
-                  ];
-                  $stateTexts = [
-                    0 => '임시 저장',
-                    1 => '개설 대기',
-                    2 => '개설'
-                  ];
-                ?>
-                <span class="<?= $stateClasses[$lecture->state]; ?>">
-                  <?= $stateTexts[$lecture->state]; ?>
-                </span>
-              </div>
-            </td>
+          <td>
+            <span 
+              id="status-badge-<?= $lecture->leid; ?>" 
+              class="badge <?= $lecture->state == 0 ? 'waitopen' : ($lecture->state == 2 ? 'text-bg-secondary' : 'waitopen'); ?>">
+              <?= $lecture->state == 0 ? '임시 저장' : ($lecture->state == 2 ? '개설' : '개설 대기'); ?>
+            </span>
+          </td>
           <td>
             <div class="d-flex justify-content-center align-items-center">
               <div class="form-check form-switch">
                 <input
-                  class="form-check-input tog"
-                  type="checkbox"
-                  role="switch"
-                  id="toggle_<?= $lecture->leid; ?>"
-                  <?= $lecture->approval ? 'checked' : ''; ?>
+                  id="toggle-<?= $lecture->leid; ?>" 
+                  class="form-check-input tog toggle-switch" 
+                  type="checkbox" 
+                  role="switch" 
+                  data-id="<?= $lecture->leid; ?>" 
+                  <?= $lecture->state == 2 ? 'checked' : ''; ?>
                 >
               </div>
             </div>
           </td>
           <td>
             <div class="d-flex justify-content-center gap-4">
-              <a href="edit.php?id=<?= $lecture->leid; ?>" class="text-primary">
-                <i class="bi bi-pencil-fill"></i>
-              </a>
-              <a href="delete.php?id=<?= $lecture->leid; ?>" class="text-danger">
-                <i class="bi bi-trash"></i>
-              </a>
+                <!-- 수정 버튼 -->
+                <a href="lecture_edit.php?id=<?= $lecture->leid; ?>">
+                    <i class="bi bi-pencil-fill"></i>
+                </a>
+                <!-- 삭제 버튼 -->
+                <a href="lecture_delete.php?id=<?= $lecture->leid; ?>" onclick="return confirm('이 강좌를 삭제하시겠습니까?');">
+                    <i class="bi bi-trash"></i>
+                </a>
             </div>
-          </td>
+        </td>
         </tr>
         <?php endforeach; ?>
       </tbody>
     </table>
     <div class="d-flex justify-content-end gap-2 mt-20 mb-50">
       <button type="button" class="btn selecmodify">일괄 수정</button>
-      <button type="button" class="btn nlecture">강좌 등록</button>
+      <a href="lecture_up.php" type="button" class="btn nlecture">강좌 등록</a>
     </div>
   </form>
 
@@ -155,7 +149,7 @@ while ($data = $result->fetch_object()) {
         if ($block_num > 1) { 
       ?>
       <li class="page-item">
-        <a class="page-link" href="notice.php?page=<?= $previous; ?>" aria-label="Previous">
+        <a class="page-link" href="lecture_list.php?page=<?= $previous; ?>" aria-label="Previous">
           <i class="bi bi-chevron-left"></i>
         </a>
       </li>
@@ -166,14 +160,16 @@ while ($data = $result->fetch_object()) {
         for ($i = $block_start; $i <= $block_end; $i++) {
           $active = ($page == $i) ? 'active' : '';
       ?>
-      <li class="page-item <?= $active; ?>"><a class="page-link" href="notice.php?page=<?= $i; ?>"><?= $i; ?></a></li>
+      <li class="page-item <?= $active; ?>">
+        <a class="page-link" href="lecture_list.php?page=<?= $i; ?>"><?= $i; ?></a>
+      </li>
       <?php
         }
         $next = $block_end + 1;
-        if($total_block > $block_num){
+        if ($total_block > $block_num) {
       ?>
       <li class="page-item">
-        <a class="page-link" href="notice.php?page=<?= $next; ?>" aria-label="Next">
+        <a class="page-link" href="lecture_list.php?page=<?= $next; ?>" aria-label="Next">
           <i class="bi bi-chevron-right"></i>
         </a>
       </li>
@@ -183,28 +179,34 @@ while ($data = $result->fetch_object()) {
     </ul>
   </div>
 
+
 </div>
 <script>
-  $('.tog').on('change', function () {
-  const $row = $(this).closest('tr'); // 현재 행
-  const lectureId = $row.data('id');
-  const isChecked = $(this).prop('checked');
-  const newState = isChecked ? 2 : 1;
+  $('.toggle-switch').on('change', function () {
+  const lectureId = $(this).data('id'); // 강좌 ID
+  const isChecked = $(this).prop('checked'); // 토글 상태
+  const newState = isChecked ? 2 : 1; // 상태 값 설정 (2: 개설, 1: 개설 대기)
+  const $statusBadge = $(`#status-badge-${lectureId}`); // 상태 배지 선택
 
   $.ajax({
     url: '/code_even/admin/lecture/lecture_toggle.php',
     type: 'POST',
     data: JSON.stringify({ id: lectureId, state: newState }),
     contentType: 'application/json',
-    dataType: 'json', // JSON 데이터 유형 명시
+    dataType: 'json',
     success: function (response) {
-      console.log('서버 응답:', response); // 서버 응답 확인
       if (response.success) {
-        const $statusBadge = $row.find('.badge');
+        // 상태 배지 업데이트
         if (newState === 2) {
-          $statusBadge.text('개설').removeClass('waitopen').addClass('text-bg-secondary');
+          $statusBadge
+            .text('개설')
+            .removeClass('waitopen')
+            .addClass('text-bg-secondary');
         } else {
-          $statusBadge.text('개설 대기').removeClass('text-bg-secondary').addClass('waitopen');
+          $statusBadge
+            .text('개설 대기')
+            .removeClass('text-bg-secondary')
+            .addClass('waitopen');
         }
       } else {
         alert('상태 변경에 실패했습니다: ' + response.error);
@@ -216,6 +218,9 @@ while ($data = $result->fetch_object()) {
     }
   });
 });
+
+
+
 
 
 
