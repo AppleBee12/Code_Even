@@ -40,7 +40,7 @@
             <div class="mt-3 d-flex flex-columns justify-content-center gap-3">
               <a href="#" class="link-body-emphasis ">아이디 찾기</a>
               <a href="#" class="link-body-emphasis">비밀번호 찾기</a>
-              <a href="member/signup/signup.php" class="link-body-emphasis text-decoration-underline">회원가입</a>
+              <a href="admin/signup/signup.php" class="link-body-emphasis text-decoration-underline">회원가입</a>
             </div>
           </form>
         </div>
