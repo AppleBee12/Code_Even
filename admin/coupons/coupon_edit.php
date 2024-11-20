@@ -141,15 +141,15 @@ thead,
         <div class="d-flex">
           <th scope="row">사용기한</th>
             <td class="d-flex gap-5" name="use_max_date" id="use_max_date">
-              <div class="form-check"  id="ct4">
-                  <input class="form-check-input" type="radio" name="flexRadioDefault"   value="1" <?php if($data->use_max_date == 1){echo 'checked';} ?> checked>
-                <label class="form-check-label" for="flexRadioDefault2"  >
+              <div class="form-check" >
+                  <input class="form-check-input" type="radio" name="flexRadioDefault"   value="1" <?php if($data->use_max_date == 1){echo 'checked';} ?> >
+                <label class="form-check-label" for="flexRadioDefault2"   id="ct4">
                   무제한
                 </label>
               </div>
-              <div class="form-check"  id="ct3">
+              <div class="form-check" >
                 <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1"  value="2" <?php if($data->use_max_date == 2){echo 'checked';} ?>>
-                <label class="form-check-label d-flex gap-3" for="flexRadioDefault1" >
+                <label class="form-check-label d-flex gap-3" for="flexRadioDefault1"  id="ct3">
                   제한
                   <input type="text" name="use_max_date" id="datepicker" class="form-control w-25 bi bi-calendar-week" value="<?= $data->use_max_date; ?>">
                 </label>
@@ -242,11 +242,11 @@ thead,
     }
   });
 
-  $('#ct3 input').prop('disabled', true);
+  $('#ct4 input').prop('disabled', true);
 
   $('#use_max_date').change(function(){
     let value = $(this).val();
-    $('#ct4 input, #ct4 input').prop('disabled', true);
+    $('#ct3 input, #ct4 input').prop('disabled', true);
     if(value == 1){
       $('#ct4 input').prop('disabled', false);
     } else{
