@@ -238,16 +238,20 @@ $imagePath = $lecture->image ? $lecture->image : '/uploads/images/default.png'; 
           <tr>
           <th scope="row">교재 선택 <b>*</b></th>
           <td colspan="2">
-          <select name="book" id="book" class="form-select">
-              <option value="0">SELECT</option>
-              <?php if (!empty($books)): ?>
-                <?php foreach ($books as $book): ?>
-                  <option value="<?= $book->boid; ?>" <?= isset($lecture->boid) && $lecture->boid == $book->boid ? 'selected' : ''; ?>>
-                    <?= htmlspecialchars($book->book); ?>
-                  </option>
-                <?php endforeach; ?>
-              <?php endif; ?>
-          </select>
+          <input type="text" name="title" value="<?php echo $title; ?>" />
+            <!-- 선택 가능한 교재 리스트 -->
+            <select 
+              name="book_select" 
+              id="book_select" 
+              class="form-control mt-2" 
+              onchange="updateSelectedBook()">
+              <option value="">-- 교재를 선택하세요 --</option>
+              <?php foreach ($relatedBooks as $book): ?>
+                <option value="<?php echo $book['boid']; ?>">
+                  <?php echo htmlspecialchars($book['title']) . ' - ' . number_format($book['price']) . '원'; ?>
+                </option>
+              <?php endforeach; ?>
+            </select>
           <small class="text-muted">* 필요한 교재가 있다면 교재 목록에서 우선 등록해 주세요.</small>
             </td>
           </tr>
