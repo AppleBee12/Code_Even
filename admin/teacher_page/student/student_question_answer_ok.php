@@ -22,7 +22,7 @@ if ($teacher_qna_result === true) {
     "<script>
     confirm('답변을 등록하시겠습니까?');
     alert('등록이 완료되었습니다.');
-    location.href = 'teacher_student_question.php';
+    location.href = '../../student/student_question.php';
   </script>";
 } else {
   echo

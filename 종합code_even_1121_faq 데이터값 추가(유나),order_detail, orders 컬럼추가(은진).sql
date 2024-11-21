@@ -465,7 +465,7 @@ INSERT INTO `lecture` (`leid`, `cgid`, `boid`, `lecid`, `cate1`, `cate2`, `cate3
 (0, NULL, 0, 1, 'A0001', 'B0001', 'C0001', '/uploads/images/mikhail-vasilyev-IFxjDdqK_0U-unsplash.jpg', '기초부터 확실하게! (페이지의 내용 전달을 위한 HTML, 스타일 설정을 위한 CSS 기초 학습)', NULL, '이븐관리자', 'https://youtu.be/oHTr2fEkmGA?si=fNAGT0cPExpzwXDM', NULL, 30, 0, 0, '', '', 2, 0, 30000, 0, '2024-11-20 10:22:33'),
 (1, NULL, 0, 0, 'A0001', 'B0001', 'C0001', '', '기초부터 확실하게! (페이지의 내용 전달을 위한 HTML, 스타일 설정을 위한 CSS 기초 학습)', '초보자를 위한 쉽고 재미있는 HTML, CSS 기초입니다. 천천히 보면서 이해하면서 따라해 보세요!', '홍길동', 'https://youtu.be/oHTr2fEkmGA?si=fNAGT0cPExpzwXDM', NULL, 30, 0, 1, '', '', 1, 1, 15000, 50, '2024-11-18 14:40:26'),
 (2, NULL, 0, 2, 'A0001', 'B0001', 'C0001', '', '2기초부터 확실하게! (페이지의 내용 전달을 위한 HTML, 스타일 설정을 위한 CSS 기초 학습)', '2초보자를 위한 쉽고 재미있는 HTML, CSS 기초입니다. 천천히 보면서 이해하면서 따라해 보세요!', '이븐선생', 'https://youtu.be/oHTr2fEkmGA?si=fNAGT0cPExpzwXDM', NULL, 30, 0, 1, '', '', 1, 1, 35000, 50, '0000-00-00 00:00:00'),
-(3, NULL, 0, 0, 'A0001', 'B0001', 'C0001', '', 'HTML 정도는 껌이지', '', '', '', NULL, 0, 1, 0, '', '', 1, 0, 0, 0, '2024-11-19 02:12:51'),
+(3, NULL, 0, 0, 'A0001', 'B0001', 'C0001', '', 'HTML 정도는 껌이지', '', '', '', NULL, 0, 1, 0, '', '', 1, 0, 50000, 0, '2024-11-19 02:12:51'),
 (4, NULL, 0, 1, 'A0001', 'B0001', 'C0001', '/uploads/images/default.png', '기초부터 확실하게! (페이지의 내용 전달을 위한 HTML, 스타일 설정을 위한 CSS 기초 학습)', NULL, '이븐관리자', '', NULL, 30, 1, 0, '', '', 0, 0, 0, 0, '2024-11-20 02:57:33'),
 (5, NULL, 0, 1, 'A0001', 'B0001', 'C0001', '/uploads/images/IMG_2450.jpeg', '기초부터 확실하게! (페이지의 내용 전달을 위한 HTML, 스타일 설정을 위한 CSS 기초 학습)', NULL, '이븐관리자', '', NULL, 30, 0, 1, '', '', 1, 0, 50, 0, '2024-11-20 03:01:12'),
 (6, NULL, 0, 1, 'A0001', 'B0001', 'C0001', '/uploads/images/IMG_2450.jpeg', '기초부터 확실하게! (페이지의 내용 전달을 위한 HTML, 스타일 설정을 위한 CSS 기초 학습)', NULL, '이븐관리자', 'default_video_url', NULL, 30, 0, 1, '', '', 1, 0, 50000, 0, '2024-11-20 04:35:15'),
@@ -677,10 +677,11 @@ INSERT INTO `notice` (`ntid`, `uid`, `title`, `content`, `view`, `regdate`, `sta
 
 CREATE TABLE `orders` (
   `odid` int(11) NOT NULL COMMENT '주문고유번호',
-  `uid` int(11) DEFAULT NULL COMMENT '회원고유번호',
+  `uid` int(11) DEFAULT NULL COMMENT '회원고유번호(탈퇴시빈값)',
   `total_amount` decimal(10,2) NOT NULL COMMENT '전체결제금액(쿠폰적용 전)',
   `discount_amount` decimal(10,2) NOT NULL DEFAULT 0.00 COMMENT '할인 금액',
   `final_amount` decimal(10,2) NOT NULL COMMENT '할인 적용 후 결제 금액',
+  `order_title` varchar(250) NOT NULL COMMENT '주문명(첫번째항목+외n건)',
   `order_date` datetime NOT NULL DEFAULT current_timestamp() COMMENT '주문일자',
   `pay_method` tinyint(4) NOT NULL COMMENT '결제수단',
   `pay_status` tinyint(4) NOT NULL DEFAULT 0 COMMENT '주문상태 (0=정상)',
@@ -693,33 +694,31 @@ CREATE TABLE `orders` (
   `request` varchar(100) DEFAULT NULL COMMENT '요청사항'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='주문';
 
-
 --
 -- 테이블의 덤프 데이터 `orders`
 --
 
-INSERT INTO `orders` (`odid`, `uid`, `total_amount`, `discount_amount`, `final_amount`, `order_date`, `pay_method`, `pay_status`, `receiver`, `zipcode`, `addr_line1`, `addr_line2`, `addr_line3`, `receiver_phone`, `request`) VALUES
-(1, 3, 100000.00, 10000.00, 90000.00, '2023-01-24 14:48:12', 1, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(2, 35, 150000.00, 10000.00, 140000.00, '2023-01-15 10:45:23', 2, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(3, 42, 120000.00, 20000.00, 100000.00, '2023-02-20 14:32:11', 1, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(4, 27, 130000.00, 15000.00, 115000.00, '2023-03-12 08:20:05', 3, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(5, 53, 170000.00, 20000.00, 150000.00, '2023-04-08 16:05:45', 2, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(6, 18, 90000.00, 10000.00, 80000.00, '2023-05-30 11:15:33', 1, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(7, 61, 200000.00, 25000.00, 175000.00, '2023-06-15 13:50:12', 2, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(8, 39, 110000.00, 10000.00, 100000.00, '2023-07-22 17:00:00', 3, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(9, 12, 140000.00, 5000.00, 135000.00, '2023-08-09 15:25:27', 1, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(10, 25, 175000.00, 15000.00, 160000.00, '2023-09-11 09:35:12', 2, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(11, 44, 210000.00, 30000.00, 180000.00, '2023-10-05 14:45:18', 3, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(12, 67, 115000.00, 20000.00, 95000.00, '2023-11-14 13:10:45', 1, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(13, 30, 95000.00, 5000.00, 90000.00, '2023-12-01 12:00:33', 2, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(14, 55, 185000.00, 25000.00, 160000.00, '2023-01-29 16:30:12', 1, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(15, 8, 99000.00, 10000.00, 89000.00, '2023-02-14 10:15:55', 3, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(16, 49, 125000.00, 20000.00, 105000.00, '2023-03-21 11:45:40', 2, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(17, 14, 155000.00, 5000.00, 150000.00, '2023-04-27 08:30:22', 1, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(18, 66, 195000.00, 10000.00, 185000.00, '2023-05-13 14:00:33', 2, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(19, 28, 130000.00, 15000.00, 115000.00, '2023-06-25 17:40:45', 3, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(20, 34, 160000.00, 5000.00, 155000.00, '2023-07-19 13:15:00', 1, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
-
+INSERT INTO `orders` (`odid`, `uid`, `total_amount`, `discount_amount`, `final_amount`, `order_title`, `order_date`, `pay_method`, `pay_status`, `receiver`, `zipcode`, `addr_line1`, `addr_line2`, `addr_line3`, `receiver_phone`, `request`) VALUES
+(1, 3, 100000.00, 10000.00, 90000.00, '', '2023-01-24 14:48:12', 1, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(2, 35, 150000.00, 10000.00, 140000.00, '', '2023-01-15 10:45:23', 2, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(3, 42, 120000.00, 20000.00, 100000.00, '', '2023-02-20 14:32:11', 1, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(4, 27, 130000.00, 15000.00, 115000.00, '', '2023-03-12 08:20:05', 3, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(5, 53, 170000.00, 20000.00, 150000.00, '', '2023-04-08 16:05:45', 2, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(6, 18, 90000.00, 10000.00, 80000.00, '', '2023-05-30 11:15:33', 1, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(7, 61, 200000.00, 25000.00, 175000.00, '', '2023-06-15 13:50:12', 2, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(8, 39, 110000.00, 10000.00, 100000.00, '', '2023-07-22 17:00:00', 3, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(9, 12, 140000.00, 5000.00, 135000.00, '', '2023-08-09 15:25:27', 1, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(10, 25, 175000.00, 15000.00, 160000.00, '', '2023-09-11 09:35:12', 2, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(11, 44, 210000.00, 30000.00, 180000.00, '', '2023-10-05 14:45:18', 3, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(12, 67, 115000.00, 20000.00, 95000.00, '', '2023-11-14 13:10:45', 1, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(13, 30, 95000.00, 5000.00, 90000.00, '', '2023-12-01 12:00:33', 2, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(14, 55, 185000.00, 25000.00, 160000.00, '', '2023-01-29 16:30:12', 1, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(15, 8, 99000.00, 10000.00, 89000.00, '', '2023-02-14 10:15:55', 3, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(16, 49, 125000.00, 20000.00, 105000.00, '', '2023-03-21 11:45:40', 2, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(17, 14, 155000.00, 5000.00, 150000.00, '', '2023-04-27 08:30:22', 1, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(18, 66, 195000.00, 10000.00, 185000.00, '', '2023-05-13 14:00:33', 2, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(19, 28, 130000.00, 15000.00, 115000.00, '', '2023-06-25 17:40:45', 3, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(20, 34, 160000.00, 5000.00, 155000.00, '기초부터 확실하게! (페이지의 내용 전달을 위한 HTML, 스타일 설정을 위한 CSS 기초 학습)', '2023-07-19 13:15:00', 1, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -742,8 +741,6 @@ CREATE TABLE `order_delivery` (
   `tracking_num` int(11) DEFAULT NULL COMMENT '운송장번호'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
--- --------------------------------------------------------
-
 --
 -- 테이블 구조 `order_details`
 --
@@ -753,6 +750,7 @@ CREATE TABLE `order_details` (
   `odid` int(11) NOT NULL COMMENT '주문고유번호',
   `product_id` int(11) NOT NULL COMMENT '강좌or교재 고유번호',
   `product_type` tinyint(4) NOT NULL COMMENT '상품유형(강좌1,교재2)',
+  `product_title` varchar(250) NOT NULL COMMENT '강좌명or교재명',
   `price` decimal(10,2) NOT NULL COMMENT '강좌or교재 가격',
   `cnt` int(11) NOT NULL DEFAULT 1 COMMENT '수량',
   `pay_status` tinyint(4) NOT NULL DEFAULT 0 COMMENT '주문상태(0정상)'
@@ -762,27 +760,28 @@ CREATE TABLE `order_details` (
 -- 테이블의 덤프 데이터 `order_details`
 --
 
-INSERT INTO `order_details` (`oddtid`, `odid`, `product_id`, `product_type`, `price`, `cnt`, `pay_status`) VALUES
-(1, 1, 1, 1, 15000.00, 1, 0),
-(2, 2, 1, 2, 15000.00, 2, 0),
-(3, 3, 2, 1, 35000.00, 1, 0),
-(4, 4, 2, 2, 20000.00, 1, 0),
-(5, 5, 1, 1, 15000.00, 3, 0),
-(6, 6, 1, 2, 15000.00, 1, 0),
-(7, 7, 2, 1, 35000.00, 1, 0),
-(8, 8, 1, 2, 15000.00, 2, 0),
-(9, 9, 2, 1, 35000.00, 1, 0),
-(10, 10, 1, 1, 15000.00, 2, 0),
-(11, 11, 2, 2, 20000.00, 1, 0),
-(12, 12, 1, 1, 15000.00, 1, 0),
-(13, 13, 1, 2, 15000.00, 1, 0),
-(14, 14, 2, 1, 35000.00, 1, 0),
-(15, 15, 1, 1, 15000.00, 1, 0),
-(16, 16, 2, 2, 20000.00, 1, 0),
-(17, 17, 1, 1, 15000.00, 1, 0),
-(18, 18, 2, 2, 20000.00, 1, 0),
-(19, 19, 1, 1, 15000.00, 1, 0),
-(20, 20, 2, 2, 20000.00, 1, 0);
+INSERT INTO `order_details` (`oddtid`, `odid`, `product_id`, `product_type`, `product_title`, `price`, `cnt`, `pay_status`) VALUES
+(1, 1, 1, 1, '0', 15000.00, 1, 0),
+(2, 2, 1, 2, '0', 15000.00, 2, 0),
+(3, 3, 2, 1, '0', 35000.00, 1, 0),
+(4, 4, 2, 2, '0', 20000.00, 1, 0),
+(5, 5, 1, 1, '0', 15000.00, 3, 0),
+(6, 6, 1, 2, '0', 15000.00, 1, 0),
+(7, 7, 2, 1, '0', 35000.00, 1, 0),
+(8, 8, 1, 2, '0', 15000.00, 2, 0),
+(9, 9, 2, 1, '0', 35000.00, 1, 0),
+(10, 10, 1, 1, '0', 15000.00, 2, 0),
+(11, 11, 2, 2, '0', 20000.00, 1, 0),
+(12, 12, 1, 1, '0', 15000.00, 1, 0),
+(13, 13, 1, 2, '0', 15000.00, 1, 0),
+(14, 14, 2, 1, '0', 35000.00, 1, 0),
+(15, 15, 1, 1, '0', 15000.00, 1, 0),
+(16, 16, 2, 2, '0', 20000.00, 1, 0),
+(17, 17, 1, 1, '0', 15000.00, 1, 0),
+(18, 18, 2, 2, '0', 20000.00, 1, 0),
+(19, 19, 1, 1, '0', 15000.00, 1, 0),
+(20, 20, 2, 2, '0', 20000.00, 1, 0),
+(21, 20, 3, 1, 'HTML 정도는 껌이지', 50000.00, 1, 0);
 
 -- --------------------------------------------------------
 
@@ -990,8 +989,10 @@ CREATE TABLE `teachers` (
 INSERT INTO `teachers` (`tcid`, `uid`, `cgid`, `tc_userid`, `tc_name`, `tc_userphone`, `tc_email`, `tc_cate`, `tc_url`, `tc_thumbnail`, `tc_intro`, `tc_bank`, `tc_account`, `tc_ok`, `isrecom`, `isnew`) VALUES
 (1, 2, 1, 'even_teacher', '이븐선생', '010-4567-8910', 'eventeacher@even.co.kr', '1', '', '', '안녕하세요 익힘의 정도가 적절한 이븐선생입니다~', '', '', 1, 1, 0),
 (2, 4, 1, 'my_teacher', '김동주', '010-4567-8910', 'rocks@even.co.kr', '1', 'https://www.youtube.com/@Ezweb', '/code_even/admin/upload/teacher/20241120172340324741.jpg', '반갑습니다. 바위처럼, 이지웹입니다.', '', '', 1, 1, 0),
-(3, 70, 2, 'teacher2', '조한결', '010-8723-4519', 'user70@example.com', '2', 'https://www.youtube.com/@jocode-official', '/code_even/admin/upload/teacher/20241120175857212464.png', 'JoCODE 조한결 입니다.', '', '', 1, 0, 0),
-(4, 68, 3, 'teacher3', '이상민', '010-9482-1365', 'user68@example.com', '3', '', '/code_even/admin/upload/teacher/20241120181520409651.png', '새로운 기술을 학습하고 전달하는 것을 좋아합니다.', '', '', 1, 0, 1);
+(3, 70, 2, 'teacher2', '조한결', '010-8723-4519', 'user70@example.com', '2', 'https://www.youtube.com/@jocode-official', '/code_even/admin/upload/teacher/20241120175857212464.png', 'JoCODE 조한결 입니다.', '', '', 1, 0, 1),
+(4, 68, 3, 'teacher3', '이상민', '010-9482-1365', 'user68@example.com', '3', '', '/code_even/admin/upload/teacher/20241120181520409651.png', '새로운 기술을 학습하고 전달하는 것을 좋아합니다.', '', '', 0, 0, 0);
+
+-- --------------------------------------------------------
 
 
 -- --------------------------------------------------------
@@ -1174,7 +1175,7 @@ INSERT INTO `user` (`uid`, `userid`, `username`, `usernick`, `userpw`, `userphon
 (67, 'user_uvwx_67', '윤지수2', '꽃바람', '12345', '010-8934-2158', 'user67@example.com', 0, NULL, '', '', '', '2024-11-17', '2024-11-20 12:50:40', 1, 0),
 (68, 'user_yzab_68', '이상민', '눈꽃결', '12345', '010-9482-1365', 'user68@example.com', 1, NULL, '제주특별자치도 서귀포시', '1층 사무실', NULL, '2024-11-16', '2024-11-19 17:15:30', 1, 0),
 (69, 'user_cdef_69', '한유진2', '바다별', '12345', '010-3492-1758', 'user69@example.com', 0, 13100, '', '', '', '2024-11-15', '2024-11-19 14:25:20', 1, -1),
-(70, 'user_ghij_70', '조한결', '불꽃의꿈', '12345', '010-8723-4519', 'user70@example.com', 1, NULL, NULL, NULL, NULL, '2024-11-12', '2024-11-20 11:45:05', 1, 0),
+(70, 'user_ghij_70', '조한결', '불꽃의꿈', '12345', '010-8723-4519', 'user70@example.com', 1, NULL, NULL, NULL, NULL, '2024-11-12', '2024-11-20 11:45:05', 10, 0),
 (71, 'user_klmn_71', '정민아', '그린스톰', '12345', '010-2394-1765', 'user71@example.com', 0, NULL, '경상남도 김해시', '빌딩 A동', '참고사항', '2024-11-14', '2024-11-19 16:40:25', 1, 1);
 
 
@@ -1358,7 +1359,7 @@ ALTER TABLE `order_delivery`
 --
 ALTER TABLE `order_details`
   ADD PRIMARY KEY (`oddtid`),
-  ADD UNIQUE KEY `oddt_odid_IDX` (`odid`);
+  ADD KEY `oddt_odid_IDX` (`odid`) USING BTREE;
 
 --
 -- 테이블의 인덱스 `post_comment`
@@ -1573,7 +1574,7 @@ ALTER TABLE `order_delivery`
 -- 테이블의 AUTO_INCREMENT `order_details`
 --
 ALTER TABLE `order_details`
-  MODIFY `oddtid` int(11) NOT NULL AUTO_INCREMENT COMMENT '주문상세고유번호', AUTO_INCREMENT=21;
+  MODIFY `oddtid` int(11) NOT NULL AUTO_INCREMENT COMMENT '주문상세고유번호', AUTO_INCREMENT=26;
 
 --
 -- 테이블의 AUTO_INCREMENT `post_comment`
@@ -1621,7 +1622,7 @@ ALTER TABLE `stuscores`
 -- 테이블의 AUTO_INCREMENT `teachers`
 --
 ALTER TABLE `teachers`
-  MODIFY `tcid` int(11) NOT NULL AUTO_INCREMENT COMMENT '강사고유번호', AUTO_INCREMENT=4;
+  MODIFY `tcid` int(11) NOT NULL AUTO_INCREMENT COMMENT '강사고유번호', AUTO_INCREMENT=5;
 
 --
 -- 테이블의 AUTO_INCREMENT `teacher_qna`

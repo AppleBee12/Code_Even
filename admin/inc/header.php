@@ -134,27 +134,21 @@ $tc_count = $row['cnt'];
     case 'student_list.php':
     case 'student_details.php':
     case 'student_question.php':
-    case 'teacher_student_question.php':
     case 'student_question_answer.php':
     case 'student_question_details.php':
     case 'send_email.php':
     case 'course_reviews.php':
-    case 'teacher_course_reviews.php':
     case 'course_reviews_details.php':
     case 'notice.php':
     case 'notice_write.php':
     case 'notice_details.php':
     case 'notice_modify.php':
-    case 'notice_search_result.php':
     case 'student_faq.php':
+    case 'teacher_faq.php':
     case 'faq_write.php':
     case 'faq_details.php':
     case 'faq_modify.php':
-    case 'teacher_faq.php':
-    case 'teacher_faq_write.php':
-    case 'teacher_faq_modify.php':
     case 'admin_qna.php':
-    case 'admin_qna_teacher.php':
     case 'admin_qna_details.php':
     case 'admin_qna_question.php':
     case 'admin_qna_answer.php':
@@ -368,12 +362,7 @@ $tc_count = $row['cnt'];
               <li class="list-group-item dropdown-item"><a
                   href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/student/student_list.php">　　-　수강생 목록</a>
               </li>
-              <li class="list-group-item"><a
-                <?php if ($level == 100){ ?>
-                  href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/student/student_question.php"
-                <?php }else if ($level == 10){ ?>
-                  href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/teacher_page/student/teacher_student_question.php"
-                <?php }; ?>
+              <li class="list-group-item"><a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/student/student_question.php"
                   >　　-　수강생
                   질문</a>
               </li>
@@ -381,13 +370,7 @@ $tc_count = $row['cnt'];
                 <li class="list-group-item"><a
                     href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/student/send_email.php">　　-　이메일 발송</a></li>
               <?php }; ?>
-              <li class="list-group-item"><a
-                <?php if ($level == 100){ ?>
-                  href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/student/course_reviews.php"
-                <?php }else if ($level == 10){ ?>
-                  href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/teacher_page/student/teacher_course_reviews.php"
-                <?php }; ?>
-                  >　　-　수강 후기</a>
+              <li class="list-group-item"><a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/student/course_reviews.php">　　-　수강 후기</a>
               </li>
             </ul>
           </li>
@@ -436,14 +419,7 @@ $tc_count = $row['cnt'];
                 </li>
               <?php }; ?>
 
-              <li class="list-group-item dropdown"><a
-                <?php if ($level == 100): ?>
-                  href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/inquiry/teacher_faq.php"
-                <?php endif; ?>
-                <?php if ($level == 10): ?>
-                  href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/teacher_page/inquiry/teacher_faq.php"
-                <?php endif; ?>
-                  >　　-　강사 FAQ</a>
+              <li class="list-group-item dropdown"><a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/inquiry/teacher_faq.php">　　-　강사 FAQ</a>
               </li>
 
               <?php if ($level == 100){ ?>
@@ -474,7 +450,7 @@ $tc_count = $row['cnt'];
 
         <?php if ($level == 10){ ?>
           <li class="list-group-item" data-link=""><a
-              href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/teacher_page/inquiry/admin_qna_teacher.php">　<i
+              href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/inquiry/admin_qna.php">　<i
                 class="bi bi-chat-dots"></i> 　 1:1 문의하기</a></li>
           <li class="list-group-item" data-link="manual"><a
               href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/manual/for_teacher.php">　<i

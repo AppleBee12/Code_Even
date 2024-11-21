@@ -21,8 +21,9 @@ $data = $result->fetch_object();
     <h3>수강생 질문</h3>
   </div>
 
-  <form action="student_question_answer_ok.php" method="POST">
+  <form action="student_question_answer_ok.php" method="POST" id="question_form" class="write_form">
     <input type="hidden" name="sqid" value="<?= $sqid; ?>">
+    <input type="hidden" name="content" id="answer_content">
     <table class="table details_table">
       <colgroup>
           <col class="col-width-160">
@@ -65,7 +66,7 @@ $data = $result->fetch_object();
       <h3>강사 답변</h3>
     </div>
   
-    <textarea name="content" id="content" class="form-control" placeholder="내용을 입력해주세요."></textarea>
+    <div name="content" id="summernote"></div>
   
     <div class="custom-hr"></div>
   
@@ -79,6 +80,16 @@ $data = $result->fetch_object();
   </form>
 
 </div>
+
+<script>
+
+// 폼 제출 시 Summernote 내용 hidden 필드에 넣기
+$('#question_form').on('submit', function() {
+  var answerContent = $('#summernote').summernote('code');  // Summernote 에디터에서 HTML 코드 가져오기
+  $('#answer_content').val(answerContent);  // 숨겨진 input에 설정
+});
+
+</script>
 
 <?php
 include_once($_SERVER['DOCUMENT_ROOT'] . '/code_even/admin/inc/footer.php');

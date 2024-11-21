@@ -2,13 +2,24 @@
 $title = "수강 후기";
 include_once($_SERVER['DOCUMENT_ROOT'] . '/code_even/admin/inc/header.php');
 
+$instructor_name = $_SESSION['AUNAME'];
+$teacher_id = $mysqli->real_escape_string($_SESSION['UID']);
+
 // 게시글 개수 구하기
 $keywords = isset($_GET['keywords']) ? $mysqli->real_escape_string($_GET['keywords']) : '';
-$where_clause = '';
+
+if($level == 100){
+  $where_clause = '';
+}
+if($level == 10){
+  $where_clause = "WHERE lecture.lecid = '$teacher_id'";
+}
 
 if ($keywords) {
-  $where_clause = "WHERE user.username LIKE '%$keywords%' OR user.userid LIKE '%$keywords%' 
-                  OR review.rtitle LIKE '%$keywords%' OR lecture.title LIKE '%$keywords%'";
+  $where_clause .= " AND (user.username LIKE '%$keywords%' 
+                      OR user.userid LIKE '%$keywords%' 
+                      OR review.rtitle LIKE '%$keywords%' 
+                      OR lecture.title LIKE '%$keywords%')";
 }
 
 $page_sql = "SELECT COUNT(*) AS cnt 
@@ -17,6 +28,7 @@ $page_sql = "SELECT COUNT(*) AS cnt
             JOIN user ON class_data.uid = user.uid 
             JOIN lecture ON class_data.leid = lecture.leid 
             $where_clause";
+
 $page_result = $mysqli->query($page_sql);
 $page_data = $page_result->fetch_assoc();
 $row_num = $page_data['cnt'];
@@ -53,7 +65,13 @@ while ($data = $result->fetch_object()) {
 
 ?>
 <div class="container">
+
+<?php if ($level == 100): ?>
   <h2>수강 후기</h2>
+<?php elseif ($level == 10) : ?>
+  <h2><?= $instructor_name; ?> 강사님의 강의 후기</h2>
+<?php endif; ?>
+
   <form class="row justify-content-end">
     <div class="col-lg-4">
       <div class="input-group mb-3">

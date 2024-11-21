@@ -44,7 +44,7 @@ $data = $result->fetch_object();
         <th scope="row">제목</th>
         <td colspan="3">
           <div>
-            <input type="text" name="title" class="form-control" id="title" value="<?=$data->rtitle;?>" disabled>
+            <input type="text" name="title" class="form-control w-75" id="title" value="<?=$data->rtitle;?>" disabled>
           </div>
         </td>
       </tr>
@@ -73,7 +73,7 @@ $data = $result->fetch_object();
       <tr class="none">
         <th scope="row">내용</th>
         <td colspan="3">
-          <textarea name="" id="" class="form-control" disabled><?=$data->content;?></textarea>
+          <textarea name="content" class="form-control w-75" disabled><?=$data->content;?></textarea>
         </td>
       </tr>
     </tbody>
