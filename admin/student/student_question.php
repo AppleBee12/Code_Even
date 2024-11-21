@@ -11,7 +11,7 @@ if ($keywords) {
   OR user.userid LIKE '%$keywords%'";
 }
 
-$page_sql = "SELECT COUNT(*) AS cnt FROM class_data JOIN user ON class_data.uid = user.uid $where_clause";
+$page_sql = "SELECT COUNT(*) AS cnt FROM student_qna JOIN class_data ON student_qna.cdid = class_data.cdid $where_clause";
 $page_result = $mysqli->query($page_sql);
 $page_data = $page_result->fetch_assoc();
 $row_num = $page_data['cnt'];

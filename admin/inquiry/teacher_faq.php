@@ -4,16 +4,18 @@ include_once($_SERVER['DOCUMENT_ROOT'] . '/code_even/admin/inc/header.php');
 
 // 게시글 개수 구하기
 $keywords = isset($_GET['keywords']) ? $mysqli->real_escape_string($_GET['keywords']) : '';
-$where_clause = '';
+$where_clause = "WHERE faq.target = 'teacher'";
 
 if ($keywords) {
-  $where_clause = "WHERE faq.title LIKE '%$keywords%' OR user.username LIKE '%$keywords%' OR user.userid LIKE '%$keywords%'";
+  $where_clause .= " AND (faq.title LIKE '%$keywords%' OR user.username LIKE '%$keywords%' OR user.userid LIKE '%$keywords%')";
 }
 
 $page_sql = "SELECT COUNT(*) AS cnt FROM faq JOIN user ON faq.uid = user.uid $where_clause";
 $page_result = $mysqli->query($page_sql);
 $page_data = $page_result->fetch_assoc();
 $row_num = $page_data['cnt'];
+
+// print_r($page_data);
 
 // 페이지네이션
 $page = isset($_GET['page']) ? $_GET['page'] : 1;
@@ -33,10 +35,10 @@ if ($block_end > $total_page) {
 $sql = "SELECT faq.*, user.username, user.userid 
         FROM faq 
         JOIN user ON faq.uid = user.uid 
-        $where_clause 
-        AND faq.target = 'teacher' 
+        $where_clause
         ORDER BY faq.fqid DESC 
         LIMIT $start_num, $list";
+        
 $result = $mysqli->query($sql);
 
 $dataArr = [];

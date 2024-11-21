@@ -18,6 +18,7 @@
   height: 21px;
   background: none;
   border: none;
+  vertical-align: text-top;
 
   span {
     position: absolute;
@@ -99,7 +100,7 @@
 
 #file {margin-top: 25px;}
 
-.bi-star-fill {color: var(--primary)}
+.bi-star-fill {color: var(--primary); margin: 0px 1px;}
 
 .card {width: 1075px !important; height: 300px;
   p { margin-bottom: 0px !important;}
@@ -110,3 +111,5 @@ input[readonly] {background-color: #e9ecef; border: 1px solid #dee2e6; color: #6
 .modal textarea {height: 100px;}
 
 .star_null {color: #ccc;}
+
+.list_table .badge {vertical-align: text-top;}

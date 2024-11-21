@@ -21,7 +21,7 @@ $data = $result->fetch_object();
     <h3>수강생 질문</h3>
   </div>
 
-  <form action="student_question_answer" method="POST">
+  <form action="student_question_answer_ok.php" method="POST">
     <input type="hidden" name="sqid" value="<?= $sqid; ?>">
     <table class="table details_table">
       <colgroup>

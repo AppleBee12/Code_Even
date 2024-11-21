@@ -396,26 +396,34 @@ CREATE TABLE `faq` (
 --
 
 INSERT INTO `faq` (`fqid`, `uid`, `category`, `target`, `title`, `content`, `view`, `regdate`, `status`) VALUES
-(1, 1, 1, 'teacher', '학생의 환불 요청을 어떻게 처리하나요?', '학생의 환불 요청은 고객센터를 통해 접수된 후, 환불 정책에 따라 처리됩니다. 세부 절차를 확인하고 환불을 진행하세요.', 0, '2024-11-16 17:24:50', 'off'),
+(1, 1, 1, 'teacher', '학생의 환불 요청을 어떻게 처리하나요?', '학생의 환불 요청은 고객센터를 통해 접수된 후, 환불 정책에 따라 처리됩니다. 세부 절차를 확인하고 환불을 진행하세요.', 5, '2024-11-16 17:24:50', 'off'),
 (2, 1, 2, 'student', '강의는 어떻게 수강하나요?', '강의를 수강하려면, 회원 가입 후 로그인하고 원하는 강의를 선택하여 수강 신청을 하시면 됩니다.', 0, '2024-11-16 17:25:50', 'off'),
-(3, 1, 3, 'teacher', '학생이 사용하는 쿠폰을 어떻게 관리하나요?', '쿠폰 관리는 사이트 관리자의 권한에 따라 이루어집니다. 학생에게 제공할 쿠폰을 생성하고, 관리 시스템을 통해 발급할 수 있습니다.', 0, '2024-11-16 17:26:30', 'off'),
+(3, 1, 3, 'teacher', '학생이 사용하는 쿠폰을 어떻게 관리하나요?', '쿠폰 관리는 사이트 관리자의 권한에 따라 이루어집니다. 학생에게 제공할 쿠폰을 생성하고, 관리 시스템을 통해 발급할 수 있습니다.', 2, '2024-11-16 17:26:30', 'off'),
 (4, 1, 4, 'student', '회원 탈퇴는 어떻게 하나요?', '회원 탈퇴를 원하시면, 계정 설정에서 탈퇴 버튼을 클릭하여 진행하실 수 있습니다. 탈퇴 후에는 데이터 복구가 불가능하므로 주의해 주세요.', 0, '2024-11-16 17:27:15', 'on'),
 (5, 1, 5, 'teacher', '강의에 대해 학생과의 소통 방법은 어떻게 되나요?', '학생과의 소통은 주로 강의 댓글 기능, 이메일, 실시간 Q&A 등을 통해 이루어집니다. 각 강의에 맞는 소통 방법을 활용하세요.', 0, '2024-11-16 17:28:05', 'off'),
 (6, 1, 6, 'student', '수강 이수증은 어떻게 발급하나요?', '강의를 모두 수료한 후, 강의 내용 확인 후 수료증을 발급 받을 수 있습니다. 수료증은 PDF 형태로 제공됩니다.', 0, '2024-11-16 17:29:00', 'on'),
-(7, 1, 7, 'teacher', '강사 정산은 언제 이루어지나요?', '강사의 정산은 월별로 이루어지며, 정산 금액은 수업 완료 후 약 15일 이내에 지급됩니다. 정산 내역은 강사 페이지에서 확인할 수 있습니다.', 0, '2024-11-16 17:29:45', 'off'),
+(7, 1, 7, 'teacher', '강사 정산은 언제 이루어지나요?', '강사의 정산은 월별로 이루어지며, 정산 금액은 수업 완료 후 약 15일 이내에 지급됩니다. 정산 내역은 강사 페이지에서 확인할 수 있습니다.', 1, '2024-11-16 17:29:45', 'off'),
 (8, 1, 8, 'student', '강사의 이력은 어떻게 확인하나요?', '강사의 이력은 강의 설명 페이지에서 확인할 수 있습니다. 강사 이름을 클릭하면, 자세한 정보를 볼 수 있습니다.', 0, '2024-11-16 17:30:30', 'off'),
-(9, 1, 2, 'student', '강의 자료는 어떻게 다운로드 하나요?', '강의 자료는 강의 수업 페이지에서 다운로드 가능합니다. 각 강의 페이지에 제공된 다운로드 링크를 통해 파일을 받으실 수 있습니다.', 0, '2024-11-16 17:31:15', 'on'),
+(9, 1, 2, 'student', '강의 자료는 어떻게 다운로드 하나요?', '강의 자료는 강의 수업 페이지에서 다운로드 가능합니다. 각 강의 페이지에 제공된 다운로드 링크를 통해 파일을 받으실 수 있습니다.', 20, '2024-11-16 17:31:15', 'on'),
 (10, 1, 1, 'teacher', '강의 수익은 어떻게 확인하나요?', '강의 수익은 강사 대시보드에서 확인할 수 있으며, 판매된 강의의 수익 내역과 정산 상태를 표시합니다.', 0, '2024-11-16 17:32:00', 'off'),
 (11, 1, 1, 'student', '강의 결제는 어떻게 하나요?', '강의 결제는 사이트 내 결제 시스템을 통해 가능합니다. 결제 방법을 선택하고, 결제 정보를 입력하시면 완료됩니다.', 0, '2024-11-16 17:24:50', 'on'),
-(12, 1, 2, 'teacher', '강의를 어떻게 개설하나요?', '강의를 개설하려면 강의 개설 신청서를 작성하고, 강의 내용 및 계획을 제출해야 합니다. 승인 후 강의가 등록됩니다.', 0, '2024-11-16 17:25:50', 'off'),
+(12, 1, 2, 'teacher', '강의를 어떻게 개설하나요?', '강의를 개설하려면 강의 개설 신청서를 작성하고, 강의 내용 및 계획을 제출해야 합니다. 승인 후 강의가 등록됩니다.', 1, '2024-11-16 17:25:50', 'on'),
 (13, 1, 3, 'student', '쿠폰은 어떻게 사용하나요?', '쿠폰은 결제 시, 쿠폰 코드 입력란에 코드를 입력하여 사용하실 수 있습니다. 쿠폰은 특정 조건에 따라 제공됩니다.', 0, '2024-11-16 17:26:30', 'off'),
-(14, 1, 4, 'teacher', '강사 계정 탈퇴는 어떻게 하나요?', '강사 계정 탈퇴는 계정 설정에서 탈퇴 요청을 통해 진행할 수 있습니다. 탈퇴 후에는 다시 복구할 수 없으므로 신중히 결정하세요.', 0, '2024-11-16 17:27:15', 'off'),
-(15, 1, 5, 'student', '사이트 이용 중 오류가 발생했어요, 어떻게 해야 하나요?', '사이트 이용 중 발생한 오류는 고객센터로 문의해 주시면, 빠르게 해결해드리겠습니다.', 0, '2024-11-16 17:28:05', 'off'),
-(16, 1, 6, 'teacher', '강의 수료 조건은 무엇인가요?', '강의 수료 조건은 강의 수강과 특정 과제나 시험을 완료하는 것입니다. 수료 기준은 강의 페이지에서 확인할 수 있습니다.', 0, '2024-11-16 17:29:00', 'off'),
+(14, 1, 4, 'teacher', '강사 계정 탈퇴는 어떻게 하나요?', '강사 계정 탈퇴는 계정 설정에서 탈퇴 요청을 통해 진행할 수 있습니다. 탈퇴 후에는 다시 복구할 수 없으므로 신중히 결정하세요.', 0, '2024-11-16 17:27:15', 'on'),
+(15, 1, 5, 'student', '사이트 이용 중 오류가 발생했어요, 어떻게 해야 하나요?', '사이트 이용 중 발생한 오류는 고객센터로 문의해 주시면, 빠르게 해결해드리겠습니다.', 8, '2024-11-16 17:28:05', 'off'),
+(16, 1, 6, 'teacher', '강의 수료 조건은 무엇인가요?', '강의 수료 조건은 강의 수강과 특정 과제나 시험을 완료하는 것입니다. 수료 기준은 강의 페이지에서 확인할 수 있습니다.', 0, '2024-11-16 17:29:00', 'on'),
 (17, 1, 7, 'student', '결제 금액의 세금 계산서는 언제 발급되나요?', '세금 계산서는 결제 완료 후 7일 이내에 이메일로 발급됩니다. 이메일 확인을 부탁드립니다.', 0, '2024-11-16 17:29:45', 'off'),
-(18, 1, 8, 'teacher', '강사 프로필은 어떻게 수정하나요?', '강사 프로필 수정은 계정 설정에서 가능합니다. 강사 프로필 사진, 자기소개 등을 업데이트할 수 있습니다.', 0, '2024-11-16 17:30:30', 'off'),
-(19, 1, 2, 'student', '학생의 질문에 어떻게 답변하나요?', '학생의 질문은 강의 내 Q&A나 댓글 시스템을 통해 답변할 수 있습니다. 학습 자료를 추가하거나 설명을 덧붙여 주세요.', 0, '2024-11-16 17:31:15', 'off'),
-(20, 1, 1, 'student', '환불은 어떻게 받나요?', '강의를 구매한 후 환불을 원하시면, 고객센터를 통해 환불 절차를 진행할 수 있습니다. 환불 정책에 따라 일부 제한이 있을 수 있습니다.', 0, '2024-11-16 17:32:00', 'off');
+(18, 1, 8, 'teacher', '강사 프로필은 어떻게 수정하나요?', '강사 프로필 수정은 계정 설정에서 가능합니다. 강사 프로필 사진, 자기소개 등을 업데이트할 수 있습니다.', 0, '2024-11-16 17:30:30', 'on'),
+(19, 1, 2, 'student', '학생의 질문에 어떻게 답변하나요?', '학생의 질문은 강의 내 Q&A나 댓글 시스템을 통해 답변할 수 있습니다. 학습 자료를 추가하거나 설명을 덧붙여 주세요.', 7, '2024-11-16 17:31:15', 'off'),
+(20, 1, 1, 'student', '환불은 어떻게 받나요?', '강의를 구매한 후 환불을 원하시면, 고객센터를 통해 환불 절차를 진행할 수 있습니다. 환불 정책에 따라 일부 제한이 있을 수 있습니다.', 9, '2024-11-16 17:32:00', 'off'),
+(21, 1, 1, 'teacher', '강의에 대한 평가 시스템은 어떻게 되나요?', '강의에 대한 평가는 수강생이 강의를 완료한 후 제공하는 평가 시스템을 통해 이루어집니다. 평가 점수는 강사의 피드백에 반영됩니다.', 0, '2024-11-16 17:33:00', 'off'),
+(22, 1, 2, 'teacher', '학생의 학습 진행 상황을 어떻게 확인하나요?', '학생의 학습 진행 상황은 강의 대시보드에서 확인할 수 있습니다. 각 학생의 수료 여부와 과제 완료 상태를 추적할 수 있습니다.', 0, '2024-11-16 17:34:00', 'on'),
+(23, 1, 3, 'teacher', '강의 자료의 업로드는 어떻게 하나요?', '강의 자료는 강의 관리 페이지에서 업로드할 수 있습니다. 각 강의에 맞는 자료를 선택하고, 필요한 파일 형식으로 업로드합니다.', 0, '2024-11-16 17:35:00', 'on'),
+(24, 1, 4, 'teacher', '학생과의 개별 상담은 어떻게 진행하나요?', '학생과의 개별 상담은 이메일이나 실시간 Q&A 기능을 통해 진행할 수 있습니다. 필요 시 예약 시스템을 통해 상담 일정을 조율할 수 있습니다.', 1, '2024-11-16 17:36:00', 'off'),
+(25, 1, 5, 'teacher', '강사 인증 절차는 무엇인가요?', '강사 인증 절차는 제출된 학력과 경력 증명서를 바탕으로 진행됩니다. 인증 절차 완료 후 강사로 등록됩니다.', 2, '2024-11-16 17:37:00', 'off'),
+(26, 1, 6, 'teacher', '강의를 휴강하려면 어떻게 하나요?', '강의를 휴강하려면 강의 관리 페이지에서 휴강 신청을 하시면 됩니다. 휴강 일정을 조정할 수 있는 옵션도 제공됩니다.', 0, '2024-11-16 17:38:00', 'off'),
+(27, 1, 7, 'teacher', '강의 자료의 수정은 어떻게 하나요?', '강의 자료는 강의 관리 페이지에서 수정 가능합니다. 변경된 자료는 수강생들에게 자동으로 업데이트됩니다.', 0, '2024-11-16 17:39:00', ''),
+(28, 1, 8, 'teacher', '강의 평가에 대한 피드백은 어떻게 제공하나요?', '강의 평가에 대한 피드백은 평가 후 제공되는 설문지를 통해 작성할 수 있습니다. 강사와 학생 간의 건설적인 피드백을 주고받을 수 있습니다.', 0, '2024-11-16 17:40:00', 'off');
 
 -- --------------------------------------------------------
 
@@ -426,19 +434,20 @@ INSERT INTO `faq` (`fqid`, `uid`, `category`, `target`, `title`, `content`, `vie
 CREATE TABLE `lecture` (
   `leid` int(11) NOT NULL COMMENT '번호',
   `cgid` int(11) DEFAULT NULL,
+  `boid` int(11) DEFAULT NULL COMMENT 'book (외래키)',
   `lecid` int(11) NOT NULL COMMENT '강사고유id',
   `cate1` varchar(50) NOT NULL COMMENT '대분류',
   `cate2` varchar(50) NOT NULL COMMENT '중분류',
   `cate3` varchar(50) NOT NULL COMMENT '소분류',
   `image` varchar(250) NOT NULL COMMENT '이미지',
   `title` varchar(100) NOT NULL COMMENT '강좌명',
-  `des` text NOT NULL COMMENT '강좌 소개',
+  `des` text DEFAULT NULL COMMENT '강좌 소개',
   `name` varchar(50) NOT NULL COMMENT '등록자',
   `video_url` varchar(250) NOT NULL COMMENT '강의',
   `file` varchar(100) DEFAULT NULL COMMENT '실습 파일',
   `period` int(11) NOT NULL COMMENT '학습 기간',
-  `isrecipe` varchar(10) NOT NULL COMMENT '레시피',
-  `isgeneral` varchar(10) NOT NULL COMMENT '일반',
+  `isrecipe` tinyint(4) NOT NULL COMMENT '레시피',
+  `isgeneral` tinyint(4) NOT NULL COMMENT '일반',
   `isbest` varchar(10) NOT NULL COMMENT '베스트',
   `isrecom` varchar(10) NOT NULL COMMENT '추천',
   `state` tinyint(4) NOT NULL COMMENT '상태',
@@ -452,10 +461,26 @@ CREATE TABLE `lecture` (
 -- 테이블의 덤프 데이터 `lecture`
 --
 
-INSERT INTO `lecture` (`leid`, `cgid`, `lecid`, `cate1`, `cate2`, `cate3`, `image`, `title`, `des`, `name`, `video_url`, `file`, `period`, `isrecipe`, `isgeneral`, `isbest`, `isrecom`, `state`, `approval`, `price`, `level`, `date`) VALUES
-(1, NULL, 0, 'A0001', 'B0001', 'C0001', '', '기초부터 확실하게! (페이지의 내용 전달을 위한 HTML, 스타일 설정을 위한 CSS 기초 학습)', '초보자를 위한 쉽고 재미있는 HTML, CSS 기초입니다. 천천히 보면서 이해하면서 따라해 보세요!', '홍길동', 'https://youtu.be/oHTr2fEkmGA?si=fNAGT0cPExpzwXDM', NULL, 30, '', '', '', '', 1, 1, 15000, 50, '2024-11-18 14:40:26'),
-(2, NULL, 2, 'A0001', 'B0001', 'C0001', '', '2기초부터 확실하게! (페이지의 내용 전달을 위한 HTML, 스타일 설정을 위한 CSS 기초 학습)', '2초보자를 위한 쉽고 재미있는 HTML, CSS 기초입니다. 천천히 보면서 이해하면서 따라해 보세요!', '이븐선생', 'https://youtu.be/oHTr2fEkmGA?si=fNAGT0cPExpzwXDM', NULL, 30, '', '', '', '', 1, 1, 35000, 50, '0000-00-00 00:00:00'),
-(3, NULL, 0, 'A0001', 'B0001', 'C0001', '', 'HTML 정도는 껌이지', '', '', '', NULL, 0, '', '', '', '', 0, 0, 0, 0, '2024-11-19 02:12:51');
+INSERT INTO `lecture` (`leid`, `cgid`, `boid`, `lecid`, `cate1`, `cate2`, `cate3`, `image`, `title`, `des`, `name`, `video_url`, `file`, `period`, `isrecipe`, `isgeneral`, `isbest`, `isrecom`, `state`, `approval`, `price`, `level`, `date`) VALUES
+(0, NULL, 0, 1, 'A0001', 'B0001', 'C0001', '/uploads/images/mikhail-vasilyev-IFxjDdqK_0U-unsplash.jpg', '기초부터 확실하게! (페이지의 내용 전달을 위한 HTML, 스타일 설정을 위한 CSS 기초 학습)', NULL, '이븐관리자', 'https://youtu.be/oHTr2fEkmGA?si=fNAGT0cPExpzwXDM', NULL, 30, 0, 0, '', '', 2, 0, 30000, 0, '2024-11-20 10:22:33'),
+(1, NULL, 0, 0, 'A0001', 'B0001', 'C0001', '', '기초부터 확실하게! (페이지의 내용 전달을 위한 HTML, 스타일 설정을 위한 CSS 기초 학습)', '초보자를 위한 쉽고 재미있는 HTML, CSS 기초입니다. 천천히 보면서 이해하면서 따라해 보세요!', '홍길동', 'https://youtu.be/oHTr2fEkmGA?si=fNAGT0cPExpzwXDM', NULL, 30, 0, 1, '', '', 1, 1, 15000, 50, '2024-11-18 14:40:26'),
+(2, NULL, 0, 2, 'A0001', 'B0001', 'C0001', '', '2기초부터 확실하게! (페이지의 내용 전달을 위한 HTML, 스타일 설정을 위한 CSS 기초 학습)', '2초보자를 위한 쉽고 재미있는 HTML, CSS 기초입니다. 천천히 보면서 이해하면서 따라해 보세요!', '이븐선생', 'https://youtu.be/oHTr2fEkmGA?si=fNAGT0cPExpzwXDM', NULL, 30, 0, 1, '', '', 1, 1, 35000, 50, '0000-00-00 00:00:00'),
+(3, NULL, 0, 0, 'A0001', 'B0001', 'C0001', '', 'HTML 정도는 껌이지', '', '', '', NULL, 0, 1, 0, '', '', 1, 0, 0, 0, '2024-11-19 02:12:51'),
+(4, NULL, 0, 1, 'A0001', 'B0001', 'C0001', '/uploads/images/default.png', '기초부터 확실하게! (페이지의 내용 전달을 위한 HTML, 스타일 설정을 위한 CSS 기초 학습)', NULL, '이븐관리자', '', NULL, 30, 1, 0, '', '', 0, 0, 0, 0, '2024-11-20 02:57:33'),
+(5, NULL, 0, 1, 'A0001', 'B0001', 'C0001', '/uploads/images/IMG_2450.jpeg', '기초부터 확실하게! (페이지의 내용 전달을 위한 HTML, 스타일 설정을 위한 CSS 기초 학습)', NULL, '이븐관리자', '', NULL, 30, 0, 1, '', '', 1, 0, 50, 0, '2024-11-20 03:01:12'),
+(6, NULL, 0, 1, 'A0001', 'B0001', 'C0001', '/uploads/images/IMG_2450.jpeg', '기초부터 확실하게! (페이지의 내용 전달을 위한 HTML, 스타일 설정을 위한 CSS 기초 학습)', NULL, '이븐관리자', 'default_video_url', NULL, 30, 0, 1, '', '', 1, 0, 50000, 0, '2024-11-20 04:35:15'),
+(7, NULL, 0, 1, 'A0001', 'B0001', 'C0001', '/uploads/images/IMG_2450.jpeg', '기초부터 확실하게! (페이지의 내용 전달을 위한 HTML, 스타일 설정을 위한 CSS 기초 학습)', NULL, '이븐관리자', 'default_video_url', NULL, 30, 0, 1, '', '', 1, 0, 50000, 0, '2024-11-20 04:36:00'),
+(8, NULL, 0, 1, 'A0001', 'B0001', 'C0001', '/uploads/images/IMG_2450.jpeg', '기초부터 확실하게! (페이지의 내용 전달을 위한 HTML, 스타일 설정을 위한 CSS 기초 학습)', NULL, '이브관리자', 'https://youtu.be/oHTt2fEkmGA?si=fNAGtOcPEzpxwXDM', NULL, 30, 0, 1, '', '', 1, 0, 50000, 0, '2024-11-20 05:10:39'),
+(9, NULL, 0, 1, 'A0001', 'B0001', 'C0001', '/uploads/images/IMG_2450.jpeg', '기초부터 확실하게! (페이지의 내용 전달을 위한 HTML, 스타일 설정을 위한 CSS 기초 학습)', NULL, '이븐관리자', 'https://youtu.be/oHTr2fEkmGA?si=fNAGT0cPExpzwXDM', NULL, 30, 1, 0, '', '', 1, 0, 50000, 0, '2024-11-20 05:35:37'),
+(10, NULL, 0, 1, 'A0001', 'B0001', 'C0001', '/uploads/images/cat-5270323_1280.jpg', '기초부터 확실하게! (페이지의 내용 전달을 위한 HTML, 스타일 설정을 위한 CSS 기초 학습)', NULL, '이븐관리자', 'https://youtu.be/oHTr2fEkmGA?si=fNAGT0cPExpzwXDM', NULL, 30, 1, 0, '', '', 1, 0, 100000, 0, '2024-11-20 09:51:34'),
+(11, NULL, 0, 1, 'A0001', 'B0001', 'C0001', '/uploads/images/cat-4738796_1280.jpg', '기초부터 확실하게! (페이지의 내용 전달을 위한 HTML, 스타일 설정을 위한 CSS 기초 학습)', NULL, '이븐관리자', 'https://youtu.be/oHTr2fEkmGA?si=fNAGT0cPExpzwXDM', NULL, 30, 1, 0, '', '', 2, 0, 100000, 0, '2024-11-20 09:57:07'),
+(12, NULL, 0, 1, 'A0001', 'B0001', 'C0001', '/uploads/images/cat-4738796_1280.jpg', '기초부터 확실하게! (페이지의 내용 전달을 위한 HTML, 스타일 설정을 위한 CSS 기초 학습)', NULL, '이븐관리자', 'https://youtu.be/oHTr2fEkmGA?si=fNAGT0cPExpzwXDM', NULL, 30, 0, 1, '', '', 1, 0, 100000, 0, '2024-11-20 10:00:54'),
+(13, NULL, 0, 1, 'A0001', 'B0001', 'C0001', '/uploads/images/cat-2480777_1280.jpg', '기초부터 확실하게! (페이지의 내용 전달을 위한 HTML, 스타일 설정을 위한 CSS 기초 학습)', NULL, '이븐관리자', 'https://youtu.be/oHTr2fEkmGA?si=fNAGT0cPExpzwXDM', NULL, 30, 0, 1, '', '', 1, 0, 100000, 0, '2024-11-20 10:01:35'),
+(14, NULL, 0, 1, 'A0001', 'B0001', 'C0001', '/uploads/images/cat-2480777_1280.jpg', '기초부터 확실하게! (페이지의 내용 전달을 위한 HTML, 스타일 설정을 위한 CSS 기초 학습)', NULL, '이븐관리자', 'https://youtu.be/oHTr2fEkmGA?si=fNAGT0cPExpzwXDM', NULL, 30, 0, 1, '', '', 1, 0, 100000, 0, '2024-11-20 10:01:55'),
+(15, NULL, 0, 1, 'A0001', 'B0001', 'C0001', '/uploads/images/cat-2480777_1280.jpg', '기초부터 확실하게! (페이지의 내용 전달을 위한 HTML, 스타일 설정을 위한 CSS 기초 학습)', NULL, '이븐관리자', 'https://youtu.be/oHTr2fEkmGA?si=fNAGT0cPExpzwXDM', NULL, 30, 0, 1, '', '', 1, 0, 50000, 0, '2024-11-20 10:10:10'),
+(16, NULL, 0, 1, 'A0001', 'B0001', 'C0001', '/uploads/images/cat-5270323_1280.jpg', '기초부터 확실하게! (페이지의 내용 전달을 위한 HTML, 스타일 설정을 위한 CSS 기초 학습)', NULL, '이븐관리자', 'https://youtu.be/oHTr2fEkmGA?si=fNAGT0cPExpzwXDM', NULL, 30, 0, 1, '', '', 1, 0, 100000, 0, '2024-11-20 10:10:52'),
+(17, NULL, 0, 1, 'A0001', 'B0001', 'C0001', '/uploads/images/cat-5270323_1280.jpg', '기초부터 확실하게! (페이지의 내용 전달을 위한 HTML, 스타일 설정을 위한 CSS 기초 학습)', NULL, '이븐관리자', 'https://youtu.be/oHTr2fEkmGA?si=fNAGT0cPExpzwXDM', NULL, 30, 0, 1, '', '', 2, 0, 100000, 0, '2024-11-20 10:14:24'),
+(18, NULL, 0, 1, 'A0001', 'B0001', 'C0001', '/uploads/images/mikhail-vasilyev-IFxjDdqK_0U-unsplash.jpg', '기초부터 확실하게! (페이지의 내용 전달을 위한 HTML, 스타일 설정을 위한 CSS 기초 학습)', NULL, '이븐관리자', 'https://youtu.be/oHTr2fEkmGA?si=fNAGT0cPExpzwXDM', NULL, 30, 0, 1, '', '', 1, 0, 30000, 0, '2024-11-20 10:20:11');
 
 -- --------------------------------------------------------
 
@@ -902,7 +927,6 @@ CREATE TABLE `student_qna` (
   `cdid` int(11) DEFAULT NULL COMMENT '수강데이터ID',
   `qtitle` varchar(255) NOT NULL COMMENT '질문제목',
   `qcontent` text NOT NULL COMMENT '질문내용',
-  `status` enum('waiting','done') NOT NULL DEFAULT 'waiting' COMMENT '상태',
   `regdate` datetime NOT NULL COMMENT '등록일',
   `file` varchar(255) DEFAULT NULL COMMENT '파일'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='수강생 질문';
@@ -911,14 +935,13 @@ CREATE TABLE `student_qna` (
 -- 테이블의 덤프 데이터 `student_qna`
 --
 
-INSERT INTO `student_qna` (`sqid`, `cdid`, `qtitle`, `qcontent`, `status`, `regdate`, `file`) VALUES
-(1, 3, '시맨틱 태그의 필요성과 활용 방법은?', 'HTML5에서 시맨틱 태그가 중요한 이유는 무엇인가요? <header>, <footer>, <article>와 같은 태그는 각각 어떤 용도로 사용되며, 작성 시 유의할 점은 무엇인가요?', 'waiting', '2024-11-20 09:21:17', NULL),
-(2, 4, 'CSS와 HTML은 어떻게 연결되나요?', 'CSS는 HTML과 어떻게 통합해서 사용하는 건가요? 외부 스타일시트, 내부 스타일시트, 인라인 스타일 간의 차이를 알고 싶어요.', 'waiting', '2024-11-20 09:21:48', NULL),
-(3, 5, 'CSS 선택자와 우선순위 이해하기', 'CSS에서 요소를 스타일링할 때 선택자를 어떻게 사용하는지 궁금합니다. 클래스, ID, 태그 선택자의 차이와 우선순위 계산 방법도 알고 싶어요.', 'waiting', '2024-11-20 09:22:07', NULL),
-(4, 6, '박스 모델이란 무엇인가요?', 'CSS 박스 모델에 대해 설명해 주세요. 각 요소(마진, 패딩, 테두리, 콘텐츠)는 무엇이고, 레이아웃을 만들 때 어떻게 영향을 주나요?', 'waiting', '2024-11-20 09:22:21', NULL),
-(5, 7, 'CSS를 활용한 기본 레이아웃 설계 방법', 'HTML과 CSS를 사용해서 간단한 웹 페이지 레이아웃을 만드는 방법을 알고 싶어요. 플렉스박스와 그리드의 차이점도 설명해 주세요.', 'waiting', '2024-11-20 09:22:45', NULL),
-(6, 8, 'CSS로 글꼴과 색상을 스타일링하기', '텍스트 스타일링을 위한 CSS 속성(예: 폰트 크기, 글꼴, 색상) 사용법과 주의사항이 궁금합니다. 특히 웹 접근성을 고려할 때 어떤 점에 유의해야 하나요?', 'waiting', '2024-11-20 09:23:02', NULL);
-
+INSERT INTO `student_qna` (`sqid`, `cdid`, `qtitle`, `qcontent`, `regdate`, `file`) VALUES
+(1, 3, '시맨틱 태그의 필요성과 활용 방법은?', 'HTML5에서 시맨틱 태그가 중요한 이유는 무엇인가요? <header>, <footer>, <article>와 같은 태그는 각각 어떤 용도로 사용되며, 작성 시 유의할 점은 무엇인가요?', '2024-11-20 09:21:17', NULL),
+(2, 4, 'CSS와 HTML은 어떻게 연결되나요?', 'CSS는 HTML과 어떻게 통합해서 사용하는 건가요? 외부 스타일시트, 내부 스타일시트, 인라인 스타일 간의 차이를 알고 싶어요.', '2024-11-20 09:21:48', NULL),
+(3, 5, 'CSS 선택자와 우선순위 이해하기', 'CSS에서 요소를 스타일링할 때 선택자를 어떻게 사용하는지 궁금합니다. 클래스, ID, 태그 선택자의 차이와 우선순위 계산 방법도 알고 싶어요.', '2024-11-20 09:22:07', NULL),
+(4, 6, '박스 모델이란 무엇인가요?', 'CSS 박스 모델에 대해 설명해 주세요. 각 요소(마진, 패딩, 테두리, 콘텐츠)는 무엇이고, 레이아웃을 만들 때 어떻게 영향을 주나요?', '2024-11-20 09:22:21', NULL),
+(5, 7, 'CSS를 활용한 기본 레이아웃 설계 방법', 'HTML과 CSS를 사용해서 간단한 웹 페이지 레이아웃을 만드는 방법을 알고 싶어요. 플렉스박스와 그리드의 차이점도 설명해 주세요.', '2024-11-20 09:22:45', NULL),
+(6, 8, 'CSS로 글꼴과 색상을 스타일링하기', '텍스트 스타일링을 위한 CSS 속성(예: 폰트 크기, 글꼴, 색상) 사용법과 주의사항이 궁금합니다. 특히 웹 접근성을 고려할 때 어떤 점에 유의해야 하나요?', '2024-11-20 09:23:02', NULL);
 
 -- --------------------------------------------------------
 
@@ -960,6 +983,16 @@ CREATE TABLE `teachers` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='강사';
 
 
+--
+-- 테이블의 덤프 데이터 `teachers`
+--
+
+INSERT INTO `teachers` (`tcid`, `uid`, `cgid`, `tc_userid`, `tc_name`, `tc_userphone`, `tc_email`, `tc_cate`, `tc_url`, `tc_thumbnail`, `tc_intro`, `tc_bank`, `tc_account`, `tc_ok`, `isrecom`, `isnew`) VALUES
+(1, 2, 1, 'even_teacher', '이븐선생', '010-4567-8910', 'eventeacher@even.co.kr', '1', '', '', '안녕하세요 익힘의 정도가 적절한 이븐선생입니다~', '', '', 1, 1, 0),
+(2, 4, 1, 'my_teacher', '김동주', '010-4567-8910', 'rocks@even.co.kr', '1', 'https://www.youtube.com/@Ezweb', '/code_even/admin/upload/teacher/20241120172340324741.jpg', '반갑습니다. 바위처럼, 이지웹입니다.', '', '', 1, 1, 0),
+(3, 70, 2, 'teacher2', '조한결', '010-8723-4519', 'user70@example.com', '2', 'https://www.youtube.com/@jocode-official', '/code_even/admin/upload/teacher/20241120175857212464.png', 'JoCODE 조한결 입니다.', '', '', 1, 0, 0),
+(4, 68, 3, 'teacher3', '이상민', '010-9482-1365', 'user68@example.com', '3', '', '/code_even/admin/upload/teacher/20241120181520409651.png', '새로운 기술을 학습하고 전달하는 것을 좋아합니다.', '', '', 1, 0, 1);
+
 
 -- --------------------------------------------------------
 
@@ -970,10 +1003,16 @@ CREATE TABLE `teachers` (
 CREATE TABLE `teacher_qna` (
   `asid` int(11) NOT NULL COMMENT '답변고유ID',
   `sqid` int(11) DEFAULT NULL COMMENT '질문고유ID',
-  `tcid` int(11) NOT NULL COMMENT '강사ID',
-  `content` text NOT NULL COMMENT '답변내용',
-  `file` varchar(255) DEFAULT NULL COMMENT '파일'
+  `content` text NOT NULL COMMENT '답변내용'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='강사 답변';
+
+--
+-- 테이블의 덤프 데이터 `teacher_qna`
+--
+
+INSERT INTO `teacher_qna` (`asid`, `sqid`, `content`) VALUES
+(1, 2, '외부 스타일시트 (External Style Sheet):\r\n\r\n외부 스타일시트는 별도의 .css 파일에 스타일을 작성하고, HTML 문서 내에서 해당 파일을 <link> 태그를 사용해 연결하는 방식입니다.\r\nHTML 파일에서 CSS를 독립적으로 관리할 수 있어 여러 HTML 파일에서 동일한 스타일을 재사용할 수 있습니다.'),
+(4, 3, 'CSS에서 선택자는 HTML 요소를 선택하여 스타일을 적용하는 데 사용됩니다. 선택자는 다양한 형태로 존재하며, 각각의 특성에 따라 우선순위가 다르게 적용됩니다.');
 
 -- --------------------------------------------------------
 
@@ -1242,7 +1281,8 @@ ALTER TABLE `faq`
 --
 ALTER TABLE `lecture`
   ADD PRIMARY KEY (`leid`),
-  ADD KEY `cgid` (`cgid`);
+  ADD KEY `cgid` (`cgid`),
+  ADD KEY `boid` (`boid`);
 
 --
 -- 테이블의 인덱스 `lecture_detail`
@@ -1379,8 +1419,7 @@ ALTER TABLE `teachers`
 --
 ALTER TABLE `teacher_qna`
   ADD PRIMARY KEY (`asid`),
-  ADD UNIQUE KEY `sqid` (`sqid`),
-  ADD KEY `tcid` (`tcid`);
+  ADD KEY `sqid` (`sqid`);
 
 --
 -- 테이블의 인덱스 `teamproject`
@@ -1480,7 +1519,7 @@ ALTER TABLE `faq`
 -- 테이블의 AUTO_INCREMENT `lecture`
 --
 ALTER TABLE `lecture`
-  MODIFY `leid` int(11) NOT NULL AUTO_INCREMENT COMMENT '번호', AUTO_INCREMENT=4;
+  MODIFY `leid` int(11) NOT NULL AUTO_INCREMENT COMMENT '번호', AUTO_INCREMENT=20;
 
 --
 -- 테이블의 AUTO_INCREMENT `lecture_detail`
@@ -1582,7 +1621,7 @@ ALTER TABLE `stuscores`
 -- 테이블의 AUTO_INCREMENT `teachers`
 --
 ALTER TABLE `teachers`
-  MODIFY `tcid` int(11) NOT NULL AUTO_INCREMENT COMMENT '강사고유번호';
+  MODIFY `tcid` int(11) NOT NULL AUTO_INCREMENT COMMENT '강사고유번호', AUTO_INCREMENT=4;
 
 --
 -- 테이블의 AUTO_INCREMENT `teacher_qna`
@@ -1698,8 +1737,7 @@ ALTER TABLE `student_qna`
 -- 테이블의 제약사항 `teacher_qna`
 --
 ALTER TABLE `teacher_qna`
-  ADD CONSTRAINT `teacher_qna_ibfk_1` FOREIGN KEY (`sqid`) REFERENCES `student_qna` (`sqid`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `teacher_qna_ibfk_2` FOREIGN KEY (`tcid`) REFERENCES `teachers` (`tcid`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `teacher_qna_ibfk_1` FOREIGN KEY (`sqid`) REFERENCES `student_qna` (`sqid`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

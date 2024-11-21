@@ -79,18 +79,13 @@ while($data = $category_result->fetch_object()){
           <p>선택 가능한 희망 분야가 없습니다.</p>
         <?php } ?>
       </div>
-      <div class="form-check mt-3">
+      <div class="form-check my-3">
         <input class="form-check-input" type="checkbox" value="" id="agree">
         <label class="form-check-label" for="flexCheckDefault" checked >
           [필수] 개인정보 수집  및 이용에 동의합니다.
         </label>
       </div>
-      <div class="form-check mb-3">
-        <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" >
-        <label class="form-check-label" for="flexCheckChecked">
-          [선택] 광고성 이메일 수신에 동의합니다.
-        </label>
-      </div>
+      
       <button type="submit" class="btn btn-primary">신청하기</button>
     </form>
 </div>
