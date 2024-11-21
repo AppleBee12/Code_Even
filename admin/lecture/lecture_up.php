@@ -381,8 +381,8 @@ if (isset($_POST['draft_save']) && $_POST['draft_save'] == '1') {
       </div>
     </div>
     <div class="d-flex justify-content-end gap-2 mt-4 mb-5">
-      <button type="submit" class="btn btn-primary" name="action" value="final_save">등록</button>
-      <button type="submit" class="btn btn-secondary" name="action" value="draft_save">임시 저장</button>
+      <button type="submit" class="btn btn-secondary" name="action" value="final_save">등록</button>
+      <button type="submit" class="btn btn-outline-secondary" name="action" value="draft_save">임시 저장</button>
       <button type="button" class="btn btn-danger" onclick="window.location.href='/lecture_list.php'">취소</button>
     </div>
   </form>
@@ -568,14 +568,89 @@ if (isset($_POST['draft_save']) && $_POST['draft_save'] == '1') {
       }).appendTo('#lecture_save');
   });
 
+  // 새로운 강의 추가
+  $('.leplus').on('click', function () {
+      const lectureCount = $('.video').length + 1; // 현재 강의 개수 + 1
+      const newLectureTemplate = `
+          <div class="lecture-section">
+              <div class="video d-flex justify-content-between align-items-center bg-light border rounded-3">
+                  <h5 class="mb-0">${lectureCount}강</h5>
+                  <i class="bi bi-x" onclick="removeLecture(this)"></i>
+              </div>
+              <table class="table lecture-table">
+                  <colgroup>
+                      <col class="col-width-160">  
+                      <col class="col-width-516">  
+                      <col class="col-width-160">
+                      <col class="col-width-516">  
+                  </colgroup>
+                  <tbody>
+                      <tr>
+                          <th scope="row">강의명 <b>*</b></th>
+                          <td colspan="3">
+                              <input type="text" name="lecture_name[]" class="form-control" placeholder="강의명을 입력해 주세요." required>
+                          </td>
+                      </tr>
+                      <tr>
+                          <th scope="row">강의 설명</th>
+                          <td colspan="3">
+                              <textarea name="lecture_description[]" class="form-control" rows="3" placeholder="강의 설명을 입력해 주세요."></textarea>
+                          </td>
+                      </tr>
+                      <tr>
+                          <th scope="row">퀴즈 선택</th>
+                          <td>
+                              <select name="quiz_id[]" class="form-select">
+                                  <option value="">퀴즈를 선택해 주세요.</option>
+                              </select>
+                          </td>
+                          <th scope="row">시험 선택</th>
+                          <td>
+                              <select name="test_id[]" class="form-select">
+                                  <option value="">시험을 선택해 주세요.</option>
+                              </select>
+                          </td>
+                      </tr>
+                      <tr>
+                          <th scope="row">실습 파일 등록</th>
+                          <td>
+                              <input name="practice_file[]" class="form-control" type="file">
+                          </td>
+                          <th scope="row">동영상 주소 <b>*</b></th>
+                          <td>
+                              <div class="input-group">
+                                  <span class="input-group-text">https://</span>
+                                  <input type="text" name="video_url[]" class="form-control" placeholder="www.code_even.com" required>
+                              </div>
+                          </td>
+                      </tr>
+                  </tbody>
+              </table>
+          </div>
+      `;
 
+      // 새로운 강의 섹션을 추가
+      $(this).before(newLectureTemplate);
 
+      // 강의 번호 재정렬
+      reorderLectures();
+  });
 
+  // 강의 삭제
+  function removeLecture(element) {
+      // 해당 강의 섹션 삭제
+      $(element).closest('.lecture-section').remove();
 
+      // 강의 번호 재정렬
+      reorderLectures();
+  }
 
-
-
-
+  // 강의 번호 재정렬
+  function reorderLectures() {
+      $('.video').each(function (index) {
+          $(this).find('h5').text(`${index + 1}강`);
+      });
+  }
 
 
 
