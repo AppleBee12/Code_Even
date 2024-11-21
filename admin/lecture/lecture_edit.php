@@ -1,187 +1,150 @@
 <?php
 
-  $title = "강좌 수정";
-  include_once($_SERVER['DOCUMENT_ROOT'] . '/CODE_EVEN/admin/inc/header.php');
+$title = "강좌 수정";
 
-  // 강좌 ID 가져오기
-  $leid = isset($_GET['id']) ? intval($_GET['id']) : null; // 'id'로 변경
+include_once($_SERVER['DOCUMENT_ROOT'] . '/CODE_EVEN/admin/inc/header.php');
 
-  if (!$leid) {
-    echo "<script>alert('잘못된 접근입니다.'); location.href = 'lecture_list.php';</script>";
+// 강좌 ID 가져오기
+$leid = isset($_GET['id']) ? intval($_GET['id']) : null;
+
+if (!$leid) {
+  echo "<script>alert('잘못된 접근입니다.'); location.href = 'lecture_list.php';</script>";
+  exit;
+}
+
+// 카테고리 데이터 가져오기
+$sql_cate = "SELECT * FROM category ORDER BY step, pcode";
+$result_cate = $mysqli->query($sql_cate);
+$categories = [];
+while ($row = $result_cate->fetch_object()) {
+  $categories[] = $row;
+}
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+  // 폼 데이터 수집
+  $leid = $_POST['leid'] ?? null;
+  $title = $_POST['title'] ?? null;
+  $cate1 = $_POST['cate1'] ?? null;
+  $cate2 = $_POST['cate2'] ?? null;
+  $cate3 = $_POST['cate3'] ?? null;
+  $price = $_POST['price'] ?? 0;
+  $period = $_POST['period'] ?? 30;
+  $isrecipe = isset($_POST['courseType']) && $_POST['courseType'] === 'isrecipe' ? 1 : 0;
+  $isgeneral = isset($_POST['courseType']) && $_POST['courseType'] === 'isgeneral' ? 1 : 0;
+  $boid = $_POST['book'] ?? null;
+  $imagePath = ''; // 기존 이미지 경로 유지
+
+  // 이미지 업로드 처리
+  if (isset($_FILES['image']) && $_FILES['image']['error'] === UPLOAD_ERR_OK) {
+    $uploadDir = $_SERVER['DOCUMENT_ROOT'] . '/uploads/images/';
+    if (!is_dir($uploadDir)) {
+      mkdir($uploadDir, 0755, true);
+    }
+    $uploadedFile = $uploadDir . basename($_FILES['image']['name']);
+    if (move_uploaded_file($_FILES['image']['tmp_name'], $uploadedFile)) {
+      $imagePath = '/uploads/images/' . basename($_FILES['image']['name']);
+    }
+  }
+
+  // 데이터 검증
+  if (empty($cate1) || empty($cate2) || empty($cate3) || empty($title)) {
+    echo "<script>alert('분류와 강좌명은 필수 입력 항목입니다.'); history.back();</script>";
     exit;
   }
 
-  // 카테고리 데이터 가져오기
-  $sql_cate = "SELECT * FROM category ORDER BY step, pcode";
-  $result_cate = $mysqli->query($sql_cate);
-  $categories = [];
-  while ($row = $result_cate->fetch_object()) {
-      $categories[] = $row;
+  if (!is_numeric($price) || $price < 0) {
+    echo "<script>alert('수강료는 0 이상의 숫자여야 합니다.'); history.back();</script>";
+    exit;
   }
 
+  // 강좌 데이터 업데이트 (직접 SQL 작성)
+  $sql_update = "
+    UPDATE lecture 
+    SET cate1 = '$cate1',
+        cate2 = '$cate2',
+        cate3 = '$cate3',
+        title = '$title',
+        price = $price,
+        period = $period,
+        isrecipe = $isrecipe,
+        isgeneral = $isgeneral,
+        boid = '$boid',
+        image = '$imagePath'
+    WHERE leid = $leid
+  ";
 
-  if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    // 폼 데이터 수집
-    $leid = $_POST['leid'] ?? null;
-    $title = $_POST['title'] ?? null;
-    $cate1 = $_POST['cate1'] ?? null;
-    $cate2 = $_POST['cate2'] ?? null;
-    $cate3 = $_POST['cate3'] ?? null;
-    $price = $_POST['price'] ?? 0;
-    $period = $_POST['period'] ?? 30;
-    $isrecipe = isset($_POST['courseType']) && $_POST['courseType'] === 'isrecipe' ? 1 : 0;
-    $isgeneral = isset($_POST['courseType']) && $_POST['courseType'] === 'isgeneral' ? 1 : 0;
-    $boid = $_POST['book'] ?? null; // 선택된 교재 ID
-    $imagePath = $lecture->image; // 기존 이미지 경로 유지
-
-    // 강좌 데이터 업데이트
-    $sql_update = "
-        UPDATE lecture 
-        SET cate1 = ?, cate2 = ?, cate3 = ?, title = ?, price = ?, period = ?, isrecipe = ?, isgeneral = ?, boid = ?, image = ?
-        WHERE leid = ?
-    ";
-    $stmt = $mysqli->prepare($sql_update);
-    $stmt->bind_param(
-        "ssssiiisisi",
-        $cate1,
-        $cate2,
-        $cate3,
-        $title,
-        $price,
-        $period,
-        $isrecipe,
-        $isgeneral,
-        $boid,
-        $imagePath,
-        $leid
-    );
-    if ($stmt->execute()) {
-        echo "<script>alert('강좌가 성공적으로 수정되었습니다.'); location.href = 'lecture_list.php';</script>";
-    } else {
-        echo "<script>alert('수정에 실패했습니다: " . $stmt->error . "'); history.back();</script>";
-    }
-    $stmt->close();
-
-    $books = [];
-    $sql = "
-    SELECT l.*, b.title AS book_title, b.boid AS book_id
-    FROM lecture l
-    LEFT JOIN book b ON l.boid = b.boid
-    WHERE l.leid = ?
-    ";
-    $stmt = $mysqli->prepare($sql);
-    $stmt->bind_param('i', $leid);
-    $stmt->execute();
-    $result = $stmt->get_result();
-    $lecture = $result->fetch_object();
-
-
-    // 선택된 교재 ID 설정 (예: 첫 번째 교재를 기본 선택으로 처리)
-    if (!empty($books)) {
-        $selectedBookId = $books[0]->boid; // 첫 번째 교재 ID를 기본 값으로 설정
-    }
+  // 쿼리 실행
+  if ($mysqli->query($sql_update)) {
+    echo "<script>alert('강좌가 성공적으로 수정되었습니다.'); location.href = 'lecture_list.php';</script>";
+  } else {
+    echo "<script>alert('수정에 실패했습니다: " . $mysqli->error . "');</script>";
   }
+}
 
+// 강좌 데이터 가져오기
+$sql = "
+  SELECT l.*, b.title AS book_title, b.boid AS book_id
+  FROM lecture l
+  LEFT JOIN book b ON l.boid = b.boid
+  WHERE l.leid = $leid
+";
+$result = $mysqli->query($sql);
+$lecture = $result->fetch_object();
 
-    // 강좌에 연결된 동영상 정보 가져오기
-    $lecture_videos = [];
-    $sql_videos = "SELECT * FROM lecture WHERE leid = ?";
-    $stmt = $mysqli->prepare($sql_videos);
-    $stmt->bind_param('i', $leid); // $leid는 강좌 ID
-    $stmt->execute();
-    $result_videos = $stmt->get_result();
+// 교재 데이터 가져오기 (카테고리에 따라 필터링)
+$books = [];
+$sql_books = "
+  SELECT boid, book 
+  FROM book 
+  WHERE cate1 = '{$lecture->cate1}' 
+    AND cate2 = '{$lecture->cate2}' 
+    AND cate3 = '{$lecture->cate3}'
+";
+$result_books = $mysqli->query($sql_books);
 
-    while ($row = $result_videos->fetch_assoc()) {
-        $lecture_videos[] = $row;
+if ($result_books) {
+    while ($row = $result_books->fetch_object()) {
+        $books[] = $row;
     }
-    $stmt->close();
+}
 
 
+// 강좌에 연결된 동영상 정보 가져오기
+$sql_videos = "SELECT * FROM lecture WHERE leid = $leid";
+$result_videos = $mysqli->query($sql_videos);
+$lecture_videos = [];
+while ($row = $result_videos->fetch_assoc()) {
+  $lecture_videos[] = $row;
+}
 
+// 이미지 경로 가져오기
+$imagePath = $lecture->image ? $lecture->image : '/uploads/images/default.png'; // 기본 이미지 처리
 
-    // 이미지 업로드 처리
-    if (isset($_FILES['image']) && $_FILES['image']['error'] === UPLOAD_ERR_OK) {
-        $uploadDir = $_SERVER['DOCUMENT_ROOT'] . '/uploads/images/';
-        $uploadedFile = $uploadDir . basename($_FILES['image']['name']);
-        if (move_uploaded_file($_FILES['image']['tmp_name'], $uploadedFile)) {
-            $imagePath = '/uploads/images/' . basename($_FILES['image']['name']);
-        }
-    }
+// // 강좌에 등록된 퀴즈와 시험 데이터를 불러오는 코드
+// $selected_quiz = [];
+// $selected_test = [];
 
-    // 데이터 검증
-    if (empty($cate1) || empty($cate2) || empty($cate3) || empty($title)) {
-        echo "<pre>";
-          print_r($_POST);
-        echo "</pre>";
-        // echo "<script>alert('분류와 강좌명은 필수 입력 항목입니다.');</script>";
-        exit;
-    }
+// // 강좌에 연결된 퀴즈 가져오기
+// $sql_selected_quiz = "SELECT quiz_id FROM quiz WHERE lecture_id = ?";
+// $stmt_quiz = $mysqli->prepare($sql_selected_quiz);
+// $stmt_quiz->bind_param('i', $leid); // $leid는 강좌 ID
+// $stmt_quiz->execute();
+// $result_selected_quiz = $stmt_quiz->get_result();
+// while ($row = $result_selected_quiz->fetch_assoc()) {
+//     $selected_quiz[] = $row['quiz_id'];
+// }
+// $stmt_quiz->close();
 
-
-    if (!is_numeric($price) || $price < 0) {
-        echo "<script>alert('수강료는 0 이상의 숫자여야 합니다.');</script>";
-        exit;
-    }
-
-    // 강좌 데이터 업데이트 쿼리
-    $sql_update = "
-      UPDATE lecture 
-      SET cate1 = ?, cate2 = ?, cate3 = ?, title = ?, price = ?, period = ?, isrecipe = ?, isgeneral = ?, image = ?
-      WHERE leid = ?
-    ";
-
-    if ($stmt = $mysqli->prepare($sql_update)) {
-      $stmt->bind_param(
-        "ssssiiisii",
-        $cate1,
-        $cate2,
-        $cate3,
-        $title,
-        $price,
-        $period,
-        $isrecipe,
-        $isgeneral,
-        $imagePath,
-        $leid
-      );
-
-      // 쿼리 실행
-      if ($stmt->execute()) {
-        echo "<script>alert('강좌가 수정되었습니다.'); location.href = 'lecture_list.php';</script>";
-      } else {
-        echo "<script>alert('수정에 실패했습니다: " . $stmt->error . "');</script>";
-      }
-      $stmt->close();
-    } else {
-      echo "<script>alert('쿼리 준비에 실패했습니다: " . $mysqli->error . "');</script>";
-    }
-  
-
-  // // 강좌에 등록된 퀴즈와 시험 데이터를 불러오는 코드
-  // $selected_quiz = [];
-  // $selected_test = [];
-
-  // // 강좌에 연결된 퀴즈 가져오기
-  // $sql_selected_quiz = "SELECT quiz_id FROM quiz WHERE lecture_id = ?";
-  // $stmt_quiz = $mysqli->prepare($sql_selected_quiz);
-  // $stmt_quiz->bind_param('i', $leid); // $leid는 강좌 ID
-  // $stmt_quiz->execute();
-  // $result_selected_quiz = $stmt_quiz->get_result();
-  // while ($row = $result_selected_quiz->fetch_assoc()) {
-  //     $selected_quiz[] = $row['quiz_id'];
-  // }
-  // $stmt_quiz->close();
-
-  // // 강좌에 연결된 시험 가져오기
-  // $sql_selected_test = "SELECT test_id FROM test WHERE lecture_id = ?";
-  // $stmt_test = $mysqli->prepare($sql_selected_test);
-  // $stmt_test->bind_param('i', $leid); // $leid는 강좌 ID
-  // $stmt_test->execute();
-  // $result_selected_test = $stmt_test->get_result();
-  // while ($row = $result_selected_test->fetch_assoc()) {
-  //     $selected_test[] = $row['test_id'];
-  // }
-  // $stmt_test->close();
+// // 강좌에 연결된 시험 가져오기
+// $sql_selected_test = "SELECT test_id FROM test WHERE lecture_id = ?";
+// $stmt_test = $mysqli->prepare($sql_selected_test);
+// $stmt_test->bind_param('i', $leid); // $leid는 강좌 ID
+// $stmt_test->execute();
+// $result_selected_test = $stmt_test->get_result();
+// while ($row = $result_selected_test->fetch_assoc()) {
+//     $selected_test[] = $row['test_id'];
+// }
+// $stmt_test->close();
 
 
 
@@ -201,59 +164,67 @@
             <td colspan="2">
               <select name="cate1" id="cate1" class="form-select" aria-label="대분류">
                 <option value="" disabled>대분류</option>
-                <?php foreach ($categories as $category) {
-                    if ($category->step == 1) {
-                        $selected = $lecture->cate1 === $category->code ? 'selected' : '';
-                        echo "<option value='{$category->code}' $selected>{$category->name}</option>";
-                    }
-                } ?>
+                <?php
+                foreach ($categories as $category) {
+                  if ($category->step == 1) {
+                    $selected = ($lecture->cate1 === $category->code) ? 'selected' : '';
+                    echo "<option value='{$category->code}' $selected>{$category->name}</option>";
+                  }
+                }
+                ?>
               </select>
             </td>
             <td colspan="2">
               <select name="cate2" id="cate2" class="form-select" aria-label="중분류">
                 <option value="" disabled>중분류</option>
-                <?php foreach ($categories as $category) {
-                    if ($category->step == 2) {
-                        $selected = $lecture->cate2 === $category->code ? 'selected' : '';
-                        echo "<option value='{$category->code}' $selected>{$category->name}</option>";
-                    }
-                } ?>
+                <?php
+                foreach ($categories as $category) {
+                  if ($category->step == 2 && $category->pcode === $lecture->cate1) {
+                    $selected = ($lecture->cate2 === $category->code) ? 'selected' : '';
+                    echo "<option value='{$category->code}' $selected>{$category->name}</option>";
+                  }
+                }
+                ?>
               </select>
             </td>
             <td colspan="2">
               <select name="cate3" id="cate3" class="form-select" aria-label="소분류">
                 <option value="" disabled>소분류</option>
-                <?php foreach ($categories as $category) {
-                    if ($category->step == 3) {
-                        $selected = $lecture->cate3 === $category->code ? 'selected' : '';
-                        echo "<option value='{$category->code}' $selected>{$category->name}</option>";
-                    }
-                } ?>
+                <?php
+                foreach ($categories as $category) {
+                  if ($category->step == 3 && $category->pcode === $lecture->cate2) {
+                    $selected = ($lecture->cate3 === $category->code) ? 'selected' : '';
+                    echo "<option value='{$category->code}' $selected>{$category->name}</option>";
+                  }
+                }
+                ?>
               </select>
-            </td>
+              </td>
           </tr>
           <tr>
             <th scope="row">강좌명 <b>*</b></th>
             <td colspan="6">
-              <input type="text" name="title" id="title" class="form-control" value="<?= htmlspecialchars($lecture->title); ?>" required>
+            <input type="text" name="title" id="title" class="form-control" value="<?php echo $lecture->title; ?>" required>
             </td>
           </tr>
           <tr>
             <th scope="row">강사명 <b>*</b></th>
             <td colspan="2">
-              <input type="text" name="name" id="name" class="form-control" value="<?= htmlspecialchars($lecture->name); ?>" readonly>
+              <input type="text" name="name" id="name" class="form-control" value="<?php echo $lecture->name; ?>" readonly>
             </td>
             <td name="image" class="box_container" colspan="4" rowspan="5">
               <div class="box">
                 <span>강좌 썸네일 이미지를 선택해주세요.</span>
                 <div class="image">
-                  <img src="<?= $lecture->image; ?>" alt="강좌 이미지" style="max-width: 100%;">
+                  <!-- 데이터베이스에서 불러온 이미지 경로 -->
+                  <img src="<?php echo $imagePath; ?>" alt="강좌 이미지">
                 </div>
               </div>
               <div class="input-group mb-3">
                 <input name="image" accept="image/*" type="file" id="image" class="form-control">
               </div>
             </td>
+
           </tr>
           <tr>
             <th scope="row">수강료 <b>*</b></th>
@@ -267,16 +238,17 @@
           <tr>
           <th scope="row">교재 선택 <b>*</b></th>
           <td colspan="2">
-            <select name="book" id="book" class="form-select">
-                <option value="0">SELECT</option>
-                <option value="1" <?= isset($lecture->boid) && $lecture->boid == 1 ? 'selected' : ''; ?>>없음</option>
+          <select name="book" id="book" class="form-select">
+              <option value="0">SELECT</option>
+              <?php if (!empty($books)): ?>
                 <?php foreach ($books as $book): ?>
-                    <option value="<?= $book->boid; ?>" <?= isset($lecture->boid) && $lecture->boid == $book->boid ? 'selected' : ''; ?>>
-                        <?= htmlspecialchars($book->title); ?>
-                    </option>
+                  <option value="<?= $book->boid; ?>" <?= isset($lecture->boid) && $lecture->boid == $book->boid ? 'selected' : ''; ?>>
+                    <?= htmlspecialchars($book->book); ?>
+                  </option>
                 <?php endforeach; ?>
-            </select>
-              <small class="text-muted">* 필요한 교재가 있다면 교재 목록에서 우선 등록해 주세요.</small>
+              <?php endif; ?>
+          </select>
+          <small class="text-muted">* 필요한 교재가 있다면 교재 목록에서 우선 등록해 주세요.</small>
             </td>
           </tr>
           <tr>
@@ -315,72 +287,72 @@
     </div>
     <div>
       <?php foreach ($lecture_videos as $index => $video): ?>
-        <div class="video d-flex justify-content-between align-items-center bg-light border rounded-3">
-          <h5 class="mb-0"><?= ($index + 1); ?>강</h5>
-          <i class="bi bi-x" onclick="removeVideo(this, <?= $video['id']; ?>)"></i>
-        </div>
-        <table class="table">
-          <colgroup>
-            <col width="160">  
-            <col width="516">  
-            <col width="160">
-            <col width="516">  
-          </colgroup>
-          <tbody>
-            <tr>
-              <th scope="row">강의명 <b>*</b></th>
-              <td colspan="3">
-                <input type="text" name="lecture_name[]" class="form-control" value="<?= htmlspecialchars($video['name']); ?>" required>
-              </td>
-            </tr>
-            <tr>
-              <th scope="row">강의 설명</th>
-              <td colspan="3">
-                <textarea name="lecture_description[]" class="form-control" rows="3"><?= htmlspecialchars($video['description']); ?></textarea>
-              </td>
-            </tr>
-            <tr>
-              <th scope="row">퀴즈 선택</th>
-              <td>
-                <select name="quiz_id[]" class="form-select">
-                  <option value="">퀴즈를 선택해 주세요.</option>
-                  <?php foreach ($quiz_data as $quiz): ?>
-                    <option value="<?= $quiz['id']; ?>" <?= $video['quiz_id'] == $quiz['id'] ? 'selected' : ''; ?>>
-                      <?= htmlspecialchars($quiz['title']); ?>
-                    </option>
-                  <?php endforeach; ?>
-                </select>
-              </td>
-              <th scope="row">시험 선택</th>
-              <td>
-                <select name="test_id[]" class="form-select">
-                  <option value="">시험을 선택해 주세요.</option>
-                  <?php foreach ($test_data as $test): ?>
-                    <option value="<?= $test['id']; ?>" <?= $video['test_id'] == $test['id'] ? 'selected' : ''; ?>>
-                      <?= htmlspecialchars($test['title']); ?>
-                    </option>
-                  <?php endforeach; ?>
-                </select>
-              </td>
-            </tr>
-            <tr>
-              <th scope="row">실습 파일 등록</th>
-              <td>
-                <input name="practice_file[]" class="form-control" type="file">
-                <?php if (!empty($video['practice_file'])): ?>
-                  <small class="text-muted">현재 파일: <?= $video['practice_file']; ?></small>
-                <?php endif; ?>
-              </td>
-              <th scope="row">동영상 주소 <b>*</b></th>
-              <td>
-                <div class="input-group">
-                  <span class="input-group-text">https://</span>
-                  <input type="text" name="video_url[]" class="form-control" value="<?= htmlspecialchars($video['video_url']); ?>" required>
+                <div class="video d-flex justify-content-between align-items-center bg-light border rounded-3">
+                  <h5 class="mb-0"><?= ($index + 1); ?>강</h5>
+                  <i class="bi bi-x" onclick="removeVideo(this, <?= $video['id']; ?>)"></i>
                 </div>
-              </td>
-            </tr>
-          </tbody>
-        </table>
+                <table class="table">
+                  <colgroup>
+                    <col width="160">  
+                    <col width="516">  
+                    <col width="160">
+                    <col width="516">  
+                  </colgroup>
+                  <tbody>
+                    <tr>
+                      <th scope="row">강의명 <b>*</b></th>
+                      <td colspan="3">
+                        <input type="text" name="lecture_name[]" class="form-control" value="<?= htmlspecialchars($video['name']); ?>" required>
+                      </td>
+                    </tr>
+                    <tr>
+                      <th scope="row">강의 설명</th>
+                      <td colspan="3">
+                        <textarea name="lecture_description[]" class="form-control" rows="3"><?= htmlspecialchars($video['description']); ?></textarea>
+                      </td>
+                    </tr>
+                    <tr>
+                      <th scope="row">퀴즈 선택</th>
+                      <td>
+                        <select name="quiz_id[]" class="form-select">
+                          <option value="">퀴즈를 선택해 주세요.</option>
+                          <?php foreach ($quiz_data as $quiz): ?>
+                                    <option value="<?= $quiz['id']; ?>" <?= $video['quiz_id'] == $quiz['id'] ? 'selected' : ''; ?>>
+                                      <?= htmlspecialchars($quiz['title']); ?>
+                                    </option>
+                          <?php endforeach; ?>
+                        </select>
+                      </td>
+                      <th scope="row">시험 선택</th>
+                      <td>
+                        <select name="test_id[]" class="form-select">
+                          <option value="">시험을 선택해 주세요.</option>
+                          <?php foreach ($test_data as $test): ?>
+                                    <option value="<?= $test['id']; ?>" <?= $video['test_id'] == $test['id'] ? 'selected' : ''; ?>>
+                                      <?= htmlspecialchars($test['title']); ?>
+                                    </option>
+                          <?php endforeach; ?>
+                        </select>
+                      </td>
+                    </tr>
+                    <tr>
+                      <th scope="row">실습 파일 등록</th>
+                      <td>
+                        <input name="practice_file[]" class="form-control" type="file">
+                        <?php if (!empty($video['practice_file'])): ?>
+                                  <small class="text-muted">현재 파일: <?= $video['practice_file']; ?></small>
+                        <?php endif; ?>
+                      </td>
+                      <th scope="row">동영상 주소 <b>*</b></th>
+                      <td>
+                        <div class="input-group">
+                          <span class="input-group-text">https://</span>
+                          <input type="text" name="video_url[]" class="form-control" value="<?= htmlspecialchars($video['video_url']); ?>" required>
+                        </div>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
       <?php endforeach; ?>
       <div class="leplus d-flex justify-content-center align-items-center bg-white border rounded-3 boder-secondary" onclick="addVideoRow()">
         <i class="bi bi-plus"></i>
@@ -423,81 +395,14 @@
       }
   });
 
-// 새로운 강의 추가
-$('.leplus').on('click', function () {
-    const lectureCount = $('.video').length + 1; // 현재 강의 개수 + 1
-    const newVideoTemplate = `
-        <div class="video d-flex justify-content-between align-items-center bg-light border rounded-3">
-            <h5 class="mb-0">${lectureCount}강</h5>
-            <i class="bi bi-x" data-video-id=""></i>
-        </div>
-        <table class="table">
-            <colgroup>
-                <col width="160">  
-                <col width="516">  
-                <col width="160">
-                <col width="516">  
-            </colgroup>
-            <tbody>
-                <tr>
-                    <th scope="row">강의명 <b>*</b></th>
-                    <td colspan="3">
-                        <input type="text" name="lecture_name[]" class="form-control" placeholder="강의명을 입력해 주세요." required>
-                    </td>
-                </tr>
-                <tr>
-                    <th scope="row">강의 설명</th>
-                    <td colspan="3">
-                        <textarea name="lecture_description[]" class="form-control" rows="3" placeholder="강의 설명을 입력해 주세요."></textarea>
-                    </td>
-                </tr>
-                <tr>
-                    <th scope="row">퀴즈 선택</th>
-                    <td>
-                        <select name="quiz_id[]" class="form-select">
-                            <option value="">퀴즈를 선택해 주세요.</option>
-                            <?php foreach ($quiz_data as $quiz): ?>
-                                <option value="<?= $quiz['id']; ?>"><?= htmlspecialchars($quiz['title']); ?></option>
-                            <?php endforeach; ?>
-                        </select>
-                    </td>
-                    <th scope="row">시험 선택</th>
-                    <td>
-                        <select name="test_id[]" class="form-select">
-                            <option value="">시험을 선택해 주세요.</option>
-                            <?php foreach ($test_data as $test): ?>
-                                <option value="<?= $test['id']; ?>"><?= htmlspecialchars($test['title']); ?></option>
-                            <?php endforeach; ?>
-                        </select>
-                    </td>
-                </tr>
-                <tr>
-                    <th scope="row">실습 파일 등록</th>
-                    <td>
-                        <input name="practice_file[]" class="form-control" type="file">
-                    </td>
-                    <th scope="row">동영상 주소 <b>*</b></th>
-                    <td>
-                        <div class="input-group">
-                            <span class="input-group-text">https://</span>
-                            <input type="text" name="video_url[]" class="form-control" placeholder="www.code_even.com" required>
-                        </div>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-    `;
+  function updateSelectedBook() {
+    // 드롭다운에서 선택된 옵션의 텍스트 가져오기
+    const selectedBookName = $("#book_select option:selected").text();
 
-    // 새로운 강의 템플릿을 추가
-    $(this).before(newVideoTemplate);
-  });
-
-  // 강의 번호 재정렬
-  function reorderLectures() {
-    $('.video').each(function (index) {
-      $(this).find('h5').text(`${index + 1}강`);
-    });
+    // 읽기 전용 input 필드에 선택된 교재명 표시
+    $("#selected_book_name").val(selectedBookName);
   }
+
 
   // 카테고리 변경 시 교재 목록 업데이트
   function updateBooks() {
@@ -534,6 +439,24 @@ $('.leplus').on('click', function () {
 
   // 카테고리 선택 시 교재 목록 업데이트 트리거
   $('#cate1, #cate2, #cate3').on('change', updateBooks);
+
+  
+  // 썸네일 첨부하면 class image에 출력
+  $('#image').on('change', function (event) {
+    const file = event.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+
+      reader.onload = function (e) {
+        $('.image img').attr('src', e.target.result);
+        $('.image img').attr('alt', file.name);
+        $('.box span').css('display', 'none'); // 텍스트 숨기기
+      };
+
+      reader.readAsDataURL(file);
+    }
+    });
+
 
 
 
