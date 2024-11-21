@@ -44,6 +44,7 @@
     } else {
       echo "데이터가 없습니다.";
     }
+    //print_r($dataArr);
 ?>
 
 <div class="container">
@@ -51,11 +52,12 @@
   <div class="content_bar">
     <h3>주문상세목록</h3>
   </div>
+  <h4>주문번호 : <?= $odid; ?></h4>
   <table class="table list_table">
     <thead>
         <tr>
-            <th scope="col">순번</th>
-            <th scope="col">주문상세번호</th>
+            <th scope="col">번호</th>
+            <th scope="col">항목번호</th>
             <th scope="col">구분</th>
             <th scope="col">강의명/교재명</th>
             <th scope="col">수량</th>
@@ -69,7 +71,6 @@
     <tbody>
       <?php
       $index = 1;
-
       foreach ($dataArr as $data) {
           // 구분 값 변환
           $type = ($data->product_type == 1) ? "강좌" : "교재";
@@ -121,8 +122,8 @@
     // 결제 정보는 주문 번호(`odid`) 기준으로 한 번만 출력하기 위해 첫 번째 데이터만 사용
     if (!empty($dataArr)) {
         // 첫 번째 데이터 가져오기
+        $item_count = count($dataArr);
         $firstData = $dataArr[0];
-
         // 결제 방법 배열 정의
         $pay_methods = [
             1 => "신용카드",
@@ -132,25 +133,27 @@
             5 => "실시간계좌이체"
         ];
         ?>
-        <tr>
-            <th scope="row">이름 <b>*</b></th>
-            <td>
-                <?= htmlspecialchars($firstData->user_name); // 사용자 이름 ?>
-            </td>
+        <tr> 
             <th scope="row">아이디</th>
             <td>
                 <?= htmlspecialchars($firstData->user_id); // 사용자 아이디 ?>
             </td>
-        </tr>
-        <tr>
             <th scope="row">결제일 <b>*</b></th>
             <td>
                 <?= htmlspecialchars($firstData->order_date); // 결제일 ?>
             </td>
-            <th scope="row">주문명</th>
-            <td>
-                <?= htmlspecialchars($firstData->order_title); // 주문명 ?>
-            </td>
+        </tr>
+        <tr>
+          <th scope="row">이름 <b>*</b></th>
+          <td colspan="3">
+              <?= htmlspecialchars($firstData->user_name); // 사용자 이름 ?>
+          </td>   
+        </tr>
+        <tr>
+          <th scope="row">주문명</th>
+          <td colspan="3">
+            <?= htmlspecialchars($firstData->order_title) . ($item_count > 1 ? " 외 " . ($item_count - 1) . "건" : ""); ?>
+          </td>
         </tr>
         <tr>
             <th scope="row">결제금액</th>
@@ -158,6 +161,7 @@
                 <?= number_format($firstData->final_amount); // 결제 금액 ?> 원
             </td>
         </tr>
+        
         <tr>
             <th scope="row">결제방법</th>
             <td colspan="3">
@@ -170,72 +174,11 @@
     }
     ?>
 </tbody>
-
-   
-
-    <!--
-    <?php
-          if(isset($dataArr)){
-            foreach($dataArr as $item){
-        ?> 
-      <tr>
-        <th scope="row">이름 <b>*</b></th>
-        <td>
-          125
-        </td>
-        <th scope="row">아이디</th>
-        <td>
-          nany
-        </td>
-      </tr>
-      <tr>
-        <th scope="row">결제일 <b>*</b></th>
-        <td>
-          2024/10/29
-        </td>
-        <th scope="row">이름</th>
-        <td>
-          홍나니
-        </td>
-      </tr>
-      <tr>
-        <th scope="row">주문명</th>
-        <td colspan="3">
-        기초부터 확실하게! (페이지의 내용 전달을 위한 HTML, 스타일 설정을 위한 CSS 기초 학습) 외 1건
-        </td>
-      </tr>
-      <tr>
-        <th scope="row">결제금액</th>
-        <td colspan="3">
-          102,000 원
-        </td>
-      </tr>
-      <tr>
-        <th scope="row">결제방법</th>
-        <td colspan="3">
-          <div class="form-check form-check-inline">
-            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1" checked disabled>
-            <label class="form-check-label" for="inlineRadio1">신용카드</label>
-          </div>
-          <div class="form-check form-check-inline">
-            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2" disabled>
-            <label class="form-check-label" for="inlineRadio2">무통장입금</label>
-          </div>
-          <div class="form-check form-check-inline">
-            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio3" value="option3" disabled>
-            <label class="form-check-label" for="inlineRadio3">실시간 계좌이체</label>
-          </div>
-        </td>
-      </tr>
-      <?php
-            }
-          }
-        ?>   
-    </tbody>
-      -->
   </table>
 
-  
+  <?php
+// 수령 정보 확인
+if (!empty($firstData->receiver)) { ?>
   <div class="content_bar">
     <h3>수령 정보</h3>
   </div>
@@ -247,45 +190,36 @@
     <col class="col-width-516">
     </colgroup>
     <tbody>
+    <tr>
+                <th scope="row">수령인</th>
+                <td><?= htmlspecialchars($firstData->receiver); ?></td>
+                <th scope="row">연락처</th>
+                <td><?= htmlspecialchars($firstData->receiver_phone); ?></td>
+            </tr>
+            <tr>
+                <th scope="row">수령주소</th>
+                <td colspan="3">
+                    <?= htmlspecialchars($firstData->zipcode); ?>
+                </td>
+            </tr>
       <tr>
-        <th scope="row">수령인</th>
-        <td>
-          홍나니
-        </td>
-        <th scope="row">연락처</th>
-        <td>
-          010-1234-5678
-        </td>
+    <th scope="row"></th>
+    <td colspan="3"><?= !empty($firstData->addr_line1) ? htmlspecialchars($firstData->addr_line1) : ''; ?></td>
       </tr>
       <tr>
-        <th scope="row">수령주소</th>
-        <td colspan="3">
-          03192
-        </td>
+          <th scope="row"></th>
+          <td colspan="3"><?= !empty($firstData->addr_line2) ? htmlspecialchars($firstData->addr_line2) : ''; ?></td>
       </tr>
       <tr>
-        <th scope="row"></th>
-        <td colspan="3">
-        서울 종로구 수표로 96
-        </td>
-      </tr>
-      <tr>
-        <th scope="row"></th>
-        <td colspan="3">
-          401호
-        </td>
-      </tr>
-
-      <tr>
-        <td colspan="4">
-            <hr>
-        </td>
+          <th scope="row"></th>
+          <td colspan="3"><?= !empty($firstData->addr_line3) ? htmlspecialchars($firstData->addr_line3) : ''; ?></td>
       </tr>
       
     </tbody>
   </table>
+  <?php } ?>
   <div class="d-flex justify-content-end gap-2">
-    <a href="teacher_list.php" type="button" class="btn btn-outline-secondary">목록</a>
+    <a href="orders_list.php" type="button" class="btn btn-outline-secondary">목록</a>
   </div>
 </div>
 
