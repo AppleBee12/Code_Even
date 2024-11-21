@@ -96,10 +96,10 @@ while ($data = $result->fetch_object()) {
               <td><?= $counsel->hits ?><b>회</b></td>
               <td><?= $counsel->regdate ?></td>
               <td class="edit_col">
-                <a href="counsel_edit.php?post_id=<?= $counsel->post_id ?>">
+                <a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/community/counsel_edit.php?post_id=<?= $counsel->post_id ?>">
                   <i class="bi bi-pencil-fill"></i>
                 </a>
-                <a href="">
+                <a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/community/counsel_delete.php?post_id=<?= $counsel->post_id ?>">
                   <i class="bi bi-trash-fill"></i>
                 </a>
               </td>
