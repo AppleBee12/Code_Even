@@ -17,11 +17,14 @@ include_once($_SERVER['DOCUMENT_ROOT'] . '/CODE_EVEN/admin/inc/header.php');
  }
 
 
- //게시글 분류 검색 추가
- $category_filter = isset($_GET['category']) ? $mysqli->real_escape_string($_GET['category']) : '';
- $where_clause = '';
- // 게시글 키워드 검색
- $keywords = isset($_GET['keywords']) ? $mysqli->real_escape_string($_GET['keywords']) : '';
+  //게시글 분류 검색 추가
+  $category_filter = isset($_GET['category']) ? $mysqli->real_escape_string($_GET['category']) : '';
+  $where_clause = '';
+  // 게시글 키워드 검색
+  $keywords = isset($_GET['keywords']) ? $mysqli->real_escape_string($_GET['keywords']) : '';
+  //강좌유형검색
+  $lec_type_filter = isset($_GET['search_lectype']) ? $mysqli->real_escape_string($_GET['search_lectype']) : '';
+
 
  if ($keywords) {
    $where_clause = "WHERE lecture_sales.lec_title LIKE '%$keywords%' OR lecture_sales.th_name LIKE '%$keywords%'";
@@ -30,6 +33,10 @@ include_once($_SERVER['DOCUMENT_ROOT'] . '/CODE_EVEN/admin/inc/header.php');
  if ($category_filter) {
    $where_clause .= ($where_clause ? ' AND ' : 'WHERE ') . "lecture_sales.lec_cate = '$category_filter'";
  }
+
+ if ($lec_type_filter !== '') {
+  $where_clause .= ($where_clause ? ' AND ' : 'WHERE ') . "lecture_sales.lec_type = '$lec_type_filter'";
+}
 
  $page_sql = "SELECT COUNT(*) AS cnt FROM lecture_sales $where_clause";
  $page_result = $mysqli->query($page_sql);
@@ -43,7 +50,7 @@ include_once($_SERVER['DOCUMENT_ROOT'] . '/CODE_EVEN/admin/inc/header.php');
  $block_ct = 5;
  $block_num = ceil($page / $block_ct);
  $block_start = (($block_num - 1) * $block_ct) + 1;
- $block_end = $block_start + $block_ct - 1;
+ $block_end = $block_start + $block_ct - 1; 
 
  $total_page = ceil($row_num / $list);
  $total_block = ceil($total_page / $block_ct);
@@ -53,37 +60,42 @@ include_once($_SERVER['DOCUMENT_ROOT'] . '/CODE_EVEN/admin/inc/header.php');
 
 
  $sql = "SELECT * FROM lecture_sales $where_clause 
-         ORDER BY lecture_sales.leid DESC 
+         ORDER BY lecture_sales.leid ASC 
          LIMIT $start_num, $list"; //teachers 테이블에서 모든 데이터를 조회
  $result = $mysqli->query($sql); //쿼리 실행 결과
 
- while($data = $result->fetch_object()){
-   $dataArr[] = $data;
+ $dataArr = [];
+ if ($result) {
+     while ($data = $result->fetch_object()) {
+         $dataArr[] = $data;
+     }
  }
-
 ?>
 
 <div class="container"> 
   <h2 class="page_title">강좌매출통계</h2>
 
-  <form action="#" id="search_form" class="row justify-content-end" method="GET">
-    <div class="col-lg-3 pt_04">
-      <span class="status_tt me-4">강좌유형</span>
-      <div class="form-check form-check-inline">
-        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio3" value="1" checked> 
-        <label class="form-check-label" for="inlineRadio3">전체</label>
-      </div>
-      <div class="form-check form-check-inline">
-        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="0">
-        <label class="form-check-label" for="inlineRadio1">일반</label>
-      </div>
-      <div class="form-check form-check-inline">
-        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="-1" > 
-        <label class="form-check-label" for="inlineRadio2">레시피</label>
-      </div>
+  <form action="#" id="search_form" class="row justify-content-end align-items-center" method="GET">
+  <div class="col-lg-3">
+    <span>총 건수 :  <?= $row_num; ?></span>
+    </div>
 
-    </div>  
-    <div class="col-lg-3">
+    <div class="col-lg-3 pt_04">
+    <span class="status_tt me-4">강좌유형</span>
+    <div class="form-check form-check-inline">
+        <input class="form-check-input" type="radio" name="search_lectype" id="inlineRadio3" value="" checked>
+        <label class="form-check-label" for="inlineRadio3">전체</label>
+    </div>
+    <div class="form-check form-check-inline">
+        <input class="form-check-input" type="radio" name="search_lectype" id="inlineRadio1" value="1" <?= $lec_type_filter === '1' ? 'checked' : ''; ?>>
+        <label class="form-check-label" for="inlineRadio1">일반</label>
+    </div>
+    <div class="form-check form-check-inline">
+        <input class="form-check-input" type="radio" name="search_lectype" id="inlineRadio2" value="2" <?= $lec_type_filter === '2' ? 'checked' : ''; ?>>
+        <label class="form-check-label" for="inlineRadio2">레시피</label>
+    </div>
+</div>
+    <div class="col-lg-2">
       <select class="form-select" name="category" aria-label="대표분류">
         <option value="">-전체분류선택-</option>
         <?php foreach($categories as $category): ?>
@@ -93,18 +105,17 @@ include_once($_SERVER['DOCUMENT_ROOT'] . '/CODE_EVEN/admin/inc/header.php');
         <?php endforeach; ?>
       </select>
     </div>
-
-    <div class="col-lg-3">
-      <div class="input-group mb-3">
-        <input type="text" class="form-control" placeholder="분류 선택 또는 검색어를 입력하세요." name="keywords" value="<?= htmlspecialchars($keywords); ?>">
+    <div class="col-lg-4">
+      <div class="input-group">
+        <input type="text" class="form-control" placeholder="유형이나 분류 선택 또는 검색어를 입력하세요." name="keywords" value="<?= htmlspecialchars($keywords); ?>">
         <button type="submit" class="btn btn-secondary">
           <i class="bi bi-search"></i>
         </button>
       </div>
     </div>
+    
   </form>
   <!-- //Search-form -->
-
 
   <table class="table list_table">
     <thead>
@@ -121,6 +132,7 @@ include_once($_SERVER['DOCUMENT_ROOT'] . '/CODE_EVEN/admin/inc/header.php');
       </tr>
     </thead>
     <tbody>
+    <!-- 
       <tr>
         <th scope="row">1</th>
         <td>웹개발</td>
@@ -143,6 +155,38 @@ include_once($_SERVER['DOCUMENT_ROOT'] . '/CODE_EVEN/admin/inc/header.php');
         <td>9,999원 / 10건</td>
         <td>119,999원</td>
       </tr>  
+    -->
+
+    <?php
+  if (isset($dataArr) && count($dataArr) > 0) {
+      foreach ($dataArr as $index => $data) {
+
+  ?>
+      <tr>
+          <th scope="row"><?= $start_num + $index + 1; ?></th>
+          <td>
+    <?= $data->lec_cate == 1 ? '웹개발' : ($data->lec_cate == 2 ? '클라우드·DB' : ($data->lec_cate == 3 ? '보안·네트워크' : '기타')); ?>
+</td>
+
+          <td><?= htmlspecialchars($data->th_name); ?></td>
+          <td>
+    <?= htmlspecialchars(mb_strlen($data->lec_title) > 32 ? mb_substr($data->lec_title, 0, 32) . '...' : $data->lec_title); ?>
+</td>
+
+          <td>
+              <span class="badge <?= $data->lec_type == 1 ? 'text-bg-secondary' : 'text-bg-danger'; ?>">
+                  <?= $data->lec_type == 1 ? '일반' : '레시피'; ?>
+              </span>
+          </td>
+          <td><?= number_format($data->total_order_amount); ?>원</td>
+          <td><?= number_format($data->total_order_amount); ?>원 / <?= $data->order_count; ?>건</td>
+          <td><?= number_format($data->total_refund_amount); ?>원 / 0건</td>
+          <td><?= number_format($data->final_sales_amount); ?>원</td>
+      </tr>
+      <?php
+      }
+  } 
+  ?>
     </tbody>
   </table>
   <!-- //table -->
