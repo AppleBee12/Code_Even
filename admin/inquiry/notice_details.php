@@ -12,7 +12,7 @@ $view = $data->view + 1;
 $viewSql = "UPDATE notice SET view = $view WHERE ntid = $ntid;";
 $vresult = $mysqli->query($viewSql);
 
-$sql = "SELECT notice.*, user.username, user.userid FROM notice JOIN user ON notice.uid = user.uid WHERE ntid = $ntid";
+$sql = "SELECT notice.*, user.* FROM notice JOIN user ON notice.uid = user.uid WHERE ntid = $ntid";
 $result = $mysqli->query($sql);
 $data = $result->fetch_object();
 
@@ -41,7 +41,13 @@ $data = $result->fetch_object();
       <tbody>
         <tr class="none">
           <th scope="row">이름(아이디)</th>
-          <td><?= $data->username; ?>(<?= $data->userid; ?>)</td>
+          <td><?= $data->username; ?>(<?= $data->userid; ?>)
+          <?php
+            $class = $data->user_level == '100' ? 'text-bg-danger' : 'text-bg-dark';
+            $text = $data->user_level == '100' ? '관리자' : '강사';
+            echo "<span class='badge $class'>$text</span>";
+            ?>
+        </td>
         </tr>
         <tr>
           <th scope="row">등록일</th>

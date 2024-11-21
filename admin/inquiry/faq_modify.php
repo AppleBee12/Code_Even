@@ -98,7 +98,12 @@ $data = $result->fetch_object();
     <div class="custom-hr"></div>
 
     <div class="d-flex justify-content-end gap-2">
-      <a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/inquiry/student_faq.php"
+      <a 
+    <?php if ($data->target == 'student'): ?>
+      href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/inquiry/student_faq.php"
+    <?php elseif ($data->target == 'teacher'): ?>
+      href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/inquiry/teacher_faq.php"
+    <?php endif; ?>
         class="btn btn-outline-danger">취소</a>
       <button type="submit" class="btn btn-secondary">등록</button>
     </div>

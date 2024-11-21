@@ -4,7 +4,13 @@ include_once($_SERVER['DOCUMENT_ROOT'] . '/code_even/admin/inc/header.php');
 
 // 게시글 개수 구하기
 $keywords = isset($_GET['keywords']) ? $mysqli->real_escape_string($_GET['keywords']) : '';
-$where_clause = "WHERE faq.target = 'teacher'";
+
+if($level == 100){
+  $where_clause = "WHERE faq.target = 'teacher'";
+}
+if($level == 10){
+  $where_clause = "WHERE faq.target = 'teacher' AND faq.status = 'on'";
+}
 
 if ($keywords) {
   $where_clause .= " AND (faq.title LIKE '%$keywords%' OR user.username LIKE '%$keywords%' OR user.userid LIKE '%$keywords%')";
