@@ -25,6 +25,18 @@ include_once($_SERVER['DOCUMENT_ROOT'] . '/CODE_EVEN/admin/inc/header.php');
   //강좌유형검색
   $lec_type_filter = isset($_GET['search_lectype']) ? $mysqli->real_escape_string($_GET['search_lectype']) : '';
 
+  // 오름차순 내림차순 추가
+  // 정렬 관련 파라미터 처리
+  $order_by = isset($_GET['order_by']) ? $_GET['order_by'] : 'leid'; // 기본 정렬: 강좌번호
+  $order = isset($_GET['order']) ? $_GET['order'] : 'asc'; // 기본 오름차순
+  $order_next = $order === 'asc' ? 'desc' : 'asc'; // 다음 정렬 상태
+
+  // 현재 GET 파라미터에서 불필요한 파라미터 제거
+  $query_params = $_GET;
+  unset($query_params['order_by'], $query_params['order']); // 정렬 관련 파라미터 제거
+
+
+
 
  if ($keywords) {
    $where_clause = "WHERE lecture_sales.lec_title LIKE '%$keywords%' OR lecture_sales.th_name LIKE '%$keywords%'";
@@ -59,17 +71,18 @@ include_once($_SERVER['DOCUMENT_ROOT'] . '/CODE_EVEN/admin/inc/header.php');
  }
 
 
- $sql = "SELECT * FROM lecture_sales $where_clause 
-         ORDER BY lecture_sales.leid ASC 
-         LIMIT $start_num, $list"; //teachers 테이블에서 모든 데이터를 조회
- $result = $mysqli->query($sql); //쿼리 실행 결과
+  // SQL 쿼리
+  $sql = "SELECT * FROM lecture_sales $where_clause 
+  ORDER BY $order_by $order 
+  LIMIT $start_num, $list";
 
- $dataArr = [];
- if ($result) {
-     while ($data = $result->fetch_object()) {
-         $dataArr[] = $data;
-     }
- }
+  $result = $mysqli->query($sql);
+  $dataArr = [];
+  if ($result) {
+  while ($data = $result->fetch_object()) {
+    $dataArr[] = $data;
+  }
+  }
 ?>
 
 <div class="container"> 
@@ -77,7 +90,7 @@ include_once($_SERVER['DOCUMENT_ROOT'] . '/CODE_EVEN/admin/inc/header.php');
 
   <form action="#" id="search_form" class="row justify-content-end align-items-center" method="GET">
   <div class="col-lg-3">
-    <span>총 건수 :  <?= $row_num; ?></span>
+    <span>총 강좌수 :  <?= $row_num; ?></span>
     </div>
 
     <div class="col-lg-3 pt_04">
@@ -126,9 +139,37 @@ include_once($_SERVER['DOCUMENT_ROOT'] . '/CODE_EVEN/admin/inc/header.php');
         <th scope="col">강좌명</th>
         <th scope="col">강좌유형</th>
         <th scope="col">가격</th>
-        <th scope="col">주문금액 / 건수</th>
-        <th scope="col">환불금액 / 건수</th>
-        <th scope="col">총매출금액</th>
+        <th scope="col">
+          주문금액
+          <a href="?<?= http_build_query(array_merge($query_params, ['order_by' => 'total_order_amount', 'order' => $order_next])); ?>" class="sort-icon">
+              <i class="bi bi-arrow-<?= $order_by === 'total_order_amount' && $order === 'asc' ? 'up' : 'down'; ?>-short"></i>
+          </a>
+        </th>
+        <th scope="col">
+            건수
+            <a href="?<?= http_build_query(array_merge($query_params, ['order_by' => 'order_count', 'order' => $order_next])); ?>" class="sort-icon">
+                <i class="bi bi-arrow-<?= $order_by === 'order_count' && $order === 'asc' ? 'up' : 'down'; ?>-short"></i>
+            </a>
+        </th>
+        <th scope="col">
+            환불금액
+            <a href="?<?= http_build_query(array_merge($query_params, ['order_by' => 'total_refund_amount', 'order' => $order_next])); ?>" class="sort-icon">
+                <i class="bi bi-arrow-<?= $order_by === 'total_refund_amount' && $order === 'asc' ? 'up' : 'down'; ?>-short"></i>
+            </a>
+        </th>
+        <th scope="col">
+            건수
+            <a href="?<?= http_build_query(array_merge($query_params, ['order_by' => 'refund_count', 'order' => $order_next])); ?>" class="sort-icon">
+                <i class="bi bi-arrow-<?= $order_by === 'refund_count' && $order === 'asc' ? 'up' : 'down'; ?>-short"></i>
+            </a>
+        </th>
+        <th scope="col">
+            총매출금액
+            <a href="?<?= http_build_query(array_merge($query_params, ['order_by' => 'final_sales_amount', 'order' => $order_next])); ?>" class="sort-icon">
+                <i class="bi bi-arrow-<?= $order_by === 'final_sales_amount' && $order === 'asc' ? 'up' : 'down'; ?>-short"></i>
+            </a>
+        </th>
+       
       </tr>
     </thead>
     <tbody>
@@ -178,9 +219,11 @@ include_once($_SERVER['DOCUMENT_ROOT'] . '/CODE_EVEN/admin/inc/header.php');
                   <?= $data->lec_type == 1 ? '일반' : '레시피'; ?>
               </span>
           </td>
-          <td><?= number_format($data->total_order_amount); ?>원</td>
-          <td><?= number_format($data->total_order_amount); ?>원 / <?= $data->order_count; ?>건</td>
-          <td><?= number_format($data->total_refund_amount); ?>원 / 0건</td>
+          <td>강좌가격</td>
+          <td class="group_lefttline"><?= number_format($data->total_order_amount); ?>원 </td>
+          <td class="group_rightline"><?= $data->order_count; ?>건</td>
+          <td><?= number_format($data->total_refund_amount); ?>원</td>
+          <td class="group_rightline"> 0건</td>
           <td><?= number_format($data->final_sales_amount); ?>원</td>
       </tr>
       <?php
@@ -231,8 +274,11 @@ include_once($_SERVER['DOCUMENT_ROOT'] . '/CODE_EVEN/admin/inc/header.php');
 </div>
 
 <script>
-
-
+    // 새로고침 시 URL에서 GET 파라미터 제거
+    if (window.location.search) {
+        const url = window.location.origin + window.location.pathname;
+        window.history.replaceState({}, document.title, url);
+    }
 </script>
 
 <?php
