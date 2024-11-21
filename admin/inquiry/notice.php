@@ -93,8 +93,7 @@ while ($data = $result->fetch_object()) {
             <tr>
             <th scope="row">
               <input 
-                class="form-check-input itemCheckbox" 
-                type="checkbox" 
+                class="form-check-input itemCheckbox" type="checkbox" value="<?=$no->ntid?>"
                 data-id="<?= $no->ntid; ?>" 
                 data-title="<?= htmlspecialchars($no->title); ?>" 
                 data-status="<?= $no->status; ?>">
@@ -201,8 +200,8 @@ while ($data = $result->fetch_object()) {
         <h5 class="modal-title">글 상태 변경</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
-      <form action="ok.php" method="POST" id="statusForm">
-        <input type="hidden" name="ntid" value="">
+      <form action="notice_status_ok.php" method="POST" id="statusForm">
+        <input type="hidden" name="ntid" id="modal_ntid">
         <div class="modal-body">
             <table class="table">
               <colgroup>
@@ -281,13 +280,17 @@ const statusBtn = document.getElementById('statusBtn');
 statusBtn.addEventListener('click', function () {
   const selectedCheckbox = document.querySelector('.itemCheckbox:checked');
   if (selectedCheckbox) {
-    const title = selectedCheckbox.getAttribute('data-title');
-    const status = selectedCheckbox.getAttribute('data-status');
+    const ntid = selectedCheckbox.dataset.id; // 체크박스의 data-id 속성값
+    const title = selectedCheckbox.dataset.title; // 체크박스의 data-title 속성값
+    const status = selectedCheckbox.dataset.status; // 체크박스의 data-status 속성값
 
+    // 모달 필드에 값 설정
+    document.getElementById('modal_ntid').value = ntid;
     document.getElementById('modal_title').value = title;
     document.getElementById('status_on').checked = status === 'on';
     document.getElementById('status_off').checked = status === 'off';
 
+    // 모달 띄우기
     const modal = new bootstrap.Modal(document.querySelector('.modal'));
     modal.show();
   } else {
@@ -295,42 +298,41 @@ statusBtn.addEventListener('click', function () {
   }
 });
 
-document.getElementById('statusForm').addEventListener('submit', function (event) {
-  event.preventDefault();
-  
   // 입력값 가져오기
-  const form = event.target;
-  const ntid = form.querySelector('[name="ntid"]').value;
-  const title = form.querySelector('[name="title"]').value; // 제목
-  const status = form.querySelector('[name="status"]:checked').value; // 상태 (on/off)
+  
+  document.getElementById('statusForm').addEventListener('submit', function (event) {
+    event.preventDefault();
+    
+    const ntid = document.querySelector('[name="ntid"]').value;
+    const status = document.querySelector('[name="status"]:checked').value;
 
   // 서버로 POST 요청 보내기
-  fetch(location.href, { // 같은 페이지로 POST 요청
+  fetch('notice_status_ok.php', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/x-www-form-urlencoded',
     },
     body: new URLSearchParams({
       ntid: ntid,
-      title: title,
-      status: status
+      status: status 
     })
   })
     .then(response => response.text())
     .then(data => {
       console.log(data);
-      alert('상태가 성공적으로 수정되었습니다.');
-      location.reload(); // 페이지 새로고침
+      confirm('상태를 변경하시겠습니까?');
+      alert('상태 변경이 완료되었습니다.');
+      location.href='notice.php';
     })
     .catch(error => {
       console.error('Error:', error);
-      alert('수정 중 오류가 발생했습니다.');
+      alert('변경이 실패되었습니다.');
     });
-});
-
+  });
 
 </script>
 
 <?php
 include_once($_SERVER['DOCUMENT_ROOT'] . '/code_even/admin/inc/footer.php');
+
 ?>
