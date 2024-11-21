@@ -6,9 +6,9 @@ include_once($_SERVER['DOCUMENT_ROOT'] . '/CODE_EVEN/admin/inc/header.php');
 // 게시글 개수 구하기
 $keywords = isset($_GET['keywords']) ? $mysqli->real_escape_string($_GET['keywords']) : '';
 $where_clause = '';
-
+//키워드 검색
 if ($keywords) {
-  $where_clause = "WHERE counsel.title LIKE '%$keywords%' OR counsel.contents LIKE '%$keywords%' OR user.usernick LIKE '%$keywords%' ";
+  $where_clause = "WHERE counsel.titles LIKE '%$keywords%' OR counsel.contents LIKE '%$keywords%' OR user.usernick LIKE '%$keywords%' ";
 }
 
 $page_sql = "SELECT COUNT(*) AS cnt FROM counsel JOIN user ON counsel.uid = user.uid $where_clause";
@@ -96,10 +96,10 @@ while ($data = $result->fetch_object()) {
               <td><?= $counsel->hits ?><b>회</b></td>
               <td><?= $counsel->regdate ?></td>
               <td class="edit_col">
-                <a href="counsel_edit.php?post_id=<?= $counsel->post_id ?>">
+                <a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/community/counsel_edit.php?post_id=<?= $counsel->post_id ?>">
                   <i class="bi bi-pencil-fill"></i>
                 </a>
-                <a href="">
+                <a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/community/counsel_delete.php?post_id=<?= $counsel->post_id ?>">
                   <i class="bi bi-trash-fill"></i>
                 </a>
               </td>

@@ -34,10 +34,10 @@ $data = $result->fetch_object();
         </tr>
         <tr>
           <th scope="row">
-            <label for="thumnails">썸네일 등록</label>
+            <label for="thumbnails">썸네일 등록</label>
           </th>
           <td>
-            <input type="file" accept="image/*" id="thumnails" name="thumnails" class="form-control" value="">
+            <input type="file" accept="image/*" id="thumbnails" name="thumbnails" class="form-control" value="">
           </td>
         </tr>
         <tr>
@@ -59,7 +59,7 @@ $data = $result->fetch_object();
 
 <script>
   // 썸네일
-  let thumbnail = $('#thumnails');
+  let thumbnail = $('#thumbnails');
   thumbnail.on('change', (e) => {
     let file = e.target.files[0];
 

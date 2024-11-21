@@ -85,9 +85,9 @@ while ($data = $result->fetch_object()) {
               <td><a href="#" class="d-inline-block text-truncate"><?= $tp->titles ?></a></td>
               <td><a href="#" class="d-inline-block text-truncate"><?= $tp->contents ?></a></td>
               <td>
-                <?= $tp->status == 0 ?
-                  '<span class="badge text-bg-light">미해결</span>'
-                  : '<span class="badge text-bg-success">해결</span>' ?>
+                <?= $tp->status == '모집중' ?
+                  '<span class="badge text-bg-light">모집중</span>'
+                  : '<span class="badge text-bg-danger">모집완료</span>' ?>
               </td>
               <td><?= $tp->likes ?><b>개</b></td>
               <td><?= $tp->comments ?><b>개</b></td>

@@ -8,18 +8,16 @@ include_once($_SERVER['DOCUMENT_ROOT'].'/code_even/admin/inc/img_upload_func.php
 
 $uid = $_POST['uid'];
 $titles =$_POST['titles'];
-$thumnails =$_FILES['thumnails'];
+$thumbnails =$_FILES['thumbnails'];
 $contents =rawurldecode($_POST['contents']);
-// echo ($contents);
- print_r($thumnails);
+//print_r($thumbnails);
 
 /* ---------------- 이미지 업로드 함수 호출 로직 시작 --------------------- */
     // 상위 디렉토리 이름 가져오기 (예: 'teacher')
     $callingFileDir = basename(dirname(__FILE__));
 
-
         // 새로운 파일 업로드
-        $uploadResult = fileUpload($_FILES['thumnails'], $callingFileDir);
+        $uploadResult = fileUpload($_FILES['thumbnails'], $callingFileDir);
         if ($uploadResult) {
             $thumbnailPath = $uploadResult; // 성공적으로 업로드된 경로
         } else {
@@ -30,11 +28,8 @@ $contents =rawurldecode($_POST['contents']);
             exit;
         }
 
-        
-  
 
-
-$sql = "INSERT INTO blog (uid,titles,thumnails,contents)
+$sql = "INSERT INTO blog (uid,titles,thumbnails,contents)
         VALUES ($uid, '$titles','$thumbnailPath','$contents')";
 
 $result = $mysqli->query($sql);
