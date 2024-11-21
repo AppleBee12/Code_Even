@@ -90,7 +90,9 @@ while ($data = $result->fetch_object()) {
         <th scope="col">진도율</th>
         <th scope="col">수강이수</th>
         <th scope="col">학습기간</th>
+      <?php if ($level == 100): ?>
         <th scope="col">이메일 수신</th>
+      <?php endif; ?>
       </tr>
     </thead>
     <tbody>
@@ -123,9 +125,11 @@ while ($data = $result->fetch_object()) {
 
               <?= $set_date ?> ~ <?= $end_date ?>
             </td>
+          <?php if ($level == 100): ?>
             <td>
               <?= $cl->email_ok == 1 ? '동의' : '비동의'; ?>
             </td>
+          <?php endif; ?>
           </tr>
         </tbody>
         <?php
