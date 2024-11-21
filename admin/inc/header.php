@@ -423,14 +423,7 @@ $tc_count = $row['cnt'];
                 </li>
               <?php }; ?>
 
-              <li class="list-group-item dropdown"><a
-                <?php if ($level == 100): ?>
-                  href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/inquiry/teacher_faq.php"
-                <?php endif; ?>
-                <?php if ($level == 10): ?>
-                  href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/teacher_page/inquiry/teacher_faq.php"
-                <?php endif; ?>
-                  >　　-　강사 FAQ</a>
+              <li class="list-group-item dropdown"><a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/inquiry/teacher_faq.php">　　-　강사 FAQ</a>
               </li>
 
               <?php if ($level == 100){ ?>
