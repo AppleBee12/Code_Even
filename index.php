@@ -83,8 +83,8 @@ include_once($_SERVER['DOCUMENT_ROOT'] . '/CODE_EVEN/admin/inc/dbcon.php');
     <div>To be continue...</div>
     <p>코드이븐 프론트 페이지는 제작예정입니다</p>
     <ul class="list-group pt-3">
-      <li class="list-group-item"><a href="tc_applyform.php" class="link-underline-danger link-offset-2 link-body-emphasis">강의자신청(임시)</a></li>
-      <li class="list-group-item"><a href="" class="link-underline-danger link-offset-2 link-body-emphasis">결제페이지(임시)</a></li>
+      <li class="list-group-item"><a href="tc_applyform.php" class="link-underline-danger link-offset-2 link-body-emphasis a_underline">강의자신청(임시)</a></li>
+      <!-- <li class="list-group-item"><a href="" class="link-underline-danger link-offset-2 link-body-emphasis a_underline">결제페이지(임시)</a></li> -->
     </ul>
   </div>
   <div class="gap-5 align-items-center bgsz ">
