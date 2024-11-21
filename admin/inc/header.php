@@ -143,16 +143,12 @@ $tc_count = $row['cnt'];
     case 'notice_write.php':
     case 'notice_details.php':
     case 'notice_modify.php':
-    case 'notice_search_result.php':
     case 'student_faq.php':
+    case 'teacher_faq.php':
     case 'faq_write.php':
     case 'faq_details.php':
     case 'faq_modify.php':
-    case 'teacher_faq.php':
-    case 'teacher_faq_write.php':
-    case 'teacher_faq_modify.php':
     case 'admin_qna.php':
-    case 'admin_qna_teacher.php':
     case 'admin_qna_details.php':
     case 'admin_qna_question.php':
     case 'admin_qna_answer.php':
@@ -248,7 +244,7 @@ $tc_count = $row['cnt'];
               class="alert-link"><?=$tc_count?>명</a> 의 수강승인이 필요합니다.
           <?php }else if($level == 10 && $unanswered_count > 0){ ?>
             답변이 필요한 학생 문의가
-            <a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/teacher_page/student/teacher_student_question.php"
+            <a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/student/student_question.php"
               class="alert-link"><?=$unanswered_count?>명</a> 있습니다.
           <?php }; ?>
           <button type="button" class="close" data-dismiss="alert" aria-label="Close">
@@ -454,7 +450,7 @@ $tc_count = $row['cnt'];
 
         <?php if ($level == 10){ ?>
           <li class="list-group-item" data-link=""><a
-              href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/teacher_page/inquiry/admin_qna_teacher.php">　<i
+              href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/inquiry/admin_qna.php">　<i
                 class="bi bi-chat-dots"></i> 　 1:1 문의하기</a></li>
           <li class="list-group-item" data-link="manual"><a
               href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/manual/for_teacher.php">　<i

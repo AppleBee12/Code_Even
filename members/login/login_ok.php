@@ -30,7 +30,7 @@ if($data){
 } else {
     echo "<script>
       alert('권한이 없습니다.');
-      location.href='../login/login.php';
+      location.href='../../index.php';
     </script>";
 }
 } else {

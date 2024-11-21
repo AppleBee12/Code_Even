@@ -3,24 +3,19 @@ include_once($_SERVER['DOCUMENT_ROOT'] . '/CODE_EVEN/admin/inc/dbcon.php');
 include_once($_SERVER['DOCUMENT_ROOT'].'/code_even/admin/inc/img_upload_func.php');
 
 //input 값 지정
-print_r($_POST);
+// print_r($_POST);
 
 
-$userid = $_POST['userid'];
+$uid = $_POST['uid'];
 $titles =$_POST['titles'];
-$thumnails =$_FILES['thumnails'];
+$thumbnails =$_FILES['thumbnails'];
 $contents =rawurldecode($_POST['contents']);
-echo ($contents);
-print_r($thumnails);
+//print_r($thumbnails);
 
 /* ---------------- 이미지 업로드 함수 호출 로직 시작 --------------------- */
     // 상위 디렉토리 이름 가져오기 (예: 'teacher')
     $callingFileDir = basename(dirname(__FILE__));
 
-
-    $thumbnailPath = ''; // 초기화 추가 (썸네일 변경 안 하는 경우)
-
-    if (isset($_FILES['thumbnails']) && $_FILES['thumbnails']['error'] == UPLOAD_ERR_OK) {
         // 새로운 파일 업로드
         $uploadResult = fileUpload($_FILES['thumbnails'], $callingFileDir);
         if ($uploadResult) {
@@ -32,33 +27,26 @@ print_r($thumnails);
             </script>";
             exit;
         }
-    }
-    /* ---------------- 이미지 업로드 함수 호출 끝 --------------------- */
-
-   /* ---------------- 이미지 업로드 업데이트 sql --------------------- */
-    // thumbnail 값이 존재할 때만 thumbnail 컬럼을 업데이트
-    if ($thumbnailPath) {
-      $sql .= ", thumbnails = '$thumbnailPath'";
-  }
-  /* ---------------- 이미지 업로드 업데이트 sql 끝 --------------------- */
 
 
-$sql = "INSERT INTO blog (uid,titles,thumnails,contents)
-        VALUES ('{$userid}','{$titles}','{$thumnails}','{$contents}')
-";
+$sql = "INSERT INTO blog (uid,titles,thumbnails,contents)
+        VALUES ($uid, '$titles','$thumbnailPath','$contents')";
 
-if ($conn->query($sql) === TRUE) {
+$result = $mysqli->query($sql);
+// echo $sql;
+
+if ($result === TRUE) {
   echo "<script>
-  alert('글쓰기 완료되었습니다.');
-  location.href = 'http://' . '$_SERVER['HTTP_HOST']' . '/code_even/admin/community/blog.php';
-  </script>";
+            alert('글쓰기 완료되었습니다.');
+            location.href = '/code_even/admin/community/blog.php';
+         </script>";
   exit;
   } else {
-  echo "Error: " . $sql . "<br>" . $conn->error;
+  echo "Error: " . $sql . "<br>" . $result->error;
 }
 
 
-$conn->close();
+$result->close();
 
 
 ?>
