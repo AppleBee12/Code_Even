@@ -118,4 +118,25 @@ input[type=file]::-webkit-file-upload-button{
   vertical-align: 0;
 }
 
+.form-check{
+  margin-bottom: 0;
+}
+/* 주문금액-건수 그룹화 */
+.group_rightline {
+  border-right: 2px solid #dee2e6;
+}
 
+/* 환불금액-건수 그룹화 */
+.group_lefttline {
+  border-left: 2px solid #dee2e6; 
+}
+
+.sort-icon {
+  margin-left: 5px;
+  color: #6c757d;
+  text-decoration: none;
+}
+
+.sort-icon:hover {
+  color: #495057;
+}

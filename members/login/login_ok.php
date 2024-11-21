@@ -29,7 +29,7 @@ if($data){
     </script>";
 } else {
     echo "<script>
-      alert('권한이 없습니다.');
+      alert('회원님, 반갑습니다! 강의자 신청을 통해 강사 신청이 가능합니다.');
       location.href='../../index.php';
     </script>";
 }

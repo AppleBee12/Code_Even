@@ -54,10 +54,11 @@
       </colgroup>
       <tbody>
         <tr>
-          <th scope="row"><label for="tc_name">이름 <b>*</b></label></th>
+          <th scope="row"><label for="tc_userid">아이디 <b>*</b></label></th>
           <td>
-            <input type="text" class="form-control" id="tc_name" name="tc_name" value="<?= $data->tc_name; ?>" required>
+            <input type="text" class="form-control" id="tc_userid" name="tc_userid" value="<?= $data->tc_userid; ?>" disabled readonly>
           </td>
+          
           <th scope="row">대표분야 <b>*</b></th>
           <td>
             <select class="form-select" name="tc_cate" aria-label="대표분야">
@@ -71,13 +72,13 @@
           
         </tr>
         <tr>
-          <th scope="row"><label for="tc_userid">아이디 <b>*</b></label></th>
+          <th scope="row"><label for="tc_name">이름 <b>*</b></label></th>
           <td>
-            <input type="text" class="form-control" id="tc_userid" name="tc_userid" value="<?= $data->tc_userid; ?>">
+            <input type="text" class="form-control" id="tc_name" name="tc_name" value="<?= $data->tc_name; ?>" required>
           </td>
           <th scope="row"><label for="tc_bank">은행명</label></th>
           <td>
-            <input type="text" class="form-control" id="tc_bank" name="tc_bank" value="<?= $data->tc_bank; ?>">
+            <input type="text" class="form-control" id="tc_bank" name="tc_bank" value="<?= $data->tc_bank; ?>" disabled>
           </td>
         </tr>
         <tr>
@@ -87,7 +88,7 @@
           </td>
           <th scope="row"><label for="tc_account">계좌번호</label></th>
           <td>
-            <input type="text" class="form-control" id="tc_account" name="tc_account" value="<?= $data->tc_account; ?>">
+            <input type="text" class="form-control" id="tc_account" name="tc_account" value="<?= $data->tc_account; ?>" disabled>
           </td>
         </tr>
         <tr>

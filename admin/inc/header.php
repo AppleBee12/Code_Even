@@ -106,6 +106,7 @@ $tc_count = $row['cnt'];
     case 'teacher_edit.php':
     case 'user_edit.php':
     case 'my_details.php':
+    case 'lectuer_sales.php':
     case 'teacher_details.php':
     case 'store.php':
     case 'counsel_edit.php':
@@ -399,7 +400,7 @@ $tc_count = $row['cnt'];
             <button class="btn btn-toggle collapsed" data-bs-toggle="collapse" data-bs-target="#sales_collapse"
               aria-expanded="false"><i class="bi bi-chevron-down"></i></button>
             <ul class="collapse btn-toggle-nav" id="sales_collapse">
-              <li class="list-group-item dropdown-item"><a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/sales/lectuer_sales.php">　　-　강의 매출통계</a></li>
+              <li class="list-group-item dropdown-item"><a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/sales/lectuer_sales.php">　　-　강좌 매출통계</a></li>
               <li class="list-group-item dropdown"><a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/sales/book_sales.php">　　-　교재 매출통계</a></li>
               <li class="list-group-item dropdown"><a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/sales/monthly_sales.php">　　-　월별 매출통계</a></li>
             </ul>

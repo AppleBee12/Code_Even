@@ -25,9 +25,9 @@
       </colgroup>
       <tbody>
         <tr>
-          <th scope="row"><label for="username">이름 <b>*</b></label></th>
+          <th scope="row"><label for="userid">아이디 <b>*</b></label></th>
           <td>
-            <input type="text" class="form-control" id="username" name="username" value="<?= $data->username; ?>" required>
+            <input type="text" class="form-control" id="userid" name="userid" value="<?= $data->userid; ?>" disabled>
           </td>
           <th scope="row">가입일</th>
           <td>
@@ -35,10 +35,11 @@
           </td>
         </tr>
         <tr>
-          <th scope="row"><label for="userid">아이디 <b>*</b></label></th>
+         <th scope="row"><label for="username">이름 <b>*</b></label></th>
           <td>
-            <input type="text" class="form-control" id="userid" name="userid" value="<?= $data->userid; ?>">
+            <input type="text" class="form-control" id="username" name="username" value="<?= $data->username; ?>" required>
           </td>
+          
           <th scope="row">마지막접속일</th>
           <td>
             <?= $data->last_date; ?>
