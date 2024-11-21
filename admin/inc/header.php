@@ -250,7 +250,7 @@ $tc_count = $row['cnt'];
               class="alert-link"><?=$tc_count?>명</a> 의 수강승인이 필요합니다.
           <?php }else if($level == 10 && $unanswered_count > 0){ ?>
             답변이 필요한 학생 문의가
-            <a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/student/student_question.php"
+            <a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/teacher_page/student/teacher_student_question.php"
               class="alert-link"><?=$unanswered_count?>명</a> 있습니다.
           <?php }; ?>
           <button type="button" class="close" data-dismiss="alert" aria-label="Close">
