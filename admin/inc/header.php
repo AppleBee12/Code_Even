@@ -28,10 +28,32 @@ if($level == 10){
   $result = $mysqli->query($sql);
   $tc = $result->fetch_object();
 
-  $st_sql = "SELECT COUNT(*) as cnt FROM student_qna WHERE status='waiting'";
-  $result = $mysqli->query($st_sql);
-  $row = $result->fetch_assoc();
-  $st_count = $row['cnt'];
+  // 게시글 개수 구하기
+  // $where_clause = "WHERE lecture.lecid = '$uid'"; // 로그인한 강사 게시글
+  // $st_sql = "SELECT COUNT(*) as cnt FROM student_qna WHERE status='waiting'"; //status colum삭제됨
+  // $result = $mysqli->query($st_sql);
+  // $row = $result->fetch_assoc();
+  // $st_count = $row['cnt'];
+
+  $teacher_id = $uid;
+  $keywords = isset($_GET['keywords']) ? $mysqli->real_escape_string($_GET['keywords']) : '';
+
+  $sql = "
+        SELECT COUNT(*) AS unanswered_count
+        FROM student_qna sq
+        JOIN class_data cd ON sq.cdid = cd.cdid
+        JOIN lecture l ON cd.leid = l.leid
+        LEFT JOIN teacher_qna tq ON sq.sqid = tq.sqid
+        WHERE l.lecid = '$teacher_id'
+          AND tq.sqid IS NULL
+          AND (sq.qtitle LIKE '%$keywords%' OR l.title LIKE '%$keywords%');
+      ";
+
+$result = $mysqli->query($sql);
+$row = $result->fetch_assoc();
+
+$unanswered_count = $row['unanswered_count'];
+
 
 }
 if($level == 100){
@@ -215,8 +237,8 @@ $tc_count = $row['cnt'];
             <?=$tc_count?>
           </span>
           <?php }else if($level == 10){ ?>
-            <span class="<?= ($level == 10 && $st_count == 0) ? 'visually-hidden' : '' ?> position-absolute top-40 start-80 translate-middle badge rounded-pill bg-danger">
-            <?=$st_count?>
+            <span class="<?= ($level == 10 && $unanswered_count == 0) ? 'visually-hidden' : '' ?> position-absolute top-40 start-80 translate-middle badge rounded-pill bg-danger">
+            <?=$unanswered_count?>
           </span>
           <?php }; ?>
         </i>
@@ -226,10 +248,10 @@ $tc_count = $row['cnt'];
             강사
             <a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/teacher/teacher_list.php"
               class="alert-link"><?=$tc_count?>명</a> 의 수강승인이 필요합니다.
-          <?php }else if($level == 10 && $st_count > 0){ ?>
+          <?php }else if($level == 10 && $unanswered_count > 0){ ?>
             답변이 필요한 학생 문의가
             <a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/student/student_question.php"
-              class="alert-link"><?=$st_count?>명</a> 있습니다.
+              class="alert-link"><?=$unanswered_count?>명</a> 있습니다.
           <?php }; ?>
           <button type="button" class="close" data-dismiss="alert" aria-label="Close">
             <span aria-hidden="true">&times;</span>
@@ -254,7 +276,7 @@ $tc_count = $row['cnt'];
           </a>
           <?php }else if($level == 10){ ?>
             href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/teacher_page/myprofile/teacher_details.php">
-            <img class="profile_image" src="http://<?= $_SERVER['HTTP_HOST'] . $tc->tc_thumbnail ?>" alt="강사 프로필 사진">
+            <img class="profile_image" src="http://<?= $_SERVER['HTTP_HOST']; ?>/<?= empty($tc->tc_thumbnail) ? 'code_even/admin/images/adminprofile.png' : $tc->tc_thumbnail; ?>" alt="강사 프로필 사진">
           </a>
           <?php }; ?>
           

@@ -28,7 +28,7 @@ $result = $mysqli->query($sql);
 <div class="container">
   <div class="top_wrapper d-flex justify-content-between">
     <div class="d-flex justify-content-between">
-      <img src="http://<?= $_SERVER['HTTP_HOST'] . $tc->tc_thumbnail ?>" width=100 height=100 alt="강사 프로필 사진">
+    <img class="profile_image" src="http://<?= $_SERVER['HTTP_HOST']; ?>/<?= empty($tc->tc_thumbnail) ? 'code_even/admin/images/adminprofile.png' : $tc->tc_thumbnail; ?>" alt="강사 프로필 사진">
       <div class="d-flex flex-column justify-content-end align-items-end">
         <h3><?= $user_name ?><span class="top_text"> Teacher</span></h3>
         <p><span class="top_text">code@even.co.kr</span></p>
