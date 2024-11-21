@@ -1,40 +1,36 @@
 <?php
 
-include_once($_SERVER['DOCUMENT_ROOT'] . '/CODE_EVEN/admin/inc/dbcon.php'); // DB 연결
+  include_once($_SERVER['DOCUMENT_ROOT'] . '/CODE_EVEN/admin/inc/dbcon.php'); // DB 연결
 
-header('Content-Type: application/json'); // JSON 응답 헤더 설정
+  header('Content-Type: application/json'); // JSON 응답 헤더 설정
 
-$cate1 = isset($_POST['cate1']) ? $_POST['cate1'] : '';
-$cate2 = isset($_POST['cate2']) ? $_POST['cate2'] : '';
-$cate3 = isset($_POST['cate3']) ? $_POST['cate3'] : '';
+  // POST 데이터 가져오기
+  $cate1 = isset($_POST['cate1']) ? $_POST['cate1'] : '';
+  $cate2 = isset($_POST['cate2']) ? $_POST['cate2'] : '';
+  $cate3 = isset($_POST['cate3']) ? $_POST['cate3'] : '';
 
-$books = [];
+  $books = []; // 결과를 저장할 배열
 
-if (!empty($cate1) && !empty($cate2) && !empty($cate3)) {
-    $sql_books = "SELECT boid, book FROM book WHERE cate1 = ? AND cate2 = ? AND cate3 = ?";
-    $stmt = $mysqli->prepare($sql_books);
+  // 교재 데이터 초기화
+  if (!empty($lecture->cate1) && !empty($lecture->cate2) && !empty($lecture->cate3)) {
+    $sql_books = "
+        SELECT boid, book 
+        FROM book 
+        WHERE cate1 = '{$lecture->cate1}' 
+          AND cate2 = '{$lecture->cate2}' 
+          AND cate3 = '{$lecture->cate3}'
+    ";
+    $result_books = $mysqli->query($sql_books);
 
-    if ($stmt) {
-        $stmt->bind_param('sss', $cate1, $cate2, $cate3);
-        $stmt->execute();
-        $result_books = $stmt->get_result();
-
+    if ($result_books) {
         while ($book = $result_books->fetch_object()) {
             $books[] = $book;
         }
-        $stmt->close();
-    } else {
-        error_log("SQL 준비 실패: " . $mysqli->error); // 오류 로그 기록
-        echo json_encode(['error' => '서버 오류 발생']);
-        exit;
     }
-} else {
-    echo json_encode(['error' => '모든 분류를 선택하세요.']); // 오류 메시지 반환
-    exit;
-}
+  }
 
-// JSON 데이터 반환
-echo json_encode($books);
-exit;
+  // JSON 형식으로 결과 반환
+  echo json_encode($books);
+  exit;
 
 ?>
