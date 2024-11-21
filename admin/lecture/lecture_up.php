@@ -678,7 +678,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
   // 강좌 기본 정보 저장
   $(document).ready(function () {
     $('#lecture_save').on('submit', function (e) {
-      e.preventDefault();
+      e.preventDefault(); // 기본 폼 제출 방지
 
       const formData = new FormData(this);
 
@@ -693,16 +693,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
           if (response.success) {
             alert('강좌 정보가 성공적으로 저장되었습니다.');
           } else {
-            alert('강좌 저장 실패: ' + response.message);
+            alert('강좌 저장에 실패했습니다.');
           }
         },
-        error: function (xhr, status, error) {
-          console.error('AJAX Error:', error);
+        error: function () {
           alert('서버 요청 중 문제가 발생했습니다.');
         }
       });
     });
   });
+
 
 
 
