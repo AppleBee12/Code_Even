@@ -18,7 +18,7 @@ $row_num = $page_data['cnt'];
 
 // 페이지네이션
 $page = isset($_GET['page']) ? $_GET['page'] : 1;
-$list = 10;
+$list = 5;
 $start_num = ($page - 1) * $list;
 $block_ct = 5;
 $block_num = ceil($page / $block_ct);
