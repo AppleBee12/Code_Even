@@ -4,7 +4,7 @@ include_once($_SERVER['DOCUMENT_ROOT'] . '/code_even/admin/inc/header.php');
 
 // 게시글 개수 구하기
 $keywords = isset($_GET['keywords']) ? $mysqli->real_escape_string($_GET['keywords']) : '';
-$where_clause = "WHERE faq.target = 'student'";
+$where_clause = "WHERE faq.target = 'teacher' AND faq.status = 'on'";
 
 if ($keywords) {
   $where_clause .= " AND (faq.title LIKE '%$keywords%' OR user.username LIKE '%$keywords%' OR user.userid LIKE '%$keywords%')";
@@ -38,7 +38,7 @@ $sql = "SELECT faq.*, user.username, user.userid
         $where_clause
         ORDER BY faq.fqid DESC 
         LIMIT $start_num, $list";
-
+        
 $result = $mysqli->query($sql);
 
 $dataArr = [];
@@ -49,8 +49,8 @@ while ($data = $result->fetch_object()) {
 ?>
 
 <div class="container">
-  <h2>수강생 FAQ</h2>
-  <form method="GET" class="row justify-content-end">
+  <h2>강사 FAQ</h2>
+  <form method="get" class="row justify-content-end">
     <div class="col-lg-4">
       <div class="input-group mb-3">
         <input type="text" class="form-control" placeholder="검색어를 입력하세요." name="keywords"
@@ -63,19 +63,23 @@ while ($data = $result->fetch_object()) {
   </form>
 
   <form action="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/inquiry/faq_write.php" method="GET">
-    <input type="hidden" name="target" value="student">
+  <input type="hidden" name="target" value="teacher">
     <table class="table list_table">
       <thead>
         <tr>
           <th scope="col">번호</th>
+        <?php if ($level == 100): ?>
           <th scope="col">아이디</th>
           <th scope="col">이름</th>
+        <?php endif; ?>
           <th scope="col">분류</th>
           <th scope="col">제목</th>
           <th scope="col">조회수</th>
           <th scope="col">등록일</th>
+        <?php if ($level == 100): ?>
           <th scope="col">상태</th>
           <th scope="col">관리</th>
+        <?php endif; ?>
         </tr>
       </thead>
       <tbody>
@@ -85,8 +89,10 @@ while ($data = $result->fetch_object()) {
             ?>
             <tr>
               <td><?= $faq->fqid; ?></td>
+            <?php if ($level == 100): ?>
               <td><?= $faq->userid; ?></td>
               <td><?= $faq->username; ?></td>
+            <?php endif; ?>
               <td>
                 <?php
                 echo $faq->category == 1 ? "결제/환불" :
@@ -100,11 +106,20 @@ while ($data = $result->fetch_object()) {
                 ?>
               </td>
               <td>
+              <?php if ($level == 100): ?>
                 <a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/inquiry/faq_modify.php?fqid=<?= $faq->fqid; ?>"
-                  class="underline"><?= $faq->title; ?></a>
+                  class="underline"><?= $faq->title; ?>
+                </a>
+              <?php endif; ?>
+              <?php if ($level == 10): ?>
+                <a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/inquiry/faq_details.php?fqid=<?= $faq->fqid; ?>"
+                  class="underline"><?= $faq->title; ?>
+                </a>
+              <?php endif; ?>
               </td>
               <td><?= $faq->view; ?></td>
               <td><?= $faq->regdate; ?></td>
+            <?php if ($level == 100): ?>
               <td>
                 <?php
                 $class = $faq->status == 'on' ? 'text-bg-success' : 'text-bg-light';
@@ -120,8 +135,9 @@ while ($data = $result->fetch_object()) {
                   <i class="bi bi-trash-fill"></i>
                 </a>
               </td>
+            <?php endif; ?>
             </tr>
-            <?php
+          <?php
           }
         } else {
           echo "<tr><td colspan='10'>검색 결과가 없습니다.</td></tr>";
@@ -129,7 +145,6 @@ while ($data = $result->fetch_object()) {
         ?>
       </tbody>
     </table>
-    <button type="submit" class="btn btn-secondary ms-auto d-block">등록</button>
   </form>
 
 </div>
@@ -144,7 +159,7 @@ while ($data = $result->fetch_object()) {
     if ($block_num > 1) {
       ?>
       <li class="page-item">
-        <a class="page-link" href="student_faq.php?page=<?= $previous; ?>" aria-label="Previous">
+        <a class="page-link" href="teacher_faq.php?page=<?= $previous; ?>" aria-label="Previous">
           <i class="bi bi-chevron-left"></i>
         </a>
       </li>
@@ -155,7 +170,7 @@ while ($data = $result->fetch_object()) {
     for ($i = $block_start; $i <= $block_end; $i++) {
       $active = ($page == $i) ? 'active' : '';
       ?>
-      <li class="page-item <?= $active; ?>"><a class="page-link" href="student_faq.php?page=<?= $i; ?>"><?= $i; ?></a>
+      <li class="page-item <?= $active; ?>"><a class="page-link" href="teacher_faq.php?page=<?= $i; ?>"><?= $i; ?></a>
       </li>
       <?php
     }
