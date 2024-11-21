@@ -6,9 +6,9 @@ include_once($_SERVER['DOCUMENT_ROOT'] . '/CODE_EVEN/admin/inc/header.php');
 // 게시글 개수 구하기
 $keywords = isset($_GET['keywords']) ? $mysqli->real_escape_string($_GET['keywords']) : '';
 $where_clause = '';
-
+//키워드 검색
 if ($keywords) {
-  $where_clause = "WHERE counsel.title LIKE '%$keywords%' OR counsel.contents LIKE '%$keywords%' OR user.usernick LIKE '%$keywords%' ";
+  $where_clause = "WHERE counsel.titles LIKE '%$keywords%' OR counsel.contents LIKE '%$keywords%' OR user.usernick LIKE '%$keywords%' ";
 }
 
 $page_sql = "SELECT COUNT(*) AS cnt FROM counsel JOIN user ON counsel.uid = user.uid $where_clause";
