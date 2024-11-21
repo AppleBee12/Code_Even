@@ -8,10 +8,7 @@
     $thumbnail = $_FILES['tc_thumbnail'] ?? '';
     $tc_name = $_POST['tc_name'];
     $tc_url = $_POST['tc_url'] ?? '';
-    $tc_userid = $_POST['tc_userid'];
-    $tc_bank = $_POST['tc_bank'] ?? '';
     $tc_userphone = $_POST['tc_userphone'];
-    $tc_account = $_POST['tc_account'] ?? '';
     $tc_email = $_POST['tc_email'];
     $tc_cate = $_POST['tc_cate'];
     $tc_ok = $_POST['tc_ok'];
@@ -58,10 +55,7 @@
     $sql = "UPDATE teachers SET 
         tc_name = '$tc_name',
         tc_url = '$tc_url',
-        tc_userid = '$tc_userid',
-        tc_bank = '$tc_bank',
         tc_userphone = '$tc_userphone',
-        tc_account = '$tc_account',
         tc_email = '$tc_email',
         tc_cate = '$tc_cate',
         tc_ok = $tc_ok,
