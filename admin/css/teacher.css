@@ -118,4 +118,7 @@ input[type=file]::-webkit-file-upload-button{
   vertical-align: 0;
 }
 
+.form-check{
+  margin-bottom: 0;
+}
 
