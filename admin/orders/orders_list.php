@@ -94,7 +94,6 @@
     <table class="table list_table">
       <thead>
         <tr>
-          <th scope="col">번호</th>
           <th scope="col">주문번호</th>
           <th scope="col">아이디</th>
           <th scope="col">이름</th>
@@ -111,7 +110,6 @@
             foreach($dataArr as $item){
         ?> 
         <tr>
-          <td><?= $item->odid; ?></td>
           <td><?= $item->odid; ?></td>
           <td><?= $item->userid; ?></td>
           <td><?= $item->username; ?></td>
