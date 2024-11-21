@@ -44,6 +44,20 @@ tbody td input.address{
   bottom: 0;
 }
 
+tbody td.thumb_parent_prev{
+  position: relative;
+  width: 480px;
+  height: 150px;
+}
+
+.thumb_child_prev{
+  position: absolute;
+  top: 20px;
+  left:20px;
+  object-fit: cover;
+}
+
+
 
 /* 프로필 이미지 업로드 */
 .upload{
