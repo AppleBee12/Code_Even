@@ -151,7 +151,11 @@ header h1.logo a {
   color: var(--primary);
 }
 
-
+.top_wrapper .profile_image{
+width: 100px;
+height: 100px;
+border-radius: 50%;
+}
 .nav-link .profile_image{
   width:70px;
   height:70px;

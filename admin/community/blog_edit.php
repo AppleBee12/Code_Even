@@ -1,10 +1,10 @@
 <?php
-$title = "고민 상담";
+$title = "블로그";
 include_once($_SERVER['DOCUMENT_ROOT'] . '/code_even/admin/inc/header.php');
 ?>
 
 <div class="container">
-  <h2>블로그</h2>
+  <h2><?php $title ?></h2>
   <div class="content_bar">
     <h3>글 수정하기</h3>
   </div>
@@ -43,8 +43,8 @@ include_once($_SERVER['DOCUMENT_ROOT'] . '/code_even/admin/inc/header.php');
               <th scope="row" rowspan="3">썸네일 미리보기</th>
               <td rowspan="3" class="thumb_parent">
                 <?php 
-                  $thumbnail_path = !empty($row['thumnails']) ? 'http://' . $_SERVER['HTTP_HOST'] . $row['thumnails'] : '';
-                  $image_src = (!empty($row['thumnails']) && file_exists($thumbnail_path)) ? $row['thumnails'] : '/CODE_EVEN/admin/upload/teacher/tc_dummy.png';
+                  $thumbnail_path = !empty($row['thumbnails']) ? 'http://' . $_SERVER['HTTP_HOST'] . $row['thumbnails'] : '';
+                  $image_src = (!empty($row['thumbnails']) && file_exists($thumbnail_path)) ? $row['thumbnails'] : '/CODE_EVEN/admin/upload/teacher/tc_dummy.png';
                 ?>
                 <img id="thumbnail_preview" src="<?= $thumbnail_path; ?>" class="angled_square thumb_child" width = 200 height = 200 alt="프로필 이미지">
 
@@ -60,10 +60,10 @@ include_once($_SERVER['DOCUMENT_ROOT'] . '/code_even/admin/inc/header.php');
             </tr>
             <tr>
               <th scope="row">
-                <label for="thumnails">썸네일 등록</label>
+                <label for="thumbnails">썸네일 등록</label>
               </th>
               <td>
-                <input type="file" accept="image/*" id="thumnails" name="thumnails" class="form-control" value="<?= $row['thumnails'] ?>" >
+                <input type="file" accept="image/*" id="thumbnails" name="thumbnails" class="form-control" value="<?= $row['thumbnails'] ?>" >
               </td>
             </tr>
             <tr>
@@ -95,7 +95,7 @@ include_once($_SERVER['DOCUMENT_ROOT'] . '/code_even/admin/inc/header.php');
 
 
 <script>
-   let thumbnail = $('#thumnails');
+   let thumbnail = $('#thumbnails');
   thumbnail.on('change',(e)=>{
       let file = e.target.files[0];
 

@@ -39,8 +39,8 @@ $sql_cate = "SELECT * FROM category ORDER BY step, pcode";
 $result_cate = $mysqli->query($sql_cate);
 
 $categories = [];
-while ($row = $result_cate->fetch_object()) {
-  $categories[] = $row;
+while ($cates = $result_cate->fetch_object()) {
+  $categories[] = $cates;
 }
 
 ?>
@@ -50,92 +50,107 @@ while ($row = $result_cate->fetch_object()) {
   <div class="content_bar cent">
     <h3>교재 기본 정보 입력</h3>
   </div>
-  <table class="table">
-    <thead class="thead-hidden">
-      <tr>
-        <th scope="col">구분</th>
-        <th scope="col" colspan="6">내용</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <th scope="row">분류 설정 <b>*</b></th>
-        <td colspan="2">
-          <select name="cate1" id="cate1" class="form-select" aria-label="대분류">
-            <option selected>대분류</option>
-            <?php foreach ($categories as $category) {
-              if ($category->step == 1) {
-                echo "<option value='{$category->code}'>{$category->name}</option>";
-              }
-            } ?>
-          </select>
-        </td>
-        <td colspan="2">
-          <select name="cate2" id="cate2" class="form-select" aria-label="Default select example">
-            <option selected value="">중분류</option>
-          </select>
-        </td>
-        <td colspan="2">
-          <select name="cate3" id="cate3" class="form-select" aria-label="Default select example">
-            <option selected value="">소분류</option>
-          </select>
-        </td>
-      </tr>
-      <tr>
-        <th scope="row">교재명 <b>*</b></th>
-        <td colspan="6">
-          <input type="text" class="form-control" placeholder="기초부터 확실하게! (페이지의 내용 전달을 위한 HTML, 스타일 설정을 위한 CSS 기초 학습)">
-        </td>
-      </tr>
-      <tr>
-        <th scope="row">출판사 <b>*</b></th>
-        <td colspan="2">
-          <input type="text" class="form-control" placeholder="길동사">
-        </td>
-        <td class="box_container" colspan="4" rowspan="4">
-          <div class=" bookBox">
-            <span>강좌 썸네일 이미지를 선택해주세요.</span>
-            <div class="image"><img src="" alt=""></div>
-          </div>
-          <div class="input-group mb-3">
-            <input type="file" class="form-control" id="inputGroupFile02">
-          </div>
-        </td>
-      </tr>
-      <tr>
-        <th scope="row">가격 <b>*</b></th>
-        <td colspan="2">
-          <div class="input-group">
-            <input type="text" class="form-control" aria-label="원">
-            <span class="input-group-text">원</span>
-          </div>
-        </td>
-      </tr>
-      <tr>
-        <th scope="row">출판일 <b>*</b></th>
-        <td colspan="2">
-          <select class="form-select">
-            <option selected>SELECT</option>
-            <option value="1">One</option>
-            <option value="2">Two</option>
-            <option value="3">Three</option>
-          </select>
-        </td>
-      </tr>
-      <tr>
-        <th scope="row">저자 <b>*</b></th>
-        <td colspan="2">
-          <input type="text" class="form-control" placeholder="홍길동">
-        </td>
-      </tr>
-      <tr>
-        <th scope="row">교재 설명 <b>*</b></th>
-        <td colspan="6">
-          <textarea class="form-control" rows="3" placeholder="교재 설명을 입력해 주세요."></textarea>
-        </td>
-      </tr>
-    </tbody>
-  </table>
+  <form action="book_up_ok.php" method="POST" enctype="multipart/form-data">
+    <table class="table">
+      <thead class="thead-hidden">
+        <tr>
+          <th scope="col">구분</th>
+          <th scope="col" colspan="6">내용</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th scope="row">분류 설정 <b>*</b></th>
+          <td colspan="2">
+            <select name="cate1" id="cate1" class="form-select" aria-label="대분류">
+              <option selected>대분류</option>
+              <?php foreach ($categories as $category) {
+                if ($category->step == 1) {
+                  echo "<option value='{$category->code}'>{$category->name}</option>";
+                }
+              } ?>
+            </select>
+          </td>
+          <td colspan="2">
+            <select name="cate2" id="cate2" class="form-select" aria-label="Default select example">
+              <option selected value="">중분류</option>
+            </select>
+          </td>
+          <td colspan="2">
+            <select name="cate3" id="cate3" class="form-select" aria-label="Default select example">
+              <option selected value="">소분류</option>
+            </select>
+          </td>
+        </tr>
+        <tr>
+          <th scope="row">강좌명 <b>*</b></th>
+          <td colspan="6">
+            <input name="title" type="text" class="form-control" placeholder="강좌명을 입력하세요.">
+          </td>
+        </tr>
+        <tr>
+          <th scope="row">교재명 <b>*</b></th>
+          <td colspan="6">
+            <input name="book" type="text" class="form-control" placeholder="기초부터 확실하게! (페이지의 내용 전달을 위한 HTML, 스타일 설정을 위한 CSS 기초 학습)">
+          </td>
+        </tr>
+        <tr>
+          <th scope="row">출판사 <b>*</b></th>
+          <td colspan="2">
+            <input name="company" type="text" class="form-control" placeholder="길동사">
+          </td>
+          <td class="box_container" colspan="4" rowspan="4">
+            <div class="bookBox">
+              <span>강좌 썸네일 이미지를 선택해주세요.</span>
+              <div class="image"><img src="" alt=""></div>
+            </div>
+            <div class="input-group mb-3">
+              <input name="image" accept="image/*" type="file" id="image" class="form-control">
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <th scope="row">가격 <b>*</b></th>
+          <td colspan="2">
+            <div class="input-group">
+              <input name="price" type="text" class="form-control" aria-label="원">
+              <span class="input-group-text">원</span>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <th scope="row">출판일 <b>*</b></th>
+          <td colspan="2">
+            <div class="input-group">
+              <input name="pd" type="text" id="datepicker" class="form-control" placeholder="출판일을 선택하세요.">
+              <div class="input-group-append" id="calendar-icon-wrapper">
+                <span class="input-group-text" id="calendar-icon">
+                  <i class="bi bi-calendar"></i>
+                </span>
+              </div>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <th scope="row">저자 <b>*</b></th>
+          <td colspan="2">
+            <input name="writer" type="text" class="form-control" placeholder="홍길동">
+          </td>
+        </tr>
+        <tr>
+          <th scope="row">교재 설명 <b>*</b></th>
+          <td colspan="6">
+            <textarea name="desc" class="form-control" rows="3" placeholder="교재 설명을 입력해 주세요."></textarea>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="d-flex justify-content-end gap-2 mt-4 mb-5">
+      <button type="submit" class="btn btn-secondary" name="action">등록</button>
+      <button type="button" class="btn btn-danger" onclick="window.location.href='/lecture_list.php'">취소</button>
+    </div>
+    </form>
+  </div>
   <script>
     // 카테고리 데이터 변환
     const categories = <?php echo json_encode($categories); ?>;
@@ -179,6 +194,48 @@ while ($row = $result_cate->fetch_object()) {
 
       }
     });
+
+    $(document).ready(function () {
+      const dateInput = $("#datepicker");
+      const calendarIconWrapper = $("#calendar-icon-wrapper");
+      const calendarIcon = $("#calendar-icon");
+
+      // 페이지 로드 시 기본 placeholder 설정
+      dateInput.attr("placeholder", "출판일을 선택하세요.");
+
+      // 아이콘 클릭 시 입력 필드에 포커스
+      calendarIconWrapper.on("click", function () {
+          dateInput.focus();
+      });
+
+      // 입력 필드에 포커스되면 아이콘 숨김
+      dateInput.on("focus", function () {
+          $(this).attr("type", "date"); // type을 date로 변경
+          $(this).attr("placeholder", ""); // placeholder 제거
+          calendarIcon.hide(); // 달력 아이콘 숨김
+      });
+
+      // 입력 필드가 변경되었을 때 아이콘 상태 확인
+      dateInput.on("change", function () {
+          if ($(this).val()) {
+              calendarIconWrapper.hide(); // 입력된 값이 있으면 아이콘 전체 숨김
+          }
+      });
+
+      // 입력 필드 focus-out 시 처리
+      dateInput.on("blur", function () {
+          if (!$(this).val()) {
+              $(this).attr("type", "text"); // 값이 비어 있으면 type을 text로 복구
+              $(this).attr("placeholder", "출판일을 선택하세요."); // placeholder 복구
+              calendarIconWrapper.show(); // 아이콘 다시 표시
+          }
+      });
+    });
+
+
+
+
+
   </script>
   <?php
   include_once($_SERVER['DOCUMENT_ROOT'] . '/code_even/admin/inc/footer.php');

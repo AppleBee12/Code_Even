@@ -5,7 +5,7 @@
     box-sizing: border-box;
   }
   td span {vertical-align: text-top; margin-left: 10px;}
-  td textarea {height: 100px;}
+  td textarea {height: 200px;}
 }
 
 .content_bar {
@@ -18,6 +18,7 @@
   height: 21px;
   background: none;
   border: none;
+  vertical-align: text-top;
 
   span {
     position: absolute;
@@ -110,3 +111,12 @@ input[readonly] {background-color: #e9ecef; border: 1px solid #dee2e6; color: #6
 .modal textarea {height: 100px;}
 
 .star_null {color: #ccc;}
+
+.list_table .badge {vertical-align: text-top;}
+
+.write_form {
+  .note-editor {
+    width: 1075px;
+    .note-editing-area {height: 300px;}
+  }
+}

@@ -128,7 +128,7 @@ while ($row = $result->fetch_object()) {
       ?>
       <tr>
         <th scope="row"><?= $row->cdid; ?></th>
-        <td>김동주</td>
+        <td><?= $row->name; ?></td>
         <td><?= $row->title; ?></td>
         <td>
           <?= date('Y-m-d', strtotime($row->date)) ?>

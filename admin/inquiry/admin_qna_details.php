@@ -121,19 +121,7 @@ $data = $result->fetch_object();
     <div class="custom-hr"></div>
   
     <div class="d-flex justify-content-end gap-2">
-      <a 
-      <?php if ($level == 100): ?>
-        href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/inquiry/admin_qna.php"
-      <?php endif; ?>
-      <?php if ($level == 10): ?>
-        href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/teacher_page/inquiry/admin_qna_teacher.php"
-      <?php endif; ?>
-        class="btn btn-outline-danger" role="button">취소</a>
-
-      <?php if ($level == 10): ?>
-        <a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/inquiry/admin_qna_teacher_delete.php?aqid=<?= $aqid; ?>"
-          class="btn btn-danger">삭제</a>
-      <?php endif; ?>
+      <a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/inquiry/admin_qna.php" class="btn btn-outline-danger" role="button">취소</a>
 
       <?php
         if ($level == 100):
@@ -145,10 +133,8 @@ $data = $result->fetch_object();
         endif;
       ?>
 
-      <?php if ($level == 100): ?>
         <a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/inquiry/admin_qna_delete.php?aqid=<?= $aqid; ?>"
           class="btn btn-danger">삭제</a>
-      <?php endif; ?>
   
     </div>
 

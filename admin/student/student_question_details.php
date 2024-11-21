@@ -69,6 +69,7 @@ $data = $result->fetch_object();
   <div class="content_bar">
     <h3>강사 답변</h3>
   </div>
+<?php if ($data->asid): ?>
   <div class="card">
     <div class="card-header">
       <p><?=$data->name;?> 강사</p>
@@ -77,25 +78,19 @@ $data = $result->fetch_object();
     <?php
     if (!empty($data->asid)) {
       ?>
-      <blockquote class="blockquote mb-0">
+      <p>
         <?=$data->content;?>
-      </blockquote>
+      </p>
       <?php
     }
     ?>
     </div>
   </div>
+<?php endif; ?>
   <div class="custom-hr"></div>
 
   <div class="d-flex justify-content-end gap-2">
-    <a 
-    <?php if ($level == 100): ?>
-    href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/stdent/student_question.php" class="btn btn-outline-danger"
-    <?php endif; ?>
-    <?php if ($level == 10): ?>
-    href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/teacher_page/student/teacher_student_question.php" class="btn btn-outline-danger"
-    <?php endif; ?>
-    >취소</a>
+    <a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/student/student_question.php" class="btn btn-outline-danger">취소</a>
 
   <?php if ($level == 10): ?>
   <?php if (!isset($data->asid)): ?>

@@ -6,7 +6,7 @@ include_once($_SERVER['DOCUMENT_ROOT'] . '/code_even/admin/inc/header.php');
 // print_r($_GET);
 $target = $_GET['target'];
 
-$sql = "SELECT userid, username FROM user";
+$sql = "SELECT faq.*, user.username, user.userid FROM faq JOIN user ON faq.uid = user.uid";
 $result = $mysqli->query($sql);
 $data = $result->fetch_object();
 
@@ -97,8 +97,13 @@ $data = $result->fetch_object();
     <div class="custom-hr"></div>
 
     <div class="d-flex justify-content-end gap-2">
-      <a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/inquiry/student_faq.php"
-        class="btn btn-outline-danger">취소</a>
+      <a 
+      <?php if ($target == 'student'): ?>
+        href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/inquiry/student_faq.php"
+      <?php elseif ($target == 'teacher'): ?>
+        href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/inquiry/teacher_faq.php"
+      <?php endif; ?>
+          class="btn btn-outline-danger">취소</a>
       <button type="submit" class="btn btn-secondary">등록</button>
     </div>
   </form>
