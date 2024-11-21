@@ -100,12 +100,12 @@ include_once($_SERVER['DOCUMENT_ROOT'] . '/code_even/admin/inc/header.php');
         ?>
       </tbody>
     </table>
+    <div class="d-flex justify-content-end gap-2">
+      <a href="javascript:history.back();"><button class="btn btn-outline-danger">취소</button></a>
+      <a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/community/counsel.php"><button
+          class="btn btn-outline-secondary">수정</button></a>
+    </div>
   </form>
-  <div class="d-flex justify-content-end gap-2">
-    <a href="javascript:history.back();"><button class="btn btn-outline-danger">취소</button></a>
-    <a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/community/counsel.php"><button
-        class="btn btn-outline-secondary">수정</button></a>
-  </div>
 </div>
 
 
