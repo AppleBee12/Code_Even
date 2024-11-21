@@ -76,7 +76,7 @@
 <div class="container">
   <h2 class="page_title">주문결제목록</h2>
 
-  <form action="" id="search_form" class="row justify-content-end">
+  <form action="" id="search_form" class="row justify-content-end" method="GET">
     <div class="col-lg-3">
       <input type="date" class="form-control" />
     </div>
@@ -115,7 +115,7 @@
           <td><?= $item->odid; ?></td>
           <td><?= $item->userid; ?></td>
           <td><?= $item->username; ?></td>
-          <td><a href="orders_details.php" class="a_underline">
+          <td><a href="orders_details.php?odid=<?= $item->odid; ?>" class="a_underline">
               <?php
               $order_title = $item->order_title;
               $item_count = $item->item_count;

@@ -70,7 +70,7 @@ include_once($_SERVER['DOCUMENT_ROOT'] . '/CODE_EVEN/admin/inc/header.php');
     <div class="col-lg-3 pt_04">
       <span class="status_tt me-4">강좌유형</span>
       <div class="form-check form-check-inline">
-        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio3" value="1" check> 
+        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio3" value="1" checked> 
         <label class="form-check-label" for="inlineRadio3">전체</label>
       </div>
       <div class="form-check form-check-inline">
@@ -84,8 +84,8 @@ include_once($_SERVER['DOCUMENT_ROOT'] . '/CODE_EVEN/admin/inc/header.php');
 
     </div>  
     <div class="col-lg-3">
-      <select class="form-select" name="category" aria-label="대표분야">
-        <option value="">-전체분야선택-</option>
+      <select class="form-select" name="category" aria-label="대표분류">
+        <option value="">-전체분류선택-</option>
         <?php foreach($categories as $category): ?>
           <option value="<?= $category->cgid; ?>">
             <?= $category->name;?>
@@ -96,7 +96,7 @@ include_once($_SERVER['DOCUMENT_ROOT'] . '/CODE_EVEN/admin/inc/header.php');
 
     <div class="col-lg-3">
       <div class="input-group mb-3">
-        <input type="text" class="form-control" placeholder="분야 선택 또는 검색어를 입력하세요." name="keywords" value="<?= htmlspecialchars($keywords); ?>">
+        <input type="text" class="form-control" placeholder="분류 선택 또는 검색어를 입력하세요." name="keywords" value="<?= htmlspecialchars($keywords); ?>">
         <button type="submit" class="btn btn-secondary">
           <i class="bi bi-search"></i>
         </button>
