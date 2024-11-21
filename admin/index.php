@@ -4,14 +4,36 @@ $chart_js = "<script src=\"https://cdn.jsdelivr.net/npm/chart.js\"></script>";
 $host = $_SERVER['HTTP_HOST'];
 $main_js = "<script src=\"http://$host/code_even/admin/js/main.js\"></script>";
 
-include_once($_SERVER['DOCUMENT_ROOT'] . '/code_even/user/inc/check_cookie.php');
 include_once($_SERVER['DOCUMENT_ROOT'] . '/CODE_EVEN/admin/inc/header.php');
+
+//오늘 방문자 수와 6개월 방문자 수 계산
+
+$dataFile =  $_SERVER['DOCUMENT_ROOT'] . '/inc/visit_data.json';
+$data = file_exists($dataFile) ? json_decode(file_get_contents($dataFile), true) : [];
+
+$monthlyData = [];
+foreach ($data as $date => $count) {
+    $month = substr($date, 0, 7);
+    if (!isset($monthlyData[$month])) {
+        $monthlyData[$month] = 0;
+    }
+    $monthlyData[$month] += $count;
+}
+
+// 최신날짜부터 오름차순sort 내림차순krsort
+sort($monthlyData);
+$latestMonths = array_slice(array_keys($monthlyData), 0, 6); //최신 6개월 만 array
+$latestCounts = array_slice(array_values($monthlyData), 0, 6);//최신 방문자 수 만 array
 
 
 
 ?>
-
 <div class="container">
+  <?php 
+  print_r($dataFile );
+  print_r($monthlyData);
+print_r($latestMonths);
+print_r($latestCounts); ?>
   <div class="top_wrapper d-flex justify-content-between">
     <div>
       <h3>11월 수익</h3>
@@ -92,7 +114,46 @@ include_once($_SERVER['DOCUMENT_ROOT'] . '/CODE_EVEN/admin/inc/header.php');
   </div>
 
 </div>
+<script>
 
+
+const lineCtx = document.getElementById('current_six_news').getContext('2d');
+    const lineChart = new Chart(lineCtx, {
+      type: 'line',
+      data: {
+        labels: ['6월', '7월', '8월', '9월', '10월', '11월'],
+        datasets: [{
+          label: '신규 가입자 수',
+          data: [2000, 2800, 3200, 3800, 4000, 3765],
+          borderColor: '#D25353',
+          backgroundColor: '#c93333',
+          borderWidth: 1,
+          fill: false,
+          pointRadius: 3
+        }, {
+          label: '방문자',
+          data: <?=$latestCounts?>,
+          borderColor: '#7987FF',
+          backgroundColor: '#5e62f1',
+          borderWidth: 1,
+          fill: false,
+          pointRadius: 3
+        }],
+      },
+        options: {
+          scales: {
+            x: {
+              beginAtZero: true
+            },
+            y: {
+              beginAtZero: true
+            }
+          }
+        }
+      })
+
+
+</script>
 <?php
 $host = $_SERVER['HTTP_HOST'];
 

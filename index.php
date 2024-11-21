@@ -2,6 +2,7 @@
 session_start();
 include_once($_SERVER['DOCUMENT_ROOT'] . '/CODE_EVEN/admin/inc/dbcon.php');
 
+include_once($_SERVER['DOCUMENT_ROOT'] . '/code_even/inc/check_cookie.php');
 ?>
 <style>
 /* 모달 배경 */

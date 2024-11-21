@@ -36,40 +36,6 @@ document.addEventListener("DOMContentLoaded", function () {
       }
     });
   
-    const lineCtx = document.getElementById('current_six_news').getContext('2d');
-    const lineChart = new Chart(lineCtx, {
-      type: 'line',
-      data: {
-        labels: ['6월', '7월', '8월', '9월', '10월', '11월'],
-        datasets: [{
-          label: '신규 가입자 수',
-          data: [2000, 2800, 3200, 3800, 4000, 3765],
-          borderColor: '#D25353',
-          backgroundColor: '#c93333',
-          borderWidth: 1,
-          fill: false,
-          pointRadius: 3
-        }, {
-          label: '방문자',
-          data: [8000, 6700, 6900, 8500, 9215, 7265],
-          borderColor: '#7987FF',
-          backgroundColor: '#5e62f1',
-          borderWidth: 1,
-          fill: false,
-          pointRadius: 3
-        }],
-      },
-        options: {
-          scales: {
-            x: {
-              beginAtZero: true
-            },
-            y: {
-              beginAtZero: true
-            }
-          }
-        }
-      })
   
     const doughnutCtx = document.getElementById('cate_one_return');
     const doughnutChart = new Chart(doughnutCtx, {
