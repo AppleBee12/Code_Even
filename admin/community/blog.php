@@ -84,7 +84,7 @@ while ($data = $result->fetch_object()) {
         ?>
             <tr>
               <th scope="row"><?= $blog->post_id ?></th>
-              <td class="img"> <img src="http://<?= $_SERVER['HTTP_HOST'] . $blog->thumnails ?>" alt=""></td>
+              <td class="img"> <img src="http://<?= $_SERVER['HTTP_HOST'] . $blog->thumbnails ?>" alt=""></td>
               <td><a href="#" class="d-inline-block text-truncate"><?= $blog->titles ?></a></td>
               <td><a href="#" class="d-inline-block text-truncate"><?= $blog->contents ?></a></td>
               <td><?= $blog->likes ?><b>개</b></td>
