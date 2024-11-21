@@ -149,6 +149,13 @@ while ($data = $result->fetch_object()) {
 
 </div>
 
+<script>
+  let target = $('#summernote');
+  target.summernote({
+    height: 400,
+  });
+</script>
+
 <?php
 include_once($_SERVER['DOCUMENT_ROOT'] . '/code_even/admin/inc/footer.php');
 ?>
