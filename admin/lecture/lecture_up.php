@@ -17,18 +17,19 @@ if (!isset($_SESSION['AUID']) || !isset($_SESSION['AUNAME'])) {
   exit;
 }
 
-// 사용자 정보 가져오기 (확인용)
-$sql_user = "SELECT uid, username FROM user WHERE userid = ?";
-if ($stmt_user = $mysqli->prepare($sql_user)) {
-  $stmt_user->bind_param("s", $session_userid);
-  $stmt_user->execute();
-  $stmt_user->bind_result($uid, $username);
-  $stmt_user->fetch();
-  $stmt_user->close();
+// 사용자 정보 가져오기
+$session_userid_safe = $mysqli->real_escape_string($session_userid);
+$sql_user = "SELECT uid, username FROM user WHERE userid = '$session_userid_safe'";
+$result_user = $mysqli->query($sql_user);
+
+if ($result_user && $result_user->num_rows > 0) {
+    $user_data = $result_user->fetch_object();
+    $uid = $user_data->uid;
+    $username = $user_data->username;
 } else {
-  echo "<script>alert('사용자 정보를 가져오는 데 실패했습니다. 관리자에게 문의하세요.');</script>";
-  echo "<script>location.href='/CODE_EVEN/admin/login.php';</script>";
-  exit;
+    echo "<script>alert('사용자 정보를 가져오는 데 실패했습니다. 관리자에게 문의하세요.');</script>";
+    echo "<script>location.href='/CODE_EVEN/admin/login.php';</script>";
+    exit;
 }
 
 $leid = isset($_GET['leid']) ? $_GET['leid'] : '';
@@ -44,107 +45,80 @@ while ($row = $result_cate->fetch_object()) {
 
 // 임시 저장 처리
 if (isset($_POST['draft_save']) && $_POST['draft_save'] == '1') {
-    // 폼 데이터 수집
-    $cate1 = $_POST['cate1'] ?? null;
-    $cate2 = $_POST['cate2'] ?? null;
-    $cate3 = $_POST['cate3'] ?? null;
-    $title = $_POST['title'] ?? null;
-    $price = $_POST['price'] ?? 0;
-    $period = $_POST['period'] ?? 30;
-    $isrecipe = $_POST['isrecipe'] ?? 0;
-    $isgeneral = $_POST['isgeneral'] ?? 1;
-    $imagePath = 'uploads/images/default.png';
+  $cate1 = $mysqli->real_escape_string($_POST['cate1'] ?? null);
+  $cate2 = $mysqli->real_escape_string($_POST['cate2'] ?? null);
+  $cate3 = $mysqli->real_escape_string($_POST['cate3'] ?? null);
+  $title = $mysqli->real_escape_string($_POST['title'] ?? null);
+  $price = is_numeric($_POST['price']) ? (int)$_POST['price'] : 0;
+  $period = is_numeric($_POST['period']) ? (int)$_POST['period'] : 30;
+  $isrecipe = isset($_POST['isrecipe']) ? 1 : 0;
+  $isgeneral = isset($_POST['isgeneral']) ? 1 : 0;
+  $imagePath = '/uploads/images/default.png';
 
-    // 이미지 업로드 처리
-    if (isset($_FILES['image']) && $_FILES['image']['error'] === UPLOAD_ERR_OK) {
-        $uploadDir = $_SERVER['DOCUMENT_ROOT'] . '/uploads/images/';
-        $uploadedFile = $uploadDir . basename($_FILES['image']['name']);
-        if (move_uploaded_file($_FILES['image']['tmp_name'], $uploadedFile)) {
-            $imagePath = '/uploads/images/' . basename($_FILES['image']['name']);
-        }
+  // 이미지 업로드 처리
+  if (isset($_FILES['image']) && $_FILES['image']['error'] === UPLOAD_ERR_OK) {
+    $uploadDir = $_SERVER['DOCUMENT_ROOT'] . '/uploads/images/';
+    $uploadedFile = $uploadDir . basename($_FILES['image']['name']);
+    if (move_uploaded_file($_FILES['image']['tmp_name'], $uploadedFile)) {
+      $imagePath = '/uploads/images/' . basename($_FILES['image']['name']);
     }
+  }
 
-    // 데이터 검증
-    if (empty($cate1) || empty($cate2) || empty($cate3) || empty($title)) {
-      echo "<script>alert('분류와 강좌명은 필수 입력 항목입니다.');</script>";
-      exit;
-    }
-    
-    if (!is_numeric($price) || $price < 0) {
-        echo "<script>alert('수강료는 0 이상의 숫자여야 합니다.');</script>";
-        exit;
-    }
+  // 데이터 검증
+  if (empty($cate1) || empty($cate2) || empty($cate3) || empty($title)) {
+    echo "<script>alert('분류와 강좌명은 필수 입력 항목입니다.');</script>";
+    exit;
+  }
 
-    // 강좌 데이터 임시 저장 쿼리
-    $sql_lecture = "
-      INSERT INTO lecture 
-      (lecid, cate1, cate2, cate3, title, name, price, period, isrecipe, isgeneral, image, date, state, approval) 
-      VALUES 
-      (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, NOW(), 0, '대기')
-    ";
+  $sql_lecture = "
+    INSERT INTO lecture 
+    (lecid, cate1, cate2, cate3, title, name, price, period, isrecipe, isgeneral, image, date, state, approval) 
+    VALUES 
+    ('$uid', '$cate1', '$cate2', '$cate3', '$title', '$username', '$price', '$period', '$isrecipe', '$isgeneral', '$imagePath', NOW(), 0, '대기')
+  ";
 
-    // 데이터 준비
-    if ($stmt = $mysqli->prepare($sql_lecture)) {
-        $stmt->bind_param(
-            "issssssiiiss", // 데이터 타입 문자열
-            $uid,           // 로그인된 사용자 uid
-            $cate1,
-            $cate2,
-            $cate3,
-            $title,
-            $user_name,     // 사용자 이름
-            $price,
-            $period,
-            $isrecipe,
-            $isgeneral,
-            $imagePath
-        );
-
-        // 쿼리 실행 후 결과 체크
-        if ($stmt->execute()) {
-            echo "<script>alert('강좌가 임시 저장되었습니다.');</script>";
-            echo "<script>location.href='lecture_list.php';</script>";
-        } else {
-            echo "<script>alert('임시 저장에 실패했습니다: " . $stmt->error . "');</script>";
-        }
-    } else {
-        echo "<script>alert('쿼리 준비에 실패했습니다: " . $mysqli->error . "');</script>";
-    }
+  if ($mysqli->query($sql_lecture)) {
+    echo "<script>alert('강좌가 임시 저장되었습니다.');</script>";
+    echo "<script>location.href='lecture_list.php';</script>";
+  } else {
+    echo "<script>alert('임시 저장에 실패했습니다: " . $mysqli->error . "');</script>";
+  }
 }
 
 // 실습 파일 엽로드
   // 요청 방식이 POST 이고, 폼에 사용자가 파일을 업로드 했으며 강사 아이디랑 강의 아이디가 품을 통해 들어왔을 때 실행
   if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_FILES['practice_file']) && isset($_POST['lecture_id']) && isset($_POST['instructor_id'])) {
-    // 데이터 받기
-    $lectureVideoId = $_POST['lecture_video_id'];
-    $instructorId = $_POST['instructor_id'];
+    $lectureVideoId = (int)$_POST['lecture_video_id'];
+    $instructorId = (int)$_POST['instructor_id'];
     $file = $_FILES['practice_file'];
 
-    // 지원되는 파일 형식
-    $fileType = ['application/pdf', 'application/msword', 'application/zip', 'application/x-zip-compressed'];
-    
-    // 파일이 지원되는 형식인지 체크
-    if (in_array($file['type'], $fileType)) {
-      $uploadFile = 'uploads/files/';
-      $filePath = $uploadFile . basename($file['name']);
-      
-      // 파일 저장
-      if (move_uploaded_file($file['tmp_name'], $filePath)) {
-        // 데이터베이스에 삽입
-        // 아래와 같이 다른 이름을 사용해도 됩니다.
-        $uploadfileQuery = $mysqli->prepare("INSERT INTO lefile (lecdid, lepid, fname, fpath, ftype) VALUES (?, ?, ?, ?, ?)");
-        // 쿼리 실행
-        $uploadfileQuery->bind_param("iisss", $lectureId, $instructorId, $file['name'], $filePath, $file['type']);
-        $uploadfileQuery->execute();
+    if (in_array($file['type'], ['application/pdf', 'application/msword', 'application/zip', 'application/x-zip-compressed'])) {
+        $uploadFile = $_SERVER['DOCUMENT_ROOT'] . '/uploads/files/';
+        $filePath = $uploadFile . basename($file['name']);
 
-        echo "실습 파일이 업로드되었습니다!";
-      } else {
-        echo "파일 업로드 실패!";
-      }
+        if (move_uploaded_file($file['tmp_name'], $filePath)) {
+            $fileName = $mysqli->real_escape_string($file['name']);
+            $filePathSafe = $mysqli->real_escape_string($filePath);
+            $fileType = $mysqli->real_escape_string($file['type']);
+
+            $sql_file = "
+                INSERT INTO lefile (lecdid, lepid, fname, fpath, ftype) 
+                VALUES ('$lectureVideoId', '$instructorId', '$fileName', '$filePathSafe', '$fileType')
+            ";
+
+            if ($mysqli->query($sql_file)) {
+                echo "실습 파일이 업로드되었습니다!";
+            } else {
+                echo "데이터베이스에 파일을 저장하는 데 실패했습니다!";
+            }
+        } else {
+            echo "파일 업로드 실패!";
+        }
     } else {
-      echo "지원되지 않는 파일 형식입니다!";
+        echo "지원되지 않는 파일 형식입니다!";
     }
   }
+
 
   // 강의 저장
   if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['video_url'], $_POST['lecture_id'], $_POST['instructor_id'], $_POST['video_order'])) {
@@ -169,39 +143,32 @@ if (isset($_POST['draft_save']) && $_POST['draft_save'] == '1') {
     }
   }
 
-  // 퀴즈 / 시험 데이터 불러오기
   if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['action'] === 'get_quiz_test') {
-    $cate1 = $_POST['cate1'];
-    $cate2 = $_POST['cate2'];
-    $cate3 = $_POST['cate3'];
-    $title = $_POST['title'];
+    $cate1 = $_POST['cate1'] ?? null;
+    $cate2 = $_POST['cate2'] ?? null;
+    $cate3 = $_POST['cate3'] ?? null;
+    $title = $_POST['title'] ?? null;
 
-    // quiz 데이터 가져오기
-    $sql_quiz = "SELECT exid, tt FROM quiz WHERE cate1 = ? AND cate2 = ? AND cate3 = ? AND title = ?";
-    $stmt_quiz = $mysqli->prepare($sql_quiz);
-    $stmt_quiz->bind_param("ssss", $cate1, $cate2, $cate3, $title);
-    $stmt_quiz->execute();
-    $result_quiz = $stmt_quiz->get_result();
+    $sql_quiz = "SELECT exid, tt FROM quiz WHERE cate1 = '$cate1' AND cate2 = '$cate2' AND cate3 = '$cate3' AND title = '$title'";
+    $result_quiz = $mysqli->query($sql_quiz);
+
     $quiz_data = [];
     while ($row = $result_quiz->fetch_object()) {
         $quiz_data[] = $row;
     }
 
-    // test 데이터 가져오기
-    $sql_test = "SELECT exid, tt FROM test WHERE cate1 = ? AND cate2 = ? AND cate3 = ? AND title = ?";
-    $stmt_test = $mysqli->prepare($sql_test);
-    $stmt_test->bind_param("ssss", $cate1, $cate2, $cate3, $title);
-    $stmt_test->execute();
-    $result_test = $stmt_test->get_result();
+    $sql_test = "SELECT exid, tt FROM test WHERE cate1 = '$cate1' AND cate2 = '$cate2' AND cate3 = '$cate3' AND title = '$title'";
+    $result_test = $mysqli->query($sql_test);
+
     $test_data = [];
     while ($row = $result_test->fetch_object()) {
         $test_data[] = $row;
     }
 
-    // JSON으로 반환
     echo json_encode(['quiz' => $quiz_data, 'test' => $test_data]);
     exit;
-}
+  }
+
 
 ?>
 
@@ -394,10 +361,10 @@ if (isset($_POST['draft_save']) && $_POST['draft_save'] == '1') {
   const categories = <?php echo json_encode($categories); ?>;
 
   // 대분류 선택 -> 중분류 업데이트
-  $('#cate1').on('change', function() {
+  $('#cate1').on('change', function () {
     const cate1 = $(this).val();
 
-    if(cate1) {
+    if (cate1) {
       const filterCate2 = categories.filter(category => category.step == 2 && category.pcode == cate1);
 
       $('#cate2').html('<option value="">중분류</option>');
@@ -405,86 +372,81 @@ if (isset($_POST['draft_save']) && $_POST['draft_save'] == '1') {
         $('#cate2').append(`<option value="${category.code}">${category.name}</option>`);
       });
       $('#cate3').html('<option value="">소분류</option>');
-
-    }else{
-
+    } else {
       $('#cate2').html('<option value="">중분류</option>');
       $('#cate3').html('<option value="">소분류</option>');
-
     }
+
+    // 교재 목록 업데이트 호출
+    updateBooks();
   });
 
   // 중분류 선택 -> 소분류 업데이트
-  $('#cate2').on('change', function() {
+  $('#cate2').on('change', function () {
     const cate2 = $(this).val();
 
-    if(cate2) {
+    if (cate2) {
       const filterCate3 = categories.filter(category => category.step == 3 && category.pcode == cate2);
 
-      $('#cate3').html('<option value="">소분류</option>')
+      $('#cate3').html('<option value="">소분류</option>');
       filterCate3.forEach(category => {
         $('#cate3').append(`<option value="${category.code}">${category.name}</option>`);
       });
-
-    }else{
-
+    } else {
       $('#cate3').html('<option value="">소분류</option>');
-
     }
+
+    // 교재 목록 업데이트 호출
+    updateBooks();
   });
 
-  // 수강료 입력 시 1,000 단위 반점
-    $('#price').on('input', function () {
-        let value = this.value.replace(/[^0-9]/g, ''); // 숫자만 입력 가능
-        let formattedValue = new Intl.NumberFormat().format(value); // 1,000 단위로 반점 추가
-        this.value = formattedValue;
-
-        // Hidden input에 순수 숫자만 저장
-        $('#hidden_price').val(value);
-    });
+  // 소분류 선택 시에도 교재 목록 업데이트
+  $('#cate3').on('change', updateBooks);
 
   
-  // 카테고리 변경 시 교재 목록 업데이트
   function updateBooks() {
-    console.log({
-        cate1: $('#cate1').val(),
-        cate2: $('#cate2').val(),
-        cate3: $('#cate3').val(),
-        title: $('#title').val()
-    }); // 콘솔 확인용
+  const cate1 = $('#cate1').val();
+  const cate2 = $('#cate2').val();
+  const cate3 = $('#cate3').val();
+  const title = $('#title').val(); // 강좌명 가져오기
 
-    let formData = new FormData(); // formData 정의
-    formData.append('cate1', $('#cate1').val());
-    formData.append('cate2', $('#cate2').val());
-    formData.append('cate3', $('#cate3').val());
-    formData.append('title', $('#title').val());
+  // 디버깅: 전달 데이터 확인
+  console.log('Updating books with:', { cate1, cate2, cate3, title });
 
-    if (cate1 && cate2 && cate3) { // 모든 카테고리 선택 시
-      $.ajax({
-        url: 'bselect_update.php',
-        data:formData,
-        method: 'POST',
-        dataType:'json',
-        processData: false,
-        contentType: false,
-        success: function (data) {
-          console.log(data);
-          $('#book').html('<option value="">SELECT</option>'); // 기존 옵션 초기화
+  if (cate1 && cate2 && cate3 && title) { // 모든 값이 선택되었을 때만 실행
+    $.ajax({
+      url: 'bselect_update.php',
+      type: 'POST',
+      data: { cate1, cate2, cate3, title }, // 데이터를 객체로 전달
+      dataType: 'json', // 서버에서 반환할 데이터 형식
+      success: function (data) {
+        console.log('Books received:', data); // 데이터를 확인
+        $('#book').html('<option value="">SELECT</option>'); // 기존 옵션 초기화
+
+        if (data && data.length > 0) {
           data.forEach(book => {
             $('#book').append(`<option value="${book.boid}">${book.book}</option>`);
           });
-        },
-        error: function () {
-          alert('교재 데이터를 가져오는 중 오류가 발생했습니다.');
+        } else {
+          $('#book').append('<option value="">관련 교재가 없습니다.</option>');
         }
-      });
+      },
+      error: function (xhr, status, error) {
+        console.error('AJAX Error:', status, error);
+      }
+    });
     } else {
-      $('#book').html('<option value="">SELECT</option>');
+      console.warn('카테고리 또는 강좌명이 비어 있음.');
+      $('#book').html('<option value="">SELECT</option>'); // 카테고리가 미선택일 경우 초기화
     }
   }
 
-  // 카테고리 변경 시 교재 목록 업데이트
-  $('#cate1, #cate2, #cate3').on('change', updateBooks);
+// 이벤트 수정: title 입력값 변경 시 업데이트 트리거
+$('#cate1, #cate2, #cate3, #title').on('input change', updateBooks);
+
+
+// 카테고리 선택 시 교재 목록 업데이트
+$('#cate1, #cate2, #cate3').on('change', updateBooks);
 
   
   // 썸네일 첨부하면 class image에 출력
