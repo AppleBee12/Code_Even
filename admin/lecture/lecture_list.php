@@ -31,17 +31,15 @@ if ($block_end > $total_page) {
   $block_end = $total_page;
 }
 
-$sql = "SELECT lecture.* 
-          FROM lecture 
-          $where_clause 
+$sql = "SELECT * FROM lecture $where_clause 
           ORDER BY lecture.leid DESC 
           LIMIT $start_num, $list";
-$result = $mysqli->query($sql);
+  $result = $mysqli->query($sql);
 
-$dataArr = [];
-while ($data = $result->fetch_object()) {
-  $dataArr[] = $data;
-}
+  while($data = $result->fetch_object()){
+    $dataArr[] = $data;
+  }
+
 
 ?>
 
@@ -71,19 +69,25 @@ while ($data = $result->fetch_object()) {
         </tr>
       </thead>
       <tbody>
-        <?php foreach ($dataArr as $index => $lecture): ?>
-          <tr data-id="<?= $lecture->leid; ?>"> <!-- 데이터 ID를 설정 -->
-            <th scope="row"><?= $index + 1; ?></th>
-            <td class="lecture-img"><img src="<?= $lecture->image; ?>" alt="강좌 이미지"></td>
-            <td class="title-cell"><?= htmlspecialchars($lecture->title); ?></td>
-            <td><?= htmlspecialchars($lecture->name); ?></td>
-            <td><?= $lecture->period; ?>일</td>
+        <?php
+          if(isset($dataArr)){
+            foreach($dataArr as $item){
+        ?> 
+          <tr>
+            <th scope="row">
+              <input type="hidden" name="leid[]" value="<?= $item->leid; ?>">
+              <?= $item->leid; ?>
+            </th>
+            <td class="lecture-img"><img src="<?= $item->image; ?>" alt="강좌 이미지"></td>
+            <td class="title-cell"><?= $item->title; ?></td>
+            <td><?= $item->name; ?></td>
+            <td><?= $item->period; ?>일</td>
             <td>
               <div>
-                <?php if ((int) $lecture->isgeneral === 1): ?>
+                <?php if ((int) $item->isgeneral === 1): ?>
                   <span class="badge text-bg-secondary">일반</span>
                 <?php endif; ?>
-                <?php if ((int) $lecture->isrecipe === 1): ?>
+                <?php if ((int) $item->isrecipe === 1): ?>
                   <span class="badge recipe">레시피</span>
                 <?php endif; ?>
               </div>
@@ -91,39 +95,39 @@ while ($data = $result->fetch_object()) {
             <td>
               <div class="form-check d-inline-block me-2">
                 <!-- 숨겨진 필드로 기본값 0 전송 -->
-                <input type="hidden" name="isbest[<?= $lecture->leid; ?>]" value="0">
-                <input type="hidden" name="leid[<?= $lecture->leid; ?>]" value="<?= $lecture->leid; ?>">
+                <input type="hidden" name="isbest[<?= $item->leid; ?>]" value="0">
+                <input type="hidden" name="leid[<?= $item->leid; ?>]" value="<?= $item->leid; ?>">
                 <!-- 체크박스 -->
-                <input class="form-check-input" type="checkbox" id="isbest[<?= $lecture->leid; ?>]"
-                  name="isbest[<?= $lecture->leid; ?>]" value="1" <?= $lecture->isbest ? 'checked' : ''; ?>>
-                <label class="form-check-label" for="isbest[<?= $lecture->leid; ?>]">
+                <input class="form-check-input" type="checkbox" id="isbest[<?= $item->leid; ?>]"
+                  name="isbest[<?= $item->leid; ?>]" value="1" <?= $item->isbest ? 'checked' : ''; ?>>
+                <label class="form-check-label" for="isbest[<?= $item->leid; ?>]">
                   베스트
                 </label>
               </div>
               <div class="form-check d-inline-block">
                 <!-- 숨겨진 필드로 기본값 0 전송 -->
-                <input type="hidden" name="isrecom[<?= $lecture->leid; ?>]" value="0">
-                <input type="hidden" name="leid[<?= $lecture->leid; ?>]" value="<?= $lecture->leid; ?>">
+                <input type="hidden" name="isrecom[<?= $item->leid; ?>]" value="0">
+                <input type="hidden" name="leid[<?= $item->leid; ?>]" value="<?= $item->leid; ?>">
                 <!-- 체크박스 -->
-                <input class="form-check-input" type="checkbox" id="isrecom[<?= $lecture->leid; ?>]"
-                  name="isrecom[<?= $lecture->leid; ?>]" value="1" <?= $lecture->isrecom ? 'checked' : ''; ?>>
-                <label class="form-check-label" for="isrecom[<?= $lecture->leid; ?>]">
+                <input class="form-check-input" type="checkbox" id="isrecom[<?= $item->leid; ?>]"
+                  name="isrecom[<?= $item->leid; ?>]" value="1" <?= $item->isrecom ? 'checked' : ''; ?>>
+                <label class="form-check-label" for="isrecom[<?= $item->leid; ?>]">
                   추천
                 </label>
               </div>
             </td>
             <td>
-              <span id="status-badge-<?= $lecture->leid; ?>"
-                class="badge <?= $lecture->state == 0 ? 'waitopen' : ($lecture->state == 2 ? 'text-bg-secondary' : 'waitopen'); ?>">
-                <?= $lecture->state == 0 ? '임시 저장' : ($lecture->state == 2 ? '개설' : '개설 대기'); ?>
+              <span id="status-badge-<?= $item->leid; ?>"
+                class="badge <?= $item->state == 0 ? 'waitopen' : ($item->state == 2 ? 'text-bg-secondary' : 'waitopen'); ?>">
+                <?= $item->state == 0 ? '임시 저장' : ($item->state == 2 ? '개설' : '개설 대기'); ?>
               </span>
             </td>
             <td>
               <div class="d-flex justify-content-center align-items-center">
                 <div class="form-check form-switch">
-                  <input id="toggle-<?= $lecture->leid; ?>" class="form-check-input tog toggle-switch" type="checkbox"
-                    role="switch" data-id="<?= $lecture->leid; ?>" <?= $lecture->state == 2 ? 'checked' : ''; ?>
-                    <?= $lecture->state == 0 ? 'disabled' : ''; ?>> <!-- state가 0일 때 비활성화 -->
+                  <input id="toggle-<?= $item->leid; ?>" class="form-check-input tog toggle-switch" type="checkbox"
+                    role="switch" data-id="<?= $item->leid; ?>" <?= $item->state == 2 ? 'checked' : ''; ?>
+                    <?= $item->state == 0 ? 'disabled' : ''; ?>> <!-- state가 0일 때 비활성화 -->
                   >
                 </div>
               </div>
@@ -131,17 +135,20 @@ while ($data = $result->fetch_object()) {
             <td>
               <div class="d-flex justify-content-center gap-4">
                 <!-- 수정 버튼 -->
-                <a href="lecture_edit.php?id=<?= $lecture->leid; ?>">
+                <a href="lecture_edit.php?id=<?= $item->leid; ?>">
                   <i class="bi bi-pencil-fill"></i>
                 </a>
                 <!-- 삭제 버튼 -->
-                <a href="lecture_delete.php?id=<?= $lecture->leid; ?>" onclick="return confirm('이 강좌를 삭제하시겠습니까?');">
+                <a href="lecture_delete.php?id=<?= $item->leid; ?>" onclick="return confirm('이 강좌를 삭제하시겠습니까?');">
                   <i class="bi bi-trash"></i>
                 </a>
               </div>
             </td>
           </tr>
-        <?php endforeach; ?>
+          <?php
+              }
+            }
+          ?>
       </tbody>
     </table>
     <div class="d-flex justify-content-end gap-2 mt-20 mb-50">

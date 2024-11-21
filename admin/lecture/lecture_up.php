@@ -204,8 +204,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
     <small>* 분류 설정과 강자명은 필수로 입력해야 임시 저장 가능합니다.</small>
   </div>
   <form method="POST" enctype="multipart/form-data" id="lecture_save" onSubmit="lecture_save(e)">
-  <input type="hidden" name="leid" value="<?= $leid; ?>">
-  <input type="hidden" name="action" value="final_save">
+    <input type="hidden" name="leid" value="<?= $leid; ?>">
+    <input type="hidden" name="action" value="final_save">
     <table class="table">
       <tbody>
         <tr>
@@ -234,14 +234,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
         <tr>
           <th scope="row">강좌명 <b>*</b></th>
           <td colspan="6">
-            <input type="text" name="title" id="title" class="form-control" placeholder="기초부터 확실하게! (페이지의 내용 전달을 위한 HTML, 스타일 설정을 위한 CSS 기초 학습)">
+            <input type="text" name="title" id="title" class="form-control"
+              placeholder="기초부터 확실하게! (페이지의 내용 전달을 위한 HTML, 스타일 설정을 위한 CSS 기초 학습)">
           </td>
         </tr>
         <tr>
           <th scope="row">강사명 <b>*</b></th>
           <td colspan="2">
-            <input type="text" name="name" id="name" class="form-control" 
-                  value="<?= htmlspecialchars($username); ?>" readonly>
+            <input type="text" name="name" id="name" class="form-control" value="<?= htmlspecialchars($username); ?>"
+              readonly>
           </td>
           <td name="image" class="box_container" colspan="4" rowspan="5">
             <div class="box">
@@ -278,9 +279,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
           </td>
         </tr>
         <tr>
-        <th scope="row">
-          <label for="period">교육 기간 <b>*</b></label>
-        </th>
+          <th scope="row">
+            <label for="period">교육 기간 <b>*</b></label>
+          </th>
           <td colspan="2">
             <select id="period" name="period" class="form-select">
               <option value="30">30일</option>
@@ -326,10 +327,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
       </div>
       <table class="table">
         <colgroup>
-        <col class="col-width-160">
-        <col class="col-width-516">
-        <col class="col-width-160">
-        <col class="col-width-516">
+          <col class="col-width-160">
+          <col class="col-width-516">
+          <col class="col-width-160">
+          <col class="col-width-516">
         </colgroup>
         <tbody>
           <tr>
@@ -341,7 +342,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
           <tr>
             <th scope="row">강의 설명</th>
             <td colspan="3">
-              <textarea name="lecture_description[]" class="form-control" rows="3" placeholder="강의 설명을 입력해 주세요."></textarea>
+              <textarea name="lecture_description[]" class="form-control" rows="3"
+                placeholder="강의 설명을 입력해 주세요."></textarea>
             </td>
           </tr>
           <tr>
@@ -432,107 +434,107 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
   // 소분류 선택 시에도 교재 목록 업데이트
   $('#cate3').on('change', updateBooks);
 
-  
+
   function updateBooks() {
-  const cate1 = $('#cate1').val();
-  const cate2 = $('#cate2').val();
-  const cate3 = $('#cate3').val();
-  const title = $('#title').val(); // 강좌명 가져오기
+    const cate1 = $('#cate1').val();
+    const cate2 = $('#cate2').val();
+    const cate3 = $('#cate3').val();
+    const title = $('#title').val(); // 강좌명 가져오기
 
-  // 디버깅: 전달 데이터 확인
-  console.log('Updating books with:', { cate1, cate2, cate3, title });
+    // 디버깅: 전달 데이터 확인
+    console.log('Updating books with:', { cate1, cate2, cate3, title });
 
-  if (cate1 && cate2 && cate3 && title) { // 모든 값이 선택되었을 때만 실행
-    $.ajax({
-      url: 'bselect_update.php',
-      type: 'POST',
-      data: { cate1, cate2, cate3, title }, // 데이터를 객체로 전달
-      dataType: 'json', // 서버에서 반환할 데이터 형식
-      success: function (data) {
-        console.log('Books received:', data); // 데이터를 확인
-        $('#book').html('<option value="">SELECT</option>'); // 기존 옵션 초기화
+    if (cate1 && cate2 && cate3 && title) { // 모든 값이 선택되었을 때만 실행
+      $.ajax({
+        url: 'bselect_update.php',
+        type: 'POST',
+        data: { cate1, cate2, cate3, title }, // 데이터를 객체로 전달
+        dataType: 'json', // 서버에서 반환할 데이터 형식
+        success: function (data) {
+          console.log('Books received:', data); // 데이터를 확인
+          $('#book').html('<option value="">SELECT</option>'); // 기존 옵션 초기화
 
-        if (data && data.length > 0) {
-          data.forEach(book => {
-            $('#book').append(`<option value="${book.boid}">${book.book}</option>`);
-          });
-        } else {
-          $('#book').append('<option value="">관련 교재가 없습니다.</option>');
+          if (data && data.length > 0) {
+            data.forEach(book => {
+              $('#book').append(`<option value="${book.boid}">${book.book}</option>`);
+            });
+          } else {
+            $('#book').append('<option value="">관련 교재가 없습니다.</option>');
+          }
+        },
+        error: function (xhr, status, error) {
+          console.error('AJAX Error:', status, error);
         }
-      },
-      error: function (xhr, status, error) {
-        console.error('AJAX Error:', status, error);
-      }
-    });
+      });
     } else {
       console.warn('카테고리 또는 강좌명이 비어 있음.');
       $('#book').html('<option value="">SELECT</option>'); // 카테고리가 미선택일 경우 초기화
     }
   }
 
-// 이벤트 수정: title 입력값 변경 시 업데이트 트리거
-$('#cate1, #cate2, #cate3, #title').on('input change', updateBooks);
+  // 이벤트 수정: title 입력값 변경 시 업데이트 트리거
+  $('#cate1, #cate2, #cate3, #title').on('input change', updateBooks);
 
 
-// 카테고리 선택 시 교재 목록 업데이트
-$('#cate1, #cate2, #cate3').on('change', updateBooks);
+  // 카테고리 선택 시 교재 목록 업데이트
+  $('#cate1, #cate2, #cate3').on('change', updateBooks);
 
-  
+
   // 썸네일 첨부하면 class image에 출력
   $('#image').on('change', function (event) {
-  const file = event.target.files[0];
-  if (file) {
-    const reader = new FileReader();
+    const file = event.target.files[0];
+    if (file) {
+      const reader = new FileReader();
 
-    reader.onload = function (e) {
-      $('.image img').attr('src', e.target.result);
-      $('.image img').attr('alt', file.name);
-      $('.box span').css('display', 'none'); // 텍스트 숨기기
-    };
+      reader.onload = function (e) {
+        $('.image img').attr('src', e.target.result);
+        $('.image img').attr('alt', file.name);
+        $('.box span').css('display', 'none'); // 텍스트 숨기기
+      };
 
-    reader.readAsDataURL(file);
-  }
+      reader.readAsDataURL(file);
+    }
   });
 
   // 카테고리 및 강좌명 변경 시 퀴즈/시험 데이터를 업데이트
   function updateQuizAndTest() {
-      const cate1 = $('#cate1').val();
-      const cate2 = $('#cate2').val();
-      const cate3 = $('#cate3').val();
-      const title = $('#title').val();
+    const cate1 = $('#cate1').val();
+    const cate2 = $('#cate2').val();
+    const cate3 = $('#cate3').val();
+    const title = $('#title').val();
 
-      if (cate1 && cate2 && cate3 && title) {
-          $.ajax({
-              url: 'lecture_up_ok.php',
-              type: 'POST',
-              data: {
-                  action: 'get_quiz_test',
-                  cate1: cate1,
-                  cate2: cate2,
-                  cate3: cate3,
-                  title: title
-              },
-              success: function(response) {
-                  var data = JSON.parse(response);
+    if (cate1 && cate2 && cate3 && title) {
+      $.ajax({
+        url: 'lecture_up_ok.php',
+        type: 'POST',
+        data: {
+          action: 'get_quiz_test',
+          cate1: cate1,
+          cate2: cate2,
+          cate3: cate3,
+          title: title
+        },
+        success: function (response) {
+          var data = JSON.parse(response);
 
-                  // 퀴즈와 시험 데이터 업데이트
-                  var quizSelect = $('select[name="quiz_id"]');
-                  quizSelect.html('<option value="">퀴즈를 선택해 주세요.</option>');
-                  data.quiz.forEach(function(quiz) {
-                      quizSelect.append('<option value="' + quiz.exid + '">' + quiz.tt + '</option>');
-                  });
-
-                  var testSelect = $('select[name="test_id"]');
-                  testSelect.html('<option value="">시험을 선택해 주세요.</option>');
-                  data.test.forEach(function(test) {
-                      testSelect.append('<option value="' + test.exid + '">' + test.tt + '</option>');
-                  });
-              },
-              error: function(xhr, status, error) {
-                  console.error('AJAX Error:', error);
-              }
+          // 퀴즈와 시험 데이터 업데이트
+          var quizSelect = $('select[name="quiz_id"]');
+          quizSelect.html('<option value="">퀴즈를 선택해 주세요.</option>');
+          data.quiz.forEach(function (quiz) {
+            quizSelect.append('<option value="' + quiz.exid + '">' + quiz.tt + '</option>');
           });
-      }
+
+          var testSelect = $('select[name="test_id"]');
+          testSelect.html('<option value="">시험을 선택해 주세요.</option>');
+          data.test.forEach(function (test) {
+            testSelect.append('<option value="' + test.exid + '">' + test.tt + '</option>');
+          });
+        },
+        error: function (xhr, status, error) {
+          console.error('AJAX Error:', error);
+        }
+      });
+    }
   }
 
   // 카테고리나 강좌명이 변경될 때 이벤트 실행
@@ -561,8 +563,8 @@ $('#cate1, #cate2, #cate3').on('change', updateBooks);
 
   // 새로운 강의 추가
   $('.leplus').on('click', function () {
-      const lectureCount = $('.video').length + 1; // 현재 강의 개수 + 1
-      const newLectureTemplate = `
+    const lectureCount = $('.video').length + 1; // 현재 강의 개수 + 1
+    const newLectureTemplate = `
           <div class="lecture-section">
               <div class="video d-flex justify-content-between align-items-center bg-light border rounded-3">
                   <h5 class="mb-0">${lectureCount}강</h5>
@@ -620,27 +622,27 @@ $('#cate1, #cate2, #cate3').on('change', updateBooks);
           </div>
       `;
 
-      // 새로운 강의 섹션을 추가
-      $(this).before(newLectureTemplate);
+    // 새로운 강의 섹션을 추가
+    $(this).before(newLectureTemplate);
 
-      // 강의 번호 재정렬
-      reorderLectures();
+    // 강의 번호 재정렬
+    reorderLectures();
   });
 
   // 강의 삭제
   function removeLecture(element) {
-      // 해당 강의 섹션 삭제
-      $(element).closest('.lecture-section').remove();
+    // 해당 강의 섹션 삭제
+    $(element).closest('.lecture-section').remove();
 
-      // 강의 번호 재정렬
-      reorderLectures();
+    // 강의 번호 재정렬
+    reorderLectures();
   }
 
   // 강의 번호 재정렬
   function reorderLectures() {
-      $('.video').each(function (index) {
-          $(this).find('h5').text(`${index + 1}강`);
-      });
+    $('.video').each(function (index) {
+      $(this).find('h5').text(`${index + 1}강`);
+    });
   }
 
   // $('#lecture_save').on('submit', function (e) {
@@ -663,44 +665,44 @@ $('#cate1, #cate2, #cate3').on('change', updateBooks);
   //       });
   //   });
 
-    // 강의 데이터를 숨겨진 input에 추가
-//     $('<input>').attr({
-//         type: 'hidden',
-//         name: 'lecture_detail',
-//         value: JSON.stringify(lectureDetails),
-//     }).appendTo('#lecture_save');
+  // 강의 데이터를 숨겨진 input에 추가
+  //     $('<input>').attr({
+  //         type: 'hidden',
+  //         name: 'lecture_detail',
+  //         value: JSON.stringify(lectureDetails),
+  //     }).appendTo('#lecture_save');
 
-//     this.submit(); // 폼 제출
-// });
+  //     this.submit(); // 폼 제출
+  // });
 
-// 강좌 기본 정보 저장
-$(document).ready(function () {
-  $('#lecture_save').on('submit', function (e) {
-    e.preventDefault();
+  // 강좌 기본 정보 저장
+  $(document).ready(function () {
+    $('#lecture_save').on('submit', function (e) {
+      e.preventDefault();
 
-    const formData = new FormData(this);
+      const formData = new FormData(this);
 
-    $.ajax({
-      url: 'lecture_up_ok.php',
-      type: 'POST',
-      data: formData,
-      processData: false,
-      contentType: false,
-      dataType: 'json',
-      success: function (response) {
-        if (response.success) {
-          alert('강좌 정보가 성공적으로 저장되었습니다.');
-        } else {
-          alert('강좌 저장 실패: ' + response.message);
+      $.ajax({
+        url: 'lecture_up_ok.php',
+        type: 'POST',
+        data: formData,
+        processData: false,
+        contentType: false,
+        dataType: 'json',
+        success: function (response) {
+          if (response.success) {
+            alert('강좌 정보가 성공적으로 저장되었습니다.');
+          } else {
+            alert('강좌 저장 실패: ' + response.message);
+          }
+        },
+        error: function (xhr, status, error) {
+          console.error('AJAX Error:', error);
+          alert('서버 요청 중 문제가 발생했습니다.');
         }
-      },
-      error: function (xhr, status, error) {
-        console.error('AJAX Error:', error);
-        alert('서버 요청 중 문제가 발생했습니다.');
-      }
+      });
     });
   });
-});
 
 
 
@@ -711,6 +713,3 @@ $(document).ready(function () {
 <?php
 include_once($_SERVER['DOCUMENT_ROOT'] . '/code_even/admin/inc/footer.php');
 ?>
-
-
-
