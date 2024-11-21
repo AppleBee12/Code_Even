@@ -2,12 +2,20 @@
 $title = "문의게시판 관리";
 include_once($_SERVER['DOCUMENT_ROOT'] . '/code_even/admin/inc/header.php');
 
+$auid = $_SESSION['AUID'];
+
 // 게시글 개수 구하기
 $keywords = isset($_GET['keywords']) ? $mysqli->real_escape_string($_GET['keywords']) : '';
-$where_clause = '';
+
+if($level == 100){
+  $where_clause = '';
+}
+if($level == 10){
+  $where_clause = "WHERE user.userid = '$auid'";
+}
 
 if ($keywords) {
-  $where_clause = "WHERE admin_question.qtitle LIKE '%$keywords%' OR user.username LIKE '%$keywords%' OR user.userid LIKE '%$keywords%'";
+  $where_clause .= " AND (admin_question.qtitle LIKE '%$keywords%' OR user.username LIKE '%$keywords%' OR user.userid LIKE '%$keywords%')";
 }
 
 $page_sql = "SELECT COUNT(*) AS cnt FROM admin_question JOIN user ON admin_question.uid = user.uid $where_clause";
@@ -47,6 +55,18 @@ while ($data = $result->fetch_object()) {
 ?>
 
 <div class="container">
+<?php if ($level == 10): ?>
+  <div class="description d-flex">
+    <i class="bi bi-chat-right-dots"></i>
+    <div class="d-flex flex-column gap-3">
+      <strong>진행 프로세스 : 답변대기<i class="bi bi-arrow-right-short"></i>답변완료</strong>
+      <ul>
+        <li>1:1 문의 게시판에 글을 등록 시 처음은 답변대기 상태, 관리자가 답변시 답변완료 상태로 변경됩니다.</li>
+        <li>관리자는 해당 내용을 정확히 검토하여 답변을 드리고 있습니다.</li>
+      </ul>
+    </div>
+  </div>
+<?php endif; ?>
   <h2>1:1 문의</h2>
   <form class="row justify-content-end">
     <div class="col-lg-4">
@@ -60,13 +80,18 @@ while ($data = $result->fetch_object()) {
     </div>
   </form>
 
+<?php if ($level == 10): ?>
+  <form action="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/teacher_page/inquiry/admin_qna_question.php" method="POST">
+<?php endif; ?>
     <table class="table list_table">
       <thead>
         <tr>
           <th scope="col">번호</th>
+        <?php if ($level == 100): ?>
           <th scope="col">회원유형</th>
           <th scope="col">아이디</th>
           <th scope="col">이름</th>
+        <?php endif; ?>
           <th scope="col">제목</th>
           <th scope="col">분류</th>
           <th scope="col">등록일</th>
@@ -80,6 +105,7 @@ while ($data = $result->fetch_object()) {
             ?>
             <tr>
               <td><?= $no->aqid; ?></td>
+            <?php if ($level == 100): ?>
               <td>
                 <?php
                 $user_levels = [
@@ -92,6 +118,7 @@ while ($data = $result->fetch_object()) {
               </td>
               <td><?= $no->userid; ?></td>
               <td><?= $no->username; ?></td>
+            <?php endif; ?>
               <td><a
                   href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/inquiry/admin_qna_details.php?aqid=<?= $no->aqid; ?>"
                   class="underline"><?= $no->qtitle; ?></a></td>
@@ -128,6 +155,9 @@ while ($data = $result->fetch_object()) {
         ?>
       </tbody>
     </table>
+  <?php if ($level == 10): ?>
+    <button type="submit" class="btn btn-secondary ms-auto d-block">등록</button>
+  <?php endif; ?>
 
     <!-- //Pagination -->
     <div class="list_pagination">
@@ -166,6 +196,9 @@ while ($data = $result->fetch_object()) {
         ?>
       </ul>
     </div>
+<?php if ($level == 10): ?>
+  </form>
+<?php endif; ?>
 
 </div>
 
