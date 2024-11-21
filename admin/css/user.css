@@ -53,3 +53,7 @@ tbody .form-control.w_sm{
 .user_addr input{
   margin-bottom: 10px;
 }
+
+.ulist_status{
+  width: 30%;
+}
