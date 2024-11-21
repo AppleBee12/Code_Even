@@ -113,3 +113,10 @@ input[readonly] {background-color: #e9ecef; border: 1px solid #dee2e6; color: #6
 .star_null {color: #ccc;}
 
 .list_table .badge {vertical-align: text-top;}
+
+.write_form {
+  .note-editor {
+    width: 1075px;
+    .note-editing-area {height: 300px;}
+  }
+}
