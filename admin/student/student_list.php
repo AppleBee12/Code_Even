@@ -2,15 +2,27 @@
 $title = "수강생 목록";
 include_once($_SERVER['DOCUMENT_ROOT'] . '/code_even/admin/inc/header.php');
 
+$teacher_id = $mysqli->real_escape_string($_SESSION['UID']);
+
 // 게시글 개수 구하기
 $keywords = isset($_GET['keywords']) ? $mysqli->real_escape_string($_GET['keywords']) : '';
-$where_clause = '';
 
-if ($keywords) {
-  $where_clause = "WHERE user.username LIKE '%$keywords%' OR user.userid LIKE '%$keywords%'";
+if($level == 100){
+  $where_clause = " ";
+}
+if($level == 10){
+  $where_clause = " WHERE lecture.lecid = '$teacher_id'";
 }
 
-$page_sql = "SELECT COUNT(*) AS cnt FROM class_data JOIN user ON class_data.uid = user.uid $where_clause";
+if ($keywords) {
+  $where_clause .= " AND (user.username LIKE '%$keywords%' OR user.userid LIKE '%$keywords%')";
+}
+
+$page_sql = "SELECT COUNT(*) AS cnt 
+            FROM class_data 
+            JOIN user ON class_data.uid = user.uid 
+            JOIN lecture ON class_data.leid = lecture.leid 
+            $where_clause";
 $page_result = $mysqli->query($page_sql);
 $page_data = $page_result->fetch_assoc();
 $row_num = $page_data['cnt'];
