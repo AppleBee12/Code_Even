@@ -4,6 +4,7 @@ $chart_js = "<script src=\"https://cdn.jsdelivr.net/npm/chart.js\"></script>";
 $host = $_SERVER['HTTP_HOST'];
 $main_js = "<script src=\"http://$host/code_even/admin/js/main.js\"></script>";
 
+include_once($_SERVER['DOCUMENT_ROOT'] . '/code_even/user/inc/check_cookie.php');
 include_once($_SERVER['DOCUMENT_ROOT'] . '/CODE_EVEN/admin/inc/header.php');
 
 

@@ -9,7 +9,7 @@ include_once($_SERVER['DOCUMENT_ROOT'] . '/code_even/admin/inc/header.php');
     <h3>글 수정하기</h3>
   </div>
 
-  <form action="">
+  <form action="/code_even/admin/community/blog_edit_ok.php" method="POST">
     <table class="table info_table">
       <tbody>
         <?php
@@ -47,7 +47,6 @@ include_once($_SERVER['DOCUMENT_ROOT'] . '/code_even/admin/inc/header.php');
                   $image_src = (!empty($row['thumbnails']) && file_exists($thumbnail_path)) ? $row['thumbnails'] : '/CODE_EVEN/admin/upload/teacher/tc_dummy.png';
                 ?>
                 <img id="thumbnail_preview" src="<?= $thumbnail_path; ?>" class="angled_square thumb_child" width = 200 height = 200 alt="프로필 이미지">
-
               </td>
             </tr>
             <tr>
@@ -81,8 +80,6 @@ include_once($_SERVER['DOCUMENT_ROOT'] . '/code_even/admin/inc/header.php');
         } else {
           echo "잘못된 요청입니다.";
         }
-
-
         ?>
       </tbody>
     </table>
