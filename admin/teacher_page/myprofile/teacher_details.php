@@ -5,7 +5,7 @@ include_once($_SERVER['DOCUMENT_ROOT'] . '/code_even/admin/inc/header.php');
 
 
 
-
+// 강사 상세정보 조회
 $uid = $_SESSION['UID'];
 
 $sql = "SELECT * FROM teachers WHERE uid = $uid";
@@ -13,6 +13,7 @@ $result = $mysqli->query($sql);
 $tc = $result->fetch_object();
 $tcid = $tc->tcid;
 
+// 카테고리 정보
 $category_sql = "SELECT * FROM category WHERE code LIKE 'A%' ORDER BY cgid ASC";
 $category_result = $mysqli->query($category_sql);
 
@@ -20,6 +21,9 @@ while ($cate_data = $category_result->fetch_object()) {
   $categories[] = $cate_data;
 }
 
+// 썸네일
+$thumbnail_path = !empty($tc->tc_thumbnail) ? $_SERVER['DOCUMENT_ROOT'] . $tc->tc_thumbnail : '';
+$image_src = (!empty($tc->tc_thumbnail) && file_exists($thumbnail_path)) ? $tc->tc_thumbnail : '/CODE_EVEN/admin/images/adminprofile.png';
 ?>
 
 <div class="container">
@@ -32,13 +36,10 @@ while ($cate_data = $category_result->fetch_object()) {
     <input type="hidden" name="tcid" value="<?= $tcid; ?>">
     <input type="hidden" name="tc_intro" id="contents" value="">
     <div class="upload mt-5 mb-3">
-      <?php
-      $thumbnail_path = !empty($data->tc_thumbnail) ? $_SERVER['DOCUMENT_ROOT'] . $data->tc_thumbnail : '';
-      $image_src = (!empty($data->tc_thumbnail) && file_exists($thumbnail_path)) ? $data->tc_thumbnail : '/CODE_EVEN/admin/images/adminprofile.png';
-      ?>
+
       <img id="thumbnail_preview" src="<?= $image_src; ?>" class="rounded_circle" width=100 height=100 alt="프로필 이미지">
       <div class="round">
-        <input type="file">
+        <input type="file" accept="image/*" name="tc_thumbnail" id="tc_thumbnail">
         <i class="bi bi-camera-fill"></i>
       </div>
     </div>
@@ -55,33 +56,33 @@ while ($cate_data = $category_result->fetch_object()) {
 
         <tr>
           <th scope="row">
+            <label for="tc_userid">아이디</label>
+          </th>
+          <td>
+            <input type="text" id="tc_userid" name="tc_userid" class="form-control" placeholder="입력 필수 값 입니다."
+              value="<?= $tc->tc_userid ?>" disabled>
+          </td>
+          <th>
+            <label for="tc_url">링크 <b>*</b></label>
+          </th>
+          <td>
+            <input type="text" id="tc_url" name="tc_url" class="form-control"
+              placeholder="https:// 활동블로그 혹은 유튜브 주소" value="<?= $tc->tc_url ?>">
+          </td>
+        </tr>
+        <tr>
+          <th scope="row">
             <label for="tc_name">이름 <b>*</b></label>
           </th>
           <td>
             <input type="text" id="tc_name" name="tc_name" class="form-control" placeholder="입력 필수 값 입니다."
               value="<?= $tc->tc_name ?>" required>
           </td>
-          <th>
-            <label for="link">링크 <b>*</b></label>
-          </th>
-          <td>
-            <input type="text" id="link" name="link" class="form-control" id="exampleFormControlInput1"
-              placeholder="입력 필수 값 입니다." required>
-          </td>
-        </tr>
-        <tr>
-          <th scope="row">
-            <label for="tc_userid">아이디 <b>*</b></label>
-          </th>
-          <td>
-            <input type="text" id="tc_userid" name="tc_userid" class="form-control" placeholder="입력 필수 값 입니다."
-              value="<?= $tc->tc_userid ?>" required>
-          </td>
           <th scope="row">
             <label for="tc_bank">은행명 <b>*</b></label>
           </th>
           <td>
-            <input type="text" id="tc_bank" name="tc_bank" class="form-control" placeholder="입력 필수 값 입니다."
+            <input type="text" id="tc_bank" name="tc_bank" class="form-control" placeholder="'이븐은행' 의 형식으로 입력해주세요"
               value="<?= $tc->tc_bank ?>" required>
           </td>
 
@@ -92,14 +93,14 @@ while ($cate_data = $category_result->fetch_object()) {
           </th>
           <td>
             <input type="text" id="tc_userphone" name="tc_userphone" class="form-control" placeholder="입력 필수 값 입니다."
-              value="<?= $tc->tc_userphone ?>">
+              value="<?= $tc->tc_userphone ?>" required>
 
           <th scope="row">
             <label for="tc_account">계좌번호 <b>*</b></label>
           </th>
           <td>
             <input type="text" id="tc_account" name="tc_account" class="form-control" placeholder="입력 필수 값 입니다."
-              value="<?= $tc->tc_account ?>">
+              value="<?= $tc->tc_account ?>" required>
           </td>
         </tr>
         <tr>
@@ -108,7 +109,7 @@ while ($cate_data = $category_result->fetch_object()) {
           </th>
           <td colspan="3">
             <input type="text" id="tc_email" name="tc_email" class="form-control" placeholder="입력 필수 값 입니다."
-              value="<?= $tc->tc_account ?>">
+              value="<?= $tc->tc_email ?>" required>
           </td>
         </tr>
         <tr>
@@ -141,14 +142,28 @@ while ($cate_data = $category_result->fetch_object()) {
     </table>
     <div class="d-flex justify-content-end gap-2">
       <a href="javascript:history.back();" type="button" class="btn btn-outline-danger">취소</a>
-      <a class="btn btn-outline-secondary">수정</a>
+      <button class="btn btn-outline-secondary">수정</button>
     </div>
   </form>
-
 </div>
 
 
+<script>
+  let tc_thumbnail = $('#tc_thumbnail');
+  tc_thumbnail.on('change', (e) => {
+    let file = e.target.files[0];
 
+    const reader = new FileReader();
+    reader.onloadend = (e) => {
+      let attachment = e.target.result;
+      if (attachment) {
+        let target = $('#thumbnail_preview');
+        target.attr('src', attachment)
+      }
+    }
+    reader.readAsDataURL(file);
+  });
+</script>
 <?php
 include_once($_SERVER['DOCUMENT_ROOT'] . '/code_even/admin/inc/footer.php');
 

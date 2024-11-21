@@ -2,6 +2,7 @@
 $title = "블로그 글쓰기";
 include_once($_SERVER['DOCUMENT_ROOT'] . '/code_even/admin/inc/header.php');
 
+$uid = $_SESSION['UID'];
 $sql = "SELECT userid FROM user";
 $result = $mysqli->query($sql);
 $data = $result->fetch_object();
@@ -15,7 +16,7 @@ $data = $result->fetch_object();
   </div>
 
   <form action="blog_write_ok.php" id="blog_save" method="POST" enctype="multipart/form-data">
-    <input type="hidden" name="userid" value=" <?= $data->userid; ?>">
+    <input type="hidden" name="uid" value=" <?= $uid; ?>">
     <input type="hidden" name="contents" id="contents" value="">
     <table class="table info_table">
       <tbody>
@@ -74,7 +75,7 @@ $data = $result->fetch_object();
   });
 
 //에디터
-$('#teacher_save').submit(function(e){
+$('#blog_save').submit(function(e){
     //e.preventDefault();
     var markup = target.summernote('code');
     let content = encodeURIComponent(markup);

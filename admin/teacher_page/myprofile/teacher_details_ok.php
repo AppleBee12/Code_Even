@@ -4,7 +4,6 @@ include_once($_SERVER['DOCUMENT_ROOT'].'/code_even/admin/inc/img_upload_func.php
 
 $tcid = $_POST['tcid'];
 
-/* ---------------- 이미지 업로드 변수 정의 --------------------- */
 $thumbnail = $_FILES['tc_thumbnail'] ?? '';
 $tc_name = $_POST['tc_name'];
 $tc_url = $_POST['tc_url'] ?? '';
@@ -14,9 +13,6 @@ $tc_userphone = $_POST['tc_userphone'];
 $tc_account = $_POST['tc_account'] ?? '';
 $tc_email = $_POST['tc_email'];
 $tc_cate = $_POST['tc_cate'];
-$tc_ok = $_POST['tc_ok'];
-$isnew = $_POST['isnew'] ?? 0;
-$isrecom = $_POST['isrecom'] ?? 0;
 $tc_intro = rawurldecode($_POST['tc_intro']);
 
 /* ---------------- 이미지 업로드 함수 호출 로직 시작 --------------------- */
@@ -58,15 +54,11 @@ if (isset($_FILES['tc_thumbnail']) && $_FILES['tc_thumbnail']['error'] == UPLOAD
 $sql = "UPDATE teachers SET 
     tc_name = '$tc_name',
     tc_url = '$tc_url',
-    tc_userid = '$tc_userid',
     tc_bank = '$tc_bank',
     tc_userphone = '$tc_userphone',
     tc_account = '$tc_account',
     tc_email = '$tc_email',
     tc_cate = '$tc_cate',
-    tc_ok = $tc_ok,
-    isnew = $isnew,
-    isrecom = $isrecom,
     tc_intro = '$tc_intro'";
 
 /* ---------------- 이미지 업로드 업데이트 sql --------------------- */
@@ -89,7 +81,7 @@ if ($result) {
     
     echo "
         <script>
-            alert('강사정보 수정 완료');
+            alert('프로필 수정 완료');
             location.href = 'teacher_index.php';
         </script>
     ";
