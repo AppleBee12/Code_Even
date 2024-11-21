@@ -91,36 +91,16 @@ while ($cates = $result_cate->fetch_object()) {
         <tr>
           <th scope="row">교재명 <b>*</b></th>
           <td colspan="6">
-            <!-- 기본 교재명 -->
-            <input 
-              name="book_name" 
-              type="text" 
-              class="form-control" 
-              id="selected_book_name" 
-              value="<?php echo htmlspecialchars($defaultBook['title']); ?>" 
-              readonly 
-            />
-            <!-- 선택 가능한 교재 리스트 -->
-            <select 
-              name="book_select" 
-              id="book_select" 
-              class="form-control mt-2" 
-              onchange="updateSelectedBook()">
-              <option value="">-- 교재를 선택하세요 --</option>
-              <?php foreach ($relatedBooks as $book): ?>
-                <option value="<?php echo $book['boid']; ?>">
-                  <?php echo htmlspecialchars($book['title']) . ' - ' . number_format($book['price']) . '원'; ?>
-                </option>
-              <?php endforeach; ?>
-            </select>
+            <input name="book" type="text" class="form-control" placeholder="기초부터 확실하게! (페이지의 내용 전달을 위한 HTML, 스타일 설정을 위한 CSS 기초 학습)">
           </td>
         </tr>
+        <tr>
           <th scope="row">출판사 <b>*</b></th>
           <td colspan="2">
             <input name="company" type="text" class="form-control" placeholder="길동사">
           </td>
           <td class="box_container" colspan="4" rowspan="4">
-            <div class="box">
+            <div class="bookBox">
               <span>강좌 썸네일 이미지를 선택해주세요.</span>
               <div class="image"><img src="" alt=""></div>
             </div>
@@ -215,22 +195,6 @@ while ($cates = $result_cate->fetch_object()) {
       }
     });
 
-     // 썸네일 첨부하면 class image에 출력
-    $('#image').on('change', function (event) {
-    const file = event.target.files[0];
-    if (file) {
-      const reader = new FileReader();
-
-      reader.onload = function (e) {
-        $('.image img').attr('src', e.target.result);
-        $('.image img').attr('alt', file.name);
-        $('.box span').css('display', 'none'); // 텍스트 숨기기
-      };
-
-      reader.readAsDataURL(file);
-    }
-    });
-
     $(document).ready(function () {
       const dateInput = $("#datepicker");
       const calendarIconWrapper = $("#calendar-icon-wrapper");
@@ -267,6 +231,7 @@ while ($cates = $result_cate->fetch_object()) {
           }
       });
     });
+
 
 
 
