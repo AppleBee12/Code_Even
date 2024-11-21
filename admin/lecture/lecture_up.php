@@ -69,20 +69,28 @@ if (isset($_POST['draft_save']) && $_POST['draft_save'] == '1') {
     echo "<script>alert('분류와 강좌명은 필수 입력 항목입니다.');</script>";
     exit;
   }
+  /*
+  기초부터 확실하게! (페이지의 내용 전달을 위한 HTML, 스타일 설정을 위한 CSS 기초 학습)
+  html이 뭔가요?
+  html을 처음 겪는 사람이라면 필수 시청해야 할 영상!
+  https://youtu.be/oHTr2fEkmGA?si=fNAGT0cPExpzwXDM
+  */
 
   $sql_lecture = "
     INSERT INTO lecture 
-    (lecid, cate1, cate2, cate3, title, name, price, period, isrecipe, isgeneral, image, date, state, approval) 
+    (cgid, boid, lecid, cate1, cate2, cate3, image, title, des, name, video_url, file, period, isrecipe, isgeneral, isbest, isrecom, state, approval, price, level, date) 
     VALUES 
-    ('$uid', '$cate1', '$cate2', '$cate3', '$title', '$username', '$price', '$period', '$isrecipe', '$isgeneral', '$imagePath', NOW(), 0, '대기')
-  ";
+    ( NULL, NULL, '$uid' '$cate1', $cate2' '$cate3', '$imagePath', -- image: 이미지 경로 '$title', '$description', '$username', '$videoUrl', NULL, $period, " . ($isrecipe === 'on' ? 1 : 0) . ", " . ($isgeneral === 'on' ? 1 : 0) . ", 0,  NULL, 추천 1, 0, $price, NULL, NOW()
+    )
+";
 
-  if ($mysqli->query($sql_lecture)) {
+if ($mysqli->query($sql_lecture)) {
     echo "<script>alert('강좌가 임시 저장되었습니다.');</script>";
     echo "<script>location.href='lecture_list.php';</script>";
-  } else {
+} else {
     echo "<script>alert('임시 저장에 실패했습니다: " . $mysqli->error . "');</script>";
-  }
+}
+
 }
 
 // 실습 파일 엽로드
@@ -180,6 +188,7 @@ if (isset($_POST['draft_save']) && $_POST['draft_save'] == '1') {
   </div>
   <form method="POST" action="lecture_up_ok.php" enctype="multipart/form-data" id="lecture_save">
   <input type="hidden" name="leid" value="<?= $leid; ?>">
+  <input type="hidden" name="action" value="final_save">
     <table class="table">
       <tbody>
         <tr>
@@ -305,13 +314,13 @@ if (isset($_POST['draft_save']) && $_POST['draft_save'] == '1') {
           <tr>
             <th scope="row">강의명 <b>*</b></th>
             <td colspan="3">
-              <input type="text" class="form-control" placeholder="강의명을 입력해 주세요.">
+              <input name="title" type="text" class="form-control" placeholder="강의명을 입력해 주세요.">
             </td>
           </tr>
           <tr>
             <th scope="row">강의 설명</th>
             <td colspan="3">
-              <textarea class="form-control" rows="3" placeholder="강의 설명을 입력해 주세요."></textarea>
+              <textarea name="description" class="form-control" rows="3" placeholder="강의 설명을 입력해 주세요."></textarea>
             </td>
           </tr>
           <tr>
@@ -331,7 +340,7 @@ if (isset($_POST['draft_save']) && $_POST['draft_save'] == '1') {
           <tr>
             <th scope="row">실습 파일 등록</th>
             <td>
-              <input name="practice_file" class="form-control" type="file">
+              <input name="file_id" class="form-control" type="file">
             </td>
             <th scope="row">동영상 주소 <b>*</b></th>
             <td>
@@ -613,6 +622,37 @@ $('#cate1, #cate2, #cate3').on('change', updateBooks);
           $(this).find('h5').text(`${index + 1}강`);
       });
   }
+
+  $('#lecture_save').on('submit', function (e) {
+    e.preventDefault(); // 기본 폼 제출 동작 방지
+
+    const lectureDetails = [];
+    $('.lecture-section').each(function () {
+        const title = $(this).find('input[name="lecture_name[]"]').val();
+        const description = $(this).find('textarea[name="lecture_description[]"]').val();
+        const quizId = $(this).find('select[name="quiz_id[]"]').val();
+        const testId = $(this).find('select[name="test_id[]"]').val();
+        const videoUrl = $(this).find('input[name="video_url[]"]').val();
+
+        lectureDetails.push({
+            title: title,
+            description: description,
+            quiz_id: quizId,
+            test_id: testId,
+            video_url: videoUrl,
+        });
+    });
+
+    // 강의 데이터를 숨겨진 input에 추가
+    $('<input>').attr({
+        type: 'hidden',
+        name: 'lecture_detail',
+        value: JSON.stringify(lectureDetails),
+    }).appendTo('#lecture_save');
+
+    this.submit(); // 폼 제출
+});
+
 
 
 
