@@ -4,10 +4,17 @@ include_once($_SERVER['DOCUMENT_ROOT'] . '/code_even/admin/inc/header.php');
 
 // 게시글 개수 구하기
 $keywords = isset($_GET['keywords']) ? $mysqli->real_escape_string($_GET['keywords']) : '';
-$where_clause = '';
+$where_clause = "";
+
+if ($level == 100) {
+  $where_clause .= " ";
+}
+if ($level == 10) {
+  $where_clause .= " WHERE notice.status = 'on'";
+}
 
 if ($keywords) {
-  $where_clause = "WHERE notice.title LIKE '%$keywords%' OR user.username LIKE '%$keywords%' OR user.userid LIKE '%$keywords%'";
+  $where_clause .= " AND (notice.title LIKE '%$keywords%' OR user.username LIKE '%$keywords%' OR user.userid LIKE '%$keywords%')";
 }
 
 $page_sql = "SELECT COUNT(*) AS cnt FROM notice JOIN user ON notice.uid = user.uid $where_clause";
@@ -69,8 +76,8 @@ while ($data = $result->fetch_object()) {
           <th scope="col">제목</th>
           <th scope="col">조회수</th>
           <th scope="col">등록일</th>
+          <?php if ($level == 100): ?>
           <th scope="col">상태</th>
-        <?php if ($level == 100): ?>
           <th scope="col">관리</th>
         <?php endif; ?>
         </tr>
@@ -100,6 +107,7 @@ while ($data = $result->fetch_object()) {
               </td>
               <td><?= $no->view; ?></td>
               <td><?= $no->regdate; ?></td>
+              <?php if ($level == 100): ?>
               <td>
                 <?php
                 $class = $no->status == 'on' ? 'text-bg-success' : 'text-bg-light';
@@ -107,7 +115,6 @@ while ($data = $result->fetch_object()) {
                 echo "<span class='badge $class'>$text</span>";
                 ?>
               </td>
-              <?php if ($level == 100): ?>
               <td class="edit_col">
                 <a
                   href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/inquiry/notice_modify.php?ntid=<?= $no->ntid; ?>">
