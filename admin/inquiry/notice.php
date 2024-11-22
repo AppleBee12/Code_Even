@@ -147,7 +147,7 @@ while ($data = $result->fetch_object()) {
     </table>
 <?php if ($level == 100): ?>
   <div class="d-flex justify-content-end gap-2">
-    <button type="button" id="statusBtn" data-bs-toggle="modal" data-bs-target="#send_email" class="btn btn-outline-secondary">상태 변경</button>
+    <button type="button" id="statusBtn" data-bs-toggle="modal" class="btn btn-outline-secondary">상태 변경</button>
     <button type="submit" class="btn btn-secondary">등록</button>
   </div>
 <?php endif; ?>
@@ -334,5 +334,4 @@ statusBtn.addEventListener('click', function () {
 
 <?php
 include_once($_SERVER['DOCUMENT_ROOT'] . '/code_even/admin/inc/footer.php');
-
 ?>
