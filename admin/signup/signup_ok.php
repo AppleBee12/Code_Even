@@ -20,7 +20,7 @@ if($result){
 
   $uc_sql  = "INSERT INTO user_coupons
   (ucid, userid, status, use_max_date, reason) VALUES 
-  ($coupon_data->cpid, '$userid', 1, '$$due_date', '회원가입')";
+  ($coupon_data->cpid, '$userid', 1, '$due_date', '회원가입')";
 
   $uc_result = $mysqli->query($uc_sql);
 
