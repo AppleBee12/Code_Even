@@ -3,13 +3,26 @@ $title = "전체회원목록";
 include_once($_SERVER['DOCUMENT_ROOT'] . '/CODE_EVEN/admin/inc/header.php');
 include_once($_SERVER['DOCUMENT_ROOT'].'/code_even/admin/inc/date_format_func.php');
 
-
+//상태 검색 추가
+$user_status = isset($_GET['user_status']) ? (int)$_GET['user_status'] : null;
 // 게시글 개수 구하기
 $keywords = isset($_GET['keywords']) ? $mysqli->real_escape_string($_GET['keywords']) : '';
 $where_clause = '';
+$conditions = [];
 
+// 검색어 조건
 if ($keywords) {
-  $where_clause = "WHERE user.userid LIKE '%$keywords%' OR user.username LIKE '%$keywords%' OR user.useremail LIKE '%$keywords%'";
+  $conditions[] = "(user.userid LIKE '%$keywords%' OR user.username LIKE '%$keywords%' OR user.useremail LIKE '%$keywords%')";
+}
+
+// 상태 필터 조건 (전체 상태는 조건 없음)
+if ($user_status !== null && $user_status !== '') {
+  $conditions[] = "user.user_status = $user_status";
+}
+
+// WHERE 절 생성
+if (!empty($conditions)) {
+  $where_clause = "WHERE " . implode(" AND ", $conditions);
 }
 
 $page_sql = "SELECT COUNT(*) AS cnt FROM user $where_clause";
@@ -52,25 +65,29 @@ while($data = $result->fetch_object()){
 <div class="container">
   <h2 class="page_title">전체회원목록</h2>
   <form action="" id="search_form" class="row justify-content-end">
-    <div class="col-lg-3 pt_04">
+    <div class="col-lg-3 ulist_status pt_04">
       <span class="status_tt me-4">회원상태</span>
       <div class="form-check form-check-inline">
-        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="0">
-        <label class="form-check-label" for="inlineRadio1">정상</label>
+        <input class="form-check-input" type="radio" name="user_status" id="status_all" value="" checked>
+        <label class="form-check-label" for="status_all">전체</label>
       </div>
       <div class="form-check form-check-inline">
-        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="-1" > 
-        <label class="form-check-label" for="inlineRadio2">탈퇴</label>
+        <input class="form-check-input" type="radio" name="user_status" id="status_normal" value="0">
+        <label class="form-check-label" for="status_normal">정상</label>
       </div>
       <div class="form-check form-check-inline">
-        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio3" value="1" > 
-        <label class="form-check-label" for="inlineRadio3">정지</label>
+        <input class="form-check-input" type="radio" name="user_status" id="status_withdrawn" value="-1">
+        <label class="form-check-label" for="status_withdrawn">탈퇴</label>
       </div>
-    </div>  
+      <div class="form-check form-check-inline">
+        <input class="form-check-input" type="radio" name="user_status" id="status_suspended" value="1">
+        <label class="form-check-label" for="status_suspended">정지</label>
+      </div>
+    </div>
     <div class="col-lg-3">
       <div class="input-group mb-3">
         <input type="text" class="form-control" placeholder="상태 선택 또는 검색어를 입력하세요." name="keywords" value="<?= htmlspecialchars($keywords); ?>">
-        <button type="button" class="btn btn-secondary">
+        <button class="btn btn-secondary">
           <i class="bi bi-search"></i>
         </button>
       </div>
@@ -127,15 +144,16 @@ while($data = $result->fetch_object()){
             }
           ?>
         </td>
-        <td class="edit_col">
+        <!-- <td class="edit_col"> -->
+        <td>
           <a href="user_edit.php?uid=<?= $item->uid; ?>">
             <i class="bi bi-pencil-fill"></i> 
             <span class="visually-hidden">수정</span>  
           </a>
-          <a href="user_del.php?uid=<?= $item->uid; ?>">
+          <!-- <a href="user_del.php?uid=<?= $item->uid; ?>">
             <i class="bi bi-trash-fill del_link"></i>
             <span class="visually-hidden">삭제</span>
-          </a>
+          </a> -->
         </td>
       </tr>
       <?php

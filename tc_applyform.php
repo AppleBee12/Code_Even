@@ -81,7 +81,7 @@ while($data = $category_result->fetch_object()){
       </div>
       <div class="form-check my-3">
         <input class="form-check-input" type="checkbox" value="" id="agree">
-        <label class="form-check-label" for="flexCheckDefault" checked >
+        <label class="form-check-label" for="agree">
           [필수] 개인정보 수집  및 이용에 동의합니다.
         </label>
       </div>

@@ -42,7 +42,21 @@ if (!isset($cpid)) {
       </script>";
     }
   }
-  
+  if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $use_max_date = $_POST['use_max_date'] ?? null;
+
+    // '무제한'을 선택한 경우 sale_end_date는 NULL로 처리
+    if ($use_max_date === 'unlimited') {
+        $sale_end_date = null;
+    } else {
+        $sale_end_date = $_POST['sale_end_date'] ?? null;
+    }
+
+    // DB 업데이트
+    $stmt = $pdo->prepare("UPDATE code_even SET use_max_date = ? WHERE id = ?");
+    $stmt->execute([$use_max_date, $id]);
+}
+
 
 //   $sql = "INSERT INTO coupons 
 //   (coupon_name, coupon_image, coupon_type, coupon_price, coupon_ratio, status, userid, max_value, use_min_price) 

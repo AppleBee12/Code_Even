@@ -5,7 +5,6 @@
     $uid = $_POST['uid'];
 
     $username = $_POST['username'];
-    $userid = $_POST['userid'];
     $userpw = $_POST['userpw'] ?? '';
     $user_level = $_POST['user_level'];
     $user_status = $_POST['user_status'];
@@ -22,7 +21,6 @@
 
     $sql = "UPDATE user SET 
         username = '$username',
-        userid = '$userid',
         user_level = $user_level,
         user_status = $user_status,
         usernick = '$usernick',

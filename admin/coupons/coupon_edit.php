@@ -120,7 +120,12 @@ thead,
           <th scope="row">쿠폰이미지</th>
           <td>
           <div class="box mb-3" id="addedImages">
+          <?php if(isset($_POST['coupon_image'])){
+          ?>
             <span>쿠폰 이미지를 등록해주세요.</span>
+            <?php 
+              }
+            ?>
             <div class="image">
               <img src="<?= $data->coupon_image; ?>" >
             </div>
@@ -139,21 +144,42 @@ thead,
         </tr>
         <div class="d-flex">
           <th scope="row">사용기한</th>
-            <td class="d-flex gap-5" name="use_max_date" id="use_max_date">
-              <div class="form-check"  id="ct4">
-                  <input class="form-check-input" type="radio" name="flexRadioDefault"   value="1" <?php if($data->use_max_date == 1){echo 'checked';} ?> checked>
-                <label class="form-check-label" for="flexRadioDefault2"  >
-                  무제한
-                </label>
-              </div>
-              <div class="form-check"  id="ct3">
-                <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault"  value="2" <?php if($data->use_max_date == 2){echo 'checked';} ?>>
-                <label class="form-check-label d-flex gap-3" for="flexRadioDefault" >
-                  제한
-                  <input type="date" name="sale_end_date" id="datepicker" class="form-control w-25 " value="<?= $data->use_max_date; ?>">
-                </label>
-              </div>
-            </td>
+          <td class="d-flex gap-5">
+            <div class="form-check"  id="ct4">
+              <input 
+                class="form-check-input" 
+                type="radio" 
+                name="use_max_date" 
+                id="use_max_date1"
+                value="unlimited"
+                <?= ($data->use_max_date === 'unlimited') ? 'checked' : ''; ?>
+                >
+              <label class="form-check-label" for="use_max_date1"  >
+                무제한
+              </label>
+            </div>
+            <div class="form-check"  id="ct3">
+              <input class="form-check-input" 
+                type="radio" 
+                name="use_max_date" 
+                id="use_max_date2"
+                value="limited"
+                <?= ($data->use_max_date === 'limited') ? 'checked' : ''; ?>
+                >
+              <label class="form-check-label d-flex gap-3" for="use_max_date2" >
+                제한
+                <input 
+                  type="date" 
+                  name="sale_end_date" 
+                  id="datepicker" 
+                  class="form-control w-25" 
+                  value="<?= htmlspecialchars($data->sale_end_date ?? ''); ?>" 
+                  <?= ($data->use_max_date === 'limited') ? '' : 'disabled'; ?>
+                  >
+              </label>
+            </div>
+          </td>
+        </div>
                 
         </tr> 
             </td>
@@ -175,7 +201,6 @@ thead,
             <select class="form-select w-25" name="coupon_type" id="coupon_type" aria-label="쿠폰타입">                            
               <option value="1"  <?php if($data->coupon_type == 1){echo 'selected';} ?>>정액</option>
               <option value="2" <?php if($data->coupon_type == 2){echo 'selected';} ?>>정률</option>
-              <div class="input-group mb-3">
             </select>
           </td>
         </tr>
@@ -225,6 +250,27 @@ thead,
 </div>
 
 <script>
+   document.addEventListener('DOMContentLoaded', () => {
+  const unlimitedRadio = document.getElementById('use_max_date1');
+  const limitedRadio = document.getElementById('use_max_date2');
+  const dateInput = document.getElementById('datepicker');
+
+  // 라디오 버튼 클릭 시 활성화/비활성화 처리
+  const toggleDateInput = () => {
+    if (limitedRadio.checked) {
+      dateInput.disabled = false;
+    } else {
+      dateInput.disabled = true;
+      dateInput.value = ''; // 비활성화 시 날짜 초기화
+    }
+  };
+
+  // 초기화 및 이벤트 리스너 등록
+  toggleDateInput();
+    unlimitedRadio.addEventListener('change', toggleDateInput);
+    limitedRadio.addEventListener('change', toggleDateInput);
+  });
+
   $('.cancle').click(function(){
     location.href='coupons.php';
   });
@@ -240,18 +286,6 @@ thead,
       $('#ct2 input').prop('disabled', false);
     }
   });
-
-  // $('#ct3 input').prop('disabled', true);
-
-  // $('#use_max_date').change(function(){
-  //   let value = $(this).val();
-  //   $('#ct3 input, #ct4 input').prop('disabled', true);
-  //   if(value == 1){
-  //     $('#ct4 input').prop('disabled', false);
-  //   } else{
-  //     $('#ct3 input').prop('disabled', false);
-  //   }
-  // });
 </script>
 
 

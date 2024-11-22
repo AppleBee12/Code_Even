@@ -184,38 +184,48 @@ thead,
           <td><input type="text" class="form-control w-25" name="cp_desc" placeholder="쿠폰내용을 입력하세요" required></td>
         </tr>
         <div class="d-flex">
+          <tr>
           <th scope="row">사용기한</th>
-            <td class="d-flex gap-5" name="use_max_date" id="use_max_date">
+            <td class="d-flex gap-5">
               <div class="form-check"  id="ct4" >
-                  <input class="form-check-input" type="radio" name="flexRadioDefault" >
-                <label class="form-check-label" for="flexRadioDefault2" >
+                <input class="form-check-input" 
+                type="radio" 
+                name="use_max_date" 
+                id="use_max_date_unlimited" 
+                value="unlimited">
+                <label class="form-check-label" for="use_max_date_unlimited" >
                   무제한
                 </label>
               </div>
               <div class="form-check" id="ct3">
-                <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault" value="0" >
-                <label class="form-check-label d-flex gap-3" for="flexRadioDefault" >
+                <input class="form-check-input" 
+                type="radio" 
+                name="use_max_date" 
+                id="use_max_date_limited" 
+                value="limited">
+                <label class="form-check-label d-flex gap-3" for="use_max_date_limited" >
                   제한
-                  <input type="date" name="use_max_date" id="datepicker" class="form-control w-25 " >
+                  <input type="date" 
+                  name="sale_end_date" 
+                  id="datepicker" 
+                  class="form-control w-25" 
+                  disabled>
                 </label>
               </div>
             </td>
-                
-        </tr> 
-            </td>
-          </th>
-          <tr>
-            <th scope="row">상태</th>
-            <td>
-              <select class="form-select w-25" name="status" aria-label="상태">                            
-                <option value="1">활성화</option>
-                <option value="2">비활성화</option>
-              </select>
-            </td>
-          </tr>    
+          </tr>
         </div>
+        <tr>
+          <th scope="row">상태</th>
+          <td>
+            <select class="form-select w-25" name="status" aria-label="상태">                            
+              <option value="1">활성화</option>
+              <option value="2">비활성화</option>
+            </select>
+          </td>
+        </tr>    
 
-
+        <tr>
           <th scope="row">쿠폰타입</th>
           <td>
             <select class="form-select w-25" name="coupon_type" id="coupon_type" aria-label="쿠폰타입">                            
@@ -271,6 +281,32 @@ thead,
 </div>
 
 <script>
+  document.addEventListener('DOMContentLoaded', () => {
+  const unlimitedRadio = document.getElementById('use_max_date_unlimited');
+  const limitedRadio = document.getElementById('use_max_date_limited');
+  const dateInput = document.getElementById('datepicker');
+
+  // 라디오 버튼 상태에 따라 날짜 입력 필드 활성화/비활성화
+  const toggleDateInput = () => {
+    if (unlimitedRadio.checked) {
+      dateInput.disabled = true;
+      dateInput.value = ''; // 무제한 선택 시 날짜 초기화
+    } else if (limitedRadio.checked) {
+      dateInput.disabled = false;
+    }
+  };
+
+  // 초기 상태 설정
+  toggleDateInput();
+
+  // 이벤트 리스너 등록
+  unlimitedRadio.addEventListener('change', toggleDateInput);
+  limitedRadio.addEventListener('change', toggleDateInput);
+});
+
+
+
+
   $('.cancle').click(function(){
     location.href='coupons.php';
   });

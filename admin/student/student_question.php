@@ -91,31 +91,36 @@ while ($data = $result->fetch_object()) {
       </thead>
       <tbody>
         <?php
-        if ($dataArr) {
-          foreach ($dataArr as $no) {
-            ?>
+        if (count($dataArr) > 0) {
+          $sequence_number = $row_num - $start_num;  // 순번 계산 시작
+          foreach ($dataArr as $qna) {
+          ?>
             <tr>
-              <td><?= $no->sqid; ?></td>
-              <td><?= $no->userid; ?></td>
-              <td><?= $no->username; ?></td>
-              <td><a href="student_question_details.php?sqid=<?= $no->sqid; ?>" class="underline"><?= $no->qtitle; ?></a>
+          <?php if ($level == 10): ?>
+            <td><?= $sequence_number--; ?></td> <!-- level이 10일 때만 순번 출력 -->
+          <?php else: ?>
+            <td><?= $qna->sqid; ?></td>
+          <?php endif; ?>
+              <td><?= $qna->userid; ?></td>
+              <td><?= $qna->username; ?></td>
+              <td><a href="student_question_details.php?sqid=<?= $qna->sqid; ?>" class="underline"><?= $qna->qtitle; ?></a>
               </td>
-              <td><?= $no->name; ?></td>
-              <td><?= mb_strlen($no->title) > 15 ? mb_substr($no->title, 0, 15) . '...' : $no->title; ?></td>
-              <td><?= $no->regdate; ?></td>
+              <td><?= $qna->name; ?></td>
+              <td><?= mb_strlen($qna->title) > 15 ? mb_substr($qna->title, 0, 15) . '...' : $qna->title; ?></td>
+              <td><?= $qna->regdate; ?></td>
               <td>
                 <?php
-                $class = !empty($no->asid) ? 'text-bg-success' : 'text-bg-light';
-                $text = !empty($no->asid) ? '답변완료' : '답변대기';
+                $class = !empty($qna->asid) ? 'text-bg-success' : 'text-bg-light';
+                $text = !empty($qna->asid) ? '답변완료' : '답변대기';
                 echo "<span class='badge $class'>$text</span>";
                 ?>
               </td>
             </tr>
             <?php
+            }
+          } else {
+            echo "<tr><td colspan='10'>검색 결과가 없습니다.</td></tr>";
           }
-        } else {
-          echo "<tr><td colspan='10'>검색 결과가 없습니다.</td></tr>";
-        }
         ?>
       </tbody>
     </table>
