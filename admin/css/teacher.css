@@ -123,12 +123,12 @@ input[type=file]::-webkit-file-upload-button{
 }
 /* 주문금액-건수 그룹화 */
 .group_rightline {
-  border-right: 2px solid #dee2e6;
+  border-right: 1px solid #dee2e6;
 }
 
 /* 환불금액-건수 그룹화 */
 .group_lefttline {
-  border-left: 2px solid #dee2e6; 
+  border-left: 1px solid #dee2e6; 
 }
 
 .sort-icon {
