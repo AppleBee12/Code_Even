@@ -67,7 +67,8 @@ include_once($_SERVER['DOCUMENT_ROOT'] . '/code_even/inc/check_cookie.php');
   <div class="mx-auto pt-5" style="width: 320px;">
     <img src="admin/images/sb_logo.png" width="300" height="200" alt="코드이븐로고">
     <div>To be continue...</div>
-    <p>코드이븐 프론트 페이지는 제작예정입니다</p>
+    <p>코드이븐 클라이언트 페이지는 제작예정입니다</p>
+    <p><a href="http://localhost/code_even/admin/login/login.php">어드민(관리자&강사)페이지 바로가기</a></p>
     <ul class="list-group pt-3">
       <li class="list-group-item"><a href="tc_applyform.php" class="link-underline-danger link-offset-2 link-body-emphasis a_underline">강의자신청(임시)</a></li>
       <!-- <li class="list-group-item"><a href="" class="link-underline-danger link-offset-2 link-body-emphasis a_underline">결제페이지(임시)</a></li> -->
