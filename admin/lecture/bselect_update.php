@@ -7,16 +7,16 @@ header('Content-Type: application/json'); // JSON 응답 헤더 설정
 $cate1 = isset($_POST['cate1']) ? $_POST['cate1'] : '';
 $cate2 = isset($_POST['cate2']) ? $_POST['cate2'] : '';
 $cate3 = isset($_POST['cate3']) ? $_POST['cate3'] : '';
+$title = $_POST['title'] ?? '';
+
+// 요청 값 확인
+if (empty($cate1) || empty($cate2) || empty($cate3) || empty($title)) {
+    echo json_encode([]); // 빈 결과 반환
+    exit;
+}
 
 $books = [];
-
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-  $cate1 = $_POST['cate1'];
-  $cate2 = $_POST['cate2'];
-  $cate3 = $_POST['cate3'];
-  $title = $_POST['title'];
-
-  $sql = "SELECT * FROM book WHERE cate1 = '$cate1' AND cate2 = '$cate2' AND cate3 = '$cate3' AND title = '$title'";
+  $sql = "SELECT * FROM book WHERE cate1 = '$cate1' AND cate2 = '$cate2' AND cate3 = '$cate3' AND title LIKE '%$title%'";
   $result = $mysqli->query($sql);
 
   // 디버깅 로그 추가
@@ -34,7 +34,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
   echo json_encode($books);
   exit;
-}
 
 
 
