@@ -108,6 +108,12 @@ while ($row = $result->fetch_object()) {
     <h3>수강 정보</h3>
   </div>
 
+      <?php
+        $groupedData = [];
+        foreach ($data as $row) {
+            $groupedData[$row->uid][] = $row;
+        }
+      ?>
   <table class="table list_table">
     <thead>
       <tr>
@@ -123,11 +129,14 @@ while ($row = $result->fetch_object()) {
       </tr>
     </thead>
     <tbody>
-      <?php
-        foreach ($data as $row) {
-      ?>
+        <?php
+        foreach ($groupedData as $uid => $group) { 
+            $group = array_reverse($group);
+            $seq = count($group);
+            foreach ($group as $row) {
+        ?>
       <tr>
-        <th scope="row"><?= $row->cdid; ?></th>
+        <th scope="row"><?= $seq--; ?></th>
         <td><?= $row->name; ?></td>
         <td><?= $row->title; ?></td>
         <td>
@@ -152,8 +161,9 @@ while ($row = $result->fetch_object()) {
         </td>
       </tr>
       <?php
-        }
-      ?>
+        } // 그룹 내 데이터 반복 종료
+    } // 그룹 반복 종료
+    ?>
     </tbody>
   </table>
   <div class="d-flex justify-content-end">
