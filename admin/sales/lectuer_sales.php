@@ -1,10 +1,10 @@
 <?php
-$title = "강좌매출통계";
-include_once($_SERVER['DOCUMENT_ROOT'] . '/CODE_EVEN/admin/inc/header.php');
+  $title = "강좌매출통계";
+  include_once($_SERVER['DOCUMENT_ROOT'] . '/CODE_EVEN/admin/inc/header.php');
 
- // 'code'가 'A'로 시작하는 category 데이터를 가져오기
- $category_sql = "SELECT * FROM category WHERE code LIKE 'A%' ORDER BY cgid ASC";
- $category_result = $mysqli->query($category_sql);
+  //대분류 가져오기
+  $category_sql = "SELECT * FROM category WHERE code LIKE 'A%' ORDER BY cgid ASC";
+  $category_result = $mysqli->query($category_sql);
 
  while($cate_data = $category_result->fetch_object()){
      $categories[] = $cate_data;
@@ -34,8 +34,6 @@ include_once($_SERVER['DOCUMENT_ROOT'] . '/CODE_EVEN/admin/inc/header.php');
   // 현재 GET 파라미터에서 불필요한 파라미터 제거
   $query_params = $_GET;
   unset($query_params['order_by'], $query_params['order']); // 정렬 관련 파라미터 제거
-
-
 
 
  if ($keywords) {
@@ -173,46 +171,21 @@ include_once($_SERVER['DOCUMENT_ROOT'] . '/CODE_EVEN/admin/inc/header.php');
       </tr>
     </thead>
     <tbody>
-    <!-- 
-      <tr>
-        <th scope="row">1</th>
-        <td>웹개발</td>
-        <td>김동주</td>
-        <td>html, css 쉽게배우자</td>
-        <td><span class="badge text-bg-secondary">일반</span></td>
-        <td>129,000원</td>
-        <td>9,999원 / 10건</td>
-        <td>9,999원 / 10건</td>
-        <td>119,999원</td>
-      </tr>  
-      <tr>
-        <th scope="row">1</th>
-        <td>웹개발</td>
-        <td>김동주</td>
-        <td>Flex box 파헤치기!</td>
-        <td><span class="badge text-bg-red">레시피</span></td>
-        <td>129,000원</td>
-        <td>9,999원 / 10건</td>
-        <td>9,999원 / 10건</td>
-        <td>119,999원</td>
-      </tr>  
-    -->
-
     <?php
-  if (isset($dataArr) && count($dataArr) > 0) {
-      foreach ($dataArr as $index => $data) {
+      if (isset($dataArr) && count($dataArr) > 0) {
+          foreach ($dataArr as $index => $data) {
 
-  ?>
-      <tr>
-          <th scope="row"><?= $start_num + $index + 1; ?></th>
-          <td>
-    <?= $data->lec_cate == 1 ? '웹개발' : ($data->lec_cate == 2 ? '클라우드·DB' : ($data->lec_cate == 3 ? '보안·네트워크' : '기타')); ?>
-</td>
+      ?>
+          <tr>
+              <th scope="row"><?= $start_num + $index + 1; ?></th>
+              <td>
+        <?= $data->lec_cate == 1 ? '웹개발' : ($data->lec_cate == 2 ? '클라우드·DB' : ($data->lec_cate == 3 ? '보안·네트워크' : '기타')); ?>
+    </td>
 
-          <td><?= htmlspecialchars($data->th_name); ?></td>
-          <td>
-    <?= htmlspecialchars(mb_strlen($data->lec_title) > 32 ? mb_substr($data->lec_title, 0, 32) . '...' : $data->lec_title); ?>
-</td>
+              <td><?= htmlspecialchars($data->th_name); ?></td>
+              <td>
+        <?= htmlspecialchars(mb_strlen($data->lec_title) > 32 ? mb_substr($data->lec_title, 0, 32) . '...' : $data->lec_title); ?>
+    </td>
 
           <td>
               <span class="badge <?= $data->lec_type == 1 ? 'text-bg-secondary' : 'text-bg-danger'; ?>">
@@ -242,7 +215,7 @@ include_once($_SERVER['DOCUMENT_ROOT'] . '/CODE_EVEN/admin/inc/header.php');
         if ($block_num > 1) { 
       ?>
       <li class="page-item">
-        <a class="page-link" href="user_list.php?page=<?= $previous; ?>" aria-label="Previous">
+        <a class="page-link" href="lectuer_sales.php?page=<?= $previous; ?>" aria-label="Previous">
           <i class="bi bi-chevron-left"></i>
         </a>
       </li>
@@ -253,14 +226,14 @@ include_once($_SERVER['DOCUMENT_ROOT'] . '/CODE_EVEN/admin/inc/header.php');
         for ($i = $block_start; $i <= $block_end; $i++) {
           $active = ($page == $i) ? 'active' : '';
       ?>
-      <li class="page-item <?= $active; ?>"><a class="page-link" href="user_list.php?page=<?= $i; ?>"><?= $i; ?></a></li>
+      <li class="page-item <?= $active; ?>"><a class="page-link" href="lectuer_sales.php?page=<?= $i; ?>"><?= $i; ?></a></li>
       <?php
         }
         $next = $block_end + 1;
         if($total_block > $block_num){
       ?>
       <li class="page-item">
-        <a class="page-link" href="user_list.php?page=<?= $next; ?>" aria-label="Next">
+        <a class="page-link" href="lectuer_sales.php?page=<?= $next; ?>" aria-label="Next">
           <i class="bi bi-chevron-right"></i>
         </a>
       </li>
