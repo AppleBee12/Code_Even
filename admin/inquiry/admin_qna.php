@@ -8,7 +8,7 @@ $auid = $_SESSION['AUID'];
 $keywords = isset($_GET['keywords']) ? $mysqli->real_escape_string($_GET['keywords']) : '';
 
 if($level == 100){
-  $where_clause = '';
+  $where_clause = "";
 }
 if($level == 10){
   $where_clause = "WHERE user.userid = '$auid'";
