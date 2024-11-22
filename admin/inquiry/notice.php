@@ -70,9 +70,11 @@ while ($data = $result->fetch_object()) {
     <table class="table list_table">
       <thead>
         <tr>
+        <?php if ($level == 100): ?>
           <th scope="col">
             <input class="form-check-input" type="checkbox" id="allCheck">
           </th>
+        <?php endif; ?>
           <th scope="col">번호</th>
           <th scope="col">아이디</th>
           <th scope="col">이름</th>
@@ -92,6 +94,7 @@ while ($data = $result->fetch_object()) {
           foreach ($dataArr as $no) {
           ?>
             <tr>
+          <?php if ($level == 100): ?>
             <th scope="row">
               <input 
                 class="form-check-input itemCheckbox" type="checkbox" value="<?=$no->ntid?>"
@@ -99,6 +102,7 @@ while ($data = $result->fetch_object()) {
                 data-title="<?= htmlspecialchars($no->title); ?>" 
                 data-status="<?= $no->status; ?>">
             </th>
+          <?php endif; ?>
             <?php if ($level == 10): ?>
               <td><?= $sequence_number--; ?></td> <!-- level이 10일 때만 순번 출력 -->
             <?php else: ?>
