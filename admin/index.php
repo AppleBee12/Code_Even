@@ -8,7 +8,7 @@ include_once($_SERVER['DOCUMENT_ROOT'] . '/CODE_EVEN/admin/inc/header.php');
 
 //오늘 방문자 수와 6개월 방문자 수 계산
 
-$dataFile =  $_SERVER['DOCUMENT_ROOT'] . '/code_even/inc/visit_data.json';
+$dataFile =$_SERVER['DOCUMENT_ROOT'] . '/code_even/inc/visit_data.json';
 $data = file_exists($dataFile) ? json_decode(file_get_contents($dataFile), true) : [];
 
 $monthlyData = [];
@@ -25,12 +25,11 @@ foreach ($data as $date => $count) {
 $latestMonths = array_slice(array_keys($monthlyData), 0, -6); //최신 6개월 만 array
 $latestCounts = array_slice(array_values($monthlyData), 0, -6);//최신 방문자 수 만 array
 
-
-
 ?>
 <div class="container">
   <?php 
-  print_r($dataFile );
+  // print_r($dataFile );
+  // print_r($data);
   print_r($monthlyData);
 print_r($latestMonths);
 print_r($latestCounts); ?>

@@ -1,5 +1,5 @@
 <?php
-$dataFile = "visit_data.json";
+$dataFile = $_SERVER['DOCUMENT_ROOT'] . '/code_even/inc/visit_data.json';
 $today = date("Y-m-d");
 
 if (!isset($_COOKIE["visited"])) {
