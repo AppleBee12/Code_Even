@@ -4,12 +4,13 @@ include_once($_SERVER['DOCUMENT_ROOT'] . '/code_even/admin/inc/header.php');
 
 // 게시글 개수 구하기
 $keywords = isset($_GET['keywords']) ? $mysqli->real_escape_string($_GET['keywords']) : '';
+$where_clause = "";
 
 if($level == 100){
-  $where_clause = "WHERE faq.target = 'teacher'";
+  $where_clause .= "WHERE faq.target = 'teacher'";
 }
 if($level == 10){
-  $where_clause = "WHERE faq.target = 'teacher' AND faq.status = 'on'";
+  $where_clause .= "WHERE faq.target = 'teacher' AND faq.status = 'on'";
 }
 
 if ($keywords) {
@@ -21,7 +22,7 @@ $page_result = $mysqli->query($page_sql);
 $page_data = $page_result->fetch_assoc();
 $row_num = $page_data['cnt'];
 
-// print_r($page_data);
+// print_r($page_result);
 
 // 페이지네이션
 $page = isset($_GET['page']) ? $_GET['page'] : 1;
@@ -169,6 +170,45 @@ while ($data = $result->fetch_object()) {
     <?php endif; ?>
   </form>
 
+</div>
+
+<!-- //Pagination -->
+<div class="list_pagination" aria-label="Page navigation example">
+  <ul class="pagination d-flex justify-content-center">
+    <?php
+    $previous = $block_start - $block_ct;
+    if ($previous < 1)
+      $previous = 1;
+    if ($block_num > 1) {
+      ?>
+      <li class="page-item">
+        <a class="page-link" href="teacher_faq.php?page=<?= $previous; ?>" aria-label="Previous">
+          <i class="bi bi-chevron-left"></i>
+        </a>
+      </li>
+      <?php
+    }
+    ?>
+    <?php
+    for ($i = $block_start; $i <= $block_end; $i++) {
+      $active = ($page == $i) ? 'active' : '';
+      ?>
+      <li class="page-item <?= $active; ?>"><a class="page-link" href="teacher_faq.php?page=<?= $i; ?>"><?= $i; ?></a>
+      </li>
+      <?php
+    }
+    $next = $block_end + 1;
+    if ($total_block > $block_num) {
+      ?>
+      <li class="page-item">
+        <a class="page-link" href="teacher_faq.php?page=<?= $next; ?>" aria-label="Next">
+          <i class="bi bi-chevron-right"></i>
+        </a>
+      </li>
+      <?php
+    }
+    ?>
+  </ul>
 </div>
 
 <!-- //상태 변경 모달창 -->
