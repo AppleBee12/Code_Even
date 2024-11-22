@@ -53,6 +53,8 @@ while ($data = $result->fetch_object()) {
   $dataArr[] = $data;
 }
 
+$sequence_number = $row_num - $start_num;
+
 ?>
 
 <div class="container">
@@ -94,9 +96,13 @@ while ($data = $result->fetch_object()) {
       </thead>
       <tbody>
         <?php
-        if (isset($dataArr)) {
-          foreach ($dataArr as $faq) {
-            ?>
+          // 결과가 있을 때만 반복문을 실행
+          if (count($dataArr) > 0) {
+            // 번호 계산을 위한 시작 번호
+            $sequence_number = $row_num - $start_num; // 첫 번째 페이지에서는 $row_num이 10번부터 시작 (예시)
+            // 게시글 목록을 출력
+            foreach ($dataArr as $faq) {
+          ?>
             <tr>
               <th scope="row">
                 <input 
@@ -105,7 +111,7 @@ while ($data = $result->fetch_object()) {
                   data-title="<?= htmlspecialchars($faq->title); ?>" 
                   data-status="<?= $faq->status; ?>">
               </th>
-              <td><?= $faq->fqid; ?></td>
+              <td><?= $sequence_number--; ?></td>
             <?php if ($level == 100): ?>
               <td><?= $faq->userid; ?></td>
               <td><?= $faq->username; ?></td>
@@ -154,11 +160,11 @@ while ($data = $result->fetch_object()) {
               </td>
             <?php endif; ?>
             </tr>
-          <?php
+            <?php
+            }
+          } else {
+            echo "<tr><td colspan='10'>검색 결과가 없습니다.</td></tr>";
           }
-        } else {
-          echo "<tr><td colspan='10'>검색 결과가 없습니다.</td></tr>";
-        }
         ?>
       </tbody>
     </table>

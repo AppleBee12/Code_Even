@@ -13,18 +13,18 @@ if ($keywords) {
 $page_sql = "SELECT COUNT(*) AS cnt FROM faq JOIN user ON faq.uid = user.uid $where_clause";
 $page_result = $mysqli->query($page_sql);
 $page_data = $page_result->fetch_assoc();
-$row_num = $page_data['cnt'];
-
-// print_r($page_data);
+$row_num = $page_data['cnt']; // 게시물 총 갯수
 
 // 페이지네이션
-$page = isset($_GET['page']) ? $_GET['page'] : 1;
+$page = isset($_GET['page']) ? $_GET['page'] : 1; // $_GET['page'] 값으로 현재 페이지
 $list = 10;
 $start_num = ($page - 1) * $list;
 $block_ct = 5;
 $block_num = ceil($page / $block_ct);
 $block_start = (($block_num - 1) * $block_ct) + 1;
 $block_end = $block_start + $block_ct - 1;
+
+// print_r($start_num);
 
 $total_page = ceil($row_num / $list);
 $total_block = ceil($total_page / $block_ct);
@@ -45,6 +45,8 @@ $dataArr = [];
 while ($data = $result->fetch_object()) {
   $dataArr[] = $data;
 }
+
+$sequence_number = $row_num - $start_num;
 
 ?>
 
@@ -82,10 +84,14 @@ while ($data = $result->fetch_object()) {
         </tr>
       </thead>
       <tbody>
-        <?php
-        if (isset($dataArr)) {
+      <?php
+        // 결과가 있을 때만 반복문을 실행
+        if (count($dataArr) > 0) {
+          // 번호 계산을 위한 시작 번호
+          $sequence_number = $row_num - $start_num; // 첫 번째 페이지에서는 $row_num이 10번부터 시작 (예시)
+          // 게시글 목록을 출력
           foreach ($dataArr as $faq) {
-            ?>
+        ?>
             <tr>
               <th scope="row">
                 <input 
@@ -94,7 +100,7 @@ while ($data = $result->fetch_object()) {
                   data-title="<?= htmlspecialchars($faq->title); ?>" 
                   data-status="<?= $faq->status; ?>">
               </th>
-              <td><?= $faq->fqid; ?></td>
+              <td><?= $sequence_number--; ?></td>
               <td><?= $faq->userid; ?></td>
               <td><?= $faq->username; ?></td>
               <td>
@@ -132,10 +138,10 @@ while ($data = $result->fetch_object()) {
               </td>
             </tr>
             <?php
+            }
+          } else {
+            echo "<tr><td colspan='10'>검색 결과가 없습니다.</td></tr>";
           }
-        } else {
-          echo "<tr><td colspan='10'>검색 결과가 없습니다.</td></tr>";
-        }
         ?>
       </tbody>
     </table>
