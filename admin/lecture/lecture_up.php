@@ -40,55 +40,65 @@ while ($row = $result_cate->fetch_object()) {
 }
 
 // POST 요청 처리
-if (!empty($_POST)) {
-    // 필수 필드 처리
-    $leid = $_POST['leid'] ?? null;
-    $title = $_POST['title'] ?? null;
-    $cate1 = $_POST['cate1'] ?? null;
-    $cate2 = $_POST['cate2'] ?? null;
-    $cate3 = $_POST['cate3'] ?? null;
+  $leid = $_POST['leid'] ?? null;
+  $title = $_POST['title'] ?? null;
+  $cate1 = $_POST['cate1'] ?? null;
+  $cate2 = $_POST['cate2'] ?? null;
+  $cate3 = $_POST['cate3'] ?? null;
 
-    if (empty($title) || empty($cate1) || empty($cate2) || empty($cate3)) {
-        die("필수 항목을 입력해주세요.");
-    }
+  // if (empty($title) || empty($cate1) || empty($cate2) || empty($cate3)) {
+  //     die("필수 항목을 입력해주세요.");
+  // }
 
-    // 선택 필드 처리
-    $price = $_POST['price'] ?? 0;
-    $book_id = $_POST['book'] ?? null;
-    $period = $_POST['period'] ?? 30;
-    $is_recipe = isset($_POST['courseType']) && $_POST['courseType'] === 'isrecipe';
+  // 선택 필드 처리
+  $price = $_POST['price'] ?? 0;
+  $book_id = $_POST['book'] ?? null;
+  $period = $_POST['period'] ?? 30;
+  $is_recipe = isset($_POST['courseType']) && $_POST['courseType'] === 'isrecipe';
 
-    // 이미지 업로드 처리
-    $image_path = null;
-    if (!empty($_FILES['image']['name'])) {
-        $upload_dir = 'uploads/images/';
-        $image_name = time() . '_' . $_FILES['image']['name'];
-        $image_path = $upload_dir . $image_name;
-        move_uploaded_file($_FILES['image']['tmp_name'], $image_path);
-    }
+  // 이미지 업로드 처리
+  $image_path = null;
+  if (!empty($_FILES['image']['name'])) {
+      $upload_dir = 'uploads/images/';
+      $image_name = time() . '_' . $_FILES['image']['name'];
+      $image_path = $upload_dir . $image_name;
+      move_uploaded_file($_FILES['image']['tmp_name'], $image_path);
+  }
 
-    // book 테이블에서 boid 확인
-    $boid = null;
-    if ($book_id) {
-        $query_book = "SELECT boid FROM book WHERE boid = '$book_id'";
-        $result_book = $mysqli->query($query_book);
-        if ($result_book && $result_book->num_rows > 0) {
-            $book_data = $result_book->fetch_object();
-            $boid = $book_data->boid;
-        }
-    }
+  // book 테이블에서 boid 확인
+  $boid = null;
+  if ($book_id) {
+      $query_book = "SELECT boid FROM book WHERE boid = '$book_id'";
+      $result_book = $mysqli->query($query_book);
+      if ($result_book && $result_book->num_rows > 0) {
+          $book_data = $result_book->fetch_object();
+          $boid = $book_data->boid;
+      }
+  }
 
-    // lecture 테이블에 데이터 저장
-    $query_lecture = "
-        INSERT INTO lecture (leid, boid, lecid, cate1, cate2, cate3, image, title, price, period, name, isrecipe)
-        VALUES (NULL, '$boid', '$uid', '$cate1', '$cate2', '$cate3', '$image_path', '$title', '$price', '$period', '$username', '$is_recipe')
-    ";
-    if ($mysqli->query($query_lecture)) {
-        echo "강좌 정보가 성공적으로 저장되었습니다.";
-    } else {
-        die("강좌 정보를 저장하는 데 실패했습니다: " . $mysqli->error);
-    }
+$cate1 = $_POST['cate1'] ?? null;
+$cate2 = $_POST['cate2'] ?? null;
+$cate3 = $_POST['cate3'] ?? null;
+$title = $_POST['title'] ?? null;
+
+$sql_quiz = "SELECT exid, tt FROM quiz WHERE cate1 = '$cate1' AND cate2 = '$cate2' AND cate3 = '$cate3' AND title = '$title'";
+$result_quiz = $mysqli->query($sql_quiz);
+
+$quiz_data = [];
+while ($row = $result_quiz->fetch_object()) {
+    $quiz_data[] = $row;
 }
+
+$sql_test = "SELECT exid, tt FROM test WHERE cate1 = '$cate1' AND cate2 = '$cate2' AND cate3 = '$cate3' AND title = '$title'";
+$result_test = $mysqli->query($sql_test);
+
+$test_data = [];
+while ($row = $result_test->fetch_object()) {
+    $test_data[] = $row;
+}
+
+// echo json_encode(['quiz' => $quiz_data, 'test' => $test_data]);
+
 
 // 데이터베이스 연결 종료
 $mysqli->close();
@@ -101,9 +111,9 @@ $mysqli->close();
     <h3>강좌 기본 정보 입력</h3>
     <small>* 분류 설정과 강자명은 필수로 입력해야 임시 저장 가능합니다.</small>
   </div>
-  <form action="lecture_up_ok.php" method="POST" enctype="multipart/form-data" id="lecture_save">
-
-    <input type="hidden" name="leid" value="<?= $leid; ?>">
+  <form method="POST" action="lecture_up_ok.php" enctype="multipart/form-data" id="lecture_save">
+    <input type="hidden" name="action" value="save_detail_info">
+    <input type="hidden" name="leid" value="<?= $leid; ?>"> <!-- 강좌 ID 유지 -->
     <table class="table">
       <tbody>
         <tr>
@@ -209,7 +219,74 @@ $mysqli->close();
       </tbody>
     </table>
     <div class="d-flex justify-content-end gap-2 mt-4 mb-5">
-      <button type="submit" class="btn btn-outline-secondary">기본 정보 저장</button>
+      <button name="action" type="submit" class="btn btn-outline-secondary" value="save_basic_info">기본 정보 저장</button>
+    </div>
+     <!-- 강의 설정 영역 -->
+    <div class="content_bar cent">
+      <h3>강의 설정</h3>
+    </div>
+    <div>
+      <div class="video d-flex justify-content-between align-items-center bg-light border rounded-3">
+        <h5 class="mb-0">1강</h5>
+        <i class="bi bi-x"></i>
+      </div>
+      <table class="table">
+        <colgroup>
+          <col class="col-width-160">
+          <col class="col-width-516">
+          <col class="col-width-160">
+          <col class="col-width-516">
+        </colgroup>
+        <tbody>
+          <tr>
+            <th scope="row">강의명 <b>*</b></th>
+            <td colspan="3">
+              <input name="lecture_name[]" type="text" class="form-control" placeholder="강의명을 입력해 주세요.">
+            </td>
+          </tr>
+          <tr>
+            <th scope="row">강의 설명</th>
+            <td colspan="3">
+              <textarea name="lecture_description[]" class="form-control" rows="3"
+                placeholder="강의 설명을 입력해 주세요."></textarea>
+            </td>
+          </tr>
+          <tr>
+            <th scope="row">퀴즈 선택</th>
+            <td>
+              <select name="lecture_quiz_id[]" class="form-select">
+                <option value="">퀴즈를 선택해 주세요.</option>
+              </select>
+            </td>
+            <th scope="row">시험 선택</th>
+            <td>
+              <select name="lecture_test_id[]" class="form-select">
+                <option value="">시험을 선택해 주세요.</option>
+              </select>
+            </td>
+          </tr>
+          <tr>
+            <th scope="row">실습 파일 등록</th>
+            <td>
+              <input name="lecture_file_id[]" class="form-control" type="file">
+            </td>
+            <th scope="row">동영상 주소 <b>*</b></th>
+            <td>
+              <div class="input-group">
+                <span class="input-group-text">https://</span>
+                <input type="text" name="lecture_video_url[]" class="form-control" placeholder="www.code_even.com">
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="leplus d-flex justify-content-center align-items-center bg-white border rounded-3 boder-secondary">
+        <i class="bi bi-plus"></i>
+      </div>
+    </div>
+    <div class="d-flex justify-content-end gap-2 mt-4 mb-5">
+      <button type="button" class="btn btn-secondary" name="action" value="final_save">강의 등록</button>
+      <button type="button" class="btn btn-danger" onclick="window.location.href='/lecture_list.php'">취소</button>
     </div>
   </form>
 </div>
@@ -270,7 +347,7 @@ $mysqli->close();
     const title = $('#title').val(); // 강좌명 가져오기
 
     // 디버깅: 전달 데이터 확인
-    console.log('Updating books with:', { cate1, cate2, cate3, title });
+    //console.log('Updating books with:', { cate1, cate2, cate3, title });
 
     if (cate1 && cate2 && cate3 && title) { // 모든 값이 선택되었을 때만 실행
       $.ajax({
@@ -279,7 +356,7 @@ $mysqli->close();
         data: { cate1, cate2, cate3, title }, // 데이터를 객체로 전달
         dataType: 'json', // 서버에서 반환할 데이터 형식
         success: function (data) {
-          console.log('Books received:', data); // 데이터를 확인
+          //console.log('Books received:', data); // 데이터를 확인
           $('#book').html('<option value="">SELECT</option>'); // 기존 옵션 초기화
 
           if (data && data.length > 0) {
@@ -295,7 +372,7 @@ $mysqli->close();
         }
       });
     } else {
-      console.warn('카테고리 또는 강좌명이 비어 있음.');
+      //console.warn('카테고리 또는 강좌명이 비어 있음.');
       $('#book').html('<option value="">SELECT</option>'); // 카테고리가 미선택일 경우 초기화
     }
   }
@@ -324,41 +401,88 @@ $mysqli->close();
     }
   });
 
-  // 강좌 기본 정보 저장
-    $('#lecture_save').on('submit', function (e) {
-      e.preventDefault();
+  $('.leplus').on('click', function () {
+    const lectureCount = $('.video').length + 1; // 현재 강의 개수 + 1
+    const newLectureTemplate = `
+          <div class="lecture-section">
+              <div class="video d-flex justify-content-between align-items-center bg-light border rounded-3">
+                  <h5 class="mb-0">${lectureCount}강</h5>
+                  <i class="bi bi-x" onclick="removeLecture(this)"></i>
+              </div>
+              <table class="table lecture-table">
+                  <colgroup>
+                      <col class="col-width-160">  
+                      <col class="col-width-516">  
+                      <col class="col-width-160">
+                      <col class="col-width-516">  
+                  </colgroup>
+                  <tbody>
+                      <tr>
+                          <th scope="row">강의명 <b>*</b></th>
+                          <td colspan="3">
+                              <input type="text" name="lecture_name[]" class="form-control" placeholder="강의명을 입력해 주세요." required>
+                          </td>
+                      </tr>
+                      <tr>
+                          <th scope="row">강의 설명</th>
+                          <td colspan="3">
+                              <textarea name="lecture_description[]" class="form-control" rows="3" placeholder="강의 설명을 입력해 주세요."></textarea>
+                          </td>
+                      </tr>
+                      <tr>
+                          <th scope="row">퀴즈 선택</th>
+                          <td>
+                              <select name="quiz_id[]" class="form-select">
+                                  <option value="">퀴즈를 선택해 주세요.</option>
+                              </select>
+                          </td>
+                          <th scope="row">시험 선택</th>
+                          <td>
+                              <select name="test_id[]" class="form-select">
+                                  <option value="">시험을 선택해 주세요.</option>
+                              </select>
+                          </td>
+                      </tr>
+                      <tr>
+                          <th scope="row">실습 파일 등록</th>
+                          <td>
+                              <input name="practice_file[]" class="form-control" type="file">
+                          </td>
+                          <th scope="row">동영상 주소 <b>*</b></th>
+                          <td>
+                              <div class="input-group">
+                                  <span class="input-group-text">https://</span>
+                                  <input type="text" name="video_url[]" class="form-control" placeholder="www.code_even.com" required>
+                              </div>
+                          </td>
+                      </tr>
+                  </tbody>
+              </table>
+          </div>
+      `;
 
-      const formData = new FormData(this);
-      // 확인용
-      for (let [key, value] of formData.entries()) {
-        console.log(key, value);
-      }
+    // 새로운 강의 섹션을 추가
+    $(this).before(newLectureTemplate);
 
-      $.ajax({
-        url: 'lecture_up_ok.php',
-        type: 'POST',
-        data: formData,
-        processData: false,
-        contentType: false,
-        dataType: 'json',
-        success: function (response) {
-          if (response.success) {
-            alert('강좌 정보가 성공적으로 저장되었습니다.');
-          } else {
-            alert('강좌 저장에 실패했습니다.');
-          }
-        },
-        error: function () {
-          alert('서버 요청 중 문제가 발생했습니다.');
-        }
-    });
+    // 강의 번호 재정렬
+    reorderLectures();
   });
 
+  // 강의 삭제
+  function removeLecture(element) {
+    // 해당 강의 섹션 삭제
+    $(element).closest('.lecture-section').remove();
 
+    // 강의 번호 재정렬
+    reorderLectures();
+  }
 
-
-
-
+  // 강의 번호 재정렬
+  function reorderLectures() {
+    $('.video').each(function (index) {
+      $(this).find('h5').text(`${index + 1}강`);
+    });
+  }
 
 </script>
 
