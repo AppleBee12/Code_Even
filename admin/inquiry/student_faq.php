@@ -323,7 +323,7 @@ statusBtn.addEventListener('click', function () {
       console.log(data);
       confirm('상태를 변경하시겠습니까?');
       alert('상태 변경이 완료되었습니다.');
-      location.href='teacher_faq.php';
+      location.href='student_faq.php';
     })
     .catch(error => {
       console.error('Error:', error);
