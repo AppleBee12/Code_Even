@@ -17,7 +17,7 @@ $data = $result->fetch_object();
 <div class="container">
   <h2>수강생 관리</h2>
   <div class="content_bar">
-    <h3>수강생 상세정보</h3>
+    <h3>수강 후기</h3>
   </div>
 
   <table class="table details_table">

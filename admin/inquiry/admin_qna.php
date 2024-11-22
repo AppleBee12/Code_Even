@@ -8,7 +8,7 @@ $auid = $_SESSION['AUID'];
 $keywords = isset($_GET['keywords']) ? $mysqli->real_escape_string($_GET['keywords']) : '';
 
 if($level == 100){
-  $where_clause = '';
+  $where_clause = "";
 }
 if($level == 10){
   $where_clause = "WHERE user.userid = '$auid'";
@@ -174,7 +174,7 @@ while ($data = $result->fetch_object()) {
         if ($block_num > 1) {
           ?>
           <li class="page-item">
-            <a class="page-link" href="notice.php?page=<?= $previous; ?>">
+            <a class="page-link" href="admin_qna.php?page=<?= $previous; ?>">
               <i class="bi bi-chevron-left"></i>
             </a>
           </li>
@@ -185,14 +185,14 @@ while ($data = $result->fetch_object()) {
         for ($i = $block_start; $i <= $block_end; $i++) {
           $active = ($page == $i) ? 'active' : '';
           ?>
-          <li class="page-item <?= $active; ?>"><a class="page-link" href="notice.php?page=<?= $i; ?>"><?= $i; ?></a></li>
+          <li class="page-item <?= $active; ?>"><a class="page-link" href="admin_qna.php?page=<?= $i; ?>"><?= $i; ?></a></li>
           <?php
         }
         $next = $block_end + 1;
         if ($total_block > $block_num) {
           ?>
           <li class="page-item">
-            <a class="page-link" href="notice.php?page=<?= $next; ?>">
+            <a class="page-link" href="admin_qna.php?page=<?= $next; ?>">
               <i class="bi bi-chevron-right"></i>
             </a>
           </li>
