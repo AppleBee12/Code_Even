@@ -1,6 +1,12 @@
 <?php
 
 session_start(); // 세션 시작
+
+header('Content-Type: application/json; charset=utf-8');
+
+
+var_dump($_POST);
+
 include_once($_SERVER['DOCUMENT_ROOT'] . '/code_even/admin/inc/dbcon.php');
 
 // 현재 로그인된 사용자 ID 확인
@@ -14,83 +20,83 @@ $session_userid = $_SESSION['AUID']; // 세션에서 AUID 가져오기
 // 사용자 정보 가져오기
 $sql_user = "SELECT uid, username FROM user WHERE userid = '$session_userid'";
 $result_user = $mysqli->query($sql_user);
-if ($result_user->num_rows === 1) {
-  $user = $result_user->fetch_assoc();
-  $uid = $user['uid'];
-  $username = $user['username'];
+
+if ($result_user && $result_user->num_rows > 0) {
+    $user_data = $result_user->fetch_assoc();
+    $uid = $user_data['uid'];
+    $username = $user_data['username'];
 } else {
-  echo "<script>alert('사용자 정보를 불러오는데 실패했습니다.');</script>";
-  exit;
+    die("사용자 정보를 가져오는 데 실패했습니다.");
 }
 
-// 강좌 데이터 저장 처리
+// 확인용
+$sql_user = "SELECT uid, username FROM user WHERE userid = '$session_userid'";
+$result_user = $mysqli->query($sql_user);
+if (!$result_user || $result_user->num_rows === 0) {
+    die(json_encode(['success' => false, 'error' => '사용자 정보를 가져오지 못했습니다.']));
+}
 
+
+// POST 데이터 처리
+$title = $_POST['title'] ?? null;
 $cate1 = $_POST['cate1'] ?? null;
 $cate2 = $_POST['cate2'] ?? null;
 $cate3 = $_POST['cate3'] ?? null;
-$title = $_POST['title'] ?? null;
-$price = $_POST['price'];
+$price = $_POST['price'] ?? 0;
+$book_id = $_POST['book'] ?? null;
 $period = $_POST['period'] ?? 30;
-$isrecipe = $_POST['isrecipe'] ?? 0;
-$isgeneral = $_POST['isgeneral'] ?? 1;
-$image = $_FILES['image'] ?? '';
-;
-$state = ($_POST['action'] === 'draft_save') ? 0 : 1;
-$approval = $_POST['approval'] ?? 0;
+$is_recipe = isset($_POST['courseType']) && $_POST['courseType'] === 'isrecipe';
+$course_type = $_POST['courseType'] ?? 'general'; // 기본값은 'general'
+$uid = $_SESSION['userid'] ?? null; // 세션에서 사용자 ID 가져오기
 
+// `true`와 `false`를 데이터베이스에서 처리 가능한 값으로 변환
+$isrecipe = ($course_type === 'true') ? 1 : 0; // 1이면 레시피 강좌, 0이면 일반 강좌
 
-
-// 이미지 업로드 처리
-if (isset($_FILES['#image']) && $_FILES['#image']['error'] == UPLOAD_ERR_OK) {
-  //파일 사이즈 검사
-  if ($image['size'] > 10240000) {
-    echo "
-      <script>
-        alert('10MB이하만 첨부할 수 있습니다.');
-        history.back();
-      </script>
-    ";
-  }
-
-  //파일 포멧 검사
-  // 이미지 여부 판단 이미지가 아니라고 한다면
-  if (strpos($image['type'], 'image') === false) {
-    echo "
-    <script>
-      alert('이미지만 첨부할 수 있습니다.');
-      history.back();
-    </script>
-  ";
-  }
-
-  //파일 업로드
-  $save_dir = $_SERVER['DOCUMENT_ROOT'] . '/Code_Even/admin/upload/lecture/';
-  $filename = $image['name']; //insta.jpg
-  $ext = pathinfo($filename, PATHINFO_EXTENSION); //파일명의 확장자를 추출, jpg
-  $newFileName = date('YmdHis') . substr(rand(), 0, 6);//202410091717123456
-  $savefile = $newFileName . '.' . $ext;//202410091717123456.jpg
-
-  if (move_uploaded_file($image['tmp_name'], $save_dir . $savefile)) {
-    $image = '/Code_Even/admin/upload/lecture' . $savefile;
-  } else {
-    echo "<script>
-      alert('이미지를 첨부할 수 없습니다.');
-    </script>";
-  }
+// 확인용
+$required_fields = ['title', 'cate1', 'cate2', 'cate3'];
+foreach ($required_fields as $field) {
+    if (empty($_POST[$field])) {
+        die(json_encode(['success' => false, 'error' => "$field 값이 비어 있습니다."]));
+    }
 }
 
-// 데이터 저장
-$sql = "
-  INSERT INTO lecture (lecid, cate1, cate2, cate3, title, name, price, period, isrecipe, isgeneral, image, date, state) 
-  VALUES ('$uid', '$cate1', '$cate2', '$cate3', '$title', '$username', $price, $period, '$isrecipe', '$isgeneral', '$imagePath', NOW(), $state)
-  ";
 
-if ($mysqli->query($sql)) {
-  echo json_encode(['success' => true, 'message' => '강좌가 성공적으로 저장되었습니다.']);
+// 이미지 처리
+$image_path = null;
+if (isset($_FILES['image']) && $_FILES['image']['error'] === UPLOAD_ERR_OK) {
+    $upload_dir = 'uploads/images/';
+    $image_name = time() . '_' . $_FILES['image']['name'];
+    $image_path = $upload_dir . $image_name;
+    move_uploaded_file($_FILES['image']['tmp_name'], $image_path);
+}
+
+// 필수 값 확인
+if (empty($title) || empty($cate1) || empty($cate2) || empty($cate3) ) {
+    echo json_encode(['success' => false, 'error' => '필수 항목이 누락되었습니다.']);
+    exit;
+}
+
+// 교재 ID 확인 (선택 값)
+$boid = null;
+if (!empty($book_id)) {
+    $query_book = "SELECT boid FROM book WHERE boid = '$book_id'";
+    $result_book = $mysqli->query($query_book);
+    if ($result_book && $result_book->num_rows > 0) {
+        $book_data = $result_book->fetch_object();
+        $boid = $book_data->boid;
+    }
+}
+
+// 강좌 데이터 저장
+$query_lecture = "
+    INSERT INTO lecture (leid, boid, lecid, cate1, cate2, cate3, image, title, price, period, name, isrecipe)
+    VALUES (NULL, '$boid', '$uid', '$cate1', '$cate2', '$cate3', '$image_path', '$title', '$price', '$period', '$uid', '$is_recipe')
+";
+
+if ($mysqli->query($query_lecture)) {
+    echo json_encode(['success' => true]);
 } else {
-  echo json_encode(['success' => false, 'message' => '강좌 저장 실패: ' . $mysqli->error]);
+    echo json_encode(['success' => false, 'error' => '강좌 정보를 저장하는 데 실패했습니다.']);
 }
-?>
 
-
-?>
+$mysqli->close();

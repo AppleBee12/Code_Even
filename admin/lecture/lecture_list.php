@@ -128,12 +128,11 @@ $sql = "SELECT * FROM lecture $where_clause
                   <input id="toggle-<?= $item->leid; ?>" class="form-check-input tog toggle-switch" type="checkbox"
                     role="switch" data-id="<?= $item->leid; ?>" <?= $item->state == 2 ? 'checked' : ''; ?>
                     <?= $item->state == 0 ? 'disabled' : ''; ?>> <!-- state가 0일 때 비활성화 -->
-                  >
                 </div>
               </div>
             </td>
             <td>
-              <div class="d-flex justify-content-center gap-4">
+              <div class="d-falex justify-content-center gap-4">
                 <!-- 수정 버튼 -->
                 <a href="lecture_edit.php?id=<?= $item->leid; ?>">
                   <i class="bi bi-pencil-fill"></i>
