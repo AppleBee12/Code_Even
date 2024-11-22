@@ -99,21 +99,26 @@ while ($data = $result->fetch_object()) {
       </thead>
       <tbody>
       <?php
-      if ($dataArr) {
-        foreach ($dataArr as $no) {
-          ?>
+        if (count($dataArr) > 0) {
+          $sequence_number = $row_num - $start_num;  // 순번 계산 시작
+          foreach ($dataArr as $rev) {
+        ?>
         <tr>
-          <td><?=$no->rvid;?></td>
-          <td><?=$no->userid;?></td>
-          <td><?=$no->username;?></td>
-          <td><a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/student/course_reviews_details.php?rvid=<?=$no->rvid;?>" class="underline"><?=$no->rtitle;?></a></td>
-          <td><?= mb_strlen($no->title) > 15 ? mb_substr($no->title, 0, 15) . '...' : $no->title; ?></td>
-          <td><?=$no->name;?></td>
+        <?php if ($level == 10): ?>
+          <td><?= $sequence_number--; ?></td> <!-- level이 10일 때만 순번 출력 -->
+        <?php else: ?>
+          <td><?= $rev->rvid; ?></td>
+        <?php endif; ?>
+          <td><?=$rev->userid;?></td>
+          <td><?=$rev->username;?></td>
+          <td><a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/student/course_reviews_details.php?rvid=<?=$rev->rvid;?>" class="underline"><?=$rev->rtitle;?></a></td>
+          <td><?= mb_strlen($rev->title) > 15 ? mb_substr($rev->title, 0, 15) . '...' : $rev->title; ?></td>
+          <td><?=$rev->name;?></td>
           <td>
             <div>
             <?php
               for ($i = 0; $i < 5; $i++) { 
-                if ($i < $no->rating) {
+                if ($i < $rev->rating) {
                     echo '<i class="bi bi-star-fill"></i>';
                 } else {
                     echo '<i class="bi bi-star-fill star_null"></i>';
@@ -122,14 +127,14 @@ while ($data = $result->fetch_object()) {
             ?>
             </div>
           </td>
-          <td><?=$no->regdate;?></td>
+          <td><?=$rev->regdate;?></td>
         </tr>
         <?php
+          }
+        } else {
+          echo "<tr><td colspan='10'>검색 결과가 없습니다.</td></tr>";
         }
-      } else {
-        echo "<tr><td colspan='10'>검색 결과가 없습니다.</td></tr>";
-      }
-      ?>
+        ?>
       </tbody>
     </table>
 

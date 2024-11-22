@@ -86,10 +86,11 @@ while ($data = $result->fetch_object()) {
         </tr>
       </thead>
       <tbody>
-        <?php
-        if ($dataArr) {
+      <?php
+        if (count($dataArr) > 0) {
+          $sequence_number = $row_num - $start_num;  // 순번 계산 시작
           foreach ($dataArr as $no) {
-            ?>
+          ?>
             <tr>
             <th scope="row">
               <input 
@@ -98,7 +99,11 @@ while ($data = $result->fetch_object()) {
                 data-title="<?= htmlspecialchars($no->title); ?>" 
                 data-status="<?= $no->status; ?>">
             </th>
+            <?php if ($level == 10): ?>
+              <td><?= $sequence_number--; ?></td> <!-- level이 10일 때만 순번 출력 -->
+            <?php else: ?>
               <td><?= $no->ntid; ?></td>
+            <?php endif; ?>
               <td><?= $no->userid; ?></td>
               <td><?= $no->username; ?></td>
               <td>
@@ -138,10 +143,10 @@ while ($data = $result->fetch_object()) {
               <?php endif; ?>
             </tr>
             <?php
+            }
+          } else {
+            echo "<tr><td colspan='10'>검색 결과가 없습니다.</td></tr>";
           }
-        } else {
-          echo "<tr><td colspan='10'>검색 결과가 없습니다.</td></tr>";
-        }
         ?>
       </tbody>
     </table>
