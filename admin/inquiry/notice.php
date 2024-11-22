@@ -70,9 +70,11 @@ while ($data = $result->fetch_object()) {
     <table class="table list_table">
       <thead>
         <tr>
+        <?php if ($level == 100): ?>
           <th scope="col">
             <input class="form-check-input" type="checkbox" id="allCheck">
           </th>
+        <?php endif; ?>
           <th scope="col">번호</th>
           <th scope="col">아이디</th>
           <th scope="col">이름</th>
@@ -86,11 +88,13 @@ while ($data = $result->fetch_object()) {
         </tr>
       </thead>
       <tbody>
-        <?php
-        if ($dataArr) {
+      <?php
+        if (count($dataArr) > 0) {
+          $sequence_number = $row_num - $start_num;  // 순번 계산 시작
           foreach ($dataArr as $no) {
-            ?>
+          ?>
             <tr>
+          <?php if ($level == 100): ?>
             <th scope="row">
               <input 
                 class="form-check-input itemCheckbox" type="checkbox" value="<?=$no->ntid?>"
@@ -98,7 +102,12 @@ while ($data = $result->fetch_object()) {
                 data-title="<?= htmlspecialchars($no->title); ?>" 
                 data-status="<?= $no->status; ?>">
             </th>
+          <?php endif; ?>
+            <?php if ($level == 10): ?>
+              <td><?= $sequence_number--; ?></td> <!-- level이 10일 때만 순번 출력 -->
+            <?php else: ?>
               <td><?= $no->ntid; ?></td>
+            <?php endif; ?>
               <td><?= $no->userid; ?></td>
               <td><?= $no->username; ?></td>
               <td>
@@ -138,16 +147,16 @@ while ($data = $result->fetch_object()) {
               <?php endif; ?>
             </tr>
             <?php
+            }
+          } else {
+            echo "<tr><td colspan='10'>검색 결과가 없습니다.</td></tr>";
           }
-        } else {
-          echo "<tr><td colspan='10'>검색 결과가 없습니다.</td></tr>";
-        }
         ?>
       </tbody>
     </table>
 <?php if ($level == 100): ?>
   <div class="d-flex justify-content-end gap-2">
-    <button type="button" id="statusBtn" data-bs-toggle="modal" data-bs-target="#send_email" class="btn btn-outline-secondary">상태 변경</button>
+    <button type="button" id="statusBtn" data-bs-toggle="modal" class="btn btn-outline-secondary">상태 변경</button>
     <button type="submit" class="btn btn-secondary">등록</button>
   </div>
 <?php endif; ?>
@@ -226,13 +235,13 @@ while ($data = $result->fetch_object()) {
                   <td class="d-flex gap-3">
                     <div class="form-check">
                       <input class="form-check-input" type="radio" name="status" id="status_on" value="on">
-                      <label class="form-check-label" for="status">
+                      <label class="form-check-label" for="status_on">
                         노출
                       </label>
                     </div>
                     <div class="form-check">
                       <input class=" form-check-input" type="radio" name="status" id="status_off" value="off">
-                      <label class="form-check-label" for="status">
+                      <label class="form-check-label" for="status_off">
                         숨김
                       </label>
                     </div>
@@ -334,5 +343,4 @@ statusBtn.addEventListener('click', function () {
 
 <?php
 include_once($_SERVER['DOCUMENT_ROOT'] . '/code_even/admin/inc/footer.php');
-
 ?>

@@ -97,15 +97,20 @@ while ($data = $result->fetch_object()) {
     </thead>
     <tbody>
       <?php
-      if ($dataArr) {
+      if (count($dataArr) > 0) {
+        $sequence_number = $row_num - $start_num;  // 순번 계산 시작
         foreach ($dataArr as $cl) {
-          ?>
+        ?>
           <tr>
             <th scope="row">
               <input class="form-check-input itemCheckbox" type="checkbox" value="<?= $cl->cdid; ?>" 
               data-username="<?= $cl->username; ?>" data-userid="<?= $cl->userid; ?>" data-email="<?= $cl->useremail; ?>" data-uid="<?= $cl->uid; ?>">
             </th>
+          <?php if ($level == 10): ?>
+            <td><?= $sequence_number--; ?></td> <!-- level이 10일 때만 순번 출력 -->
+          <?php else: ?>
             <td><?= $cl->cdid; ?></td>
+          <?php endif; ?>
             <td><a href="student_details.php?uid=<?= $cl->uid; ?>" class="underline"><?= $cl->userid ?></a></td>
             <td><a href="student_details.php?uid=<?= $cl->uid; ?>" class="underline"><?= $cl->username ?></a></td>
             <td><?= mb_strlen($cl->title) > 25 ? mb_substr($cl->title, 0, 25) . '...' : $cl->title; ?></td>
@@ -133,11 +138,11 @@ while ($data = $result->fetch_object()) {
           </tr>
         </tbody>
         <?php
+          }
+        } else {
+          echo "<tr><td colspan='10'>검색 결과가 없습니다.</td></tr>";
         }
-      } else {
-        echo "<tr><td colspan='10'>검색 결과가 없습니다.</td></tr>";
-      }
-      ?>
+        ?>
   </table>
 
 <?php if ($level == 100): ?>
