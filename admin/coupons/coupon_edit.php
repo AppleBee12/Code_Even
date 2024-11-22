@@ -73,6 +73,19 @@ $cpid = $_GET['cpid'];
 $sql = "SELECT * FROM coupons WHERE cpid = $cpid";
 $result = $mysqli->query($sql);
 $data = $result->fetch_object();
+
+
+// 예제 데이터: 데이터베이스에서 불러온 값
+// 'unlimited' -> 무제한, 날짜 형식 (예: '2024-12-31') -> 제한
+$use_max_date = $data->use_max_date ?? 'unlimited';
+
+// 라디오 버튼 상태 설정
+$unlimited_checked = ($use_max_date === 'unlimited') ? 'checked' : '';
+$limited_checked = ($use_max_date !== 'unlimited') ? 'checked' : '';
+
+// 제한 날짜 설정 (무제한일 경우 빈 값)
+$limited_date = ($use_max_date !== 'unlimited') ? $use_max_date : '';
+
 ?>
 
 <style>
@@ -111,7 +124,7 @@ thead,
 </style>
 
 <div class="container">
-  <h2 class="mb-5">쿠폰 수정</h2>
+  <h2 class="mb-5">쿠폰수정</h2>
   <form action="coupon_edit_ok.php" method="POST" enctype="multipart/form-data">
   <input type="hidden" name="cpid" value="<?= $cpid; ?>"> 
     <table class="table">
@@ -143,42 +156,37 @@ thead,
           <td><input type="text" class="form-control w-25" name="cp_desc" placeholder="쿠폰내용을 입력하세요" required value="<?= $data->cp_desc; ?>"></td>
         </tr>
         <div class="d-flex">
+          <tr>
           <th scope="row">사용기한</th>
-          <td class="d-flex gap-5">
-            <div class="form-check"  id="ct4">
-              <input 
-                class="form-check-input" 
+            <td class="d-flex gap-5">
+              <div class="form-check"  id="ct4" >
+                <input class="form-check-input" 
                 type="radio" 
                 name="use_max_date" 
-                id="use_max_date1"
-                value="unlimited"
-                <?= ($data->use_max_date === 'unlimited') ? 'checked' : ''; ?>
-                >
-              <label class="form-check-label" for="use_max_date1"  >
-                무제한
-              </label>
-            </div>
-            <div class="form-check"  id="ct3">
-              <input class="form-check-input" 
+                id="use_max_date_unlimited" 
+                value="unlimited" <?= $unlimited_checked; ?>>
+                <label class="form-check-label" for="use_max_date_unlimited" >
+                  무제한
+                </label>
+              </div>
+              <div class="form-check" id="ct3">
+                <input class="form-check-input" 
                 type="radio" 
                 name="use_max_date" 
-                id="use_max_date2"
-                value="limited"
-                <?= ($data->use_max_date === 'limited') ? 'checked' : ''; ?>
-                >
-              <label class="form-check-label d-flex gap-3" for="use_max_date2" >
-                제한
-                <input 
-                  type="date" 
-                  name="sale_end_date" 
+                id="use_max_date_limited" 
+                value="limited" <?= $limited_checked; ?>>
+                <label class="form-check-label d-flex gap-3" for="use_max_date_limited">
+                  제한
+                  <input type="date" 
+                  name="use_max_date" 
                   id="datepicker" 
                   class="form-control w-25" 
-                  value="<?= htmlspecialchars($data->sale_end_date ?? ''); ?>" 
-                  <?= ($data->use_max_date === 'limited') ? '' : 'disabled'; ?>
-                  >
-              </label>
-            </div>
-          </td>
+                  value="<?= $data->use_max_date ?>"
+                  disabled>
+                </label>
+              </div>
+            </td>
+          </tr>
         </div>
                 
         </tr> 
@@ -250,26 +258,28 @@ thead,
 </div>
 
 <script>
-   document.addEventListener('DOMContentLoaded', () => {
-  const unlimitedRadio = document.getElementById('use_max_date1');
-  const limitedRadio = document.getElementById('use_max_date2');
+  document.addEventListener('DOMContentLoaded', () => {
+  const unlimitedRadio = document.getElementById('use_max_date_unlimited');
+  const limitedRadio = document.getElementById('use_max_date_limited');
   const dateInput = document.getElementById('datepicker');
 
-  // 라디오 버튼 클릭 시 활성화/비활성화 처리
+  // 라디오 버튼 상태에 따라 날짜 입력 필드 활성화/비활성화
   const toggleDateInput = () => {
-    if (limitedRadio.checked) {
-      dateInput.disabled = false;
-    } else {
+    if (unlimitedRadio.checked) {
       dateInput.disabled = true;
-      dateInput.value = ''; // 비활성화 시 날짜 초기화
+      dateInput.value = ''; // 무제한 선택 시 날짜 초기화
+    } else if (limitedRadio.checked) {
+      dateInput.disabled = false;
     }
   };
 
-  // 초기화 및 이벤트 리스너 등록
+  // 초기 상태 설정
   toggleDateInput();
-    unlimitedRadio.addEventListener('change', toggleDateInput);
-    limitedRadio.addEventListener('change', toggleDateInput);
-  });
+
+  // 이벤트 리스너 등록
+  unlimitedRadio.addEventListener('change', toggleDateInput);
+  limitedRadio.addEventListener('change', toggleDateInput);
+});
 
   $('.cancle').click(function(){
     location.href='coupons.php';

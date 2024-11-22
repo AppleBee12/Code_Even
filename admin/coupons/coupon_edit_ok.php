@@ -22,8 +22,9 @@ if (!isset($cpid)) {
   $coupon_price = $_POST['coupon_price'] ?? '0';
   $coupon_ratio = $_POST['coupon_ratio'] ?? '0';
   $status = $_POST['status'] ?? '';
-  $use_min_price = $_POST['use_min_price'] ?? '0';
   $max_value = $_POST['max_value'] ?? '0';
+  $use_min_price = $_POST['use_min_price'] ?? '0';
+  $use_max_date = $_POST['use_max_date'] ?? 'NULL';
   $cp_desc = $_POST['cp_desc'] ?? '';
 
   $save_dir = $_SERVER['DOCUMENT_ROOT'].'/code_even/admin/upload/coupons/';
@@ -42,21 +43,6 @@ if (!isset($cpid)) {
       </script>";
     }
   }
-  if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $use_max_date = $_POST['use_max_date'] ?? null;
-
-    // '무제한'을 선택한 경우 sale_end_date는 NULL로 처리
-    if ($use_max_date === 'unlimited') {
-        $sale_end_date = null;
-    } else {
-        $sale_end_date = $_POST['sale_end_date'] ?? null;
-    }
-
-    // DB 업데이트
-    $stmt = $pdo->prepare("UPDATE code_even SET use_max_date = ? WHERE id = ?");
-    $stmt->execute([$use_max_date, $id]);
-}
-
 
 //   $sql = "INSERT INTO coupons 
 //   (coupon_name, coupon_image, coupon_type, coupon_price, coupon_ratio, status, userid, max_value, use_min_price) 
@@ -75,6 +61,7 @@ $sql = "UPDATE coupons SET
   status = $status,
   max_value = $max_value,
   use_min_price = $use_min_price,
+  use_max_date = '$use_max_date',
   cp_desc = '$cp_desc'
   ";
 
