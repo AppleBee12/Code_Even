@@ -76,12 +76,18 @@ while ($data = $result->fetch_object()) {
           </th>
         <?php endif; ?>
           <th scope="col">번호</th>
+        <?php if ($level == 100): ?>
           <th scope="col">아이디</th>
+        <?php endif; ?>
+        <?php if ($level == 100): ?>
           <th scope="col">이름</th>
+        <?php elseif ($level == 10): ?>
+            <th scope="col">작성자</th>
+        <?php endif; ?>
           <th scope="col">제목</th>
           <th scope="col">조회수</th>
           <th scope="col">등록일</th>
-          <?php if ($level == 100): ?>
+        <?php if ($level == 100): ?>
           <th scope="col">상태</th>
           <th scope="col">관리</th>
         <?php endif; ?>
@@ -108,7 +114,9 @@ while ($data = $result->fetch_object()) {
             <?php else: ?>
               <td><?= $no->ntid; ?></td>
             <?php endif; ?>
+            <?php if ($level == 100): ?>
               <td><?= $no->userid; ?></td>
+            <?php endif; ?>
               <td><?= $no->username; ?></td>
               <td>
               <?php if ($level == 100): ?>
