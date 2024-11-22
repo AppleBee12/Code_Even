@@ -111,7 +111,7 @@ if(isset($_FILES['coupon_image'])){
 $sql = "INSERT INTO coupons 
     (coupon_name, coupon_image, coupon_type, coupon_price, coupon_ratio, status, userid, max_value, use_min_price, use_max_date, cp_desc)
   VALUES
-    ('$coupon_name', '$coupon_image', $coupon_type, $coupon_price, $coupon_ratio, $status, '{$_SESSION['AUID']}', $max_value, $use_min_price, $use_max_date, '$cp_desc')
+    ('$coupon_name', '$coupon_image', $coupon_type, $coupon_price, '$coupon_ratio', $status, '{$_SESSION['AUID']}', $max_value, $use_min_price, $use_max_date, '$cp_desc')
 ";
 
 $use_max_date = !empty($_POST['use_max_date']) 
@@ -163,17 +163,16 @@ thead,
       <tbody>
         <tr>
           <th scope="row">쿠폰이미지</th>
-            <td>
-              <div class="box mb-3" id="addedImages">
-                <span>쿠폰 이미지를 등록해주세요.</span>
-                <div class="image">
-                  <img src="" alt="">
-                </div>
-              </div>
-              <input type="file" multiple accept="image/*" class="form-control w-50" name="coupon_image" id="coupon_image" value="file" required>
-            </td>
+          <td>
+            <div class="box mb-3" id="addedImages">
+              <span>쿠폰 이미지를 등록해주세요.</span>
+              <!-- <div class="image">
+                <img src="" alt="">
+              </div> -->
+            </div>
+            <input type="file" multiple accept="image/*" class="form-control w-50" name="coupon_image" id="coupon_image" value="file" required>
+          </td>
         </tr>
-        <tr>
         <tr>
           <th scope="row">쿠폰명</th>
           <td><input type="text" class="form-control w-25" name="coupon_name" placeholder="쿠폰명을 입력하세요" required></td>
@@ -184,7 +183,7 @@ thead,
         </tr>
         <div class="d-flex">
           <tr>
-          <th scope="row">사용기한</th>
+            <th scope="row">사용기한</th>
             <td class="d-flex gap-5">
               <div class="form-check"  id="ct4" >
                 <input class="form-check-input" type="radio" name="use_max_date" 
