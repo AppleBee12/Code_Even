@@ -226,13 +226,13 @@ while ($data = $result->fetch_object()) {
                   <td class="d-flex gap-3">
                     <div class="form-check">
                       <input class="form-check-input" type="radio" name="status" id="status_on" value="on">
-                      <label class="form-check-label" for="status">
+                      <label class="form-check-label" for="status_on">
                         노출
                       </label>
                     </div>
                     <div class="form-check">
                       <input class=" form-check-input" type="radio" name="status" id="status_off" value="off">
-                      <label class="form-check-label" for="status">
+                      <label class="form-check-label" for="status_off">
                         숨김
                       </label>
                     </div>
