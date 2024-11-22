@@ -99,12 +99,17 @@ while ($data = $result->fetch_object()) {
         </tr>
       </thead>
       <tbody>
-        <?php
-        if ($dataArr) {
-          foreach ($dataArr as $no) {
-            ?>
+      <?php
+        if (count($dataArr) > 0) {
+          $sequence_number = $row_num - $start_num;  // 순번 계산 시작
+          foreach ($dataArr as $ad) {
+          ?>
             <tr>
-              <td><?= $no->aqid; ?></td>
+          <?php if ($level == 10): ?>
+            <td><?= $sequence_number--; ?></td> <!-- level이 10일 때만 순번 출력 -->
+          <?php else: ?>
+            <td><?= $ad->aqid; ?></td>
+          <?php endif; ?>
             <?php if ($level == 100): ?>
               <td>
                 <?php
@@ -113,15 +118,15 @@ while ($data = $result->fetch_object()) {
                   10 => "강사"
                 ];
 
-                echo isset($user_levels[$no->user_level]) ? $user_levels[$no->user_level] : "알 수 없음";
+                echo isset($user_levels[$ad->user_level]) ? $user_levels[$ad->user_level] : "알 수 없음";
                 ?>
               </td>
-              <td><?= $no->userid; ?></td>
-              <td><?= $no->username; ?></td>
+              <td><?= $ad->userid; ?></td>
+              <td><?= $ad->username; ?></td>
             <?php endif; ?>
               <td><a
-                  href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/inquiry/admin_qna_details.php?aqid=<?= $no->aqid; ?>"
-                  class="underline"><?= $no->qtitle; ?></a></td>
+                  href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/inquiry/admin_qna_details.php?aqid=<?= $ad->aqid; ?>"
+                  class="underline"><?= $ad->qtitle; ?></a></td>
               <td>
                 <?php
                 $categories = [
@@ -135,24 +140,24 @@ while ($data = $result->fetch_object()) {
                   8 => "강사"
                 ];
 
-                echo isset($categories[$no->category]) ? $categories[$no->category] : "알 수 없음";
+                echo isset($categories[$ad->category]) ? $categories[$ad->category] : "알 수 없음";
                 ?>
               </td>
-              <td><?= $no->regdate; ?></td>
+              <td><?= $ad->regdate; ?></td>
               <td>
                 <?php
-                $class = !empty($no->aaid) ? 'text-bg-success' : 'text-bg-light';
-                $text = !empty($no->aaid) ? '답변완료' : '답변대기';
+                $class = !empty($ad->aaid) ? 'text-bg-success' : 'text-bg-light';
+                $text = !empty($ad->aaid) ? '답변완료' : '답변대기';
                 echo "<span class='badge $class'>$text</span>";
                 ?>
               </td>
             </tr>
             <?php
-          }
-        } else {
-          echo "<tr><td colspan='10'>검색 결과가 없습니다.</td></tr>";
-        }
-        ?>
+              }
+            } else {
+              echo "<tr><td colspan='10'>검색 결과가 없습니다.</td></tr>";
+            }
+          ?>
       </tbody>
     </table>
   <?php if ($level == 10): ?>
