@@ -124,4 +124,8 @@ i{
   color: var(--bk900);
 }
 
+.custom-select-width {
+  width: 200px;
+}
+
 
