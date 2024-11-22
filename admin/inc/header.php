@@ -334,6 +334,11 @@ $tc_count = $row['cnt'];
               <li class="list-group-item dropdown-item"><a
                   href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/lecture/quiz_test_list.php">　　-　퀴즈 / 시험
                   목록</a></li>
+                  <?php if ($level == 10){ ?>
+              <li class="list-group-item dropdown-item"><a
+                  href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/lecture/quiz_test_up.php">　　-　퀴즈 / 시험
+                  등록</a></li>
+                  <?php }; ?>
               <li class="list-group-item dropdown-item"><a
                   href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/lecture/quiz_test_outcome.php">　　-　퀴즈 / 시험
                   결과 관리</a></li>
