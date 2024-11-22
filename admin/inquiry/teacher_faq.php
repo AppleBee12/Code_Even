@@ -76,9 +76,11 @@ $sequence_number = $row_num - $start_num;
     <table class="table list_table">
       <thead>
         <tr>
+        <?php if ($level == 100): ?>
           <th scope="col">
             <input class="form-check-input" type="checkbox" id="allCheck">
           </th>
+        <?php endif; ?>
           <th scope="col">번호</th>
         <?php if ($level == 100): ?>
           <th scope="col">아이디</th>
@@ -104,6 +106,7 @@ $sequence_number = $row_num - $start_num;
             foreach ($dataArr as $faq) {
           ?>
             <tr>
+            <?php if ($level == 100): ?>
               <th scope="row">
                 <input 
                   class="form-check-input itemCheckbox" type="checkbox" value="<?=$faq->fqid?>"
@@ -111,6 +114,7 @@ $sequence_number = $row_num - $start_num;
                   data-title="<?= htmlspecialchars($faq->title); ?>" 
                   data-status="<?= $faq->status; ?>">
               </th>
+            <?php endif; ?>
               <td><?= $sequence_number--; ?></td>
             <?php if ($level == 100): ?>
               <td><?= $faq->userid; ?></td>
@@ -346,7 +350,7 @@ statusBtn.addEventListener('click', function () {
       console.log(data);
       confirm('상태를 변경하시겠습니까?');
       alert('상태 변경이 완료되었습니다.');
-      location.href='student_faq.php';
+      location.href='teacher_faq.php';
     })
     .catch(error => {
       console.error('Error:', error);

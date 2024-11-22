@@ -92,7 +92,9 @@ while ($data = $result->fetch_object()) {
           <th scope="col">이름</th>
           <th scope="col">제목</th>
           <th scope="col">강의명</th>
+        <?php if ($level == 100): ?>
           <th scope="col">강사</th>
+          <?php endif; ?>
           <th scope="col">평점</th>
           <th scope="col">등록일</th>
         </tr>
@@ -113,7 +115,9 @@ while ($data = $result->fetch_object()) {
           <td><?=$rev->username;?></td>
           <td><a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/student/course_reviews_details.php?rvid=<?=$rev->rvid;?>" class="underline"><?=$rev->rtitle;?></a></td>
           <td><?= mb_strlen($rev->title) > 15 ? mb_substr($rev->title, 0, 15) . '...' : $rev->title; ?></td>
+        <?php if ($level == 100): ?>
           <td><?=$rev->name;?></td>
+        <?php endif; ?>
           <td>
             <div>
             <?php

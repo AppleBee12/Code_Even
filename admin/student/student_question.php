@@ -83,7 +83,9 @@ while ($data = $result->fetch_object()) {
           <th scope="col">아이디</th>
           <th scope="col">이름</th>
           <th scope="col">제목</th>
+        <?php if ($level == 100): ?>
           <th scope="col">강사명</th>
+        <?php endif; ?>
           <th scope="col">강의명</th>
           <th scope="col">등록일</th>
           <th scope="col">상태</th>
@@ -105,7 +107,9 @@ while ($data = $result->fetch_object()) {
               <td><?= $qna->username; ?></td>
               <td><a href="student_question_details.php?sqid=<?= $qna->sqid; ?>" class="underline"><?= $qna->qtitle; ?></a>
               </td>
+            <?php if ($level == 100): ?>
               <td><?= $qna->name; ?></td>
+            <?php endif; ?>
               <td><?= mb_strlen($qna->title) > 15 ? mb_substr($qna->title, 0, 15) . '...' : $qna->title; ?></td>
               <td><?= $qna->regdate; ?></td>
               <td>
