@@ -154,3 +154,8 @@ input[type=file]::-webkit-file-upload-button{
 .text_bg_recipe {
   background-color: var(--red700) !important;
 }
+
+.table>:not(caption)>tr.amount_sum>* {
+  background-color: rgba(244,244,244,0.5);
+
+}
