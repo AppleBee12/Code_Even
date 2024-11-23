@@ -99,6 +99,19 @@
       $dataArr[] = $data;
     }
   }
+
+  //전체합계 추가
+  $sum_sql = "SELECT 
+          SUM(total_order_amount) AS total_order_amount_sum,
+          SUM(order_count) AS total_order_count_sum,
+          SUM(total_refund_amount) AS total_refund_amount_sum,
+          SUM(refund_count) AS total_refund_count_sum,
+          SUM(final_sales_amount) AS total_final_sales_sum
+      FROM lecture_sales
+      $where_clause
+  ";
+  $sum_result = $mysqli->query($sum_sql);
+  $totalSumData = $sum_result->fetch_assoc();
 ?>
 
 
@@ -107,10 +120,6 @@
   <h2 class="page_title">강좌매출통계</h2>
 
   <form action="#" id="search_form" class="row justify-content-end align-items-center" method="GET">
-  <div class="col-lg-3">
-    <span>총 강좌수 :  <?= $row_num; ?></span>
-    </div>
-
     <div class="col-lg-3 pt_04">
     <span class="status_tt me-4">강좌유형</span>
     <div class="form-check form-check-inline">
@@ -218,10 +227,20 @@
           <td class="group_rightline"><?= $data->total_refund_count; ?>건</td>
           <td><?= number_format($data-> total_final_sales); ?>원</td>
       </tr>
+      
       <?php
       }
   } 
   ?>
+  <tr class="amount_sum">
+    <td colspan="5" class="fw-bold"><span>총 강좌수 :  <?= $row_num; ?></span></td>
+    <td class="fw-bold group_lefttline group_rightline">합계</td>
+    <td class="fw-bold"><?= number_format($totalSumData['total_order_amount_sum']); ?>원</td>
+    <td class="fw-bold group_rightline"><?= $totalSumData['total_order_count_sum']; ?>건</td>
+    <td class="fw-bold"><?= number_format($totalSumData['total_refund_amount_sum']); ?>원</td>
+    <td class="fw-bold group_rightline"><?= $totalSumData['total_refund_count_sum']; ?>건</td>
+    <td class="fw-bold"><?= number_format($totalSumData['total_final_sales_sum']); ?>원</td>
+</tr>
     </tbody>
   </table>
   <!-- //table -->
