@@ -78,11 +78,13 @@ if ($level == 100) {
     integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/summernote@0.8.20/dist/summernote-lite.min.css"
     integrity="sha256-IKhQVXDfwbVELwiR0ke6dX+pJt0RSmWky3WB2pNx9Hg=" crossorigin="anonymous">
-
-  <!-- <link rel="stylesheet" href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/css/summernote-bs5.css"
-    rel="stylesheet"> -->
-
   <link rel="stylesheet" href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/css/common.css">
+
+  <?php
+  if (isset($jqueryui_css)) {
+    echo $jqueryui_css;
+  }
+  ?>
 
   <!-- 개인 Style CSS -->
   <?php
@@ -185,8 +187,8 @@ if ($level == 100) {
   ?>
 
   <!-- 공통js 추가 -->
-  <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-  <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+  <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script> 
+  <script src="https://code.jquery.com/jquery-1.12.4.js"></script> 
 
   <!-- 개인 추가 js -->
   <?php
