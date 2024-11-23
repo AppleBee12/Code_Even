@@ -79,6 +79,7 @@
       th_name,
       lec_title,
       lec_type,
+      lec_price,
       SUM(total_order_amount) AS total_order_amount, -- 주문금액 합계
       SUM(order_count) AS total_order_count,         -- 주문건수 합계
       SUM(total_refund_amount) AS total_refund_amount, -- 환불금액 합계
@@ -210,8 +211,8 @@
                   <?= $data->lec_type == 1 ? '일반' : '레시피'; ?>
               </span>
           </td>
-          <td class="group_lefttline">강좌가격</td>
-          <td class="group_lefttline"><?= number_format($data->total_order_amount); ?>원 </td>
+          <td class="group_lefttline"><?= number_format($data->lec_price); ?>원</td>
+          <td class="group_lefttline"><?= number_format($data->total_order_amount); ?>원</td>
           <td class="group_rightline"><?= $data->total_order_count; ?>건</td>
           <td><?= number_format($data->total_refund_amount); ?>원</td>
           <td class="group_rightline"><?= $data->total_refund_count; ?>건</td>
