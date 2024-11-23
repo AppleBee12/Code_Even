@@ -104,21 +104,22 @@ while ($data = $result->fetch_object()) {
       foreach ($dataArr as $item) {
         ?>
       <div class="col-6 card p-0 m-3">
-          <div class="row g-0">
-            <div class="col-md-7 c-img">
+        <div class="row g-0">
+          <div class="col-md-7 c-img">
             <img src="<?= $item->coupon_image; ?>" class="img-fluid rounded-start" alt="Coupon Image">
             </div>
             <div class="col-md-5">
               <div class="card-body">
-                    <?php
-                    if ($item->status == 1) {
-                      echo '<h6><span class="badge text-bg-secondary mb-3">활성화</span>';
-                    } else {
-                      echo '<h6><span class="badge text-bd-secondary mb-3">비활성화</span>';
-                    }
-                    ?>
-                  </span></h6>
-                <h5 class="card-title "><?= $item->coupon_name; ?></h5>
+                <?php
+                if ($item->status == 1) {
+                  echo '<span class="badge text-bg-secondary mb-3">활성화</span>';
+                } else {
+                  echo '<span class="badge text-bd-secondary mb-3">비활성화</span>';
+                }
+                ?>
+                <h5>
+                  <div class="card-title"><?= $item->coupon_name; ?></div>
+                </h5>
                 <p class="card-text bd">사용기한 : <?= $item->use_max_date; ?></p>
                 <p class="card-text bd">할인금액 : <?= $item->max_value; ?>원</p>
                 <p class="card-text bd"> 최소 사용금액 : <?= $item->use_min_price; ?>원</p>
@@ -129,18 +130,16 @@ while ($data = $result->fetch_object()) {
               </div>
             </div>
           </div>
-    </div>
-    <?php
+        </div>
+      <?php
+        }
       }
-    }
-    ?>
- 
-  </div>
+      ?>
+    </div>
 
   <div class="d-flex justify-content-end">
-    <a href="coupons_up.php">
-      <button class="btn btn-secondary mt-3 ">쿠폰등록</button>
-    </a>
+    <a href="coupons_up.php" type="button" class="btn btn-secondary">쿠폰등록</a>
+      <!-- <button class="btn  mt-3 "></button> -->
   </div>
 
   <div class="list_pagination" aria-label="Page navigation example">

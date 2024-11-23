@@ -116,8 +116,11 @@ include_once($_SERVER['DOCUMENT_ROOT'] . '/code_even/inc/check_cookie.php');
           <span><b>팀원 : </b>홍수진(팀장), 배유나, 조채림, 최은화, 홍은진</span><br>
           <span><b>제작기간</b> : 2024.10.23 - 2024.11.25 </span><br>
           <span><b>개발환경</b> : HTML/CSS, Javascript, J-Query, PHP</span><br>
-          <span><b>기획자료 :</b>  <a href="https://www.figma.com/slides/9MsKBvc3jwAm3v1j24QznJ/CODE_EVEN_LMS%EB%94%94%EC%9E%90%EC%9D%B8%EB%B0%9C%ED%91%9C?t=cgmURknfV4lmJRsM-6" target="_blank">figma</a>
-          <b> 코드 :</b>  <a href="https://github.com/AppleBee12/Code_Even.git" target="_blank">github</a></p>
+          <div class="link3">
+            <span><b>기획자료 :</b>  <a href="https://www.figma.com/slides/9MsKBvc3jwAm3v1j24QznJ/CODE_EVEN_LMS%EB%94%94%EC%9E%90%EC%9D%B8%EB%B0%9C%ED%91%9C?t=cgmURknfV4lmJRsM-6" target="_blank">figma</a>
+            <b> 코드 :</b>  <a href="https://github.com/AppleBee12/Code_Even.git" target="_blank">github</a>
+            <b> 관리자 페이지 :</b>  <a href="http://localhost/code_even/admin/index.php" target="_blank">Admin Page</a></p>
+          </div>
         </div>
         <hr>
         <div>
