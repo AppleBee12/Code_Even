@@ -91,7 +91,8 @@ while ($cates = $result_cate->fetch_object()) {
         <tr>
           <th scope="row">교재명 <b>*</b></th>
           <td colspan="6">
-            <input name="book" type="text" class="form-control" placeholder="기초부터 확실하게! (페이지의 내용 전달을 위한 HTML, 스타일 설정을 위한 CSS 기초 학습)">
+            <input name="book" type="text" class="form-control"
+              placeholder="기초부터 확실하게! (페이지의 내용 전달을 위한 HTML, 스타일 설정을 위한 CSS 기초 학습)">
           </td>
         </tr>
         <tr>
@@ -149,94 +150,110 @@ while ($cates = $result_cate->fetch_object()) {
       <button type="submit" class="btn btn-secondary" name="action">등록</button>
       <button type="button" class="btn btn-danger" onclick="window.location.href='/lecture_list.php'">취소</button>
     </div>
-    </form>
-  </div>
-  <script>
-    // 카테고리 데이터 변환
-    const categories = <?php echo json_encode($categories); ?>;
+  </form>
+</div>
+<script>
+  // 카테고리 데이터 변환
+  const categories = <?php echo json_encode($categories); ?>;
 
-    // 대분류 선택 -> 중분류 업데이트
-    $('#cate1').on('change', function () {
-      const cate1 = $(this).val();
+  // 대분류 선택 -> 중분류 업데이트
+  $('#cate1').on('change', function () {
+    const cate1 = $(this).val();
 
-      if (cate1) {
-        const filterCate2 = categories.filter(category => category.step == 2 && category.pcode == cate1);
+    if (cate1) {
+      const filterCate2 = categories.filter(category => category.step == 2 && category.pcode == cate1);
 
-        $('#cate2').html('<option value="">중분류</option>');
-        filterCate2.forEach(category => {
-          $('#cate2').append(`<option value="${category.code}">${category.name}</option>`);
-        });
-        $('#cate3').html('<option value="">소분류</option>');
+      $('#cate2').html('<option value="">중분류</option>');
+      filterCate2.forEach(category => {
+        $('#cate2').append(`<option value="${category.code}">${category.name}</option>`);
+      });
+      $('#cate3').html('<option value="">소분류</option>');
 
-      } else {
+    } else {
 
-        $('#cate2').html('<option value="">중분류</option>');
-        $('#cate3').html('<option value="">소분류</option>');
+      $('#cate2').html('<option value="">중분류</option>');
+      $('#cate3').html('<option value="">소분류</option>');
 
+    }
+  });
+
+  // 중분류 선택 -> 소분류 업데이트
+  $('#cate2').on('change', function () {
+    const cate2 = $(this).val();
+
+    if (cate2) {
+      const filterCate3 = categories.filter(category => category.step == 3 && category.pcode == cate2);
+
+      $('#cate3').html('<option value="">소분류</option>')
+      filterCate3.forEach(category => {
+        $('#cate3').append(`<option value="${category.code}">${category.name}</option>`);
+      });
+
+    } else {
+
+      $('#cate3').html('<option value="">소분류</option>');
+
+    }
+  });
+
+  // 썸네일 첨부하면 class image에 출력
+  $('#image').on('change', function (event) {
+    const file = event.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+
+      reader.onload = function (e) {
+        $('.image img').attr('src', e.target.result);
+        $('.image img').attr('alt', file.name);
+        $('.bookBox span').css('display', 'none'); // 텍스트 숨기기
+      };
+
+      reader.readAsDataURL(file);
+    }
+  });
+
+  $(document).ready(function () {
+    const dateInput = $("#datepicker");
+    const calendarIconWrapper = $("#calendar-icon-wrapper");
+    const calendarIcon = $("#calendar-icon");
+
+    // 페이지 로드 시 기본 placeholder 설정
+    dateInput.attr("placeholder", "출판일을 선택하세요.");
+
+    // 아이콘 클릭 시 입력 필드에 포커스
+    calendarIconWrapper.on("click", function () {
+      dateInput.focus();
+    });
+
+    // 입력 필드에 포커스되면 아이콘 숨김
+    dateInput.on("focus", function () {
+      $(this).attr("type", "date"); // type을 date로 변경
+      $(this).attr("placeholder", ""); // placeholder 제거
+      calendarIcon.hide(); // 달력 아이콘 숨김
+    });
+
+    // 입력 필드가 변경되었을 때 아이콘 상태 확인
+    dateInput.on("change", function () {
+      if ($(this).val()) {
+        calendarIconWrapper.hide(); // 입력된 값이 있으면 아이콘 전체 숨김
       }
     });
 
-    // 중분류 선택 -> 소분류 업데이트
-    $('#cate2').on('change', function () {
-      const cate2 = $(this).val();
-
-      if (cate2) {
-        const filterCate3 = categories.filter(category => category.step == 3 && category.pcode == cate2);
-
-        $('#cate3').html('<option value="">소분류</option>')
-        filterCate3.forEach(category => {
-          $('#cate3').append(`<option value="${category.code}">${category.name}</option>`);
-        });
-
-      } else {
-
-        $('#cate3').html('<option value="">소분류</option>');
-
+    // 입력 필드 focus-out 시 처리
+    dateInput.on("blur", function () {
+      if (!$(this).val()) {
+        $(this).attr("type", "text"); // 값이 비어 있으면 type을 text로 복구
+        $(this).attr("placeholder", "출판일을 선택하세요."); // placeholder 복구
+        calendarIconWrapper.show(); // 아이콘 다시 표시
       }
     });
-
-    $(document).ready(function () {
-      const dateInput = $("#datepicker");
-      const calendarIconWrapper = $("#calendar-icon-wrapper");
-      const calendarIcon = $("#calendar-icon");
-
-      // 페이지 로드 시 기본 placeholder 설정
-      dateInput.attr("placeholder", "출판일을 선택하세요.");
-
-      // 아이콘 클릭 시 입력 필드에 포커스
-      calendarIconWrapper.on("click", function () {
-          dateInput.focus();
-      });
-
-      // 입력 필드에 포커스되면 아이콘 숨김
-      dateInput.on("focus", function () {
-          $(this).attr("type", "date"); // type을 date로 변경
-          $(this).attr("placeholder", ""); // placeholder 제거
-          calendarIcon.hide(); // 달력 아이콘 숨김
-      });
-
-      // 입력 필드가 변경되었을 때 아이콘 상태 확인
-      dateInput.on("change", function () {
-          if ($(this).val()) {
-              calendarIconWrapper.hide(); // 입력된 값이 있으면 아이콘 전체 숨김
-          }
-      });
-
-      // 입력 필드 focus-out 시 처리
-      dateInput.on("blur", function () {
-          if (!$(this).val()) {
-              $(this).attr("type", "text"); // 값이 비어 있으면 type을 text로 복구
-              $(this).attr("placeholder", "출판일을 선택하세요."); // placeholder 복구
-              calendarIconWrapper.show(); // 아이콘 다시 표시
-          }
-      });
-    });
+  });
 
 
 
 
 
-  </script>
-  <?php
-  include_once($_SERVER['DOCUMENT_ROOT'] . '/code_even/admin/inc/footer.php');
-  ?>
+</script>
+<?php
+include_once($_SERVER['DOCUMENT_ROOT'] . '/code_even/admin/inc/footer.php');
+?>
