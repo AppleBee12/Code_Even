@@ -6,15 +6,15 @@
   $category_sql = "SELECT * FROM category WHERE code LIKE 'A%' ORDER BY cgid ASC";
   $category_result = $mysqli->query($category_sql);
 
- while($cate_data = $category_result->fetch_object()){
-     $categories[] = $cate_data;
- }
+  while($cate_data = $category_result->fetch_object()){
+      $categories[] = $cate_data;
+  }
 
- //분야 카테고리랑 매칭하기
- $category_map = [];
- foreach ($categories as $category) {
-     $category_map[$category->cgid] = $category->name;
- }
+  //분야 카테고리랑 매칭하기
+  $category_map = [];
+  foreach ($categories as $category) {
+      $category_map[$category->cgid] = $category->name;
+  }
 
 
   //게시글 분류 검색 추가
@@ -36,53 +36,72 @@
   unset($query_params['order_by'], $query_params['order']); // 정렬 관련 파라미터 제거
 
 
- if ($keywords) {
-   $where_clause = "WHERE lecture_sales.lec_title LIKE '%$keywords%' OR lecture_sales.th_name LIKE '%$keywords%'";
- }
+  if ($keywords) {
+    $where_clause = "WHERE lecture_sales.lec_title LIKE '%$keywords%' OR lecture_sales.th_name LIKE '%$keywords%'";
+  }
 
- if ($category_filter) {
-   $where_clause .= ($where_clause ? ' AND ' : 'WHERE ') . "lecture_sales.lec_cate = '$category_filter'";
- }
+  if ($category_filter) {
+    $where_clause .= ($where_clause ? ' AND ' : 'WHERE ') . "lecture_sales.lec_cate = '$category_filter'";
+  }
 
- if ($lec_type_filter !== '') {
-  $where_clause .= ($where_clause ? ' AND ' : 'WHERE ') . "lecture_sales.lec_type = '$lec_type_filter'";
-}
+  if ($lec_type_filter !== '') {
+    $where_clause .= ($where_clause ? ' AND ' : 'WHERE ') . "lecture_sales.lec_type = '$lec_type_filter'";
+  }
 
- $page_sql = "SELECT COUNT(*) AS cnt FROM lecture_sales $where_clause";
- $page_result = $mysqli->query($page_sql);
- $page_data = $page_result->fetch_assoc();
- $row_num = $page_data['cnt'];
+  $page_sql = "SELECT COUNT(DISTINCT leid) AS cnt FROM lecture_sales $where_clause";
+  $page_result = $mysqli->query($page_sql);
+  $page_data = $page_result->fetch_assoc();
+  $row_num = $page_data['cnt']; // 그룹화된 데이터 개수
 
- // 페이지네이션
- $page = isset($_GET['page']) ? $_GET['page'] : 1;
- $list = 10;
- $start_num = ($page - 1) * $list;
- $block_ct = 5;
- $block_num = ceil($page / $block_ct);
- $block_start = (($block_num - 1) * $block_ct) + 1;
- $block_end = $block_start + $block_ct - 1; 
+  // 페이지네이션
+  $page = isset($_GET['page']) ? $_GET['page'] : 1;
+  $list = 10;
+  $start_num = ($page - 1) * $list;
+  $block_ct = 5;
+  $block_num = ceil($page / $block_ct);
+  $block_start = (($block_num - 1) * $block_ct) + 1;
+  $block_end = $block_start + $block_ct - 1; 
 
- $total_page = ceil($row_num / $list);
- $total_block = ceil($total_page / $block_ct);
- if ($block_end > $total_page) {
-   $block_end = $total_page;
- }
+  $total_page = ceil($row_num / $list); // 전체 페이지 수
+  $total_block = ceil($total_page / $block_ct); // 전체 블록 수
+  $block_num = ceil($page / $block_ct); // 현재 블록
+  $block_start = (($block_num - 1) * $block_ct) + 1; // 블록 시작 번호
+  $block_end = $block_start + $block_ct - 1; // 블록 끝 번호
+
+  if ($block_end > $total_page) {
+      $block_end = $total_page; // 블록 끝 번호가 총 페이지 수를 넘지 않도록 설정
+  }
 
 
-  // SQL 쿼리
-  $sql = "SELECT * FROM lecture_sales $where_clause 
-  ORDER BY $order_by $order 
-  LIMIT $start_num, $list";
+  $sql = "SELECT 
+      leid,
+      lec_cate,
+      th_name,
+      lec_title,
+      lec_type,
+      SUM(total_order_amount) AS total_order_amount, -- 주문금액 합계
+      SUM(order_count) AS total_order_count,         -- 주문건수 합계
+      SUM(total_refund_amount) AS total_refund_amount, -- 환불금액 합계
+      SUM(refund_count) AS total_refund_count,       -- 환불건수 합계
+      SUM(final_sales_amount) AS total_final_sales -- 총 매출금액 합계
+    FROM lecture_sales
+    $where_clause
+    GROUP BY leid, lec_cate, th_name, lec_title, lec_type
+    ORDER BY $order_by $order
+    LIMIT $start_num, $list
+  ";
 
   $result = $mysqli->query($sql);
   $dataArr = [];
   if ($result) {
-  while ($data = $result->fetch_object()) {
-    $dataArr[] = $data;
-  }
+    while ($data = $result->fetch_object()) {
+      $dataArr[] = $data;
+    }
   }
 ?>
 
+
+</style>
 <div class="container"> 
   <h2 class="page_title">강좌매출통계</h2>
 
@@ -182,22 +201,21 @@
         <?= $data->lec_cate == 1 ? '웹개발' : ($data->lec_cate == 2 ? '클라우드·DB' : ($data->lec_cate == 3 ? '보안·네트워크' : '기타')); ?>
     </td>
 
-              <td><?= htmlspecialchars($data->th_name); ?></td>
-              <td>
-        <?= htmlspecialchars(mb_strlen($data->lec_title) > 32 ? mb_substr($data->lec_title, 0, 32) . '...' : $data->lec_title); ?>
+    <td><?= htmlspecialchars($data->th_name); ?></td>
+    <td class="lec_title  ">
+      <?= htmlspecialchars($data->lec_title); ?>
     </td>
-
           <td>
-              <span class="badge <?= $data->lec_type == 1 ? 'text-bg-secondary' : 'text-bg-danger'; ?>">
+              <span class="badge <?= $data->lec_type == 1 ? 'text-bg-secondary' : 'text_bg_recipe'; ?>">
                   <?= $data->lec_type == 1 ? '일반' : '레시피'; ?>
               </span>
           </td>
-          <td>강좌가격</td>
+          <td class="group_lefttline">강좌가격</td>
           <td class="group_lefttline"><?= number_format($data->total_order_amount); ?>원 </td>
-          <td class="group_rightline"><?= $data->order_count; ?>건</td>
+          <td class="group_rightline"><?= $data->total_order_count; ?>건</td>
           <td><?= number_format($data->total_refund_amount); ?>원</td>
-          <td class="group_rightline"> 0건</td>
-          <td><?= number_format($data->final_sales_amount); ?>원</td>
+          <td class="group_rightline"><?= $data->total_refund_count; ?>건</td>
+          <td><?= number_format($data-> total_final_sales); ?>원</td>
       </tr>
       <?php
       }
@@ -252,6 +270,8 @@
         const url = window.location.origin + window.location.pathname;
         window.history.replaceState({}, document.title, url);
     }
+
+    
 </script>
 
 <?php
