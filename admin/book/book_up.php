@@ -92,7 +92,7 @@ while ($cates = $result_cate->fetch_object()) {
           <th scope="row">교재명 <b>*</b></th>
           <td colspan="6">
             <input name="book" type="text" class="form-control"
-              placeholder="기초부터 확실하게! (페이지의 내용 전달을 위한 HTML, 스타일 설정을 위한 CSS 기초 학습)">
+              placeholder="교재명을 입력하세요.">
           </td>
         </tr>
         <tr>
