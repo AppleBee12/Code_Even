@@ -1,6 +1,8 @@
 <?php
 $title = "월별매출통계";
+$jqueryui_css = " <link rel=\"stylesheet\" href=\"https://code.jquery.com/ui/1.14.1/themes/base/jquery-ui.css\">";
 $chart_js = "<script src=\"https://cdn.jsdelivr.net/npm/chart.js\"></script>";
+$jqueryui_js = "<script src=\"https://code.jquery.com/ui/1.14.1/jquery-ui.js\"></script>";
 
 include_once($_SERVER['DOCUMENT_ROOT'] . '/CODE_EVEN/admin/inc/header.php');
 
@@ -33,7 +35,7 @@ include_once($_SERVER['DOCUMENT_ROOT'] . '/CODE_EVEN/admin/inc/header.php');
       while ($row = $result->fetch_assoc()) {
           $salesData[] = $row;
           //년월저장
-          $yearMonth = explode('-', $row['data_year_month']); // '2023-01'을 '-'로 분리하여 배열로 저장
+          //$yearMonth = explode('-', $row['data_year_month']); // '2023-01'을 '-'로 분리하여 배열로 저장
       }
   }
 
@@ -71,7 +73,8 @@ include_once($_SERVER['DOCUMENT_ROOT'] . '/CODE_EVEN/admin/inc/header.php');
   </div>
   <form action="" id="search_form" class="row justify-content-end">
     <div class="col-lg-3">
-      <input type="date" class="form-control" />
+      <!-- <input type="date" class="form-control" /> -->
+      <input type="text" id="datepicker"></p>
     </div>
     <div class="col-lg-3">
     <div class="input-group mb-3">
@@ -124,6 +127,9 @@ include_once($_SERVER['DOCUMENT_ROOT'] . '/CODE_EVEN/admin/inc/header.php');
         $total_final_sales = 0;
 
           foreach ($salesData as $index => $row) {
+
+            // 각 행마다 'data_year_month' 값을 기반으로 분리하여 사용
+    $yearMonth = explode('-', $row['data_year_month']); // '2023-01'을 '-'로 분리하여 배열로 저장
               echo "<tr>";
               echo "<th scope='row'>" . ($index + 1) . "</th>";
               echo "<td>" . $yearMonth[0] . "년 " . intval($yearMonth[1]) . "월</td>"; // 2023년 1월 형식으로 출력
@@ -225,7 +231,15 @@ include_once($_SERVER['DOCUMENT_ROOT'] . '/CODE_EVEN/admin/inc/header.php');
             }
         }
     });
+
+
+
 </script>
+<script>
+  $( function() {
+    $( "#datepicker" ).datepicker();
+  } );
+  </script>
 
 
 
