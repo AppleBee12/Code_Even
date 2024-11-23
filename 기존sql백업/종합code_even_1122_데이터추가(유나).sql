@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- 생성 시간: 24-11-21 08:40
+-- 생성 시간: 24-11-23 04:18
 -- 서버 버전: 10.4.32-MariaDB
 -- PHP 버전: 8.2.12
 
@@ -18,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- 데이터베이스: `codeeven2`
+-- 데이터베이스: `code_even`
 --
 
 -- --------------------------------------------------------
@@ -159,6 +159,7 @@ CREATE TABLE `book` (
   `cate3` varchar(50) NOT NULL COMMENT '소분류',
   `image` varchar(100) NOT NULL COMMENT '이미지',
   `title` varchar(250) NOT NULL COMMENT '강좌명',
+  `des` varchar(255) DEFAULT NULL COMMENT '교재 설명',
   `name` varchar(50) NOT NULL COMMENT '등록자',
   `price` decimal(10,0) NOT NULL COMMENT '가격',
   `pd` datetime NOT NULL COMMENT '출판일',
@@ -171,9 +172,12 @@ CREATE TABLE `book` (
 -- 테이블의 덤프 데이터 `book`
 --
 
-INSERT INTO `book` (`boid`, `cate1`, `cate2`, `cate3`, `image`, `title`, `name`, `price`, `pd`, `book`, `writer`, `company`) VALUES
-(1, 'A0001', 'B0001', 'C0001', '', '기초부터 확실하게! (페이지의 내용 전달을 위한 HTML, 스타일 설정을 위한 CSS 기초 학습)', '홍길동', 15000, '2024-11-17 10:08:39', 'html 도장 깨기', '홍길동', '길동사'),
-(2, 'A0001', 'B0002', 'C0008', '', '실무자 JAVA 코스', '홍이븐', 20000, '2024-11-20 08:32:56', 'JAVA 마스터하기', '김길동', '길벗');
+INSERT INTO `book` (`boid`, `cate1`, `cate2`, `cate3`, `image`, `title`, `des`, `name`, `price`, `pd`, `book`, `writer`, `company`) VALUES
+(1, 'A0001', 'B0001', 'C0001', '', '기초부터 확실하게! (페이지의 내용 전달을 위한 HTML, 스타일 설정을 위한 CSS 기초 학습)', NULL, '홍길동', 15000, '2024-11-17 10:08:39', 'html 도장 깨기', '홍길동', '길동사'),
+(2, 'A0001', 'B0002', 'C0008', '', '실무자 JAVA 코스', NULL, '홍이븐', 20000, '2024-11-20 08:32:56', 'JAVA 마스터하기', '김길동', '길벗'),
+(3, 'A0002', 'B0004', 'C0018', '/uploads/cat-5270323_1280.jpg', '데이터베이스, 나도 한다면 한다! MySQL 사용기', 'MySQL을 사용하고 싶으신 분들이라면 꼭 들어 보세요!', '이븐관리자', 20000, '2023-11-01 00:00:00', 'MySQL 지식 쌓기\', \'MySQL을 사용하고 싶으신 분들이라면 꼭 들어 보세요!', '이도령', '도령사'),
+(4, 'A0002', 'B0004', 'C0018', '/uploads/cat-4123233_1280.jpg', '이제 당당히 말할 수 있다! 나도 MySLQ 중급 사용자', '이제 당당히 MySQL 좀 안다라고 말할 수 있는 당신을 위한 책', '이븐관리자', 30000, '2024-06-18 00:00:00', 'MySQL도 즐길 수 있다', '이도령', '도령사'),
+(5, 'A0002', 'B0004', 'C0018', '/uploads/mikhail-vasilyev-IFxjDdqK_0U-unsplash.jpg', '데이터베이스, 나도 한다면 한다! MySQL 사용기', 'MySQL을 사용하고 싶으신 분들이라면 꼭 들어 보세요!', '이븐선생', 20000, '2023-11-01 00:00:00', 'MySQL 지식 쌓기', '홍길동', '길동사');
 
 -- --------------------------------------------------------
 
@@ -491,8 +495,7 @@ CREATE TABLE `lecture` (
   `video_url` varchar(250) NOT NULL COMMENT '강의',
   `file` varchar(100) DEFAULT NULL COMMENT '실습 파일',
   `period` int(11) NOT NULL COMMENT '학습 기간',
-  `isrecipe` tinyint(4) NOT NULL COMMENT '레시피',
-  `isgeneral` tinyint(4) NOT NULL COMMENT '일반',
+  `course_type` varchar(30) NOT NULL COMMENT '레시피/일반',
   `isbest` varchar(10) NOT NULL COMMENT '베스트',
   `isrecom` varchar(10) NOT NULL COMMENT '추천',
   `state` tinyint(4) NOT NULL COMMENT '상태',
@@ -506,26 +509,28 @@ CREATE TABLE `lecture` (
 -- 테이블의 덤프 데이터 `lecture`
 --
 
-INSERT INTO `lecture` (`leid`, `cgid`, `boid`, `lecid`, `cate1`, `cate2`, `cate3`, `image`, `title`, `des`, `name`, `video_url`, `file`, `period`, `isrecipe`, `isgeneral`, `isbest`, `isrecom`, `state`, `approval`, `price`, `level`, `date`) VALUES
-(0, NULL, 0, 1, 'A0001', 'B0001', 'C0001', '/uploads/images/mikhail-vasilyev-IFxjDdqK_0U-unsplash.jpg', '기초부터 확실하게! (페이지의 내용 전달을 위한 HTML, 스타일 설정을 위한 CSS 기초 학습)', NULL, '이븐관리자', 'https://youtu.be/oHTr2fEkmGA?si=fNAGT0cPExpzwXDM', NULL, 30, 0, 0, '', '', 2, 0, 30000, 0, '2024-11-20 10:22:33'),
-(1, NULL, 0, 0, 'A0001', 'B0001', 'C0001', '', '기초부터 확실하게! (페이지의 내용 전달을 위한 HTML, 스타일 설정을 위한 CSS 기초 학습)', '초보자를 위한 쉽고 재미있는 HTML, CSS 기초입니다. 천천히 보면서 이해하면서 따라해 보세요!', '홍길동', 'https://youtu.be/oHTr2fEkmGA?si=fNAGT0cPExpzwXDM', NULL, 30, 0, 1, '', '', 1, 1, 15000, 50, '2024-11-18 14:40:26'),
-(2, NULL, 0, 2, 'A0001', 'B0001', 'C0001', '', '2기초부터 확실하게! (페이지의 내용 전달을 위한 HTML, 스타일 설정을 위한 CSS 기초 학습)', '2초보자를 위한 쉽고 재미있는 HTML, CSS 기초입니다. 천천히 보면서 이해하면서 따라해 보세요!', '이븐선생', 'https://youtu.be/oHTr2fEkmGA?si=fNAGT0cPExpzwXDM', NULL, 30, 0, 1, '', '', 1, 1, 35000, 50, '0000-00-00 00:00:00'),
-(3, NULL, 0, 0, 'A0001', 'B0001', 'C0001', '', 'HTML 정도는 껌이지', '', '', '', NULL, 0, 1, 0, '', '', 1, 0, 50000, 0, '2024-11-19 02:12:51'),
-(4, NULL, 0, 1, 'A0001', 'B0001', 'C0001', '/uploads/images/default.png', '기초부터 확실하게! (페이지의 내용 전달을 위한 HTML, 스타일 설정을 위한 CSS 기초 학습)', NULL, '이븐관리자', '', NULL, 30, 1, 0, '', '', 0, 0, 0, 0, '2024-11-20 02:57:33'),
-(5, NULL, 0, 1, 'A0001', 'B0001', 'C0001', '/uploads/images/IMG_2450.jpeg', '기초부터 확실하게! (페이지의 내용 전달을 위한 HTML, 스타일 설정을 위한 CSS 기초 학습)', NULL, '이븐관리자', '', NULL, 30, 0, 1, '', '', 1, 0, 50, 0, '2024-11-20 03:01:12'),
-(6, NULL, 0, 1, 'A0001', 'B0001', 'C0001', '/uploads/images/IMG_2450.jpeg', '기초부터 확실하게! (페이지의 내용 전달을 위한 HTML, 스타일 설정을 위한 CSS 기초 학습)', NULL, '이븐관리자', 'default_video_url', NULL, 30, 0, 1, '', '', 1, 0, 50000, 0, '2024-11-20 04:35:15'),
-(7, NULL, 0, 1, 'A0001', 'B0001', 'C0001', '/uploads/images/IMG_2450.jpeg', '기초부터 확실하게! (페이지의 내용 전달을 위한 HTML, 스타일 설정을 위한 CSS 기초 학습)', NULL, '이븐관리자', 'default_video_url', NULL, 30, 0, 1, '', '', 1, 0, 50000, 0, '2024-11-20 04:36:00'),
-(8, NULL, 0, 1, 'A0001', 'B0001', 'C0001', '/uploads/images/IMG_2450.jpeg', '기초부터 확실하게! (페이지의 내용 전달을 위한 HTML, 스타일 설정을 위한 CSS 기초 학습)', NULL, '이브관리자', 'https://youtu.be/oHTt2fEkmGA?si=fNAGtOcPEzpxwXDM', NULL, 30, 0, 1, '', '', 1, 0, 50000, 0, '2024-11-20 05:10:39'),
-(9, NULL, 0, 1, 'A0001', 'B0001', 'C0001', '/uploads/images/IMG_2450.jpeg', '기초부터 확실하게! (페이지의 내용 전달을 위한 HTML, 스타일 설정을 위한 CSS 기초 학습)', NULL, '이븐관리자', 'https://youtu.be/oHTr2fEkmGA?si=fNAGT0cPExpzwXDM', NULL, 30, 1, 0, '', '', 1, 0, 50000, 0, '2024-11-20 05:35:37'),
-(10, NULL, 0, 1, 'A0001', 'B0001', 'C0001', '/uploads/images/cat-5270323_1280.jpg', '기초부터 확실하게! (페이지의 내용 전달을 위한 HTML, 스타일 설정을 위한 CSS 기초 학습)', NULL, '이븐관리자', 'https://youtu.be/oHTr2fEkmGA?si=fNAGT0cPExpzwXDM', NULL, 30, 1, 0, '', '', 1, 0, 100000, 0, '2024-11-20 09:51:34'),
-(11, NULL, 0, 1, 'A0001', 'B0001', 'C0001', '/uploads/images/cat-4738796_1280.jpg', '기초부터 확실하게! (페이지의 내용 전달을 위한 HTML, 스타일 설정을 위한 CSS 기초 학습)', NULL, '이븐관리자', 'https://youtu.be/oHTr2fEkmGA?si=fNAGT0cPExpzwXDM', NULL, 30, 1, 0, '', '', 2, 0, 100000, 0, '2024-11-20 09:57:07'),
-(12, NULL, 0, 1, 'A0001', 'B0001', 'C0001', '/uploads/images/cat-4738796_1280.jpg', '기초부터 확실하게! (페이지의 내용 전달을 위한 HTML, 스타일 설정을 위한 CSS 기초 학습)', NULL, '이븐관리자', 'https://youtu.be/oHTr2fEkmGA?si=fNAGT0cPExpzwXDM', NULL, 30, 0, 1, '', '', 1, 0, 100000, 0, '2024-11-20 10:00:54'),
-(13, NULL, 0, 1, 'A0001', 'B0001', 'C0001', '/uploads/images/cat-2480777_1280.jpg', '기초부터 확실하게! (페이지의 내용 전달을 위한 HTML, 스타일 설정을 위한 CSS 기초 학습)', NULL, '이븐관리자', 'https://youtu.be/oHTr2fEkmGA?si=fNAGT0cPExpzwXDM', NULL, 30, 0, 1, '', '', 1, 0, 100000, 0, '2024-11-20 10:01:35'),
-(14, NULL, 0, 1, 'A0001', 'B0001', 'C0001', '/uploads/images/cat-2480777_1280.jpg', '기초부터 확실하게! (페이지의 내용 전달을 위한 HTML, 스타일 설정을 위한 CSS 기초 학습)', NULL, '이븐관리자', 'https://youtu.be/oHTr2fEkmGA?si=fNAGT0cPExpzwXDM', NULL, 30, 0, 1, '', '', 1, 0, 100000, 0, '2024-11-20 10:01:55'),
-(15, NULL, 0, 1, 'A0001', 'B0001', 'C0001', '/uploads/images/cat-2480777_1280.jpg', '기초부터 확실하게! (페이지의 내용 전달을 위한 HTML, 스타일 설정을 위한 CSS 기초 학습)', NULL, '이븐관리자', 'https://youtu.be/oHTr2fEkmGA?si=fNAGT0cPExpzwXDM', NULL, 30, 0, 1, '', '', 1, 0, 50000, 0, '2024-11-20 10:10:10'),
-(16, NULL, 0, 1, 'A0001', 'B0001', 'C0001', '/uploads/images/cat-5270323_1280.jpg', '기초부터 확실하게! (페이지의 내용 전달을 위한 HTML, 스타일 설정을 위한 CSS 기초 학습)', NULL, '이븐관리자', 'https://youtu.be/oHTr2fEkmGA?si=fNAGT0cPExpzwXDM', NULL, 30, 0, 1, '', '', 1, 0, 100000, 0, '2024-11-20 10:10:52'),
-(17, NULL, 0, 1, 'A0001', 'B0001', 'C0001', '/uploads/images/cat-5270323_1280.jpg', '기초부터 확실하게! (페이지의 내용 전달을 위한 HTML, 스타일 설정을 위한 CSS 기초 학습)', NULL, '이븐관리자', 'https://youtu.be/oHTr2fEkmGA?si=fNAGT0cPExpzwXDM', NULL, 30, 0, 1, '', '', 2, 0, 100000, 0, '2024-11-20 10:14:24'),
-(18, NULL, 0, 1, 'A0001', 'B0001', 'C0001', '/uploads/images/mikhail-vasilyev-IFxjDdqK_0U-unsplash.jpg', '기초부터 확실하게! (페이지의 내용 전달을 위한 HTML, 스타일 설정을 위한 CSS 기초 학습)', NULL, '이븐관리자', 'https://youtu.be/oHTr2fEkmGA?si=fNAGT0cPExpzwXDM', NULL, 30, 0, 1, '', '', 1, 0, 30000, 0, '2024-11-20 10:20:11');
+INSERT INTO `lecture` (`leid`, `cgid`, `boid`, `lecid`, `cate1`, `cate2`, `cate3`, `image`, `title`, `des`, `name`, `video_url`, `file`, `period`, `course_type`, `isbest`, `isrecom`, `state`, `approval`, `price`, `level`, `date`) VALUES
+(0, NULL, 0, 1, 'A0001', 'B0001', 'C0001', '/uploads/images/mikhail-vasilyev-IFxjDdqK_0U-unsplash.jpg', '기초부터 확실하게! (페이지의 내용 전달을 위한 HTML, 스타일 설정을 위한 CSS 기초 학습)', NULL, '이븐관리자', 'https://youtu.be/oHTr2fEkmGA?si=fNAGT0cPExpzwXDM', NULL, 30, '', '', '', 2, 0, 30000, 0, '2024-11-20 10:22:33'),
+(1, NULL, 0, 0, 'A0001', 'B0001', 'C0001', '', '기초부터 확실하게! (페이지의 내용 전달을 위한 HTML, 스타일 설정을 위한 CSS 기초 학습)', '초보자를 위한 쉽고 재미있는 HTML, CSS 기초입니다. 천천히 보면서 이해하면서 따라해 보세요!', '홍길동', 'https://youtu.be/oHTr2fEkmGA?si=fNAGT0cPExpzwXDM', NULL, 30, '', '', '', 1, 1, 15000, 50, '2024-11-18 14:40:26'),
+(2, NULL, 0, 2, 'A0001', 'B0001', 'C0001', '', '2기초부터 확실하게! (페이지의 내용 전달을 위한 HTML, 스타일 설정을 위한 CSS 기초 학습)', '2초보자를 위한 쉽고 재미있는 HTML, CSS 기초입니다. 천천히 보면서 이해하면서 따라해 보세요!', '이븐선생', 'https://youtu.be/oHTr2fEkmGA?si=fNAGT0cPExpzwXDM', NULL, 30, '', '', '', 1, 1, 35000, 50, '0000-00-00 00:00:00'),
+(3, NULL, 0, 0, 'A0001', 'B0001', 'C0001', '', 'HTML 정도는 껌이지', '', '', '', NULL, 0, '', '', '', 1, 0, 50000, 0, '2024-11-19 02:12:51'),
+(4, NULL, 0, 1, 'A0001', 'B0001', 'C0001', '/uploads/images/default.png', '기초부터 확실하게! (페이지의 내용 전달을 위한 HTML, 스타일 설정을 위한 CSS 기초 학습)', NULL, '이븐관리자', '', NULL, 30, '', '', '', 0, 0, 0, 0, '2024-11-20 02:57:33'),
+(5, NULL, 0, 1, 'A0001', 'B0001', 'C0001', '/uploads/images/IMG_2450.jpeg', '기초부터 확실하게! (페이지의 내용 전달을 위한 HTML, 스타일 설정을 위한 CSS 기초 학습)', NULL, '이븐관리자', '', NULL, 30, '', '', '', 1, 0, 50, 0, '2024-11-20 03:01:12'),
+(6, NULL, 0, 1, 'A0001', 'B0001', 'C0001', '/uploads/images/IMG_2450.jpeg', '기초부터 확실하게! (페이지의 내용 전달을 위한 HTML, 스타일 설정을 위한 CSS 기초 학습)', NULL, '이븐관리자', 'default_video_url', NULL, 30, '', '', '', 1, 0, 50000, 0, '2024-11-20 04:35:15'),
+(7, NULL, 0, 1, 'A0001', 'B0001', 'C0001', '/uploads/images/IMG_2450.jpeg', '기초부터 확실하게! (페이지의 내용 전달을 위한 HTML, 스타일 설정을 위한 CSS 기초 학습)', NULL, '이븐관리자', 'default_video_url', NULL, 30, '', '', '', 1, 0, 50000, 0, '2024-11-20 04:36:00'),
+(8, NULL, 0, 1, 'A0001', 'B0001', 'C0001', '/uploads/images/IMG_2450.jpeg', '기초부터 확실하게! (페이지의 내용 전달을 위한 HTML, 스타일 설정을 위한 CSS 기초 학습)', NULL, '이브관리자', 'https://youtu.be/oHTt2fEkmGA?si=fNAGtOcPEzpxwXDM', NULL, 30, '', '', '', 1, 0, 50000, 0, '2024-11-20 05:10:39'),
+(9, NULL, 0, 1, 'A0001', 'B0001', 'C0001', '/uploads/images/IMG_2450.jpeg', '기초부터 확실하게! (페이지의 내용 전달을 위한 HTML, 스타일 설정을 위한 CSS 기초 학습)', NULL, '이븐관리자', 'https://youtu.be/oHTr2fEkmGA?si=fNAGT0cPExpzwXDM', NULL, 30, '', '', '', 1, 0, 50000, 0, '2024-11-20 05:35:37'),
+(10, NULL, 0, 1, 'A0001', 'B0001', 'C0001', '/uploads/images/cat-5270323_1280.jpg', '기초부터 확실하게! (페이지의 내용 전달을 위한 HTML, 스타일 설정을 위한 CSS 기초 학습)', NULL, '이븐관리자', 'https://youtu.be/oHTr2fEkmGA?si=fNAGT0cPExpzwXDM', NULL, 30, '', '', '', 1, 0, 100000, 0, '2024-11-20 09:51:34'),
+(11, NULL, 0, 1, 'A0001', 'B0001', 'C0001', '/uploads/images/cat-4738796_1280.jpg', '기초부터 확실하게! (페이지의 내용 전달을 위한 HTML, 스타일 설정을 위한 CSS 기초 학습)', NULL, '이븐관리자', 'https://youtu.be/oHTr2fEkmGA?si=fNAGT0cPExpzwXDM', NULL, 30, '', '', '', 2, 0, 100000, 0, '2024-11-20 09:57:07'),
+(12, NULL, 0, 1, 'A0001', 'B0001', 'C0001', '/uploads/images/cat-4738796_1280.jpg', '기초부터 확실하게! (페이지의 내용 전달을 위한 HTML, 스타일 설정을 위한 CSS 기초 학습)', NULL, '이븐관리자', 'https://youtu.be/oHTr2fEkmGA?si=fNAGT0cPExpzwXDM', NULL, 30, '', '', '', 1, 0, 100000, 0, '2024-11-20 10:00:54'),
+(13, NULL, 0, 1, 'A0001', 'B0001', 'C0001', '/uploads/images/cat-2480777_1280.jpg', '기초부터 확실하게! (페이지의 내용 전달을 위한 HTML, 스타일 설정을 위한 CSS 기초 학습)', NULL, '이븐관리자', 'https://youtu.be/oHTr2fEkmGA?si=fNAGT0cPExpzwXDM', NULL, 30, '', '', '', 1, 0, 100000, 0, '2024-11-20 10:01:35'),
+(14, NULL, 0, 1, 'A0001', 'B0001', 'C0001', '/uploads/images/cat-2480777_1280.jpg', '기초부터 확실하게! (페이지의 내용 전달을 위한 HTML, 스타일 설정을 위한 CSS 기초 학습)', NULL, '이븐관리자', 'https://youtu.be/oHTr2fEkmGA?si=fNAGT0cPExpzwXDM', NULL, 30, '', '', '', 1, 0, 100000, 0, '2024-11-20 10:01:55'),
+(15, NULL, 0, 1, 'A0001', 'B0001', 'C0001', '/uploads/images/cat-2480777_1280.jpg', '기초부터 확실하게! (페이지의 내용 전달을 위한 HTML, 스타일 설정을 위한 CSS 기초 학습)', NULL, '이븐관리자', 'https://youtu.be/oHTr2fEkmGA?si=fNAGT0cPExpzwXDM', NULL, 30, '', '', '', 1, 0, 50000, 0, '2024-11-20 10:10:10'),
+(16, NULL, 0, 1, 'A0001', 'B0001', 'C0001', '/uploads/images/cat-5270323_1280.jpg', '기초부터 확실하게! (페이지의 내용 전달을 위한 HTML, 스타일 설정을 위한 CSS 기초 학습)', NULL, '이븐관리자', 'https://youtu.be/oHTr2fEkmGA?si=fNAGT0cPExpzwXDM', NULL, 30, '', '', '', 1, 0, 100000, 0, '2024-11-20 10:10:52'),
+(17, NULL, 0, 1, 'A0001', 'B0001', 'C0001', '/uploads/images/cat-5270323_1280.jpg', '기초부터 확실하게! (페이지의 내용 전달을 위한 HTML, 스타일 설정을 위한 CSS 기초 학습)', NULL, '이븐관리자', 'https://youtu.be/oHTr2fEkmGA?si=fNAGT0cPExpzwXDM', NULL, 30, '', '', '', 2, 0, 100000, 0, '2024-11-20 10:14:24'),
+(18, NULL, 0, 1, 'A0001', 'B0001', 'C0001', '/uploads/images/mikhail-vasilyev-IFxjDdqK_0U-unsplash.jpg', '기초부터 확실하게! (페이지의 내용 전달을 위한 HTML, 스타일 설정을 위한 CSS 기초 학습)', NULL, '이븐관리자', 'https://youtu.be/oHTr2fEkmGA?si=fNAGT0cPExpzwXDM', NULL, 30, '', '', '', 1, 0, 30000, 0, '2024-11-20 10:20:11'),
+(19, NULL, NULL, 1, 'A0001', 'B0001', 'C0001', '/uploads/images/yerlin-matu-GtwiBmtJvaU-unsplash.jpg', '기초부터 확실하게! (페이지의 내용 전달을 위한 HTML, 스타일 설정을 위한 CSS 기초 학습)', NULL, '이븐관리자', 'https://youtu.be/oHTr2fEkmGA?si=fNAGT0cPExpzwXDM', NULL, 30, '', '0', '1', 1, 0, 30000, 0, '2024-11-20 10:20:11'),
+(20, NULL, NULL, 1, 'A0001', 'B0001', 'C0006', '/uploads/images/IMG_2450.jpeg', 'Vue.js 어디까지 배워 봤니?', NULL, '이븐관리자', 'https://youtu.be/oHTt2fEkmGA?si=fNAGtOcPEzpxwXDM', NULL, 60, '', '0', '0', 1, 0, 50000, 0, '2024-11-21 16:20:55');
 
 -- --------------------------------------------------------
 
@@ -571,9 +576,7 @@ CREATE TABLE `lecture_sales` (
 -- 테이블의 덤프 데이터 `lecture_sales`
 --
 
-INSERT INTO `lecture_sales` 
-(`leid`, `lec_title`, `th_name`, `order_count`, `total_order_amount`, `total_discount_amount`, `net_order_amount`, `total_refund_amount`, `final_sales_amount`, `lec_type`, `lec_cate`, `sale_date`)
-VALUES
+INSERT INTO `lecture_sales` (`leid`, `lec_title`, `th_name`, `order_count`, `total_order_amount`, `total_discount_amount`, `net_order_amount`, `total_refund_amount`, `final_sales_amount`, `lec_type`, `lec_cate`, `sale_date`) VALUES
 (1, '기초부터 확실하게! (페이지의 내용 전달을 위한 HTML, 스타일 설정을 위한 CSS 기초 학습)', '김동주', 5, 75000.00, 0.00, 75000.00, 0.00, 75000.00, 1, 1, '2024-03-19'),
 (2, 'HTML/CSS : 기초부터 실전까지 올인원', '이븐선생', 8, 280000.00, 0.00, 280000.00, 0.00, 280000.00, 1, 1, '2024-04-19'),
 (3, 'CSS Flex와 Grid 제대로 익히기', '이븐선생', 4, 200000.00, 0.00, 200000.00, 0.00, 200000.00, 2, 1, '2024-05-19'),
@@ -590,7 +593,6 @@ VALUES
 (14, '데이터베이스 레시피', '조한결', 8, 280000.00, 0.00, 280000.00, 0.00, 280000.00, 2, 2, '2024-10-19'),
 (15, '보안 네트워크 레시피', '이상민', 4, 200000.00, 0.00, 200000.00, 0.00, 200000.00, 2, 3, '2024-11-19');
 
-
 -- --------------------------------------------------------
 
 --
@@ -606,6 +608,15 @@ CREATE TABLE `lefile` (
   `ftype` varchar(50) NOT NULL COMMENT '파일 타입',
   `uploaded` timestamp NOT NULL DEFAULT current_timestamp() COMMENT '업로드 시간'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='실습 파일';
+
+--
+-- 테이블의 덤프 데이터 `lefile`
+--
+
+INSERT INTO `lefile` (`fileid`, `lecdid`, `lepid`, `fname`, `fpath`, `ftype`, `uploaded`) VALUES
+(1, 0, 0, 'lecture_detail.sql', '/uploads/files/lecture_detail.sql', 'application/octet-stream', '2024-11-19 16:10:10'),
+(2, 0, 0, 'lecture_detail.sql', '/uploads/files/lecture_detail.sql', 'application/octet-stream', '2024-11-19 16:10:52'),
+(3, 17, 1, 'lecture_detail.sql', '/uploads/files/lecture_detail.sql', '', '2024-11-19 16:14:24');
 
 -- --------------------------------------------------------
 
@@ -772,10 +783,6 @@ CREATE TABLE `orders` (
   `receiver_phone` varchar(11) DEFAULT NULL COMMENT '수령인전화번호',
   `request` varchar(100) DEFAULT NULL COMMENT '요청사항'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='주문';
-
---
--- 테이블의 덤프 데이터 `orders`
---
 
 --
 -- 테이블의 덤프 데이터 `orders`
@@ -1257,11 +1264,11 @@ INSERT INTO `user` (`uid`, `userid`, `username`, `usernick`, `userpw`, `userphon
 (36, 'user_qrst_36', '윤지호', '특별팀', '3627909a29c31381a071ec27f7c9ca97726182aed29a7ddd2e54353322cfb30abb9e3a6df2ac2c20fe23436311d678564d0c8d305930575f60e2d3d048184d79', '010-9381-2647', 'user36@example.com', 1, NULL, '울산광역시 울주군', '별관 1층', NULL, '2024-07-17', '2024-11-20 08:25:15', 1, 0),
 (37, 'user_uvwx_37', '이예림', '개발자A', '3627909a29c31381a071ec27f7c9ca97726182aed29a7ddd2e54353322cfb30abb9e3a6df2ac2c20fe23436311d678564d0c8d305930575f60e2d3d048184d79', '010-3751-9824', 'user37@example.com', NULL, 11300, '충청북도 청주시', '빌딩 2층', NULL, '2024-07-18', '2024-11-20 09:50:32', 1, 0),
 (38, 'user_yzab_38', '정하윤', '디자이너', '3627909a29c31381a071ec27f7c9ca97726182aed29a7ddd2e54353322cfb30abb9e3a6df2ac2c20fe23436311d678564d0c8d305930575f60e2d3d048184d79', '010-1983-6475', 'user38@example.com', 0, NULL, NULL, NULL, NULL, '2024-11-14', '2024-07-19 11:25:50', 1, 0),
-(39, 'user_cdef_39', '박지민', '운영자', '3627909a29c31381a071ec27f7c9ca97726182aed29a7ddd2e54353322cfb30abb9e3a6df2ac2c20fe23436311d678564d0c8d305930575f60e2d3d048184d79', '010-2871-9456', 'user39@example.com', 1, 07878, '강원도 강릉시', '건물 B동', '기타 참고 사항', '2024-07-13', '2024-11-19 14:00:25', 1, 0),
+(39, 'user_cdef_39', '박지민', '운영자', '3627909a29c31381a071ec27f7c9ca97726182aed29a7ddd2e54353322cfb30abb9e3a6df2ac2c20fe23436311d678564d0c8d305930575f60e2d3d048184d79', '010-2871-9456', 'user39@example.com', 1, 7878, '강원도 강릉시', '건물 B동', '기타 참고 사항', '2024-07-13', '2024-11-19 14:00:25', 1, 0),
 (40, 'user_ghij_40', '김수호', '회원H', '3627909a29c31381a071ec27f7c9ca97726182aed29a7ddd2e54353322cfb30abb9e3a6df2ac2c20fe23436311d678564d0c8d305930575f60e2d3d048184d79', '010-8346-1274', 'user40@example.com', NULL, NULL, NULL, NULL, NULL, '2024-11-19', '2024-11-20 10:30:45', 1, 0),
 (41, 'user_klmn_41', '이하늘', '프로젝트매니저', '3627909a29c31381a071ec27f7c9ca97726182aed29a7ddd2e54353322cfb30abb9e3a6df2ac2c20fe23436311d678564d0c8d305930575f60e2d3d048184d79', '010-6478-1328', 'user41@example.com', 1, NULL, '서울특별시 동작구', '아파트 C동', NULL, '2024-11-16', '2024-11-19 17:15:20', 1, 0),
 (42, 'user_opqr_42', '서영준', '기술지원', '3627909a29c31381a071ec27f7c9ca97726182aed29a7ddd2e54353322cfb30abb9e3a6df2ac2c20fe23436311d678564d0c8d305930575f60e2d3d048184d79', '010-9328-4157', 'user42@example.com', 0, 15234, '인천광역시 남동구', NULL, NULL, '2024-07-15', '2024-11-18 16:35:48', 1, 0),
-(43, 'user_stuv_43', '홍세영', '인사팀', '3627909a29c31381a071ec27f7c9ca97726182aed29a7ddd2e54353322cfb30abb9e3a6df2ac2c20fe23436311d678564d0c8d305930575f60e2d3d048184d79', '010-3461-7829', 'user43@example.com', 1, 13300, NULL, NULL, NULL, '2024-07-14', '2024-0-17 18:45:10', 1, 0),
+(43, 'user_stuv_43', '홍세영', '인사팀', '3627909a29c31381a071ec27f7c9ca97726182aed29a7ddd2e54353322cfb30abb9e3a6df2ac2c20fe23436311d678564d0c8d305930575f60e2d3d048184d79', '010-3461-7829', 'user43@example.com', 1, 13300, NULL, NULL, NULL, '2024-07-14', '2024-00-17 18:45:10', 1, 0),
 (44, 'user_wxyz_44', '김태희', 'IT부서', '3627909a29c31381a071ec27f7c9ca97726182aed29a7ddd2e54353322cfb30abb9e3a6df2ac2c20fe23436311d678564d0c8d305930575f60e2d3d048184d79', '010-8293-6174', 'user44@example.com', NULL, NULL, NULL, NULL, '특별참조', '2024-07-12', '2024-11-20 15:20:05', 1, 0),
 (45, 'user_abcd_45', '이정석', '회원I', '3627909a29c31381a071ec27f7c9ca97726182aed29a7ddd2e54353322cfb30abb9e3a6df2ac2c20fe23436311d678564d0c8d305930575f60e2d3d048184d79', '010-9234-8172', 'user45@example.com', NULL, 11123, '광주광역시 동구', '기타 건물', NULL, '2024-07-18', '2024-11-19 16:45:00', 1, 0),
 (46, 'user_efgh_46', '박소정', '팀리더', '3627909a29c31381a071ec27f7c9ca97726182aed29a7ddd2e54353322cfb30abb9e3a6df2ac2c20fe23436311d678564d0c8d305930575f60e2d3d048184d79', '010-7452-8936', 'user46@example.com', 0, NULL, NULL, NULL, NULL, '2024-08-14', '2024-11-18 13:25:30', 1, 0),
@@ -1521,7 +1528,7 @@ ALTER TABLE `stuscores`
   ADD PRIMARY KEY (`exid`);
 
 --
--- 테이블의 인덱스
+-- 테이블의 인덱스 `teachers`
 --
 ALTER TABLE `teachers`
   ADD PRIMARY KEY (`tcid`),
@@ -1567,13 +1574,13 @@ ALTER TABLE `user_coupons`
 -- 테이블의 AUTO_INCREMENT `admin_answer`
 --
 ALTER TABLE `admin_answer`
-  MODIFY `aaid` int(11) NOT NULL AUTO_INCREMENT COMMENT '답변고유번호', AUTO_INCREMENT=10;
+  MODIFY `aaid` int(11) NOT NULL AUTO_INCREMENT COMMENT '답변고유번호', AUTO_INCREMENT=16;
 
 --
 -- 테이블의 AUTO_INCREMENT `admin_question`
 --
 ALTER TABLE `admin_question`
-  MODIFY `aqid` int(11) NOT NULL AUTO_INCREMENT COMMENT '질문고유번호', AUTO_INCREMENT=11;
+  MODIFY `aqid` int(11) NOT NULL AUTO_INCREMENT COMMENT '질문고유번호', AUTO_INCREMENT=31;
 
 --
 -- 테이블의 AUTO_INCREMENT `blog`
@@ -1585,7 +1592,7 @@ ALTER TABLE `blog`
 -- 테이블의 AUTO_INCREMENT `book`
 --
 ALTER TABLE `book`
-  MODIFY `boid` int(11) NOT NULL AUTO_INCREMENT COMMENT '번호', AUTO_INCREMENT=3;
+  MODIFY `boid` int(11) NOT NULL AUTO_INCREMENT COMMENT '번호', AUTO_INCREMENT=6;
 
 --
 -- 테이블의 AUTO_INCREMENT `cart`
@@ -1627,13 +1634,13 @@ ALTER TABLE `coupons`
 -- 테이블의 AUTO_INCREMENT `faq`
 --
 ALTER TABLE `faq`
-  MODIFY `fqid` int(11) NOT NULL AUTO_INCREMENT COMMENT 'FAQ고유번호', AUTO_INCREMENT=29;
+  MODIFY `fqid` int(11) NOT NULL AUTO_INCREMENT COMMENT 'FAQ고유번호', AUTO_INCREMENT=39;
 
 --
 -- 테이블의 AUTO_INCREMENT `lecture`
 --
 ALTER TABLE `lecture`
-  MODIFY `leid` int(11) NOT NULL AUTO_INCREMENT COMMENT '번호', AUTO_INCREMENT=20;
+  MODIFY `leid` int(11) NOT NULL AUTO_INCREMENT COMMENT '번호', AUTO_INCREMENT=21;
 
 --
 -- 테이블의 AUTO_INCREMENT `lecture_detail`
@@ -1645,7 +1652,7 @@ ALTER TABLE `lecture_detail`
 -- 테이블의 AUTO_INCREMENT `lefile`
 --
 ALTER TABLE `lefile`
-  MODIFY `fileid` int(11) NOT NULL AUTO_INCREMENT COMMENT '파일 ID';
+  MODIFY `fileid` int(11) NOT NULL AUTO_INCREMENT COMMENT '파일 ID', AUTO_INCREMENT=4;
 
 --
 -- 테이블의 AUTO_INCREMENT `levideo`
@@ -1669,7 +1676,7 @@ ALTER TABLE `manual_contents`
 -- 테이블의 AUTO_INCREMENT `notice`
 --
 ALTER TABLE `notice`
-  MODIFY `ntid` int(11) NOT NULL AUTO_INCREMENT COMMENT '공지사항고유번호', AUTO_INCREMENT=21;
+  MODIFY `ntid` int(11) NOT NULL AUTO_INCREMENT COMMENT '공지사항고유번호', AUTO_INCREMENT=31;
 
 --
 -- 테이블의 AUTO_INCREMENT `orders`
