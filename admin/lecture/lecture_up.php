@@ -1,45 +1,45 @@
 <?php
 
-$title = "강좌 등록";
-include_once($_SERVER['DOCUMENT_ROOT'] . '/CODE_EVEN/admin/inc/header.php');
+  $title = "강좌 등록";
+  include_once($_SERVER['DOCUMENT_ROOT'] . '/CODE_EVEN/admin/inc/header.php');
 
-// 현재 로그인된 사용자 세션 값 가져오기
-$session_userid = $_SESSION['AUID'] ?? null; // 세션의 AUID는 user 테이블의 userid와 매칭
-$session_username = $_SESSION['AUNAME'] ?? null; // 세션의 AUNAME은 user 테이블의 username과 매칭
+  // 현재 로그인된 사용자 세션 값 가져오기
+  $session_userid = $_SESSION['AUID'] ?? null; // 세션의 AUID는 user 테이블의 userid와 매칭
+  $session_username = $_SESSION['AUNAME'] ?? null; // 세션의 AUNAME은 user 테이블의 username과 매칭
 
-// 세션 값 검증
-if (!isset($_SESSION['AUID']) || !isset($_SESSION['AUNAME'])) {
-  echo "<script>alert('로그인 정보가 없습니다. 다시 로그인해 주세요.'); location.href='/CODE_EVEN/admin/login.php';</script>";
-  exit;
-}
+  // 세션 값 검증
+  if (!isset($_SESSION['AUID']) || !isset($_SESSION['AUNAME'])) {
+    echo "<script>alert('로그인 정보가 없습니다. 다시 로그인해 주세요.'); location.href='/CODE_EVEN/admin/login.php';</script>";
+    exit;
+  }
 
-// 사용자 정보 가져오기
-$session_userid_safe = $mysqli->real_escape_string($session_userid);
-$sql_user = "SELECT uid, username FROM user WHERE userid = '$session_userid_safe'";
-$result_user = $mysqli->query($sql_user);
+  // 사용자 정보 가져오기
+  $session_userid_safe = $mysqli->real_escape_string($session_userid);
+  $sql_user = "SELECT uid, username FROM user WHERE userid = '$session_userid_safe'";
+  $result_user = $mysqli->query($sql_user);
 
-if ($result_user && $result_user->num_rows > 0) {
-  $user_data = $result_user->fetch_object();
-  $uid = $user_data->uid;
-  $username = $user_data->username;
-} else {
-  echo "<script>alert('사용자 정보를 가져오는 데 실패했습니다. 관리자에게 문의하세요.');</script>";
-  echo "<script>location.href='/CODE_EVEN/admin/login.php';</script>";
-  exit;
-}
+  if ($result_user && $result_user->num_rows > 0) {
+    $user_data = $result_user->fetch_object();
+    $uid = $user_data->uid;
+    $username = $user_data->username;
+  } else {
+    echo "<script>alert('사용자 정보를 가져오는 데 실패했습니다. 관리자에게 문의하세요.');</script>";
+    echo "<script>location.href='/CODE_EVEN/admin/login.php';</script>";
+    exit;
+  }
 
-$leid = isset($_GET['leid']) ? $_GET['leid'] : '';
+  $leid = isset($_GET['leid']) ? $_GET['leid'] : '';
 
-// DB에서 카테고리 데이터 가져오기
-$sql_cate = "SELECT * FROM category ORDER BY step, pcode";
-$result_cate = $mysqli->query($sql_cate);
+  // DB에서 카테고리 데이터 가져오기
+  $sql_cate = "SELECT * FROM category ORDER BY step, pcode";
+  $result_cate = $mysqli->query($sql_cate);
 
-$categories = [];
-while ($row = $result_cate->fetch_object()) {
-  $categories[] = $row;
-}
+  $categories = [];
+  while ($row = $result_cate->fetch_object()) {
+    $categories[] = $row;
+  }
 
-// POST 요청 처리
+  // POST 요청 처리
   $leid = $_POST['leid'] ?? null;
   $title = $_POST['title'] ?? null;
   $cate1 = $_POST['cate1'] ?? null;
@@ -59,49 +59,50 @@ while ($row = $result_cate->fetch_object()) {
   // 이미지 업로드 처리
   $image_path = null;
   if (!empty($_FILES['image']['name'])) {
-      $upload_dir = 'uploads/images/';
-      $image_name = time() . '_' . $_FILES['image']['name'];
-      $image_path = $upload_dir . $image_name;
-      move_uploaded_file($_FILES['image']['tmp_name'], $image_path);
+    $upload_dir = 'uploads/images/';
+    $image_name = time() . '_' . $_FILES['image']['name'];
+    $image_path = $upload_dir . $image_name;
+    move_uploaded_file($_FILES['image']['tmp_name'], $image_path);
   }
 
   // book 테이블에서 boid 확인
   $boid = null;
   if ($book_id) {
-      $query_book = "SELECT boid FROM book WHERE boid = '$book_id'";
-      $result_book = $mysqli->query($query_book);
-      if ($result_book && $result_book->num_rows > 0) {
-          $book_data = $result_book->fetch_object();
-          $boid = $book_data->boid;
-      }
+    $query_book = "SELECT boid FROM book WHERE boid = '$book_id'";
+    $result_book = $mysqli->query($query_book);
+    if ($result_book && $result_book->num_rows > 0) {
+      $book_data = $result_book->fetch_object();
+      $boid = $book_data->boid;
+    }
   }
 
-$cate1 = $_POST['cate1'] ?? null;
-$cate2 = $_POST['cate2'] ?? null;
-$cate3 = $_POST['cate3'] ?? null;
-$title = $_POST['title'] ?? null;
+  $cate1 = $_POST['cate1'] ?? null;
+  $cate2 = $_POST['cate2'] ?? null;
+  $cate3 = $_POST['cate3'] ?? null;
+  $title = $_POST['title'] ?? null;
 
-$sql_quiz = "SELECT exid, tt FROM quiz WHERE cate1 = '$cate1' AND cate2 = '$cate2' AND cate3 = '$cate3' AND title = '$title'";
-$result_quiz = $mysqli->query($sql_quiz);
+  $sql_quiz = "SELECT exid, tt FROM quiz WHERE cate1 = '$cate1' AND cate2 = '$cate2' AND cate3 = '$cate3' AND title = '$title'";
+  $result_quiz = $mysqli->query($sql_quiz);
 
-$quiz_data = [];
-while ($row = $result_quiz->fetch_object()) {
+  $quiz_data = [];
+  while ($row = $result_quiz->fetch_object()) {
     $quiz_data[] = $row;
-}
+  }
 
-$sql_test = "SELECT exid, tt FROM test WHERE cate1 = '$cate1' AND cate2 = '$cate2' AND cate3 = '$cate3' AND title = '$title'";
-$result_test = $mysqli->query($sql_test);
+  $sql_test = "SELECT exid, tt FROM test WHERE cate1 = '$cate1' AND cate2 = '$cate2' AND cate3 = '$cate3' AND title = '$title'";
+  $result_test = $mysqli->query($sql_test);
 
-$test_data = [];
-while ($row = $result_test->fetch_object()) {
+  $test_data = [];
+  while ($row = $result_test->fetch_object()) {
     $test_data[] = $row;
-}
+  }
 
-// echo json_encode(['quiz' => $quiz_data, 'test' => $test_data]);
+  // echo json_encode(['quiz' => $quiz_data, 'test' => $test_data]);
 
 
-// 데이터베이스 연결 종료
-$mysqli->close();
+  // 데이터베이스 연결 종료
+  $mysqli->close();
+
 ?>
 
 
@@ -111,7 +112,7 @@ $mysqli->close();
     <h3>강좌 기본 정보 입력</h3>
     <small>* 분류 설정과 강자명은 필수로 입력해야 임시 저장 가능합니다.</small>
   </div>
-  <form method="POST" action="lecture_up_ok.php" enctype="multipart/form-data" id="lecture_save">
+  <form method="POST" action="lecture_up_ok.php" enctype="multipart/form-data">
     <input type="hidden" name="action" value="save_detail_info">
     <input type="hidden" name="leid" value="<?= $leid; ?>"> <!-- 강좌 ID 유지 -->
     <table class="table">
@@ -165,7 +166,7 @@ $mysqli->close();
           <th scope="row">수강료 <b>*</b></th>
           <td colspan="2">
             <div class="input-group">
-            <input name="price" id="price" type="text" class="form-control" aria-label="원">
+              <input name="price" id="price" type="text" class="form-control" aria-label="원">
               <span class="input-group-text">원</span>
             </div>
           </td>
@@ -218,10 +219,8 @@ $mysqli->close();
         </tr>
       </tbody>
     </table>
-    <div class="d-flex justify-content-end gap-2 mt-4 mb-5">
-      <button name="action" type="submit" class="btn btn-outline-secondary" value="save_basic_info">기본 정보 저장</button>
-    </div>
-     <!-- 강의 설정 영역 -->
+
+    <!-- 강의 설정 영역 -->
     <div class="content_bar cent">
       <h3>강의 설정</h3>
     </div>
@@ -285,7 +284,7 @@ $mysqli->close();
       </div>
     </div>
     <div class="d-flex justify-content-end gap-2 mt-4 mb-5">
-      <button type="button" class="btn btn-secondary" name="action" value="final_save">강의 등록</button>
+      <button type="submit" class="btn btn-secondary">강의 등록</button>
       <button type="button" class="btn btn-danger" onclick="window.location.href='/lecture_list.php'">취소</button>
     </div>
   </form>

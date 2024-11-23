@@ -67,7 +67,8 @@ include_once($_SERVER['DOCUMENT_ROOT'] . '/code_even/inc/check_cookie.php');
   <div class="mx-auto pt-5" style="width: 320px;">
     <img src="admin/images/sb_logo.png" width="300" height="200" alt="코드이븐로고">
     <div>To be continue...</div>
-    <p>코드이븐 프론트 페이지는 제작예정입니다</p>
+    <p>코드이븐 클라이언트 페이지는 제작예정입니다</p>
+    <p><a href="http://localhost/code_even/admin/login/login.php">어드민(관리자&강사)페이지 바로가기</a></p>
     <ul class="list-group pt-3">
       <li class="list-group-item"><a href="tc_applyform.php" class="link-underline-danger link-offset-2 link-body-emphasis a_underline">강의자신청(임시)</a></li>
       <!-- <li class="list-group-item"><a href="" class="link-underline-danger link-offset-2 link-body-emphasis a_underline">결제페이지(임시)</a></li> -->
@@ -115,8 +116,11 @@ include_once($_SERVER['DOCUMENT_ROOT'] . '/code_even/inc/check_cookie.php');
           <span><b>팀원 : </b>홍수진(팀장), 배유나, 조채림, 최은화, 홍은진</span><br>
           <span><b>제작기간</b> : 2024.10.23 - 2024.11.25 </span><br>
           <span><b>개발환경</b> : HTML/CSS, Javascript, J-Query, PHP</span><br>
-          <span><b>기획자료 :</b>  <a href="https://www.figma.com/slides/9MsKBvc3jwAm3v1j24QznJ/CODE_EVEN_LMS%EB%94%94%EC%9E%90%EC%9D%B8%EB%B0%9C%ED%91%9C?t=cgmURknfV4lmJRsM-6" target="_blank">figma</a>
-          <b> 코드 :</b>  <a href="https://github.com/AppleBee12/Code_Even.git" target="_blank">github</a></p>
+          <div class="link3">
+            <span><b>기획자료 :</b>  <a href="https://www.figma.com/slides/9MsKBvc3jwAm3v1j24QznJ/CODE_EVEN_LMS%EB%94%94%EC%9E%90%EC%9D%B8%EB%B0%9C%ED%91%9C?t=cgmURknfV4lmJRsM-6" target="_blank">figma</a>
+            <b> 코드 :</b>  <a href="https://github.com/AppleBee12/Code_Even.git" target="_blank">github</a>
+            <b> 관리자 페이지 :</b>  <a href="http://localhost/code_even/admin/index.php" target="_blank">Admin Page</a></p>
+          </div>
         </div>
         <hr>
         <div>

@@ -32,7 +32,7 @@
   $price = $_POST['price'] ?? 0;
   $pd = $_POST['pd'] ?? '';
   $book = $_POST['book'] ?? '';
-  $desc = $_POST['desc'] ?? '';
+  $des = $_POST['des'] ?? '';
   $writer = $_POST['writer'] ?? '';
   $company = $_POST['company'] ?? '';
 
@@ -55,7 +55,7 @@
   }
 
   // SQL 작성
-  $sql = "INSERT INTO book (cate1, cate2, cate3, title, name, price, pd, book, `desc`, writer, company, image) VALUES (
+  $sql = "INSERT INTO book (cate1, cate2, cate3, title, name, price, pd, book, `des`, writer, company, image) VALUES (
           '$cate1',
           '$cate2',
           '$cate3',
@@ -64,7 +64,7 @@
           $price,
           '$pd',
           '$book',
-          '$desc',
+          '$des',
           '$writer',
           '$company',
           '$image_path'

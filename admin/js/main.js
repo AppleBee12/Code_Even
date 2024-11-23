@@ -13,7 +13,7 @@ document.addEventListener("DOMContentLoaded", function () {
       }
       labels.push(`${calMonth}월`);
     }
-    console.log(labels);
+    //console.log(labels); array 0:6월 1:7월, 2:8월 ....
   
     const barchart = new Chart(barCtx, {
       type: 'bar',
@@ -35,6 +35,47 @@ document.addEventListener("DOMContentLoaded", function () {
         }
       }
     });
+
+
+
+    const lineCtx = document.getElementById('current_six_news').getContext('2d');
+    const lineChart = new Chart(lineCtx, {
+      type: 'line',
+      data: {
+        labels: ['6월', '7월', '8월', '9월', '10월', '11월'],
+        datasets: [{
+          label: '신규 가입자 수',
+          data: [2000, 2800, 3200, 3800, 4000, 3765],
+          borderColor: '#D25353',
+          backgroundColor: '#c93333',
+          borderWidth: 1,
+          fill: false,
+          pointRadius: 3
+        }, {
+          label: '방문자',
+          data: latestCounts,
+          borderColor: '#7987FF',
+          backgroundColor: '#5e62f1',
+          borderWidth: 1,
+          fill: false,
+          pointRadius: 3
+        }],
+      },
+        options: {
+          scales: {
+            x: {
+              beginAtZero: true
+            },
+            y: {
+              beginAtZero: true
+            }
+          }
+        }
+      })
+
+
+
+
   
   
     const doughnutCtx = document.getElementById('cate_one_return');

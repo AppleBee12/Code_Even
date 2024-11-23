@@ -1,4 +1,3 @@
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <?php
 include_once($_SERVER['DOCUMENT_ROOT']. '/CODE_EVEN/admin/inc/header.php');
 
@@ -89,11 +88,11 @@ $mysqli->close();
 
 <!-- 모달 창 -->
 <!-- Modal 1-->
-<div class="modal fade" id="cate1_modal" tabindex="-1" aria-labelledby="대분류 등록" aria-hidden="true">
+<div class="modal fade" id="cate1_modal" tabindex="-1" aria-labelledby="exampleModalLabel1" aria-hidden="true">
   <div class="modal-dialog">
-    <form action="" class="modal-content"  method="post" data-step="1">
+    <form action="#" class="modal-content"  method="post" data-step="1">
       <div class="modal-header">
-        <h1 class="modal-title fs-5" id="exampleModalLabel">대분류 등록</h1>
+        <h1 class="modal-title fs-5" id="exampleModalLabel1">대분류 등록</h1>
         <button type="submit" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body row">
@@ -112,11 +111,11 @@ $mysqli->close();
   </div>
 </div>
 <!-- Modal 2-->
-<div class="modal fade" id="cate2_modal" tabindex="-1" aria-labelledby="중분류 등록" aria-hidden="true">
+<div class="modal fade" id="cate2_modal" tabindex="-1" aria-labelledby="exampleModalLabel2" aria-hidden="true">
   <div class="modal-dialog">
-    <form action="" class="modal-content"  method="post" data-step="2">
+    <form action="#" class="modal-content"  method="post" data-step="2">
       <div class="modal-header">
-        <h1 class="modal-title fs-5" id="exampleModalLabel">중분류 등록</h1>
+        <h1 class="modal-title fs-5" id="exampleModalLabel2">중분류 등록</h1>
         <button type="submit" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
@@ -148,11 +147,11 @@ $mysqli->close();
     </div>
   </div>
 <!-- Modal 3-->
-<div class="modal fade" id="cate3_modal" tabindex="-1" aria-labelledby="소분류 등록" aria-hidden="true">
+<div class="modal fade" id="cate3_modal" tabindex="-1" aria-labelledby="exampleModalLabel3" aria-hidden="true">
   <div class="modal-dialog">
-    <form action="" class="modal-content"  method="post" data-step="3">
+    <form action="#" class="modal-content"  method="post" data-step="3">
       <div class="modal-header">
-        <h1 class="modal-title fs-5" id="exampleModalLabel">소분류 등록</h1>
+        <h1 class="modal-title fs-5" id="exampleModalLabel3">소분류 등록</h1>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">

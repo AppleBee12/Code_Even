@@ -59,7 +59,6 @@ while($data = $result->fetch_object()){
 
 $coupon_image = $_FILES['coupon_image']??'';
 $coupon_name = $_POST['coupon_name'] ?? '';
-$coupon_image = $_POST['coupon_image'] ?? ''; // 파일 업로드 시 파일명 사용
 $coupon_type = $_POST['coupon_type'] ?? 0;
 $coupon_price = $_POST['coupon_price'] ?? 0;
 $coupon_ratio = $_POST['coupon_ratio'] ?? 0;
@@ -112,7 +111,7 @@ if(isset($_FILES['coupon_image'])){
 $sql = "INSERT INTO coupons 
     (coupon_name, coupon_image, coupon_type, coupon_price, coupon_ratio, status, userid, max_value, use_min_price, use_max_date, cp_desc)
   VALUES
-    ('$coupon_name', '$coupon_image', $coupon_type, $coupon_price, $coupon_ratio, $status, '{$_SESSION['AUID']}', $max_value, $use_min_price, $use_max_date, '$cp_desc')
+    ('$coupon_name', '$coupon_image', $coupon_type, $coupon_price, '$coupon_ratio', $status, '{$_SESSION['AUID']}', $max_value, $use_min_price, $use_max_date, '$cp_desc')
 ";
 
 $use_max_date = !empty($_POST['use_max_date']) 
@@ -158,23 +157,22 @@ thead,
 </style>
 
 <div class="container">
-  <h2 class="mb-5">쿠폰 등록</h2>
+  <h2 class="mb-5">쿠폰등록</h2>
   <form action="coupon_ok.php" method="POST" enctype="multipart/form-data">
     <table class="table">
       <tbody>
         <tr>
           <th scope="row">쿠폰이미지</th>
-            <td>
-              <div class="box mb-3" id="addedImages">
-                <span>쿠폰 이미지를 등록해주세요.</span>
-                <div class="image">
-                  <img src="" alt="">
-                </div>
-              </div>
-              <input type="file" multiple accept="image/*" class="form-control w-50" name="coupon_image" id="coupon_image" value="file" required>
-            </td>
+          <td>
+            <div class="box mb-3" id="addedImages">
+              <span>쿠폰 이미지를 등록해주세요.</span>
+              <!-- <div class="image">
+                <img src="" alt="">
+              </div> -->
+            </div>
+            <input type="file" multiple accept="image/*" class="form-control w-50" name="coupon_image" id="coupon_image" value="file" required>
+          </td>
         </tr>
-        <tr>
         <tr>
           <th scope="row">쿠폰명</th>
           <td><input type="text" class="form-control w-25" name="coupon_name" placeholder="쿠폰명을 입력하세요" required></td>
@@ -185,14 +183,11 @@ thead,
         </tr>
         <div class="d-flex">
           <tr>
-          <th scope="row">사용기한</th>
+            <th scope="row">사용기한</th>
             <td class="d-flex gap-5">
               <div class="form-check"  id="ct4" >
-                <input class="form-check-input" 
-                type="radio" 
-                name="use_max_date" 
-                id="use_max_date_unlimited" 
-                value="unlimited">
+                <input class="form-check-input" type="radio" name="use_max_date" 
+                id="use_max_date_unlimited" value="unlimited">
                 <label class="form-check-label" for="use_max_date_unlimited" >
                   무제한
                 </label>
@@ -206,7 +201,7 @@ thead,
                 <label class="form-check-label d-flex gap-3" for="use_max_date_limited" >
                   제한
                   <input type="date" 
-                  name="sale_end_date" 
+                  name="use_max_date" 
                   id="datepicker" 
                   class="form-control w-25" 
                   disabled>
@@ -323,17 +318,7 @@ thead,
     }
   });
 
-  // $('#ct3 input').prop('disabled', true);
 
-  // $('#use_max_date').change(function(){
-  //   let value = $(this).val();
-  //   $('#ct3 input, #ct4 input').prop('disabled', true);
-  //   if(value == 0){
-  //     $('#ct3 input').prop('disabled', false);
-  //   } else{
-  //     $('#ct4 input').prop('disabled', false);
-  //   }
-  // });
 </script>
 
 
