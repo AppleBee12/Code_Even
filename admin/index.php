@@ -13,26 +13,25 @@ $data = file_exists($dataFile) ? json_decode(file_get_contents($dataFile), true)
 
 $monthlyData = [];
 foreach ($data as $date => $count) {
-    $month = substr($date, 0, 7);
+    $month = substr($date, 5, 2);
     if (!isset($monthlyData[$month])) {
         $monthlyData[$month] = 0;
     }
     $monthlyData[$month] += $count;
-}
 
-// 최신날짜부터 오름차순sort 내림차순krsort
-//sort($monthlyData);
-$latestMonths = array_slice(array_keys($monthlyData), 0, -6); //최신 6개월 만 array
-$latestCounts = array_slice(array_values($monthlyData), 0, -6);//최신 방문자 수 만 array
+    
+  }
 
+  // 최신날짜부터 오름차순sort 내림차순krsort
+  // krsort($monthlyData);
+  $latestMonths = array_slice(array_keys($monthlyData), -6); //최신 6개월 만 array
+  $latestCounts = array_slice(array_values($monthlyData), -6);//최신 방문자 수 만 array
+  
 ?>
+
+
+
 <div class="container">
-  <?php 
-  // print_r($dataFile );
-  // print_r($data);
-  print_r($monthlyData);
-print_r($latestMonths);
-print_r($latestCounts); ?>
   <div class="top_wrapper d-flex justify-content-between">
     <div>
       <h3>11월 수익</h3>
@@ -114,45 +113,9 @@ print_r($latestCounts); ?>
 
 </div>
 <script>
-
-
-const lineCtx = document.getElementById('current_six_news').getContext('2d');
-    const lineChart = new Chart(lineCtx, {
-      type: 'line',
-      data: {
-        labels: ['6월', '7월', '8월', '9월', '10월', '11월'],
-        datasets: [{
-          label: '신규 가입자 수',
-          data: [2000, 2800, 3200, 3800, 4000, 3765],
-          borderColor: '#D25353',
-          backgroundColor: '#c93333',
-          borderWidth: 1,
-          fill: false,
-          pointRadius: 3
-        }, {
-          label: '방문자',
-          data: <?=$latestCounts?>,
-          borderColor: '#7987FF',
-          backgroundColor: '#5e62f1',
-          borderWidth: 1,
-          fill: false,
-          pointRadius: 3
-        }],
-      },
-        options: {
-          scales: {
-            x: {
-              beginAtZero: true
-            },
-            y: {
-              beginAtZero: true
-            }
-          }
-        }
-      })
-
-
+  const latestCounts = <?php echo json_encode($latestCounts, JSON_NUMERIC_CHECK); ?>; 
 </script>
+
 <?php
 $host = $_SERVER['HTTP_HOST'];
 
