@@ -12,16 +12,6 @@ if (!isset($_SESSION['AUID'])) {
   location.href='admin/login/login.php';
   </script>";
 }
-$user_id = $_SESSION['AUID'];
-$user_level = $_SESSION['AULEVEL'];
-$user_name = $_SESSION['AUNAME'];
-
-$sql = "SELECT useremail FROM user WHERE userid = '$user_id' && username = '$user_name'";
-$result = $mysqli->query($sql);
-
-
-// print_r($result->fetch_assoc());
-
 
 ?>
 
@@ -30,8 +20,8 @@ $result = $mysqli->query($sql);
     <div class="d-flex justify-content-between">
     <img class="profile_image" src="http://<?= $_SERVER['HTTP_HOST']; ?>/<?= empty($tc->tc_thumbnail) ? 'code_even/admin/images/adminprofile.png' : $tc->tc_thumbnail; ?>" alt="강사 프로필 사진">
       <div class="d-flex flex-column justify-content-end align-items-end">
-        <h3><?= $user_name ?><span class="top_text"> Teacher</span></h3>
-        <p><span class="top_text">code@even.co.kr</span></p>
+        <h3><?= $realusername ?><span class="top_text"> Teacher</span></h3>
+        <p><span class="top_text"><?=$realuseremail?></span></p>
       </div>
     </div>
     <div>
