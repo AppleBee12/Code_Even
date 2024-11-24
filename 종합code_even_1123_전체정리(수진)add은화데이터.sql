@@ -410,7 +410,7 @@ INSERT INTO `coupons` (`cpid`, `couponid`, `coupon_name`, `coupon_image`, `coupo
 (1, 1001, '리뷰쿠폰', '/code_even/admin/upload/coupons/20241120014236135047.png', 1, 5000, 0, 1, '2024-11-18 01:09:49', 'admin', 5000, 30000, '2024-12-31 00:00:00', NULL),
 (2, 1002, '10% 할인 쿠폰', '/code_even/admin/upload/coupons/20241120042304161737.png', 2, 0, 0, 1, '2024-11-18 01:09:49', 'admin', 10000, 50000, '2024-12-31 00:00:00', '수강 10% 할인 쿠폰'),
 (3, 1003, '수강 환승쿠폰', '/code_even/admin/upload/coupons/20241120042250105391.png', 1, 10000, 0, 1, '2024-11-18 01:09:49', 'user123', 10000, 25000, '2025-01-31 00:00:00', '수강 환승쿠폰'),
-(4, 1004, '신규 회원 15% 할인 쿠폰', '/code_even/admin/upload/coupons/20241120042237197337.png', 2, 0, 0, 2, '2024-11-18 01:09:49', 'newuser', 15000, 20000, '2024-12-31 00:00:00', '신규 회원 15% 할인 쿠폰 바로증정!');
+(4, 1004, '신규 회원 15% 할인 쿠폰', '/code_even/admin/upload/coupons/20241120042237197337.png', 2, 15, 0, 1, '2024-11-18 01:09:49', 'newuser', 15000, 20000, '2024-12-31 00:00:00', '신규 회원 15% 할인 쿠폰 바로증정!');
 
 -- --------------------------------------------------------
 
@@ -1316,6 +1316,13 @@ CREATE TABLE `user_coupons` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
+-- 테이블의 덤프 데이터 `user_coupons`
+--
+
+INSERT INTO `user_coupons` (`ucid`, `couponid`, `userid`, `status`, `use_max_date`, `regdate`, `reason`) VALUES
+(1, 4, 'test2', 1, '2024-12-24 23:59:59', '2024-11-24 09:10:02', '신규 회원 15% 할인 쿠폰');
+
+--
 -- 덤프된 테이블의 인덱스
 --
 
@@ -1772,7 +1779,7 @@ ALTER TABLE `user`
 -- 테이블의 AUTO_INCREMENT `user_coupons`
 --
 ALTER TABLE `user_coupons`
-  MODIFY `ucid` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `ucid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- 덤프된 테이블의 제약사항
