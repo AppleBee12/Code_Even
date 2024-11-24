@@ -78,11 +78,13 @@ if ($level == 100) {
     integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/summernote@0.8.20/dist/summernote-lite.min.css"
     integrity="sha256-IKhQVXDfwbVELwiR0ke6dX+pJt0RSmWky3WB2pNx9Hg=" crossorigin="anonymous">
-
-  <!-- <link rel="stylesheet" href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/css/summernote-bs5.css"
-    rel="stylesheet"> -->
-
   <link rel="stylesheet" href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/css/common.css">
+
+  <?php
+  if (isset($jqueryui_css)) {
+    echo $jqueryui_css;
+  }
+  ?>
 
   <!-- 개인 Style CSS -->
   <?php
@@ -90,6 +92,11 @@ if ($level == 100) {
   switch ($page) { //main.css
     case 'index.php':
       echo '<link rel="stylesheet" href="http://' . $_SERVER['HTTP_HOST'] . '/code_even/admin/css/main.css">';
+      break;
+  }
+  switch ($page) { //t_main.css
+    case 'teacher_index.php':
+      echo '<link rel="stylesheet" href="http://' . $_SERVER['HTTP_HOST'] . '/code_even/admin/css/t_main.css">';
       break;
   }
   switch ($page) { //user.css
@@ -170,11 +177,7 @@ if ($level == 100) {
       echo '<link rel="stylesheet" href="http://' . $_SERVER['HTTP_HOST'] . '/code_even/admin/css/lecture.css">';
       break;
   }
-  switch ($page) { //t_main.css
-    case 'teacher_index.php':
-      echo '<link rel="stylesheet" href="http://' . $_SERVER['HTTP_HOST'] . '/code_even/admin/css/t_main.css">';
-      break;
-  }
+
   switch ($page) { //counsel.css
     case 'counsel.php':
     case 'blog.php':
@@ -182,11 +185,17 @@ if ($level == 100) {
       echo '<link rel="stylesheet" href="http://' . $_SERVER['HTTP_HOST'] . '/code_even/admin/css/counsel.css">';
       break;
   }
+  switch ($page) { //manual.css
+    case 'for_admin.php':
+    case 'for_teacher.php':
+      echo '<link rel="stylesheet" href="http://' . $_SERVER['HTTP_HOST'] . '/code_even/admin/css/manual.css">';
+      break;
+  }
   ?>
 
   <!-- 공통js 추가 -->
-  <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-  <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+  <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script> 
+  <script src="https://code.jquery.com/jquery-1.12.4.js"></script> 
 
   <!-- 개인 추가 js -->
   <?php
@@ -290,10 +299,10 @@ if ($level == 100) {
                   프로필 수정</a></li>
             <?php }; ?>
             <?php if ($level == 100) { ?>
-              <li><a class="dropdown-item" href="#">관리자 매뉴얼</a></li>
+              <li><a class="dropdown-item" href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/manual/for_admin.php">관리자 매뉴얼</a></li>
             <?php } else if ($level == 10) { ?>
-              <li><a class="dropdown-item" href="#">강사 매뉴얼</a></li>
-            <?php }; ?>
+              <li><a class="dropdown-item" href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/manual/for_teacher.php">강사 매뉴얼</a></li>
+            <?php }; ?>      
             <li>
               <hr class="dropdown-divider">
             </li>

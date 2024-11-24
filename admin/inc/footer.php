@@ -15,6 +15,12 @@ integrity="sha256-y2bkXLA0VKwUx5hwbBKnaboRThcu7YOFyuYarJbCnoQ=" crossorigin="ano
 
 <!-- common -->
 <script src="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/js/common.js"></script>
+<!--  jqueryui_js -->
+<?php
+if (isset($jqueryui_js)) {
+    echo $jqueryui_js;
+  }
+?>
 
 <script>
   let target = $('#summernote');
