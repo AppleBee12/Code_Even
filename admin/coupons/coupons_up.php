@@ -154,6 +154,10 @@ thead,
 #addedImages span{
     color: #a5a5a5;
   }
+#addedImages .image{
+  width: 383px;
+  height: 280px; !important
+}
 </style>
 
 <div class="container">
@@ -166,9 +170,6 @@ thead,
           <td>
             <div class="box mb-3" id="addedImages">
               <span>쿠폰 이미지를 등록해주세요.</span>
-              <!-- <div class="image">
-                <img src="" alt="">
-              </div> -->
             </div>
             <input type="file" multiple accept="image/*" class="form-control w-50" name="coupon_image" id="coupon_image" value="file" required>
           </td>

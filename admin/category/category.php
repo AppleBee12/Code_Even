@@ -97,7 +97,7 @@ $mysqli->close();
       </div>
       <div class="modal-body row">
         <div class="col-md-6">
-          <input class="form-control" type="text"  id="code1" name="code1"  placeholder="분류코드명을 입력하세요" aria-label="default input example" pattern="A\d{4}" required>
+          <input class="form-control" type="text"  id="code1" name="code1"  placeholder="분류코드명을 입력하세요" aria-label="default input example" pattern="A\d{4}" placeholder="코드명을 입력하세요" pattern="A\d{4}" title="A로 시작하고 뒤에 네 자리 숫자가 와야 합니다. 예: A0001, A1234"  required>
         </div>
         <div class="col-md-6">
           <input class="form-control" type="text"  id="name1" name="name1"  placeholder="카테고리명을 입력하세요" aria-label="default input example" required>
@@ -132,10 +132,10 @@ $mysqli->close();
         </select>
           <div class="row">
             <div class="col-md-6">
-              <input class="form-control" type="text"  id="code2" name="code2"  placeholder="분류코드명을 입력하세요" aria-label="default input example" pattern="B\d{4}" required>
+              <input class="form-control" type="text"  id="code2" name="code2"  placeholder="코드명을 입력하세요" pattern="B\d{4}" title="B로 시작하고 뒤에 네 자리 숫자가 와야 합니다. 예: B0001, B1234" aria-label="default input example" pattern="B\d{4}" required>
             </div>
             <div class="col-md-6">
-              <input class="form-control" type="text"  id="name2" name="name2"  placeholder="카테고리명을 입력하세요" aria-label="default input example" required>
+              <input class="form-control" type="text"  id="name2" name="name2"  placeholder="카테고리명을 입력하세요" aria-label="default input example"  required>
             </div>
           </div>
         </div>
@@ -177,7 +177,7 @@ $mysqli->close();
         </div>
         <div class="row">
           <div class="col-md-6">
-            <input class="form-control" type="text"  id="code3" name="code3"  placeholder="분류코드명을 입력하세요" aria-label="default input example" pattern="C\d{4}" required>
+            <input class="form-control" type="text"  id="code3" name="code3"  placeholder="코드명을 입력하세요" pattern="C\d{4}" title="C로 시작하고 뒤에 네 자리 숫자가 와야 합니다. 예: C0001, C1234" aria-label="default input example" pattern="C\d{4}" required>
           </div>
           <div class="col-md-6">
             <input class="form-control" type="text"  id="name3" name="name3"  placeholder="카테고리명을 입력하세요" aria-label="default input example" required>
