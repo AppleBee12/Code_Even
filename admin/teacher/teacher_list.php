@@ -19,6 +19,8 @@
 
   //게시글 분류 검색 추가
   $category_filter = isset($_GET['category']) ? $mysqli->real_escape_string($_GET['category']) : '';
+  $tc_ok = isset($_GET['tc_ok']) ? $mysqli->real_escape_string($_GET['tc_ok']) : 'all';
+
   $where_clause = '';
   // 게시글 키워드 검색
   $keywords = isset($_GET['keywords']) ? $mysqli->real_escape_string($_GET['keywords']) : '';
@@ -27,6 +29,10 @@
     $where_clause = "WHERE teachers.tc_userid LIKE '%$keywords%' OR teachers.tc_name LIKE '%$keywords%' OR teachers.tc_email LIKE '%$keywords%'";
   }
 
+    // 승인 상태 조건 추가
+  if ($tc_ok !== 'all') {
+    $where_clause .= ($where_clause ? ' AND ' : 'WHERE ') . "teachers.tc_ok = '$tc_ok'";
+  }
   if ($category_filter) {
     $where_clause .= ($where_clause ? ' AND ' : 'WHERE ') . "teachers.tc_cate = '$category_filter'";
   }
@@ -66,6 +72,27 @@
 <div class="container">
   <h2 class="page_title">강사목록</h2>
   <form action="#" id="search_form" class="row justify-content-end" method="GET">
+    <div class="col-lg-5 ulist_status pt_04">
+      <span class="status_tt me-4">승인상태</span>
+      <div class="form-check form-check-inline">
+      <input class="form-check-input" type="radio" name="tc_ok" id="status_all" value="all" <?= $tc_ok === 'all' ? 'checked' : ''; ?>>
+      <label class="form-check-label" for="status_all">전체</label>
+    </div>
+    <div class="form-check form-check-inline">
+        <input class="form-check-input" type="radio" name="tc_ok" id="status_normal" value="0" <?= $tc_ok === '0' ? 'checked' : ''; ?>>
+        <label class="form-check-label" for="status_normal">심사중</label>
+    </div>
+    <div class="form-check form-check-inline">
+        <input class="form-check-input" type="radio" name="tc_ok" id="status_suspended" value="1" <?= $tc_ok === '1' ? 'checked' : ''; ?>>
+        <label class="form-check-label" for="status_suspended">승인완료</label>
+    </div>
+    <div class="form-check form-check-inline">
+        <input class="form-check-input" type="radio" name="tc_ok" id="status_withdrawn" value="-1" <?= $tc_ok === '-1' ? 'checked' : ''; ?>>
+        <label class="form-check-label" for="status_withdrawn">승인거절</label>
+    </div>
+
+
+    </div>
     <div class="col-lg-3">
       <select class="form-select" name="category" aria-label="대표분야">
         <option value="">-전체분야선택-</option>

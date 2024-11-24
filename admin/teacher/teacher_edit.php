@@ -56,7 +56,7 @@
         <tr>
           <th scope="row"><label for="tc_userid">아이디 <b>*</b></label></th>
           <td>
-            <input type="text" class="form-control" id="tc_userid" name="tc_userid" value="<?= $data->tc_userid; ?>" disabled readonly>
+            <input type="text" class="form-control readonly_input" id="tc_userid" name="tc_userid" value="<?= $data->tc_userid; ?>" readonly>
           </td>
           
           <th scope="row">대표분야 <b>*</b></th>
