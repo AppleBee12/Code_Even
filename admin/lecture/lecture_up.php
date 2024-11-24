@@ -150,10 +150,10 @@ $mysqli->close();
         <tr>
           <th scope="row">강사명 <b>*</b></th>
           <td colspan="2">
-            <input type="text" name="name" id="name" class="form-control" value="<?= $username; ?>" readonly>
+            <input type="text" name="name" id="name" class="form-control" value="<?= $username; ?>" disabled>
           </td>
           <td name="image" class="box_container" colspan="4" rowspan="5">
-            <div class="box">
+            <div class="box rounded-3">
               <span>강좌 썸네일 이미지를 선택해주세요.</span>
               <div class="image"><img src="" alt=""></div>
             </div>
@@ -238,7 +238,7 @@ $mysqli->close();
         </colgroup>
         <tbody>
           <tr>
-            <th scope="row">강의명 <b>*</b></th>
+            <th scope="row">강의명</th>
             <td colspan="3">
               <input name="lecture_name[]" type="text" class="form-control" placeholder="강의명을 입력해 주세요.">
             </td>
@@ -269,7 +269,7 @@ $mysqli->close();
             <td>
               <input name="lecture_file_id[]" class="form-control" type="file">
             </td>
-            <th scope="row">동영상 주소 <b>*</b></th>
+            <th scope="row">동영상 주소</th>
             <td>
               <div class="input-group">
                 <span class="input-group-text">https://</span>
@@ -279,9 +279,9 @@ $mysqli->close();
           </tr>
         </tbody>
       </table>
-      <button class="leplus d-flex justify-content-center align-items-center bg-white border rounded-3 boder-secondary">
+      <div class="leplus btn d-flex justify-content-center align-items-center bg-white border rounded-3 boder-secondary cursor-pointer">
         <i class="bi bi-plus"></i>
-      </button>
+      </div>
     </div>
     <div class="d-flex justify-content-end gap-2 mt-4 mb-5">
       <button type="submit" class="btn btn-secondary">강의 등록</button>
@@ -464,9 +464,9 @@ $mysqli->close();
                   </colgroup>
                   <tbody>
                       <tr>
-                          <th scope="row">강의명 <b>*</b></th>
+                          <th scope="row">강의명</th>
                           <td colspan="3">
-                              <input type="text" name="lecture_name[]" class="form-control" placeholder="강의명을 입력해 주세요." required>
+                              <input type="text" name="lecture_name[]" class="form-control" placeholder="강의명을 입력해 주세요.">
                           </td>
                       </tr>
                       <tr>
@@ -494,11 +494,11 @@ $mysqli->close();
                           <td>
                               <input name="lecture_file_id[]" class="form-control" type="file">
                           </td>
-                          <th scope="row">동영상 주소 <b>*</b></th>
+                          <th scope="row">동영상 주소</th>
                           <td>
                               <div class="input-group">
                                   <span class="input-group-text">https://</span>
-                                  <input type="text" name="lecture_video_url[]" class="form-control" placeholder="www.code_even.com" required>
+                                  <input type="text" name="lecture_video_url[]" class="form-control" placeholder="www.code_even.com">
                               </div>
                           </td>
                       </tr>
