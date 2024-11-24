@@ -85,15 +85,16 @@ if ($result) {
     $quiz_id = isset($detail_quiz_id[$i]) && $detail_quiz_id[$i] !== '' ? $detail_quiz_id[$i] : 'NULL';
     $test_id = isset($detail_test_id[$i]) && $detail_test_id[$i] !== '' ? $detail_test_id[$i] : 'NULL';
     $video_url = $detail_video_url[$i] ?? '';
+    $file_id = 'NULL'; // 초기화 필요
 
     // 강의 세부 정보 저장
     $query_lecture_detail = "
-            INSERT INTO lecture_detail (
-                lecture_id, title, description, quiz_id, test_id, video_url, video_order
-            ) VALUES (
-                $leid, '$name', '$description', $quiz_id, $test_id, '$video_url', $video_order
-            )
-        ";
+        INSERT INTO lecture_detail (
+            lecture_id, title, description, quiz_id, test_id, video_url, video_order
+        ) VALUES (
+            $leid, '$name', '$description', $quiz_id, $test_id, '$video_url', $video_order
+        )
+    ";
     if (!$mysqli->query($query_lecture_detail)) {
       echo "<script>alert('강의 데이터 저장 실패: " . $mysqli->error . "');</script>";
       exit;
@@ -105,9 +106,9 @@ if ($result) {
     // 동영상 정보 저장 (levideo 테이블)
     if (!empty($video_url)) {
       $query_video = "
-                INSERT INTO levideo (lecpid, videoname, video_url, orders)
-                VALUES ($lecture_detail_id, '$name', '$video_url', $video_order)
-            ";
+            INSERT INTO levideo (lecpid, videoname, video_url, orders)
+            VALUES ($lecture_detail_id, '$name', '$video_url', $video_order)
+        ";
       if (!$mysqli->query($query_video)) {
         echo "<script>alert('동영상 데이터 저장 실패: " . $mysqli->error . "');</script>";
         exit;
@@ -117,22 +118,23 @@ if ($result) {
     // 첨부 파일 정보 저장 (lefile 테이블)
     if (isset($uploaded_files['name'][$i]) && $uploaded_files['error'][$i] === UPLOAD_ERR_OK) {
       $file_tmp_name = $uploaded_files['tmp_name'][$i];
-      $file_name = $uploaded_files['name'][$i];
+      $file_name = time() . '_' . uniqid() . '_' . $uploaded_files['name'][$i];
       $upload_dir = $_SERVER['DOCUMENT_ROOT'] . '/uploads/files/';
-      $file_path = $upload_dir . time() . '_' . $file_name;
+      $file_path = $upload_dir . $file_name;
 
       // 디렉토리 생성
       if (!is_dir($upload_dir)) {
         mkdir($upload_dir, 0777, true);
       }
 
-      // 파일 업로드 처리
       if (move_uploaded_file($file_tmp_name, $file_path)) {
         $query_file = "
-                    INSERT INTO lefile (lecdid, fname, fpath, ftype)
-                    VALUES ($lecture_detail_id, '$file_name', '$file_path', '{$uploaded_files['type'][$i]}')
-                ";
-        if (!$mysqli->query($query_file)) {
+                INSERT INTO lefile (lecdid, lepid, fname, fpath, ftype)
+                VALUES ($lecture_detail_id, '$uid', '$file_name', '$file_path', '{$uploaded_files['type'][$i]}')
+            ";
+        if ($mysqli->query($query_file)) {
+          $file_id = $mysqli->insert_id; // 저장된 파일 ID 가져오기
+        } else {
           echo "<script>alert('파일 데이터 저장 실패: " . $mysqli->error . "');</script>";
           exit;
         }
@@ -140,14 +142,29 @@ if ($result) {
         echo "<script>alert('파일 업로드 실패: $file_name');</script>";
         exit;
       }
+    } else {
+      // 파일이 없을 경우 file_id를 NULL로 유지
+      $file_id = 'NULL';
+    }
+
+    // `lecture_detail`의 `file_id` 업데이트
+    $query_update_file_id = "
+        UPDATE lecture_detail
+        SET file_id = $file_id
+        WHERE id = $lecture_detail_id
+    ";
+    if (!$mysqli->query($query_update_file_id)) {
+      echo "<script>alert('file_id 업데이트 실패: " . $mysqli->error . "');</script>";
+      exit;
     }
 
     $video_order++;
   }
 
+
   echo "<script>
         alert('강좌 세부 정보가 저장되었습니다.');
-        window.location.href = '/CODE_EVEN/admin/lecture_list.php';
+        window.location.href = '/CODE_EVEN/admin/lecture/lecture_list.php';
     </script>";
   exit;
 } else {
