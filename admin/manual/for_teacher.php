@@ -1,5 +1,5 @@
 <?php
-$title = "관리자 매뉴얼";
+$title = "강사 매뉴얼";
 $host = $_SERVER['HTTP_HOST'];
 $manual_js = "<script src=\"http://$host/code_even/admin/js/manual.js\"></script>";
 include_once($_SERVER['DOCUMENT_ROOT'] . '/code_even/admin/inc/header.php');
