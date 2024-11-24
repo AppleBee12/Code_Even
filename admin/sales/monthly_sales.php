@@ -1,32 +1,42 @@
 <?php
-$title = "월별매출통계";
-$jqueryui_css = " <link rel=\"stylesheet\" href=\"https://code.jquery.com/ui/1.14.1/themes/base/jquery-ui.css\">";
-$chart_js = "<script src=\"https://cdn.jsdelivr.net/npm/chart.js\"></script>";
-$jqueryui_js = "<script src=\"https://code.jquery.com/ui/1.14.1/jquery-ui.js\"></script>";
+  $title = "월별매출통계";
+  $jqueryui_css = " <link rel=\"stylesheet\" href=\"https://code.jquery.com/ui/1.14.1/themes/base/jquery-ui.css\">";
+  $chart_js = "<script src=\"https://cdn.jsdelivr.net/npm/chart.js\"></script>";
+  $jqueryui_js = "<script src=\"https://code.jquery.com/ui/1.14.1/jquery-ui.js\"></script>";
 
-include_once($_SERVER['DOCUMENT_ROOT'] . '/CODE_EVEN/admin/inc/header.php');
+  include_once($_SERVER['DOCUMENT_ROOT'] . '/CODE_EVEN/admin/inc/header.php');
 
+  $logged_in_user_level = $_SESSION['AULEVEL']; // 세션에서 사용자 레벨 가져오기
+  $logged_in_user_uid = $_SESSION['UID']; // 세션에서 사용자 UID 가져오기
+
+  // 기본 WHERE 절
+  $where_clause = "WHERE o.pay_status = 0";
+
+  // 강사 계정인 경우 본인 데이터만 조회
+  if ($logged_in_user_level == 10) { 
+      $where_clause .= " AND od.tc_uid = " . intval($logged_in_user_uid);
+  }
 
   // SQL 쿼리
   $sql = "SELECT 
-          DATE_FORMAT(o.order_date, '%Y-%m') AS data_year_month,
-          COUNT(DISTINCT o.odid) AS order_count,
-          COUNT(DISTINCT r.reid) AS re_count,
-          SUM(o.total_amount) AS total_order_amount,
-          SUM(o.discount_amount) AS total_discount,
-          SUM(o.final_amount) AS net_order_amount,
-          COALESCE(SUM(r.re_amount), 0) AS total_refund_amount,
-          SUM(o.final_amount) - COALESCE(SUM(r.re_amount), 0) AS final_sales_amount
-      FROM 
-          orders o
-      LEFT JOIN 
-          order_details oi ON o.odid = oi.odid
-      LEFT JOIN 
-          refunds r ON oi.oddtid = r.oddtid
-      WHERE 
-          o.pay_status = 0
-      GROUP BY 
-          DATE_FORMAT(o.order_date, '%Y-%m')";
+      DATE_FORMAT(o.order_date, '%Y-%m') AS data_year_month,
+      COUNT(DISTINCT o.odid) AS order_count,
+      COUNT(DISTINCT r.reid) AS re_count,
+      SUM(o.total_amount) AS total_order_amount,
+      SUM(o.discount_amount) AS total_discount,
+      SUM(o.final_amount) AS net_order_amount,
+      COALESCE(SUM(r.re_amount), 0) AS total_refund_amount,
+      SUM(o.final_amount) - COALESCE(SUM(r.re_amount), 0) AS final_sales_amount
+  FROM 
+      orders o
+  LEFT JOIN 
+      order_details od ON o.odid = od.odid
+  LEFT JOIN 
+      refunds r ON od.oddtid = r.oddtid
+  $where_clause
+  GROUP BY 
+      DATE_FORMAT(o.order_date, '%Y-%m')
+  ";
 
   // 쿼리 실행
   $result = $mysqli->query($sql);
