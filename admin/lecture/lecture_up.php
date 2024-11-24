@@ -150,7 +150,7 @@ $mysqli->close();
         <tr>
           <th scope="row">강사명 <b>*</b></th>
           <td colspan="2">
-            <input type="text" name="name" id="name" class="form-control" value="<?= $username; ?>" readonly>
+            <input type="text" name="name" id="name" class="form-control" value="<?= $username; ?>" disabled>
           </td>
           <td name="image" class="box_container" colspan="4" rowspan="5">
             <div class="box">
@@ -238,7 +238,7 @@ $mysqli->close();
         </colgroup>
         <tbody>
           <tr>
-            <th scope="row">강의명 <b>*</b></th>
+            <th scope="row">강의명</th>
             <td colspan="3">
               <input name="lecture_name[]" type="text" class="form-control" placeholder="강의명을 입력해 주세요.">
             </td>
@@ -279,7 +279,7 @@ $mysqli->close();
           </tr>
         </tbody>
       </table>
-      <div class="leplus d-flex justify-content-center align-items-center bg-white border rounded-3 boder-secondary">
+      <div class="leplus btn d-flex justify-content-center align-items-center bg-white border rounded-3 boder-secondary cursor-pointer">
         <i class="bi bi-plus"></i>
       </div>
     </div>
@@ -466,7 +466,7 @@ $mysqli->close();
                       <tr>
                           <th scope="row">강의명 <b>*</b></th>
                           <td colspan="3">
-                              <input type="text" name="lecture_name[]" class="form-control" placeholder="강의명을 입력해 주세요." required>
+                              <input type="text" name="lecture_name[]" class="form-control" placeholder="강의명을 입력해 주세요.">
                           </td>
                       </tr>
                       <tr>
@@ -498,7 +498,7 @@ $mysqli->close();
                           <td>
                               <div class="input-group">
                                   <span class="input-group-text">https://</span>
-                                  <input type="text" name="lecture_video_url[]" class="form-control" placeholder="www.code_even.com" required>
+                                  <input type="text" name="lecture_video_url[]" class="form-control" placeholder="www.code_even.com">
                               </div>
                           </td>
                       </tr>

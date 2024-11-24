@@ -47,12 +47,16 @@
           
 
           <label for="password" class="form-label mt-3">비밀번호 <b>*</b></label>
-          <input type="password" id="userpw" class="form-control" placeholder="숫자/영문/특수문자를 조합한 6~16자 이하" name="userpw" required>
+          <input type="password" id="userpw" class="form-control" placeholder="5~10자 이하로 입력하세요" name="userpw" required>
+          <div id="passwordError" class="text-danger mt-2" style="display: none;">
+            비밀번호는 5자리 ~ 10자리 이내로 입력해주세요.
+          </div>
 
           <div class=" mt-3 ">
-            <div class="">
-              <label for="userphonenum" class="form-label mt-3">연락처 <b>*</b></label>
-              <input type="text" id="userphonenum" class="form-control" placeholder="010-1234-5678" name="userphonenum"  required>
+            <label for="userphonenum" class="form-label mt-3">연락처 <b>*</b></label>
+            <input type="text" id="userphonenum" class="form-control" placeholder="010-1234-5678" name="userphonenum"  required>
+            <div id="phonenumberError" class="text-danger mt-2" style="display: none;">
+              연락처는 11자리로 입력해주세요.
             </div>
             
             <div class="">
@@ -82,15 +86,48 @@
 
 
   <script>
-  const hypenTel = (target) => {
-  target.value = target.value
-    .replace(/[^0-9]/g, '')
-    .replace(/^(\d{2,3})(\d{3,4})(\d{4})$/, `$1-$2-$3`);
-  }
+  document.addEventListener('DOMContentLoaded', function () {
+    const passwordInput = document.getElementById('userpw');
+    const passwordError = document.getElementById('passwordError');
 
-  $('#userphonenum').on('input', function() {
-    hypenTel(this);
+    passwordInput.addEventListener('input', function () {
+      const passwordLength = passwordInput.value.length;
+
+      if (passwordLength > 0 && (passwordLength <= 4 || passwordLength > 10)) {
+        passwordError.style.display = 'block';
+      } else {
+        passwordError.style.display = 'none';
+      }
+    });
   });
+  document.addEventListener('DOMContentLoaded', function () {
+    const phoneNumberInput = document.getElementById('userphonenum');
+    const phoneNumberError = document.getElementById('phonenumberError');
+
+    // 하이픈 자동 추가 함수
+    const formatPhoneNumber = (value) => {
+      return value
+        .replace(/[^0-9]/g, '') // 숫자만 추출
+        .replace(/^(\d{2,3})(\d{3,4})(\d{4})$/, `$1-$2-$3`); // 하이픈 추가
+    };
+
+    phoneNumberInput.addEventListener('input', function () {
+      // 현재 입력값에서 하이픈 추가
+      const numericValue = phoneNumberInput.value.replace(/[^0-9]/g, '');
+      phoneNumberInput.value = formatPhoneNumber(phoneNumberInput.value);
+
+      // 유효성 검사 (정확히 11자리인지 확인)
+      if (numericValue.length > 0 && numericValue.length !== 11) {
+        phoneNumberError.style.display = 'block';
+      } else {
+        phoneNumberError.style.display = 'none';
+      }
+    });
+  });
+
+ 
+
+ 
 
 
 

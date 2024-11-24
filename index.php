@@ -1,7 +1,7 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <?php
 session_start();
-include_once($_SERVER['DOCUMENT_ROOT'] . '/CODE_EVEN/admin/inc/dbcon.php');
+include_once($_SERVER['DOCUMENT_ROOT'] . '/code_even/admin/inc/dbcon.php');
 
 include_once($_SERVER['DOCUMENT_ROOT'] . '/code_even/inc/check_cookie.php');
 ?>
@@ -130,11 +130,30 @@ include_once($_SERVER['DOCUMENT_ROOT'] . '/code_even/inc/check_cookie.php');
         <hr>
         <div>
           <span><b>* 구현 완료 페이지 *</b></span><br>
-          <span><b>홍수진 : </b>대시보드, 커뮤니티 관리, 관리자 매뉴얼</span><br>
-          <span><b>배유나 : </b>수강생 관리, 문의 게시판 관리</span><br>
-          <span><b>조채림 : </b>로그인/회원가입, 카테고리관리, 쿠폰관리</span><br>
-          <span><b>최은화 : </b>강좌관리, 교재관리</span><br>
-          <span><b>홍은진 : </b>강사관리, 결제/배송관리, 매출통계관리, 운영관리</span><br>
+          <span><b>홍수진 : </b>
+          <a href="admin/index.php">대시보드,</a> 공통헤더,
+          <a href="admin/community/counsel.php">커뮤니티 관리, </a>
+          <a href="admin/manual/for_admin.php">관리자 매뉴얼 </a>
+        </span><br>
+          <span><b>배유나 : </b>
+          <a href="admin/student/student_list.php">수강생 관리, </a>
+          <a href="admin/inquiry/notice.php">문의 게시판 관리 </a>
+          </span><br>
+          <span><b>조채림 : </b>
+          <a href="members/signup/signup.php">로그인/회원가입, </a>
+          <a href="admin/category/category.php">카테고리관리, </a>
+          <a href="admin/coupons/coupons.php">쿠폰관리, </a>
+           </span><br>
+          <span><b>최은화 : </b>
+          <a href="admin/lecture/lecture_list.php">강좌관리, </a>
+          <a href="admin/book/book_list.php">교재관리 </a>
+          </span><br>
+          <span><b>홍은진 : </b>
+          <a href="admin/teacher/teacher_list.php">강사관리, </a>
+          <a href="admin/orders/orders_list.php">결제/배송관리,  </a>
+          <a href="admin/sales/lectuer_sales.php">매출통계관리, </a>
+          <a href="admin/user/user_list.php">전체회원관리 </a>
+          </span><br>
         </div>
         <hr>
         <div>

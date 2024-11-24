@@ -2,7 +2,7 @@
 $title = "수강생 질문";
   include_once($_SERVER['DOCUMENT_ROOT'] . '/CODE_EVEN/admin/inc/dbcon.php');
 
-  $ntid = $_GET['ntid'];
+  $sqid = $_GET['sqid'];
   $sql = "DELETE FROM student_qna WHERE sqid = $sqid";
   $result = $mysqli->query($sql);
 

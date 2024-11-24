@@ -80,14 +80,7 @@ $data = $result->fetch_object();
   </table>
   <div class="custom-hr"></div>
   <div class="d-flex justify-content-end gap-2">
-    <a 
-    <?php if ($level == 100): ?>
-    href="course_reviews.php" 
-    <?php endif; ?>
-    <?php if ($level == 10): ?>
-    href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/teacher_page/student/teacher_course_reviews.php" 
-    <?php endif; ?>
-    class="btn btn-outline-danger">취소</a>
+    <a href="course_reviews.php" class="btn btn-outline-danger">취소</a>
 
   <?php if ($level == 100): ?>
     <a href="course_reviews_delete.php?rvid=<?=$rvid;?>" type="button" class="btn btn-danger">삭제</a>

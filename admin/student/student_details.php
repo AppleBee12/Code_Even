@@ -3,10 +3,11 @@ $title = "수강생 상세";
 include_once($_SERVER['DOCUMENT_ROOT'] . '/code_even/admin/inc/header.php');
 
 $uid = $_GET['uid'];
-$sql = "SELECT class_data.*, user.*, lecture.* 
+$sql = "SELECT class_data.*, user.*, lecture.*, stuscores.* 
         FROM class_data 
         JOIN user ON class_data.uid = user.uid 
         JOIN lecture ON class_data.leid = lecture.leid 
+        LEFT JOIN stuscores ON user.uid = stuscores.stu_id 
         WHERE user.uid = $uid 
         ORDER BY class_data.cdid DESC";
 $result = $mysqli->query($sql);
@@ -149,15 +150,17 @@ while ($row = $result->fetch_object()) {
           $start_date->modify("+{$row->period} days"); // 기간을 더함
           $end_date = $start_date->format('Y-m-d'); // 종료 날짜 포맷팅
           ?>
-          <?= $end_date ?>
+          <?= $end_date ?> 
         </td>
-        <td>100</td>
-        <td>80</td>
-        <td>100%</td>
+        <td><?=$row->score;?></td>
+        <td><?=$row->score;?></td>
+        <td><?=$row->progress_rate;?></td>
         <td>
+        <?php if ($row->progress_rate >= 80): ?>
           <button class="printButton">
             <span class="badge text-bg-dark">이수증</span>
           </button>
+          <?php endif; ?>
         </td>
       </tr>
       <?php
