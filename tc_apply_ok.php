@@ -70,7 +70,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if ($mysqli->query($insert_sql)) {
         echo "<script>
             alert('강사 신청이 완료되었습니다.');
-            history.back();
+            location.href = 'index.php';
         </script>";
     } else {
         echo "<script>
