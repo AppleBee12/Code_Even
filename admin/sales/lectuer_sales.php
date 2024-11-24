@@ -1,6 +1,13 @@
 <?php
   $title = "강좌매출통계";
   include_once($_SERVER['DOCUMENT_ROOT'] . '/CODE_EVEN/admin/inc/header.php');
+  /*
+  echo '<pre>';
+  print_r($_SESSION); // 세션 데이터 출력
+  echo '</pre>';
+ */
+  $logged_in_user_level = $_SESSION['AULEVEL']; // 세션에서 user_level 가져오기
+  $logged_in_teacher_name = $_SESSION['AUNAME']; // 세션에서 AUNAME 가져오기
 
   //대분류 가져오기
   $category_sql = "SELECT * FROM category WHERE code LIKE 'A%' ORDER BY cgid ASC";
@@ -17,10 +24,9 @@
   }
 
 
-  //게시글 분류 검색 추가
+  //분류 검색
   $category_filter = isset($_GET['category']) ? $mysqli->real_escape_string($_GET['category']) : '';
-  $where_clause = '';
-  // 게시글 키워드 검색
+  //게시글 키워드 검색
   $keywords = isset($_GET['keywords']) ? $mysqli->real_escape_string($_GET['keywords']) : '';
   //강좌유형검색
   $lec_type_filter = isset($_GET['search_lectype']) ? $mysqli->real_escape_string($_GET['search_lectype']) : '';
@@ -35,6 +41,12 @@
   $query_params = $_GET;
   unset($query_params['order_by'], $query_params['order']); // 정렬 관련 파라미터 제거
 
+  $where_clause = '';
+
+  if ($logged_in_user_level == 10) {
+    // 강사 계정일 경우 본인의 강좌만 출력
+    $where_clause = "WHERE lecture_sales.th_name = '" . $mysqli->real_escape_string($logged_in_teacher_name) . "'";
+  }
 
   if ($keywords) {
     $where_clause = "WHERE lecture_sales.lec_title LIKE '%$keywords%' OR lecture_sales.th_name LIKE '%$keywords%'";
@@ -73,24 +85,24 @@
   }
 
 
+  // SQL 쿼리 구성
   $sql = "SELECT 
-      leid,
-      lec_cate,
-      th_name,
-      lec_title,
-      lec_type,
-      lec_price,
-      SUM(total_order_amount) AS total_order_amount, -- 주문금액 합계
-      SUM(order_count) AS total_order_count,         -- 주문건수 합계
-      SUM(total_refund_amount) AS total_refund_amount, -- 환불금액 합계
-      SUM(refund_count) AS total_refund_count,       -- 환불건수 합계
-      SUM(final_sales_amount) AS total_final_sales -- 총 매출금액 합계
-    FROM lecture_sales
+    leid,
+    lec_cate,
+    th_name,
+    lec_title,
+    lec_type,
+    lec_price,
+    SUM(total_order_amount) AS total_order_amount,
+    SUM(order_count) AS total_order_count,
+    SUM(total_refund_amount) AS total_refund_amount,
+    SUM(refund_count) AS total_refund_count,
+    SUM(final_sales_amount) AS total_final_sales
+  FROM lecture_sales
     $where_clause
-    GROUP BY leid, lec_cate, th_name, lec_title, lec_type
-    ORDER BY $order_by $order
-    LIMIT $start_num, $list
-  ";
+  GROUP BY leid, lec_cate, th_name, lec_title, lec_type
+  ORDER BY $order_by $order
+  LIMIT $start_num, $list";
 
   $result = $mysqli->query($sql);
   $dataArr = [];
@@ -100,7 +112,7 @@
     }
   }
 
-  //전체합계 추가
+  //총합계 추가
   $sum_sql = "SELECT 
           SUM(total_order_amount) AS total_order_amount_sum,
           SUM(order_count) AS total_order_count_sum,
@@ -135,6 +147,7 @@
         <label class="form-check-label" for="inlineRadio2">레시피</label>
     </div>
 </div>
+<?php if ($logged_in_user_level == 100): // 관리자 계정일 때만 표시 ?>
     <div class="col-lg-2">
       <select class="form-select" name="category" aria-label="대표분류">
         <option value="">-전체분류선택-</option>
@@ -145,6 +158,7 @@
         <?php endforeach; ?>
       </select>
     </div>
+    <?php endif; ?>
     <div class="col-lg-4">
       <div class="input-group">
         <input type="text" class="form-control" placeholder="유형이나 분류 선택 또는 검색어를 입력하세요." name="keywords" value="<?= htmlspecialchars($keywords); ?>">
