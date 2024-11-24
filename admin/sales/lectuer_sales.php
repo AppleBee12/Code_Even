@@ -159,9 +159,9 @@
       </select>
     </div>
     <?php endif; ?>
-    <div class="col-lg-4">
+    <div class="col-lg-3">
       <div class="input-group">
-        <input type="text" class="form-control" placeholder="유형이나 분류 선택 또는 검색어를 입력하세요." name="keywords" value="<?= htmlspecialchars($keywords); ?>">
+        <input type="text" class="form-control" placeholder="유형/분류 선택 또는 검색어를 입력하세요." name="keywords" value="<?= htmlspecialchars($keywords); ?>">
         <button type="submit" class="btn btn-secondary">
           <i class="bi bi-search"></i>
         </button>
