@@ -153,7 +153,7 @@ $mysqli->close();
             <input type="text" name="name" id="name" class="form-control" value="<?= $username; ?>" disabled>
           </td>
           <td name="image" class="box_container" colspan="4" rowspan="5">
-            <div class="box rounded-3">
+            <div class="box">
               <span>강좌 썸네일 이미지를 선택해주세요.</span>
               <div class="image"><img src="" alt=""></div>
             </div>
@@ -269,7 +269,7 @@ $mysqli->close();
             <td>
               <input name="lecture_file_id[]" class="form-control" type="file">
             </td>
-            <th scope="row">동영상 주소</th>
+            <th scope="row">동영상 주소 <b>*</b></th>
             <td>
               <div class="input-group">
                 <span class="input-group-text">https://</span>
@@ -464,7 +464,7 @@ $mysqli->close();
                   </colgroup>
                   <tbody>
                       <tr>
-                          <th scope="row">강의명</th>
+                          <th scope="row">강의명 <b>*</b></th>
                           <td colspan="3">
                               <input type="text" name="lecture_name[]" class="form-control" placeholder="강의명을 입력해 주세요.">
                           </td>
@@ -494,7 +494,7 @@ $mysqli->close();
                           <td>
                               <input name="lecture_file_id[]" class="form-control" type="file">
                           </td>
-                          <th scope="row">동영상 주소</th>
+                          <th scope="row">동영상 주소 <b>*</b></th>
                           <td>
                               <div class="input-group">
                                   <span class="input-group-text">https://</span>
