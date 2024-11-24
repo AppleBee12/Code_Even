@@ -188,6 +188,7 @@ if ($level == 100) {
   switch ($page) { //manual.css
     case 'for_admin.php':
     case 'for_teacher.php':
+    case 'manual_contents.php':
       echo '<link rel="stylesheet" href="http://' . $_SERVER['HTTP_HOST'] . '/code_even/admin/css/manual.css">';
       break;
   }

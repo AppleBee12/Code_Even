@@ -50,8 +50,8 @@ if ($result) {
 //   echo '</pre>';
 // }
 
-$menu_admin = ['대시보드', '카테고리 관리','강좌 관리','교재 관리','전체 회원관리','강사 관리','수강생 관리','결제/배송 관리', '쿠폰 관리','매출/통계 관리','문의 게시판 관리','커뮤니티 관리','상점 관리','프로필관리'];
-$menu_teacher = ['대시보드', '카테고리 관리'];
+$menu_admin = ['대시보드', '카테고리 관리', '강좌 관리', '교재 관리', '전체 회원관리', '강사 관리', '수강생 관리', '결제/배송 관리', '쿠폰 관리', '매출/통계 관리', '문의 게시판 관리', '커뮤니티 관리', '상점 관리', '프로필관리'];
+$menu_teacher = ['대시보드', '강좌 관리', '교재 관리', '수강생 관리', '매출통계 관리', '문의 게시판 관리'];
 $menu_items = ($level == 100) ? $menu_admin : $menu_teacher;
 
 // print_r($menu_items)
@@ -174,7 +174,7 @@ $menu_items = ($level == 100) ? $menu_admin : $menu_teacher;
                 <i class="bi bi-mouse2"></i>
               </div>
             </div>
-            <img src="<?= 'http://' . $_SERVER['HTTP_HOST'] . $content['image']; ?>" alt="이미지" class="card-img-top">
+            <img src="<?= 'http://' . $_SERVER['HTTP_HOST'] . '/code_even/admin/upload/manual/' . $content['image']; ?>" alt="이미지" class="card-img-top">
           </a>
         </div>
       </li>
