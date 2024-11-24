@@ -174,8 +174,8 @@
         </th>
         <th scope="col">
             건수
-            <a href="?<?= http_build_query(array_merge($query_params, ['order_by' => 'order_count', 'order' => $order_next])); ?>" class="sort-icon">
-                <i class="bi bi-arrow-<?= $order_by === 'order_count' && $order === 'asc' ? 'up' : 'down'; ?>-short"></i>
+            <a href="?<?= http_build_query(array_merge($query_params, ['order_by' => 'total_order_count', 'order' => $order_next])); ?>" class="sort-icon">
+                <i class="bi bi-arrow-<?= $order_by === 'total_order_count' && $order === 'asc' ? 'up' : 'down'; ?>-short"></i>
             </a>
         </th>
         <th scope="col">
@@ -186,14 +186,14 @@
         </th>
         <th scope="col">
             건수
-            <a href="?<?= http_build_query(array_merge($query_params, ['order_by' => 'refund_count', 'order' => $order_next])); ?>" class="sort-icon">
-                <i class="bi bi-arrow-<?= $order_by === 'refund_count' && $order === 'asc' ? 'up' : 'down'; ?>-short"></i>
+            <a href="?<?= http_build_query(array_merge($query_params, ['order_by' => 'total_refund_count', 'order' => $order_next])); ?>" class="sort-icon">
+                <i class="bi bi-arrow-<?= $order_by === 'total_refund_count' && $order === 'asc' ? 'up' : 'down'; ?>-short"></i>
             </a>
         </th>
         <th scope="col">
             총매출금액
-            <a href="?<?= http_build_query(array_merge($query_params, ['order_by' => 'final_sales_amount', 'order' => $order_next])); ?>" class="sort-icon">
-                <i class="bi bi-arrow-<?= $order_by === 'final_sales_amount' && $order === 'asc' ? 'up' : 'down'; ?>-short"></i>
+            <a href="?<?= http_build_query(array_merge($query_params, ['order_by' => 'total_final_sales', 'order' => $order_next])); ?>" class="sort-icon">
+                <i class="bi bi-arrow-<?= $order_by === 'total_final_sales' && $order === 'asc' ? 'up' : 'down'; ?>-short"></i>
             </a>
         </th>
        
