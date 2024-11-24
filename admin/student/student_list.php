@@ -127,7 +127,6 @@ while ($data = $result->fetch_object()) {
               $start_date->modify("+{$cl->period} days"); // 기간을 더함
               $end_date = $start_date->format('Y-m-d'); // 종료 날짜 포맷팅
               ?>
-
               <?= $set_date ?> ~ <?= $end_date ?>
             </td>
           <?php if ($level == 100): ?>
