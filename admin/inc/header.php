@@ -214,6 +214,9 @@ if ($level == 100) {
   if (isset($store_js)) {
     echo $store_js;
   }
+  if (isset($manual_js)) {
+    echo $manual_js;
+  }
 
   ?>
 
