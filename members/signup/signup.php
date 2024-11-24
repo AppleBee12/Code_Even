@@ -48,6 +48,9 @@
 
           <label for="password" class="form-label mt-3">비밀번호 <b>*</b></label>
           <input type="password" id="userpw" class="form-control" placeholder="숫자/영문/특수문자를 조합한 6~16자 이하" name="userpw" required>
+          <div id="passwordError" class="text-danger mt-2" style="display: none;">
+            비밀번호는 5자리 ~ 10자리 이내로 입력해주세요.
+          </div>
 
           <div class=" mt-3 ">
             <div class="">
@@ -82,6 +85,24 @@
 
 
   <script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const passwordInput = document.getElementById('userpw');
+    const passwordError = document.getElementById('passwordError');
+
+    passwordInput.addEventListener('input', function () {
+      const passwordLength = passwordInput.value.length;
+
+      if (passwordLength > 0 && (passwordLength <= 4 || passwordLength > 10)) {
+        passwordError.style.display = 'block';
+      } else {
+        passwordError.style.display = 'none';
+      }
+    });
+  });
+
+
+ 
+
   const hypenTel = (target) => {
   target.value = target.value
     .replace(/[^0-9]/g, '')
