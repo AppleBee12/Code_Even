@@ -47,7 +47,7 @@
           
 
           <label for="password" class="form-label mt-3">비밀번호 <b>*</b></label>
-          <input type="password" id="userpw" class="form-control" placeholder="숫자/영문/특수문자를 조합한 6~16자 이하" name="userpw" required>
+          <input type="password" id="userpw" class="form-control" placeholder="5~10자 이하로 입력하세요" name="userpw" required>
           <div id="passwordError" class="text-danger mt-2" style="display: none;">
             비밀번호는 5자리 ~ 10자리 이내로 입력해주세요.
           </div>
