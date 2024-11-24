@@ -72,7 +72,7 @@
 <div class="container">
   <h2 class="page_title">강사목록</h2>
   <form action="#" id="search_form" class="row justify-content-end" method="GET">
-    <div class="col-lg-5 ulist_status pt_04">
+    <div class="col-lg-4 tlist_status pt_04">
       <span class="status_tt me-4">승인상태</span>
       <div class="form-check form-check-inline">
       <input class="form-check-input" type="radio" name="tc_ok" id="status_all" value="all" <?= $tc_ok === 'all' ? 'checked' : ''; ?>>
@@ -93,7 +93,7 @@
 
 
     </div>
-    <div class="col-lg-3">
+    <div class="col-lg-2">
       <select class="form-select" name="category" aria-label="대표분야">
         <option value="">-전체분야선택-</option>
         <?php foreach($categories as $category): ?>
@@ -106,7 +106,7 @@
 
     <div class="col-lg-3">
       <div class="input-group mb-3">
-        <input type="text" class="form-control" placeholder="분야 선택 또는 검색어를 입력하세요." name="keywords" value="<?= htmlspecialchars($keywords); ?>">
+        <input type="text" class="form-control" placeholder="상태/분야 선택 또는 검색어를 입력하세요." name="keywords" value="<?= htmlspecialchars($keywords); ?>">
         <button type="submit" class="btn btn-secondary">
           <i class="bi bi-search"></i>
         </button>
