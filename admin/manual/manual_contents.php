@@ -47,7 +47,7 @@ while ($row = $result->fetch_assoc()) {
     <?php foreach ($rows as $content): ?>
       <div class="manual-item">
         <?php if ($content['type'] === 'img'): ?>
-          <img class="manual-img" src="<?= 'http://' . $_SERVER['HTTP_HOST'] . '/code_even/admin/upload/manual/' . $content['image']; ?>" alt="이미지">
+          <img class="manual-img mt-5" src="<?= 'http://' . $_SERVER['HTTP_HOST'] . '/code_even/admin/upload/manual/' . $content['image']; ?>" alt="이미지">
         <?php elseif ($content['type'] === 'txt'): ?>
           <div><?=($content['text']); ?></div>
         <?php endif; ?>
