@@ -67,6 +67,7 @@ while ($data = $result->fetch_object()) {
 
   .card {
     width: 45%;
+    height: 243px;
     .c-img img{
       height: 243px;
 

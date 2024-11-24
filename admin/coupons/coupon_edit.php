@@ -203,7 +203,10 @@ thead,
           </tr>    
         </div>
 
-
+        <?php
+        // $data->coupon_type에 따라 상태 설정
+         $isCouponTypeFixed = $data->coupon_type; // 1: 정액, 2: 정률
+        ?>
           <th scope="row">쿠폰타입</th>
           <td>
             <select class="form-select w-25" name="coupon_type" id="coupon_type" aria-label="쿠폰타입">                            
@@ -225,7 +228,7 @@ thead,
           <th scope="row">할인비율</th>
           <td>
             <div class="input-group mb-3 w-50">
-              <input type="text" name="coupon_ratio" class="form-control" aria-label="할인비율" value="0" aria-describedby="coupon_ratio">
+              <input type="text" name="coupon_ratio" class="form-control" aria-label="할인비율" value=" <?= $data->coupon_ratio;?>" aria-describedby="coupon_ratio">
               <span class="input-group-text" id="coupon_ratio">%</span>
             </div>
           </td>
@@ -285,8 +288,6 @@ thead,
     location.href='coupons.php';
   });
 
-  $('#ct2 input').prop('disabled', true);
-
   $('#coupon_type').change(function(){
     let value = $(this).val();
     $('#ct1 input, #ct2 input').prop('disabled', true);
@@ -294,6 +295,43 @@ thead,
       $('#ct1 input').prop('disabled', false);
     } else{
       $('#ct2 input').prop('disabled', false);
+    }
+  });
+
+
+  $('#coupon_image').on('change',(e)=>{
+    let file = e.target.files[0];
+
+    const reader = new FileReader(); 
+    reader.onloadend = (e)=>{ 
+      let attachment = e.target.result;
+      if(attachment){
+        let target = $('#coupon_old_image');
+        target.attr('src',attachment)
+      }
+    }
+    reader.readAsDataURL(file); 
+  });
+
+  $(document).ready(function () {
+    // 초기 상태 설정
+    let couponType = <?= $isCouponTypeFixed; ?>; // 1: 정액, 2: 정률
+    updateFields(couponType);
+
+    // 쿠폰 타입 변경 이벤트
+    $('#coupon_type').on('change', function () {
+      let selectedType = $(this).val();
+      updateFields(selectedType);
+    });
+
+    function updateFields(type) {
+      if (type == 1) { // 정액 선택
+        $('input[name="coupon_price"]').prop('disabled', false);
+        $('input[name="coupon_ratio"]').prop('disabled', true).val(''); // 값 초기화
+      } else if (type == 2) { // 정률 선택
+        $('input[name="coupon_ratio"]').prop('disabled', false);
+        $('input[name="coupon_price"]').prop('disabled', true).val(''); // 값 초기화
+      }
     }
   });
 </script>
