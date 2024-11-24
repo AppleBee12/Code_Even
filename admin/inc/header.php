@@ -94,6 +94,11 @@ if ($level == 100) {
       echo '<link rel="stylesheet" href="http://' . $_SERVER['HTTP_HOST'] . '/code_even/admin/css/main.css">';
       break;
   }
+  switch ($page) { //t_main.css
+    case 'teacher_index.php':
+      echo '<link rel="stylesheet" href="http://' . $_SERVER['HTTP_HOST'] . '/code_even/admin/css/t_main.css">';
+      break;
+  }
   switch ($page) { //user.css
     case 'user_list.php':
     case 'user_edit.php':
@@ -172,16 +177,18 @@ if ($level == 100) {
       echo '<link rel="stylesheet" href="http://' . $_SERVER['HTTP_HOST'] . '/code_even/admin/css/lecture.css">';
       break;
   }
-  switch ($page) { //t_main.css
-    case 'teacher_index.php':
-      echo '<link rel="stylesheet" href="http://' . $_SERVER['HTTP_HOST'] . '/code_even/admin/css/t_main.css">';
-      break;
-  }
+
   switch ($page) { //counsel.css
     case 'counsel.php':
     case 'blog.php':
     case 'team_project.php':
       echo '<link rel="stylesheet" href="http://' . $_SERVER['HTTP_HOST'] . '/code_even/admin/css/counsel.css">';
+      break;
+  }
+  switch ($page) { //manual.css
+    case 'for_admin.php':
+    case 'for_teacher.php':
+      echo '<link rel="stylesheet" href="http://' . $_SERVER['HTTP_HOST'] . '/code_even/admin/css/manual.css">';
       break;
   }
   ?>
@@ -292,10 +299,10 @@ if ($level == 100) {
                   프로필 수정</a></li>
             <?php }; ?>
             <?php if ($level == 100) { ?>
-              <li><a class="dropdown-item" href="#">관리자 매뉴얼</a></li>
+              <li><a class="dropdown-item" href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/manual/for_admin.php">관리자 매뉴얼</a></li>
             <?php } else if ($level == 10) { ?>
-              <li><a class="dropdown-item" href="#">강사 매뉴얼</a></li>
-            <?php }; ?>
+              <li><a class="dropdown-item" href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/manual/for_teacher.php">강사 매뉴얼</a></li>
+            <?php }; ?>      
             <li>
               <hr class="dropdown-divider">
             </li>
