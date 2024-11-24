@@ -7,6 +7,8 @@ $sql = "SELECT notice.*, user.username, user.userid FROM notice JOIN user ON not
 $result = $mysqli->query($sql);
 $data = $result->fetch_object();
 
+// print_r($data);
+
 $view = $data->view + 1;
 
 $viewSql = "UPDATE notice SET view = $view WHERE ntid = $ntid;";
@@ -15,6 +17,8 @@ $vresult = $mysqli->query($viewSql);
 $sql = "SELECT notice.*, user.* FROM notice JOIN user ON notice.uid = user.uid WHERE ntid = $ntid";
 $result = $mysqli->query($sql);
 $data = $result->fetch_object();
+
+$existingContent = htmlspecialchars_decode($data->content);
 
 ?>
 
@@ -63,7 +67,7 @@ $data = $result->fetch_object();
     </table>
     <div class="card">
       <div class="card-body">
-        <p><?= $data->content; ?></p>
+        <p><?= $existingContent; ?></p>
       </div>
     </div>
     <div class="custom-hr"></div>
