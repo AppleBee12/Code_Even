@@ -111,6 +111,7 @@ if ($level == 100) {
     case 'user_edit.php':
     case 'my_details.php':
     case 'lectuer_sales.php':
+    case 'book_sales.php':
     case 'teacher_details.php':
     case 'store.php':
     case 'counsel_edit.php':
