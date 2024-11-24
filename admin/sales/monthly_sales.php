@@ -1,8 +1,8 @@
 <?php
   $title = "월별매출통계";
-  $jqueryui_css = " <link rel=\"stylesheet\" href=\"https://code.jquery.com/ui/1.14.1/themes/base/jquery-ui.css\">";
+  //$jqueryui_css = " <link rel=\"stylesheet\" href=\"https://code.jquery.com/ui/1.14.1/themes/base/jquery-ui.css\">";
   $chart_js = "<script src=\"https://cdn.jsdelivr.net/npm/chart.js\"></script>";
-  $jqueryui_js = "<script src=\"https://code.jquery.com/ui/1.14.1/jquery-ui.js\"></script>";
+  //$jqueryui_js = "<script src=\"https://code.jquery.com/ui/1.14.1/jquery-ui.js\"></script>";
 
   include_once($_SERVER['DOCUMENT_ROOT'] . '/CODE_EVEN/admin/inc/header.php');
 
@@ -82,16 +82,18 @@
     <canvas id="myLineChart" width="800" height="500"></canvas>
   </div>
   <form action="" id="search_form" class="row justify-content-end">
-    <div class="col-lg-3">
-      <!-- <input type="date" class="form-control" /> -->
-      <input class="form-control" type="text" id="datepicker"></p>
-    </div>
-    <div class="col-lg-3">
-    <div class="input-group mb-3">
-      <input type="text" class="form-control" placeholder="분류 선택 또는 검색어를 입력해주세요" aria-label="Recipient's username" aria-describedby="basic-addon2">
+    <div class="col-lg-2 d-flex gap-3">
+      <!-- <input class="form-control" type="text" id="datepicker"></p> -->
+      <input class="form-control" type="month" id="month">
+      <input class="form-control" type="month" id="month">
       <button type="button" class="btn btn-secondary">
         <i class="bi bi-search"></i>
       </button>
+    </div>
+    <div class="col-lg-3">
+    <div class="input-group mb-3">
+      <!--<input type="text" class="form-control" placeholder="분류 선택 또는 검색어를 입력해주세요" aria-label="Recipient's username" aria-describedby="basic-addon2"> -->
+  
       </div>
     </div>
   </form>
@@ -109,24 +111,6 @@
       </tr>
     </thead>
     <tbody>
-      <!--  임시데이터
-      <tr>
-        <th scope="row">1</th>
-        <td><a href="teacher_details.php">2023 1월</td>
-        <td><a href="teacher_details.php">9,999원 / 10건</td>
-        <td><a href="teacher_details.php">9,999원 / 10건</td>
-        <td><a href="teacher_details.php">9,999원 / 10건</td>
-        <td><a href="teacher_details.php">119,999원</td>
-      </tr>  
-      <tr>
-        <th scope="row">1</th>
-        <td><a href="teacher_details.php">2023 2월</td>
-        <td><a href="teacher_details.php">9,999원 / 10건</td>
-        <td><a href="teacher_details.php">9,999원 / 10건</td>
-        <td><a href="teacher_details.php">9,999원 / 10건</td>
-        <td><a href="teacher_details.php">119,999원</td>
-      </tr>  
-      -->
       <tbody>
         <?php
 
@@ -139,7 +123,7 @@
           foreach ($salesData as $index => $row) {
 
             // 각 행마다 'data_year_month' 값을 기반으로 분리하여 사용
-    $yearMonth = explode('-', $row['data_year_month']); // '2023-01'을 '-'로 분리하여 배열로 저장
+        $yearMonth = explode('-', $row['data_year_month']); // '2023-01'을 '-'로 분리하여 배열로 저장
               echo "<tr>";
               echo "<th scope='row'>" . ($index + 1) . "</th>";
               echo "<td>" . $yearMonth[0] . "년 " . intval($yearMonth[1]) . "월</td>"; // 2023년 1월 형식으로 출력
@@ -173,42 +157,6 @@
 </div>
 
 <script>
-  /*
- const ctx = document.getElementById('myLineChart').getContext('2d');
-        const myLineChart = new Chart(ctx, {
-            type: 'line',
-            data: {
-                labels: ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월'],
-                datasets: [{
-                    label: '데이터',
-                    data: [1500, 1800, 2200, 2600, 3500, 3000, 4000, 3500, 2500, 2700, 4500, 4000],
-                    borderColor: 'rgba(255, 99, 132, 1)',
-                    backgroundColor: 'rgba(255, 99, 132, 0.2)',
-                    borderWidth: 2,
-                    fill: true, 
-                    pointBackgroundColor: 'rgba(255, 99, 132, 1)', // 포인트 색상
-                    pointRadius: 5 // 포인트 크기 설정
-                }]
-            },
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                scales: {
-                    y: {
-                        beginAtZero: false,
-                        suggestedMax: 5000
-                    }
-                },
-                elements: {
-                    line: {
-                        tension: 0.4 // 곡선의 부드러움 조정
-                    }
-                }
-            }
-        });
-        */
-
-
     const ctx = document.getElementById('myLineChart').getContext('2d');
     const myLineChart = new Chart(ctx, {
         type: 'line',
@@ -241,8 +189,6 @@
             }
         }
     });
-
-
 
 </script>
 <script>
