@@ -4,7 +4,7 @@ include_once($_SERVER['DOCUMENT_ROOT'] . '/CODE_EVEN/admin/inc/header.php');
 include_once($_SERVER['DOCUMENT_ROOT'].'/code_even/admin/inc/date_format_func.php');
 
 //상태 검색 추가
-$user_status = isset($_GET['user_status']) ? (int)$_GET['user_status'] : null;
+$user_status = isset($_GET['user_status']) ? $_GET['user_status'] : 'all';
 // 게시글 개수 구하기
 $keywords = isset($_GET['keywords']) ? $mysqli->real_escape_string($_GET['keywords']) : '';
 $where_clause = '';
@@ -15,8 +15,7 @@ if ($keywords) {
   $conditions[] = "(user.userid LIKE '%$keywords%' OR user.username LIKE '%$keywords%' OR user.useremail LIKE '%$keywords%')";
 }
 
-// 상태 필터 조건 (전체 상태는 조건 없음)
-if ($user_status !== null && $user_status !== '') {
+if ($user_status !== 'all') {
   $conditions[] = "user.user_status = $user_status";
 }
 
@@ -68,19 +67,19 @@ while($data = $result->fetch_object()){
     <div class="col-lg-3 ulist_status pt_04">
       <span class="status_tt me-4">회원상태</span>
       <div class="form-check form-check-inline">
-        <input class="form-check-input" type="radio" name="user_status" id="status_all" value="" checked>
+        <input class="form-check-input" type="radio" name="user_status" id="status_all" value="all" <?= $user_status === 'all' ? 'checked' : ''; ?>>
         <label class="form-check-label" for="status_all">전체</label>
       </div>
       <div class="form-check form-check-inline">
-        <input class="form-check-input" type="radio" name="user_status" id="status_normal" value="0">
+        <input class="form-check-input" type="radio" name="user_status" id="status_normal" value="0" <?= $user_status === '0' ? 'checked' : ''; ?>>
         <label class="form-check-label" for="status_normal">정상</label>
       </div>
       <div class="form-check form-check-inline">
-        <input class="form-check-input" type="radio" name="user_status" id="status_withdrawn" value="-1">
+        <input class="form-check-input" type="radio" name="user_status" id="status_withdrawn" value="-1" <?= $user_status === '-1' ? 'checked' : ''; ?>>
         <label class="form-check-label" for="status_withdrawn">탈퇴</label>
       </div>
       <div class="form-check form-check-inline">
-        <input class="form-check-input" type="radio" name="user_status" id="status_suspended" value="1">
+        <input class="form-check-input" type="radio" name="user_status" id="status_suspended" value="1" <?= $user_status === '1' ? 'checked' : ''; ?>>
         <label class="form-check-label" for="status_suspended">정지</label>
       </div>
     </div>
