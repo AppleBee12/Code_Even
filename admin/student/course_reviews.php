@@ -19,7 +19,8 @@ if ($keywords) {
   $where_clause .= " AND (user.username LIKE '%$keywords%' 
                       OR user.userid LIKE '%$keywords%' 
                       OR review.rtitle LIKE '%$keywords%' 
-                      OR lecture.title LIKE '%$keywords%')";
+                      OR lecture.title LIKE '%$keywords%'
+                      OR lecture.name LIKE '%$keywords%')";
 }
 
 $page_sql = "SELECT COUNT(*) AS cnt 

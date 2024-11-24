@@ -57,8 +57,12 @@ tbody td.thumb_parent_prev{
   object-fit: cover;
 }
 
-
-
+/*상세페이지*/
+.readonly_input {
+  pointer-events: none; /* 클릭 이벤트를 비활성화 */
+  background-color: #e9ecef; /* 비활성화된 필드처럼 보이게 설정 */
+  cursor: not-allowed; /* 마우스 포인터를 비활성화 커서로 변경 */
+}
 /* 프로필 이미지 업로드 */
 .upload{
   width: 100px;

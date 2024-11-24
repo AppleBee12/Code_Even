@@ -99,7 +99,7 @@ $data = $result->fetch_object();
   <?php endif; ?>
 
   <?php if ($level == 100): ?>
-    <a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/student/student_question_delete.php?sqid=<?=$data->sqid;?>" class="btn btn-danger">삭제</a>
+    <a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/student/student_question_delete.php?sqid=<?=$sqid;?>" class="btn btn-danger">삭제</a>
   <?php endif; ?>
   
   </div>

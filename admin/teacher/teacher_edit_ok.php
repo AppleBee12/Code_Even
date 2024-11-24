@@ -6,6 +6,7 @@
 
     /* ---------------- 이미지 업로드 변수 정의 --------------------- */
     $thumbnail = $_FILES['tc_thumbnail'] ?? '';
+    $tc_userid = $_POST['tc_userid'];
     $tc_name = $_POST['tc_name'];
     $tc_url = $_POST['tc_url'] ?? '';
     $tc_userphone = $_POST['tc_userphone'];
@@ -71,25 +72,37 @@
     /* ---------------- 이미지 업로드 업데이트 sql 끝 --------------------- */
 
     $sql .= " WHERE tcid = $tcid";
+
+    print_r($sql);
+
     $result = $mysqli->query($sql); // teachers 테이블에 강사정보 업데이트
+
 
     if ($result) {
         // tc_ok 값에 따라 user_level 값을 설정
-        if ($tc_ok == 1 || $tc_ok == -1) {
-            $new_user_level = ($tc_ok == 1) ? 10 : 1;
+        if ($tc_ok == 1) {
+            $new_user_level = 10; // tc_ok가 1일 때 user_level은 10
+        } elseif ($tc_ok == -1 || $tc_ok == 0) {
+            $new_user_level = 1; // tc_ok가 -1이거나 0일 때 user_level은 1
+        }
+        // user_level 업데이트 쿼리 실행
+        if (isset($new_user_level)) {
             $user_sql = "UPDATE user SET user_level = $new_user_level WHERE userid = '$tc_userid'";
             $mysqli->query($user_sql);
         }
-        
+        print_r($result);
+
         echo "
-            <script>
-                alert('강사정보 수정 완료');
-                location.href = 'teacher_list.php';
-            </script>
+        <script>
+            alert('강사정보 수정 완료');
+            location.href = 'teacher_list.php';
+        </script>
         ";
     } else {
         echo "Error: " . $mysqli->error;
+
     }
 
 $mysqli->close();
+
 ?>

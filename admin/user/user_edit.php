@@ -7,6 +7,19 @@
   $sql = "SELECT * FROM user WHERE uid = $uid";
   $result = $mysqli->query($sql);
   $data = $result->fetch_object();
+
+  //보유쿠폰 출력
+  $sql_coupons = "SELECT 
+    uc.*, c.coupon_name, c.cp_desc, c.coupon_type, c.coupon_price, c.coupon_ratio
+    FROM user_coupons uc
+    LEFT JOIN coupons c ON uc.couponid = c.cpid
+    WHERE uc.userid = '{$data->userid}'
+  ";
+  $result_coupons = $mysqli->query($sql_coupons);
+  $coupons = [];
+  while ($row = $result_coupons->fetch_object()) {
+      $coupons[] = $row;
+  }
 ?>
 
 <div class="container">
@@ -25,7 +38,7 @@
       </colgroup>
       <tbody>
         <tr>
-          <th scope="row"><label for="userid">아이디 <b>*</b></label></th>
+          <th scope="row"><label for="userid">아이디 <b>*</b></label></th>  
           <td>
             <input type="text" class="form-control" id="userid" name="userid" value="<?= $data->userid; ?>" disabled>
           </td>
@@ -99,7 +112,7 @@
                 <input type="text" class="form-control w_sm" id="sample6_postcode" name="post_code" placeholder="우편번호" value="<?= $data->post_code ?>">
               </div>
               <div class="col-auto">
-                <input type="button" onclick="sample6_execDaumPostcode()" value="우편번호 찾기"><br>
+                <input type="button" class="post_search_btn" onclick="sample6_execDaumPostcode()" value="우편번호 찾기"><br>
               </div>
             </div>
             <input type="text" id="sample6_address" class="form-control" name="addr_line1" placeholder="주소" value="<?= $data->addr_line1 ?>">
@@ -154,15 +167,36 @@
         </tr>
       </thead>
       <tbody>
-        <tr>
-          <th scope="row">1</th>
-          <td>장바구니 쿠폰</td>
-          <td>장바구니 10% 할인권</td>
-          <td>10%</td>
-          <td>2024/10/29-2024/12/29</td>
-          <td>미사용</td>
-          <td>사용가능</td>
-        </tr>   
+        <?php
+      foreach ($coupons as $index => $coupon) {
+        ?>
+      <tr> 
+          <td> <?= ($index + 1) ?></td>
+          <td> <?= $coupon->coupon_name ?></td>
+          <td> <?= $coupon->cp_desc ?></td>
+          <td> <?= ($coupon->coupon_type == 2 ? $coupon->coupon_ratio . '%' : number_format($coupon->coupon_price) . '원') ?></td>
+          <td>
+            <?= date('Y/m/d', strtotime($coupon->regdate)) ?> - 
+            <?= $coupon->use_max_date ? date('Y/m/d', strtotime($coupon->use_max_date)) : '무제한' ?>
+          </td>
+          <td>
+            <?= $coupon->status == 1 ? '미사용' : ($coupon->status == 2 ? '사용' : '알 수 없음') ?>
+          </td>
+          <td><?php
+              if ($coupon->use_max_date) {
+                $current_date = date('Y-m-d');
+                $max_date = date('Y-m-d', strtotime($coupon->use_max_date));
+                echo ($current_date <= $max_date) ? '사용가능' : '사용불가능';
+              } else {
+                echo '무제한';
+              }
+            ?></td>
+        </tr>
+        <?php
+      }
+      ?>
+
+
     </table>
 
     <div class="d-flex justify-content-end gap-2">
