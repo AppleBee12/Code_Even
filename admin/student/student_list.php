@@ -15,7 +15,7 @@ if($level == 10){
 }
 
 if ($keywords) {
-  $where_clause .= " AND (user.username LIKE '%$keywords%' OR user.userid LIKE '%$keywords%')";
+  $where_clause .= " AND (user.username LIKE '%$keywords%' OR user.userid LIKE '%$keywords%' OR lecture.title LIKE '%$keywords%')";
 }
 
 $page_sql = "SELECT COUNT(*) AS cnt 
@@ -114,11 +114,13 @@ while ($data = $result->fetch_object()) {
             <td><a href="student_details.php?uid=<?= $cl->uid; ?>" class="underline"><?= $cl->userid ?></a></td>
             <td><a href="student_details.php?uid=<?= $cl->uid; ?>" class="underline"><?= $cl->username ?></a></td>
             <td><?= mb_strlen($cl->title) > 25 ? mb_substr($cl->title, 0, 25) . '...' : $cl->title; ?></td>
-            <td></td>
+            <td><?=$cl->progress_rate ? $cl->progress_rate . '%' : '0%';?></td>
             <td>
+            <?php if ($cl->progress_rate >= 80): ?>
               <button type="button" class="printButton">
                 <span class="badge text-bg-dark">이수증</span>
               </button>
+            <?php endif; ?>
             </td>
             <td>
               <?php
