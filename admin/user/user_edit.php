@@ -112,7 +112,7 @@
                 <input type="text" class="form-control w_sm" id="sample6_postcode" name="post_code" placeholder="우편번호" value="<?= $data->post_code ?>">
               </div>
               <div class="col-auto">
-                <input type="button" onclick="sample6_execDaumPostcode()" value="우편번호 찾기"><br>
+                <input type="button" class="post_search_btn" onclick="sample6_execDaumPostcode()" value="우편번호 찾기"><br>
               </div>
             </div>
             <input type="text" id="sample6_address" class="form-control" name="addr_line1" placeholder="주소" value="<?= $data->addr_line1 ?>">
