@@ -141,7 +141,9 @@ while ($row = $result_cate->fetch_object()) {
                 <input class="form-check-input itemCheckbox" type="checkbox" name="ids[]" value="<?= $item->boid; ?>">
               </th>
               <th scope="row"><?= $item->boid; ?></th>
-              <td class="lecture-img"><img src="<?= $item->image; ?>" alt=""></td>
+              <td class="lecture-img">
+                <img src="<?= $item->image; ?>" alt="">
+              </td>
               <td class="title-cell"><?= $item->title; ?></td>
               <td><?= $item->name; ?></td>
               <td><?= $item->company; ?></td>

@@ -58,26 +58,22 @@ color: var(--bk0);
   <table class="table list_table">
     <thead>
       <tr>
-        <th scope="col">
-          <input class="form-check-input" type="checkbox" value="" id="allCheck">
-        </th>
         <th scope="col">번호</th>
         <th scope="col">이름</th>
         <th scope="col">강좌명</th>
-        <th scope="col">문제 유형</th>
-        <th scope="col">점수</th>
+        <th scope="col">강의명</th>
+        <th scope="col">퀴즈 점수</th>
+        <th scope="col">시험 점수</th>
         <th scope="col">미리보기</th>
       </tr>
     </thead>
     <tbody>
       <tr>
-        <th scope="row">
-          <input class="form-check-input itemCheckbox" type="checkbox" value="">
-        </th>
         <th scope="row">1</th>
         <td>김기역</td>
         <td>HTML 도장 깨기</td>
-        <td>시험</td>
+        <td>HTML 알아보기~~</td>
+        <td>90점</td>
         <td>80점</td>
         <td>
           <button type="button" class="btn btn-sm nlecture">미리보기</button>
@@ -85,9 +81,6 @@ color: var(--bk0);
       </tr>
     </tbody>
   </table>
-  <div class="d-flex justify-content-end gap-2 mt-20 mb-50">
-    <button type="button" class="btn selecmodify">일괄 수정</button>
-  </div>
 </div>
 
 

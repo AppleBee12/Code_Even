@@ -279,9 +279,9 @@ $mysqli->close();
           </tr>
         </tbody>
       </table>
-      <div class="leplus d-flex justify-content-center align-items-center bg-white border rounded-3 boder-secondary">
+      <button class="leplus d-flex justify-content-center align-items-center bg-white border rounded-3 boder-secondary">
         <i class="bi bi-plus"></i>
-      </div>
+      </button>
     </div>
     <div class="d-flex justify-content-end gap-2 mt-4 mb-5">
       <button type="submit" class="btn btn-secondary">강의 등록</button>
