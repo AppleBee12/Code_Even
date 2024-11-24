@@ -57,3 +57,10 @@ tbody .form-control.w_sm{
 .ulist_status{
   width: 30%;
 }
+
+.user_addr input.post_search_btn{
+  font-size: 15px;
+  color: var(--bk900);
+  margin-bottom: 0;
+  margin-top: 4px;
+}
