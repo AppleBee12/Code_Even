@@ -1,107 +1,107 @@
 <?php
 
-  $title = "강좌 등록";
-  include_once($_SERVER['DOCUMENT_ROOT'] . '/CODE_EVEN/admin/inc/header.php');
+$title = "강좌 등록";
+include_once($_SERVER['DOCUMENT_ROOT'] . '/CODE_EVEN/admin/inc/header.php');
 
-  // 현재 로그인된 사용자 세션 값 가져오기
-  $session_userid = $_SESSION['AUID'] ?? null; // 세션의 AUID는 user 테이블의 userid와 매칭
-  $session_username = $_SESSION['AUNAME'] ?? null; // 세션의 AUNAME은 user 테이블의 username과 매칭
+// 현재 로그인된 사용자 세션 값 가져오기
+$session_userid = $_SESSION['AUID'] ?? null; // 세션의 AUID는 user 테이블의 userid와 매칭
+$session_username = $_SESSION['AUNAME'] ?? null; // 세션의 AUNAME은 user 테이블의 username과 매칭
 
-  // 세션 값 검증
-  if (!isset($_SESSION['AUID']) || !isset($_SESSION['AUNAME'])) {
-    echo "<script>alert('로그인 정보가 없습니다. 다시 로그인해 주세요.'); location.href='/CODE_EVEN/admin/login.php';</script>";
-    exit;
+// 세션 값 검증
+if (!isset($_SESSION['AUID']) || !isset($_SESSION['AUNAME'])) {
+  echo "<script>alert('로그인 정보가 없습니다. 다시 로그인해 주세요.'); location.href='/CODE_EVEN/admin/login.php';</script>";
+  exit;
+}
+
+// 사용자 정보 가져오기
+$session_userid_safe = $mysqli->real_escape_string($session_userid);
+$sql_user = "SELECT uid, username FROM user WHERE userid = '$session_userid_safe'";
+$result_user = $mysqli->query($sql_user);
+
+if ($result_user && $result_user->num_rows > 0) {
+  $user_data = $result_user->fetch_object();
+  $uid = $user_data->uid;
+  $username = $user_data->username;
+} else {
+  echo "<script>alert('사용자 정보를 가져오는 데 실패했습니다. 관리자에게 문의하세요.');</script>";
+  echo "<script>location.href='/CODE_EVEN/admin/login.php';</script>";
+  exit;
+}
+
+$leid = isset($_GET['leid']) ? $_GET['leid'] : '';
+
+// DB에서 카테고리 데이터 가져오기
+$sql_cate = "SELECT * FROM category ORDER BY step, pcode";
+$result_cate = $mysqli->query($sql_cate);
+
+$categories = [];
+while ($row = $result_cate->fetch_object()) {
+  $categories[] = $row;
+}
+
+// POST 요청 처리
+$leid = $_POST['leid'] ?? null;
+$title = $_POST['title'] ?? null;
+$cate1 = $_POST['cate1'] ?? null;
+$cate2 = $_POST['cate2'] ?? null;
+$cate3 = $_POST['cate3'] ?? null;
+
+// if (empty($title) || empty($cate1) || empty($cate2) || empty($cate3)) {
+//     die("필수 항목을 입력해주세요.");
+// }
+
+// 선택 필드 처리
+$price = $_POST['price'] ?? 0;
+$book_id = $_POST['book'] ?? null;
+$period = $_POST['period'] ?? 30;
+$is_recipe = isset($_POST['courseType']) && $_POST['courseType'] === 'isrecipe';
+
+// 이미지 업로드 처리
+$image_path = null;
+if (!empty($_FILES['image']['name'])) {
+  $upload_dir = 'uploads/images/';
+  $image_name = time() . '_' . $_FILES['image']['name'];
+  $image_path = $upload_dir . $image_name;
+  move_uploaded_file($_FILES['image']['tmp_name'], $image_path);
+}
+
+// book 테이블에서 boid 확인
+$boid = null;
+if ($book_id) {
+  $query_book = "SELECT boid FROM book WHERE boid = '$book_id'";
+  $result_book = $mysqli->query($query_book);
+  if ($result_book && $result_book->num_rows > 0) {
+    $book_data = $result_book->fetch_object();
+    $boid = $book_data->boid;
   }
+}
 
-  // 사용자 정보 가져오기
-  $session_userid_safe = $mysqli->real_escape_string($session_userid);
-  $sql_user = "SELECT uid, username FROM user WHERE userid = '$session_userid_safe'";
-  $result_user = $mysqli->query($sql_user);
+$cate1 = $_POST['cate1'] ?? null;
+$cate2 = $_POST['cate2'] ?? null;
+$cate3 = $_POST['cate3'] ?? null;
+$title = $_POST['title'] ?? null;
 
-  if ($result_user && $result_user->num_rows > 0) {
-    $user_data = $result_user->fetch_object();
-    $uid = $user_data->uid;
-    $username = $user_data->username;
-  } else {
-    echo "<script>alert('사용자 정보를 가져오는 데 실패했습니다. 관리자에게 문의하세요.');</script>";
-    echo "<script>location.href='/CODE_EVEN/admin/login.php';</script>";
-    exit;
-  }
+$sql_quiz = "SELECT exid, tt FROM quiz WHERE cate1 = '$cate1' AND cate2 = '$cate2' AND cate3 = '$cate3' AND title = '$title'";
+$result_quiz = $mysqli->query($sql_quiz);
 
-  $leid = isset($_GET['leid']) ? $_GET['leid'] : '';
+$quiz_data = [];
+while ($row = $result_quiz->fetch_object()) {
+  $quiz_data[] = $row;
+}
 
-  // DB에서 카테고리 데이터 가져오기
-  $sql_cate = "SELECT * FROM category ORDER BY step, pcode";
-  $result_cate = $mysqli->query($sql_cate);
+$sql_test = "SELECT exid, tt FROM test WHERE cate1 = '$cate1' AND cate2 = '$cate2' AND cate3 = '$cate3' AND title = '$title'";
+$result_test = $mysqli->query($sql_test);
 
-  $categories = [];
-  while ($row = $result_cate->fetch_object()) {
-    $categories[] = $row;
-  }
+$test_data = [];
+while ($row = $result_test->fetch_object()) {
+  $test_data[] = $row;
+}
 
-  // POST 요청 처리
-  $leid = $_POST['leid'] ?? null;
-  $title = $_POST['title'] ?? null;
-  $cate1 = $_POST['cate1'] ?? null;
-  $cate2 = $_POST['cate2'] ?? null;
-  $cate3 = $_POST['cate3'] ?? null;
-
-  // if (empty($title) || empty($cate1) || empty($cate2) || empty($cate3)) {
-  //     die("필수 항목을 입력해주세요.");
-  // }
-
-  // 선택 필드 처리
-  $price = $_POST['price'] ?? 0;
-  $book_id = $_POST['book'] ?? null;
-  $period = $_POST['period'] ?? 30;
-  $is_recipe = isset($_POST['courseType']) && $_POST['courseType'] === 'isrecipe';
-
-  // 이미지 업로드 처리
-  $image_path = null;
-  if (!empty($_FILES['image']['name'])) {
-    $upload_dir = 'uploads/images/';
-    $image_name = time() . '_' . $_FILES['image']['name'];
-    $image_path = $upload_dir . $image_name;
-    move_uploaded_file($_FILES['image']['tmp_name'], $image_path);
-  }
-
-  // book 테이블에서 boid 확인
-  $boid = null;
-  if ($book_id) {
-    $query_book = "SELECT boid FROM book WHERE boid = '$book_id'";
-    $result_book = $mysqli->query($query_book);
-    if ($result_book && $result_book->num_rows > 0) {
-      $book_data = $result_book->fetch_object();
-      $boid = $book_data->boid;
-    }
-  }
-
-  $cate1 = $_POST['cate1'] ?? null;
-  $cate2 = $_POST['cate2'] ?? null;
-  $cate3 = $_POST['cate3'] ?? null;
-  $title = $_POST['title'] ?? null;
-
-  $sql_quiz = "SELECT exid, tt FROM quiz WHERE cate1 = '$cate1' AND cate2 = '$cate2' AND cate3 = '$cate3' AND title = '$title'";
-  $result_quiz = $mysqli->query($sql_quiz);
-
-  $quiz_data = [];
-  while ($row = $result_quiz->fetch_object()) {
-    $quiz_data[] = $row;
-  }
-
-  $sql_test = "SELECT exid, tt FROM test WHERE cate1 = '$cate1' AND cate2 = '$cate2' AND cate3 = '$cate3' AND title = '$title'";
-  $result_test = $mysqli->query($sql_test);
-
-  $test_data = [];
-  while ($row = $result_test->fetch_object()) {
-    $test_data[] = $row;
-  }
-
-  // echo json_encode(['quiz' => $quiz_data, 'test' => $test_data]);
+// echo json_encode(['quiz' => $quiz_data, 'test' => $test_data]);
 
 
-  // 데이터베이스 연결 종료
-  $mysqli->close();
+// 데이터베이스 연결 종료
+$mysqli->close();
 
 ?>
 
@@ -314,6 +314,8 @@
 
     // 교재 목록 업데이트 호출
     updateBooks();
+
+    updateQuizAndTest()
   });
 
   // 중분류 선택 -> 소분류 업데이트
@@ -333,6 +335,8 @@
 
     // 교재 목록 업데이트 호출
     updateBooks();
+
+    updateQuizAndTest()
   });
 
   // 소분류 선택 시에도 교재 목록 업데이트
@@ -400,6 +404,49 @@
     }
   });
 
+  // 카테고리 및 강좌명 변경 시 퀴즈/시험 데이터를 업데이트
+  function updateQuizAndTest() {
+    const cate1 = $('#cate1').val();
+    const cate2 = $('#cate2').val();
+    const cate3 = $('#cate3').val();
+    const title = $('#title').val();
+
+    if (cate1 && cate2 && cate3 && title) {
+      $.ajax({
+        url: 'quiz_test_update.php',
+        type: 'POST',
+        data: { cate1, cate2, cate3, title },
+        dataType: 'json',
+        success: function (response) {
+          // 모든 퀴즈 및 시험 <select> 요소를 초기화
+          $('select[name="lecture_quiz_id[]"]').html('<option value="">퀴즈를 선택해 주세요.</option>');
+          $('select[name="lecture_test_id[]"]').html('<option value="">시험을 선택해 주세요.</option>');
+
+          // 퀴즈 데이터 추가
+          if (response.quiz && response.quiz.length > 0) {
+            response.quiz.forEach(function (quiz) {
+              $('select[name="lecture_quiz_id[]"]').append(`<option value="${quiz.exid}">${quiz.tt}</option>`);
+            });
+          }
+
+          // 시험 데이터 추가
+          if (response.test && response.test.length > 0) {
+            response.test.forEach(function (test) {
+              $('select[name="lecture_test_id[]"]').append(`<option value="${test.exid}">${test.tt}</option>`);
+            });
+          }
+        },
+        error: function (xhr, status, error) {
+          console.error('AJAX Error:', error);
+        }
+      });
+    }
+  }
+
+  // 이벤트 수정: 카테고리나 제목 변경 시 updateQuizAndTest 호출
+  $('#cate1, #cate2, #cate3, #title').on('input change', updateQuizAndTest);
+
+  // 새로운 강의 섹션 추가 시 <select> 요소에 데이터 업데이트
   $('.leplus').on('click', function () {
     const lectureCount = $('.video').length + 1; // 현재 강의 개수 + 1
     const newLectureTemplate = `
@@ -431,13 +478,13 @@
                       <tr>
                           <th scope="row">퀴즈 선택</th>
                           <td>
-                              <select name="quiz_id[]" class="form-select">
+                              <select name="lecture_quiz_id[]" class="form-select">
                                   <option value="">퀴즈를 선택해 주세요.</option>
                               </select>
                           </td>
                           <th scope="row">시험 선택</th>
                           <td>
-                              <select name="test_id[]" class="form-select">
+                              <select name="lecture_test_id[]" class="form-select">
                                   <option value="">시험을 선택해 주세요.</option>
                               </select>
                           </td>
@@ -445,13 +492,13 @@
                       <tr>
                           <th scope="row">실습 파일 등록</th>
                           <td>
-                              <input name="practice_file[]" class="form-control" type="file">
+                              <input name="lecture_file_id[]" class="form-control" type="file">
                           </td>
                           <th scope="row">동영상 주소 <b>*</b></th>
                           <td>
                               <div class="input-group">
                                   <span class="input-group-text">https://</span>
-                                  <input type="text" name="video_url[]" class="form-control" placeholder="www.code_even.com" required>
+                                  <input type="text" name="lecture_video_url[]" class="form-control" placeholder="www.code_even.com" required>
                               </div>
                           </td>
                       </tr>
@@ -462,6 +509,9 @@
 
     // 새로운 강의 섹션을 추가
     $(this).before(newLectureTemplate);
+
+    // 새로 추가된 섹션에 대해 퀴즈 및 시험 데이터를 업데이트
+    updateQuizAndTest();
 
     // 강의 번호 재정렬
     reorderLectures();
@@ -482,6 +532,7 @@
       $(this).find('h5').text(`${index + 1}강`);
     });
   }
+
 
 </script>
 
