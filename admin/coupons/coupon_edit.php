@@ -121,6 +121,9 @@ thead,
 #addedImages span{
   color: #a5a5a5;
 }
+#addImages .image img{
+  height: 280px;
+}
 </style>
 
 <div class="container">
@@ -140,7 +143,7 @@ thead,
               }
             ?>
             <div class="image">
-              <img src="<?= $data->coupon_image; ?>" >
+              <img src="<?= $data->coupon_image; ?>" style="height:280px;width: 383px;">
             </div>
           </div>
           <input type="file" multiple accept="image/*" class="form-control w-50" name="coupon_image" id="coupon_image" value="" required>
