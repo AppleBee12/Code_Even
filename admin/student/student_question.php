@@ -105,7 +105,7 @@ while ($data = $result->fetch_object()) {
           <?php endif; ?>
               <td><?= $qna->userid; ?></td>
               <td><?= $qna->username; ?></td>
-              <td><a href="student_question_details.php?sqid=<?= $qna->sqid; ?>" class="underline"><?= $qna->qtitle; ?></a>
+              <td><a href="student_question_details.php?sqid=<?= $qna->sqid; ?>" class="underline"><?= mb_strlen($qna->qtitle) > 30 ? mb_substr($qna->qtitle, 0, 30) . '...' : $qna->qtitle; ?></a>
               </td>
             <?php if ($level == 100): ?>
               <td><?= $qna->name; ?></td>
