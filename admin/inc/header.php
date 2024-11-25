@@ -189,6 +189,7 @@ if ($level == 100) {
   switch ($page) { //manual.css
     case 'for_admin.php':
     case 'for_teacher.php':
+    case 'manual_contents.php':
       echo '<link rel="stylesheet" href="http://' . $_SERVER['HTTP_HOST'] . '/code_even/admin/css/manual.css">';
       break;
   }
@@ -419,9 +420,9 @@ if ($level == 100) {
               aria-expanded="false"><i class="bi bi-chevron-down"></i></button>
             <ul class="collapse btn-toggle-nav" id="sales_collapse">
               <li class="list-group-item dropdown-item"><a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/sales/lectuer_sales.php">　　-　강좌 매출통계</a></li>
-              <?php if ($level == 100) { ?>
-                <li class="list-group-item dropdown"><a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/sales/book_sales.php">　　-　교재 매출통계</a></li>
-              <?php }; ?>
+          <?php if ($level == 100) { ?>
+              <li class="list-group-item dropdown"><a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/sales/book_sales.php">　　-　교재 매출통계</a></li>
+          <?php }; ?>
               <li class="list-group-item dropdown"><a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/sales/monthly_sales.php">　　-　월별 매출통계</a></li>
             </ul>
           </li>

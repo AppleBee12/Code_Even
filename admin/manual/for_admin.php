@@ -47,8 +47,8 @@ if ($result) {
 //   echo '</pre>';
 // }
 
-$menu_admin = ['대시보드', '카테고리 관리','강좌 관리','교재 관리','전체 회원관리','강사 관리','수강생 관리','결제/배송 관리', '쿠폰 관리','매출/통계 관리','문의 게시판 관리','커뮤니티 관리','상점 관리','프로필관리'];
-$menu_teacher = ['대시보드', '카테고리 관리'];
+$menu_admin = ['대시보드', '카테고리 관리', '강좌 관리', '교재 관리', '전체 회원관리', '강사 관리', '수강생 관리', '결제/배송 관리', '쿠폰 관리', '매출/통계 관리', '문의 게시판 관리', '커뮤니티 관리', '상점 관리', '프로필관리'];
+$menu_teacher = ['대시보드', '강좌 관리', '교재 관리', '수강생 관리', '매출통계 관리', '문의 게시판 관리'];
 $menu_items = ($level == 100) ? $menu_admin : $menu_teacher;
 
 // print_r($menu_items)
@@ -149,6 +149,7 @@ $menu_items = ($level == 100) ? $menu_admin : $menu_teacher;
   </div>
   <div>
     <form action="<?= 'http://' . $_SERVER['HTTP_HOST'] . '/code_even/admin/manual/manual_contents.php' ?>">
+
     <ul class="d-flex gap-3 mt-5 manual_ul">
       <?php
       if (!empty($rows)) {
@@ -158,14 +159,15 @@ $menu_items = ($level == 100) ? $menu_admin : $menu_teacher;
       ?>
       <li>
         <div class="card" style="width: 20rem;" id="li-<?= $content['conid'] ?>">
-          <a href="<?= 'http://' . $_SERVER['HTTP_HOST'] . '/code_even/admin/manual/manual_contents.php' ?>">
+          <a href="<?= 'http://' . $_SERVER['HTTP_HOST'] . '/code_even/admin/manual/manual_contents.php?mnnid=' . $content['mnnid'] . '&conid=' . $content['conid']; ?>">
+
             <div class="card-body">
               <div class="d-flex justify-content-between">
                 <h3 class="card-title"><?= $content['conid'] ?>. <?= $menu_title ?></h3>
                 <i class="bi bi-mouse2"></i>
               </div>
             </div>
-            <img src="<?= 'http://' . $_SERVER['HTTP_HOST'] . $content['image']; ?>" alt="이미지" class="card-img-top">
+            <img src="<?= 'http://' . $_SERVER['HTTP_HOST'] . '/code_even/admin/upload/manual/' . $content['image']; ?>" alt="이미지" class="card-img-top">
           </a>
         </div>
       </li>
@@ -178,36 +180,7 @@ $menu_items = ($level == 100) ? $menu_admin : $menu_teacher;
     </ul>
     </form>
   </div>
-
 </div>
-
-
-<script>
-  // 썸네일
-  let thumbnail = $('#thumbnails');
-  thumbnail.on('change', (e) => {
-    let file = e.target.files[0];
-
-    const reader = new FileReader();
-    reader.onloadend = (e) => {
-      let attachment = e.target.result;
-      if (attachment) {
-        let target = $('#thumbnail_preview');
-        target.attr('src', attachment)
-      }
-    }
-    reader.readAsDataURL(file);
-  });
-
-  //에디터
-  $('#blog_save').submit(function(e) {
-    //e.preventDefault();
-    var markup = target.summernote('code');
-    let content = encodeURIComponent(markup);
-    $('#contents').val(markup);
-  });
-</script>
-
 <?php
 include_once($_SERVER['DOCUMENT_ROOT'] . '/code_even/admin/inc/footer.php');
 ?>

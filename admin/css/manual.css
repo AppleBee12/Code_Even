@@ -7,6 +7,9 @@
 .manual-body{
   padding: 16px 20px;
 }
+.manual-item{
+  padding-bottom: 10px;
+}
 
 .underline{
   text-decoration: underline;
@@ -20,6 +23,11 @@
   li{
     margin-bottom: 30px;
   }
+}
+
+.manual-wrap .manual-item img.manual-img{
+  width: 100%;
+
 }
 
 

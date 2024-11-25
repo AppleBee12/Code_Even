@@ -78,13 +78,24 @@ if ($result) {
         $user_sql = "UPDATE user SET user_level = $new_user_level WHERE userid = '$tc_userid'";
         $mysqli->query($user_sql);
     }
-    
-    echo "
-        <script>
-            alert('프로필 수정 완료');
-            location.href = 'teacher_index.php';
-        </script>
-    ";
+    if ($result === true) {
+        echo
+        "<script>
+            if (confirm('프로필을 수정하시겠습니까?')) {
+                alert('등록이 완료되었습니다.');
+                location.href='/code_even/admin/teacher_index.php';
+            } else {
+                history.back();
+            }
+         </script>";
+      } else {
+        echo
+          "<script>
+             alert('수정 실패');
+             history.back();
+           </script>";
+      }
+
 } else {
     echo "Error: " . $mysqli->error;
 }
