@@ -10,18 +10,18 @@ $session_username = $_SESSION['AUNAME'] ?? null;
 
 // 세션 값 검증
 if (!isset($_SESSION['AUID']) || !isset($_SESSION['AUNAME'])) {
-    echo "<script>alert('로그인 정보가 없습니다. 다시 로그인해 주세요.');</script>";
-    echo "<script>location.href='/CODE_EVEN/admin/login.php';</script>";
-    exit;
+  echo "<script>alert('로그인 정보가 없습니다. 다시 로그인해 주세요.');</script>";
+  echo "<script>location.href='/CODE_EVEN/admin/login.php';</script>";
+  exit;
 }
 
 // 수정할 교재의 ID 가져오기
 $book_id = isset($_GET['id']) ? intval($_GET['id']) : 0;
 
 if ($book_id <= 0) {
-    echo "<script>alert('잘못된 요청입니다.');</script>";
-    echo "<script>location.href='/CODE_EVEN/admin/book_list.php';</script>";
-    exit;
+  echo "<script>alert('잘못된 요청입니다.');</script>";
+  echo "<script>location.href='/CODE_EVEN/admin/book_list.php';</script>";
+  exit;
 }
 
 // DB에서 교재 데이터 가져오기
@@ -30,9 +30,9 @@ $result_book = $mysqli->query($sql_book);
 $book_data = $result_book->fetch_assoc();
 
 if (!$book_data) {
-    echo "<script>alert('교재 정보를 찾을 수 없습니다.');</script>";
-    echo "<script>location.href='/CODE_EVEN/admin/book_list.php';</script>";
-    exit;
+  echo "<script>alert('교재 정보를 찾을 수 없습니다.');</script>";
+  echo "<script>location.href='/CODE_EVEN/admin/book_list.php';</script>";
+  exit;
 }
 
 // DB에서 카테고리 데이터 가져오기
@@ -41,7 +41,7 @@ $result_cate = $mysqli->query($sql_cate);
 
 $categories = [];
 while ($cates = $result_cate->fetch_object()) {
-    $categories[] = $cates;
+  $categories[] = $cates;
 }
 
 // 분류 값 초기화
@@ -72,12 +72,12 @@ $cate3_selected = substr($book_data['category'] ?? '', 4, 2); // 소분류 코�
             <select name="cate1" id="cate1" class="form-select" aria-label="대분류">
               <option value="">대분류</option>
               <?php foreach ($categories as $category): ?>
-                <?php if ($category->step == 1): ?>
-                  <option value="<?php echo $category->code; ?>" 
-                    <?php echo $category->code == $cate1_selected ? 'selected' : ''; ?>>
-                    <?php echo $category->name; ?>
-                  </option>
-                <?php endif; ?>
+                  <?php if ($category->step == 1): ?>
+                      <option value="<?php echo $category->code; ?>" 
+                        <?php echo $category->code == $cate1_selected ? 'selected' : ''; ?>>
+                        <?php echo $category->name; ?>
+                      </option>
+                  <?php endif; ?>
               <?php endforeach; ?>
             </select>
           </td>
@@ -85,12 +85,12 @@ $cate3_selected = substr($book_data['category'] ?? '', 4, 2); // 소분류 코�
             <select name="cate2" id="cate2" class="form-select" aria-label="중분류">
               <option value="">중분류</option>
               <?php foreach ($categories as $category): ?>
-                <?php if ($category->step == 2 && $category->pcode == $cate1_selected): ?>
-                  <option value="<?php echo $category->code; ?>" 
-                    <?php echo $category->code == $cate2_selected ? 'selected' : ''; ?>>
-                    <?php echo $category->name; ?>
-                  </option>
-                <?php endif; ?>
+                  <?php if ($category->step == 2 && $category->pcode == $cate1_selected): ?>
+                      <option value="<?php echo $category->code; ?>" 
+                        <?php echo $category->code == $cate2_selected ? 'selected' : ''; ?>>
+                        <?php echo $category->name; ?>
+                      </option>
+                  <?php endif; ?>
               <?php endforeach; ?>
             </select>
           </td>
@@ -98,12 +98,12 @@ $cate3_selected = substr($book_data['category'] ?? '', 4, 2); // 소분류 코�
             <select name="cate3" id="cate3" class="form-select" aria-label="소분류">
               <option value="">소분류</option>
               <?php foreach ($categories as $category): ?>
-                <?php if ($category->step == 3 && $category->pcode == $cate2_selected): ?>
-                  <option value="<?php echo $category->code; ?>" 
-                    <?php echo $category->code == $cate3_selected ? 'selected' : ''; ?>>
-                    <?php echo $category->name; ?>
-                  </option>
-                <?php endif; ?>
+                  <?php if ($category->step == 3 && $category->pcode == $cate2_selected): ?>
+                      <option value="<?php echo $category->code; ?>" 
+                        <?php echo $category->code == $cate3_selected ? 'selected' : ''; ?>>
+                        <?php echo $category->name; ?>
+                      </option>
+                  <?php endif; ?>
               <?php endforeach; ?>
             </select>
           </td>
@@ -126,12 +126,11 @@ $cate3_selected = substr($book_data['category'] ?? '', 4, 2); // 소분류 코�
             <input name="company" type="text" class="form-control" value="<?php echo $book_data['company']; ?>" placeholder="길동사">
           </td>
           <td class="box_container" colspan="4" rowspan="4">
-            <div class="bookBox">
-              <span><?php echo $book_data['image']; ?></span>
-              <div class="image">
-                <img src="<?php echo $book_data['image']; ?>" alt="">
-              </div>
+          <div class="bookBox">
+            <div class="image">
+              <img src="<?php echo !empty($book_data['image']) ? $book_data['image'] : '/default/path/to/image.jpg'; ?>" alt="교재 이미지">
             </div>
+          </div> 
             <div class="input-group mb-3">
               <input name="image" accept="image/*" type="file" id="image" class="form-control">
             </div>
@@ -168,14 +167,16 @@ $cate3_selected = substr($book_data['category'] ?? '', 4, 2); // 소분류 코�
         <tr>
           <th scope="row">교재 설명 <b>*</b></th>
           <td colspan="6">
-            <textarea name="desc" class="form-control" rows="3" placeholder="교재 설명을 입력해 주세요."><?php echo $book_data['desc']; ?></textarea>
+            <textarea name="desc" class="form-control" rows="3" placeholder="교재 설명을 입력해 주세요.">
+              <?php echo !empty($book_data['desc']) ? $book_data['desc'] : ''; ?>
+            </textarea>
           </td>
         </tr>
       </tbody>
     </table>
     <div class="d-flex justify-content-end gap-2 mt-4 mb-5">
       <button type="submit" class="btn btn-secondary" name="action">수정</button>
-      <button type="button" class="btn btn-danger" onclick="window.location.href='/CODE_EVEN/admin/book_list.php'">취소</button>
+      <button type="button" class="btn btn-danger" onclick="window.location.href='/CODE_EVEN/admin/book/book_list.php'">취소</button>
     </div>
   </form>
 </div>
