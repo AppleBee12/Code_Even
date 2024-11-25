@@ -63,7 +63,7 @@ while($data = $result->fetch_object()){
 
 <div class="container">
   <h2 class="page_title">전체회원목록</h2>
-  <form action="" id="search_form" class="row justify-content-end">
+  <form action="#" id="search_form" class="row justify-content-end">
     <div class="col-lg-3 ulist_status pt_04">
       <span class="status_tt me-4">회원상태</span>
       <div class="form-check form-check-inline">
