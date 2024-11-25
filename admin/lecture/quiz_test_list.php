@@ -128,7 +128,7 @@ if (!empty($dataArr)) {
               <input class="form-check-input itemCheckbox" type="checkbox" name="exid[]" value="<?= $item->exid; ?>">
             </td>
             <td><?= $item->exid; ?></td>
-            <td><?= $item->title; ?></td>
+            <td class="title-cell"><?= $item->title; ?></td>
             <td><?= $item->problem_type; ?></td>
             <td><?= $item->tt; ?></td>
             <td><?= $usernames[$item->tid] ?? '관리자'; ?></td>
