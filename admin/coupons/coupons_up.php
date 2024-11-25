@@ -307,11 +307,11 @@ thead,
     location.href='coupons.php';
   });
 
-  $('#ct2 input').prop('disabled', true);
+  $('#ct2 input').prop('disabled', true).val('');
 
   $('#coupon_type').change(function(){
     let value = $(this).val();
-    $('#ct1 input, #ct2 input').prop('disabled', true);
+    $('#ct1 input, #ct2 input').prop('disabled', true).val('');
     if(value == 1){
       $('#ct1 input').prop('disabled', false);
     } else{
