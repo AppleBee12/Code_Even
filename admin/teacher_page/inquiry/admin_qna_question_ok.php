@@ -24,7 +24,7 @@ if ($question_result === true) {
         "<script>
     confirm('글을 등록하시겠습니까?');
     alert('등록이 완료되었습니다.');
-    location.href='admin_qna_teacher.php';
+    location.href='../../inquiry/admin_qna.php';
   </script>";
 } else {
     echo

@@ -73,7 +73,7 @@
 
     $sql .= " WHERE tcid = $tcid";
 
-    print_r($sql);
+    //print_r($sql);
 
     $result = $mysqli->query($sql); // teachers 테이블에 강사정보 업데이트
 
@@ -90,7 +90,7 @@
             $user_sql = "UPDATE user SET user_level = $new_user_level WHERE userid = '$tc_userid'";
             $mysqli->query($user_sql);
         }
-        print_r($result);
+        //print_r($result);
 
         echo "
         <script>
