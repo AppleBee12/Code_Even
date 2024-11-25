@@ -7,6 +7,12 @@ $isnew = $_GET['isnew'] ?? [];
 $isrecom = $_GET['isrecom'] ?? [];
 $tc_ok = $_GET['tc_ok'] ?? [];
 
+print_r($isnew);
+print_r($isrecom);
+print_r($tc_ok);
+
+exit;
+
 foreach($tcid as $tc){
   $isnew[$tc] =  $isnew[$tc] ?? 0;
   $isrecom[$tc] =  $isrecom[$tc] ?? 0;
