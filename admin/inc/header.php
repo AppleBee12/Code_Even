@@ -175,6 +175,7 @@ if ($level == 100) {
     case 'lecture_edit.php':
     case 'quiz_test_up.php':
     case 'book_up.php':
+    case 'book_edit.php':
       echo '<link rel="stylesheet" href="http://' . $_SERVER['HTTP_HOST'] . '/code_even/admin/css/lecture.css">';
       break;
   }

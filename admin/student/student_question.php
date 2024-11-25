@@ -69,7 +69,7 @@ while ($data = $result->fetch_object()) {
       <div class="input-group mb-3">
         <input type="text" class="form-control" placeholder="검색어를 입력하세요." name="keywords"
           value="<?= htmlspecialchars($keywords); ?>">
-        <button type="button" class="btn btn-secondary">
+        <button type="submit" class="btn btn-secondary">
           <i class="bi bi-search"></i>
         </button>
       </div>
