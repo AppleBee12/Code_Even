@@ -4,10 +4,24 @@
 
   // 게시글 키워드 검색
   $keywords = isset($_GET['keywords']) ? $mysqli->real_escape_string($_GET['keywords']) : '';
+
+  //날짜검색 추가
+  $start_date = isset($_GET['start_date']) ? $mysqli->real_escape_string($_GET['start_date']) : '';
+  $end_date = isset($_GET['end_date']) ? $mysqli->real_escape_string($_GET['end_date']) : '';
+
   // $where_clause 초기화
-  $where_clause = ""; // 기본값 설정
+  $where_clause = ""; 
+
   if ($keywords) {
     $where_clause = "WHERE user.userid LIKE '%$keywords%' OR user.username LIKE '%$keywords%' OR orders.order_title LIKE '%$keywords%'";
+  }
+
+  if ($start_date && $end_date) {
+      $where_clause .= ($where_clause ? ' AND ' : 'WHERE ') . "orders.order_date BETWEEN '$start_date' AND '$end_date'";
+  } elseif ($start_date) {
+      $where_clause .= ($where_clause ? ' AND ' : 'WHERE ') . "orders.order_date >= '$start_date'";
+  } elseif ($end_date) {
+      $where_clause .= ($where_clause ? ' AND ' : 'WHERE ') . "orders.order_date <= '$end_date'";
   }
 
   $page_sql = "SELECT COUNT(*) AS cnt FROM orders $where_clause";
@@ -77,13 +91,19 @@
   <h2 class="page_title">주문결제목록</h2>
 
   <form action="" id="search_form" class="row justify-content-end" method="GET">
-    <div class="col-lg-3">
-      <input type="date" class="form-control" />
+    <div class="col-lg-2 d-flex align-items-center">
+      <label class="date_lable me-2" for="start_date">시작일</label>
+      <input type="date" class="form-control" name="start_date" value="<?= htmlspecialchars($_GET['start_date'] ?? ''); ?>" />
+    </div>
+    
+    <div class="col-lg-2 d-flex align-items-center">
+      <label class="date_lable me-2" for="start_date">종료일</label>
+      <input type="date" class="form-control" name="end_date" value="<?= htmlspecialchars($_GET['end_date'] ?? ''); ?>" />
     </div>
     <div class="col-lg-3">
     <div class="input-group mb-3">
-      <input type="text" class="form-control" placeholder="분류 선택 또는 검색어를 입력해주세요" aria-label="Recipient's username" aria-describedby="basic-addon2">
-      <button type="button" class="btn btn-secondary">
+      <input type="text" class="form-control" placeholder="기간 선택 또는 검색어를 입력해주세요" aria-label="Recipient's username" aria-describedby="basic-addon2">
+      <button class="btn btn-secondary">
         <i class="bi bi-search"></i>
       </button>
       </div>
@@ -199,6 +219,12 @@
   <!-- //Pagination -->
 </div>
 
+<script>
+  $(document).ready(function() {
+    const url = window.location.origin + window.location.pathname; // GET 파라미터 제외한 URL 생성
+    window.history.replaceState({}, document.title, url); // 브라우저 히스토리 상태 변경
+  });
+</script>
 
 <?php
 include_once($_SERVER['DOCUMENT_ROOT'] . '/CODE_EVEN/admin/inc/footer.php');
