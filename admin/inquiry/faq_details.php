@@ -4,14 +4,19 @@ include_once($_SERVER['DOCUMENT_ROOT'] . '/code_even/admin/inc/header.php');
 
 $fqid = $_GET['fqid'];
 
+$view = "viewed_$fqid";
+
+if (!isset($_SESSION[$view]) || $_SESSION[$view] < strtotime('today')) {
+
+    $viewSql = "UPDATE faq SET view = view + 1 WHERE fqid = $fqid;";
+    $mysqli->query($viewSql);
+
+    $_SESSION[$view] = time();
+}
+
 $sql = "SELECT faq.*, user.username, user.userid FROM faq JOIN user ON faq.uid = user.uid WHERE fqid = $fqid";
 $result = $mysqli->query($sql);
 $data = $result->fetch_object();
-
-$view = $data->view + 1;
-
-$viewSql = "UPDATE faq SET view = $view WHERE fqid = $fqid;";
-$v_result = $mysqli->query($viewSql);
 
 $sql = "SELECT faq.*, user.username, user.userid FROM faq JOIN user ON faq.uid = user.uid WHERE fqid = $fqid";
 $result = $mysqli->query($sql);
