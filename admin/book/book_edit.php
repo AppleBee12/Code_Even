@@ -176,7 +176,7 @@ $cate3_selected = substr($book_data['category'] ?? '', 4, 2); // 소분류 코�
     </table>
     <div class="d-flex justify-content-end gap-2 mt-4 mb-5">
       <button type="submit" class="btn btn-secondary" name="action">수정</button>
-      <button type="button" class="btn btn-danger" onclick="window.location.href='/CODE_EVEN/admin/book_list.php'">취소</button>
+      <button type="button" class="btn btn-danger" onclick="window.location.href='/CODE_EVEN/admin/book/book_list.php'">취소</button>
     </div>
   </form>
 </div>
