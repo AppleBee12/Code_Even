@@ -25,7 +25,7 @@ if($data){
 } elseif ($_SESSION['AULEVEL'] == 10) {
     echo "<script>
       alert('선생님, 반갑습니다.');
-      location.href='../teacher_index.php';
+      location.href='../../index.php';
     </script>";
 } else {
     echo "<script>
