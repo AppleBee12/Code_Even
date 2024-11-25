@@ -91,12 +91,12 @@
   <h2 class="page_title">주문결제목록</h2>
 
   <form action="" id="search_form" class="row justify-content-end" method="GET">
-    <div class="col-lg-2 d-flex align-items-center">
-      <label class="date_lable me-2" for="start_date">시작일</label>
+    <div class="col-lg-2 d-flex align-items-center date_form">
+      <label class="date_lable me-2" for="start_date" >시작일</label>
       <input type="date" class="form-control" name="start_date" value="<?= htmlspecialchars($_GET['start_date'] ?? ''); ?>" />
     </div>
     
-    <div class="col-lg-2 d-flex align-items-center">
+    <div class="col-lg-2 d-flex align-items-center date_form">
       <label class="date_lable me-2" for="start_date">종료일</label>
       <input type="date" class="form-control" name="end_date" value="<?= htmlspecialchars($_GET['end_date'] ?? ''); ?>" />
     </div>

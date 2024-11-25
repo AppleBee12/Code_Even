@@ -49,28 +49,6 @@ include_once($_SERVER['DOCUMENT_ROOT'] . '/CODE_EVEN/admin/inc/header.php');
           <td><a href="teacher_details.php">2024/10/29</td>
           <td><a href="teacher_details.php">환불완료</td>
         </tr>  
-        <tr>
-          <th scope="row">1</th>
-          <td><a href="teacher_details.php">123</a></td>
-          <td><a href="teacher_details.php">nany</td>
-          <td><a href="teacher_details.php">홍나니</td>
-          <td><a href="teacher_details.php">기초부터 확실하게! 페이지의 내용 전달을 위한...외 1건</td>
-          <td><a href="teacher_details.php">102,000</td>
-          <td><a href="teacher_details.php">신용카드</td>
-          <td><a href="teacher_details.php">2024/10/29</td>
-          <td><a href="teacher_details.php">환불신청</td>
-        </tr>  
-        <tr>
-          <th scope="row">1</th>
-          <td><a href="teacher_details.php">123</a></td>
-          <td><a href="teacher_details.php">nany</td>
-          <td><a href="teacher_details.php">홍나니</td>
-          <td><a href="teacher_details.php">기초부터 확실하게! 페이지의 내용 전달을 위한...외 1건</td>
-          <td><a href="teacher_details.php">102,000</td>
-          <td><a href="teacher_details.php">신용카드</td>
-          <td><a href="teacher_details.php">2024/10/29</td>
-          <td><a href="teacher_details.php">환불거절</td>
-        </tr>  
     </table>
     <!-- //table -->
     <button type="button" class="btn btn-outline-secondary ms-auto d-block">일괄수정</button>
