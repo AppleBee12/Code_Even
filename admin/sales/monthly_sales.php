@@ -81,9 +81,11 @@
   <div class="shadow-lg p-5 mb-5 bg-body-tertiary rounded chart_bg">
     <canvas id="myLineChart" width="800" height="500"></canvas>
   </div>
+  
+   <!-- 
   <form action="" id="search_form" class="row justify-content-end">
     <div class="col-lg-2 d-flex gap-3">
-      <!-- <input class="form-control" type="text" id="datepicker"></p> -->
+     <input class="form-control" type="text" id="datepicker"></p>
       <input class="form-control" type="month" id="month">
       <input class="form-control" type="month" id="month">
       <button type="button" class="btn btn-secondary">
@@ -92,13 +94,16 @@
     </div>
     <div class="col-lg-3">
     <div class="input-group mb-3">
-      <!--<input type="text" class="form-control" placeholder="분류 선택 또는 검색어를 입력해주세요" aria-label="Recipient's username" aria-describedby="basic-addon2"> -->
+     <input type="text" class="form-control" placeholder="분류 선택 또는 검색어를 입력해주세요" aria-label="Recipient's username" aria-describedby="basic-addon2">
   
       </div>
     </div>
   </form>
+  -->
 
-
+  <div class="col-lg-3 my-4">
+    <span>통계기간 : 2023년 12월 - 2024년 11월 </span>
+  </div>
   <table class="table list_table">
     <thead>
       <tr>

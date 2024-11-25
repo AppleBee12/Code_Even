@@ -69,15 +69,6 @@ $query_lecture = "
 // SQL 실행
 $result = $mysqli->query($query_lecture);
 
-// 에러 발생 시 처리
-if (!$result) {
-    echo "MySQL Error: " . $mysqli->error;
-    exit;
-} else {
-    echo "Lecture successfully inserted!";
-}
-
-
 if ($result) {
   $leid = $mysqli->insert_id; // 저장된 강좌 ID
 
