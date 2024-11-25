@@ -1,6 +1,6 @@
 <?php
 include_once($_SERVER['DOCUMENT_ROOT']. '/code_even/admin/inc/header.php');
-// include_once($_SERVER['DOCUMENT_ROOT']. '/code_even/admin/inc/img_upload_func.php');
+include_once($_SERVER['DOCUMENT_ROOT']. '/code_even/admin/inc/img_upload_func.php');
 
 if (!isset($_SESSION['AUID'])) {
   echo "<script>
@@ -15,7 +15,7 @@ if (!isset($cpid)) {
   location.href = 'coupons.php';</script>";
 }
 
-
+  $cpid = $_POST['cpid'];
   $coupon_name = $_POST['coupon_name'] ?? '';
   $coupon_image = $_FILES['coupon_image'] ??'';
   $coupon_type = $_POST['coupon_type'] ?? '';
@@ -27,34 +27,40 @@ if (!isset($cpid)) {
   $use_max_date = $_POST['use_max_date'] ?? 'NULL';
   $cp_desc = $_POST['cp_desc'] ?? '';
 
-  $save_dir = $_SERVER['DOCUMENT_ROOT'].'/code_even/admin/upload/coupons/';
-  $filename = $coupon_image['name']; //insta.jpg
-  $ext = pathinfo($filename,PATHINFO_EXTENSION); //파일명의 확장자를 추출, jpg
-  $newFileName = date('YmdHis').substr(rand(), 0, 6);//202410091717123456
-  $savefile = $newFileName.'.'.$ext;
+  $callingFileDir = basename(dirname(__FILE__));
+  
+  $sql = "SELECT coupon_image FROM coupons WHERE cpid = $cpid";
+  $result = $mysqli->query($sql);
+  $existingThumbnail = '';
+  if ($result && $row = $result->fetch_assoc()) {
+      $existingThumbnail = $row['coupon_image'];
+  }
 
-  if (isset($_FILES['coupon_image']) && $_FILES['coupon_image']['error'] == UPLOAD_ERR_OK)  {
+  $CpImagePath = ''; // 초기화 추가 (썸네일 변경 안 하는 경우)
 
-    if(move_uploaded_file($coupon_image['tmp_name'], $save_dir.$savefile)){
-      $coupon_image = '/code_even/admin/upload/coupons/'.$savefile;  
-    } else{
-      echo "<script>
-        alert('이미지를 첨부할 수 없습니다.');
-      </script>";
+  if (isset($_FILES['coupon_image']) && $_FILES['coupon_image']['error'] == UPLOAD_ERR_OK) {
+    // 기존 파일이 있으면 삭제
+    if (!empty($existingThumbnail)) {
+        $fullPath = $_SERVER['DOCUMENT_ROOT'] . $existingThumbnail;
+        deleteFile($fullPath); // 파일 삭제 함수 호출
+    }
+
+    // 새로운 파일 업로드
+    $uploadResult = fileUpload($_FILES['coupon_image'], $callingFileDir);
+    if ($uploadResult) {
+        $CpImagePath = $uploadResult; // 성공적으로 업로드된 경로
+    } else {
+        echo "<script>
+            alert('파일 첨부할 수 없습니다.');
+            history.back();
+        </script>";
+        exit;
     }
   }
 
-//   $sql = "INSERT INTO coupons 
-//   (coupon_name, coupon_image, coupon_type, coupon_price, coupon_ratio, status, userid, max_value, use_min_price) 
-//   VALUES
-//   ('$coupon_name', '$coupon_image', '$coupon_type', $coupon_price, $coupon_ratio, $status, '{$_SESSION['AUID']}', $max_value, $use_min_price)";
- 
-
-//  $result = $mysqli->query($sql); 
-
 $sql = "UPDATE coupons SET 
   coupon_name = '$coupon_name',
-  coupon_image = '$coupon_image',
+  -- coupon_image = '$coupon_image',
   coupon_type = '$coupon_type',
   coupon_price = $coupon_price,
   coupon_ratio = $coupon_ratio,
@@ -65,16 +71,12 @@ $sql = "UPDATE coupons SET
   cp_desc = '$cp_desc'
   ";
 
-// thumbnail 값이 존재할 때만 thumbnail 컬럼을 업데이트
-
-if (isset($_FILES['coupon_image']) && $_FILES['coupon_image']['error'] == UPLOAD_ERR_OK)  {
-  $sql .= ", coupon_image = '$coupon_image'";
+if ($CpImagePath) {
+  $sql .= ", coupon_image = '$CpImagePath'";
 }
-
 $sql .= " WHERE cpid = $cpid";
-
+// print_r($sql);
 $result = $mysqli->query($sql); 
-
 
  //입력성공하면 쿠폰등록 완료 경고창 띄우고 쿠폰목록 페이지로 이동
  if($result){
@@ -86,9 +88,6 @@ $result = $mysqli->query($sql);
    ";
    $mysqli->commit();//디비에 커밋한다.
   }
- 
-
-
 
 if(isset($_FILES['coupon_image'])){
   if($coupon_image['size'] > 10240000 ){
@@ -110,7 +109,6 @@ if(isset($_FILES['coupon_image'])){
     ";
    }
   }
-
 
 $mysqli->close();
 
