@@ -126,7 +126,7 @@ CREATE TABLE `class_data` (
 --
 
 INSERT INTO `class_data` (`cdid`, `uid`, `leid`, `exid`, `progress_rate`) VALUES
-(1, 3, 1, NULL, NULL),
+(1, 3, 1, NULL, 40),
 (2, 35, 1, NULL, NULL),
 (3, 42, 2, NULL, NULL),
 (4, 27, 2, NULL, NULL),
@@ -151,8 +151,8 @@ INSERT INTO `class_data` (`cdid`, `uid`, `leid`, `exid`, `progress_rate`) VALUES
 (23, 42, 3, NULL, NULL),
 (24, 20, 3, NULL, NULL),
 (25, 19, 1, NULL, NULL),
-(26, 3, 2, NULL, NULL),
-(27, 3, 3, NULL, NULL);
+(26, 3, 2, NULL, 20),
+(27, 3, 3, NULL, 80);
 
 -- --------------------------------------------------------
 
