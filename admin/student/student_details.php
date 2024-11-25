@@ -154,7 +154,7 @@ while ($row = $result->fetch_object()) {
         </td>
         <td><?=$row->score;?></td>
         <td><?=$row->score;?></td>
-        <td><?=$row->progress_rate;?></td>
+        <td><?=$row->progress_rate ? $row->progress_rate . '%' : '0%';?></td>
         <td>
         <?php if ($row->progress_rate >= 80): ?>
           <button class="printButton">
