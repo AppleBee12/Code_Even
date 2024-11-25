@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- 생성 시간: 24-11-25 02:04
+-- 생성 시간: 24-11-25 03:20
 -- 서버 버전: 10.4.32-MariaDB
 -- PHP 버전: 8.2.12
 
@@ -18,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- 데이터베이스: `codeeven2`
+-- 데이터베이스: `code_even`
 --
 
 -- --------------------------------------------------------
@@ -320,7 +320,8 @@ INSERT INTO `class_data` (`cdid`, `uid`, `leid`, `exid`, `progress_rate`) VALUES
 (24, 20, 3, NULL, NULL),
 (25, 19, 1, NULL, NULL),
 (26, 3, 2, NULL, 20),
-(27, 3, 3, NULL, 80);
+(27, 3, 3, NULL, 80),
+(28, 75, 18, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -895,7 +896,6 @@ CREATE TABLE `order_delivery` (
 
 -- --------------------------------------------------------
 
-
 --
 -- 테이블 구조 `order_details`
 --
@@ -1387,7 +1387,8 @@ INSERT INTO `user` (`uid`, `userid`, `username`, `usernick`, `userpw`, `userphon
 (71, 'user_klmn_71', '정민아', '그린스톰', '3627909a29c31381a071ec27f7c9ca97726182aed29a7ddd2e54353322cfb30abb9e3a6df2ac2c20fe23436311d678564d0c8d305930575f60e2d3d048184d79', '010-2394-1765', 'user71@example.com', 0, NULL, '경상남도 김해시', '빌딩 A동', '참고사항', '2024-11-14', '2024-11-19 16:40:25', 1, 1),
 (72, 'ctest', '내이름', '쿠폰테스트', '3627909a29c31381a071ec27f7c9ca97726182aed29a7ddd2e54353322cfb30abb9e3a6df2ac2c20fe23436311d678564d0c8d305930575f60e2d3d048184d79', '010-1234-5678', 'hong@hong.com', NULL, NULL, NULL, NULL, NULL, '2024-11-22', '2024-11-22 11:44:44', 1, 0),
 (73, 'test1', '박이름', '박네임', '3627909a29c31381a071ec27f7c9ca97726182aed29a7ddd2e54353322cfb30abb9e3a6df2ac2c20fe23436311d678564d0c8d305930575f60e2d3d048184d79', '010-5555-6666', 'abc@abc.com', NULL, NULL, NULL, NULL, NULL, '2024-11-24', '2024-11-25 01:30:33', 1, 0),
-(74, 'test2', '김철수', 'code_even_cp', '3627909a29c31381a071ec27f7c9ca97726182aed29a7ddd2e54353322cfb30abb9e3a6df2ac2c20fe23436311d678564d0c8d305930575f60e2d3d048184d79', '010-5555-6666', 'abc@abc.com', 0, NULL, '', '', '', '2024-11-24', '2024-11-25 01:30:55', 1, 0);
+(74, 'test2', '김철수', 'code_even_cp', '3627909a29c31381a071ec27f7c9ca97726182aed29a7ddd2e54353322cfb30abb9e3a6df2ac2c20fe23436311d678564d0c8d305930575f60e2d3d048184d79', '010-5555-6666', 'abc@abc.com', 0, NULL, '', '', '', '2024-11-24', '2024-11-25 01:30:55', 1, 0),
+(75, 'example_user', '예시용', '예시입니다', '12345', '010-0000-0000', '0627_b@naver.com', 1, NULL, NULL, NULL, NULL, '2024-11-25', '2024-11-25 11:17:16', 1, 0);
 
 -- --------------------------------------------------------
 
@@ -1707,7 +1708,7 @@ ALTER TABLE `category`
 -- 테이블의 AUTO_INCREMENT `class_data`
 --
 ALTER TABLE `class_data`
-  MODIFY `cdid` int(11) NOT NULL AUTO_INCREMENT COMMENT '수강데이터ID', AUTO_INCREMENT=28;
+  MODIFY `cdid` int(11) NOT NULL AUTO_INCREMENT COMMENT '수강데이터ID', AUTO_INCREMENT=29;
 
 --
 -- 테이블의 AUTO_INCREMENT `company_info`
@@ -1821,7 +1822,7 @@ ALTER TABLE `review`
 -- 테이블의 AUTO_INCREMENT `send_email`
 --
 ALTER TABLE `send_email`
-  MODIFY `emid` int(11) NOT NULL AUTO_INCREMENT COMMENT '이메일발송고유번호', AUTO_INCREMENT=11;
+  MODIFY `emid` int(11) NOT NULL AUTO_INCREMENT COMMENT '이메일발송고유번호', AUTO_INCREMENT=12;
 
 --
 -- 테이블의 AUTO_INCREMENT `student_qna`
@@ -1863,7 +1864,7 @@ ALTER TABLE `test`
 -- 테이블의 AUTO_INCREMENT `user`
 --
 ALTER TABLE `user`
-  MODIFY `uid` int(11) NOT NULL AUTO_INCREMENT COMMENT '회원고유번호', AUTO_INCREMENT=75;
+  MODIFY `uid` int(11) NOT NULL AUTO_INCREMENT COMMENT '회원고유번호', AUTO_INCREMENT=76;
 
 --
 -- 테이블의 AUTO_INCREMENT `user_coupons`
