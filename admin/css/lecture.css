@@ -125,3 +125,12 @@ td {
 .input-group span{
 height: 38px;
 }
+
+.editImg{
+  display: flex;
+  justify-content: center;
+
+  img{
+    width: 300px;
+  }
+} 
