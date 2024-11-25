@@ -20,3 +20,9 @@ tbody .form-control, tbody .form-select{
 .table>:not(caption)>*>* {
   padding: 1rem .5rem;
 }
+
+.date_lable{
+  font-size: 14px;
+  width: 50px;
+  font-weight: 700;
+}

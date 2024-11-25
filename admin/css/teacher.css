@@ -163,3 +163,14 @@ input[type=file]::-webkit-file-upload-button{
   background-color: rgba(244,244,244,0.5);
 
 }
+
+/* 강사목록 - 승인상태검색 */
+.tlist_status{
+  width: 35%;
+}
+.pt_04 {
+  padding-top: .4rem !important;
+}
+.status_tt {
+  font-weight: 700;
+}
