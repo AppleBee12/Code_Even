@@ -3,22 +3,30 @@ include_once($_SERVER['DOCUMENT_ROOT'] . '/code_even/admin/inc/header.php');
 
 $ntid = $_GET['ntid'];
 
+$view = "viewed_$ntid";
+
+if (!isset($_SESSION[$view]) || $_SESSION[$view] < strtotime('today')) {
+
+    $viewSql = "UPDATE notice SET view = view + 1 WHERE ntid = $ntid;";
+    $mysqli->query($viewSql);
+
+    $_SESSION[$view] = time();
+}
+
 $sql = "SELECT notice.*, user.username, user.userid FROM notice JOIN user ON notice.uid = user.uid WHERE ntid = $ntid";
 $result = $mysqli->query($sql);
 $data = $result->fetch_object();
 
 // print_r($data);
 
-$view = $data->view + 1;
+// $view = $data->view + 1;
 
-$viewSql = "UPDATE notice SET view = $view WHERE ntid = $ntid;";
-$vresult = $mysqli->query($viewSql);
+// $viewSql = "UPDATE notice SET view = $view WHERE ntid = $ntid;";
+// $vresult = $mysqli->query($viewSql);
 
 $sql = "SELECT notice.*, user.* FROM notice JOIN user ON notice.uid = user.uid WHERE ntid = $ntid";
 $result = $mysqli->query($sql);
 $data = $result->fetch_object();
-
-$existingContent = htmlspecialchars_decode($data->content);
 
 ?>
 
@@ -67,7 +75,7 @@ $existingContent = htmlspecialchars_decode($data->content);
     </table>
     <div class="card">
       <div class="card-body">
-        <p><?= $existingContent; ?></p>
+        <p><?= $data->content; ?></p>
       </div>
     </div>
     <div class="custom-hr"></div>
