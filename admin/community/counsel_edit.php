@@ -101,7 +101,7 @@ include_once($_SERVER['DOCUMENT_ROOT'] . '/code_even/admin/inc/header.php');
       </tbody>
     </table>
     <div class="d-flex justify-content-end gap-2">
-      <button class="btn btn-outline-danger" onClick="cancle()">취소</button>
+      <button type="button" class="btn btn-outline-danger" onClick="cancle()">취소</button>
       <a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/community/counsel.php"><button
           class="btn btn-outline-secondary">수정</button></a>
     </div>
@@ -110,8 +110,7 @@ include_once($_SERVER['DOCUMENT_ROOT'] . '/code_even/admin/inc/header.php');
 <script>
 function cancle(){
   if (confirm('취소하시겠습니까?')) {
-            //history.back(); formdata가 넘어감
-            window.location.href = document.referrer || '/default-page';
+            history.back(); //formdata가 넘어감, type:button 으로 해결
         }
 }
 </script>
