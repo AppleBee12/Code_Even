@@ -1,6 +1,8 @@
 <?php
 $title = "쿠폰수정";
 include_once($_SERVER['DOCUMENT_ROOT']. '/code_even/admin/inc/header.php');
+include_once($_SERVER['DOCUMENT_ROOT']. '/code_even/admin/inc/img_upload_func.php');
+
 
 if (!isset($_SESSION['AUID'])) {
   echo "<script>
@@ -28,22 +30,6 @@ if(isset($_FILES['coupon_image'])){
      </script>
     ";
    }
-  
-     //파일 업로드
-     $save_dir = $_SERVER['DOCUMENT_ROOT'].'/code_even/images/';
-     $filename = $coupon_image['name']; //insta.jpg
-     $ext = pathinfo($filename,PATHINFO_EXTENSION); //파일명의 확장자를 추출, jpg
-     $newFileName = date('YmdHis').substr(rand(), 0, 6);//202410091717123456
-     $savefile = $newFileName.'.'.$ext;//202410091717123456.jpg
-     
-     if(move_uploaded_file($coupon_image['tmp_name'], $save_dir.$savefile)){ //tmp_name임시파일
-       $coupon_image = '/code_even/images/'.$savefile;  
-     } else{
-       echo "<script>
-         alert('이미지를 첨부할 수 없습니다.');
-       </script>";
-     }
-
 }
 
 $cpid = $_GET['cpid'];
@@ -98,6 +84,7 @@ thead,
 }
 #addedImages span{
   color: #a5a5a5;
+  z-index: -1;
 }
 #addImages .image img{
   height: 280px;
@@ -113,18 +100,17 @@ thead,
         <tr>
           <th scope="row">쿠폰이미지</th>
           <td>
-          <div class="box mb-3" id="addedImages">
-          <?php if(isset($_POST['coupon_image'])){
+          <div class="box mb-3 upload" id="addedImages">
+          <?php 
+            $thumbnail_path = !empty($data->coupon_image) ? $_SERVER['DOCUMENT_ROOT'] . $data->coupon_image : '';
+            $image_src = (!empty($data->coupon_image) && file_exists($thumbnail_path)) ? $data->coupon_image : '';
           ?>
             <span>쿠폰 이미지를 등록해주세요.</span>
-            <?php 
-              }
-            ?>
-            <div class="image">
-              <img src="<?= $data->coupon_image; ?>" style="height:280px;width: 383px;">
+            <div class="coupon_image">
+              <img id="thumbnail_preview" src="<?= $image_src; ?>" style="width:383px;height: 280px;" alt="">
             </div>
           </div>
-          <input type="file" multiple accept="image/*" class="form-control w-50" name="coupon_image" id="coupon_image" value="" required>
+          <input type="file" multiple accept="image/*" class="form-control w-50 coupon_image" name="coupon_image" id="coupon_image" value="" required>
         </td>
         </tr>
         <tr>
@@ -242,6 +228,21 @@ thead,
 </div>
 
 <script>
+    let coupon_image = $('#coupon_image');
+  coupon_image.on('change',(e)=>{
+      let file = e.target.files[0];
+
+      const reader = new FileReader(); 
+      reader.onloadend = (e)=>{ 
+        let attachment = e.target.result;
+        if(attachment){
+          let target = $('#thumbnail_preview');
+          target.attr('src',attachment)
+        }
+      }
+      reader.readAsDataURL(file); 
+  });
+
   document.addEventListener('DOMContentLoaded', () => {
   const unlimitedRadio = document.getElementById('use_max_date_unlimited');
   const limitedRadio = document.getElementById('use_max_date_limited');
