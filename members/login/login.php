@@ -36,7 +36,7 @@
         <div class="w-50 d-flex flex-column align-items-center">
           <img src="../../admin/images/txt_logo.png" class="images2" alt="">
           <h1 class="mt-5">로그인</h1>
-          <h2>관리자 로그인</h2>
+          <h2>강사 로그인</h2>
           <form action="login_ok.php" method="POST" class="w-100">
             <label for="inputId" class="form-label mt-3">아이디</label>
             <input type="text" id="inputId" class="form-control" placeholder="아이디를 입력하세요" name="userid" required>
