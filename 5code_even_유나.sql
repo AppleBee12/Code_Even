@@ -229,15 +229,14 @@ CREATE TABLE `notice` (
   `content` text NOT NULL COMMENT '내용',
   `view` int(11) NOT NULL COMMENT '조회수',
   `regdate` date NOT NULL DEFAULT current_timestamp() COMMENT '등록일',
-  `status` enum('on','off') NOT NULL DEFAULT 'off' COMMENT '상태',
-  `file` varchar(255) DEFAULT NULL COMMENT '파일'
+  `status` enum('on','off') NOT NULL DEFAULT 'off' COMMENT '상태'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- 테이블의 덤프 데이터 `notice`
 --
 
-INSERT INTO notice (ntid, uid, title, content, view, regdate, status) VALUES
+INSERT INTO `notice` (`ntid`, `uid`, `title`, `content`, `view`, `regdate`, `status`) VALUES
 (1, 1, '[공지] 서비스 점검 안내', '안녕하세요. 서비스 점검이 예정되어 있습니다. 점검 시간은 11월 18일부터 11월 19일까지입니다. 양해 부탁드립니다.', 87, '2024-11-16', 'off'),
 (2, 1, '[공지] 개인정보 처리방침 변경', '개인정보 처리방침이 일부 수정되었습니다. 변경된 내용은 홈페이지에서 확인할 수 있습니다.', 14, '2024-11-16', 'on'),
 (3, 1, '[공지] 신규 강의 추가 안내', '새로운 강의가 추가되었습니다. \"프로그래밍 입문\" 강의를 확인해보세요!', 9, '2024-11-16', 'on'),

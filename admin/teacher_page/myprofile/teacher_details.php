@@ -141,7 +141,7 @@ $image_src = (!empty($tc->tc_thumbnail) && file_exists($thumbnail_path)) ? $tc->
       </tbody>
     </table>
     <div class="d-flex justify-content-end gap-2">
-      <a href="javascript:history.back();" type="button" class="btn btn-outline-danger">취소</a>
+      <a href="/code_even/admin/teacher_page/myprofile/teacher_details_cancle.php" type="button" class="btn btn-outline-danger">취소</a>
       <button class="btn btn-outline-secondary">수정</button>
     </div>
   </form>
