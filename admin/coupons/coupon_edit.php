@@ -9,21 +9,6 @@ if (!isset($_SESSION['AUID'])) {
   </script>";
 }
 
-// $coupon_image = $_FILES['coupon_image']??'';
-// $coupon_name = $_POST['coupon_name'] ?? '';
-// $coupon_type = $_POST['coupon_type'] ?? 0;
-// $coupon_price = $_POST['coupon_price'] ?? 0;
-// $coupon_ratio = $_POST['coupon_ratio'] ?? 0;
-// $status = $_POST['status'] ?? 0;
-// $max_value = $_POST['max_value'] ?? 0;
-// $use_min_price = $_POST['use_min_price'] ?? 0;
-// $use_max_date = $_POST['use_max_date'] ?? 'NULL';
-// $cp_desc = $_POST['cp_desc'] ?? '';
-
-// // 세션에서 사용자 아이디 가져오기
-// $userid = $_SESSION['AUID'] ?? 'guest';
-
-
 if(isset($_FILES['coupon_image'])){
   if($coupon_image['size'] > 10240000 ){
     echo "
@@ -60,13 +45,6 @@ if(isset($_FILES['coupon_image'])){
      }
 
 }
-
-// $sql = "INSERT INTO coupons 
-//     (coupon_name, coupon_image, coupon_type, coupon_price, coupon_ratio, status, userid, max_value, use_min_price, use_max_date, cp_desc)
-//   VALUES
-//     ('$coupon_name', '$coupon_image', $coupon_type, $coupon_price, $coupon_ratio, $status, '{$_SESSION['AUID']}', $max_value, $use_min_price, $use_max_date, '$cp_desc')
-// ";
-
 
 $cpid = $_GET['cpid'];
 
