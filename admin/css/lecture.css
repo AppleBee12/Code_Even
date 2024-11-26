@@ -134,3 +134,33 @@ height: 38px;
     width: 300px;
   }
 } 
+
+
+.file-label {
+  width: 100%;
+  display: flex;
+  align-items: center; /* 수직 중앙 정렬 */
+  cursor: pointer;
+  background-color: #f8f9fa;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  padding: 0 10px; /* 좌우 간격 유지 */
+  height: 38px; /* 드롭다운 높이에 맞춤 */
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  line-height: normal; /* 텍스트 줄 간격을 기본값으로 설정 */
+}
+
+.file-label input[type="file"] {
+    display: none; /* 파일 선택 버튼 숨기기 */
+}
+
+.file-placeholder {
+    margin-top: 18px;
+    color: #6c757d; /* 기본 텍스트 색상 */
+    font-size: 16px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
