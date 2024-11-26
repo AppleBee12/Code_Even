@@ -119,6 +119,9 @@
     <table class="table list_table">
       <thead>
         <tr>
+          <th scope="col">
+            <input class="form-check-input" type="checkbox" id="allCheck">
+          </th>
           <th scope="col">번호</th>
           <th scope="col">프로필이미지</th>
           <th scope="col">아이디</th>
@@ -136,6 +139,10 @@
             foreach($dataArr as $item){
         ?> 
         <tr>
+          <td>
+            <input class="form-check-input itemCheckbox" type="checkbox" name="delarr[]" value="<?= $item->tcid; ?>">
+
+          </td>
           <th scope="row">
             <input type="hidden" name="tcid[]" value="<?= $item->tcid; ?>">
             <?= $item->tcid; ?>
@@ -189,12 +196,15 @@
         ?>
       </tbody> 
     </table>
-     <!--//table -->
-    <button class="btn btn-outline-secondary ms-auto d-block">일괄수정</button>
-    <form action="">
-      <button class="btn btn-outline-danger ms-auto d-block">일괄삭제</button>
+    <!--//table -->
+    <div class="d-flex gap-2 justify-content-end">
+      <form action="tclist_del.php" method="POST">
+        <input type="hidden" id="delarr" value=[]>
+        <button class="btn btn-outline-danger">일괄삭제</button>
+      </form>
+      <button class="btn btn-outline-secondary">일괄수정</button>
     </form>
-  </form>
+    </div>
   <!-- //List -->
 
   
