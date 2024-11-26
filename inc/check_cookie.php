@@ -9,7 +9,7 @@ if (!isset($_COOKIE["visited"])) {
         $data = json_decode(file_get_contents($dataFile), true);
     }
 
-    // 오늘 방문 기록 추가
+    // 오늘 방문을 안했다면 기록1 추가
     if (!isset($data[$today])) {
         $data[$today] = 0;
     }

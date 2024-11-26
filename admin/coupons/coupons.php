@@ -69,8 +69,8 @@ while ($data = $result->fetch_object()) {
     width: 45%;
     height: 243px;
     .c-img img{
-      height: 243px;
-
+      height: 241px;
+      width: 366px;
     }
   }
   .cps {
@@ -121,7 +121,15 @@ while ($data = $result->fetch_object()) {
                 <h5>
                   <div class="card-title"><?= $item->coupon_name; ?></div>
                 </h5>
-                <p class="card-text bd">사용기한 : <?= $item->use_max_date; ?></p>
+                <p class="card-text bd">사용기한 : 
+                <?php 
+                  if($item->use_max_date === 'unlimited'){
+                    echo "무제한";
+                  }else{
+                    echo htmlspecialchars($item->use_max_date);
+                  }
+                ?>  
+                </p>
                 <p class="card-text bd">할인금액 : <?= $item->max_value; ?>원</p>
                 <p class="card-text bd"> 최소 사용금액 : <?= $item->use_min_price; ?>원</p>
                 <div class="icons d-flex justify-content-end gap-2">

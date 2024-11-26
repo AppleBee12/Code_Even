@@ -191,6 +191,9 @@
     </table>
      <!--//table -->
     <button class="btn btn-outline-secondary ms-auto d-block">일괄수정</button>
+    <form action="">
+      <button class="btn btn-outline-danger ms-auto d-block">일괄삭제</button>
+    </form>
   </form>
   <!-- //List -->
 
