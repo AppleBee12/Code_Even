@@ -1,44 +1,48 @@
 <?php
 $title = "고민 상담";
 include_once($_SERVER['DOCUMENT_ROOT'] . '/code_even/admin/inc/header.php');
+
+
+// URL에서 post_id 가져오기
+$post_id = $_GET['post_id'] ?? null;
+
+if ($post_id) {
+  // Prepared Statement로 SQL 작성
+  $stmt = $mysqli->prepare("
+                            SELECT c.*, u.usernick 
+                            FROM counsel c 
+                            JOIN user u ON c.uid = u.uid 
+                            WHERE c.post_id = ?
+                          ");
+  $stmt->bind_param('s', $post_id); // 's'는 string 타입  
 ?>
 
-<div class="container">
-  <h2>고민 상담</h2>
-  <div class="content_bar">
-    <h3>글 수정하기</h3>
-  </div>
+  <div class="container">
+    <h2>고민 상담</h2>
+    <div class="content_bar">
+      <h3>글 수정하기</h3>
+    </div>
 
-  <form action="">
-    <table class="table info_table">
-      <colgroup>
-        <col class="col-width-160">
-        <col class="col-width-516">
-        <col class="col-width-160">
-        <col class="col-width-516">
-      </colgroup>
-      <tbody>
-        <?php
-        // URL에서 post_id 가져오기
-        $post_id = $_GET['post_id'] ?? null;
+    <form action="counsel_edit_ok.php" method="POST">
 
-        if ($post_id) {
-          // Prepared Statement로 SQL 작성
-          $stmt = $mysqli->prepare("
-          SELECT c.*, u.usernick 
-          FROM counsel c 
-          JOIN user u ON c.uid = u.uid 
-          WHERE c.post_id = ?
-      ");
-          $stmt->bind_param('s', $post_id); // 's'는 string 타입
-        
+      <table class="table info_table">
+        <colgroup>
+          <col class="col-width-160">
+          <col class="col-width-516">
+          <col class="col-width-160">
+          <col class="col-width-516">
+        </colgroup>
+        <tbody>
+          <?php
+
           // 쿼리 실행
           $stmt->execute();
           $result = $stmt->get_result();
 
           if ($result && $row = $result->fetch_assoc()) {
             // $row에서 데이터를 가져와서 input 태그에 출력
-            ?>
+          ?>
+            <input type="hidden" name="post_id" value="<?= $post_id ?>">
             <tr>
               <th scope="row">
                 <label for="titles">글 제목 <b>*</b></label>
@@ -57,7 +61,7 @@ include_once($_SERVER['DOCUMENT_ROOT'] . '/code_even/admin/inc/header.php');
                 </div>
                 <div class="form-check">
                   <input class=" form-check-input" type="radio" name="status" id="status" value="1"
-                    <?= ($row['status'] === 1) ? 'checked' : '';?>>
+                    <?= ($row['status'] === 1) ? 'checked' : ''; ?>>
                   <label class="form-check-label" for="status">
                     해결
                   </label>
@@ -86,7 +90,7 @@ include_once($_SERVER['DOCUMENT_ROOT'] . '/code_even/admin/inc/header.php');
                 <div id="summernote"><?= $row['contents'] ?></div>
               </td>
             </tr>
-            <?php
+        <?php
           } else {
             echo "해당 게시글을 찾을 수 없습니다.";
           }
@@ -98,18 +102,24 @@ include_once($_SERVER['DOCUMENT_ROOT'] . '/code_even/admin/inc/header.php');
 
 
         ?>
-      </tbody>
-    </table>
-    <div class="d-flex justify-content-end gap-2">
-      <a href="javascript:history.back();"><button class="btn btn-outline-danger">취소</button></a>
-      <a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/community/counsel.php"><button
-          class="btn btn-outline-secondary">수정</button></a>
-    </div>
-  </form>
-</div>
+        </tbody>
+      </table>
+      <div class="d-flex justify-content-end gap-2">
+        <button type="button" class="btn btn-outline-danger" onClick="cancle()">취소</button>
+        <a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/community/counsel.php"><button
+            class="btn btn-outline-secondary">수정</button></a>
+      </div>
+    </form>
+  </div>
+  <script>
+    function cancle() {
+      if (confirm('취소하시겠습니까?')) {
+        history.back(); //formdata가 넘어감, type:button 으로 해결
+      }
+    }
+  </script>
 
 
-
-<?php
-include_once($_SERVER['DOCUMENT_ROOT'] . '/code_even/admin/inc/footer.php');
-?>
+  <?php
+  include_once($_SERVER['DOCUMENT_ROOT'] . '/code_even/admin/inc/footer.php');
+  ?>

@@ -13,7 +13,7 @@ $data = $result->fetch_object();
     <h3>전체 공지사항 작성</h3>
   </div>
 
-  <form action="notice_write_ok.php" method="POST" enctype="multipart/form-data" id="notice_form">
+  <form action="notice_write_ok.php" method="POST" enctype="multipart/form-data" id="WnEform">
     <input type="hidden" name="username" value="<?= $data->username; ?>">
     <input type="hidden" name="userid" value="<?= $data->userid; ?>">
     <input type="hidden" name="content" id="notice_content">
@@ -74,8 +74,7 @@ $data = $result->fetch_object();
 
 <script>
 
-// 폼 제출 시 Summernote 내용 hidden 필드에 넣기
-$('#notice_form').on('submit', function() {
+$('#WnEform').on('submit', function() {
   var noticeContent = $('#summernote').summernote('code');  // Summernote 에디터에서 HTML 코드 가져오기
   $('#notice_content').val(noticeContent);  // 숨겨진 input에 설정
 });

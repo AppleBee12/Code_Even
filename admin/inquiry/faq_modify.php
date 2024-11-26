@@ -16,10 +16,11 @@ $data = $result->fetch_object();
     <h3>FAQ 수정</h3>
   </div>
 
-  <form action="faq_modify_ok.php" method="POST" enctype="multipart/form-data">
+  <form action="faq_modify_ok.php" method="POST" enctype="multipart/form-data" id="WnEform">
     <input type="hidden" name="username" value="<?= $data->username ?>">
     <input type="hidden" name="userid" value="<?= $data->userid; ?>">
     <input type="hidden" name="fqid" value="<?= $data->fqid; ?>">
+    <input type="hidden" name="content" id="faq_content">
     <table class="table details_table">
       <colgroup>
         <col class="col-width-160">
@@ -93,7 +94,7 @@ $data = $result->fetch_object();
         </tr>
       </tbody>
     </table>
-    <textarea name="content" id="content" class="form-control"><?= $data->content; ?></textarea>
+    <div name="content" id="summernote"><?=$data->content;?></div>
     <input type="file" class="form-control w-50" id="file">
     <div class="custom-hr"></div>
 
@@ -110,6 +111,16 @@ $data = $result->fetch_object();
   </form>
 
 </div>
+
+<script>
+
+// 폼 제출 시 Summernote 내용 hidden 필드에 넣기
+$('#WnEform').on('submit', function() {
+  var faqContent = $('#summernote').summernote('code');  // Summernote 에디터에서 HTML 코드 가져오기
+  $('#faq_content').val(faqContent);  // 숨겨진 input에 설정
+});
+
+</script>
 
 <?php
 include_once($_SERVER['DOCUMENT_ROOT'] . '/code_even/admin/inc/footer.php');
