@@ -29,40 +29,78 @@ if (!isset($_SESSION['AUID'])) {
 $mysqli->close();
 ?>
 
-
+<style>
+.dropdowns{
+  background: #fff;
+  .dropdownstxt{
+    color: #000;
+  }
+}
+.dropdown .dropdowns{
+  border: var(--bs-border-width) solid var(--bs-border-color);
+}
+.dropdown .dropdowns:hover{
+  border: var(--bs-border-width) solid var(--bs-border-color);
+  color: #000;
+  }
+/* .dropdown-toggle::after{
+  background: #000;
+} */
+</style>
 
 <div class="container ">
   <h2>카테고리 관리</h2>
-  
   <div class="row justify-content-between mt-5">
     <div class="col-md-4">
       <div class="bd d-flex justify-content-center"> 대분류</div>
-      <select class="form-select mt-4" id="cate1" aria-label="대분류 선택">
-        <option selected>대분류를 선택하세요</option>
-        <?php
-          foreach($cate1 as $c1){
-        ?>
-        <option value="<?= $c1-> code; ?>"><?= $c1->name; ?>
-        <?php
-          }
-        ?>
-      </select>
+      <div class="dropdown mt-4" id="cate1">
+        <button
+          class="btn  dropdown-toggle w-100 dropdowns"
+          type="button"
+          id="dropdownCate1"
+          data-bs-toggle="dropdown"
+          aria-expanded="false"
+        >
+          대분류를 선택하세요
+        </button>
+        <ul class="dropdown-menu w-100" aria-labelledby="dropdownCate1">
+          <?php foreach ($cate1 as $c1) { ?>
+          <li class="dropdown-item d-flex justify-content-between align-items-center">
+            <span onclick="selectDropdown('dropdownCate1', '<?= $c1->name; ?>', '<?= $c1->code; ?>')">
+              <?= $c1->name; ?>
+            </span>
+            <div class="icons d-flex justify-content-end gap-2">
+              <a href="category_edit.php?cpid=<?= $c1->cgid ?>" class="bi bi-pencil-fill"></a>
+              <a href="category_del.php?cpid=<?= $c1->cgid ?>" class="delete bi bi-trash"></a>
+            </div>
+          </li>
+          <?php } ?>
+        </ul>
+      </div>
       <!-- Button trigger modal -->
       <div class="btns d-flex justify-content-center mt-4">
         <button type="submit" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#cate1_modal">
           대분류 등록
         </button>
       </div>
-      
-
     </div>
     
-    
     <div class="col-md-4">
-    <div class="bd d-flex justify-content-center"> 중분류</div>
-      <select class="form-select mt-4" id="cate2" aria-label="Default select example">
-        <option selected>대분류를 먼저 선택하세요</option>
-      </select>
+      <div class="bd d-flex justify-content-center"> 중분류</div>
+      <div class="dropdown mt-4" id="cate2">
+        <button
+          class="btn dropdown-toggle w-100 dropdowns"
+          type="button"
+          id="dropdownCate2"
+          data-bs-toggle="dropdown"
+          aria-expanded="false"
+        >
+          대분류를 먼저 선택하세요
+        </button>
+        <ul class="dropdown-menu w-100" aria-labelledby="dropdownCate2" id="cate2_list">
+          <!-- JavaScript로 동적 추가 -->
+        </ul>
+      </div>
             <!-- Button trigger modal -->
       <div class="btns d-flex justify-content-center mt-4 ">
         <button type="submit" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#cate2_modal">
@@ -72,11 +110,21 @@ $mysqli->close();
     </div>
 
     <div class="col-md-4">
-    <div class="bd d-flex justify-content-center"> 소분류</div>
-      <select class="form-select mt-4" id="cate3" aria-label="Default select example">
-        <option selected>중분류를 먼저 선택하세요</option>
-      </select>
-            <!-- Button trigger modal -->
+    <div class="bd d-flex justify-content-center">소분류</div>
+      <div class="dropdown mt-4" id="cate3">
+        <button
+          class="btn dropdown-toggle w-100 dropdowns"
+          type="button"
+          id="dropdownCate3"
+          data-bs-toggle="dropdown"
+          aria-expanded="false"
+        >
+          중분류를 먼저 선택하세요
+        </button>
+        <ul class="dropdown-menu w-100" aria-labelledby="dropdownCate3" id="cate3_list">
+          <!-- JavaScript로 동적 추가 -->
+        </ul>
+      </div>
       <div class="btns d-flex justify-content-center mt-4">
         <button type="submit" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#cate3_modal">
           소분류 등록
@@ -85,6 +133,7 @@ $mysqli->close();
     </div>
   </div>
 </div>
+
 
 <!-- 모달 창 -->
 <!-- Modal 1-->
@@ -125,7 +174,6 @@ $mysqli->close();
             foreach($cate1 as $c1){
           ?>
           <option value="<?= $c1-> code; ?>"><?= $c1->name; ?>
-          <!-- <h6><span class="badge text-bg-secondary">수정</span></h6></option> -->
           <?php
             }
           ?>
@@ -163,7 +211,6 @@ $mysqli->close();
                 foreach($cate1 as $c1){
               ?>
               <option value="<?= $c1-> code; ?>"><?= $c1->name; ?>
-              <!-- <h6><span class="badge text-bg-secondary">수정</span></h6></option> -->
               <?php
                 }
               ?>
@@ -194,6 +241,26 @@ $mysqli->close();
 
 
 <script>
+  function selectDropdown(buttonId, itemName, itemCode) {
+    const button = document.getElementById(buttonId);
+    button.textContent = itemName; // 버튼 텍스트를 선택한 항목으로 변경
+    button.setAttribute('data-selected', itemCode); // 선택한 항목의 코드를 데이터 속성으로 저장
+  }
+
+  // 대분류 수정
+  function editCate1(code) {
+    alert('대분류 수정: ' + code);
+    // 수정 로직 추가
+  }
+
+  $('.delete').click(function (e) {
+    e.preventDefault();
+    if (confirm('정말 삭제할까요?')) {
+      window.location.href = $(this).attr('href');
+    }
+  });
+
+  
   // 대->중->소 출력
 $('#cate1').change(function(){
   makeOption($(this), 2, '중분류', $('#cate2'));
@@ -236,10 +303,10 @@ $('#pcode3').change(function(){
       e.preventDefault();
     let step = Number($(this).attr('data-step'));
     let pcode = $(`#pcode${step}`).val();
+
     let pcode1 = $(`#pcode${step+1}`).val();
     let code = $(`#code${step}`).val();
     let name = $(`#name${step}`).val();
-    category_save(step, pcode, code, name);
 
     if(step > 1 && !pcode){
       alert('대분류를 선택하세요');
@@ -252,12 +319,13 @@ $('#pcode3').change(function(){
     if(pcode1){
       pcode = pcode1;
     }
+    category_save(step, pcode, code, name);
   });
 
   function category_save(step, pcode, code, name){
     let data = {
       name:name,
-      pcode:pcode || '',
+      pcode:pcode,
       code:code,
       step:step
     }
@@ -282,7 +350,6 @@ $('#pcode3').change(function(){
       }
     });
   }
-
 
 
 </script>
