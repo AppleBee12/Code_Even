@@ -119,6 +119,9 @@
     <table class="table list_table">
       <thead>
         <tr>
+          <th scope="col">
+            <input class="form-check-input" type="checkbox" id="allCheck">
+          </th>
           <th scope="col">번호</th>
           <th scope="col">프로필이미지</th>
           <th scope="col">아이디</th>
@@ -136,6 +139,9 @@
             foreach($dataArr as $item){
         ?> 
         <tr>
+          <td>
+            <input class="form-check-input itemCheckbox" type="checkbox" name="delarr[]" value="<?= $item->tcid; ?>">
+          </td>
           <th scope="row">
             <input type="hidden" name="tcid[]" value="<?= $item->tcid; ?>">
             <?= $item->tcid; ?>
@@ -187,14 +193,19 @@
             }
           }
         ?>
-      </tbody> 
+      </tbody>
     </table>
-     <!--//table -->
-    <button class="btn btn-outline-secondary ms-auto d-block">일괄수정</button>
-    <form action="">
-      <button class="btn btn-outline-danger ms-auto d-block">일괄삭제</button>
-    </form>
+    <div class="d-grid d-md-flex justify-content-md-end">
+      <button type="submit" class="btn btn-outline-secondary">일괄수정</button> 
+    </div>
+    <!--//table -->
   </form>
+
+    <!-- 삭제용 폼 -->
+    <form id="deleteForm" action="tclist_del.php" method="POST">
+      <input type="hidden" name="delarr" id="delarr">
+      <button type="button" class="btn btn-outline-danger" id="all_del_btn">일괄삭제</button>
+    </form>
   <!-- //List -->
 
   
@@ -246,11 +257,37 @@
     }
   });
 
+  //개별삭제
   $('.del_link').click(function(e) {
       if (!confirm('정말 삭제하시겠습니까? 삭제 후에는 복구가 불가능합니다.')) {
         e.preventDefault();
       }
     });
+
+  // 체크박스 전체선택
+  $('#allCheck').on('change', function () {
+    const isChecked = $(this).prop('checked'); // 전체 선택 여부 확인
+    $('.itemCheckbox').prop('checked', isChecked); // 전체 체크박스 선택/해제
+  });
+
+  // 일괄삭제
+  $('#all_del_btn').on('click', function () {
+    const checkedBoxes = $('.itemCheckbox:checked'); // 체크된 항목
+    const ids = checkedBoxes.map(function () {
+      return $(this).val(); // 선택된 ID 수집
+    }).get(); // jQuery 객체를 배열로 변환
+
+    if (ids.length === 0) {
+      alert('삭제할 항목을 선택하세요.');
+      return;
+    }
+
+    // 선택된 ID를 hidden input에 JSON 형식으로 추가
+    $('#delarr').val(JSON.stringify(ids));
+
+    // 삭제 폼 제출
+    $('#del_form').submit();
+  });
 
   //새로고침 시 주소창 리셋
   if (window.location.search) {

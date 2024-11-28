@@ -49,11 +49,6 @@
       }
   }
 
-
-
-
-
-
   // Chart.js 데이터 준비
   $labels = [];
   $netSales = [];
@@ -64,17 +59,8 @@
   // PHP에서 JSON 형식으로 변환해 JavaScript에 전달
   $labelsJson = json_encode($labels);
   $netSalesJson = json_encode($netSales);
-  
-
-
 
 ?>
-<style>
-  .bg-body-tertiary {
-    --bs-bg-opacity: 1;
-    background-color: #FDFDFD !important;
-}
-</style>
 
 <div class="container">
   <h2 class="page_title">월별매출통계</h2>
@@ -224,11 +210,11 @@ $(document).ready(function(){
   } );
 
 
-  </script>
-
-
-
 </script>
+
+
+
+
 
 <?php
 include_once($_SERVER['DOCUMENT_ROOT'] . '/CODE_EVEN/admin/inc/footer.php');
