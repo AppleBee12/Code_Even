@@ -4,6 +4,40 @@ session_start();
 include_once($_SERVER['DOCUMENT_ROOT'] . '/code_even/admin/inc/dbcon.php');
 
 include_once($_SERVER['DOCUMENT_ROOT'] . '/code_even/inc/check_cookie.php');
+
+//카카오 로그인 공통 : Config
+$REST_API_KEY   = "5fa7150969af80c8040eb8c4bcd59bf2"; // 내 애플리케이션 > 앱 설정 > 요약 정보
+$CLIENT_SECRET  = ""; // 내 애플리케이션 > 제품 설정 > 카카오 로그인 > 보안
+$REDIRECT_URI   = urlencode("http://localhost/kakao_rest_api_example.php");
+?>
+<?php //공통 : API Call Function
+function Call($callUrl, $method, $headers = array(), $data = array(), $returnType="jsonObject")
+{
+    echo "<pre>".$callUrl."</pre>";
+    try {
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, $callUrl);
+        if ($method == "POST") {
+            curl_setopt($ch, CURLOPT_POST, true);
+            curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
+        } else {
+            curl_setopt($ch, CURLOPT_POST, false);
+        }
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+        curl_setopt($ch, CURLOPT_HTTP200ALIASES, array(400));
+        $response = curl_exec($ch);
+        $status_code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+        curl_close($ch);
+
+        echo "<pre>".$status_code.":".$response."</pre>";
+        
+        if ($returnType=="jsonObject") return json_decode($response);
+        else return $response;     
+    } catch (Exception $e) {
+        echo $e;
+    }    
+}
 ?>
 <style>
 /* 모달 배경 */
@@ -88,6 +122,7 @@ include_once($_SERVER['DOCUMENT_ROOT'] . '/code_even/inc/check_cookie.php');
           <input type="password" id="inputPassword" class="form-control" placeholder="비밀번호를 입력하세요" name="userpw" required>
           
           <button class="btn btn-primary mt-3 w-100">로그인</button>
+          <a href="https://kauth.kakao.com/oauth/authorize?client_id=<?=$REST_API_KEY?>&response_type=code&redirect_uri=<?=$REDIRECT_URI?>"><img src="images/kakaobtn.png" width="463" class="mt-1"/></a>
           
           <div class="mt-3 d-flex flex-columns justify-content-center gap-3">
             <a href="#" class="link-body-emphasis ">아이디 찾기</a>
