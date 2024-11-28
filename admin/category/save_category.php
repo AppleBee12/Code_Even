@@ -5,7 +5,7 @@ ini_set( "display_errors", 1 );
 include_once($_SERVER['DOCUMENT_ROOT'] . '/CODE_EVEN/admin/inc/dbcon.php');
 
 $name = $_POST['name'];
-$pcode = $_POST['pcode']??'';
+// $pcode = $_POST['pcode']??'';
 $code = $_POST['code'];
 $step = $_POST['step'];
 
@@ -37,7 +37,7 @@ $pcode = $pcode ?: 'NULL';
 //   exit;
 // }
 //중복되지 않는다면 테이블에 저장한다. 
-$sql = "INSERT INTO category (pcode, code, name, step) VALUES (NULLIF('$pcode', ''), '$code', '$name', $step)";
+$sql = "INSERT INTO category (pcode, code, name, step) VALUES ('$pcode', '$code', '$name', $step)";
 $result = $mysqli->query($sql);
 
 if($result){
