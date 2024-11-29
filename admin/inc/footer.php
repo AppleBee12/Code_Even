@@ -27,7 +27,7 @@ if (isset($jqueryui_js)) {
   target.summernote({
     placeholder: '내용을 입력해주세요.',
     tabsize: 2,
-    height: 160,
+    // height: 160,
     lang: 'ko-KR',
         toolbar: [
           ['style', ['style']],
@@ -35,7 +35,9 @@ if (isset($jqueryui_js)) {
           ['color', ['color']],
           ['para', ['ul', 'ol', 'paragraph']],
           ['table', ['table']],
+          ['insert', ['link', 'picture']],
           ['view', ['codeview', 'help']]
+
         ]
   });
 </script>
