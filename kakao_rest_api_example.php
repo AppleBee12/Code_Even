@@ -2,6 +2,10 @@
 $REST_API_KEY   = "5fa7150969af80c8040eb8c4bcd59bf2"; // 내 애플리케이션 > 앱 설정 > 요약 정보
 $CLIENT_SECRET  = ""; // 내 애플리케이션 > 제품 설정 > 카카오 로그인 > 보안
 $REDIRECT_URI   = urlencode("http://localhost/kakao_rest_api_example.php");
+
+//자바스크립트 키 추가 	
+$javascript_key = "df7af40aca205fb77ed75a27a89de106";
+
 ?>
 <?php //공통 : API Call Function
 function Call($callUrl, $method, $headers = array(), $data = array(), $returnType="jsonObject")
