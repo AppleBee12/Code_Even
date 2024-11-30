@@ -6,6 +6,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     //카테고리 번호cateid (0=noitce, 1=student_qna, 3....... )
     //현재 작성되는 글 번호pid
     //이미지 경로src
+
+    //섬머노트 사용할 곳 수진,은진
     $uploadDir = '/code_even/admin/upload/summer_images/'; // 이미지 저장 경로
     $fileName = uniqid() . '_' . basename($_FILES['file']['name']);
     $uploadFilePath = $uploadDir . $fileName;
