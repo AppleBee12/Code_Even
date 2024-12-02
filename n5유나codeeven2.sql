@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- 생성 시간: 24-11-23 06:06
+-- 생성 시간: 24-11-29 09:56
 -- 서버 버전: 10.4.32-MariaDB
 -- PHP 버전: 8.2.12
 
@@ -18,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- 데이터베이스: `codeeven2`
+-- 데이터베이스: `code_even`
 --
 
 -- --------------------------------------------------------
@@ -364,6 +364,10 @@ INSERT INTO `send_email` (`emid`, `uid`, `title`, `content`, `regdate`) VALUES
 
 -- --------------------------------------------------------
 
+--
+-- 테이블 구조 `student_qna`
+--
+
 CREATE TABLE `student_qna` (
   `sqid` int(11) NOT NULL COMMENT '질문고유번호',
   `cdid` int(11) DEFAULT NULL COMMENT '수강데이터ID',
@@ -394,6 +398,19 @@ INSERT INTO `student_qna` (`sqid`, `cdid`, `qtitle`, `qcontent`, `regdate`) VALU
 (15, 15, 'HTML5에서 새롭게 추가된 태그가 궁금합니다.', 'HTML5에서 새롭게 추가된 태그에는 어떤 것들이 있나요? 특히 <article>, <section>, <aside> 태그의 사용 사례와 차이를 알고 싶습니다.', '2024-11-24 19:27:17'),
 (16, 16, 'CSS에서 색상을 지정하는 다양한 방법', 'CSS로 색상을 지정할 때 hex, rgb, hsl 등의 형식이 있는데, 각 형식의 차이점과 장단점이 무엇인지 알고 싶습니다. 실제 프로젝트에서 어떤 기준으로 선택하면 좋을까요?', '2024-11-24 19:27:29'),
 (17, 17, 'HTML의 alt 속성은 반드시 필요한가요?', '이미지를 삽입할 때 항상 alt 속성을 추가하라는 권고를 들었는데, 이를 생략하면 어떤 문제가 발생할 수 있는지, 그리고 꼭 작성해야 하는 이유를 알고 싶습니다.', '2024-11-24 19:27:47');
+
+-- --------------------------------------------------------
+
+--
+-- 테이블 구조 `summer_images`
+--
+
+CREATE TABLE `summer_images` (
+  `imgid` int(11) NOT NULL COMMENT '기본 pk',
+  `cateid` int(11) NOT NULL COMMENT '메뉴카테고리에따른분류(ntid-notice,sqid-stuq/a,post_id/counsel,teamproject,blog)',
+  `pid` int(11) NOT NULL COMMENT '글번호(각 카테고리의pk)',
+  `src` varchar(500) NOT NULL COMMENT '이미지경로'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='썸머노트이미지들';
 
 -- --------------------------------------------------------
 
@@ -489,6 +506,12 @@ ALTER TABLE `student_qna`
   ADD KEY `cdid` (`cdid`);
 
 --
+-- 테이블의 인덱스 `summer_images`
+--
+ALTER TABLE `summer_images`
+  ADD PRIMARY KEY (`imgid`);
+
+--
 -- 테이블의 인덱스 `teacher_qna`
 --
 ALTER TABLE `teacher_qna`
@@ -515,7 +538,7 @@ ALTER TABLE `admin_question`
 -- 테이블의 AUTO_INCREMENT `class_data`
 --
 ALTER TABLE `class_data`
-  MODIFY `cdid` int(11) NOT NULL AUTO_INCREMENT COMMENT '수강데이터ID', AUTO_INCREMENT=12;
+  MODIFY `cdid` int(11) NOT NULL AUTO_INCREMENT COMMENT '수강데이터ID', AUTO_INCREMENT=29;
 
 --
 -- 테이블의 AUTO_INCREMENT `faq`
@@ -527,31 +550,37 @@ ALTER TABLE `faq`
 -- 테이블의 AUTO_INCREMENT `notice`
 --
 ALTER TABLE `notice`
-  MODIFY `ntid` int(11) NOT NULL AUTO_INCREMENT COMMENT '공지사항고유번호', AUTO_INCREMENT=31;
+  MODIFY `ntid` int(11) NOT NULL AUTO_INCREMENT COMMENT '공지사항고유번호', AUTO_INCREMENT=61;
 
 --
 -- 테이블의 AUTO_INCREMENT `review`
 --
 ALTER TABLE `review`
-  MODIFY `rvid` int(11) NOT NULL AUTO_INCREMENT COMMENT '수강후기ID', AUTO_INCREMENT=11;
+  MODIFY `rvid` int(11) NOT NULL AUTO_INCREMENT COMMENT '수강후기ID', AUTO_INCREMENT=14;
 
 --
 -- 테이블의 AUTO_INCREMENT `send_email`
 --
 ALTER TABLE `send_email`
-  MODIFY `emid` int(11) NOT NULL AUTO_INCREMENT COMMENT '이메일발송고유번호', AUTO_INCREMENT=11;
+  MODIFY `emid` int(11) NOT NULL AUTO_INCREMENT COMMENT '이메일발송고유번호', AUTO_INCREMENT=12;
 
 --
 -- 테이블의 AUTO_INCREMENT `student_qna`
 --
 ALTER TABLE `student_qna`
-  MODIFY `sqid` int(11) NOT NULL AUTO_INCREMENT COMMENT '질문고유번호', AUTO_INCREMENT=7;
+  MODIFY `sqid` int(11) NOT NULL AUTO_INCREMENT COMMENT '질문고유번호', AUTO_INCREMENT=18;
+
+--
+-- 테이블의 AUTO_INCREMENT `summer_images`
+--
+ALTER TABLE `summer_images`
+  MODIFY `imgid` int(11) NOT NULL AUTO_INCREMENT COMMENT '기본 pk';
 
 --
 -- 테이블의 AUTO_INCREMENT `teacher_qna`
 --
 ALTER TABLE `teacher_qna`
-  MODIFY `asid` int(11) NOT NULL AUTO_INCREMENT COMMENT '답변고유ID', AUTO_INCREMENT=5;
+  MODIFY `asid` int(11) NOT NULL AUTO_INCREMENT COMMENT '답변고유ID', AUTO_INCREMENT=14;
 
 --
 -- 덤프된 테이블의 제약사항

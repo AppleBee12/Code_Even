@@ -219,7 +219,7 @@ if (!empty($firstData->receiver)) { ?>
   </table>
   <?php } ?>
   <div class="d-flex justify-content-end gap-2">
-    <a href="orders_list.php" type="button" class="btn btn-outline-secondary">목록</a>
+    <a href="orders_list.php" role="button" class="btn btn-outline-secondary">목록</a>
   </div>
 </div>
 

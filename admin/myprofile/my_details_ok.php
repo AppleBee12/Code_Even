@@ -25,7 +25,7 @@ if ($result === true) {
   echo
   "<script>
       if (confirm('프로필을 수정하시겠습니까?')) {
-          alert('등록이 완료되었습니다.');
+          alert('수정이 완료되었습니다.');
           location.href='/code_even/admin/index.php';
       } else {
           history.back();

@@ -126,8 +126,6 @@
   $totalSumData = $sum_result->fetch_assoc();
 ?>
 
-
-</style>
 <div class="container"> 
   <h2 class="page_title">교재매출통계</h2>
   <form action="#" id="search_form" class="row justify-content-end align-items-center" method="GET">

@@ -90,19 +90,19 @@
 <div class="container">
   <h2 class="page_title">주문결제목록</h2>
 
-  <form action="" id="search_form" class="row justify-content-end" method="GET">
+  <form action="#" id="search_form" class="row justify-content-end" method="GET">
     <div class="col-lg-2 d-flex align-items-center date_form">
       <label class="date_lable me-2" for="start_date" >시작일</label>
-      <input type="date" class="form-control" name="start_date" value="<?= htmlspecialchars($_GET['start_date'] ?? ''); ?>" />
+      <input type="date" id="start_date" class="form-control" name="start_date" value="<?= htmlspecialchars($_GET['start_date'] ?? ''); ?>">
     </div>
     
     <div class="col-lg-2 d-flex align-items-center date_form">
-      <label class="date_lable me-2" for="start_date">종료일</label>
-      <input type="date" class="form-control" name="end_date" value="<?= htmlspecialchars($_GET['end_date'] ?? ''); ?>" />
+      <label class="date_lable me-2" for="end_date">종료일</label>
+      <input type="date" id="end_date" class="form-control" name="end_date" value="<?= htmlspecialchars($_GET['end_date'] ?? ''); ?>">
     </div>
     <div class="col-lg-3">
     <div class="input-group mb-3">
-      <input type="text" class="form-control" placeholder="기간 선택 또는 검색어를 입력해주세요" aria-label="Recipient's username" aria-describedby="basic-addon2">
+      <input type="text" class="form-control" placeholder="기간 선택 또는 검색어를 입력해주세요" aria-label="검색창" >
       <button class="btn btn-secondary">
         <i class="bi bi-search"></i>
       </button>
@@ -110,7 +110,7 @@
     </div>
   </form>
 
-  <form action="">
+  <form action="#">
     <table class="table list_table">
       <thead>
         <tr>
