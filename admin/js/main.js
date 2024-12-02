@@ -1,9 +1,24 @@
 document.addEventListener("DOMContentLoaded", function () {
 
+
+//오늘 날짜 중 달 데이터만 추출하기 #month에 넣어줌
+
+   let now = new Date(); 
+   let month = now.getMonth() + 1; // 월 데이터는 0부터 시작
+   let formattedMonth = month + "월"; // 월 추가해서 문자열 전환시킴
+
+   for (let el of document.querySelectorAll('.this-month')) {
+    el.textContent = formattedMonth;
+}
+
+
+
+
+  // main index 차트
+
+
     const barCtx = document.getElementById('current_six_returns');
     const cateDatas = [250, 390, 580, 610, 692, 712]
-    let now = new Date();
-    let month = now.getMonth() + 1;
     let labels = []
   
     for (let i = 5; i >= 0; i--){
@@ -42,10 +57,10 @@ document.addEventListener("DOMContentLoaded", function () {
     const lineChart = new Chart(lineCtx, {
       type: 'line',
       data: {
-        labels: ['6월', '7월', '8월', '9월', '10월', '11월'],
+        labels: labels,
         datasets: [{
           label: '신규 가입자 수',
-          data: [2000, 2800, 3200, 3800, 4000, 3765],
+          data: [2000, 2800, 3200, 3800, 4000, 2765],
           borderColor: '#D25353',
           backgroundColor: '#c93333',
           borderWidth: 1,
