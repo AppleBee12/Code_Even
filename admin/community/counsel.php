@@ -60,7 +60,7 @@ while ($data = $result->fetch_object()) {
     </div>
   </form>
 
-  <form action="">
+  <form action="counsel_edit.php" method="POST">
     <table class="table list_table">
       <thead>
         <tr>
@@ -111,11 +111,7 @@ while ($data = $result->fetch_object()) {
         }
         ?>
       </tbody>
-
-
     </table>
-    <!-- //table -->
-    <!-- <button type="button" class="btn btn-outline-secondary ms-auto d-block">일괄수정</button> -->
   </form>
 
   <!-- //Pagination -->
