@@ -106,8 +106,7 @@ if ($post_id) {
       </table>
       <div class="d-flex justify-content-end gap-2">
         <button type="button" class="btn btn-outline-danger" onClick="cancle()">취소</button>
-        <a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/community/counsel.php"><button
-            class="btn btn-outline-secondary">수정</button></a>
+        <button class="btn btn-outline-secondary">수정</button>
       </div>
     </form>
   </div>
