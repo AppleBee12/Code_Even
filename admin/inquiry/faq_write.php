@@ -94,7 +94,6 @@ $data = $result->fetch_object();
       </tbody>
     </table>
     <div name="content" id="summernote"></div>
-    <input type="file" class="form-control w-50" id="file">
     <div class="custom-hr"></div>
 
     <div class="d-flex justify-content-end gap-2">
