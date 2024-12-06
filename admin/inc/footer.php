@@ -20,6 +20,10 @@ integrity="sha256-y2bkXLA0VKwUx5hwbBKnaboRThcu7YOFyuYarJbCnoQ=" crossorigin="ano
 if (isset($jqueryui_js)) {
     echo $jqueryui_js;
   }
+
+  $uploadPath = 'http://localhost/code_even/admin/inc/upload_image.php';
+  $getUploadPath = 'http://localhost/code_even/admin/inc/get_uploaded_images.php';
+  $deletePath = 'http://localhost/code_even/admin/inc/delete_images.php';
 ?>
 
 <script>
@@ -29,15 +33,90 @@ if (isset($jqueryui_js)) {
     tabsize: 2,
     height: 160,
     lang: 'ko-KR',
-        toolbar: [
-          ['style', ['style']],
-          ['font', ['bold', 'underline', 'clear']],
-          ['color', ['color']],
-          ['para', ['ul', 'ol', 'paragraph']],
-          ['table', ['table']],
-          ['view', ['codeview', 'help']]
-        ]
+    toolbar: [
+        ['style', ['style']],
+        ['font', ['bold', 'underline', 'clear']],
+        ['color', ['color']],
+        ['para', ['ul', 'ol', 'paragraph']],
+        ['table', ['table']],
+        ['view', ['codeview', 'help']],
+        ['insert', ['picture', 'link', 'video']]
+      ],
+      callbacks: {
+        onImageUpload: function(files) {
+          for (let file of files) {
+            uploadImage(file);
+          }
+        },
+        onChange: function(contents) {
+            handleImageDeletion(contents);
+        }
+    }
   });
+
+// 이미지 업로드 함수
+
+var uploadPath = "<?= $uploadPath ?>";
+
+function uploadImage(file) {
+    const formData = new FormData();
+    formData.append('file', file);
+
+    fetch(uploadPath, {
+        method: 'POST',
+        body: formData,
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.status === 'success') {
+            // 업로드 성공 시 에디터에 이미지 삽입
+            $('#summernote').summernote('insertImage', data.imageUrl);
+        } else {
+            console.error('이미지 업로드 실패:', data.message);
+        }
+    })
+    .catch(error => console.error('에러 발생:', error));
+}
+
+// 이미지 삭제 함수
+
+var getUploadPath = "<?= $getUploadPath ?>";
+var deletePath = "<?= $deletePath ?>";
+
+function handleImageDeletion(contents) {
+    const parser = new DOMParser();
+    const doc = parser.parseFromString(contents, 'text/html');
+
+    // 에디터에 남아있는 이미지 src 수집
+    const remainingImages = Array.from(doc.querySelectorAll('img')).map(img => img.src);
+
+    // 서버에 업로드된 이미지 목록 요청
+    fetch(getUploadPath, {
+        method: 'GET',
+        headers: { 'Content-Type': 'application/json' },
+    })
+    .then(response => response.json())
+    .then(uploadedImages => {
+        // const imagesToDelete = uploadedImages.filter(img => !remainingImages.includes(img));
+        let imagesToDelete = [];
+          if (uploadedImages.length > 0) {
+              imagesToDelete = uploadedImages.filter(img => !remainingImages.includes(img));
+        }
+
+        // 삭제할 이미지가 있으면 서버에 요청
+        if (imagesToDelete.length > 0) {
+            fetch(deletePath, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ images: imagesToDelete }),
+            })
+            .then(response => response.json())
+            .then(data => console.log('이미지 삭제 완료:', data))
+            .catch(error => console.error('이미지 삭제 실패:', error));
+        }
+    });
+}
+
 </script>
 
 </body>
