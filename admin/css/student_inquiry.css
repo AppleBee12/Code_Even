@@ -102,7 +102,7 @@
 
 .bi-star-fill {color: var(--primary); margin: 0px 1px;}
 
-.card {width: 1075px !important; height: 300px;
+.card {width: 1075px !important; height: auto;
   p { margin-bottom: 0px !important;}
 }
 
@@ -121,7 +121,9 @@ input[readonly] {background-color: #e9ecef; border: 1px solid #dee2e6; color: #6
   }
 }
 
-#WnEform .note-editor{
+form#WnEform .note-editor{
   width: 1075px;
-  .note-editing-area {height: 300px;}
+  .note-editing-area {height: 500px;
+    .note-editable {height: 100% !important;}
+  }
 }
