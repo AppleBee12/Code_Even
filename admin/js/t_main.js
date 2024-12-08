@@ -1,12 +1,18 @@
 document.addEventListener("DOMContentLoaded", function () {
 
+  //오늘 날짜 중 달 데이터만 추출하기 .this-month에 넣어줌
+
+  let now = new Date(); 
+  let month = now.getMonth() + 1; // 월 데이터는 0부터 시작
+  let formattedMonth = month + "월"; // 월 추가해서 문자열 전환시킴
+
+  for (let el of document.querySelectorAll('.this-month')) {
+   el.textContent = formattedMonth;
+}
+
+
   // 평균 평점
 
-  /*
-     <i class="bi bi-star-fill"></i> 꽉 찬 별
-     <i class="bi bi-star-half"></i>  반만 찬 별
-     <i class="bi bi-star"></i> 비어 있는 별
-  */
 const ratingStar = document.getElementById("rating_star");
 const stars = ratingStar.querySelectorAll("li");
 
@@ -39,8 +45,6 @@ updateStars(initialRating);
 
     const barCtx = document.getElementById('current_six_returns');
     const cateDatas = [250, 390, 580, 610, 692, 712]
-    let now = new Date();
-    let month = now.getMonth() + 1;
     let labels = []
   
     for (let i = 5; i >= 0; i--){
