@@ -1,7 +1,7 @@
 document.addEventListener("DOMContentLoaded", function () {
 
 
-//오늘 날짜 중 달 데이터만 추출하기 #month에 넣어줌
+//오늘 날짜 중 달 데이터만 추출하기 .this-month에 넣어줌
 
    let now = new Date(); 
    let month = now.getMonth() + 1; // 월 데이터는 0부터 시작

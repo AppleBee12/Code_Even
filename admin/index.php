@@ -81,7 +81,7 @@ foreach ($data as $date => $count) {
 <div class="container">
   <div class="top_wrapper d-flex justify-content-between">
     <div>
-      <h3>11월 수익</h3>
+      <h3><span class="this-month"></span> 수익</h3>
       <p>7,123,000<span class="top_text"> 원</span></p>
     </div>
     <div>
