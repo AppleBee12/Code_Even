@@ -27,7 +27,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         </script>";
         exit;
     }
-  
+
+    // 강사 중복 신청 확인
+    $check_sql = "SELECT tcid FROM teachers WHERE uid = '{$user_data->uid}'";
+    $check_result = $mysqli->query($check_sql);
+
+    if ($check_result && $check_result->num_rows > 0) {
+        echo "<script>
+            alert('이미 강사로 등록된 회원입니다.');
+            location.href = 'index.php';
+        </script>";
+        exit;
+    }
+
 
     // POST 값 가져오기
     $tc_url = $mysqli->real_escape_string($_POST['tc_url']);

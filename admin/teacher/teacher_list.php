@@ -115,7 +115,7 @@
   </form>
   <!-- //Search-form -->
 
-  <form action="tclist_update.php" method="GET">
+  <form id="tclistForm" action="tclist_update.php" method="POST">
     <table class="table list_table">
       <thead>
         <tr>
@@ -165,16 +165,18 @@
             </select>
           </td>
           <td>
+            <!-- 신규 보류 
             <div class="form-check d-inline-block me-2">
               <input class="form-check-input" type="checkbox" id="isnew[<?= $item->tcid; ?>]" <?php echo $item->isnew ? 'checked' : ''; ?> name="isnew[<?= $item->tcid; ?>]" value="<?= $item->isnew ?>">
               <label class="form-check-label" for="isnew[<?= $item->tcid; ?>]">
                 신규
               </label>
             </div>
+           -->
             <div class="form-check d-inline-block">
-              <input class="form-check-input" type="checkbox" id="isrecom[<?= $item->tcid; ?>]" <?php echo $item->isrecom ? 'checked' : ''; ?> name="isrecom[<?= $item->tcid; ?>]" value="<?= $item->isrecom ?>">
+              <input class="form-check-input check_isrecom" type="checkbox" id="isrecom[<?= $item->tcid; ?>]" <?php echo $item->isrecom ? 'checked' : ''; ?> name="isrecom[<?= $item->tcid; ?>]" value="<?= $item->isrecom ?>">
               <label class="form-check-label" for="isrecom[<?= $item->tcid; ?>]">
-                추천
+                이달의 선생님
               </label>
             </div>
           </td>
@@ -195,17 +197,13 @@
         ?>
       </tbody>
     </table>
-    <div class="d-grid d-md-flex justify-content-md-end">
-      <button type="submit" class="btn btn-outline-secondary">일괄수정</button> 
+
+    <div class="d-grid d-md-flex justify-content-md-end align-items-center">
+      <button type="button" class="btn btn-outline-danger me-2" id="all_del_btn">일괄삭제</button>
+      <button type="button" class="btn btn-outline-secondary" id="all_edit_btn">일괄수정</button>
     </div>
     <!--//table -->
   </form>
-
-    <!-- 삭제용 폼 -->
-    <form id="deleteForm" action="tclist_del.php" method="POST">
-      <input type="hidden" name="delarr" id="delarr">
-      <button type="button" class="btn btn-outline-danger" id="all_del_btn">일괄삭제</button>
-    </form>
   <!-- //List -->
 
   
@@ -249,7 +247,7 @@
 </div>
 
 <script>
-    $('table .form-check-input[type="checkbox"]').change(function(){
+    $('table .check_isrecom').change(function(){
     if($(this).prop( "checked" )){
       $(this).val('1');
     } else{
@@ -270,24 +268,29 @@
     $('.itemCheckbox').prop('checked', isChecked); // 전체 체크박스 선택/해제
   });
 
-  // 일괄삭제
+  // 일괄수정 버튼 클릭 이벤트
+  $('#all_edit_btn').on('click', function () {
+    const form = $('#tclistForm');
+    form.attr('action', 'tclist_update.php'); // action URL 변경
+    form.submit(); // 폼 제출
+  });
+
+  // 일괄삭제 버튼 클릭 이벤트
   $('#all_del_btn').on('click', function () {
     const checkedBoxes = $('.itemCheckbox:checked'); // 체크된 항목
-    const ids = checkedBoxes.map(function () {
-      return $(this).val(); // 선택된 ID 수집
-    }).get(); // jQuery 객체를 배열로 변환
-
-    if (ids.length === 0) {
-      alert('삭제할 항목을 선택하세요.');
+    if (checkedBoxes.length === 0) {
+      alert('삭제할 강사를 선택하세요.');
       return;
     }
 
-    // 선택된 ID를 hidden input에 JSON 형식으로 추가
-    $('#delarr').val(JSON.stringify(ids));
-
-    // 삭제 폼 제출
-    $('#del_form').submit();
+    if (confirm('정말 삭제하시겠습니까? 삭제 후에는 복구가 불가능합니다.')) {
+      const form = $('#tclistForm');
+      form.attr('action', 'tclist_del.php'); // action URL 변경
+      form.submit(); // 폼 제출
+    }
   });
+
+  
 
   //새로고침 시 주소창 리셋
   if (window.location.search) {
