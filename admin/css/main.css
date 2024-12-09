@@ -67,3 +67,47 @@
   padding: 20px;
   border-radius: 8px;
 }
+
+/* 로그인 모달창 */
+
+.form-control.id,
+.form-control.pw{
+  width: 57%;
+}
+.modal-content{
+ width: 133%; 
+}
+
+.row>*{
+  width: 69%;
+}
+
+.wrappers h1{
+  font-size: 34px !important; 
+  color: #000;
+}
+.col-form-label{
+  color: #000;
+  font-size: 16px;
+  font-weight: normal;
+}
+
+.modal-header {
+  border-bottom: none;
+  .btn-close{
+    margin: 0px;
+    /* margin-left: 185px; */
+  }
+}
+.modal-footer{
+  border-top: none;
+}
+.loginbtn{
+  background: var(--red800);
+  color:  var(--red0);
+  width: 57%;
+}
+.loginbtn:hover{
+  color:  var(--red0);
+  background: var(--red900);
+}
