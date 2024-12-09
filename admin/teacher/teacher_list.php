@@ -172,11 +172,17 @@
                 신규
               </label>
             </div>
-           -->
+            -->
             <div class="form-check d-inline-block">
-              <input class="form-check-input check_isrecom" type="checkbox" id="isrecom[<?= $item->tcid; ?>]" <?php echo $item->isrecom ? 'checked' : ''; ?> name="isrecom[<?= $item->tcid; ?>]" value="<?= $item->isrecom ?>">
+              <input class="form-check-input check_isrecom" 
+                type="checkbox" 
+                id="isrecom[<?= $item->tcid; ?>]" 
+                <?php echo $item->isrecom ? 'checked' : ''; ?> 
+                name="isrecom[<?= $item->tcid; ?>]" 
+                value="<?= $item->isrecom ?>"
+                <?= $item->tc_ok != 1 ? 'disabled' : ''; ?>>
               <label class="form-check-label" for="isrecom[<?= $item->tcid; ?>]">
-                이달의 선생님
+                베스트
               </label>
             </div>
           </td>
