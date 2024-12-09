@@ -108,7 +108,7 @@ function Call($callUrl, $method, $headers = array(), $data = array(), $returnTyp
       <!-- <li class="list-group-item"><a href="" class="link-underline-danger link-offset-2 link-body-emphasis a_underline">결제페이지(임시)</a></li> -->
     </ul>
   </div>
-  <div class="gap-5 align-items-center bgsz ">
+  <!-- <div class="gap-5 align-items-center bgsz ">
     <div class="w-50 container d-flex justify-content-center align-items-center">
       <?php if(!isset($_SESSION['AUID'])){
       ?>
@@ -139,7 +139,39 @@ function Call($callUrl, $method, $headers = array(), $data = array(), $returnTyp
         } 
       ?>
     </div>
+  </div> -->
+  <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo">로그인</button>
+  
+
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header d-flex justify-content-center">
+        <div class="wrappers d-flex row justify-content-center">
+          <img src="admin/images/txt_logo.png" class="mt-5" width="309" height="46" alt="코드이븐로고">
+          <h1 class="modal-title fs-5 mt-5 d-flex justify-content-center" id="exampleModalLabel login">로그인</h1>
+        </div>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">  
+        <form>
+          <div class="mb-3 d-flex justify-content-center gap-4">
+            <label for="recipient-name" class="col-form-label">아이디</label>
+            <input type="text" class="form-control id" id="recipient-name" placeholder="아이디를 입력하세요">
+          </div>
+          <div class="mb-3 d-flex justify-content-center gap-3">
+            <label for="recipient-name" class="col-form-label">비밀번호</label>
+            <input type="text" class="form-control pw" id="recipient-name" placeholder="비밀번호를 입력하세요">
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer d-flex justify-content-center">
+        <!-- <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button> -->
+        <button type="button" class="btn mb-5 loginbtn">로그인</button>
+      </div>
+    </div>
   </div>
+</div>
   <div id="cookieModal" class="cookie-modal ">
     <div class="cookie-modal-content ">
       <h2 class="d-flex justify-content-center mb-3">CODE EVEN</h2>
@@ -212,6 +244,7 @@ function Call($callUrl, $method, $headers = array(), $data = array(), $returnTyp
   </div>
 </body>
 
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 <script>
  $(document).ready(function () {
     const cookieName = 'hideCookieModal'; // 쿠키 이름
