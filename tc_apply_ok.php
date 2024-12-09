@@ -34,7 +34,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     if ($check_result && $check_result->num_rows > 0) {
         echo "<script>
-            alert('이미 강사로 등록된 회원입니다.');
+            alert('이미 강사신청이 완료된 회원입니다.');
             location.href = 'index.php';
         </script>";
         exit;
