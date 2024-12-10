@@ -15,26 +15,41 @@
 
 <a href="https://www.figma.com/design/VH49EasHjN4QLjkcdUEO9n/CODE_EVEN?node-id=0-1&t=n8MCpj3Oq7MdNSB3-1"><strong>Explore the figma »</strong></a>
 </div>
+
+
 ### 일정 
 
 - [x] 3차 백엔드(관리자페이지, 강사페이지) : 기획 2024.10.09(수) ~ 10.23(수) *2주
 - [x] 3차 백엔드(관리자페이지, 강사페이지) : 디자인 2024.10.24(목) ~ 11.06(수) *2주
 - [x] 3차 백엔드(관리자페이지, 강사페이지) : 구현 2024.11.07(목) ~ 11.25(월) *2주
-- [ ] 4차 프론트엔드(메인-수강생페이지) : 기획/디자인 2024.11.26(화) ~ 12.04(수) *2주
-- [ ] 4차 프론트엔드(메인-수강생페이지) : 구현 2024.12.05(목) ~ 12.18(수) *2주
+- [x] 4차 프론트엔드(메인-수강생페이지) : 기획/디자인 2024.11.26(화) ~ 12.09(월) *2주
+- [ ] 4차 프론트엔드(메인-수강생페이지) : 구현 2024.12.10(화) ~ 12.20(금) *1주+5일
+- [ ] 리허설 : 2024.12.20(금) 
+- [ ] 최종 구현 발표 : 2024.12.23(월) 14:30🕝
 
-### 스토리보드
 
+
+### IA 구조도
+
+관리자 페이지
+http://localhost/code_even/admin/index.php
 ![image](https://github.com/user-attachments/assets/a373f778-bb4a-407a-beaf-0a43d36c7ce8)
 
+선생님 페이지(링크는 관리자페이지와 동일)
 ![image](https://github.com/user-attachments/assets/8e5ee89e-0383-4cd9-9608-4c970c6b438f)
+
+이용자 프론트 페이지
+http://localhost/code_even/index.php
+![image](https://github.com/user-attachments/assets/7ceaac9d-edf8-4130-b81e-d879daa90b71)
+
 
 
 
 ### Built With
 
-* [![Bootstrap][Bootstrap.com]][Bootstrap-url]
-* [![JQuery][JQuery.com]][JQuery-url]
+HTML/CSS, javascript, php, [![Bootstrap][Bootstrap.com]][Bootstrap-url]
+
+
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -66,12 +81,20 @@
 
 * **Gitmoji**: Commit창에서 깃모지를 바로 눌러 사용할 수 있습니다.<br>
 ![image](https://github.com/user-attachments/assets/7ba5fd2d-048f-4bfa-9d5a-1df11f69d41e)
+
+* **Night Owl**: 어두운 테마로 더 어둡고 글씨를 선명하게 보이게 합니다.
+* **Material Icon Theme**: 폴더와 각 파일을 보기좋게 표시합니다.<br>
+![image](https://github.com/user-attachments/assets/1f5ef684-e1db-46c6-a716-dd5366029b57)
+* **ESLint**: 코드 작성 규칙에 위배되는 행동에 빨간색 밑줄이 나오게 됩니다.
+* **Prettier**: 내가 작성한 코드를 보기 좋게, 또 일관성 있게 포맷팅을 해줍니다.
+* **Auto Close Tag**: 자동으로 대응/매칭되는 태그를 닫아줍니다
 * **Auto Rename Tag**:자동으로 대응/매칭되는 태그명을 변경해줍니다.
 * **htmlagwrap**: 내용을 감싸는 태그를 생성할 수 있습니다. (Win: 내용 선택 후 alt + w /Mac: 내용 선택 후 Option + W)
 * **Live Server**: HTML 파일을 브라우저에서 실시간으로 미리 볼 수 있습니다.
 
-* 설치 방법
-VSCode 상단 메뉴에서 Extensions 아이콘 클릭
+
+* 설치 방법<br>
+VSCode 상단 메뉴에서 Extensions 아이콘 클릭<br>
 위 목록의 이름을 검색하여 설치
 
 ## 2. HTML, CSS, JavaScript 코딩 스타일 가이드

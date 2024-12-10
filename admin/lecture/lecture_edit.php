@@ -229,12 +229,6 @@ while ($row = $result_videos->fetch_object()) {
                   </td>
                 </tr>
                 <tr>
-                  <th scope="row">강의 설명</th>
-                  <td colspan="3">
-                    <textarea name="lecture_description[<?= $lecture->id; ?>]" class="form-control"><?= htmlspecialchars($lecture->description); ?></textarea>
-                  </td>
-                </tr>
-                <tr>
                   <th scope="row">퀴즈 선택</th>
                   <td>
                     <select name="lecture_quiz_id[]" class="form-select">
@@ -287,32 +281,43 @@ while ($row = $result_videos->fetch_object()) {
       </div>
       <div class="d-flex justify-content-end gap-2 mt-4 mb-5">
         <button type="submit" class="btn btn-secondary">수정 완료</button>
-        <button type="button" class="btn btn-danger" onclick="window.location.href='/lecture_list.php'">취소</button>
+        <button type="button" class="btn btn-danger" onclick="window.location.href='lecture_list.php'">취소</button>
       </div>
   </form>
 </div>
 <script>
   // 카테고리 연동 스크립트
-  document.getElementById('cate1').addEventListener('change', function () {
-    updateCategories(this.value, 'cate2');
+  const categories = <?= json_encode($categories) ?>;
+
+  // 대분류 선택 시 중분류 갱신
+  $('#cate1').on('change', function () {
+    const cate1 = $(this).val();
+    updateCategories(cate1, '#cate2');
+    $('#cate3').html('<option value="">-- 선택 --</option>'); // 소분류 초기화
   });
 
-  document.getElementById('cate2').addEventListener('change', function () {
-   updateCategories(this.value, 'cate3');
+  // 중분류 선택 시 소분류 갱신
+  $('#cate2').on('change', function () {
+    const cate2 = $(this).val();
+    updateCategories(cate2, '#cate3');
   });
 
-  function updateCategories(parentCode, childId) {
-    const categories = <?= json_encode($categories) ?>;
-    const filtered = categories.filter(cat => cat.pcode === parentCode);
-    const childSelect = document.getElementById(childId);
+  // 카테고리 업데이트 함수
+  function updateCategories(parentCode, childSelector) {
+    const $childSelect = $(childSelector);
 
-    childSelect.innerHTML = '<option value="">-- 선택 --</option>';
-      filtered.forEach(cat => {
-        childSelect.innerHTML += `<option value="${cat.code}">${cat.name}</option>`;
-      });
+    // 하위 카테고리 초기화
+    $childSelect.html('<option value="">-- 선택 --</option>');
+
+    // 부모 코드에 해당하는 카테고리 필터링 및 옵션 추가
+    $(categories).each(function (_, cat) {
+      if (cat.pcode === parentCode) {
+        $childSelect.append(`<option value="${cat.code}">${cat.name}</option>`);
+      }
+    });
   }
 
-   $(document).ready(function () {
+  $(document).ready(function () {
     // 파일 입력에서 선택한 파일 이름 업데이트
     $('.file-input').on('change', function () {
       const targetId = $(this).data('target'); // 연결된 ID 가져오기
@@ -364,12 +369,6 @@ $('.add-lecture').on('click', function () {
               <th scope="row">강의명 <b>*</b></th>
               <td colspan="3">
                 <input name="new_lecture_name[]" type="text" class="form-control" placeholder="강의명을 입력해 주세요." required>
-              </td>
-            </tr>
-             <tr>
-              <th scope="row">강의 설명</th>
-              <td colspan="3">
-                <textarea name="new_lecture_description[]" class="form-control" placeholder="강의 설명을 입력해 주세요."></textarea>
               </td>
             </tr>
             <tr>

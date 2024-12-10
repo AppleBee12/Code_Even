@@ -15,19 +15,30 @@ include_once($_SERVER['DOCUMENT_ROOT'] . '/code_even/admin/inc/dbcon.php');
 */
 $cate = $_POST['cate'];
 $step = $_POST['step'];
-$category = $_POST['category'];
+$category = $_POST['category'] ;
 // print_r($cate);
 $sql = "SELECT * FROM category WHERE step = $step and pcode = '$cate' ";
 $result = $mysqli->query($sql);
 
-$html = "<option selected>{$category}</option>";
+$html = "";
+// $html = "<option selected>{$category }</option>";
+
+
 
 while($data = $result->fetch_object()){
-    $html .= "<li class='dropdown-item' onclick='selectDropdown(\"cate$step\", \"".htmlspecialchars($data->name, ENT_QUOTES)."\", \"".htmlspecialchars($data->code, ENT_QUOTES)."\")'>".htmlspecialchars($data->name, ENT_QUOTES)."</li>";
-}
+  $html .= "
+    <li class='dropdown-item d-flex justify-content-between align-items-center' onclick='selectDropdown(\"cate$step\", \"".htmlspecialchars($data->name, ENT_QUOTES)."\", \"".htmlspecialchars($data->code, ENT_QUOTES)."\")'>
+    <span>".htmlspecialchars($data->name, ENT_QUOTES)."</span>
+    <div class='icons d-flex justify-content-end gap-2'>
+      <a href='category_edit.php?cgid=".htmlspecialchars($data->cgid, ENT_QUOTES)."' class='bi bi-pencil-fill'></a>
+      <a href='category_del.php?cgid=".htmlspecialchars($data->cgid, ENT_QUOTES)."' class='delete bi bi-trash' data-id='".htmlspecialchars($data->cgid, ENT_QUOTES)."'></a>
+      </div>
+      </li>";
+    }
+
 // var_dump($_POST); // POST 데이터 확인
 
-echo json_encode($data);
+// echo json_encode($data);
 echo $html;
 $mysqli->close();
 ?>

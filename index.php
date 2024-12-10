@@ -1,72 +1,12 @@
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<?php
-session_start();
-include_once($_SERVER['DOCUMENT_ROOT'] . '/code_even/admin/inc/dbcon.php');
-
-include_once($_SERVER['DOCUMENT_ROOT'] . '/code_even/inc/check_cookie.php');
-
-//카카오 로그인 공통 : Config
-$REST_API_KEY   = "5fa7150969af80c8040eb8c4bcd59bf2"; // 내 애플리케이션 > 앱 설정 > 요약 정보
-$CLIENT_SECRET  = ""; // 내 애플리케이션 > 제품 설정 > 카카오 로그인 > 보안
-$REDIRECT_URI   = urlencode("http://localhost/kakao_rest_api_example.php");
-?>
-<?php //공통 : API Call Function
-function Call($callUrl, $method, $headers = array(), $data = array(), $returnType="jsonObject")
-{
-    echo "<pre>".$callUrl."</pre>";
-    try {
-        $ch = curl_init();
-        curl_setopt($ch, CURLOPT_URL, $callUrl);
-        if ($method == "POST") {
-            curl_setopt($ch, CURLOPT_POST, true);
-            curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
-        } else {
-            curl_setopt($ch, CURLOPT_POST, false);
-        }
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
-        curl_setopt($ch, CURLOPT_HTTP200ALIASES, array(400));
-        $response = curl_exec($ch);
-        $status_code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
-        curl_close($ch);
-
-        echo "<pre>".$status_code.":".$response."</pre>";
-        
-        if ($returnType=="jsonObject") return json_decode($response);
-        else return $response;     
-    } catch (Exception $e) {
-        echo $e;
-    }    
-}
-?>
-
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
-  integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-  <link rel="stylesheet" href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/css/common.css">
-  <link rel="stylesheet" href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/css/main.css">
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-  <link rel="stylesheet" href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/js/main.js">
-
-  <title>CodeEven</title>
-</head>
-<body>
-  <div class="mx-auto pt-5" style="width: 320px;">
-    <img src="admin/images/sb_logo.png" width="300" height="200" alt="코드이븐로고">
-    <div>To be continue...</div>
-    <p>코드이븐 클라이언트 페이지는 제작예정입니다</p>
-    <p><a href="http://localhost/code_even/admin/login/login.php">어드민(관리자&강사)페이지 바로가기</a></p>
-    <ul class="list-group pt-3">
-      <li class="list-group-item"><a href="tc_applyform.php" class="link-underline-danger link-offset-2 link-body-emphasis a_underline">강의자신청(임시)</a></li>
-      <!-- <li class="list-group-item"><a href="" class="link-underline-danger link-offset-2 link-body-emphasis a_underline">결제페이지(임시)</a></li> -->
-    </ul>
-  </div>
+<?php include_once($_SERVER['DOCUMENT_ROOT'] . '/CODE_EVEN/front/inc/header.php');?>
 
 
+<!-- 여기부터 정리해주세용! -->
+  <p><a href="http://localhost/code_even/admin/login/login.php">어드민(관리자&강사)페이지 바로가기</a></p>
+  <p><a href="tc_applyform.php" class="link-underline-danger link-offset-2 link-body-emphasis a_underline">강의자신청(임시)</a></p>
+  <p><a href="" class="link-underline-danger link-offset-2 link-body-emphasis a_underline">결제페이지(임시)</a></p>
+    
+  
   <?php if(!isset($_SESSION['AUID'])){ ?>
   <div class="loginform d-flex gap-3">
     <span class="pointer" data-bs-toggle="modal" data-bs-target="#exampleModaltest" data-bs-whatever="@mdo">로그인</span>
@@ -115,7 +55,7 @@ function Call($callUrl, $method, $headers = array(), $data = array(), $returnTyp
   <?php
     } 
   ?>
-
+  <!-- 쿠키 모달 창 -->
   <div id="cookieModal" class="cookie-modal ">
     <div class="cookie-modal-content ">
       <h2 class="d-flex justify-content-center mb-3">CODE EVEN</h2>
@@ -125,7 +65,7 @@ function Call($callUrl, $method, $headers = array(), $data = array(), $returnTyp
       <div class="text-start">
         <div>
           <span><b>팀원 : </b>홍수진(팀장), 배유나, 조채림, 최은화, 홍은진</span><br>
-          <span><b>제작기간</b> : 2024.10.23 - 2024.11.25 </span><br>
+          <span><b>제작기간</b> : 2024.11.26 - 2024.11.23 </span><br>
           <span><b>개발환경</b> : HTML/CSS, Javascript, J-Query, PHP</span><br>
           <div class="link3">
             <span><b>기획자료 :</b>  <a href="https://www.figma.com/deck/MQfJi66QGjjvn4nzpNfIQz/CODE_EVEN_LMS%EA%B5%AC%ED%98%84%EB%B0%9C%ED%91%9C-%EC%B5%9C%EC%A2%85?node-id=1-466&node-type=slide&viewport=-123%2C-137%2C0.7&t=QMdQYEzDrnraOO0y-1&scaling=min-zoom&content-scaling=fixed&page-id=0%3A1" target="_blank">figma</a>
@@ -186,7 +126,9 @@ function Call($callUrl, $method, $headers = array(), $data = array(), $returnTyp
       </button>
     </div>
   </div>
-</body>
+
+
+
 
 <script>
  $(document).ready(function () {
@@ -227,4 +169,47 @@ function Call($callUrl, $method, $headers = array(), $data = array(), $returnTyp
 
 </script>
 
-</html>
+<!-- 여기까지 정리 해서 옮겨주세용!!!!! -->
+
+
+<section class="sec01">
+  <h5>sec01배너가 나올 부분입니다</h5>
+  <div></div>
+</section>
+<section class="sec02">
+  <h5>sec02카테고리가 나올 부분입니다</h5>
+  <ul>
+    <li>카테1</li>
+    <li>카테2</li>
+    <li>카테3</li>
+    <li>카테4</li>
+    <li>카테5</li>
+    <li>카테6</li>
+  </ul>
+</section>
+<section class="sec03">
+  <h5>sec03 베스트 추천 강좌</h5>
+  <div></div>
+</section>
+<section class="sec04">
+  <h5>sec04 지금 가장 인기있는 레시피</h5>
+  <div></div>
+</section>
+<section class="sec05">
+  <h5>sec05 수강생 후기 배너</h5>
+  <div></div>
+</section>
+<section class="sec06">
+  <h5>sec06 이달의 BEST 선생님</h5>
+  <div></div>
+</section>
+<section class="sec07">
+  <h5>sec07 강사 신청하기 배너</h5>
+  <div></div>
+</section>
+<section class="sec08">
+  <h5>sec08 최신 강좌</h5>
+  <div></div>
+</section>
+
+<?php include_once($_SERVER['DOCUMENT_ROOT'] . '/CODE_EVEN/front/inc/footer.php');?>

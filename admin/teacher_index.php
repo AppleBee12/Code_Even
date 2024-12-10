@@ -20,7 +20,7 @@ if (!isset($_SESSION['AUID'])) {
     <div class="d-flex justify-content-between">
     <img class="profile_image" src="http://<?= $_SERVER['HTTP_HOST']; ?>/<?= empty($tc->tc_thumbnail) ? 'code_even/admin/images/adminprofile.png' : $tc->tc_thumbnail; ?>" alt="강사 프로필 사진">
       <div class="d-flex flex-column justify-content-end align-items-end">
-        <h3><?= $realusername ?><span class="top_text"> Teacher</span></h3>
+        <h3><?= $username; ?><span class="top_text"> Teacher</span></h3>
         <p><span class="top_text"><?=$realuseremail?></span></p>
       </div>
     </div>

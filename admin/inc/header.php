@@ -19,6 +19,7 @@ if (!isset($title)) {
 $current_page = basename($_SERVER['REQUEST_URI'], ".php");
 $level = $_SESSION['AULEVEL'];
 $uid = $_SESSION['UID'];
+$username = $_SESSION['AUNAME'];
 
 $name_sql = "SELECT username, useremail FROM user WHERE uid = $uid";
 $result = $mysqli->query($name_sql);
@@ -174,6 +175,7 @@ if ($level == 100) {
     case 'lecture_view.php':
     case 'lecture_edit.php':
     case 'quiz_test_up.php':
+    case 'quiz_test_edit.php':
     case 'book_up.php':
     case 'book_edit.php':
       echo '<link rel="stylesheet" href="http://' . $_SERVER['HTTP_HOST'] . '/code_even/admin/css/lecture.css">';
@@ -271,8 +273,8 @@ if ($level == 100) {
       </div>
       <div class="greet_name bd">
         <p>
-          <?php if (isset($realusername)) { ?>
-            <?= $realusername ?> 님
+          <?php if (isset($username)) { ?>
+            <?= $username ?> 님
           <?php } else { ?>
             <span>로그인이 필요합니다.</span>
           <?php }; ?>
@@ -403,7 +405,7 @@ if ($level == 100) {
                 aria-expanded="false"><i class="bi bi-chevron-down"></i></button>
               <ul class="collapse btn-toggle-nav" id="payment_collapse">
                 <li class="list-group-item dropdown-item"><a
-                    href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/orders/orders_list.php">　　-　주문/결제 목록</a>
+                    href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/orders/orders_list.php">　　-　주문결제 목록</a>
                 </li>
                 <li class="list-group-item dropdown-item"><a
                     href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/orders/delivery_list.php">　　-　교재 배송관리</a>
