@@ -13,7 +13,8 @@ $target = $_POST['target'];
 $table_name = $_POST['table_name'];
 
 // 세션에서 이미지 URL 가져오기
-$imageUrl = isset($_SESSION['imageUrl']) ? $_SESSION['imageUrl'] : null;
+$imageUrl = isset($_SESSION['imageUrl']) ? $_SESSION['imageUrl'] : [];
+var_dump($_SESSION['imageUrl']);
 
 // 이미지 URL 값 확인하기
 // echo "<pre>";
@@ -29,10 +30,22 @@ $faq_sql = "
 $faq_result = $mysqli->query($faq_sql);
 $faq_id = $mysqli->insert_id;
 
-$image_sql = "INSERT INTO summer_images (table_name, table_id, file_name) VALUES ('$table_name', '$faq_id', '$imageUrl')";
-$image_result = $mysqli->query($image_sql);
+// 여러 개의 이미지가 있는 경우 처리
+if ($imageUrl) {
+  foreach ($imageUrl as $image) {
+      // summer_images 테이블에 삽입
+      $image_sql = "INSERT INTO summer_images (table_name, table_id, file_name) VALUES ('$table_name', '$faq_id', '$image')";
+      $image_result = $mysqli->query($image_sql);
+  }
+} else {
+  // 이미지가 없으면 삽입하지 않음
+  $image_result = true;
+}
 
 if ($faq_result === true && $image_result === true) {
+  // $_SESSION['imageUrl']만 삭제
+  unset($_SESSION['imageUrl']);
+
   $redirect_url = ($target === 'teacher') ? 'teacher_faq.php' : (($target === 'student') ? 'student_faq.php' : 'faq.php');
   echo
     "<script>
