@@ -13,7 +13,8 @@
     od.product_title AS product_title,
     od.cnt AS cnt,
     od.pay_status AS order_detail_status,
-    od.price AS price
+    od.price AS price,
+    r.re_amount AS refund_price
   FROM  
     orders o
   LEFT JOIN 
@@ -24,6 +25,10 @@
     order_details od
   ON 
     o.odid = od.odid
+  LEFT JOIN 
+    refunds r
+  ON 
+    o.odid = r.odid
   WHERE 
     o.odid = $odid
   ORDER BY 
@@ -96,7 +101,7 @@
               <td>{$data->cnt}</td>
               <td>" . number_format($data->price) . "</td>
               <td>" . number_format($data->discount_amount) . "</td>
-              <td>환불액</td>
+              <td>". number_format($data->refund_price) . "</td>
               <td>" . number_format($data->final_amount) . "</td>
               <td>{$status}</td>
           </tr>";
@@ -136,17 +141,17 @@
         <tr> 
             <th scope="row">아이디</th>
             <td>
-                <?= htmlspecialchars($firstData->user_id); // 사용자 아이디 ?>
+                <?= htmlspecialchars($firstData->user_id); ?>
             </td>
             <th scope="row">결제일 <b>*</b></th>
             <td>
-                <?= htmlspecialchars($firstData->order_date); // 결제일 ?>
+                <?= htmlspecialchars($firstData->order_date); ?>
             </td>
         </tr>
         <tr>
           <th scope="row">이름 <b>*</b></th>
           <td colspan="3">
-              <?= htmlspecialchars($firstData->user_name); // 사용자 이름 ?>
+              <?= htmlspecialchars($firstData->user_name);  ?>
           </td>   
         </tr>
         <tr>
@@ -158,14 +163,14 @@
         <tr>
             <th scope="row">결제금액</th>
             <td colspan="3">
-                <?= number_format($firstData->final_amount); // 결제 금액 ?> 원
+                <?= number_format($firstData->final_amount); ?> 원
             </td>
         </tr>
         
         <tr>
             <th scope="row">결제방법</th>
             <td colspan="3">
-                <?= isset($pay_methods[$firstData->pay_method]) ? $pay_methods[$firstData->pay_method] : "알 수 없음"; // 결제방법 출력 ?>
+                <?= isset($pay_methods[$firstData->pay_method]) ? $pay_methods[$firstData->pay_method] : "알 수 없음"; ?>
             </td>
         </tr>
         <?php
