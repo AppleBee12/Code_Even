@@ -62,6 +62,7 @@ function Call($callUrl, $method, $headers = array(), $data = array(), $returnTyp
   <title>코드이븐 <?= $title ?>페이지에 오신것을 환영합니다.</title>
 
   <!-- 공통 CSS -->
+  <link rel="stylesheet" href="http://<?= $_SERVER['HTTP_HOST'] ?>/code_even/admin/css/reset.css">
   <link href="https://cdn.jsdelivr.net/gh/sun-typeface/SUIT@2/fonts/static/woff2/SUIT.css" rel="stylesheet">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
@@ -69,8 +70,8 @@ function Call($callUrl, $method, $headers = array(), $data = array(), $returnTyp
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/summernote@0.8.20/dist/summernote-lite.min.css"
     integrity="sha256-IKhQVXDfwbVELwiR0ke6dX+pJt0RSmWky3WB2pNx9Hg=" crossorigin="anonymous">
 
-  <link rel="stylesheet" href="<?= $_SERVER['DOCUMENT_ROOT'] ?>/code_even/admin/css/reset.css">
-  <link rel="stylesheet" href="<?= $_SERVER['DOCUMENT_ROOT'] ?>/code_even/front/css/common.css">
+  
+  <link rel="stylesheet" href="http://<?= $_SERVER['HTTP_HOST'] ?>/code_even/front/css/common.css">
 
 
   <!-- 개인 CSS -->
@@ -96,7 +97,7 @@ function Call($callUrl, $method, $headers = array(), $data = array(), $returnTyp
     <div class="container">
       <div class="header-grade1 d-flex">
         <div class="header-logo">
-          <a href=""><h1>CODEEVEN</h1></a>
+          <h1 class="logo"><a href="">CODE EVEN</a></h1>
         </div>
         <div>
           <ul>
