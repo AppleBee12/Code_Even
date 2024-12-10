@@ -21,6 +21,8 @@ $data = $result->fetch_object();
     <input type="hidden" name="userid" value="<?= $data->userid; ?>">
     <input type="hidden" name="fqid" value="<?= $data->fqid; ?>">
     <input type="hidden" name="content" id="faq_content">
+    <input type="hidden" name="table_name" id="table_name" value="faq">
+    <input type="hidden" name="table_id" id="table_id" value="<?= $data->fqid; ?>">
     <table class="table details_table">
       <colgroup>
         <col class="col-width-160">
