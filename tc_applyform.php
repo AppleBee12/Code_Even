@@ -42,54 +42,60 @@ while($data = $category_result->fetch_object()){
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
   integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
   <link rel="stylesheet" href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/css/common.css">
+  <link rel="stylesheet" href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/student/css/main.css">
   <title>CodeEven</title>
 </head>
 <body>
-<div class="container mt-5 col-3 w-25 mb-5">
-    <h1 class="mb-5">강사 신청(임시)</h1>
-    <form action="tc_apply_ok.php" method="POST" class="signup_con">
-      <div class="mb-3 justify-content-center">
-        <label for="username" class="form-label">이름</label>
-        <input type="text" class="form-control" id="name" name="username" value="<?= $user_data->username; ?>" disabled readonly>
-      </div>
-      <div class="mb-3">
-        <label for="tc_userphone" class="form-label">연락처</label>
-        <input type="text" class="form-control" id="contact" name="tc_userphone" value="<?= $user_data->userphonenum; ?>" disabled readonly>
-      </div>
-      <div class="mb-3">
-        <label for="tc_email" class="form-label">이메일</label>
-        <input type="email" class="form-control" id="email" name="tc_email" value="<?= $user_data->useremail; ?>" disabled readonly>
-      </div>
-      <div class="mb-3">
-        <label for="tc_intro" class="form-label">소개글 <b>*</b></label>
-        <textarea class="form-control" id="tc_intro" rows="3" name="tc_intro" placeholder="간단한 자기소개 부탁드려요."></textarea>
-      </div>
-      <div class="mb-3">
-        <label for="tc_url" class="form-label">URL</label>
-        <input type="text" class="form-control" id="tc_url" name="tc_url" value="" placeholder="https://"> 
-          <p>* 활동 중인 SNS, 대표 사이트를 첨부해주세요</p>
-      </div>
-      <div class="mb-3">
-        <label for="categories" class="form-label">희망 분야 <b>*</b></label><br>
-        <?php if (isset($categories)) {
-          foreach ($categories as $category) { ?>
-            <input type="radio" id="category<?= $category->cgid; ?>" name="category" value="<?= $category->cgid; ?>">
-            <label for="category<?= $category->cgid; ?>"><?= $category->name; ?></label><br>
-        <?php }} else { ?>
-          <p>선택 가능한 희망 분야가 없습니다.</p>
-        <?php } ?>
-      </div>
-      <div class="form-check my-3">
-        <input class="form-check-input" type="checkbox" value="" id="agree">
-        <label class="form-check-label" for="agree">
-          [필수] 개인정보 수집  및 이용에 동의합니다.
-        </label>
-      </div>
-      
-      <button type="submit" class="btn btn-primary">신청하기</button>
-    </form>
+<div class="d-flex gap-5 align-items-center bgsz">
+  <div class="container col-3 w-25 mb-5 mt-5">
+      <h1 class=" mb-5 ">강사 신청(임시)</h1>
+      <form action="tc_apply_ok.php" method="POST" class="signup_con">
+        <div class="mb-3 justify-content-center d-flex">
+          <label for="username" class="form-label align-self-center">이름</label>
+          <input type="text" class="form-control" id="name" name="username" value="<?= $user_data->username; ?>" disabled readonly>
+        </div>
+        <!-- <div class="wrappers d-flex ">
+          <label for="username" class="form-label w-25 align-self-center">이름 </label>
+          <input type="text" id="name" name="username" class="form-control" value="<?= $user_data->username; ?>" disabled readonly>
+        </div> -->
+        <div class="mb-3">
+          <label for="tc_userphone" class="form-label">연락처</label>
+          <input type="text" class="form-control" id="contact" name="tc_userphone" value="<?= $user_data->userphonenum; ?>" disabled readonly>
+        </div>
+        <div class="mb-3">
+          <label for="tc_email" class="form-label">이메일</label>
+          <input type="email" class="form-control" id="email" name="tc_email" value="<?= $user_data->useremail; ?>" disabled readonly>
+        </div>
+        <div class="mb-3">
+          <label for="tc_intro" class="form-label">소개글 <b>*</b></label>
+          <textarea class="form-control" id="tc_intro" rows="3" name="tc_intro" placeholder="간단한 자기소개 부탁드려요."></textarea>
+        </div>
+        <div class="mb-3">
+          <label for="tc_url" class="form-label">URL</label>
+          <input type="text" class="form-control" id="tc_url" name="tc_url" value="" placeholder="https://"> 
+            <p>* 활동 중인 SNS, 대표 사이트를 첨부해주세요</p>
+        </div>
+        <div class="mb-3">
+          <label for="categories" class="form-label">희망 분야 <b>*</b></label><br>
+          <?php if (isset($categories)) {
+            foreach ($categories as $category) { ?>
+              <input type="radio" id="category<?= $category->cgid; ?>" name="category" value="<?= $category->cgid; ?>">
+              <label for="category<?= $category->cgid; ?>"><?= $category->name; ?></label><br>
+          <?php }} else { ?>
+            <p>선택 가능한 희망 분야가 없습니다.</p>
+          <?php } ?>
+        </div>
+        <div class="form-check my-3">
+          <input class="form-check-input" type="checkbox" value="" id="agree">
+          <label class="form-check-label" for="agree">
+            [필수] 개인정보 수집  및 이용에 동의합니다.
+          </label>
+        </div>
+        
+        <button type="submit" class="btn btn-primary">신청하기</button>
+      </form>
+  </div>
 </div>
-
 <script>
 $(document).ready(function(){
   $(".signup_con").on("submit", function(event){

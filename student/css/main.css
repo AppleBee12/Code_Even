@@ -12,6 +12,9 @@
   }
   
   /* 회원가입 */
+  .images1 img{
+    width: 547px;
+  }
   .bgsz{
     background: #000;
   }
@@ -19,11 +22,28 @@
   h1, label{
     color: #fff;
   }
-  
-  form .wrap{
-    display: flex;
-    gap: 10px;
+  .form-label{
+    margin-bottom: 0;
+  }
+
+  /* .w_input{
+    margin-left: -6%;
+  } */
+
+  .wrappers{
+    margin-top: 30px;
     label{
-      align-items: center;
+      width: 100px;
     }
+    input{
+      height: 50px;
+    }
+  }
+  .redbtn{
+    background: var(--red800);
+    border: none;
+  }
+  .redbtn:hover{
+    background: var(--red900);
+    border: none;
   }
