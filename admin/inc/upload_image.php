@@ -16,7 +16,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         'status' => 'success',
         'imageUrl' => $accessibleUrlBase . $fileName, // 브라우저에서 접근 가능한 경로
     ]);
-    $_SESSION['imageUrl'] = $accessibleUrlBase . $fileName;
+    if (!isset($_SESSION['imageUrl']) || !is_array($_SESSION['imageUrl'])) {
+      $_SESSION['imageUrl'] = []; // 배열로 초기화
+  }
+    $_SESSION['imageUrl'][] = $accessibleUrlBase . $fileName;
     
   } else {
     echo json_encode([
