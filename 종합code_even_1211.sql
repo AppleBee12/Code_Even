@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- 생성 시간: 24-11-29 09:54
+-- 생성 시간: 24-12-10 05:05
 -- 서버 버전: 10.4.32-MariaDB
 -- PHP 버전: 8.2.12
 
@@ -557,7 +557,6 @@ CREATE TABLE `lecture_detail` (
   `id` int(11) NOT NULL COMMENT '강의 ID',
   `lecture_id` int(11) NOT NULL COMMENT '강좌 ID (외래키)',
   `title` varchar(255) NOT NULL COMMENT '강의명',
-  `description` text DEFAULT NULL COMMENT '강의 설명',
   `quiz_id` int(11) DEFAULT NULL COMMENT '퀴즈 ID (외래키)',
   `test_id` int(11) DEFAULT NULL COMMENT '시험 ID (외래키)',
   `file_id` int(11) DEFAULT NULL COMMENT '실습 파일 ID (외래키)',
@@ -1119,6 +1118,10 @@ INSERT INTO `student_qna` (`sqid`, `cdid`, `qtitle`, `qcontent`, `regdate`) VALU
 CREATE TABLE `stuscores` (
   `exid` int(11) NOT NULL COMMENT '번호',
   `stu_id` int(11) NOT NULL COMMENT '수강생id',
+  `quiz` int(11) DEFAULT NULL COMMENT '퀴즈 exid(외래키)',
+  `quiz_answer` int(11) DEFAULT NULL COMMENT '퀴즈 정답(외래키)',
+  `test` int(11) DEFAULT NULL COMMENT '시험 exid(외래키)',
+  `test_answer` int(11) DEFAULT NULL COMMENT '시험 정답(외래키)',
   `score` int(11) NOT NULL COMMENT '점수',
   `answer` varchar(100) NOT NULL COMMENT '제출한 정답',
   `pnlevel` tinyint(4) NOT NULL COMMENT '수준당 점수'
@@ -1634,7 +1637,10 @@ ALTER TABLE `student_qna`
 -- 테이블의 인덱스 `stuscores`
 --
 ALTER TABLE `stuscores`
-  ADD PRIMARY KEY (`exid`);
+  ADD PRIMARY KEY (`exid`),
+  ADD KEY `quiz` (`quiz`,`test`),
+  ADD KEY `test` (`test`),
+  ADD KEY `quiz_answer` (`quiz_answer`,`test_answer`);
 
 --
 -- 테이블의 인덱스 `summer_images`
@@ -1974,6 +1980,13 @@ ALTER TABLE `send_email`
 --
 ALTER TABLE `student_qna`
   ADD CONSTRAINT `student_qna_ibfk_1` FOREIGN KEY (`cdid`) REFERENCES `class_data` (`cdid`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- 테이블의 제약사항 `stuscores`
+--
+ALTER TABLE `stuscores`
+  ADD CONSTRAINT `stuscores_ibfk_1` FOREIGN KEY (`quiz`) REFERENCES `quiz` (`exid`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `stuscores_ibfk_2` FOREIGN KEY (`test`) REFERENCES `test` (`exid`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- 테이블의 제약사항 `teachers`
