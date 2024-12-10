@@ -39,52 +39,6 @@ function Call($callUrl, $method, $headers = array(), $data = array(), $returnTyp
     }    
 }
 ?>
-<style>
-/* 모달 배경 */
-.cookie-modal {
-  display: none; 
-  position: fixed;
-  z-index: 1;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.4); /* 배경 어둡게 */
-}
-
-/* 모달 콘텐츠 */
-.cookie-modal-content {
-  background-color: #fff;
-  /* margin: 5% auto; */
-  padding: 20px;
-  margin: 30px;
-  border: 5px solid var(--bk900);
-  width: 80%;
-  max-width: 500px;
-  text-align: center;
-  border-radius: 5px;
-  position: relative;
-}
-
-.cookie-close-btn:hover,
-.cookie-close-btn:focus {
-  color: black;
-  text-decoration: none;
-  cursor: pointer;
-}
-
-#cookieAgreeBtn:hover {
-  background-color: #45a049;
-}
-
-/* 닫기 버튼 */
-.close_txt{
-  background: none;
-  border: none;
-}
-
-</style>
-
 
 <!DOCTYPE html>
 <html lang="en">
@@ -94,7 +48,10 @@ function Call($callUrl, $method, $headers = array(), $data = array(), $returnTyp
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
   integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
   <link rel="stylesheet" href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/css/common.css">
-    <link rel="stylesheet" href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/css/main.css">
+  <link rel="stylesheet" href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/css/main.css">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <link rel="stylesheet" href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/js/main.js">
+
   <title>CodeEven</title>
 </head>
 <body>
@@ -108,77 +65,56 @@ function Call($callUrl, $method, $headers = array(), $data = array(), $returnTyp
       <!-- <li class="list-group-item"><a href="" class="link-underline-danger link-offset-2 link-body-emphasis a_underline">결제페이지(임시)</a></li> -->
     </ul>
   </div>
-  <!-- <div class="gap-5 align-items-center bgsz ">
-    <div class="w-50 container d-flex justify-content-center align-items-center">
-      <?php if(!isset($_SESSION['AUID'])){
-      ?>
-      <div class="w-50 d-flex flex-column align-items-center">
-        <h1 class="mt-5">로그인</h1>
-        <form action="members/login/login_ok.php" method="POST" class="w-100">
-          <label for="inputId" class="form-label mt-3">아이디</label>
-          <input type="text" id="inputId" class="form-control" placeholder="아이디를 입력하세요" name="userid" required>
-          
-          <label for="inputPassword" class="form-label mt-3">비밀번호</label>
-          <input type="password" id="inputPassword" class="form-control" placeholder="비밀번호를 입력하세요" name="userpw" required>
-          
-          <button class="btn btn-primary mt-3 w-100">로그인</button>
-          <a href="https://kauth.kakao.com/oauth/authorize?client_id=<?=$REST_API_KEY?>&response_type=code&redirect_uri=<?=$REDIRECT_URI?>"><img src="images/kakaobtn.png" width="463" class="mt-1"/></a>
-          
-          <div class="mt-3 d-flex flex-columns justify-content-center gap-3">
-            <a href="#" class="link-body-emphasis ">아이디 찾기</a>
-            <a href="#" class="link-body-emphasis">비밀번호 찾기</a>
-            <a href="members/signup/signup.php" class="link-body-emphasis text-decoration-underline">회원가입</a>
-          </div>
-        </form>
-      </div>
-      <?php
-        }else{
-      ?>
-      <a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/members/login/logout.php">로그아웃</a>
-      <?php
-        } 
-      ?>
-    </div>
-  </div> -->
-  <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo">로그인</button>
-  
 
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header d-flex justify-content-center">
-        <div class="wrappers d-flex row justify-content-center">
-          <img src="admin/images/txt_logo.png" class="mt-5" width="309" height="46" alt="코드이븐로고">
-          <h1 class="modal-title fs-5 mt-5 d-flex justify-content-center" id="exampleModalLabel login">로그인</h1>
+
+  <?php if(!isset($_SESSION['AUID'])){ ?>
+  <div class="loginform d-flex gap-3">
+    <span class="pointer" data-bs-toggle="modal" data-bs-target="#exampleModaltest" data-bs-whatever="@mdo">로그인</span>
+    <a href="members/signup/signup.php" class="link-body-emphasis">회원가입</a>
+  </div>
+
+  <div class="modal fade" id="exampleModaltest" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header d-flex justify-content-center">
+          <div class="wrappers d-flex row justify-content-center">
+            <img src="admin/images/txt_logo.png" class="mt-5" width="309" height="46" alt="코드이븐로고">
+            <h1 class="modal-title fs-5 mt-5 d-flex justify-content-center" id="exampleModalLabel login">로그인</h1>
+          </div>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">  
-        <form action="members/login/login_ok.php" method="POST" >
-          <div class="mb-3 d-flex justify-content-center gap-4">
-            <label for="inputId" class="col-form-label align-self-center">아이디</label>
-            <input type="text" class="form-control id" id="inputId" placeholder="아이디를 입력하세요" required>
-          </div>
-          <div class="mb-3 d-flex justify-content-center gap-3">
-            <label for="inputPassword" class="col-form-label align-self-center">비밀번호</label>
-            <input type="text" class="form-control pw" id="inputPassword" placeholder="비밀번호를 입력하세요" required>
-          </div>
-          <div class="modal-footer d-flex justify-content-center">
-            <!-- <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button> -->
-            <button type="button" class="btn loginbtn">로그인</button>
-            <div class="mt-3 d-flex flex-columns justify-content-center gap-3 mb-5">
-              <a href="#" class="link-body-emphasis ">아이디 찾기</a>
-              <a href="#" class="link-body-emphasis">비밀번호 찾기</a>
-              <a href="members/signup/signup.php" class="link-body-emphasis text-decoration-underline">회원가입</a>
+        <div class="modal-body">  
+          <form action="members/login/login_ok.php" method="POST" >
+            <div class="mb-3 d-flex justify-content-center gap-4 mid">
+              <label for="inputId" class="col-form-label align-self-center">아이디</label>
+              <input type="text" class="form-control id" id="inputId" placeholder="아이디를 입력하세요" name="userid" required>
             </div>
-          </div>
-        </form>
+            <div class="mb-3 d-flex justify-content-center gap-3 mpw">
+              <label for="inputPassword" class="col-form-label align-self-center">비밀번호</label>
+              <input type="password" class="form-control pw" id="inputPassword" placeholder="비밀번호를 입력하세요"   name="userpw" required>
+            </div>
+            <div class="modal-footer d-flex justify-content-center">
+              <button class="btn loginbtn">로그인</button>
+              <a href="https://kauth.kakao.com/oauth/authorize?client_id=<?=$REST_API_KEY?>&response_type=code&redirect_uri=<?=$REDIRECT_URI?>"><img src="images/kakaobtn.png" width="345" height="34" class="mt-1 "/></a>
+
+              <div class="mt-3 d-flex flex-columns justify-content-center gap-3 mb-5">
+                <a href="#" class="link-body-emphasis ">아이디 찾기</a>
+                <a href="#" class="link-body-emphasis">비밀번호 찾기</a>
+                <a href="members/signup/signup.php" class="link-body-emphasis text-decoration-underline">회원가입</a>
+              </div>
+            </div>
+          </form>
+        </div>
       </div>
     </div>
   </div>
-</div>
-
-
+  <?php
+    }else{
+  ?>
+  <a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/members/login/logout.php">로그아웃</a>
+  <?php
+    } 
+  ?>
 
   <div id="cookieModal" class="cookie-modal ">
     <div class="cookie-modal-content ">
@@ -252,7 +188,6 @@ function Call($callUrl, $method, $headers = array(), $data = array(), $returnTyp
   </div>
 </body>
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 <script>
  $(document).ready(function () {
     const cookieName = 'hideCookieModal'; // 쿠키 이름
@@ -273,11 +208,6 @@ function Call($callUrl, $method, $headers = array(), $data = array(), $returnTyp
         date.setTime(date.getTime() + days * 24 * 60 * 60 * 1000);
         document.cookie = `${name}=${value}; expires=${date.toUTCString()}; path=/`;
     }
-
-    // 쿠키 삭제 함수 (테스트용)
-    // function deleteCookie(name) {
-    //     document.cookie = `${name}=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;`;
-    // }
 
     // "오늘 하루 안 보기" 클릭 이벤트
     $('#cookieCloseBtn').on('click', function () {
