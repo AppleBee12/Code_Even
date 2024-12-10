@@ -27,8 +27,11 @@ foreach ($data as $date => $count) {
   $latestMonths = array_slice(array_keys($monthlyData), -6); //최신 6개월 만 array
   $latestCounts = array_slice(array_values($monthlyData), -6);//최신 방문자 수 만 array
   
+
 ?>
 <style>
+  
+
 /* 모달 배경 */
 .cookie-modal {
   display: none; 
@@ -72,14 +75,13 @@ foreach ($data as $date => $count) {
   background: none;
   border: none;
 }
-
 </style>
 
 
 <div class="container">
   <div class="top_wrapper d-flex justify-content-between">
     <div>
-      <h3>11월 수익</h3>
+      <h3><span class="this-month"></span> 수익</h3>
       <p>7,123,000<span class="top_text"> 원</span></p>
     </div>
     <div>
@@ -108,7 +110,7 @@ foreach ($data as $date => $count) {
       <div class="sellcost_best_table">
         <div class="d-flex justify-content-between">
           <h3>판매 금액 BEST 강좌</h3>
-          <p class="month">11월 현황</p>
+          <p class="month"><span class="this-month"></span> 현황</p>
         </div>
         <div class="row g-0 text-center">
           <div class="p-2 col-2 sst">순위</div>
@@ -139,7 +141,7 @@ foreach ($data as $date => $count) {
         <div>
           <div class="d-flex justify-content-between">
             <h3>신규 가입자 현황</h3>
-            <p class="month">11월 현황</p>
+            <p class="month"><span class="this-month"></span> 현황</p>
           </div>
           <p>5,412<span class="top_text"> 명</span></p>
           <canvas id="current_six_news" width="400" height="250"></canvas>
@@ -147,7 +149,7 @@ foreach ($data as $date => $count) {
         <div>
           <div class="d-flex justify-content-between">
             <h3>카테고리별 매출 금액</h3>
-            <p class="month">11월 현황</p>
+            <p class="month"><span class="this-month"></span> 현황</p>
           </div>
           <p>7,123,000<span class="top_text"> 원</span></p>
           <canvas id="cate_one_return" width="250" height="250"></canvas>
@@ -230,53 +232,58 @@ foreach ($data as $date => $count) {
 
 
 <script>
-  const latestCounts = <?php echo json_encode($latestCounts, JSON_NUMERIC_CHECK); ?>; 
 
-  $(document).ready(function () {
-    const cookieName = 'hideCookieModal'; // 쿠키 이름
-    const cookieValue = 'true'; // 쿠키 값
-    const cookieExpireDays = 1; // 쿠키 유지 기간 (1일)
-    
-    // 쿠키 확인 함수
-    function getCookie(name) {
-        const value = `; ${document.cookie}`;
-        const parts = value.split(`; ${name}=`);
-        if (parts.length === 2) return parts.pop().split(';').shift();
-        return null;
-    }
 
-    // 쿠키 설정 함수
-    function setCookie(name, value, days) {
-        const date = new Date();
-        date.setTime(date.getTime() + days * 24 * 60 * 60 * 1000);
-        document.cookie = `${name}=${value}; expires=${date.toUTCString()}; path=/`;
-    }
+//모달창 쿠키 양식
+const latestCounts = <?php echo json_encode($latestCounts, JSON_NUMERIC_CHECK); ?>; 
 
-    // 쿠키 삭제 함수 (테스트용)
-    // function deleteCookie(name) {
-    //     document.cookie = `${name}=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;`;
-    // }
+$(document).ready(function () {
+  const cookieName = 'hideCookieModal'; // 쿠키 이름
+  const cookieValue = 'true'; // 쿠키 값
+  const cookieExpireDays = 1; // 쿠키 유지 기간 (1일)
+  
+  // 쿠키 확인 함수
+  function getCookie(name) {
+      const value = `; ${document.cookie}`;
+      const parts = value.split(`; ${name}=`);
+      if (parts.length === 2) return parts.pop().split(';').shift();
+      return null;
+  }
 
-    // "오늘 하루 안 보기" 클릭 이벤트
-    $('#cookieCloseBtn').on('click', function () {
-        if ($('#check').is(':checked')) {
-            // 체크박스가 체크된 경우 쿠키 설정
-            setCookie(cookieName, cookieValue, cookieExpireDays);
-        }
-        // 모달 닫기
-        $('#cookieModal').fadeOut();
-    });
+  // 쿠키 설정 함수
+  function setCookie(name, value, days) {
+      const date = new Date();
+      date.setTime(date.getTime() + days * 24 * 60 * 60 * 1000);
+      document.cookie = `${name}=${value}; expires=${date.toUTCString()}; path=/`;
+  }
 
-    // 페이지 로드 시 쿠키 확인
-    if (!getCookie(cookieName)) {
-        $('#cookieModal').fadeIn(); // 쿠키가 없으면 모달 표시
-    }
+  // 쿠키 삭제 함수 (테스트용)
+  // function deleteCookie(name) {
+  //     document.cookie = `${name}=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;`;
+  // }
+
+  // "오늘 하루 안 보기" 클릭 이벤트
+  $('#cookieCloseBtn').on('click', function () {
+      if ($('#check').is(':checked')) {
+          // 체크박스가 체크된 경우 쿠키 설정
+          setCookie(cookieName, cookieValue, cookieExpireDays);
+      }
+      // 모달 닫기
+      $('#cookieModal').fadeOut();
+  });
+
+  // 페이지 로드 시 쿠키 확인
+  if (!getCookie(cookieName)) {
+      $('#cookieModal').fadeIn(); // 쿠키가 없으면 모달 표시
+  }
 });
+
+
 </script>
 
 <?php
 $host = $_SERVER['HTTP_HOST'];
 
-
 include_once($_SERVER['DOCUMENT_ROOT'] . '/CODE_EVEN/admin/inc/footer.php');
 ?>
+

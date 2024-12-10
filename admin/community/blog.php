@@ -92,10 +92,10 @@ while ($data = $result->fetch_object()) {
               <td><?= $blog->hits ?><b>회</b></td>
               <td><?= $blog->regdate ?></td>
               <td class="edit_col">
-                <a href="blog_edit.php?post_id=<?= $blog->post_id ?>">
+                <a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/community/blog_edit.php?post_id=<?= $blog->post_id ?>">
                   <i class="bi bi-pencil-fill"></i>
                 </a>
-                <a href="">
+                <a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/community/blog_delete.php?post_id=<?= $blog->post_id ?>">
                   <i class="bi bi-trash-fill"></i>
                 </a>
               </td>

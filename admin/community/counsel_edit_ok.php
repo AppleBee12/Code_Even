@@ -1,17 +1,17 @@
 <?php
 include_once($_SERVER['DOCUMENT_ROOT'] . '/CODE_EVEN/admin/inc/dbcon.php');
-include_once($_SERVER['DOCUMENT_ROOT'].'/code_even/admin/inc/img_upload_func.php');
 
-//input 값 지정
+
+// print_r($_POST);
 $post_id = $_POST['post_id'];
 $titles =$_POST['titles'];
 $status = $_POST['status'];
-$contents =$_POST['contents'];
+$contents =$_POST['content'];
 
 $sql = "UPDATE counsel SET 
-                           titles = '$titles',
-                           status = $status,
-                           contents = '$contents'
+                      titles = '$titles',
+                      status = $status,
+                      contents = '$contents'
         WHERE post_id = $post_id";
 
 
