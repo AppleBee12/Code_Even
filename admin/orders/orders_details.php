@@ -57,7 +57,7 @@
   <div class="content_bar">
     <h3>주문상세목록</h3>
   </div>
-  <h4>주문번호 : <?= $odid; ?></h4>
+  <h4 class="odid_name">주문번호 : <?= $odid; ?></h4>
   <table class="table list_table">
     <thead>
         <tr>
