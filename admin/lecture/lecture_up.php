@@ -244,13 +244,6 @@ $mysqli->close();
             </td>
           </tr>
           <tr>
-            <th scope="row">강의 설명</th>
-            <td colspan="3">
-              <textarea name="lecture_description[]" class="form-control" rows="3"
-                placeholder="강의 설명을 입력해 주세요."></textarea>
-            </td>
-          </tr>
-          <tr>
             <th scope="row">퀴즈 선택</th>
             <td>
               <select name="lecture_quiz_id[]" class="form-select">
@@ -467,12 +460,6 @@ $mysqli->close();
                           <th scope="row">강의명 <b>*</b></th>
                           <td colspan="3">
                               <input type="text" name="lecture_name[]" class="form-control" placeholder="강의명을 입력해 주세요.">
-                          </td>
-                      </tr>
-                      <tr>
-                          <th scope="row">강의 설명</th>
-                          <td colspan="3">
-                              <textarea name="lecture_description[]" class="form-control" rows="3" placeholder="강의 설명을 입력해 주세요."></textarea>
                           </td>
                       </tr>
                       <tr>

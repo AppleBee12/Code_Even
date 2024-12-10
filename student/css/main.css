@@ -1,0 +1,49 @@
+/* 로그인 */
+.pointer{
+    cursor: pointer;
+    color: #000;
+  }
+  
+  .mid{
+    margin-right: 10%;
+  }
+  .mpw{
+    margin-right: 11%;
+  }
+  
+  /* 회원가입 */
+  .images1 img{
+    width: 547px;
+  }
+  .bgsz{
+    background: #000;
+  }
+  
+  h1, label{
+    color: #fff;
+  }
+  .form-label{
+    margin-bottom: 0;
+  }
+
+  /* .w_input{
+    margin-left: -6%;
+  } */
+
+  .wrappers{
+    margin-top: 30px;
+    label{
+      width: 100px;
+    }
+    input{
+      height: 50px;
+    }
+  }
+  .redbtn{
+    background: var(--red800);
+    border: none;
+  }
+  .redbtn:hover{
+    background: var(--red900);
+    border: none;
+  }

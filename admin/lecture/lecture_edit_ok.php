@@ -127,7 +127,6 @@ foreach ($detail_name as $id => $name) {
     UPDATE lecture_detail
     SET
       title = '$name',
-      description = '$description',
       quiz_id = $quiz_id,
       test_id = $test_id,
       video_url = '$video_url'
@@ -141,7 +140,6 @@ foreach ($detail_name as $id => $name) {
 
 // 새로 추가된 강의 처리
 $new_names = $_POST['new_lecture_name'] ?? [];
-$new_descriptions = $_POST['new_lecture_description'] ?? [];
 $new_quiz_ids = $_POST['new_lecture_quiz_id'] ?? [];
 $new_test_ids = $_POST['new_lecture_test_id'] ?? [];
 $new_video_urls = $_POST['new_lecture_video_url'] ?? [];
@@ -149,17 +147,17 @@ $new_files = $_FILES['new_lecture_file_id'] ?? [];
 $video_order = count($detail_name) + 1;
 
 foreach ($new_names as $i => $name) {
-  $description = $new_descriptions[$i] ?? '';
   $quiz_id = isset($new_quiz_ids[$i]) && $new_quiz_ids[$i] !== '' ? $new_quiz_ids[$i] : 'NULL';
   $test_id = isset($new_test_ids[$i]) && $new_test_ids[$i] !== '' ? $new_test_ids[$i] : 'NULL';
   $video_url = $new_video_urls[$i] ?? '';
   $file_id = 'NULL';
 
+  // lecture_detail 테이블에 새 강의 추가
   $query_new_detail = "
     INSERT INTO lecture_detail (
-      lecture_id, title, description, quiz_id, test_id, video_url, video_order
+      lecture_id, title, quiz_id, test_id, video_url, video_order
     ) VALUES (
-      $leid, '$name', '$description', $quiz_id, $test_id, '$video_url', $video_order
+      $leid, '$name', $quiz_id, $test_id, '$video_url', $video_order
     )
   ";
 
@@ -168,6 +166,17 @@ foreach ($new_names as $i => $name) {
   }
 
   $lecture_detail_id = $mysqli->insert_id; // 새로 삽입된 lecture_detail ID 가져오기
+
+  // levideo 테이블에 데이터 삽입
+  if (!empty($video_url)) {
+    $query_video = "
+        INSERT INTO levideo (lecpid, videoname, video_url, orders)
+        VALUES ($lecture_detail_id, '$name', '$video_url', $video_order)
+    ";
+    if (!$mysqli->query($query_video)) {
+      die("levideo 데이터 삽입 실패: " . $mysqli->error);
+    }
+  }
 
   // 새 파일 업로드 처리
   if (isset($new_files['name'][$i]) && $new_files['error'][$i] === UPLOAD_ERR_OK) {
@@ -195,6 +204,7 @@ foreach ($new_names as $i => $name) {
 
   $video_order++;
 }
+
 
 echo "<script>
   alert('강좌가 성공적으로 수정되었습니다.');
