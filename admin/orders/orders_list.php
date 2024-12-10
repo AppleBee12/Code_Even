@@ -13,7 +13,7 @@
   $where_clause = ""; 
 
   if ($keywords) {
-    $where_clause = "WHERE user.userid LIKE '%$keywords%' OR user.username LIKE '%$keywords%' OR orders.order_title LIKE '%$keywords%'";
+    $where_clause .= ($where_clause ? ' AND ' : 'WHERE ') . "(user.userid LIKE '%$keywords%' OR user.username LIKE '%$keywords%' OR orders.order_title LIKE '%$keywords%')";
   }
 
   if ($start_date && $end_date) {
@@ -24,7 +24,7 @@
       $where_clause .= ($where_clause ? ' AND ' : 'WHERE ') . "orders.order_date <= '$end_date'";
   }
 
-  $page_sql = "SELECT COUNT(*) AS cnt FROM orders $where_clause";
+  $page_sql = "SELECT COUNT(*) AS cnt FROM orders LEFT JOIN user ON orders.uid = user.uid $where_clause";
   $page_result = $mysqli->query($page_sql);
   $page_data = $page_result->fetch_assoc();
   $row_num = $page_data['cnt'];
@@ -102,7 +102,7 @@
     </div>
     <div class="col-lg-3">
     <div class="input-group mb-3">
-      <input type="text" class="form-control" placeholder="기간 선택 또는 검색어를 입력해주세요" aria-label="검색창" >
+      <input type="text" class="form-control" placeholder="기간 선택 또는 검색어를 입력해주세요" name="keywords" value="<?= htmlspecialchars($keywords); ?>" aria-label="검색창" >
       <button class="btn btn-secondary">
         <i class="bi bi-search"></i>
       </button>
