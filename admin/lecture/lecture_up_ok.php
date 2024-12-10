@@ -91,9 +91,9 @@ if ($result) {
     // 강의 세부 정보 저장
     $query_lecture_detail = "
         INSERT INTO lecture_detail (
-            lecture_id, title, description, quiz_id, test_id, video_url, video_order
+            lecture_id, title, quiz_id, test_id, video_url, video_order
         ) VALUES (
-            $leid, '$name', '$description', $quiz_id, $test_id, '$video_url', $video_order
+            $leid, '$name', $quiz_id, $test_id, '$video_url', $video_order
         )
     ";
     if (!$mysqli->query($query_lecture_detail)) {
@@ -164,7 +164,7 @@ if ($result) {
 
 
   echo "<script>
-        alert('강좌 세부 정보가 저장되었습니다.');
+        alert('강좌가 등록되었습니다.');
         window.location.href = '/CODE_EVEN/admin/lecture/lecture_list.php';
     </script>";
   exit;
