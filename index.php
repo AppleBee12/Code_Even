@@ -55,7 +55,7 @@
   <?php
     } 
   ?>
-<!-- 쿠키 모달 창 -->
+  <!-- 쿠키 모달 창 -->
   <div id="cookieModal" class="cookie-modal ">
     <div class="cookie-modal-content ">
       <h2 class="d-flex justify-content-center mb-3">CODE EVEN</h2>
@@ -169,7 +169,7 @@
 
 </script>
 
-<!-- 여기까지 정리해주세용!!!!! -->
+<!-- 여기까지 정리 해서 옮겨주세용!!!!! -->
 
 
 <section class="sec01">
