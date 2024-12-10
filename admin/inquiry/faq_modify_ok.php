@@ -1,4 +1,5 @@
 <?php
+session_start();
 include_once($_SERVER['DOCUMENT_ROOT'] . '/CODE_EVEN/admin/inc/dbcon.php');
 
 // print_r($_POST);
@@ -10,6 +11,10 @@ $content = $_POST['content'];
 $status = $_POST['status'];
 $target = $_POST['target'];
 $category = $_POST['category'];
+$table_name = $_POST['table_name'];
+
+// 세션에서 이미지 URL 가져오기
+$imageUrl = isset($_SESSION['imageUrl']) ? $_SESSION['imageUrl'] : null;
 
 $faq_sql = "
     UPDATE faq 
@@ -26,10 +31,9 @@ $faq_sql = "
     )
     AND fqid = '$fqid'
 ";
-
 $faq_result = $mysqli->query($faq_sql);
 
-if ($faq_result === true) {
+if ($faq_result === true && $image_result === true) {
   $redirect_url = ($target === 'teacher') ? 'teacher_faq.php' : (($target === 'student') ? 'student_faq.php' : 'faq.php');
   echo
     "<script>
