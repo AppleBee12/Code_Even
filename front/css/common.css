@@ -50,22 +50,69 @@
   --main: 17px;
 }
 
+
+/* fonts */
+
+body{
+  font-family: "SUIT", sans-serif;
+  font-weight: 500;
+  font-size: 16px;
+  }
 h1{
  font-size: 100px;
+}
+h2{
+ font-size: 60px;
+}
+h3{
+ font-size: 48px;
+}
+h4{
+ font-size: 34px;
+}
+h5{
+ font-size: 24px;
+}
+h6{
+ font-size: 20px;
+}
+.subtitle1{
+ font-weight: 600;
+ font-size: 20px;
+}
+.subtitle2{
+  font-weight: 600;
+  font-size: 20px;
+ }
+.body2{
+  font-size: 14px;
+}
+.button{
+  font-size: 14px;
+}
+.caption{
+  font-size: 12px;
+}
+.overline{
+  font-size: 10px;
 }
 
 
 
+
 /* 전체 공통 common */
+body{
+  background: var(--bk1100);
+  color: var(--bk200);
+
+ }
+
 body a{
   text-decoration:none;
   color: var(--bk200);
 }
 
-body{
-  background: var(--bk1100);
-  color: var(--bk200);
- }
+
  
 div.white{
   background: var(--bk0);

@@ -173,11 +173,11 @@
 
 
 <section class="sec01">
-  <h3>sec01배너가 나올 부분입니다</h3>
+  <h5>sec01배너가 나올 부분입니다</h5>
   <div></div>
 </section>
 <section class="sec02">
-  <h3>sec02카테고리가 나올 부분입니다</h3>
+  <h5>sec02카테고리가 나올 부분입니다</h5>
   <ul>
     <li>카테1</li>
     <li>카테2</li>
@@ -188,27 +188,27 @@
   </ul>
 </section>
 <section class="sec03">
-  <h3>sec03 베스트 추천 강좌</h3>
+  <h5>sec03 베스트 추천 강좌</h5>
   <div></div>
 </section>
 <section class="sec04">
-  <h3>sec04 지금 가장 인기있는 레시피</h3>
+  <h5>sec04 지금 가장 인기있는 레시피</h5>
   <div></div>
 </section>
 <section class="sec05">
-  <h3>sec05 수강생 후기 배너</h3>
+  <h5>sec05 수강생 후기 배너</h5>
   <div></div>
 </section>
 <section class="sec06">
-  <h3>sec06 이달의 BEST 선생님</h3>
+  <h5>sec06 이달의 BEST 선생님</h5>
   <div></div>
 </section>
 <section class="sec07">
-  <h3>sec07 강사 신청하기 배너</h3>
+  <h5>sec07 강사 신청하기 배너</h5>
   <div></div>
 </section>
 <section class="sec08">
-  <h3>sec08 최신 강좌</h3>
+  <h5>sec08 최신 강좌</h5>
   <div></div>
 </section>
 
