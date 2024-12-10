@@ -1,12 +1,33 @@
 <?php
 $title = "배송 목록";
 include_once($_SERVER['DOCUMENT_ROOT'] . '/CODE_EVEN/admin/inc/header.php');
+
+$page_sql = "SELECT COUNT(*) AS cnt FROM order_delivery";
+$page_result = $mysqli->query($page_sql);
+$page_data = $page_result->fetch_assoc();
+$row_num = $page_data['cnt'];
+
+// 페이지네이션
+$page = isset($_GET['page']) ? $_GET['page'] : 1;
+$list = 10;
+$start_num = ($page - 1) * $list;
+$block_ct = 5;
+$block_num = ceil($page / $block_ct);
+$block_start = (($block_num - 1) * $block_ct) + 1;
+$block_end = $block_start + $block_ct - 1;
+
+$total_page = ceil($row_num / $list);
+$total_block = ceil($total_page / $block_ct);
+if ($block_end > $total_page) {
+  $block_end = $total_page;
+}
+
 ?>
 
 
 
 <div class="container">
-  <h2 class="page_title">배송목록</h2>
+  <h2 class="page_title">교재배송목록</h2>
 
 
   <form action="" id="search_form" class="row justify-content-end">
@@ -56,29 +77,44 @@ include_once($_SERVER['DOCUMENT_ROOT'] . '/CODE_EVEN/admin/inc/header.php');
         </tr>   
     </table>
     <!-- //table -->
-    <button type="button" class="btn btn-outline-secondary ms-auto d-block">일괄수정</button>
   </form>
 
-
-
-  <div class="list_pagination" aria-label="Page navigation example">
+  <div class="list_pagination">
     <ul class="pagination d-flex justify-content-center">
+      <?php
+        $previous = $block_start - $block_ct;
+        if ($previous < 1) $previous = 1;
+        if ($block_num > 1) { 
+      ?>
       <li class="page-item">
-        <a class="page-link" href="" aria-label="Previous">
+        <a class="page-link" href="delivery_list.php?page=<?= $previous; ?>" aria-label="Previous">
           <i class="bi bi-chevron-left"></i>
         </a>
       </li>
-      <li class="page-item active"><a class="page-link" href="">1</a></li>
-      <li class="page-item"><a class="page-link" href="">2</a></li>
-      <li class="page-item"><a class="page-link" href="">3</a></li>
+      <?php
+        }
+      ?>
+      <?php
+        for ($i = $block_start; $i <= $block_end; $i++) {
+          $active = ($page == $i) ? 'active' : '';
+      ?>
+      <li class="page-item <?= $active; ?>"><a class="page-link" href="delivery_list.php?page=<?= $i; ?>"><?= $i; ?></a></li>
+      <?php
+        }
+        $next = $block_end + 1;
+        if($total_block > $block_num){
+      ?>
       <li class="page-item">
-        <a class="page-link" href="" aria-label="Next">
+        <a class="page-link" href="delivery_list.php?page=<?= $next; ?>" aria-label="Next">
           <i class="bi bi-chevron-right"></i>
         </a>
       </li>
+      <?php
+        }
+      ?>
     </ul>
   </div>
-   <!-- //Pagination -->
+  <!-- //Pagination -->
 </div>
 
 
