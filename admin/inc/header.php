@@ -19,6 +19,7 @@ if (!isset($title)) {
 $current_page = basename($_SERVER['REQUEST_URI'], ".php");
 $level = $_SESSION['AULEVEL'];
 $uid = $_SESSION['UID'];
+$username = $_SESSION['AUNAME'];
 
 $name_sql = "SELECT username, useremail FROM user WHERE uid = $uid";
 $result = $mysqli->query($name_sql);
@@ -271,8 +272,8 @@ if ($level == 100) {
       </div>
       <div class="greet_name bd">
         <p>
-          <?php if (isset($realusername)) { ?>
-            <?= $realusername ?> 님
+          <?php if (isset($username)) { ?>
+            <?= $username ?> 님
           <?php } else { ?>
             <span>로그인이 필요합니다.</span>
           <?php }; ?>
