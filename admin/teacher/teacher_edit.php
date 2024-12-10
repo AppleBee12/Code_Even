@@ -151,9 +151,9 @@
           </td>
         </tr>
         <tr>
-          <th scope="row">회원레벨</th>
+          <th scope="row">회원구분</th>
           <td colspan="3">
-          <?= htmlspecialchars($user_level); ?>
+            <?php echo $user_level == 10 ? '강사' : '일반'; ?>
           </td>
         </tr>     
       </tbody>
