@@ -154,24 +154,32 @@ function Call($callUrl, $method, $headers = array(), $data = array(), $returnTyp
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">  
-        <form>
+        <form action="members/login/login_ok.php" method="POST" >
           <div class="mb-3 d-flex justify-content-center gap-4">
-            <label for="recipient-name" class="col-form-label">아이디</label>
-            <input type="text" class="form-control id" id="recipient-name" placeholder="아이디를 입력하세요">
+            <label for="inputId" class="col-form-label align-self-center">아이디</label>
+            <input type="text" class="form-control id" id="inputId" placeholder="아이디를 입력하세요" required>
           </div>
           <div class="mb-3 d-flex justify-content-center gap-3">
-            <label for="recipient-name" class="col-form-label">비밀번호</label>
-            <input type="text" class="form-control pw" id="recipient-name" placeholder="비밀번호를 입력하세요">
+            <label for="inputPassword" class="col-form-label align-self-center">비밀번호</label>
+            <input type="text" class="form-control pw" id="inputPassword" placeholder="비밀번호를 입력하세요" required>
+          </div>
+          <div class="modal-footer d-flex justify-content-center">
+            <!-- <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button> -->
+            <button type="button" class="btn loginbtn">로그인</button>
+            <div class="mt-3 d-flex flex-columns justify-content-center gap-3 mb-5">
+              <a href="#" class="link-body-emphasis ">아이디 찾기</a>
+              <a href="#" class="link-body-emphasis">비밀번호 찾기</a>
+              <a href="members/signup/signup.php" class="link-body-emphasis text-decoration-underline">회원가입</a>
+            </div>
           </div>
         </form>
-      </div>
-      <div class="modal-footer d-flex justify-content-center">
-        <!-- <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button> -->
-        <button type="button" class="btn mb-5 loginbtn">로그인</button>
       </div>
     </div>
   </div>
 </div>
+
+
+
   <div id="cookieModal" class="cookie-modal ">
     <div class="cookie-modal-content ">
       <h2 class="d-flex justify-content-center mb-3">CODE EVEN</h2>
