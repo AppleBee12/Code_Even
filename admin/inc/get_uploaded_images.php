@@ -1,4 +1,5 @@
 <?php
+// JSON 형식으로 반환
 $uploadDir = $_SERVER['DOCUMENT_ROOT'] . '/code_even/admin/upload/summernote/';
 $images = array_diff(scandir($uploadDir), ['.', '..']);
 
