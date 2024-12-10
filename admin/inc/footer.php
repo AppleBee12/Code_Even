@@ -64,7 +64,14 @@ if (isset($jqueryui_js)) {
           ['insert', ['link', 'picture']],
           ['view', ['codeview', 'help']]
 
-        ]
+        ],
+      callbacks: {
+        onImageUpload: function(files) {
+          for (let file of files) {
+            uploadImage(file);
+          }
+        }
+      }
   });
 
 // 이미지 업로드 함수
