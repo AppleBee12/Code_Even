@@ -16,7 +16,7 @@ if (!isset($cgid)) {
 }
 
 
-$category_sql = "SELECT code FROM category WHERE cgid = $cgid";
+$category_sql = "SELECT cgid FROM category WHERE cgid = $cgid";
 $category_result = $mysqli->query($category_sql);
 $category_data = $category_result->fetch_object();
 // $coupon_image_url = $coupon_data->coupon_image;

@@ -66,14 +66,16 @@ $mysqli->close();
           대분류를 선택하세요
         </button>
         <ul class="dropdown-menu w-100" aria-labelledby="cate1" id="cate1_1">
-          <?php foreach ($cate1 as $c1) { ?>
+          <?php foreach ($cate1 as $c1) { 
+            ?>
+            
           <li class="dropdown-item d-flex justify-content-between align-items-center">
             <span onclick="selectDropdown('cate1', '<?= $c1->name; ?>', '<?= $c1->code; ?>')">
               <?= $c1->name; ?>
             </span>
             <div class="icons d-flex justify-content-end gap-2">
-              <a href="category_edit.php?cpid=<?= $c1->cgid ?>" class="bi bi-pencil-fill"></a>
-              <a href="category_del.php?cpid=<?= $c1->cgid ?>" class="delete bi bi-trash"></a>
+              <a href="category_edit.php?cgid=<?= $c1->cgid ?>" class="bi bi-pencil-fill"></a>
+              <a href="category_del.php?cgid=<?= $c1->cgid ?>" class="delete bi bi-trash"></a>
             </div>
           </li>
           <?php } ?>
@@ -99,8 +101,7 @@ $mysqli->close();
         >
           대분류를 먼저 선택하세요
         </button>
-        <ul class="dropdown-menu w-100" aria-labelledby="cate2" id="cate2_1">
-        </ul>
+        <ul class="dropdown-menu w-100" aria-labelledby="cate2" id="cate2_1"></ul>
       </div>
             <!-- Button trigger modal -->
       <div class="btns d-flex justify-content-center mt-4 ">
@@ -322,32 +323,38 @@ $mysqli->close();
     let cate = e.data('selected');  // jQuery에서 data-selected 값 읽기
 
     if (!cate) {
-        console.error(`${category}가 선택되지 않았습니다. data-selected 속성을 확인하세요.`);
-        return;
+      console.error(`${category}가 선택되지 않았습니다. data-selected 속성을 확인하세요.`);
+      return;
     }
 
     let data = {
-        cate: cate,
-        step: step,
-        category: category
+      cate: cate,
+      step: step,
+      category: category
     };
 
     $.ajax({
-        data: data,
-        dataType: 'html',
-        type: 'post',
-        url: 'printOption.php',
-        success: function (result) {
-            if (result.trim()) {
-                target.html(result); // 정상적인 응답일 경우 HTML 삽입
-            } else {
-                console.error("서버에서 비어 있는 응답을 받았습니다.");
-            }
-        },
-        error: function (xhr, status, error) {
-            console.error(`Ajax 요청 실패: ${error}, 상태: ${status}`);
-        },
+      data: data,
+      dataType: 'html',
+      type: 'post',
+      url: 'printOption.php',
+      success: function (result) {
+        if (result.trim()) {
+          // console.log("result")
+          // console.log(result)
+          
+            target.html(result); // 정상적인 응답일 경우 HTML 삽입
+        } else {
+            console.error("서버에서 비어 있는 응답을 받았습니다.");
+        }
+      },
+      error: function (xhr, status, error) {
+        console.error(`Ajax 요청 실패: ${error}, 상태: ${status}`);
+      },
     });
+    // console.log("cate1 :::: " + cate)
+    // console.log(data)
+    
 }
 
 
