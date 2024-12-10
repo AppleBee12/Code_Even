@@ -164,3 +164,8 @@ height: 38px;
     overflow: hidden;
     text-overflow: ellipsis;
 }
+
+.leplus.disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}

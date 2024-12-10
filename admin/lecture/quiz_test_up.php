@@ -140,23 +140,6 @@ if (isset($_GET['action']) && $_GET['action'] == 'get_lectures') {
             </td>
           </tr>
           <tr>
-            <th scope="row">문제 수준 <b>*</b></th>
-            <td>
-              <div class="d-flex gap-4">
-                <div class="form-check">
-                  <input name="pnlevel" class="form-check-input" type="radio" value="1" id="levelHigh">
-                  <label class="form-check-label" for="levelHigh">상</label>
-                </div>
-                <div class="form-check">
-                  <input name="pnlevel" class="form-check-input" type="radio" value="2" id="levelMedium" checked>
-                  <label class="form-check-label" for="levelMedium">중</label>
-                </div>
-                <div class="form-check">
-                  <input name="pnlevel" class="form-check-input" type="radio" value="3" id="levelLow">
-                  <label class="form-check-label" for="levelLow">하</label>
-                </div>
-              </div>
-            </td>
             <th scope="row">정답 <b>*</b></th>
             <td>
               <div class="d-flex gap-4">
@@ -285,6 +268,48 @@ if (isset($_GET['action']) && $_GET['action'] == 'get_lectures') {
   // 카테고리 변경 이벤트 핸들러 등록
   $('#cate1, #cate2, #cate3').on('change', updateLectures);
 
+  
+  $(document).ready(function () {
+    // 문제 유형 변경 시 문제 추가 버튼 상태 제어
+    $('input[name="courseType"]').on('change', function () {
+      const selectedType = $(this).val();
+      const addButton = $('.leplus'); // 문제 추가 버튼
+
+      if (selectedType === 'quiz') {
+        console.log('퀴즈가 선택되었습니다.');
+        addButton.addClass('disabled').css({
+          'pointer-events': 'none',
+          'opacity': '0.5',
+        }); // 버튼 비활성화
+      } else if (selectedType === 'exam') {
+        console.log('시험이 선택되었습니다.');
+        addButton.removeClass('disabled').css({
+          'pointer-events': 'auto',
+          'opacity': '1',
+        }); // 버튼 활성화
+      }
+    });
+
+    // 초기 상태 설정
+    const defaultType = $('input[name="courseType"]:checked').val();
+    const addButton = $('.leplus');
+    if (defaultType === 'quiz') {
+      addButton.addClass('disabled').css({
+        'pointer-events': 'none',
+        'opacity': '0.5',
+      }); // 퀴즈 선택 시 초기 상태에서 버튼 비활성화
+    } else {
+      addButton.removeClass('disabled').css({
+        'pointer-events': 'auto',
+        'opacity': '1',
+      }); // 시험 선택 시 초기 상태에서 버튼 활성화
+    }
+  });
+
+
+
+
+
   // 문제 유형
   $(document).ready(function () {
     // 라디오 버튼 클릭 시 값 변경 감지
@@ -344,23 +369,6 @@ if (isset($_GET['action']) && $_GET['action'] == 'get_lectures') {
             </td>
           </tr>
           <tr>
-            <th scope="row">문제 수준 <b>*</b></th>
-            <td>
-              <div class="d-flex gap-4">
-                <div class="form-check">
-                  <input name="pnlevel_${quizTestCount}" class="form-check-input" type="radio" value="1" id="levelHigh_${quizTestCount}">
-                  <label class="form-check-label" for="levelHigh_${quizTestCount}">상</label>
-                </div>
-                <div class="form-check">
-                  <input name="pnlevel_${quizTestCount}" class="form-check-input" type="radio" value="2" id="levelMedium_${quizTestCount}">
-                  <label class="form-check-label" for="levelMedium_${quizTestCount}">중</label>
-                </div>
-                <div class="form-check">
-                  <input name="pnlevel_${quizTestCount}" class="form-check-input" type="radio" value="3" id="levelLow_${quizTestCount}">
-                  <label class="form-check-label" for="levelLow_${quizTestCount}">하</label>
-                </div>
-              </div>
-            </td>
             <th scope="row">정답 <b>*</b></th>
             <td>
               <div class="d-flex gap-4">
