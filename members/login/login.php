@@ -7,6 +7,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link rel="stylesheet" href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/css/common.css">
     <link rel="stylesheet" href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/css/main.css">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
   </head>
 
   <style>
@@ -39,6 +40,7 @@
           <h2>강사 로그인</h2>
           <form action="login_ok.php" method="POST" class="w-100">
             <label for="inputId" class="form-label mt-3">아이디</label>
+
             <input type="text" id="inputId" class="form-control" placeholder="아이디를 입력하세요" name="userid" required>
             
             <label for="inputPassword" class="form-label mt-3">비밀번호</label>
