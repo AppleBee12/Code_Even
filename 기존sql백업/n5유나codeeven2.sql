@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- 생성 시간: 24-11-15 18:28
+-- 생성 시간: 24-11-23 06:06
 -- 서버 버전: 10.4.32-MariaDB
 -- PHP 버전: 8.2.12
 
@@ -18,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- 데이터베이스: `code_even`
+-- 데이터베이스: `codeeven2`
 --
 
 -- --------------------------------------------------------
@@ -31,7 +31,8 @@ CREATE TABLE `admin_answer` (
   `aaid` int(11) NOT NULL COMMENT '답변고유번호',
   `aqid` int(11) DEFAULT NULL COMMENT '질문고유번호',
   `acontent` text NOT NULL COMMENT '답변내용',
-  `status` enum('waiting','done') NOT NULL DEFAULT 'done' COMMENT '상태'
+  `status` enum('waiting','done') NOT NULL DEFAULT 'done' COMMENT '상태',
+  `file` varchar(255) DEFAULT NULL COMMENT '파일'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='1:1 문의 (관리자답변)';
 
 --
@@ -67,8 +68,7 @@ CREATE TABLE `admin_question` (
   `category` int(11) NOT NULL COMMENT '주제분류',
   `qtitle` varchar(255) NOT NULL COMMENT '질문제목',
   `qcontent` text NOT NULL COMMENT '질문내용',
-  `regdate` date NOT NULL DEFAULT current_timestamp() COMMENT '등록일',
-  `file` varchar(255) DEFAULT NULL COMMENT '파일'
+  `regdate` date NOT NULL DEFAULT current_timestamp() COMMENT '등록일'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='1:1 문의 (사용자질문)';
 
 --
@@ -126,7 +126,7 @@ CREATE TABLE `class_data` (
 --
 
 INSERT INTO `class_data` (`cdid`, `uid`, `leid`, `exid`, `progress_rate`) VALUES
-(1, 3, 1, NULL, NULL),
+(1, 3, 1, NULL, 40),
 (2, 35, 1, NULL, NULL),
 (3, 42, 2, NULL, NULL),
 (4, 27, 2, NULL, NULL),
@@ -151,8 +151,8 @@ INSERT INTO `class_data` (`cdid`, `uid`, `leid`, `exid`, `progress_rate`) VALUES
 (23, 42, 3, NULL, NULL),
 (24, 20, 3, NULL, NULL),
 (25, 19, 1, NULL, NULL),
-(26, 3, 2, NULL, NULL),
-(27, 3, 3, NULL, NULL);
+(26, 3, 2, NULL, 20),
+(27, 3, 3, NULL, 80);
 
 -- --------------------------------------------------------
 
@@ -352,7 +352,7 @@ CREATE TABLE `send_email` (
 
 INSERT INTO `send_email` (`emid`, `uid`, `title`, `content`, `regdate`) VALUES
 (1, 3, '코딩 수업 일정 변경 안내', '안녕하세요, 수업 일정이 변경되었습니다. 새로운 수업 일정은 2024년 11월 21일 10시입니다. 참고 부탁드립니다.', '2024-11-19 04:30:42'),
-(2, 3, '수업 진도 안내', '이번 주 수업에서 다룰 내용은 "PHP 기초"입니다. 미리 복습하고 오시면 도움이 됩니다.', '2024-11-19 04:35:00'),
+(2, 3, '수업 진도 안내', '이번 주 수업에서 다룰 내용은 \"PHP 기초\"입니다. 미리 복습하고 오시면 도움이 됩니다.', '2024-11-19 04:35:00'),
 (3, 3, '과제 제출 기한 안내', '코딩 수업 과제 제출 기한이 2024년 11월 25일까지입니다. 제출을 잊지 마세요.', '2024-11-19 04:40:00'),
 (4, 3, '주간 실습 시간 안내', '이번 주 실습 시간은 11월 20일 오후 2시부터 4시까지입니다. 실습실에서 만나요!', '2024-11-19 04:45:00'),
 (5, 3, '코딩 실력 향상을 위한 팁', '코딩 실력을 키우려면 꾸준한 연습과 문제 해결 능력 향상이 중요합니다. 매일 1시간씩 연습해 보세요!', '2024-11-19 04:50:00'),
@@ -427,6 +427,10 @@ INSERT INTO `teacher_qna` (`asid`, `sqid`, `content`) VALUES
 (13, 13, '<div>는 블록 레벨 요소로 전체 줄을 차지하며, <span>은 인라인 요소로 텍스트 일부를 감쌉니다. 예를 들어, 페이지 레이아웃을 나누는 데는 <div>를, 텍스트 강조를 위해 특정 단어를 감쌀 때는 <span>을 사용합니다.');
 
 --
+-- 덤프된 테이블의 인덱스
+--
+
+--
 -- 테이블의 인덱스 `admin_answer`
 --
 ALTER TABLE `admin_answer`
@@ -499,55 +503,55 @@ ALTER TABLE `teacher_qna`
 -- 테이블의 AUTO_INCREMENT `admin_answer`
 --
 ALTER TABLE `admin_answer`
-  MODIFY `aaid` int(11) NOT NULL AUTO_INCREMENT COMMENT '답변고유번호';
+  MODIFY `aaid` int(11) NOT NULL AUTO_INCREMENT COMMENT '답변고유번호', AUTO_INCREMENT=16;
 
 --
 -- 테이블의 AUTO_INCREMENT `admin_question`
 --
 ALTER TABLE `admin_question`
-  MODIFY `aqid` int(11) NOT NULL AUTO_INCREMENT COMMENT '질문고유번호';
+  MODIFY `aqid` int(11) NOT NULL AUTO_INCREMENT COMMENT '질문고유번호', AUTO_INCREMENT=31;
 
 --
 -- 테이블의 AUTO_INCREMENT `class_data`
 --
 ALTER TABLE `class_data`
-  MODIFY `cdid` int(11) NOT NULL AUTO_INCREMENT COMMENT '수강데이터ID';
+  MODIFY `cdid` int(11) NOT NULL AUTO_INCREMENT COMMENT '수강데이터ID', AUTO_INCREMENT=12;
 
 --
 -- 테이블의 AUTO_INCREMENT `faq`
 --
 ALTER TABLE `faq`
-  MODIFY `fqid` int(11) NOT NULL AUTO_INCREMENT COMMENT 'FAQ고유번호';
+  MODIFY `fqid` int(11) NOT NULL AUTO_INCREMENT COMMENT 'FAQ고유번호', AUTO_INCREMENT=39;
 
 --
 -- 테이블의 AUTO_INCREMENT `notice`
 --
 ALTER TABLE `notice`
-  MODIFY `ntid` int(11) NOT NULL AUTO_INCREMENT COMMENT '공지사항고유번호';
+  MODIFY `ntid` int(11) NOT NULL AUTO_INCREMENT COMMENT '공지사항고유번호', AUTO_INCREMENT=31;
 
 --
 -- 테이블의 AUTO_INCREMENT `review`
 --
 ALTER TABLE `review`
-  MODIFY `rvid` int(11) NOT NULL AUTO_INCREMENT COMMENT '수강후기ID';
+  MODIFY `rvid` int(11) NOT NULL AUTO_INCREMENT COMMENT '수강후기ID', AUTO_INCREMENT=11;
 
 --
 -- 테이블의 AUTO_INCREMENT `send_email`
 --
 ALTER TABLE `send_email`
-  MODIFY `emid` int(11) NOT NULL AUTO_INCREMENT COMMENT '이메일발송고유번호';
+  MODIFY `emid` int(11) NOT NULL AUTO_INCREMENT COMMENT '이메일발송고유번호', AUTO_INCREMENT=11;
 
 --
 -- 테이블의 AUTO_INCREMENT `student_qna`
 --
 ALTER TABLE `student_qna`
-  MODIFY `sqid` int(11) NOT NULL AUTO_INCREMENT COMMENT '질문고유번호';
+  MODIFY `sqid` int(11) NOT NULL AUTO_INCREMENT COMMENT '질문고유번호', AUTO_INCREMENT=7;
 
 --
 -- 테이블의 AUTO_INCREMENT `teacher_qna`
 --
 ALTER TABLE `teacher_qna`
-  MODIFY `asid` int(11) NOT NULL AUTO_INCREMENT COMMENT '답변고유ID';
+  MODIFY `asid` int(11) NOT NULL AUTO_INCREMENT COMMENT '답변고유ID', AUTO_INCREMENT=5;
 
 --
 -- 덤프된 테이블의 제약사항

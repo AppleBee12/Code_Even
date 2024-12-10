@@ -2,16 +2,16 @@
 
 include_once($_SERVER['DOCUMENT_ROOT'] . '/CODE_EVEN/admin/inc/dbcon.php');
 
-$tcid = $_GET['tcid'];
-$isnew = $_GET['isnew'] ?? [];
-$isrecom = $_GET['isrecom'] ?? [];
-$tc_ok = $_GET['tc_ok'] ?? [];
+$tcid = $_POST['tcid'];
+$isnew = $_POST['isnew'] ?? [];
+$isrecom = $_POST['isrecom'] ?? [];
+$tc_ok = $_POST['tc_ok'] ?? [];
 
-print_r($isnew);
-print_r($isrecom);
-print_r($tc_ok);
+// print_r($isnew);
+// print_r($isrecom);
+// print_r($tc_ok);
 
-exit;
+// exit;
 
 foreach($tcid as $tc){
   $isnew[$tc] =  $isnew[$tc] ?? 0;

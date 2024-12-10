@@ -10,34 +10,29 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   </head>
 
-  <style>
-    .signup_con{
-      /* width: 420px;s */
-    }
-  </style>
 
 <body>
   <div class="d-flex gap-5 align-items-center bgsz">
     <div class="img-wrap  w-50 d-flex justify-content-center">
       <div class="images1">
-        <img src="../../admin/images/sb_logo.png" alt="">
+        <img src="../../admin/images/txt_logo.png" alt="">
       </div>
     </div>
     <div class="w-50 container d-flex justify-content-center align-items-center">
       <div class="w-50 d-flex flex-column align-items-center mt-5">
-        <img src="../../admin/images/txt_logo.png" alt="">
-        <h1 class="mt-5">회원가입</h1>
+        <h1 class="mt-5 mb-5">회원가입</h1>
         <form action="../signup/signup_ok.php" method="POST" class="signup_con">
-          <label for="username" class="form-label mt-3">이름 <b>*</b></label>
-          <input type="text" id="username" name="username" class="form-control" placeholder="홍이븐" required>
-        
-          <label for="usernick" class="form-label mt-3">닉네임 <b>*</b></label>
-
-          <div class="d-flex gap-1">
-            <input type="text" id="usernick" name="usernick" class="form-control" placeholder="이븐이">
-            <button type="button" id="idcheck2" class="btn btn-outline-secondary col-md-4">중복확인</button>
+          <div class="wrapper d-flex gap-3">
+            <label for="username" class="form-label mt-3 w-25">이름 <b>*</b></label>
+            <input type="text" id="username" name="username" class="form-control" placeholder="홍이븐" required>
           </div>
-
+          <div class="wrap mt-3">
+            <label for="usernick" class="form-label"><p>닉네임 <b>*</b></p></label>
+            <div class="d-flex gap-1">
+              <input type="text" id="usernick" name="usernick" class="form-control" placeholder="이븐이">
+              <button type="button" id="idcheck2" class="btn btn-outline-secondary col-md-4">중복확인</button>
+            </div>
+          </div>
           <label for="userid" class="form-label mt-3">아이디 <b>*</b></label>
 
           <div class="d-flex gap-1" id="signup_form">

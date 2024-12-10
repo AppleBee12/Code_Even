@@ -23,8 +23,8 @@ if ($post_id) {
       <h3>글 수정하기</h3>
     </div>
 
-    <form action="counsel_edit_ok.php" method="POST">
-
+    <form action="counsel_edit_ok.php" method="POST" id="counselform">
+    <input type="hidden" name="content" id="counsel_content">
       <table class="table info_table">
         <colgroup>
           <col class="col-width-160">
@@ -106,8 +106,7 @@ if ($post_id) {
       </table>
       <div class="d-flex justify-content-end gap-2">
         <button type="button" class="btn btn-outline-danger" onClick="cancle()">취소</button>
-        <a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/community/counsel.php"><button
-            class="btn btn-outline-secondary">수정</button></a>
+        <button class="btn btn-outline-secondary">수정</button>
       </div>
     </form>
   </div>
@@ -118,6 +117,17 @@ if ($post_id) {
       }
     }
   </script>
+
+  
+<script>
+
+// 폼 제출 시 Summernote 내용 hidden으로 넘기기
+$('#counselform').on('submit', function() {
+  var counselContent = $('#summernote').summernote('code');  // Summernote 에디터에서 HTML 코드 가져오기
+  $('#counsel_content').val(counselContent);  // 숨겨진 input에 설정
+});
+
+</script>
 
 
   <?php

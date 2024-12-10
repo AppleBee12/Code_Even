@@ -126,8 +126,6 @@
   $totalSumData = $sum_result->fetch_assoc();
 ?>
 
-
-</style>
 <div class="container"> 
   <h2 class="page_title">강좌매출통계</h2>
 

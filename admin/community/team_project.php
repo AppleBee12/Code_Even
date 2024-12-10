@@ -94,10 +94,10 @@ while ($data = $result->fetch_object()) {
               <td><?= $tp->hits ?><b>회</b></td>
               <td><?= $tp->regdate ?></td>
               <td class="edit_col">
-                <a href="team_project_edit.php?post_id=<?= $tp->post_id ?>">
+                <a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/community/team_project_edit.php?post_id=<?= $tp->post_id ?>">
                   <i class="bi bi-pencil-fill"></i>
                 </a>
-                <a href="">
+                <a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/community/team_project_delete.php?post_id=<?= $tp->post_id ?>">
                   <i class="bi bi-trash-fill"></i>
                 </a>
               </td>

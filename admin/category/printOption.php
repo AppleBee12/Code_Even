@@ -1,4 +1,3 @@
-<!-- html형식으로 옵션을 출력해서 알려준다. -->
 <?php
 include_once($_SERVER['DOCUMENT_ROOT'] . '/code_even/admin/inc/dbcon.php');
 
@@ -17,17 +16,18 @@ include_once($_SERVER['DOCUMENT_ROOT'] . '/code_even/admin/inc/dbcon.php');
 $cate = $_POST['cate'];
 $step = $_POST['step'];
 $category = $_POST['category'];
-print_r($cate);
+// print_r($cate);
 $sql = "SELECT * FROM category WHERE step = $step and pcode = '$cate' ";
 $result = $mysqli->query($sql);
 
 $html = "<option selected>{$category}</option>";
 
 while($data = $result->fetch_object()){
-  $html .=  "<option value=\"{$data->code}\">{$data->name}</option>";
+    $html .= "<li class='dropdown-item' onclick='selectDropdown(\"cate$step\", \"".htmlspecialchars($data->name, ENT_QUOTES)."\", \"".htmlspecialchars($data->code, ENT_QUOTES)."\")'>".htmlspecialchars($data->name, ENT_QUOTES)."</li>";
 }
-var_dump($_POST); // POST 데이터 확인
+// var_dump($_POST); // POST 데이터 확인
 
+echo json_encode($data);
 echo $html;
 $mysqli->close();
 ?>

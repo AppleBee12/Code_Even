@@ -60,7 +60,7 @@ while ($data = $result->fetch_object()) {
     </div>
   </form>
 
-  <form action="">
+  <form action="counsel_edit.php" method="POST">
     <table class="table list_table">
       <thead>
         <tr>
@@ -85,7 +85,8 @@ while ($data = $result->fetch_object()) {
               <th scope="row"><?= $counsel->post_id ?></th>
               <td><?= $counsel->usernick ?></td>
               <td><a href="#" class="d-inline-block text-truncate"><?= $counsel->titles ?></a></td>
-              <td><a href="#" class="d-inline-block text-truncate"><?= $counsel->contents ?></a></td>
+              <!-- 본문에 html태그가 적용되어있어서 strip_tags적용시킴 -->
+              <td><a href="#" class="d-inline-block text-truncate"><?= strip_tags($counsel->contents) ?></a></td>
               <td>
                 <?= $counsel->status == 0 ?
                   '<span class="badge text-bg-light">미해결</span>'
@@ -111,11 +112,7 @@ while ($data = $result->fetch_object()) {
         }
         ?>
       </tbody>
-
-
     </table>
-    <!-- //table -->
-    <!-- <button type="button" class="btn btn-outline-secondary ms-auto d-block">일괄수정</button> -->
   </form>
 
   <!-- //Pagination -->

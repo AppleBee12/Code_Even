@@ -60,7 +60,7 @@ if (!isset($_SESSION['AUID'])) {
       <div class="sellcost_best_table">
         <div class="d-flex justify-content-between">
           <h3>판매 금액 BEST 강좌</h3>
-          <p class="month">11월 현황</p>
+          <p class="month"><span class="this-month"></span> 현황</p>
         </div>
         <div class="row g-0 text-center">
           <div class="p-2 col-2 sst">순위</div>
@@ -91,7 +91,7 @@ if (!isset($_SESSION['AUID'])) {
         <div>
           <div class="d-flex justify-content-between">
             <h3>신규 가입자 현황</h3>
-            <p class="month">11월 현황</p>
+            <p class="month"><span class="this-month"></span> 현황</p>
           </div>
           <p>5,412<span class="top_text"> 명</span></p>
           <canvas id="current_six_news" width="400" height="250"></canvas>
@@ -99,7 +99,7 @@ if (!isset($_SESSION['AUID'])) {
         <div>
           <div class="d-flex justify-content-between">
             <h3>카테고리별 매출 금액</h3>
-            <p class="month">11월 현황</p>
+            <p class="month"><span class="this-month"></span> 현황</p>
           </div>
           <p>7,123,000<span class="top_text"> 원</span></p>
           <canvas id="cate_one_return" width="250" height="250"></canvas>
