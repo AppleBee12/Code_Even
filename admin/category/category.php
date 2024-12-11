@@ -48,6 +48,11 @@ $mysqli->close();
 /* .dropdown-toggle::after{
   background: #000;
 } */
+
+ .st_none{
+  background: none;
+  border: none;
+ }
 </style>
 
 <div class="container ">
@@ -74,7 +79,8 @@ $mysqli->close();
               <?= $c1->name; ?>
             </span>
             <div class="icons d-flex justify-content-end gap-2">
-              <a href="category_edit.php?cgid=<?= $c1->cgid ?>" class="bi bi-pencil-fill"></a>
+              <!-- <a href="category_edit.php?cgid=<?= $c1->cgid ?>" class="bi bi-pencil-fill"></a> -->
+              <button type="submit" class="st_none" data-bs-toggle="modal"  data-bs-target="#cate1_edit_modal"><i class="bi bi-pencil-fill"></i></button>
               <a href="category_del.php?cgid=<?= $c1->cgid ?>" class="delete bi bi-trash"></a>
             </div>
           </li>
@@ -239,6 +245,29 @@ $mysqli->close();
   </div>
 </div>
 
+<!-- 수정 모달 창 -->
+<div class="modal fade" id="cate1_edit_modal" tabindex="-1" aria-labelledby="ed_exampleModalLabel1" aria-hidden="true">
+  <div class="modal-dialog">
+    <form action="#" class="modal-content"  method="post" data-step="1">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="ed_exampleModalLabel1">대분류 수정</h1>
+        <button type="submit" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body row">
+        <div class="col-md-6">
+          <input class="form-control" type="text"  id="ed_code1" name="ed_code1"  placeholder="수정할 분류코드명을 입력하세요" aria-label="default input example" pattern="A\d{4}" placeholder="수정할 코드명을 입력하세요" pattern="A\d{4}" title="A로 시작하고 뒤에 네 자리 숫자가 와야 합니다. 예: A0001, A1234"  required>
+        </div>
+        <div class="col-md-6">
+          <input class="form-control" type="text"  id="ed_name1" name="ed_name1"  placeholder="카테고리명을 입력하세요" aria-label="default input example" required>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal">취소</button>
+        <button type="submit" class="btn btn-secondary">수정</button>
+      </div>
+    </form>
+  </div>
+</div>
 
 <script>
 //   $data = array(
@@ -278,46 +307,6 @@ $mysqli->close();
   });
 
   
-  // 대->중->소 출력
-// $('#cate1').change(function(){
-//   makeOption($(this), 2, '중분류', $('#cate2'));
-// })
-// $('#cate2').change(function(){
-//   makeOption($(this), 3, '소분류', $('#cate3'));
-// })
-// $('#pcode3').change(function(){
-//   makeOption($(this), 2, '중분류', $('#pcode4'));
-// })
-
-  // function makeOption(e, step, category, target){
-  //   console.log("makeOption에서 e 확인:", e); // e 객체 확인
-  //   let cate = e.data('selected'); // DOM 요소에서 data-selected 속성 값 읽기
-  //   if (!cate) {
-  //       console.error(`${category}가 선택되지 않았습니다. data-selected 속성 없음.`);
-  //       return;
-  //   }
-
-  //   let data = {
-  //     cate:cate,
-  //     step:step,
-  //     category:category
-  //   }
-  //   console.log("전송 데이터:", data);
-
-  //   $.ajax({
-  //       data: data,
-  //       dataType: 'html',
-  //       type: 'post',
-  //       url: 'printOption.php',  // 서버로 데이터 전송
-  //       success: function (result) {
-  //           console.log("서버 응답:", result);
-  //           target.html(result);  // 응답 받은 HTML을 target에 삽입
-  //       },
-  //       error: function (xhr, status, error) {
-  //           console.error(`Ajax 요청 실패: ${error}, 상태: ${status}`);
-  //       },
-  //   });
-  // }
   
   function makeOption(e, step, category, target) {
     let cate = e.data('selected');  // jQuery에서 data-selected 값 읽기
@@ -340,12 +329,12 @@ $mysqli->close();
       url: 'printOption.php',
       success: function (result) {
         if (result.trim()) {
-          // console.log("result")
-          // console.log(result)
-          
-            target.html(result); // 정상적인 응답일 경우 HTML 삽입
+        // console.log("result")
+        // console.log(result)
+        
+          target.html(result); // 정상적인 응답일 경우 HTML 삽입
         } else {
-            console.error("서버에서 비어 있는 응답을 받았습니다.");
+          console.error("서버에서 비어 있는 응답을 받았습니다.");
         }
       },
       error: function (xhr, status, error) {
