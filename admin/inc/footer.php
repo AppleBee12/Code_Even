@@ -46,6 +46,7 @@ if (isset($jqueryui_js)) {
 
   $uploadPath = 'http://localhost/code_even/admin/inc/upload_image.php';
   $getUploadPath = 'http://localhost/code_even/admin/inc/get_uploaded_images.php';
+  $delete_images = 'http://localhost/code_even/admin/inc/get_uploaded_images.php';
 ?>
 
 <script>
@@ -70,6 +71,9 @@ if (isset($jqueryui_js)) {
           for (let file of files) {
             uploadImage(file);
           }
+        },
+        onChange: function(contents) {
+            handleImageDeletion(contents);
         }
       }
   });
@@ -77,6 +81,8 @@ if (isset($jqueryui_js)) {
 // 이미지 업로드 함수
 
 var uploadPath = "<?= $uploadPath ?>";
+var getUploadPath = "<?= $getUploadPath ?>";
+var delete_images = "<?= $delete_images ?>";
 
 function uploadImage(file) {
     const formData = new FormData();
@@ -97,6 +103,61 @@ function uploadImage(file) {
     })
     .catch(error => console.error('에러 발생:', error));
 }
+
+
+// 이미지 삭제 함수
+function handleImageDeletion(contents) {
+  const parser = new DOMParser();
+  const doc = parser.parseFromString(contents, 'text/html');
+
+  // 에디터에 이미지가 포함되어 있는지 확인
+  const remainingImages = Array.from(doc.querySelectorAll('img')).map(img => img.src);
+
+  // 이미지가 하나 이상 있을 경우에만 진행
+  if (remainingImages.length > 0) {
+      // 서버에 업로드된 이미지 목록 요청
+      fetch(getUploadPath, {
+          method: 'GET',
+          headers: { 'Content-Type': 'application/json' },
+      })
+      .then(response => response.json())
+      .then(uploadedImages => {
+          // 서버에서 받은 데이터의 타입 확인
+          console.log(uploadedImages); // 데이터를 콘솔에 출력해 확인
+
+          // uploadedImages가 배열이 아니면 배열로 변환
+          if (!Array.isArray(uploadedImages)) {
+              uploadedImages = [uploadedImages]; // 단일 이미지일 경우 배열로 감싸기
+          }
+
+          // 이미지가 하나일 경우와 여러 개일 경우 분기 처리
+          let imagesToDelete = [];
+          if (remainingImages.length === 1) {
+              // 이미지가 하나일 경우
+              if (!uploadedImages.includes(remainingImages[0])) {
+                  imagesToDelete = [remainingImages[0]];
+              }
+          } else {
+              // 이미지가 여러 개일 경우
+              imagesToDelete = uploadedImages.filter(img => !remainingImages.includes(img));
+          }
+
+          // 삭제할 이미지가 있으면 서버에 요청
+          if (imagesToDelete.length > 0) {
+              fetch(delete_images, {
+                  method: 'POST',
+                  headers: { 'Content-Type': 'application/json' },
+                  body: JSON.stringify({ images: imagesToDelete }),
+              })
+              .then(response => response.json())
+              .then(data => console.log(imagesToDelete.length === 1 ? '이미지 하나 삭제 완료' : '여러 이미지 삭제 완료', data))
+              .catch(error => console.error('이미지 삭제 실패:', error));
+          }
+      })
+      .catch(error => console.error('이미지 목록 요청 실패:', error));
+  }
+}
+
 
 </script>
 

@@ -13,12 +13,12 @@
 
     // print_r($data); 
 
-    $image_sql = "SELECT file_name FROM summer_images WHERE table_id = $fqid";
+    $image_sql = "SELECT file_name FROM summer_images WHERE table_id = $fqid AND table_name = 'faq'";
     $image_result  = $mysqli->query($image_sql);
 
     if ($image_result->num_rows > 0) {
 
-      $row = $image_result->fetch_assoc();
+      while ($row = $image_result->fetch_assoc()) {
       $imageFileName = $row['file_name'];
       $baseUrl = 'http://' . $_SERVER['HTTP_HOST'] . '/code_even/admin/upload/summernote/';
       $imageFileNameWithoutUrl = str_replace($baseUrl, '', $imageFileName);
@@ -34,15 +34,16 @@
         $delete_result = $mysqli->query($delete_sql);
 
         if ($delete_result) {
-          echo "<script>console.log('데이터베이스에서 레코드가 삭제되었습니다.');</script>";
+          echo "<script>console.log('데이터베이스에서 삭제되었습니다.');</script>";
         } else {
-          echo "<script>console.log('데이터베이스에서 레코드를 삭제하는 데 실패했습니다.');</script>";
+          echo "<script>console.log('데이터베이스에서 삭제를 실패하였습니다.');</script>";
         }
 
         
       } else {
         echo "<script>console.log('파일 \"$imageFileNameWithoutUrl\"이 존재하지 않습니다.');</script>";
       }
+    }
 
 
     } else {
