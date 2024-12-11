@@ -1,0 +1,70 @@
+/* section */
+.s_h{
+  /* gap: 190px; */
+  h5{
+    font-size: 24px;
+    color: var(--red800);
+  }
+  h3{
+    font-size: 48px;
+    color: var(--bk0);
+  }
+}
+.data{
+  gap: 50px;
+  flex-wrap: wrap;
+  padding: 0 95px;
+}
+.b_l{
+  border-left: 1px solid var(--bk0);
+}
+
+/* section 끝*/
+
+
+/* 강사 신청 */
+.signup_con{
+  white-space: nowrap;
+  /* justify-content: center; */
+}
+.d_f{
+  display: flex;
+  gap: 10px;
+  justify-content: space-between;
+  height: 50px;
+  margin-bottom: 30px;
+  input, #tc_intro{
+    width: 537px;
+  }
+  label{
+    align-self: center;
+    /* align-self: flex-start; */
+  }
+}
+
+.p_c{
+  margin-left: 90px;
+}
+.w_ed{
+  width: 648px;
+  h1{
+    border-bottom: 1px solid white;
+    height: 100px;
+  }
+}
+.h_ed{
+  height: 86px;
+  label{
+    /* align-self: center; */
+    align-self: flex-start;
+  }
+}
+.tc_btn{
+  background: var(--red800);
+  color: var(--red0);
+  height: 50px;
+}
+.tc_btn:hover{
+  background: var(--red900);
+  color: var(--red0);
+}

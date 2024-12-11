@@ -42,15 +42,40 @@ while($data = $category_result->fetch_object()){
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
   integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
   <link rel="stylesheet" href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/css/common.css">
-  <link rel="stylesheet" href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/student/css/main.css">
+  <link rel="stylesheet" href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/front/css/main.css">
+  <link rel="stylesheet" href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/front/css/tc_applyform.css">
   <title>CodeEven</title>
 </head>
 <body>
-<div class="d-flex gap-5 align-items-center bgsz">
-  <div class="container col-3 w-25 mb-5 mt-5">
-      <h1 class=" mb-5 ">강사 신청(임시)</h1>
+  <div class=" gap-5  bgsz">
+  <section class="d-flex justify-content-center mb-5 s_h pt-5">
+    <div class="data d-flex">
+      <img src="images/data.png" class="my-3" alt="data.png">
+      <div class="value_cover">
+        <h5>1인 평균 누적수입</h5>
+        <h3>5783만원</h3>
+      </div>
+    </div>
+    <div class="data d-flex b_l">
+      <img src="images/graduated.png" class="my-3" alt="data.png">
+      <div>
+        <h5>총 회원수</h5>
+        <h3>100만명</h3>
+      </div>
+    </div>
+    <div class="data d-flex b_l">
+      <img src="images/group.png" class="my-3" alt="data.png">
+      <div>
+        <h5>누적 수강생</h5>
+        <h3>500만명</h3>
+      </div>
+    </div>
+  </section>
+  <div class="container col-3 mb-5 mt-5 w_ed">
+      <h1 class=" mb-5 d-flex justify-content-center">강사 신청</h1>
+      <br>
       <form action="tc_apply_ok.php" method="POST" class="signup_con">
-        <div class="mb-3 justify-content-center d-flex">
+        <div class="d_f">
           <label for="username" class="form-label align-self-center">이름</label>
           <input type="text" class="form-control" id="name" name="username" value="<?= $user_data->username; ?>" disabled readonly>
         </div>
@@ -58,41 +83,43 @@ while($data = $category_result->fetch_object()){
           <label for="username" class="form-label w-25 align-self-center">이름 </label>
           <input type="text" id="name" name="username" class="form-control" value="<?= $user_data->username; ?>" disabled readonly>
         </div> -->
-        <div class="mb-3">
+        <div class="d_f">
           <label for="tc_userphone" class="form-label">연락처</label>
           <input type="text" class="form-control" id="contact" name="tc_userphone" value="<?= $user_data->userphonenum; ?>" disabled readonly>
         </div>
-        <div class="mb-3">
+        <div class="d_f">
           <label for="tc_email" class="form-label">이메일</label>
           <input type="email" class="form-control" id="email" name="tc_email" value="<?= $user_data->useremail; ?>" disabled readonly>
         </div>
-        <div class="mb-3">
+        <div class="d_f h_ed">
           <label for="tc_intro" class="form-label">소개글 <b>*</b></label>
-          <textarea class="form-control" id="tc_intro" rows="3" name="tc_intro" placeholder="간단한 자기소개 부탁드려요."></textarea>
+          <textarea class="form-control " id="tc_intro" rows="3" name="tc_intro" placeholder="간단한 자기소개 부탁드려요."></textarea>
         </div>
-        <div class="mb-3">
+        <div class="mb-1 d_f ">
           <label for="tc_url" class="form-label">URL</label>
           <input type="text" class="form-control" id="tc_url" name="tc_url" value="" placeholder="https://"> 
-            <p>* 활동 중인 SNS, 대표 사이트를 첨부해주세요</p>
         </div>
-        <div class="mb-3">
-          <label for="categories" class="form-label">희망 분야 <b>*</b></label><br>
-          <?php if (isset($categories)) {
-            foreach ($categories as $category) { ?>
-              <input type="radio" id="category<?= $category->cgid; ?>" name="category" value="<?= $category->cgid; ?>">
-              <label for="category<?= $category->cgid; ?>"><?= $category->name; ?></label><br>
-          <?php }} else { ?>
-            <p>선택 가능한 희망 분야가 없습니다.</p>
-          <?php } ?>
+          <p class="p_c">* 활동 중인 SNS, 대표 사이트를 첨부해주세요</p>
+        <div class="mb-3 mt-5 d-flex gap-2">
+          <label for="categories" class="form-label">희망분야 <b>*</b></label><br>
+            <div>
+              <?php if (isset($categories)) {
+                foreach ($categories as $category) { ?>
+                  <input type="radio" id="category<?= $category->cgid; ?>" name="category" value="<?= $category->cgid; ?>">
+                  <label for="category<?= $category->cgid; ?>"><?= $category->name; ?></label><br>
+              <?php }} else { ?>
+                <p>선택 가능한 희망 분야가 없습니다.</p>
+              <?php } ?>
+            </div>
         </div>
-        <div class="form-check my-3">
+        <div class="form-check my-3 p_c">
           <input class="form-check-input" type="checkbox" value="" id="agree">
           <label class="form-check-label" for="agree">
             [필수] 개인정보 수집  및 이용에 동의합니다.
           </label>
         </div>
         
-        <button type="submit" class="btn btn-primary">신청하기</button>
+        <button type="submit" class="btn tc_btn w_ed mt-3 mb-5">신청하기</button>
       </form>
   </div>
 </div>
