@@ -45,6 +45,9 @@
       <div>
         <p>CODE EVEN LMS ©2024  All Rights Reserved.</p>
       </div>
+      <div>
+        <p><a href="tc_applyform.php">강의자신청</a></p>
+      </div>
     </div>
   </div>
 </footer>
