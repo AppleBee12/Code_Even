@@ -1,64 +1,14 @@
 <?php include_once($_SERVER['DOCUMENT_ROOT'] . '/CODE_EVEN/front/inc/header.php');?>
-
-
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
+  integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="
+  crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <link rel="stylesheet" href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/front/css/main.css">
 <!-- 여기부터 정리해주세용! -->
-  <p><a href="http://localhost/code_even/admin/login/login.php">어드민(관리자&강사)페이지 바로가기</a></p>
-  <p><a href="tc_applyform.php" class="link-underline-danger link-offset-2 link-body-emphasis a_underline">강의자신청(임시)</a></p>
-  <p><a href="" class="link-underline-danger link-offset-2 link-body-emphasis a_underline">결제페이지(임시)</a></p>
-    
-  
-  <?php if(!isset($_SESSION['AUID'])){ ?>
-  <div class="loginform d-flex gap-3">
-    <span class="pointer" data-bs-toggle="modal" data-bs-target="#exampleModaltest" data-bs-whatever="@mdo">로그인</span>
-    <a href="members/signup/signup.php" class="link-body-emphasis">회원가입</a>
-  </div>
 
-  <div class="modal fade" id="exampleModaltest" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header d-flex justify-content-center">
-          <div class="wrappers d-flex row justify-content-center">
-            <img src="admin/images/txt_logo.png" class="mt-5" width="309" height="46" alt="코드이븐로고">
-            <h1 class="modal-title fs-5 mt-5 d-flex justify-content-center" id="exampleModalLabel login">로그인</h1>
-          </div>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">  
-          <form action="members/login/login_ok.php" method="POST" >
-            <div class="mb-3 d-flex justify-content-center gap-4 mid">
-              <label for="inputId" class="col-form-label align-self-center">아이디</label>
-              <input type="text" class="form-control id" id="inputId" placeholder="아이디를 입력하세요" name="userid" required>
-            </div>
-            <div class="mb-3 d-flex justify-content-center gap-3 mpw">
-              <label for="inputPassword" class="col-form-label align-self-center">비밀번호</label>
-              <input type="password" class="form-control pw" id="inputPassword" placeholder="비밀번호를 입력하세요"   name="userpw" required>
-            </div>
-            <div class="modal-footer d-flex justify-content-center">
-              <button class="btn loginbtn">로그인</button>
-              <a href="https://kauth.kakao.com/oauth/authorize?client_id=<?=$REST_API_KEY?>&response_type=code&redirect_uri=<?=$REDIRECT_URI?>"><img src="images/kakaobtn.png" width="345" height="34" class="mt-1 "/></a>
-
-              <div class="mt-3 d-flex flex-columns justify-content-center gap-3 mb-5">
-                <a href="#" class="link-body-emphasis ">아이디 찾기</a>
-                <a href="#" class="link-body-emphasis">비밀번호 찾기</a>
-                <a href="members/signup/signup.php" class="link-body-emphasis text-decoration-underline">회원가입</a>
-              </div>
-            </div>
-          </form>
-        </div>
-      </div>
-    </div>
-  </div>
-  <?php
-    }else{
-  ?>
-  <a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/members/login/logout.php">로그아웃</a>
-  <?php
-    } 
-  ?>
   <!-- 쿠키 모달 창 -->
   <div id="cookieModal" class="cookie-modal ">
     <div class="cookie-modal-content ">
-      <h2 class="d-flex justify-content-center mb-3">CODE EVEN</h2>
+      <h4 class="d-flex justify-content-center mb-3">CODE EVEN</h4>
       <p>본 웹사이트는 구직용 포트폴리오 웹사이트이며, <br>
       실제로 운영되는 사이트가 아닙니다.</p>
       <hr>
@@ -79,13 +29,13 @@
           <p><b>기획 : </b>팀원 전체 <b>디자인 : </b>구현 담당자</p>
         </div>
         <hr>
-        <div>
+        <div class="link3">
           <span><b>* 구현 완료 페이지 *</b></span><br>
           <span><b>홍수진 : </b>
           <a href="admin/index.php">대시보드,</a> 공통헤더,
           <a href="admin/community/counsel.php">커뮤니티 관리, </a>
           <a href="admin/manual/for_admin.php">관리자 매뉴얼 </a>
-        </span><br>
+          </span><br>
           <span><b>배유나 : </b>
           <a href="admin/student/student_list.php">수강생 관리, </a>
           <a href="admin/inquiry/notice.php">문의 게시판 관리 </a>
@@ -116,8 +66,10 @@
           <span><b>학생용 비밀번호 </b>: 12345</span>
         </div>
       </div> <hr>
+      <p class="link3"><a href="http://localhost/code_even/admin/login/login.php">어드민(관리자&강사)페이지 바로가기</a></p>
+      <hr>
       <div class="d-flex justify-content-start gap-2 mb-3">
-        <label class="align-items-end cookie_btn" for="check">오늘 하루 안보기</label>
+        <label class="align-items-end cookie_btn td_hidden" for="check">오늘 하루 안보기</label>
         <input type="checkbox" id="check">
       </div>
       <button id="cookieCloseBtn" type="button" class="close_txt alarm">
