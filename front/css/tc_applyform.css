@@ -18,6 +18,43 @@
 .b_l{
   border-left: 1px solid var(--bk0);
 }
+.bc_w{
+  background: var(--bk0);
+  padding: 150px 0 150px 0;
+  h2{
+    text-align: center;
+    font-size: 60px;
+  }
+  .img_w{
+    width: 219px;
+    height: 29px;
+  }
+}
+.fz_1{
+  font-size: 20px;
+  /* line-height: 24px; */
+  color: var(--bk1000);
+
+}
+.fz_2{
+  font-size: 16px;
+  line-height: 24px;
+  color: var(--bk1000);
+}
+.in_sz{
+  inline-size: 424px;
+  /* padding: 150px 300px 150px 300px; */
+  padding-top: 150px;
+  .text_agn{
+    text-align: center;
+  }
+}
+.g_new{
+  gap: 60px;
+}
+.img_b{
+  margin-bottom: 30px;
+}
 
 /* section 끝*/
 
@@ -44,6 +81,10 @@
 
 .p_c{
   margin-left: 90px;
+}
+.p_ud{
+  padding: 150px 0 150px 0;
+
 }
 .w_ed{
   width: 648px;

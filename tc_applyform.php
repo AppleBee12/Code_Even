@@ -50,28 +50,86 @@ while($data = $category_result->fetch_object()){
   <div class=" gap-5  bgsz">
   <section class="d-flex justify-content-center mb-5 s_h pt-5">
     <div class="data d-flex">
-      <img src="images/data.png" class="my-3" alt="data.png">
+      <img src="images/data.png" class="my-3 img_w" alt="data.png">
       <div class="value_cover">
         <h5>1인 평균 누적수입</h5>
         <h3>5783만원</h3>
       </div>
     </div>
     <div class="data d-flex b_l">
-      <img src="images/graduated.png" class="my-3" alt="data.png">
+      <img src="images/graduated.png" class="my-3 img_w" alt="data.png">
       <div>
         <h5>총 회원수</h5>
         <h3>100만명</h3>
       </div>
     </div>
     <div class="data d-flex b_l">
-      <img src="images/group.png" class="my-3" alt="data.png">
+      <img src="images/group.png" class="my-3 img_w" alt="data.png">
       <div>
         <h5>누적 수강생</h5>
         <h3>500만명</h3>
       </div>
     </div>
   </section>
-  <div class="container col-3 mb-5 mt-5 w_ed">
+  <section class="mb-5 bc_w ">
+    <div class="data d-flex justify-content-center ">
+      <div class="value_cover">
+        <div class="d-flex justify-content-center img_b">
+          <img src="admin/images/txt_logo.png" class="my-3" alt="data.png">
+        </div>
+        <h2>왜 코드이븐일까요?</h2>
+      </div>
+    </div>
+    <div class="d-flex justify-content-center g_new">
+      <div class="in_sz">
+        <div class="d-flex justify-content-center mb-3">
+          <img src="images/lock_up.png" class="my-3" alt="data.png">
+        </div>
+        <div class="text_agn">
+          <div class="fz_1">지식 콘텐츠를 함부로 다루지 않습니다.</div><br>
+          <div class="fz_2">
+            <div>여러분의 지식은 <br>그 자체로 고유한 가치와 의미를 지닌 자산입니다.</div> <br>
+            <span>플랫폼 내에서 강의자의 콘텐츠는 철저히 관리되고,<br> 지식이 손상되거나 남용되지 않도록 노력합니다.<br>여러분의 노력이 온전히 빛날 수 있는 환경을 제공합니다.</span>
+          </div>
+        </div>
+      </div>
+      <div class="in_sz">
+        <div class="d-flex justify-content-center mb-3">
+          <img src="images/management.png" class="my-3" alt="data.png">
+        </div>
+        <div class="text_agn">
+          <div class="fz_1">수익이 가능한 유일한 곳</div><br>
+          <div class="fz_2">
+            <div>
+              우리가 제공하는 플랫폼은 단순한 지식 공유를 넘어 강의자가<br>
+              안정적인 수익을 창출할 수 있도록 돕는 시스템을 운영합니다.
+            </div> <br>
+            <span>
+              강의자의 성과에 따라 공정하게 보상받는 구조를 갖추고 있습니다. <br>여러분의 가치를 제대로 인정받으며 경제적 성과까지 <br>
+              거둘 수 있는 곳 입니다.
+            </span>
+          </div>
+        </div>
+      </div>
+      <div class="in_sz">
+        <div class="d-flex justify-content-center mb-3">
+          <img src="images/green.png" class="my-3" alt="data.png">
+        </div>
+        <div class="text_agn">
+          <div class="fz_1">사회적 가치를 실현하세요</div><br>
+          <div class="fz_2">
+            <div>
+              여러분이 공유하는 지식은<br> 수강생의 삶을 바꾸고 긍정적인 영향을 미칠 수 있습니다.
+            </div> <br>
+            <span>
+              코드이븐은 강의자가 자신의 전문성을 통해<br> 사회적 가치를 실현할 수 있도록 지원을 아끼지 않습니다. <br>더 나은 미래를 만들어가는 원동력이 되어주세요.
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <div class="container col-3 w_ed p_ud">
       <h1 class=" mb-5 d-flex justify-content-center">강사 신청</h1>
       <br>
       <form action="tc_apply_ok.php" method="POST" class="signup_con">
