@@ -126,6 +126,8 @@
 
 <section class="sec01">
   <h5>sec01배너가 나올 부분입니다</h5>
+  <div>
+  <div>
   <ul>
     <li>
       <div class="sec01_banner sec01_banner01">
@@ -155,9 +157,9 @@
         <h3>웹코딩의 절대강자 김동주</h3>
       </div>
     </li>
-
   </ul>
-  <div></div>
+  </div>
+  </div>
 </section>
 <section class="sec02 container">
   <h5>sec02카테고리가 나올 부분입니다</h5>
