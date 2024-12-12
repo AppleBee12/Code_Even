@@ -49,7 +49,7 @@
   }
 /* ----- 쿠키모달 끝 ----- */
 
-/* 로그인 모달창 css */
+/* ---- 로그인 모달창 css ---*/
 
 /* 로그인 */
 .pointer{
@@ -88,7 +88,7 @@
     border: none;
   }
   
-  /* 회원가입 */
+  /* ---- 회원가입 ---- */
   .images1 img{
     width: 547px;
   }
@@ -137,6 +137,94 @@
 
 /* sec01 시작 */
 
+.swiper {
+  height: 600px;
+  width: 100%;
+}
+
+.sec01{
+  height: 600px;
+  width: 100%;
+
+  ul{
+    padding: 0;
+    margin: 0;
+  }
+
+  .sec01_banner{
+    position: relative;
+    height: 600px;
+    width: 100%;
+
+    img{
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .sec01_textwrapper{
+      position: absolute;
+      top:305px;
+      left: 300px;
+        h5{
+          margin-bottom: 30px;
+        }
+        h3{
+          margin-bottom: 0px;
+        }
+        h3 + h3{
+          margin-top: 21px;
+        }
+      }  
+  }
+}
+.swiper-button-next, 
+.swiper-button-prev{
+  color: var(--bk0);
+}
+
+.swiper-pagination-bullet{
+  box-shadow: 0px 0px 10px 1px var(--bk100);
+}
+.swiper-pagination-bullet-active {
+  background: var(--primary);
+  box-shadow: 0px 0px 10px 1px var(--bk300);
+    }
+
+
+.autoplay-progress {
+  position: absolute;
+  right: calc(50% - 24px);
+  top: 16px;
+  z-index: 10;
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  color: var(--primary);
+}
+
+.autoplay-progress svg {
+  --progress: 0;
+  position: absolute;
+  left: 0;
+  top: 0px;
+  z-index: 10;
+  width: 100%;
+  height: 100%;
+  stroke-width: 4px;
+  stroke: var(--primary);
+  fill: none;
+  stroke-dashoffset: calc(125.6px * (1 - var(--progress)));
+  stroke-dasharray: 125.6;
+  transform: rotate(-90deg);
+  
+}
+.sec01_banner01, .sec01_banner02{
+  color: var(--bk1000);
+}
 
 /* sec01 끝 */
 /* sec02 시작 */
