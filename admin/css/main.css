@@ -122,11 +122,6 @@
 
   --bs-modal-width:666px;
 }
-
-.row>*{
-  width: 69%;
-}
-
 .wrappers h1{
   font-size: 34px !important; 
   color: #000;

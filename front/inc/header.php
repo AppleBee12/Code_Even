@@ -69,7 +69,7 @@ function Call($callUrl, $method, $headers = array(), $data = array(), $returnTyp
     integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/summernote@0.8.20/dist/summernote-lite.min.css"
     integrity="sha256-IKhQVXDfwbVELwiR0ke6dX+pJt0RSmWky3WB2pNx9Hg=" crossorigin="anonymous">
-
+  <link rel="stylesheet"  href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"/>
   
   <link rel="stylesheet" href="http://<?= $_SERVER['HTTP_HOST'] ?>/code_even/front/css/common.css">
 
@@ -244,4 +244,4 @@ function Call($callUrl, $method, $headers = array(), $data = array(), $returnTyp
         </div>
       </div>
     </div>
-  <div class="container">
+  <div class="main_wrapper">

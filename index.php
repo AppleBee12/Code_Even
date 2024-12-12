@@ -15,7 +15,7 @@
       <div class="text-start">
         <div>
           <span><b>팀원 : </b>홍수진(팀장), 배유나, 조채림, 최은화, 홍은진</span><br>
-          <span><b>제작기간</b> : 2024.11.26 - 2024.11.23 </span><br>
+          <span><b>제작기간</b> : 2024.12.24 - 2024.12.23 </span><br>
           <span><b>개발환경</b> : HTML/CSS, Javascript, J-Query, PHP</span><br>
           <div class="link3">
             <span><b>기획자료 :</b>  <a href="https://www.figma.com/deck/MQfJi66QGjjvn4nzpNfIQz/CODE_EVEN_LMS%EA%B5%AC%ED%98%84%EB%B0%9C%ED%91%9C-%EC%B5%9C%EC%A2%85?node-id=1-466&node-type=slide&viewport=-123%2C-137%2C0.7&t=QMdQYEzDrnraOO0y-1&scaling=min-zoom&content-scaling=fixed&page-id=0%3A1" target="_blank">figma</a>
@@ -126,9 +126,15 @@
 
 <section class="sec01">
   <h5>sec01배너가 나올 부분입니다</h5>
+  <ul>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+  </ul>
   <div></div>
 </section>
-<section class="sec02">
+<section class="sec02 container">
   <h5>sec02카테고리가 나올 부분입니다</h5>
   <ul>
     <li>카테1</li>
@@ -139,27 +145,31 @@
     <li>카테6</li>
   </ul>
 </section>
-<section class="sec03">
+<section class="sec03 container">
   <h5>sec03 베스트 추천 강좌</h5>
   <div></div>
 </section>
-<section class="sec04">
+<section class="sec04 container">
   <h5>sec04 지금 가장 인기있는 레시피</h5>
   <div></div>
 </section>
 <section class="sec05">
-  <h5>sec05 수강생 후기 배너</h5>
-  <div></div>
+  <div class="container">
+    <h5>sec05 수강생 후기 배너</h5>
+    <div></div>
+  </div>
 </section>
-<section class="sec06">
+<section class="sec06 container">
   <h5>sec06 이달의 BEST 선생님</h5>
   <div></div>
 </section>
 <section class="sec07">
-  <h5>sec07 강사 신청하기 배너</h5>
-  <div></div>
+  <div class="container">
+    <h5>sec07 강사 신청하기 배너</h5>
+    <div></div>
+  </div>
 </section>
-<section class="sec08">
+<section class="sec08 container">
   <h5>sec08 최신 강좌</h5>
   <div></div>
 </section>

@@ -120,7 +120,7 @@ body a{
 
 
  
-div.white{
+div.white, section.white{
   background: var(--bk0);
   color: var(--bk1000);
 }
