@@ -6,7 +6,7 @@
     <title>Signup</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link rel="stylesheet" href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/css/common.css">
-    <link rel="stylesheet" href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/student/css/main.css">
+    <link rel="stylesheet" href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/front/css/main.css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   </head>
 
@@ -15,7 +15,7 @@
   <div class="d-flex gap-5 align-items-center bgsz">
     <div class="img-wrap  w-50 d-flex justify-content-center">
       <div class="images1">
-        <img src="../../admin/images/txt_logo.png" alt="">
+        <img src="../../admin/images/txt_logo_white.png" alt="">
       </div>
     </div>
     <div class="w-50 container d-flex justify-content-center align-items-center">

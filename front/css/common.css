@@ -59,7 +59,7 @@ body{
   font-size: 16px;
   }
 h1{
- font-size: 100px;
+ /* font-size: 100px; 임시 */
 }
 h2{
  font-size: 60px;
@@ -120,7 +120,7 @@ body a{
 
 
  
-div.white{
+div.white, section.white{
   background: var(--bk0);
   color: var(--bk1000);
 }
@@ -142,8 +142,28 @@ header h1.logo a {
   text-transform: uppercase;
   color: var(--bk0);
 }
+header {
+  .header_grade1{
+    height: 70px;
+    border-bottom: 1px solid var(--bk700); /*임시*/
+  }
+  .header_grade2{
+    height: 80px;
+  }
+  ul ul{
+    display: none;
+  }
+
+}
+
+
 
 /* 푸터 footer */
 
+/* footer */
+.footer-logo img{
+  width: 263px;
+  height: 45px;
+}
 
 /* 기타 공통 부분 */
