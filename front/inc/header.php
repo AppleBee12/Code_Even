@@ -96,8 +96,8 @@ function Call($callUrl, $method, $headers = array(), $data = array(), $returnTyp
 <body>
   <header>
     <div class="container">
-      <div class="header-grade1 d-flex">
-        <div class="header-logo">
+      <div class="header_grade1 d-flex justify-content-between align-items-center">
+        <div class="header_logo">
           <h1 class="logo"><a href="">CODE EVEN</a></h1>
         </div>
         <div>
@@ -107,15 +107,15 @@ function Call($callUrl, $method, $headers = array(), $data = array(), $returnTyp
                 <a href="#" data-bs-toggle="modal" data-bs-target="#exampleModaltest" data-bs-whatever="@mdo">로그인</a>
               </li>
             <?php
-            } else {
-            ?>
-              <li>
-                <a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/members/login/logout.php">로그아웃</a>
-              </li>
-            <?php
-            }
-            ?>
-            <li><a href="members/signup/signup.php">회원가입</a></li>
+              }else{
+              ?>
+            <li> 
+              <a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/members/login/logout.php">로그아웃</a>
+            </li>
+              <?php
+                } 
+              ?>
+                <li><a href="members/signup/signup.php">회원가입</a></li>
             <li>고객센터
               <ul>
                 <li>공지사항</li>
@@ -124,10 +124,10 @@ function Call($callUrl, $method, $headers = array(), $data = array(), $returnTyp
             </li>
           </ul>
         </div>
-      </div>
+      </div> 
       <div class="header-grade2 d-flex">
         <nav class="header-menu">
-          <ul>
+          <ul class="d-flex gap-3">
             <li>
               강좌
               <ul>
@@ -178,7 +178,7 @@ function Call($callUrl, $method, $headers = array(), $data = array(), $returnTyp
             <i class="bi bi-search"></i>
           </div>
         </div>
-        <div class="header-icon">
+        <div class="header-icon visually-hidden">
           <div><a href="">장바구니</a></div>
           <div><a href="">알람</a></div>
           <div class="mini-profile">
