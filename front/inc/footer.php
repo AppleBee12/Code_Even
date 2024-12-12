@@ -3,37 +3,55 @@
 <footer>
   <div class="container">  
     <div class="footer-logo">
-      <a href="">logo</a>
+      <a href="">
+        <img src="admin/images/txt_logo_white.png" alt="footer_logo">  
+      </a>
     </div>
-    <div class="d-flex">
-      <div>
-        <p>회사명 주소</p>
-        <p>주소</p>
-        <p>등등</p>
+    <div class="d-flex justify-content-between">
+      <div class="row col-6">
+        <p>회사명 : (주) 디제이컴퍼니 | 회사대표명 : 김동주</p>
+        <p>주소 : 03192 서울 종로구 수표로 96 드림팰리스</p>
+        <p>사업자등록번호 : 192-01-23456</p>
+        <p>통신판매업번호 : 2024-서울종로-1234</p>
+        <p>코드이븐 고객센터 | code_even@gmail.com </p>
+        <p>고객센터 전화번호 : 02-1234-5678</p>
       </div>
-      <div>카테고리별 메뉴들
-        <ul>
-          <li>메뉴1</li>
-          <li>메뉴2</li>
-          <li>메뉴3</li>
-        </ul>
-      </div>
-      <div>카테고리별 메뉴들
-        <ul>
-          <li>메뉴1</li>
-          <li>메뉴2</li>
-          <li>메뉴3</li>
-        </ul>
-      </div>
-      <div>카테고리별 메뉴들
-        <ul>
-          <li>메뉴1</li>
-          <li>메뉴2</li>
-          <li>메뉴3</li>
-        </ul>
-      </div>
-      <div>
-        강사 신청하러 가기
+      <div class="col-6 d-flex gap-5">
+        <div class="menu_list">
+          <div class="list_title">코드이븐</div>
+          <ul class="menu_sublist p-0">
+            <li>레시피 강좌</li>
+            <li>블로그</li>
+            <li>팀 프로젝트</li>
+          </ul>
+        </div>
+        <div class="menu_list">
+          <div class="list_title">강좌</div>
+          <ul class="menu_sublist">
+            <li>카테고리별 강좌</li>
+            <li>나의 수업</li>
+            <li>이수증 발급</li>
+          </ul>
+        </div>
+        <div class="menu_list">
+          <div class="list_title">결제서비스</div>
+          <ul class="menu_sublist">
+            <li>장바구니</li>
+            <li>찜한 상품</li>
+            <li>결제 내역</li>
+          </ul>
+        </div>
+        <div class="menu_list">
+          <div class="list_title">코드이븐고객센터</div>
+          <ul class="menu_sublist">
+            <li>공지사항</li>
+            <li>FAQ</li>
+            <li>내 문의글</li>
+          </ul>
+        </div>
+        <div>
+          강사 신청하러 가기
+        </div>
       </div>
     </div>
     <div class="d-flex">

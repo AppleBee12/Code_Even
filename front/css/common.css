@@ -160,5 +160,10 @@ header {
 
 /* 푸터 footer */
 
+/* footer */
+.footer-logo img{
+  width: 263px;
+  height: 45px;
+}
 
 /* 기타 공통 부분 */
