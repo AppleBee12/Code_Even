@@ -127,10 +127,35 @@
 <section class="sec01">
   <h5>sec01배너가 나올 부분입니다</h5>
   <ul>
-    <li></li>
-    <li></li>
-    <li></li>
-    <li></li>
+    <li>
+      <div class="sec01_banner sec01_banner01">
+        <h5>EVENT</h5>
+        <h3>비슷한 부분을 자꾸 잊는다면?</h3>
+        <h3>코드이븐 레시피 강좌를 만날때!</h3>
+      </div>
+    </li>
+    <li>
+      <div class="sec01_banner sec01_banner02">
+        <h5>2024.12.01 - 12.31</h5>
+        <h3>크리스마스 특별 50% 쿠폰 증정!</h3>
+        <h3>추운 날 따뜻한 쿠폰 받아가세요</h3>
+      </div>
+    </li>
+    <li>
+      <div class="sec01_banner sec01_banner03">
+        <h5>OPEN</h5>
+        <h3>HTML의 정석</h3>
+        <h3>개발자를 위한 HTML강의</h3>
+      </div>
+    </li>
+    <li>
+      <div class="sec01_banner sec01_banner04">
+        <h5>BEST</h5>
+        <h3>이달의 베스트 선생님</h3>
+        <h3>웹코딩의 절대강자 김동주</h3>
+      </div>
+    </li>
+
   </ul>
   <div></div>
 </section>
