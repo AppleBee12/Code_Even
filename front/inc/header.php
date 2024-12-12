@@ -101,49 +101,12 @@ function Call($callUrl, $method, $headers = array(), $data = array(), $returnTyp
         </div>
         <div>
           <ul class="d-flex gap-3">
-            <?php if(!isset($_SESSION['AUID'])){ ?>
+          <?php if(!isset($_SESSION['AUID'])){ ?>
             <li>
               <a href="#" data-bs-toggle="modal" data-bs-target="#exampleModaltest" data-bs-whatever="@mdo">로그인</a>
-              <div class="modal fade" id="exampleModaltest" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div class="modal-dialog w_c">
-                  <div class="modal-content">
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    <div class="modal-header d-flex justify-content-center">
-                      <div class="wrappers d-flex row justify-content-center">
-                        <img src="admin/images/txt_logo.png" class="mt-5" width="309" height="46" alt="코드이븐로고">
-                        <h1 class="modal-title fs-5 mt-5 d-flex justify-content-center" id="exampleModalLabel login">로그인</h1>
-                      </div>
-                    </div>
-                    <div class="modal-body">  
-                      <form action="members/login/login_ok.php" method="POST" >
-                        <div class="mb-3 d-flex justify-content-center gap-4 mid">
-                          <label for="inputId" class="col-form-label align-self-center">아이디</label>
-                          <input type="text" class="form-control id" id="inputId" placeholder="아이디를 입력하세요" name="userid" required>
-                        </div>
-                        <div class="mb-3 d-flex justify-content-center gap-3 mpw">
-                          <label for="inputPassword" class="col-form-label align-self-center">비밀번호</label>
-                          <input type="password" class="form-control pw" id="inputPassword" placeholder="비밀번호를 입력하세요"   name="userpw" required>
-                        </div>
-                        <div class="modal-footer d-flex justify-content-center">
-                          <div class="d-flex row">
-                            <button class="btn loginbtn redbtn">로그인</button>
-                            <a href="https://kauth.kakao.com/oauth/authorize?client_id=<?=$REST_API_KEY?>&response_type=code&redirect_uri=<?=$REDIRECT_URI?>" class="kakao"><img src="images/kakaobtn.png" width="360" height="34" class="mt-1 " /></a>
-                          </div>
-
-                          <div class="mt-3 d-flex justify-content-center gap-3 mb-5">
-                            <a href="#" class="link-body-emphasis ">아이디 찾기</a>
-                            <a href="#" class="link-body-emphasis">비밀번호 찾기</a>
-                            <a href="members/signup/signup.php" class="link-body-emphasis text-decoration-underline">회원가입</a>
-                          </div>
-                        </div>
-                      </form>
-                    </div>
-                  </div>
-                </div>
-              </div>
             </li>
-              <?php
-                }else{
+            <?php
+              }else{
               ?>
             <li> 
               <a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/members/login/logout.php">로그아웃</a>
@@ -151,7 +114,7 @@ function Call($callUrl, $method, $headers = array(), $data = array(), $returnTyp
               <?php
                 } 
               ?>
-            <li><a href="members/signup/signup.php">회원가입</a></li>
+                    <li><a href="members/signup/signup.php">회원가입</a></li>
             <li>고객센터
               <ul>
                 <li>공지사항</li>
@@ -242,4 +205,43 @@ function Call($callUrl, $method, $headers = array(), $data = array(), $returnTyp
       </div> 
     </div>
   </header>
-  <div class="main_wrapper">
+
+  
+    <div class="modal fade" id="exampleModaltest" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog w_c">
+        <div class="modal-content">
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          <div class="modal-header d-flex justify-content-center">
+            <div class="wrappers d-flex row justify-content-center">
+              <img src="admin/images/txt_logo.png" class="mt-5" width="309" height="46" alt="코드이븐로고">
+              <h1 class="modal-title fs-5 mt-5 d-flex justify-content-center" id="exampleModalLabel login">로그인</h1>
+            </div>
+          </div>
+          <div class="modal-body">  
+            <form action="members/login/login_ok.php" method="POST" >
+              <div class="mb-3 d-flex justify-content-center gap-4 mid">
+                <label for="inputId" class="col-form-label align-self-center">아이디</label>
+                <input type="text" class="form-control id" id="inputId" placeholder="아이디를 입력하세요" name="userid" required>
+              </div>
+              <div class="mb-3 d-flex justify-content-center gap-3 mpw">
+                <label for="inputPassword" class="col-form-label align-self-center">비밀번호</label>
+                <input type="password" class="form-control pw" id="inputPassword" placeholder="비밀번호를 입력하세요"   name="userpw" required>
+              </div>
+              <div class="modal-footer d-flex justify-content-center">
+                <div class="d-flex row">
+                  <button class="btn loginbtn redbtn">로그인</button>
+                  <a href="https://kauth.kakao.com/oauth/authorize?client_id=<?=$REST_API_KEY?>&response_type=code&redirect_uri=<?=$REDIRECT_URI?>" class="kakao"><img src="images/kakaobtn.png" width="360" height="34" class="mt-1 " /></a>
+                </div>
+
+                <div class="mt-3 d-flex justify-content-center gap-3 mb-5">
+                  <a href="#" class="link-body-emphasis ">아이디 찾기</a>
+                  <a href="#" class="link-body-emphasis">비밀번호 찾기</a>
+                  <a href="members/signup/signup.php" class="link-body-emphasis text-decoration-underline">회원가입</a>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  <div class="container">
