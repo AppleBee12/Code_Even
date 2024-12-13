@@ -16,38 +16,7 @@ if (!isset($title)) {
 
 
 //카카오 간편 로그인 --시작
-$REST_API_KEY   = "5fa7150969af80c8040eb8c4bcd59bf2"; // 내 애플리케이션 > 앱 설정 > 요약 정보
-$CLIENT_SECRET  = ""; // 내 애플리케이션 > 제품 설정 > 카카오 로그인 > 보안
-$REDIRECT_URI  = urlencode($_SERVER['DOCUMENT_ROOT'] . '/code_even/front/inc/kakao_rest_api_example.php');
-?>
-<?php //공통 : API Call Function
-function Call($callUrl, $method, $headers = array(), $data = array(), $returnType = "jsonObject")
-{
-  echo "<pre>" . $callUrl . "</pre>";
-  try {
-    $ch = curl_init();
-    curl_setopt($ch, CURLOPT_URL, $callUrl);
-    if ($method == "POST") {
-      curl_setopt($ch, CURLOPT_POST, true);
-      curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
-    } else {
-      curl_setopt($ch, CURLOPT_POST, false);
-    }
-    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-    curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
-    curl_setopt($ch, CURLOPT_HTTP200ALIASES, array(400));
-    $response = curl_exec($ch);
-    $status_code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
-    curl_close($ch);
-
-    echo "<pre>" . $status_code . ":" . $response . "</pre>";
-
-    if ($returnType == "jsonObject") return json_decode($response);
-    else return $response;
-  } catch (Exception $e) {
-    echo $e;
-  }
-}
+ 
 //카카오 간편 로그인 --끝
 
 
@@ -231,7 +200,7 @@ function Call($callUrl, $method, $headers = array(), $data = array(), $returnTyp
             <div class="modal-footer d-flex justify-content-center">
               <div class="d-flex row">
                 <button class="btn loginbtn redbtn">로그인</button>
-                <a href="https://kauth.kakao.com/oauth/authorize?client_id=<?= $REST_API_KEY ?>&response_type=code&redirect_uri=<?= $REDIRECT_URI ?>" class="kakao"><img src="images/kakaobtn.png" width="360" height="34" class="mt-1 " /></a>
+                <a href="https://kauth.kakao.com/oauth/authorize?client_id=<?= $REST_API_KEY ?>&response_type=code&redirect_uri=<?= $REDIRECT_URI ?>" class="kakao"><img src="front/images/kakaobtn.png" width="360" height="34" class="mt-1 " /></a>
               </div>
 
               <div class="mt-3 d-flex justify-content-center gap-3 mb-5">
