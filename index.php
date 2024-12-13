@@ -136,15 +136,56 @@ $main_js = "<script src=\"http://" . $_SERVER['HTTP_HOST'] . "/code_even/front/j
     </div>
   </div>
 </section>
-<section class="sec02 container">
-  <h5>sec02카테고리가 나올 부분입니다</h5>
-  <ul>
-    <li>카테1</li>
-    <li>카테2</li>
-    <li>카테3</li>
-    <li>카테4</li>
-    <li>카테5</li>
-    <li>카테6</li>
+<section class="sec02 container d-flex align-items-center justify-content-center">
+  <ul class="images_wh">
+    <li>
+      <div>
+        <a href="#"><img src="front/images/frontend.png" alt="프론트엔드">
+          <div class="headt5 mb-2">프론트엔드</div>
+          <div>프론트엔드 개발자를 위한, <br> 실전 웹 성능 최적화 <br>(feat. React)</div>
+        </a>
+      </div>
+    </li>
+    <li>
+      <div>
+        <a href="#"><img src="front/images/backend.png" alt="백엔드">
+          <div class="headt5 mb-2">백엔드</div>
+          <div>탄탄한 백엔드 NestJS,  <br>기초부터 심화까지</div>
+        </a>
+      </div>
+    </li>
+    <li>
+      <div>
+        <a href="#"><img src="front/images/cloud.png" alt="클라우드/DB">
+          <div class="headt5 mb-2">클라우드/DB</div>
+          <div>스스로 구축하는 <br>AWS 클라우드 <br>  인프라 </div>
+        </a>
+      </div>
+    </li>
+    <li>
+      <div>
+        <a href="#"><img src="front/images/database.png" alt="데이터베이스">
+          <div class="headt5 mb-2">데이터베이스</div>
+          <div>초보자를 위한 쉬운 파이썬 <br> 기초와 데이터 분석</div>
+        </a>
+      </div>
+    </li>
+    <li>
+      <div>
+        <a href="#"><img src="front/images/network.png" alt="네트워크 관리">
+          <div class="headt5 mb-2">네트워크 관리</div>
+          <div>실습으로 배우는  <br> 핵심 네트워크 기술</div>
+        </a>
+      </div>
+    </li>
+    <li>
+      <div>
+        <a href="#"><img src="front/images/security.png" alt="보안">
+          <div class="headt5 mb-2">보안</div>
+          <div>기초부터 따라하는  <br> 디지털포렌식</div>
+        </a>
+      </div>
+    </li>
   </ul>
 </section>
 <section class="sec03 container">
@@ -166,18 +207,22 @@ $main_js = "<script src=\"http://" . $_SERVER['HTTP_HOST'] . "/code_even/front/j
   <div></div>
 </section>
 <section class="sec07">
-  <div class="container d-flex justify-content-between sec_height align-items-center">
-    <div class="">
-      <h3>현직자 리드멘토가 되어주세요!</h3>
-      <h5>여러분들만의 지식과 배움을 공유하고 <br>
-      코드이븐의 꿈나무들에게 미래를 응원해주세요!</h5>
-      <p class="tc_borderline_banner mt-4">
-        <a href="tc_applyform.php">강사 신청하러 가기</a>
-      </p>
-    </div>  
-    <div class="logo_img d-flex align-items-center">
-      <h1 class="logo">CODE EVEN</h1>
-      <img src="front/images/superhero.png" alt="">
+  <div class="container">
+    <div class=" d-flex justify-content-between sec_height align-items-center row">
+      <div class="col-6">
+        <div class="">
+          <div class="headt3">현직자 리드멘토가 되어주세요!</div>
+          <div class="headt5">여러분들만의 지식과 배움을 공유하고 <br>
+          코드이븐의 꿈나무들에게 미래를 응원해주세요!</div>
+        </div>  
+        <div class="tc_borderline_banner mt-5">
+          <a href="tc_applyform.php">강사 신청하러 가기</a>
+        </div>
+      </div>
+      <div class="logo_img d-flex align-items-center col-6">
+        <div class="headt3">CODE EVEN</div>
+        <img src="front/images/superhero.png" alt="">
+      </div>
     </div>
   </div>
 </section>

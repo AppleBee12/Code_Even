@@ -1,11 +1,11 @@
 /* section */
 .s_h{
   /* gap: 190px; */
-  h5{
+  .headt5{
     font-size: 24px;
     color: var(--red800);
   }
-  h3{
+  .headt3{
     font-size: 48px;
     color: var(--bk0);
   }

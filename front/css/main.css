@@ -228,7 +228,20 @@
 
 /* sec01 끝 */
 /* sec02 시작 */
-
+.images_wh {
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  gap: 89px;
+  img{
+    width: 64px;
+    height: 64px;
+    margin-bottom: 40px;
+  }
+}
+.sec02{
+  height: 372px;
+}
 
 /* sec02 끝 */
 /* sec03 시작 */
@@ -249,18 +262,40 @@
 /* sec06 끝 */
 /* sec07 시작 */
 .sec_height{
-  height: 317px;
+  height: 400px;
 }
 .sec07{
   background: linear-gradient(to right, black, gray);
 }
 .tc_borderline_banner a{
-  border: 1px solid var(--red700);
-  color: var(--red700);
+  border: 1px solid var(--bk0);
+  color: var(--bk0);
   padding: 10px;
   border-radius: 10px;
 }
-
+.tc_borderline_banner a:hover{
+  background: var(--bk0);
+  color: var(--bk1000);
+  transition:
+  background-color 1s,
+  transform 2s;
+}
+.logo_img .headt3{
+  font-family: "League Gothic", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-size: 80px;
+  line-height: 45px;
+  letter-spacing: 30px;
+  text-transform: uppercase;
+  z-index: 10;
+  a{
+    color: var(--bk0);
+  }
+}
+.logo_img img{
+  margin-left: -100px;
+}
 /* sec07 끝 */
 /* sec08 시작 */
 
