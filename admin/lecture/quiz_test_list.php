@@ -25,7 +25,6 @@ if ($keywords) {
   $test_where_clause = '';
 }
 
-
 $page_sql = "SELECT COUNT(*) AS cnt FROM (
     SELECT exid FROM quiz
     UNION ALL
@@ -51,11 +50,11 @@ if ($block_end > $total_page) {
 }
 
 // quiz 테이블 데이터 가져오기
-$quiz_sql = "SELECT exid, title, '퀴즈' AS problem_type, tid, tt, pn, answer, pnlevel, 'admin' AS registered_by 
+$quiz_sql = "SELECT exid, title, '퀴즈' AS problem_type, 'quiz' AS type, tid, tt, pn, answer, pnlevel, 'admin' AS registered_by 
              FROM quiz $quiz_where_clause";
 
 // test 테이블 데이터 가져오기
-$test_sql = "SELECT exid, title, '시험' AS problem_type, tid, tt, pn, answer, pnlevel, 'admin' AS registered_by 
+$test_sql = "SELECT exid, title, '시험' AS problem_type, 'test' AS type, tid, tt, pn, answer, pnlevel, 'admin' AS registered_by 
              FROM test $test_where_clause";
 
 // 두 쿼리를 UNION으로 합치기
@@ -82,7 +81,6 @@ if (!empty($dataArr)) {
     $usernames[$user->uid] = $user->username; // uid를 키로, username을 값으로 저장
   }
 }
-
 
 ?>
 
@@ -134,9 +132,13 @@ if (!empty($dataArr)) {
             <td><?= $usernames[$item->tid] ?? '관리자'; ?></td>
             <td>
               <div class="d-flex justify-content-center gap-4">
-                <a href="quiz_test_edit.php?id=<?= $item->exid; ?>"><i class="bi bi-pencil-fill"></i></a>
-                <a href="quiz_test_delete.php?id=<?= $item->exid; ?>" onclick="return confirm('이 항목을 삭제하시겠습니까?');"><i
-                    class="bi bi-trash"></i></a>
+                <a href="quiz_test_edit.php?id=<?= $item->exid; ?>&type=<?= $item->type; ?>">
+                  <i class="bi bi-pencil-fill"></i>
+                </a>
+                <a href="quiz_test_delete.php?id=<?= $item->exid; ?>&type=<?= $item->type; ?>"
+                   onclick="return confirm('이 항목을 삭제하시겠습니까?');">
+                  <i class="bi bi-trash"></i>
+                </a>
               </div>
             </td>
           </tr>
@@ -147,7 +149,8 @@ if (!empty($dataArr)) {
       <button type="button" id="deleteSelectedBtn" class="btn selecmodify">일괄 삭제</button>
     </div>
   </form>
-  <!-- //Pagination -->
+
+  <!-- Pagination -->
   <div class="list_pagination" aria-label="Page navigation example">
     <ul class="pagination d-flex justify-content-center">
       <?php
@@ -186,6 +189,7 @@ if (!empty($dataArr)) {
       ?>
     </ul>
   </div>
+
   <script>
     $('.title-cell').each(function () {
       const originalText = $(this).text().trim(); // 셀의 원래 텍스트를 가져옴
