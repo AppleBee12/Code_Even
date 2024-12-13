@@ -245,7 +245,18 @@
 
 /* sec06 끝 */
 /* sec07 시작 */
-
+.sec_height{
+  height: 317px;
+}
+.sec07{
+  background: linear-gradient(to right, black, gray);
+}
+.tc_borderline_banner a{
+  border: 1px solid var(--red700);
+  color: var(--red700);
+  padding: 10px;
+  border-radius: 10px;
+}
 
 /* sec07 끝 */
 /* sec08 시작 */

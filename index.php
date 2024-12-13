@@ -166,9 +166,19 @@ $main_js = "<script src=\"http://" . $_SERVER['HTTP_HOST'] . "/code_even/front/j
   <div></div>
 </section>
 <section class="sec07">
-  <div class="container">
-    <h5>sec07 강사 신청하기 배너</h5>
-    <div></div>
+  <div class="container d-flex justify-content-between sec_height align-items-center">
+    <div class="">
+      <h3>현직자 리드멘토가 되어주세요!</h3>
+      <h5>여러분들만의 지식과 배움을 공유하고 <br>
+      코드이븐의 꿈나무들에게 미래를 응원해주세요!</h5>
+      <p class="tc_borderline_banner mt-4">
+        <a href="tc_applyform.php">강사 신청하러 가기</a>
+      </p>
+    </div>  
+    <div class="logo_img d-flex align-items-center">
+      <h1 class="logo">CODE EVEN</h1>
+      <img src="front/images/superhero.png" alt="">
+    </div>
   </div>
 </section>
 <section class="sec08 container">

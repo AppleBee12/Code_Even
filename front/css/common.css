@@ -185,7 +185,7 @@ header {
   height: 45px;
   margin-bottom: 60px;
 }
-.br_tc{
+.tc_borderline{
   border: 1px solid var(--bk0);
   padding: 10px;
   border-radius: 10px;
@@ -210,9 +210,5 @@ header {
 .g_ml{
   gap: 75px;
 }
-.br_tc{
-  color: wheat;
-}
-
 
 /* 기타 공통 부분 */
