@@ -219,8 +219,8 @@ $main_js = "<script src=\"http://" . $_SERVER['HTTP_HOST'] . "/code_even/front/j
           <a href="tc_applyform.php">강사 신청하러 가기</a>
         </div>
       </div>
-      <div class="logo_img d-flex align-items-center col-6">
-        <div class="headt3">CODE EVEN</div>
+      <div class="logo_img d-flex align-items-center col-6 justify-content-end">
+        <div class="headt3 text_shadow">CODE EVEN</div>
         <img src="front/images/superhero.png" alt="">
       </div>
     </div>

@@ -293,6 +293,9 @@
 .logo_img img{
   margin-left: -100px;
 }
+.text_shadow{
+  text-shadow: 0px 5px 20px black;
+}
 /* sec07 끝 */
 /* sec08 시작 */
 
