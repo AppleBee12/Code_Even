@@ -149,7 +149,72 @@
 </section>
 <section class="sec05">
   <h5>sec05 수강생 후기 배너</h5>
-  <div></div>
+  <div class="sec05">
+    <div class="swiper-container">
+      <ul class="swiper-wrapper">
+        <li class="swiper-slide">
+          <div class="reviewBG">
+            <div>
+              <div>
+                <p class="body2 review_title">기초부터 확실하게!</p>
+                <div class="box">
+                  <span class="review_bk">성춘향</span><span class="body2 review_date">2024년 11월 30일</span>
+                </div>
+              </div>
+              <span>
+                <i class="bi bi-star-fill"></i>
+                <i class="bi bi-star-fill"></i>
+                <i class="bi bi-star-fill"></i>
+                <i class="bi bi-star-fill"></i>
+                <i class="bi bi-star-fill"></i>
+              </span>
+            </div>
+            <p class="review_bk">너무 쉽게 알려주셔서 감사합니다. 덕분에 많은 걸 배울 수 있었어요.</p>
+          </div>
+        </li>
+        <li class="swiper-slide">
+          <div class="reviewBG">
+            <div>
+              <div>
+                <p class="body2 review_title">기초부터 확실하게!</p>
+                <div class="box">
+                  <span class="review_bk">성춘향</span><span class="body2 review_date">2024년 11월 30일</span>
+                </div>
+              </div>
+              <span>
+                <i class="bi bi-star-fill"></i>
+                <i class="bi bi-star-fill"></i>
+                <i class="bi bi-star-fill"></i>
+                <i class="bi bi-star-fill"></i>
+                <i class="bi bi-star-fill"></i>
+              </span>
+            </div>
+            <p class="review_bk">너무 쉽게 알려주셔서 감사합니다. 덕분에 많은 걸 배울 수 있었어요.</p>
+          </div>
+        </li>
+        <li class="swiper-slide">
+          <div class="reviewBG">
+            <div>
+              <div>
+                <p class="body2 review_title">기초부터 확실하게!</p>
+                <div class="box">
+                  <span class="review_bk">성춘향</span><span class="body2 review_date">2024년 11월 30일</span>
+                </div>
+              </div>
+              <span>
+                <i class="bi bi-star-fill"></i>
+                <i class="bi bi-star-fill"></i>
+                <i class="bi bi-star-fill"></i>
+                <i class="bi bi-star-fill"></i>
+                <i class="bi bi-star-fill"></i>
+              </span>
+            </div>
+            <p class="review_bk">너무 쉽게 알려주셔서 감사합니다. 덕분에 많은 걸 배울 수 있었어요.</p>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
 </section>
 <section class="sec06">
   <h5>sec06 이달의 BEST 선생님</h5>
