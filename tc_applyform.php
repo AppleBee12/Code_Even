@@ -53,22 +53,22 @@ while($data = $category_result->fetch_object()){
       <div class="data d-flex">
         <img src="front/images/data.png" class="my-3 img_w" alt="data.png">
         <div class="value_cover">
-          <h5>1인 평균 누적수입</h5>
-          <h3>5783만원</h3>
+          <div class="headt5">1인 평균 누적수입</div>
+          <div class="headt3">5783만원</div>
         </div>
       </div>
       <div class="data d-flex b_l">
         <img src="front/images/graduated.png" class="my-3 img_w" alt="data.png">
         <div>
-          <h5>총 회원수</h5>
-          <h3>100만명</h3>
+          <div class="headt5">총 회원수</div>
+          <div class="headt3">100만명</div>
         </div>
       </div>
       <div class="data d-flex b_l">
         <img src="front/images/group.png" class="my-3 img_w" alt="data.png">
         <div>
-          <h5>누적 수강생</h5>
-          <h3>500만명</h3>
+          <div class="headt5">누적 수강생</div>
+          <div class="headt3">500만명</div>
         </div>
       </div>
     </div>
@@ -80,7 +80,7 @@ while($data = $category_result->fetch_object()){
           <div class="d-flex justify-content-center img_b">
             <img src="admin/images/txt_logo.png" class="my-3" alt="data.png">
           </div>
-          <h2>왜 코드이븐일까요?</h2>
+          <div class="headt2">왜 코드이븐일까요?</h2>
         </div>
       </div>
       <div class="d-flex justify-content-center g_new">
