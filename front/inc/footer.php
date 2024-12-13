@@ -3,11 +3,12 @@
 <footer>
   <div class="container all_p">
     <div class="footer-logo d-flex justify-content-between">
-      <a href="">
-        <img src="admin/images/txt_logo_white.png" alt="footer_logo">  
-      </a>
+        <!-- <img src="admin/images/txt_logo_white.png" alt="footer_logo">   -->
+        <div>
+          <h2 class="logo"><a href="">CODE EVEN</a></h2>
+        </div>
       <div>
-        <p class="br_tc">
+        <p class="tc_borderline">
           <a href="tc_applyform.php">강사 신청하러 가기
             <i class="fa-solid fa-arrow-up-right-from-square"></i>
           </a>
