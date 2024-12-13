@@ -86,9 +86,9 @@ $main_js = "<script src=\"http://" . $_SERVER['HTTP_HOST'] . "/code_even/front/j
         <li class="swiper-slide">
           <div class="sec01_banner sec01_banner01">
             <div class="sec01_textwrapper">
-              <h5>EVENT</h5>
-              <h3>비슷한 부분을 자꾸 잊는다면?</h3>
-              <h3>코드이븐 레시피 강좌를 만날 때!</h3>
+              <p class="headt5">EVENT</p>
+              <p class="headt3">비슷한 부분을 자꾸 잊는다면?</p>
+              <p class="headt3">코드이븐 레시피 강좌를 만날 때!</p>
             </div>
             <img src="front/images/sec01_banner01.png" alt="">
           </div>
@@ -96,9 +96,9 @@ $main_js = "<script src=\"http://" . $_SERVER['HTTP_HOST'] . "/code_even/front/j
         <li class="swiper-slide">
           <div class="sec01_banner sec01_banner02">
             <div class="sec01_textwrapper">
-              <h5>2024.12.01 - 12.31</h5>
-              <h3>크리스마스 특별 50% 쿠폰 증정!</h3>
-              <h3>추운 날 따뜻한 쿠폰 받아가세요</h3>
+              <p class="headt5">2024.12.01 - 12.31</p>
+              <p class="headt3">크리스마스 특별 50% 쿠폰 증정!</p>
+              <p class="headt3">추운 날 따뜻한 쿠폰 받아가세요</p>
             </div>
             <img src="front/images/sec01_banner02.png" alt="">
           </div>
@@ -106,9 +106,9 @@ $main_js = "<script src=\"http://" . $_SERVER['HTTP_HOST'] . "/code_even/front/j
         <li class="swiper-slide">
           <div class="sec01_banner sec01_banner03">
             <div class="sec01_textwrapper">
-              <h5>OPEN</h5>
-              <h3>HTML의 정석</h3>
-              <h3>개발자를 위한 HTML강의</h3>
+              <p class="headt5">OPEN</p>
+              <p class="headt3">HTML의 정석</p>
+              <p class="headt3">개발자를 위한 HTML강의</p>
             </div>
             <img src="front/images/sec01_banner03.png" alt="">
           </div>
@@ -116,9 +116,9 @@ $main_js = "<script src=\"http://" . $_SERVER['HTTP_HOST'] . "/code_even/front/j
         <li class="swiper-slide">
           <div class="sec01_banner sec01_banner04">
             <div class="sec01_textwrapper">
-              <h5>BEST</h5>
-              <h3>이달의 베스트 선생님</h3>
-              <h3>웹코딩의 절대강자 김동주</h3>
+              <p class="headt5">BEST</p>
+              <p class="headt3">이달의 베스트 선생님</p>
+              <p class="headt3">웹코딩의 절대강자 김동주</p>
             </div>
             <img src="front/images/sec01_banner04.png" alt="">
           </div>
