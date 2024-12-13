@@ -199,7 +199,7 @@ if (!isset($title)) {
             <div class="modal-footer d-flex justify-content-center">
               <div class="d-flex row">
                 <button class="btn loginbtn redbtn">로그인</button>
-                <a href="https://kauth.kakao.com/oauth/authorize?client_id=<?= $REST_API_KEY ?>&response_type=code&redirect_uri=<?= $REDIRECT_URI ?>" class="kakao"><img src="images/kakaobtn.png" width="360" height="34" class="mt-1 " /></a>
+                <a href="https://kauth.kakao.com/oauth/authorize?client_id=<?= $REST_API_KEY ?>&response_type=code&redirect_uri=<?= $REDIRECT_URI ?>" class="kakao"><img src="front/images/kakaobtn.png" width="360" height="34" class="mt-1 " /></a>
               </div>
 
               <div class="mt-3 d-flex justify-content-center gap-3 mb-5">
