@@ -161,9 +161,42 @@ header {
 /* 푸터 footer */
 
 /* footer */
+.all_p{
+  padding: 120px 0 70px 0;
+}
 .footer-logo img{
   width: 263px;
   height: 45px;
+  margin-bottom: 60px;
 }
+.br_tc{
+  border: 1px solid var(--bk0);
+  padding: 10px;
+  border-radius: 10px;
+}
+.menu_list{
+ display: flex;
+ flex-direction: column;
+ text-align: center; 
+ .list_title{
+   margin-bottom: 25px;
+ }
+ .menu_sublist{
+   padding: 0 ;
+  }
+}
+.footer_border{
+  border-bottom: 1px solid var(--bk0);
+}
+.menu_sublist{
+  line-height: 28px;
+}
+.g_ml{
+  gap: 75px;
+}
+.br_tc{
+  color: wheat;
+}
+
 
 /* 기타 공통 부분 */

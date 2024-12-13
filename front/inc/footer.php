@@ -1,22 +1,27 @@
 </div>
 
 <footer>
-  <div class="container">
-    <div class="footer-logo">
+  <div class="container all_p">
+    <div class="footer-logo d-flex justify-content-between">
       <a href="">
         <img src="admin/images/txt_logo_white.png" alt="footer_logo">  
       </a>
+      <div>
+        <p class="br_tc">
+          <a href="tc_applyform.php">강사 신청하러 가기
+            <i class="fa-solid fa-arrow-up-right-from-square"></i>
+          </a>
+        </p>
+      </div>
     </div>
-    <div class="d-flex justify-content-between">
-      <div class="row col-6">
+    <div class="d-flex mb-5 footer_border">
+      <div class="row mb-5">
         <p>회사명 : (주) 디제이컴퍼니 | 회사대표명 : 김동주</p>
         <p>주소 : 03192 서울 종로구 수표로 96 드림팰리스</p>
-        <p>사업자등록번호 : 192-01-23456</p>
-        <p>통신판매업번호 : 2024-서울종로-1234</p>
-        <p>코드이븐 고객센터 | code_even@gmail.com </p>
-        <p>고객센터 전화번호 : 02-1234-5678</p>
+        <p>사업자등록번호 : 192-01-23456 | 통신판매업번호 : 2024-서울종로-1234</p>
+        <p>코드이븐 고객센터 | code_even@gmail.com | 고객센터 전화번호 : 02-1234-5678</p>
       </div>
-      <div class="col-6 d-flex gap-5">
+      <div class=" col-7 d-flex g_ml justify-content-end">
         <div class="menu_list">
           <div class="list_title">코드이븐</div>
           <ul class="menu_sublist p-0">
@@ -49,22 +54,16 @@
             <li>내 문의글</li>
           </ul>
         </div>
-        <div>
-          강사 신청하러 가기
-        </div>
       </div>
     </div>
-    <div class="d-flex">
+    <div class="d-flex justify-content-between">
       <div class="footer-policy d-flex">
         <p><a href="">개인정보 정책</a></p>
-        <p>|</p>
+        <p>&nbsp;|&nbsp;</p>
         <p><a href="">이용 약관</a></p>
       </div>
       <div>
         <p>CODE EVEN LMS ©2024 All Rights Reserved.</p>
-      </div>
-      <div>
-        <p><a href="tc_applyform.php">강의자신청</a></p>
       </div>
     </div>
   </div>
