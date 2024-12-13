@@ -156,7 +156,6 @@ header h1.logo, footer h2.logo{
   a{
     color: var(--bk0);
   }
-  
 }
 header {
   .header_grade1{
@@ -185,10 +184,17 @@ header {
   height: 45px;
   margin-bottom: 60px;
 }
-.tc_borderline{
+.tc_borderline a{
   border: 1px solid var(--bk0);
   padding: 10px;
   border-radius: 10px;
+}
+.tc_borderline a:hover{
+  background: var(--bk0);
+  color: var(--bk1000);
+  transition:
+  background-color 1s,
+  transform 2s;
 }
 .menu_list{
  display: flex;

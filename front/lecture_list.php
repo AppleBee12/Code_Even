@@ -4,6 +4,13 @@
 
 ?>
   <style>
+
+  .title_wrap{
+    margin-top: 90px;
+    margin-bottom: 90px;
+  }
+
+
     /* Outline-only badge */
     .badge-outline {
       color: #C93333 !important; /* 텍스트 색 */
@@ -14,29 +21,117 @@
     .tc_name{
       color: var(--bk500);
     }
+
+    .acc_title{
+      background: #BCBCBC;
+      height: 50px;
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--bk900);
+      position: relative;
+
+      p{
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        padding-left: 20px;
+      }
+    }
+
+    .accordion{
+      --bs-accordion-btn-focus-box-shadow: none;
+      --bs-accordion-btn-active-icon: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='none' stroke='%23fff' stroke-linecap='round' stroke-linejoin='round'%3e%3cpath d='M2 5L8 11L14 5'/%3e%3c/svg%3e");
+    }
+
+    .accordion-item,
+    .accordion-item:first-of-type>.accordion-header .accordion-button{
+      border-top-left-radius: 0 !important;
+      border-top-right-radius: 0 !important;
+      border-bottom-left-radius: 0 !important;
+      border-bottom-right-radius: 0 !important;
+    }
+
+    .accordion-button:not(.collapsed){
+      color: #fff;
+      background-color: rgba(0, 0, 0, .7);
+    }
+    
+    .accordion-button{
+      padding-left: 40px;
+    }
+
+    .accordion-body{
+
+      padding: 0;
+      
+      li{
+        height: 50px;
+        padding-left: 60px;
+        position: relative;
+        cursor: pointer;
+        
+        p{
+          position:absolute;
+          top: 50%;
+          transform: translateY(-50%);
+        }
+      }
+      
+      li:hover{
+        color: #fff;
+        background-color: rgba(0, 0, 0, .7);
+      }
+    }
+
+    .bi-star-fill{
+      color: #FFCE0C;
+    }
+
+    .bi-heart-fill{
+      color: var(--primary);
+    }
+
   </style>
 </head>
-
+<div class="container title_wrap">
+  <p class="headt3">강좌</p>
+</div>
 <div class="container d-flex justify-content-center accordion" id="accordionExample">
   <div class="row w-100">
     <!-- 강좌 리스트 아코디언 시작 -->
     <div class="col-3">
-      <p>웹 개발</p>
+      <div class="acc_title">
+        <p>웹 개발</p>
+      </div>
       <ul class="accordion-item">
         <li class="accordion-header">
-          <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFrontend" aria-expanded="true" aria-controls="collapseFrontend">
+          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFrontend" aria-expanded="true" aria-controls="collapseFrontend">
             프론트엔드
           </button>
         </li>
-        <div id="collapseFrontend" class="accordion-collapse collapse show" data-bs-parent="#accordionExample">
+        <div id="collapseFrontend" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
           <ul class="accordion-body">
-            <li>HTML / CSS</li>
-            <li>Javascript</li>
-            <li>jQuery</li>
-            <li>React</li>
-            <li>Angular</li>
-            <li>Vue.js</li>
-            <li>TypeScript</li>
+            <li>
+              <p>HTML / CSS</p>
+            </li>
+            <li>
+              <p>Javascript</p>
+            </li>
+            <li>
+              <p>jQuery</p>
+            </li>
+            <li>
+              <p>React</p>
+            </li>
+            <li>
+              <p>Angular</p>
+            </li>
+            <li>
+              <p>Vue.js</p>
+            </li>
+            <li>
+              <p>TypeScript</p>
+            </li>
           </ul>
         </div>
       </ul>
@@ -48,27 +143,47 @@
         </li>
         <div id="collapseBackend" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
           <ul class="accordion-body">
-            <li>Java</li>
-            <li>PHP</li>
-            <li>Next.js</li>
-            <li>Node.js</li>
+            <li>
+              <p>Java</p>
+            </li>
+            <li>
+              <p>PHP</p>
+            </li>
+            <li>
+              <p>Next.js</p>
+            </li>
+            <li>
+              <p>Node.js</p>
+            </li>
           </ul>
         </div>
       </ul>
-      <p>클라우드 / DB</p>
+      <div class="acc_title">
+        <p>클라우드 / DB</p>
+      </div>
       <ul class="accordion-item">
         <li class="accordion-header">
-          <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseCloud" aria-expanded="true" aria-controls="collapseCloud">
+          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseCloud" aria-expanded="true" aria-controls="collapseCloud">
             클라우드 컴퓨팅
           </button>
         </li>
-        <div id="collapseCloud" class="accordion-collapse collapse show" data-bs-parent="#accordionExample">
+        <div id="collapseCloud" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
           <ul class="accordion-body">
-            <li>AWS</li>
-            <li>Azure</li>
-            <li>Google Cloud Platform</li>
-            <li>DevOps</li>
-            <li>Kubernetes</li>
+            <li>
+              <p>AWS</p>
+            </li>
+            <li>
+              <p>Azure</p>
+            </li>
+            <li>
+              <p>Google Cloud Platform</p>
+            </li>
+            <li>
+              <p>DevOps</p>
+            </li>
+            <li>
+              <p>Kubernetes</p>
+            </li>
           </ul>
         </div>
       </ul>
@@ -80,28 +195,50 @@
         </li>
         <div id="collapseDatabase" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
           <ul class="accordion-body">
-            <li>SQL</li>
-            <li>MySQL</li>
-            <li>PostgreSQL</li>
-            <li>Oracle</li>
-            <li>NoSQL</li>
-            <li>MongoDB</li>
-            <li>Cassandra</li>
-            <li>Couchbase</li>
+            <li>
+              <p>SQL</p>
+            </li>
+            <li>
+              <p>MySQL</p>
+            </li>
+            <li>
+              <p>PostgreSQL</p>
+            </li>
+            <li>
+              <p>Oracle</p>
+            </li>
+            <li>
+              <p>NoSQL</p>
+            </li>
+            <li>
+              <p>MongoDB</p>
+            </li>
+            <li>
+              <p>Cassandra</p>
+            </li>
+            <li>
+              <p>Couchbase</p>
+            </li>
           </ul>
         </div>
       </ul>
-      <p>보안 / 네트워크</p>
+      <div class="acc_title">
+        <p>보안 / 네트워크</p>
+      </div>
       <ul class="accordion-item">
         <li class="accordion-header">
-          <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseNetwork" aria-expanded="true" aria-controls="collapseNetwork">
+          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseNetwork" aria-expanded="true" aria-controls="collapseNetwork">
             네트워크 관리
           </button>
         </li>
-        <div id="collapseNetwork" class="accordion-collapse collapse show" data-bs-parent="#accordionExample">
+        <div id="collapseNetwork" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
           <ul class="accordion-body">
-            <li>TCP / IP</li>
-            <li>C / C++</li>
+            <li>
+              <p>TCP / IP</p>
+            </li>
+            <li>
+              <p>C / C++</p>
+            </li>
           </ul>
         </div>
       </ul>
@@ -113,8 +250,12 @@
         </li>
         <div id="collapseSecurity" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
           <ul class="accordion-body">
-            <li>CPPG</li>
-            <li>Security</li>
+            <li>
+              <p>CPPG</p>
+            </li>
+            <li>
+              <p>Security</p>
+            </li>
           </ul>
         </div>
       </ul>
