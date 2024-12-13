@@ -122,6 +122,16 @@ body a{
 }
 
 
+p{
+  margin-bottom: 0 !important;
+}
+
+ul{
+  margin-bottom: 0 !important;
+  padding-left: 0 !important;
+}
+
+
  
 div.white, section.white{
   background: var(--bk0);
