@@ -137,7 +137,7 @@
 
 /* sec01 시작 */
 
-.swiper {
+.sec01_banner {
   height: 600px;
   width: 100%;
 }
@@ -240,8 +240,12 @@
 
 /* sec04 끝 */
 /* sec05 시작 */
-.sec05 {background: var(--bk950); height: 636px;}
-.reviewBG {background: var(--bk0); width: 500px; border-radius: 10px; padding: 30px; display: flex; flex-direction: column; gap: 20px;}
+.sec05 {background: var(--bk950); height: 600px; overflow: hidden;}
+.reviewBG {
+  background: var(--bk0); width: 500px; border-radius: 10px; 
+  padding: 30px; display: flex; flex-direction: column; gap: 20px;
+  box-shadow: 12px 12px 8px 0 rgba(0,0,0,.5);
+}
 .reviewBG span i {color: #FFCE0C;}
 .reviewBG .box {display: flex; align-items: center; gap: 10px;}
 .reviewBG li {display: inline-block;}
@@ -249,16 +253,21 @@
 .review_bk {color: var(--bk1000); font-weight: bold; margin-bottom: 0;}
 .review_date {color: var(--bk500); font-weight: bold; margin-bottom: 0;}
 
-.swiper-container {
-  width: 100%;
+.sec05 .container {height: 100%;}
+.sec05 .swiper {width: 600px; height: 100%;}
+.sec05 .swiper .swiper-wrapper {
+  width: 100%; display: flex;
 }
-.swiper-wrapper {margin-bottom: 0; padding-left: 0;}
-.swiper-slide {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 20px;
+.sec05 .swiper .swiper-wrapper .swiper-slide {
+  width: 500px;
+  height: 200px;
 }
+
+.reviewContent {display: flex; flex-direction: column; justify-content: center; align-items: flex-start; gap: 40px;}
+.reviewTitle {color: var(--bk50); width: 532px; word-break: keep-all;}
+.reviewMore {background: none; border: 1px solid var(--bk50); color: var(--bk50); padding: 16px 24px; border-radius: 6px; font-weight: bold;}
+.reviewMore:hover {background: var(--bk50); color: var(--bk1000);}
+
 
 /* sec05 끝 */
 /* sec06 시작 */
