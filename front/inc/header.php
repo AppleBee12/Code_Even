@@ -97,10 +97,10 @@ function Call($callUrl, $method, $headers = array(), $data = array(), $returnTyp
   <header>
     <div class="container">
       <div class="header_grade1 d-flex justify-content-between align-items-center">
-        <div class="header_logo">
-          <h1 class="logo"><a href="">CODE EVEN</a></h1>
+        <div class="header_logo w-100">
+          <h1 class="logo text-center"><a href="">CODE EVEN</a></h1>
         </div>
-        <div>
+        <div class="header_join flex-shrink-1">
           <ul class="d-flex gap-3">
             <?php if (!isset($_SESSION['AUID'])) { ?>
               <li>
@@ -125,7 +125,7 @@ function Call($callUrl, $method, $headers = array(), $data = array(), $returnTyp
           </ul>
         </div>
       </div> 
-      <div class="header-grade2 d-flex">
+      <div class="header_grade2 d-flex align-items-center">
         <nav class="header-menu">
           <ul class="d-flex gap-3">
             <li>
