@@ -1,12 +1,8 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bootstrap Outline Badge</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+<?php
 
+  include_once($_SERVER['DOCUMENT_ROOT'] . '/code_even/admin/inc/header.php');
+
+?>
   <style>
     /* Outline-only badge */
     .badge-outline {
@@ -202,3 +198,8 @@
   </div>
   <!-- 강좌 리스트 출력 끝 -->
 </div>
+<?php
+
+  include_once($_SERVER['DOCUMENT_ROOT'] . '/code_even/admin/inc/footer.php');
+
+?>
