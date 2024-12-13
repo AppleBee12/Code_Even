@@ -58,23 +58,26 @@ body{
   font-weight: 500;
   font-size: 16px;
   }
-h1{
- /* font-size: 100px; 임시 */
+h1 ,h2 ,h3 ,h4 ,h5 ,h6{
+  margin-bottom: 0;
 }
-h2{
+.headt1{
+ font-size: 100px;
+}
+.headt2{
  font-size: 60px;
 }
-h3{
+.headt3{
  font-size: 48px;
  font-weight: 700;
 }
-h4{
+.headt4{
  font-size: 34px;
 }
-h5{
+.headt5{
  font-size: 24px;
 }
-h6{
+.headt6{
  font-size: 20px;
 }
 
@@ -132,7 +135,7 @@ header{
 }
 
 
-header h1.logo a {
+header h1.logo, footer h2.logo{
   font-family: "League Gothic", sans-serif;
   font-optical-sizing: auto;
   font-weight: 400;
@@ -140,7 +143,10 @@ header h1.logo a {
   line-height: 45px;
   letter-spacing: 13px;
   text-transform: uppercase;
-  color: var(--bk0);
+  a{
+    color: var(--bk0);
+  }
+  
 }
 header {
   .header_grade1{
