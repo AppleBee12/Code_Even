@@ -51,21 +51,21 @@ while($data = $category_result->fetch_object()){
   <section class="mb-5 s_h pt-5">
     <div class="container d-flex justify-content-center">
       <div class="data d-flex">
-        <img src="images/data.png" class="my-3 img_w" alt="data.png">
+        <img src="front/images/data.png" class="my-3 img_w" alt="data.png">
         <div class="value_cover">
           <h5>1인 평균 누적수입</h5>
           <h3>5783만원</h3>
         </div>
       </div>
       <div class="data d-flex b_l">
-        <img src="images/graduated.png" class="my-3 img_w" alt="data.png">
+        <img src="front/images/graduated.png" class="my-3 img_w" alt="data.png">
         <div>
           <h5>총 회원수</h5>
           <h3>100만명</h3>
         </div>
       </div>
       <div class="data d-flex b_l">
-        <img src="images/group.png" class="my-3 img_w" alt="data.png">
+        <img src="front/images/group.png" class="my-3 img_w" alt="data.png">
         <div>
           <h5>누적 수강생</h5>
           <h3>500만명</h3>
@@ -86,7 +86,7 @@ while($data = $category_result->fetch_object()){
       <div class="d-flex justify-content-center g_new">
         <div class="in_sz">
           <div class="d-flex justify-content-center mb-3">
-            <img src="images/lock_up.png" class="my-3" alt="data.png">
+            <img src="front/images/lock_up.png" class="my-3" alt="data.png">
           </div>
           <div class="text_agn">
             <div class="fz_1">지식 콘텐츠를 함부로 다루지 않습니다.</div><br>
@@ -98,7 +98,7 @@ while($data = $category_result->fetch_object()){
         </div>
         <div class="in_sz">
           <div class="d-flex justify-content-center mb-3">
-            <img src="images/management.png" class="my-3" alt="data.png">
+            <img src="front/images/management.png" class="my-3" alt="data.png">
           </div>
           <div class="text_agn">
             <div class="fz_1">수익이 가능한 유일한 곳</div><br>
@@ -116,7 +116,7 @@ while($data = $category_result->fetch_object()){
         </div>
         <div class="in_sz">
           <div class="d-flex justify-content-center mb-3">
-            <img src="images/green.png" class="my-3" alt="data.png">
+            <img src="front/images/green.png" class="my-3" alt="data.png">
           </div>
           <div class="text_agn">
             <div class="fz_1">사회적 가치를 실현하세요</div><br>
