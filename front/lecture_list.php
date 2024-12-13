@@ -4,6 +4,13 @@
 
 ?>
   <style>
+
+  .title_wrap{
+    margin-top: 90px;
+    margin-bottom: 90px;
+  }
+
+
     /* Outline-only badge */
     .badge-outline {
       color: #C93333 !important; /* 텍스트 색 */
@@ -61,6 +68,7 @@
         height: 50px;
         padding-left: 60px;
         position: relative;
+        cursor: pointer;
         
         p{
           position:absolute;
@@ -75,9 +83,19 @@
       }
     }
 
+    .bi-star-fill{
+      color: #FFCE0C;
+    }
+
+    .bi-heart-fill{
+      color: var(--primary);
+    }
+
   </style>
 </head>
-
+<div class="container title_wrap">
+  <p class="headt3">강좌</p>
+</div>
 <div class="container d-flex justify-content-center accordion" id="accordionExample">
   <div class="row w-100">
     <!-- 강좌 리스트 아코디언 시작 -->
