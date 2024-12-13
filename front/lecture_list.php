@@ -1,6 +1,6 @@
 <?php
 
-  include_once($_SERVER['DOCUMENT_ROOT'] . '/code_even/admin/inc/header.php');
+  include_once($_SERVER['DOCUMENT_ROOT'] . '/code_even/front/inc/header.php');
 
 ?>
   <style>
@@ -200,6 +200,6 @@
 </div>
 <?php
 
-  include_once($_SERVER['DOCUMENT_ROOT'] . '/code_even/admin/inc/footer.php');
+  include_once($_SERVER['DOCUMENT_ROOT'] . '/code_even/front/inc/footer.php');
 
 ?>
