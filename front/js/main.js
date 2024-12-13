@@ -84,6 +84,15 @@ let swiper = new Swiper('.sec01_swiper', {
 /* sec04 끝 */
 /* sec05 시작 */
 
+let reviewSwiper = new Swiper('.sec05_swiper', {
+  loop: true,
+  slidesPerView: 3,
+  speed: 2000,
+  direction: 'vertical',
+  autoplay: {
+    delay: 0
+  }
+});
 
 /* sec05 끝 */
 /* sec06 시작 */

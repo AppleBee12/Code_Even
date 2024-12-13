@@ -46,8 +46,6 @@
     }
 
 
-    } else {
-      echo "<script>console.log('해당 fqid에 해당하는 이미지를 찾을 수 없습니다.');</script>";
     }
 
     // FAQ 데이터 삭제

@@ -51,114 +51,129 @@ if (isset($jqueryui_js)) {
 
 <script>
   let target = $('#summernote');
-  target.summernote({
-    placeholder: '내용을 입력해주세요.',
-    tabsize: 2,
-    // height: 160,
-    lang: 'ko-KR',
-        toolbar: [
-          ['style', ['style']],
-          ['font', ['bold', 'underline', 'clear']],
-          ['color', ['color']],
-          ['para', ['ul', 'ol', 'paragraph']],
-          ['table', ['table']],
-          ['insert', ['link', 'picture']],
-          ['view', ['codeview', 'help']]
-
-        ],
-      callbacks: {
-        onImageUpload: function(files) {
-          for (let file of files) {
-            uploadImage(file);
-          }
-        },
-        onChange: function(contents) {
-            handleImageDeletion(contents);
-        }
+target.summernote({
+  placeholder: '내용을 입력해주세요.',
+  tabsize: 2,
+  lang: 'ko-KR',
+  toolbar: [
+    ['style', ['style']],
+    ['font', ['bold', 'underline', 'clear']],
+    ['color', ['color']],
+    ['para', ['ul', 'ol', 'paragraph']],
+    ['table', ['table']],
+    ['insert', ['link', 'picture']],
+    ['view', ['codeview', 'help']]
+  ],
+  callbacks: {
+    onImageUpload: function(files) {
+      // 글이 먼저 등록된 후 이미지 업로드를 수행
+      for (let file of files) {
+        uploadImage(file);
       }
-  });
-
-// 이미지 업로드 함수
+    },
+    // onChange: function(contents) {
+    //   handleImageDeletion(contents);
+    // },
+    // onMediaDelete: function(target) {
+    //   let imageUrl = $(target).attr('src'); // 삭제할 이미지 URL 가져오기
+    //   $.ajax({
+    //     url: '/delete-image', // 서버의 이미지 삭제 URL
+    //     method: 'POST',
+    //     data: { imageUrl: imageUrl },
+    //     success: function(response) {
+    //       if (response.success) {
+    //         console.log('이미지가 삭제되었습니다.');
+    //       } else {
+    //         alert('이미지 삭제 중 오류가 발생했습니다.');
+    //       }
+    //     },
+    //     error: function() {
+    //       alert('이미지 삭제 요청에 실패했습니다.');
+    //     }
+    //   });
+    // }
+  }
+});
 
 var uploadPath = "<?= $uploadPath ?>";
 var getUploadPath = "<?= $getUploadPath ?>";
 var delete_images = "<?= $delete_images ?>";
 
+// 글 등록 후 이미지 업로드
 function uploadImage(file) {
-    const formData = new FormData();
-    formData.append('file', file);
+  const formData = new FormData();
+  formData.append('file', file);
 
-    fetch(uploadPath, {
-        method: 'POST',
-        body: formData,
-    })
-    .then(response => response.json())
-    .then(data => {
-        if (data.status === 'success') {
-            // 업로드 성공 시 에디터에 이미지 삽입
-            $('#summernote').summernote('insertImage', data.imageUrl);
-        } else {
-            console.error('이미지 업로드 실패:', data.message);
-        }
-    })
-    .catch(error => console.error('에러 발생:', error));
+  // 글 등록 완료 후 이미지를 업로드하기 위한 AJAX 호출
+  $.ajax({
+    url: uploadPath, // 이미지 업로드 PHP 파일
+    method: 'POST',
+    data: formData,
+    processData: false,
+    contentType: false,
+    success: function(data) {
+      const response = JSON.parse(data);
+      if (response.status === 'success') {
+        // 이미지 업로드 성공 시 에디터에 이미지 삽입
+        $('#summernote').summernote('insertImage', response.imageUrl);
+      } else {
+        console.error('이미지 업로드 실패:', response.message);
+      }
+    },
+    error: function(xhr, status, error) {
+      console.error('에러 발생:', error);
+    }
+  });
 }
 
+// function handleImageDeletion(contents) {
+//   const parser = new DOMParser();
+//   const doc = parser.parseFromString(contents, 'text/html');
 
-// 이미지 삭제 함수
-function handleImageDeletion(contents) {
-  const parser = new DOMParser();
-  const doc = parser.parseFromString(contents, 'text/html');
+//   // 에디터에 남아 있는 이미지 URL을 수집
+//   const remainingImages = Array.from(doc.querySelectorAll('img')).map(img => img.src);
 
-  // 에디터에 이미지가 포함되어 있는지 확인
-  const remainingImages = Array.from(doc.querySelectorAll('img')).map(img => img.src);
+//   if (remainingImages.length > 0) {
+//     // 서버에 업로드된 이미지 목록 요청
+//     $.ajax({
+//       url: '/get-uploaded-images.php',
+//       method: 'GET',
+//       dataType: 'json',
+//       success: function(uploadedImages) {
+//         console.log('서버에 업로드된 이미지 목록:', uploadedImages);
 
-  // 이미지가 하나 이상 있을 경우에만 진행
-  if (remainingImages.length > 0) {
-      // 서버에 업로드된 이미지 목록 요청
-      fetch(getUploadPath, {
-          method: 'GET',
-          headers: { 'Content-Type': 'application/json' },
-      })
-      .then(response => response.json())
-      .then(uploadedImages => {
-          // 서버에서 받은 데이터의 타입 확인
-          console.log(uploadedImages); // 데이터를 콘솔에 출력해 확인
+//         // 서버 데이터 검증 및 배열화
+//         if (!Array.isArray(uploadedImages)) {
+//           uploadedImages = Array.isArray(uploadedImages.images) ? uploadedImages.images : [];
+//         }
 
-          // uploadedImages가 배열이 아니면 배열로 변환
-          if (!Array.isArray(uploadedImages)) {
-              uploadedImages = [uploadedImages]; // 단일 이미지일 경우 배열로 감싸기
-          }
+//         // 삭제할 이미지 필터링
+//         const imagesToDelete = uploadedImages.filter(img => !remainingImages.includes(img));
 
-          // 이미지가 하나일 경우와 여러 개일 경우 분기 처리
-          let imagesToDelete = [];
-          if (remainingImages.length === 1) {
-              // 이미지가 하나일 경우
-              if (!uploadedImages.includes(remainingImages[0])) {
-                  imagesToDelete = [remainingImages[0]];
-              }
-          } else {
-              // 이미지가 여러 개일 경우
-              imagesToDelete = uploadedImages.filter(img => !remainingImages.includes(img));
-          }
-
-          // 삭제할 이미지가 있으면 서버에 요청
-          if (imagesToDelete.length > 0) {
-              fetch(delete_images, {
-                  method: 'POST',
-                  headers: { 'Content-Type': 'application/json' },
-                  body: JSON.stringify({ images: imagesToDelete }),
-              })
-              .then(response => response.json())
-              .then(data => console.log(imagesToDelete.length === 1 ? '이미지 하나 삭제 완료' : '여러 이미지 삭제 완료', data))
-              .catch(error => console.error('이미지 삭제 실패:', error));
-          }
-      })
-      .catch(error => console.error('이미지 목록 요청 실패:', error));
-  }
-}
-
-
+//         if (imagesToDelete.length > 0) {
+//           // 삭제 요청 전송
+//           $.ajax({
+//             url: '/delete-images.php',
+//             method: 'POST',
+//             contentType: 'application/json',
+//             data: JSON.stringify({ images: imagesToDelete }),
+//             success: function(data) {
+//               console.log(imagesToDelete.length === 1 
+//                 ? '이미지 하나 삭제 완료' 
+//                 : `${imagesToDelete.length}개의 이미지 삭제 완료`, data);
+//             },
+//             error: function(xhr, status, error) {
+//               console.error('이미지 삭제 실패:', error);
+//             }
+//           });
+//         }
+//       },
+//       error: function(xhr, status, error) {
+//         console.error('이미지 목록 요청 실패:', error);
+//       }
+//     });
+//   }
+// }
 </script>
 
 </body>

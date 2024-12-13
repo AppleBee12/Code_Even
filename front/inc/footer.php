@@ -2,27 +2,27 @@
 
 <footer>
   <div class="container all_p">
-    <div class="footer-logo d-flex justify-content-between">
+    <div class="footer-logo d-flex justify-content-between mb-5">
         <!-- <img src="admin/images/txt_logo_white.png" alt="footer_logo">   -->
         <div>
           <h2 class="logo"><a href="">CODE EVEN</a></h2>
         </div>
       <div>
-        <p class="tc_borderline">
+        <div class="tc_borderline">
           <a href="tc_applyform.php">강사 신청하러 가기
-            <i class="fa-solid fa-arrow-up-right-from-square"></i>
+            <!-- <i class="fa-solid fa-arrow-up-right-from-square"></i> -->
           </a>
-        </p>
+        </div>
       </div>
     </div>
-    <div class="d-flex mb-5 footer_border">
+    <div class="d-flex mb-5 footer_border ">
       <div class="row mb-5">
         <p>회사명 : (주) 디제이컴퍼니 | 회사대표명 : 김동주</p>
         <p>주소 : 03192 서울 종로구 수표로 96 드림팰리스</p>
         <p>사업자등록번호 : 192-01-23456 | 통신판매업번호 : 2024-서울종로-1234</p>
         <p>코드이븐 고객센터 | code_even@gmail.com | 고객센터 전화번호 : 02-1234-5678</p>
       </div>
-      <div class=" col-7 d-flex g_ml justify-content-end">
+      <div class=" col-7 d-flex g_ml justify-content-end mb-5">
         <div class="menu_list">
           <div class="list_title">코드이븐</div>
           <ul class="menu_sublist p-0">
@@ -90,6 +90,9 @@ if (isset($main_js)) {
 }
 if (isset($chart_js)) {
   echo $chart_js;
+}
+if (isset($mypage_main_js)) {
+  echo $mypage_main_js;
 }
 ?>
 
