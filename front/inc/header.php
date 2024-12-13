@@ -1,5 +1,5 @@
 <?php
-session_start(); //login연결이 안되서 session이 없어요 연결하고 풀어주세요
+session_start(); 
 include_once($_SERVER['DOCUMENT_ROOT'] . '/code_even/front/inc/check_cookie.php');
 include_once($_SERVER['DOCUMENT_ROOT'] . '/code_even/admin/inc/dbcon.php');
 
@@ -9,45 +9,8 @@ if (!isset($title)) {
 }
 
 
-// $current_page = basename($_SERVER['REQUEST_URI'], ".php");
-// $level = $_SESSION['AULEVEL'];
-// $uid = $_SESSION['UID'];
-// $username = $_SESSION['AUNAME'];
-
-
 //카카오 간편 로그인 --시작
-$REST_API_KEY   = "5fa7150969af80c8040eb8c4bcd59bf2"; // 내 애플리케이션 > 앱 설정 > 요약 정보
-$CLIENT_SECRET  = ""; // 내 애플리케이션 > 제품 설정 > 카카오 로그인 > 보안
-$REDIRECT_URI  = urlencode($_SERVER['DOCUMENT_ROOT'] . '/code_even/front/inc/kakao_rest_api_example.php');
-?>
-<?php //공통 : API Call Function
-function Call($callUrl, $method, $headers = array(), $data = array(), $returnType = "jsonObject")
-{
-  echo "<pre>" . $callUrl . "</pre>";
-  try {
-    $ch = curl_init();
-    curl_setopt($ch, CURLOPT_URL, $callUrl);
-    if ($method == "POST") {
-      curl_setopt($ch, CURLOPT_POST, true);
-      curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
-    } else {
-      curl_setopt($ch, CURLOPT_POST, false);
-    }
-    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-    curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
-    curl_setopt($ch, CURLOPT_HTTP200ALIASES, array(400));
-    $response = curl_exec($ch);
-    $status_code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
-    curl_close($ch);
 
-    echo "<pre>" . $status_code . ":" . $response . "</pre>";
-
-    if ($returnType == "jsonObject") return json_decode($response);
-    else return $response;
-  } catch (Exception $e) {
-    echo $e;
-  }
-}
 //카카오 간편 로그인 --끝
 
 
@@ -80,6 +43,11 @@ function Call($callUrl, $method, $headers = array(), $data = array(), $returnTyp
   switch ($page) { //main.css
     case 'index.php':
       echo '<link rel="stylesheet" href="http://' . $_SERVER['HTTP_HOST'] . '/code_even/front/css/main.css">';
+      break;
+  }
+  switch ($page) { //mypage_header.css
+    case 'mypage_header.php':
+      echo '<link rel="stylesheet" href="http://' . $_SERVER['HTTP_HOST'] . '/code_even/front/css/mypage_header.css">';
       break;
   }
   ?>
