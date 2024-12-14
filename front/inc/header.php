@@ -161,53 +161,99 @@ if(isset($_GET['code'])){
         </div>
       </div> 
       <div class="header_grade2 d-flex justify-content-between align-items-center">
-        <nav class="header-menu">
-          <ul class="d-flex gap-3">
-            <li>
-              강좌
-              <ul>
-                <li>중분류1
-                  <ul>
-                    <li><a href="">소분류1-1</a></li>
-                  </ul>
-                </li>
-                <li>중분류2
-                  <ul>
-                    <li><a href="">소분류2-1</a></li>
-                  </ul>
-                </li>
-                <li>중분류3
-                  <ul>
-                    <li><a href="">소분류3-1</a></li>
-                  </ul>
-                </li>
-                <li>중분류4
-                  <ul>
-                    <li><a href="">소분류4-1</a></li>
-                  </ul>
-                </li>
-                <li>중분류5
-                  <ul>
-                    <li><a href="">소분류5-1</a></li>
-                  </ul>
-                </li>
-                <li>중분류6
-                  <ul>
-                    <li><a href="">소분류6-1</a></li>
-                  </ul>
-                </li>
-              </ul>
+        <nav class="header_menu">
+          <ul class="d-flex align-items-center">
+            <li class="menu_depth1">
+              <a href="">강좌</a>
+              <div class="menu_depth2">
+                <ul class="depth2_lec">
+                  <li>
+                    <a href="">프론트엔드</a>
+                    <div class="menu_depth3">
+                      <ul>
+                        <li><a href="">HTML/CSS</a></li>
+                        <li><a href="">JavaScript</a></li>
+                        <li><a href="">jQuery</a></li>
+                        <li><a href="">React</a></li>
+                        <li><a href="">Angular</a></li>
+                        <li><a href="">Vue.js</a></li>
+                        <li><a href="">TypeScript</a></li>
+                      </ul>
+                    </div>
+                  </li>
+                  <li>
+                    <a href="">백엔드</a>
+                    <div class="menu_depth3">
+                      <ul>
+                        <li><a href="">Java</a></li>
+                        <li><a href="">PHP</a></li>
+                        <li><a href="">Next.js</a></li>
+                        <li><a href="">Node.js</a></li>
+                      </ul>
+                    </div>
+                  </li>
+                  <li>
+                    <a href="">클라우드 컴퓨팅</a>
+                    <div class="menu_depth3">
+                      <ul>
+                        <li><a href="">AWS</a></li>
+                        <li><a href="">Azure</a></li>
+                        <li><a href="">Google Cloud Platform</a></li>
+                        <li><a href="">DevOps</a></li>
+                        <li><a href="">kubernetes</a></li>
+                      </ul>
+                    </div>
+                  </li>
+                  <li>
+                    <a href="">데이터베이스</a>
+                    <div class="menu_depth3">
+                      <ul>
+                        <li><a href="">SQL</a></li>
+                        <li><a href="">MySQL</a></li>
+                        <li><a href="">PostgreSQL</a></li>
+                        <li><a href="">Oracle</a></li>
+                        <li><a href="">NoSQL</a></li>
+                        <li><a href="">MongoDB</a></li>
+                        <li><a href="">Cassandra</a></li>
+                        <li><a href="">Couchbase</a></li>
+                      </ul>
+                    </div>
+                  </li>
+                  <li>
+                    <a href="">네트워크 관리</a>
+                    <div class="menu_depth3">
+                      <ul>
+                        <li><a href="">TCP/IP</a></li>
+                        <li><a href="">C/C++</a></li>
+                      </ul>
+                    </div>
+                  </li>
+                  <li>
+                    <a href="">보안</a>
+                    <div class="menu_depth3">
+                      <ul>
+                        <li><a href="">CPPG</a></li>
+                        <li><a href="">security</a></li>
+                      </ul>
+                    </div>
+                  </li>
+                </ul>
+              </div>
             </li>
-            <li><a href="">'레시피 강좌'란?</a></li>
-            <li>커뮤니티
+            <li class="menu_depth1"><a href="#">'레시피 강좌'란?</a></li>
+            <li class="menu_depth1">
+              <a href="">커뮤니티</a>
+              <div class="menu_depth2">
               <ul>
-                <li><a href="">고민상담</a></li>
-                <li><a href="">팀 프로젝트</a></li>
-                <li><a href="">블로그</a></li>
-              </ul>
+                  <li><a href="#">고민상담</a></li>
+                  <li><a href="#">팀 프로젝트</a></li>
+                  <li><a href="#">블로그</a></li>
+                </ul> 
+              </div>
             </li>
           </ul>
         </nav>
+
         <div class="header_search">
           <form action="#" class="d-flex align-items-center header_search_inner" method="get">
             <button type="submit" class="search_btn d-flex align-items-center">
