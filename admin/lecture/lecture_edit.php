@@ -241,7 +241,7 @@ while ($row = $result_test->fetch_object()) {
         <tr>
             <th scope="row">강좌 설명</th>
             <td colspan="6">
-                <textarea name="description" class="form-control" rows="5"><?= htmlspecialchars($lecture->des) ?></textarea>
+              <textarea name="description" class="form-control"><?= htmlspecialchars($lecture->des) ?></textarea>
             </td>
         </tr>
       </tbody>
@@ -274,7 +274,7 @@ while ($row = $result_test->fetch_object()) {
                 <tr>
                   <th scope="row">퀴즈 선택</th>
                   <td>
-                    <select name="lecture_quiz_id[]" class="form-select">
+                    <select name="lecture_quiz_id[<?= $lecture->id; ?>]" class="form-select">
                       <option value="">퀴즈를 선택해 주세요.</option>
                       <?php foreach ($quizzes as $quiz): ?>
                         <option value="<?= $quiz->exid ?>" <?= $quiz->exid == $lecture->quiz_id ? 'selected' : '' ?>>
@@ -285,7 +285,7 @@ while ($row = $result_test->fetch_object()) {
                   </td>
                   <th scope="row">시험 선택</th>
                   <td>
-                    <select name="lecture_test_id[]" class="form-select">
+                    <select name="lecture_test_id[<?= $lecture->id; ?>]" class="form-select">
                       <option value="">시험을 선택해 주세요.</option>
                       <?php foreach ($tests as $test): ?>
                         <option value="<?= $test->exid ?>" <?= $test->exid == $lecture->test_id ? 'selected' : '' ?>>

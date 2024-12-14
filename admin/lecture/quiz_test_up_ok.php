@@ -34,13 +34,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 	$cate3 = $_POST['cate3'] ?? null;
 	$lecture_id = $_POST['lecture_id'] ?? null; // 강좌 ID
 	$tt = $_POST['tt'] ?? null; // 시험지명
+	$courseType = $_POST['courseType'] ?? null; // 문제 유형 (quiz 또는 exam)
 	$titles = $_POST['pn'] ?? []; // 문제명 배열
 	$answers = $_POST['answer'] ?? []; // 정답 배열
 	$questions = $_POST['question'] ?? []; // 문항 배열
 	$explans = $_POST['explan'] ?? []; // 해설 배열
 
 	// 필수 데이터 검증
-	if (!$cate1 || !$cate2 || !$cate3 || !$lecture_id || !$tt || empty($titles) || empty($answers) || empty($questions)) {
+	if (!$cate1 || !$cate2 || !$cate3 || !$lecture_id || !$tt || !$courseType || empty($titles) || empty($answers) || empty($questions)) {
 		echo "<script>alert('필수 데이터를 모두 입력해주세요.'); history.back();</script>";
 		exit;
 	}
@@ -60,6 +61,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 	$title = $lecture->title; // 강좌명 가져오기
 
+	// 저장 테이블 선택
+	$tableName = ($courseType === 'quiz') ? 'quiz' : 'test';
+
 	// 데이터 저장
 	foreach ($titles as $key => $title_item) {
 		$explan = $explans[$key] ?? ''; // 해설
@@ -68,7 +72,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 		$question_json = json_encode($question_set, JSON_UNESCAPED_UNICODE); // JSON 변환
 
 		// SQL 실행
-		$sql = "INSERT INTO test (cate1, cate2, cate3, tid, title, tt, explan, answer, pn, question) 
+		$sql = "INSERT INTO $tableName (cate1, cate2, cate3, tid, title, tt, explan, answer, pn, question) 
                 VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 		$stmt = $mysqli->prepare($sql);
 		$stmt->bind_param(
