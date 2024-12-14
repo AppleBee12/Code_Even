@@ -10,7 +10,81 @@ if (!isset($title)) {
 
 
 //카카오 간편 로그인 --시작
+if(isset($_GET['code'])){
+  $code = $_GET['code'];
+  $client_id = 'a292c01fc2579fbd7965ca9524a3032f';
+  $redirect_uri = 'http://localhost/code_even/';
 
+  //토큰 요청
+  $url = 'https://kauth.kakao.com/oauth/token';
+  $data = [
+    'grant_type' => 'authorization_code',
+    'client_id'=> $client_id,
+    'redirect_uri'=> $redirect_uri,
+    'code'=> $code
+  ];
+  $options = [
+    'http'=> [
+      'header'=>'Content-Type: application/x-www-form-urlencoded;charset=utf-8',
+      'method'=> 'POST',
+      'content'=> http_build_query($data)
+    ]
+  ];
+  $context = stream_context_create($options);
+  $result = file_get_contents($url, false, $context);
+  $response = json_decode($result, true);
+  // echo '<pre>';
+  // print_r($response);
+  // echo '</pre>';
+
+  //사용자 정보요청
+  $ACCESS_TOKEN = $response['access_token'];
+  $ch = curl_init(); //새로운 세션 생성 / 초기화
+  curl_setopt($ch, CURLOPT_URL, "https://kapi.kakao.com/v2/user/me");
+  curl_setopt($ch, CURLOPT_RETURNTRANSFER, true); // 결과를 문자열로 반환
+  curl_setopt($ch, CURLOPT_HTTPHEADER, [
+    "Authorization: Bearer $ACCESS_TOKEN"
+  ]);
+
+  $response_result = curl_exec($ch);
+  $status = curl_getinfo($ch,CURLINFO_HTTP_CODE);
+
+  curl_close($ch);
+
+  $resultArr = json_decode($response_result, true);
+
+  // echo '<pre>';
+  // print_r($resultArr);
+  // echo '</pre>';
+
+  if($status === 200) {
+    $mysqli = new mysqli('localhost','code_even', '12345', 'code_even');
+    if($mysqli->connect_errno){
+      die('연결실패'. $mysqli->connect_errno);
+    }
+    $userId = $resultArr['id'];
+    $userName = $resultArr['properties']['nickname'] ?? '';
+    $profileImg= $resultArr['properties']['thumbnail_image'] ??'';
+
+    // echo $userId;
+    // echo $userName;
+    // echo $profileImg;
+
+    $tempsql = "INSERT INTO members (userid, name, profile_image) VALUES(?,?,?)";
+    $sql = $mysqli->prepare($tempsql);
+
+    if($sql){
+      $sql->bind_param("sss", $userId, $userName, $profileImg);
+      if($sql->execute()){
+       // echo "<p>유저 정보 입력 성공</p>";
+      }
+      $sql->close();
+    }else{
+     // echo "<p>쿼리준비 실패".$mysqli->error."</p>";
+    }
+    $mysqli->close();
+  }
+}
 //카카오 간편 로그인 --끝
 
 
@@ -74,11 +148,10 @@ if (!isset($title)) {
               <li>
                 <a href="#" data-bs-toggle="modal" data-bs-target="#exampleModaltest" data-bs-whatever="@mdo">로그인</a>
               </li>
-            <?php
-              }else{
-              ?>
+              <?php }else{?>
             <li> 
               <a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/members/login/logout.php">로그아웃</a>
+              <img src="<?= $profileImg ?>" alt="">
             </li>
               <?php
                 } 
@@ -199,7 +272,7 @@ if (!isset($title)) {
             <div class="modal-footer d-flex justify-content-center">
               <div class="d-flex row">
                 <button class="btn loginbtn redbtn">로그인</button>
-                <a href="https://kauth.kakao.com/oauth/authorize?client_id=<?= $REST_API_KEY ?>&response_type=code&redirect_uri=<?= $REDIRECT_URI ?>" class="kakao"><img src="front/images/kakaobtn.png" width="360" height="34" class="mt-1 " /></a>
+                <a href="https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=a292c01fc2579fbd7965ca9524a3032f&redirect_uri=http://localhost/code_even/" class="kakao"><img src="images/kakao_login_large_wide.png" width="360" height="34" class="mt-1 " /></a>
               </div>
 
               <div class="mt-3 d-flex justify-content-center gap-3 mb-5">
