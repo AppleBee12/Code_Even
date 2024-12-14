@@ -1,18 +1,184 @@
-.my_header_profile,
-.my_header_profile .col-3,
-.my_header_profile .col-9{
-  margin: 0;
-  padding: 0;
+/*---- top헤더 mypage_header ----*/
+
+section.mypage_header .row{
+  margin-right: 0;
+  margin-left: 0;
 }
 
-.profile_image.profile_image{
+.my_border{
+  border: 1px solid var(--bk300);
+  background: var(--bk100);
+  border-radius: 8px;
+  height: 150px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+}
+
+.my_header_profile{
+  display: flex;
+  align-items: center;
+  padding-left: 0;
+
+  .my_border{
+    width: 100%;
+  }
+  .profile_detail{ 
+
+    line-height: 25px;
+
+    >div .headt6,
+    >div{
+    margin-left:5px;
+    display: flex;
+    flex-direction: column;
+    align-items: baseline;
+    }
+
+     span{
+      font-weight: 700;
+    }
+
+    .today{
+      color: var(--bk600);
+      font-weight: 400;
+    }
+  }
+}
+
+.profile_image{
   width: 88px;
   height: 88px;
-  background-image: url();
 }
 
-.profile_detail .today{
-  color: var(--bk600);
-  font-weight: 400;
+/* 출석체크 attendance_check */
+.attendance_oneday{
+  margin: 20px 47px 30px;
+  display: flex;
+  justify-content:space-between;
+
+  li{
+    width: 30px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+} 
+
+.attendance_date{
+  background: var(--bk0);
+  border-radius: 50%;
+  width: 35px;
+  height: 35px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
+.attendance_date.checked{
+  border: 3px solid var(--primary);
+}
+
+.my_noti {
+  padding-right: 0;
+
+  .my_border{
+    justify-content:flex-start;
+
+    >p{
+      margin-top:23px;
+    }
+  }
+
+  .my_noti_desc{
+    margin-top:10px;
+    margin-bottom: 25px;
+    display: flex;
+    flex-direction: column;
+    justify-content:space-around;
+    height: 100%;
+
+    span{
+      color: var(--primary);  
+      font-weight: 700;
+    }
+  }
+}
+
+/*----top헤더 mypage_header----끝*/
+
+/*----메뉴 + 본문 part mypage_basic ----시작*/
+
+.mypage_nav{
+  margin-top: 90px;
+}
+
+.mynav_title{
+  padding: 0 20px;
+  border-bottom: 1px solid var(--bk400);
+  /* background: var(--bk50); */
+  margin-top: 45px;
+}
+
+.mypage_nav ul li{
+  font-size: 16px;
+  line-height: 46px;
+}  
+.mypage_nav i{
+  padding-right: 12px;
+}
+
+.mypage_nav a{
+  padding: 0 20px;
+  display: block;
+  font-size: 16px;
+  line-height: 46px;
+  color: var(--bk900);
+}
+  
+
+
+
+.mypage_nav ul li:has(a):hover{
+  background: var(--bk200);
+}
+
+.mypage_main{
+  margin-top: 29px;
+}
+
+
+/* 탭메뉴 */
+.mypage_tap_wrapper{
+  margin-bottom: 40px;
+}
+.mypage_tap{
+  width: 200px;
+  height: 61px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border-bottom: 3px solid var(--bk0);
+}
+
+.mypage_tap a{
+    color: var(--bk900);
+}
+
+.mypage_tap.active{
+  border-bottom: 3px solid var(--primary);
+  font-weight: 700;
+  color: var(--bk1000);
+}
+
+/* 탭 제목 */
+
+.mypage_title{
+  margin-bottom: 20px;
+  font-weight: 700;
+}
+
+/*----메뉴 + 본문 part mypage_basic ----끝*/
