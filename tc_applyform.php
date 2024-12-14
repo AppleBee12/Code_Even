@@ -3,14 +3,14 @@ include_once($_SERVER['DOCUMENT_ROOT'].'/CODE_EVEN/admin/inc/dbcon.php');
 include_once($_SERVER['DOCUMENT_ROOT'] . '/code_even/front/inc/header.php');
 
 // 로그인 여부 확인
-// if (!isset($_SESSION['AUID'])) {
-//     echo "<script>
-//         alert('로그인이 필요합니다.');
-//         // location.href='/CODE_EVEN/';
-//         history.back();
-//     </script>";
-//     exit;
-// }
+if (!isset($_SESSION['AUID'])) {
+    echo "<script>
+        alert('로그인이 필요합니다.');
+        // location.href='/CODE_EVEN/';
+        history.back();
+    </script>";
+    exit;
+}
 
 $userid = $_SESSION['AUID']; // 세션에서 로그인된 사용자 ID 가져오기
 
