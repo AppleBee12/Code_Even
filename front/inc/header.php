@@ -253,7 +253,6 @@ if(isset($_GET['code'])){
             </li>
           </ul>
         </nav>
-
         <div class="header_search">
           <form action="#" class="d-flex align-items-center header_search_inner" method="get">
             <button type="submit" class="search_btn d-flex align-items-center">
@@ -266,26 +265,39 @@ if(isset($_GET['code'])){
             </button>
           </form>
         </div>
-        <div class="header_icon d-flex">
-          <div><a href="">장바구니</a></div>
-          <div><a href="">알람</a></div>
-          <div class="mini-profile">
-            미니 프로필
-            <!-- <ul>
-              <li>
-                <a href=""><img src="" alt="">프로필사진</a>
-                <div>쿠폰 <span></span> </div>
-                <div>수강 중인 강좌 <span></span> </div>
-              </li>
-              <hr>
-              <li><a href="">나의 수업</a></li>
-              <hr>
-              <li><a href="">장바구니</a></li>
-              <li><a href="">찜한 강좌</a></li>
-              <hr>
-              <li><a href="">기본 정보 설정</a></li>
-              <li><a href="">로그아웃</a></li>
-            </ul> -->
+        <div class="header_icon d-flex gap-3">
+          <div>
+            <a href=""><i class="bi bi-cart"></i></a>
+          </div>
+          <div class="mini_bell">
+            <a href="">
+              <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="22" height="22" viewBox="0 0 24 24" fill="#d2d2d2">
+                <path d="M 11.988281 0.99023438 A 0.750075 0.750075 0 0 0 11.25 1.75 L 11.25 3.1523438 C 7.2185669 3.5496326 4.0175781 6.8479156 4.0175781 10.982422 L 4.0175781 14.082031 C 4.0175781 16.848644 2.1699219 18.71875 2.1699219 18.71875 A 0.750075 0.750075 0 0 0 2.6992188 20 L 9 20 C 9 21.648068 10.351932 23 12 23 C 13.648068 23 15 21.648068 15 20 L 21.300781 20 A 0.750075 0.750075 0 0 0 21.830078 18.71875 C 21.830078 18.71875 19.982422 16.848644 19.982422 14.082031 L 19.982422 10.982422 C 19.982422 6.8479156 16.781433 3.5496326 12.75 3.1523438 L 12.75 1.75 A 0.750075 0.750075 0 0 0 11.988281 0.99023438 z M 12 4.5 C 15.588642 4.5 18.482422 7.3928035 18.482422 10.982422 L 18.482422 14.082031 C 18.482422 16.107423 19.179375 17.513214 19.832031 18.5 L 4.1679688 18.5 C 4.8206249 17.513214 5.5175781 16.107423 5.5175781 14.082031 L 5.5175781 10.982422 C 5.5175781 7.3928035 8.411358 4.5 12 4.5 z M 10.5 20 L 13.5 20 C 13.5 20.837932 12.837932 21.5 12 21.5 C 11.162068 21.5 10.5 20.837932 10.5 20 z">
+                </path>
+              </svg>
+            </a>
+          </div>
+          <div class="mini_profile">
+            <a href="">
+              <i class="bi bi-person"></i>
+            </a>
+            <div class="profile_menu">
+              <div class="profile_header d-flex">
+                <img src="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/front/images/profile.png" alt="">
+                <p>이븐 학생</p>
+              </div>
+              <div class="profile_btn d-flex gap-3">
+                <a href="">쿠폰 1</a>
+                <a href="">수강중인강좌 2</a>
+              </div>
+              <ul>
+                <li><a href="">나의 수업</a></li>
+                <li><a href="">장바구니</a></li>
+                <li><a href="">찜한 강좌</a></li>
+                <li><a href="">기본 정보 설정</a></li>
+                <li><a href="">로그아웃</a></li>
+              </ul>
+            </div>
           </div>
         </div>
       </div>
