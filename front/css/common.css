@@ -51,6 +51,17 @@
 }
 
 
+/* reset 시작*/
+
+h1 ,h2 ,h3 ,h4 ,h5 ,h6, p, ul{
+  margin: 0;
+  padding: 0;
+}
+
+/* reset 끝*/
+
+
+
 /* fonts */
 
 body{
@@ -58,9 +69,7 @@ body{
   font-weight: 500;
   font-size: 16px;
   }
-h1 ,h2 ,h3 ,h4 ,h5 ,h6{
-  margin-bottom: 0;
-}
+
 .headt1{
  font-size: 100px;
 }
@@ -115,6 +124,9 @@ h1 ,h2 ,h3 ,h4 ,h5 ,h6{
 
 
 
+ 
+
+
 
 /* 전체 공통 common */
 body{
@@ -128,18 +140,6 @@ body a{
   color: var(--bk200);
 }
 
-
-p{
-  margin-bottom: 0 !important;
-}
-
-ul{
-  margin-bottom: 0 !important;
-  padding-left: 0 !important;
-}
-
-
- 
 div.white, section.white{
   background: var(--bk0);
   color: var(--bk1000);
