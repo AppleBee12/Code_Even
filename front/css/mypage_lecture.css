@@ -1,0 +1,10 @@
+.my_lecture_wrapper .my_lecture{
+  border: 1px solid var(--bk300);
+  border-radius: 8px;
+  padding: 60px;
+}
+
+.my_lecture .my_lec_top img{
+  width: 180px;
+  height: 180px;
+}

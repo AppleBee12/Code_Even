@@ -49,7 +49,13 @@ if (!isset($title)) {
   switch ($page) { //mypage_header.css, 마이페이지가 추가되면 이 아래에 php이름을 추가하세요
     case 'mypage_header.php':
     case 'mypage_lecture.php':
+    case 'mypage_copy.php':
       echo '<link rel="stylesheet" href="http://' . $_SERVER['HTTP_HOST'] . '/code_even/front/css/mypage_header.css">';
+      break;
+  }
+    switch ($page) { //mypage_lecture.css
+    case 'mypage_lecture.php':
+      echo '<link rel="stylesheet" href="http://' . $_SERVER['HTTP_HOST'] . '/code_even/front/css/mypage_lecture.css">';
       break;
   }
   ?>
