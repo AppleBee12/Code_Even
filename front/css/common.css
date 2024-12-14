@@ -83,11 +83,11 @@ h1 ,h2 ,h3 ,h4 ,h5 ,h6{
 
 .subtitle1{
  font-weight: 600;
- font-size: 20px;
+ font-size: 16px;
 }
 .subtitle2{
   font-weight: 600;
-  font-size: 20px;
+  font-size: 14px;
  }
 .body2{
   font-size: 14px;
@@ -104,6 +104,13 @@ h1 ,h2 ,h3 ,h4 ,h5 ,h6{
 .eng{
   font-family: "Roboto Condensed", sans-serif;
   /* font-weight: 100~900까지 있어요!; */
+}
+.lineh25{
+  line-height: 25px;
+}
+
+.lineh30{
+  line-height: 30px;
 }
 
 

@@ -1,9 +1,18 @@
-.profile_image{
-  width: 88px;
-  height: 88px;
-  background: var(--bk1000);
+.my_header_profile,
+.my_header_profile .col-3,
+.my_header_profile .col-9{
+  margin: 0;
+  padding: 0;
 }
 
-.profile_detail{
-  
+.profile_image.profile_image{
+  width: 88px;
+  height: 88px;
+  background-image: url();
 }
+
+.profile_detail .today{
+  color: var(--bk600);
+  font-weight: 400;
+}
+
