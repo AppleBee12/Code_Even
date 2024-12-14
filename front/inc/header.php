@@ -138,35 +138,29 @@ if(isset($_GET['code'])){
 <body>
   <header>
     <div class="container">
-      <div class="header_grade1 d-flex justify-content-between align-items-center">
-        <div class="header_logo w-100">
+      <div class="header_grade1 d-flex justify-content-end align-items-center">
+        <div class="header_logo">
           <h1 class="logo text-center"><a href="">CODE EVEN</a></h1>
         </div>
-        <div class="header_join flex-shrink-1">
-          <ul class="d-flex gap-3">
+        <div class="header_join">
+          <ul class="d-flex justify-content-end">
             <?php if (!isset($_SESSION['AUID'])) { ?>
               <li>
                 <a href="#" data-bs-toggle="modal" data-bs-target="#exampleModaltest" data-bs-whatever="@mdo">로그인</a>
               </li>
+              <li><a href="members/signup/signup.php">회원가입</a></li>
               <?php }else{?>
             <li> 
               <a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/members/login/logout.php">로그아웃</a>
-              <img src="<?= $profileImg ?>" alt="">
             </li>
               <?php
                 } 
               ?>
-                <li><a href="members/signup/signup.php">회원가입</a></li>
-            <li>고객센터
-              <ul>
-                <li>공지사항</li>
-                <li>FAQ</li>
-              </ul>
-            </li>
+            <li><a href="#">고객센터</a></li>
           </ul>
         </div>
       </div> 
-      <div class="header_grade2 d-flex align-items-center">
+      <div class="header_grade2 d-flex justify-content-between align-items-center">
         <nav class="header-menu">
           <ul class="d-flex gap-3">
             <li>
@@ -214,20 +208,24 @@ if(isset($_GET['code'])){
             </li>
           </ul>
         </nav>
-        <div class="header-search">
-          <div>
-            <i class="bi bi-search"></i>
-          </div>
+        <div class="header_search">
+          <form action="#" class="d-flex align-items-center header_search_inner" method="get">
+            <button type="submit" class="search_btn d-flex align-items-center">
+              <i class="bi bi-search"></i>
+            </button>
+            <label for="searchInput" class="visually-hidden">검색창</label>
+            <input type="search" id="searchInput" class="form-control" value="" placeholder="무엇을 배우고 싶으신가요?" autocomplete="off"/>
+            <button type="button" id="clearSearch" class="btn btn-clear d-flex align-items-center justify-content-center">
+              <i class="bi bi-x-circle-fill"></i>
+            </button>
+          </form>
         </div>
-        <div class="header-icon visually-hidden">
+        <div class="header_icon d-flex">
           <div><a href="">장바구니</a></div>
           <div><a href="">알람</a></div>
           <div class="mini-profile">
             미니 프로필
-            <div>
-              <img src="" alt="">프로필사진
-            </div>
-            <ul>
+            <!-- <ul>
               <li>
                 <a href=""><img src="" alt="">프로필사진</a>
                 <div>쿠폰 <span></span> </div>
@@ -241,7 +239,7 @@ if(isset($_GET['code'])){
               <hr>
               <li><a href="">기본 정보 설정</a></li>
               <li><a href="">로그아웃</a></li>
-            </ul>
+            </ul> -->
           </div>
         </div>
       </div>
