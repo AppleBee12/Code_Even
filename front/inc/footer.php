@@ -72,7 +72,7 @@
 
 <!-- 공통 js -->
 
-<script src="https://cdn.jsdelivr.net/npm/@floating-ui/dom@1.6.12"></script>
+<!-- <script src="https://cdn.jsdelivr.net/npm/@floating-ui/dom@1.6.12"></script> -->
 <script src="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/js/summernote-bs5.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.20/dist/lang/summernote-ko-KR.min.js"
   integrity="sha256-y2bkXLA0VKwUx5hwbBKnaboRThcu7YOFyuYarJbCnoQ=" crossorigin="anonymous"></script>
@@ -81,7 +81,7 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 
 
-<script src="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/js/common.js"></script>
+<script src="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/front/js/common.js"></script>
 
 <!-- 개인 js -->
 <?php

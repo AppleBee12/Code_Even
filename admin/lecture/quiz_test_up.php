@@ -120,23 +120,17 @@ if (isset($_GET['action']) && $_GET['action'] == 'get_lectures') {
         <i class="bi bi-x" onclick="removeQuiz(this)"></i>
       </div>
       <table class="table">
-        <colgroup>
-          <col class="col-width-160">
-          <col class="col-width-516">
-          <col class="col-width-160">
-          <col class="col-width-516">
-        </colgroup>
         <tbody>
           <tr>
             <th scope="row">문제명 <b>*</b></th>
             <td colspan="3">
-              <input name="pn" type="text" class="form-control" placeholder="문제의 제목을 입력해 주세요.">
+              <input name="pn[1]" type="text" class="form-control" placeholder="문제의 제목을 입력해 주세요.">
             </td>
           </tr>
           <tr>
             <th scope="row">해설</th>
             <td colspan="3">
-              <textarea name="explan" class="form-control" rows="3" placeholder="강의 설명을 입력해 주세요."></textarea>
+              <textarea name="explan[1]" class="form-control" rows="3" placeholder="해설을 입력해 주세요."></textarea>
             </td>
           </tr>
           <tr>
@@ -144,20 +138,20 @@ if (isset($_GET['action']) && $_GET['action'] == 'get_lectures') {
             <td>
               <div class="d-flex gap-4">
                 <div class="form-check">
-                  <input name="answer" class="form-check-input" type="radio" value="1" id="answer1" checked>
-                  <label class="form-check-label" for="answer1">1번</label>
+                  <input name="answer[1]" class="form-check-input" type="radio" value="1" id="answer1_1">
+                  <label class="form-check-label" for="answer1_1">1번</label>
                 </div>
                 <div class="form-check">
-                  <input name="answer" class="form-check-input" type="radio" value="2" id="answer2">
-                  <label class="form-check-label" for="answer2">2번</label>
+                  <input name="answer[1]" class="form-check-input" type="radio" value="2" id="answer2_1">
+                  <label class="form-check-label" for="answer2_1">2번</label>
                 </div>
                 <div class="form-check">
-                  <input name="answer" class="form-check-input" type="radio" value="3" id="answer3">
-                  <label class="form-check-label" for="answer3">3번</label>
+                  <input name="answer[1]" class="form-check-input" type="radio" value="3" id="answer3_1">
+                  <label class="form-check-label" for="answer3_1">3번</label>
                 </div>
                 <div class="form-check">
-                  <input name="answer" class="form-check-input" type="radio" value="4" id="answer4">
-                  <label class="form-check-label" for="answer4">4번</label>
+                  <input name="answer[1]" class="form-check-input" type="radio" value="4" id="answer4_1">
+                  <label class="form-check-label" for="answer4_1">4번</label>
                 </div>
               </div>
             </td>
@@ -165,10 +159,10 @@ if (isset($_GET['action']) && $_GET['action'] == 'get_lectures') {
           <tr>
             <th scope="row">문항 <b>*</b></th>
             <td colspan="3">
-              <input name="question[]" type="text" class="form-control mb-2" placeholder="1번 문항을 입력해 주세요.">
-              <input name="question[]" type="text" class="form-control mb-2" placeholder="2번 문항을 입력해 주세요.">
-              <input name="question[]" type="text" class="form-control mb-2" placeholder="3번 문항을 입력해 주세요.">
-              <input name="question[]" type="text" class="form-control mb-2" placeholder="4번 문항을 입력해 주세요.">
+              <input name="question[1][]" type="text" class="form-control mb-2" placeholder="1번 문항을 입력해 주세요.">
+              <input name="question[1][]" type="text" class="form-control mb-2" placeholder="2번 문항을 입력해 주세요.">
+              <input name="question[1][]" type="text" class="form-control mb-2" placeholder="3번 문항을 입력해 주세요.">
+              <input name="question[1][]" type="text" class="form-control mb-2" placeholder="4번 문항을 입력해 주세요.">
             </td>
           </tr>
         </tbody>
@@ -268,7 +262,7 @@ if (isset($_GET['action']) && $_GET['action'] == 'get_lectures') {
   // 카테고리 변경 이벤트 핸들러 등록
   $('#cate1, #cate2, #cate3').on('change', updateLectures);
 
-  
+
   $(document).ready(function () {
     // 문제 유형 변경 시 문제 추가 버튼 상태 제어
     $('input[name="courseType"]').on('change', function () {
@@ -341,73 +335,68 @@ if (isset($_GET['action']) && $_GET['action'] == 'get_lectures') {
 
   // 새로운 퀴즈 섹션 추가 시 요소에 데이터 업데이트
   $('.leplus').on('click', function () {
-    const quizTestCount = $('.video').length + 1; // 현재 강의 개수 + 1
+    const quizTestCount = $('.quiz_test').length + 1; // 현재 문제 개수 + 1
     const newQuizTestTemplate = `
-      <div class="quiz_test">
-        <div class="video d-flex justify-content-between align-items-center bg-light border rounded-3">
-          <h5 class="mb-0">${quizTestCount}번</h5>
-          <i class="bi bi-x" onclick="removeQuiz(this)"></i>
-        </div>
-        <table class="table">
-          <colgroup>
-            <col class="col-width-160">
-            <col class="col-width-516">
-            <col class="col-width-160">
-            <col class="col-width-516">
-          </colgroup>
-          <tbody>
-            <tr>
-              <th scope="row">문제명 <b>*</b></th>
-              <td colspan="3">
-                <input name="pn" type="text" class="form-control" placeholder="문제의 제목을 입력해 주세요.">
-              </td>
-            </tr>
-            <tr>
-              <th scope="row">해설</th>
-              <td colspan="3">
-                <textarea name="explan" class="form-control" rows="3" placeholder="강의 설명을 입력해 주세요."></textarea>
-              </td>
-            </tr>
-            <tr>
-              <th scope="row">정답 <b>*</b></th>
-              <td>
-                <div class="d-flex gap-4">
-                  <div class="form-check">
-                    <input name="answer_${quizTestCount}" class="form-check-input" type="radio" value="1" id="answer1_${quizTestCount}">
-                    <label class="form-check-label" for="answer1_${quizTestCount}">1번</label>
-                  </div>
-                  <div class="form-check">
-                    <input name="answer_${quizTestCount}" class="form-check-input" type="radio" value="2" id="answer2_${quizTestCount}">
-                    <label class="form-check-label" for="answer2_${quizTestCount}">2번</label>
-                  </div>
-                  <div class="form-check">
-                    <input name="answer_${quizTestCount}" class="form-check-input" type="radio" value="3" id="answer3_${quizTestCount}">
-                    <label class="form-check-label" for="answer3_${quizTestCount}">3번</label>
-                  </div>
-                  <div class="form-check">
-                    <input name="answer_${quizTestCount}" class="form-check-input" type="radio" value="4" id="answer4_${quizTestCount}">
-                    <label class="form-check-label" for="answer4_${quizTestCount}">4번</label>
-                  </div>
-                </div>
-              </td>
-            </tr>
-            <tr>
-              <th scope="row">문항 <b>*</b></th>
-              <td colspan="3">
-                <input name="question[]" type="text" class="form-control mb-2" placeholder="1번 문항을 입력해 주세요.">
-                <input name="question[]" type="text" class="form-control mb-2" placeholder="2번 문항을 입력해 주세요.">
-                <input name="question[]" type="text" class="form-control mb-2" placeholder="3번 문항을 입력해 주세요.">
-                <input name="question[]" type="text" class="form-control mb-2" placeholder="4번 문항을 입력해 주세요.">
-              </td>
-            </tr>
-          </tbody>
-        </table>
+    <div class="quiz_test">
+      <div class="video d-flex justify-content-between align-items-center bg-light border rounded-3">
+        <h5 class="mb-0">${quizTestCount}번</h5>
+        <i class="bi bi-x" onclick="removeQuiz(this)"></i>
       </div>
-      `;
+      <table class="table">
+        <tbody>
+          <tr>
+            <th scope="row">문제명 <b>*</b></th>
+            <td colspan="3">
+              <input name="pn[${quizTestCount}]" type="text" class="form-control" placeholder="문제의 제목을 입력해 주세요.">
+            </td>
+          </tr>
+          <tr>
+            <th scope="row">해설</th>
+            <td colspan="3">
+              <textarea name="explan[${quizTestCount}]" class="form-control" rows="3" placeholder="해설을 입력해 주세요."></textarea>
+            </td>
+          </tr>
+          <tr>
+            <th scope="row">정답 <b>*</b></th>
+            <td>
+              <div class="d-flex gap-4">
+                <div class="form-check">
+                  <input name="answer[${quizTestCount}]" class="form-check-input" type="radio" value="1" id="answer1_${quizTestCount}">
+                  <label class="form-check-label" for="answer1_${quizTestCount}">1번</label>
+                </div>
+                <div class="form-check">
+                  <input name="answer[${quizTestCount}]" class="form-check-input" type="radio" value="2" id="answer2_${quizTestCount}">
+                  <label class="form-check-label" for="answer2_${quizTestCount}">2번</label>
+                </div>
+                <div class="form-check">
+                  <input name="answer[${quizTestCount}]" class="form-check-input" type="radio" value="3" id="answer3_${quizTestCount}">
+                  <label class="form-check-label" for="answer3_${quizTestCount}">3번</label>
+                </div>
+                <div class="form-check">
+                  <input name="answer[${quizTestCount}]" class="form-check-input" type="radio" value="4" id="answer4_${quizTestCount}">
+                  <label class="form-check-label" for="answer4_${quizTestCount}">4번</label>
+                </div>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <th scope="row">문항 <b>*</b></th>
+            <td colspan="3">
+              <input name="question[${quizTestCount}][]" type="text" class="form-control mb-2" placeholder="1번 문항을 입력해 주세요.">
+              <input name="question[${quizTestCount}][]" type="text" class="form-control mb-2" placeholder="2번 문항을 입력해 주세요.">
+              <input name="question[${quizTestCount}][]" type="text" class="form-control mb-2" placeholder="3번 문항을 입력해 주세요.">
+              <input name="question[${quizTestCount}][]" type="text" class="form-control mb-2" placeholder="4번 문항을 입력해 주세요.">
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>`;
 
     $(this).before(newQuizTestTemplate);
-    reorderQuizzes(); // 퀴즈 번호 재정렬
+    reorderQuizzes();
+    
   });
+
 
   // 삭제 함수
   function removeQuiz(element) {

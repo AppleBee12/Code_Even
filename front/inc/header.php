@@ -10,7 +10,81 @@ if (!isset($title)) {
 
 
 //카카오 간편 로그인 --시작
+if(isset($_GET['code'])){
+  $code = $_GET['code'];
+  $client_id = 'a292c01fc2579fbd7965ca9524a3032f';
+  $redirect_uri = 'http://localhost/code_even/';
 
+  //토큰 요청
+  $url = 'https://kauth.kakao.com/oauth/token';
+  $data = [
+    'grant_type' => 'authorization_code',
+    'client_id'=> $client_id,
+    'redirect_uri'=> $redirect_uri,
+    'code'=> $code
+  ];
+  $options = [
+    'http'=> [
+      'header'=>'Content-Type: application/x-www-form-urlencoded;charset=utf-8',
+      'method'=> 'POST',
+      'content'=> http_build_query($data)
+    ]
+  ];
+  $context = stream_context_create($options);
+  $result = file_get_contents($url, false, $context);
+  $response = json_decode($result, true);
+  // echo '<pre>';
+  // print_r($response);
+  // echo '</pre>';
+
+  //사용자 정보요청
+  $ACCESS_TOKEN = $response['access_token'];
+  $ch = curl_init(); //새로운 세션 생성 / 초기화
+  curl_setopt($ch, CURLOPT_URL, "https://kapi.kakao.com/v2/user/me");
+  curl_setopt($ch, CURLOPT_RETURNTRANSFER, true); // 결과를 문자열로 반환
+  curl_setopt($ch, CURLOPT_HTTPHEADER, [
+    "Authorization: Bearer $ACCESS_TOKEN"
+  ]);
+
+  $response_result = curl_exec($ch);
+  $status = curl_getinfo($ch,CURLINFO_HTTP_CODE);
+
+  curl_close($ch);
+
+  $resultArr = json_decode($response_result, true);
+
+  // echo '<pre>';
+  // print_r($resultArr);
+  // echo '</pre>';
+
+  if($status === 200) {
+    $mysqli = new mysqli('localhost','code_even', '12345', 'code_even');
+    if($mysqli->connect_errno){
+      die('연결실패'. $mysqli->connect_errno);
+    }
+    $userId = $resultArr['id'];
+    $userName = $resultArr['properties']['nickname'] ?? '';
+    $profileImg= $resultArr['properties']['thumbnail_image'] ??'';
+
+    // echo $userId;
+    // echo $userName;
+    // echo $profileImg;
+
+    $tempsql = "INSERT INTO members (userid, name, profile_image) VALUES(?,?,?)";
+    $sql = $mysqli->prepare($tempsql);
+
+    if($sql){
+      $sql->bind_param("sss", $userId, $userName, $profileImg);
+      if($sql->execute()){
+       // echo "<p>유저 정보 입력 성공</p>";
+      }
+      $sql->close();
+    }else{
+     // echo "<p>쿼리준비 실패".$mysqli->error."</p>";
+    }
+    $mysqli->close();
+  }
+}
 //카카오 간편 로그인 --끝
 
 
@@ -72,111 +146,169 @@ if (!isset($title)) {
 <body>
   <header>
     <div class="container">
-      <div class="header_grade1 d-flex justify-content-between align-items-center">
+      <div class="header_grade1 d-flex justify-content-end align-items-center">
         <div class="header_logo">
-          <h1 class="logo"><a href="">CODE EVEN</a></h1>
+          <h1 class="logo text-center"><a href="">CODE EVEN</a></h1>
         </div>
-        <div>
-          <ul class="d-flex gap-3">
+        <div class="header_join">
+          <ul class="d-flex justify-content-end">
             <?php if (!isset($_SESSION['AUID'])) { ?>
               <li>
                 <a href="#" data-bs-toggle="modal" data-bs-target="#exampleModaltest" data-bs-whatever="@mdo">로그인</a>
               </li>
-            <?php
-              }else{
-              ?>
+              <li><a href="members/signup/signup.php">회원가입</a></li>
+              <?php }else{?>
             <li> 
               <a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/members/login/logout.php">로그아웃</a>
             </li>
               <?php
                 } 
               ?>
-                <li><a href="members/signup/signup.php">회원가입</a></li>
-            <li>고객센터
-              <ul>
-                <li>공지사항</li>
-                <li>FAQ</li>
-              </ul>
-            </li>
+            <li><a href="#">고객센터</a></li>
           </ul>
         </div>
       </div> 
-      <div class="header-grade2 d-flex">
-        <nav class="header-menu">
-          <ul class="d-flex gap-3">
-            <li>
-              강좌
-              <ul>
-                <li>중분류1
-                  <ul>
-                    <li><a href="">소분류1-1</a></li>
-                  </ul>
-                </li>
-                <li>중분류2
-                  <ul>
-                    <li><a href="">소분류2-1</a></li>
-                  </ul>
-                </li>
-                <li>중분류3
-                  <ul>
-                    <li><a href="">소분류3-1</a></li>
-                  </ul>
-                </li>
-                <li>중분류4
-                  <ul>
-                    <li><a href="">소분류4-1</a></li>
-                  </ul>
-                </li>
-                <li>중분류5
-                  <ul>
-                    <li><a href="">소분류5-1</a></li>
-                  </ul>
-                </li>
-                <li>중분류6
-                  <ul>
-                    <li><a href="">소분류6-1</a></li>
-                  </ul>
-                </li>
-              </ul>
+      <div class="header_grade2 d-flex justify-content-between align-items-center">
+        <nav class="header_menu">
+          <ul class="d-flex align-items-center">
+            <li class="menu_depth1">
+              <a href="">강좌</a>
+              <div class="menu_depth2">
+                <ul class="depth2_lec">
+                  <li>
+                    <a href="">프론트엔드</a>
+                    <div class="menu_depth3">
+                      <ul>
+                        <li><a href="">HTML/CSS</a></li>
+                        <li><a href="">JavaScript</a></li>
+                        <li><a href="">jQuery</a></li>
+                        <li><a href="">React</a></li>
+                        <li><a href="">Angular</a></li>
+                        <li><a href="">Vue.js</a></li>
+                        <li><a href="">TypeScript</a></li>
+                      </ul>
+                    </div>
+                  </li>
+                  <li>
+                    <a href="">백엔드</a>
+                    <div class="menu_depth3">
+                      <ul>
+                        <li><a href="">Java</a></li>
+                        <li><a href="">PHP</a></li>
+                        <li><a href="">Next.js</a></li>
+                        <li><a href="">Node.js</a></li>
+                      </ul>
+                    </div>
+                  </li>
+                  <li>
+                    <a href="">클라우드 컴퓨팅</a>
+                    <div class="menu_depth3">
+                      <ul>
+                        <li><a href="">AWS</a></li>
+                        <li><a href="">Azure</a></li>
+                        <li><a href="">Google Cloud Platform</a></li>
+                        <li><a href="">DevOps</a></li>
+                        <li><a href="">kubernetes</a></li>
+                      </ul>
+                    </div>
+                  </li>
+                  <li>
+                    <a href="">데이터베이스</a>
+                    <div class="menu_depth3">
+                      <ul>
+                        <li><a href="">SQL</a></li>
+                        <li><a href="">MySQL</a></li>
+                        <li><a href="">PostgreSQL</a></li>
+                        <li><a href="">Oracle</a></li>
+                        <li><a href="">NoSQL</a></li>
+                        <li><a href="">MongoDB</a></li>
+                        <li><a href="">Cassandra</a></li>
+                        <li><a href="">Couchbase</a></li>
+                      </ul>
+                    </div>
+                  </li>
+                  <li>
+                    <a href="">네트워크 관리</a>
+                    <div class="menu_depth3">
+                      <ul>
+                        <li><a href="">TCP/IP</a></li>
+                        <li><a href="">C/C++</a></li>
+                      </ul>
+                    </div>
+                  </li>
+                  <li>
+                    <a href="">보안</a>
+                    <div class="menu_depth3">
+                      <ul>
+                        <li><a href="">CPPG</a></li>
+                        <li><a href="">security</a></li>
+                      </ul>
+                    </div>
+                  </li>
+                </ul>
+              </div>
             </li>
-            <li><a href="">'레시피 강좌'란?</a></li>
-            <li>커뮤니티
+            <li class="menu_depth1"><a href="#">'레시피 강좌'란?</a></li>
+            <li class="menu_depth1">
+              <a href="">커뮤니티</a>
+              <div class="menu_depth2">
               <ul>
-                <li><a href="">고민상담</a></li>
-                <li><a href="">팀 프로젝트</a></li>
-                <li><a href="">블로그</a></li>
-              </ul>
+                  <li><a href="#">고민상담</a></li>
+                  <li><a href="#">팀 프로젝트</a></li>
+                  <li><a href="#">블로그</a></li>
+                </ul> 
+              </div>
             </li>
           </ul>
         </nav>
-        <div class="header-search">
-          <div>
-            <i class="bi bi-search"></i>
-          </div>
+        <div class="header_search">
+          <form action="#" class="d-flex align-items-center header_search_inner" method="get">
+            <button type="submit" class="search_btn d-flex align-items-center">
+              <i class="bi bi-search"></i>
+            </button>
+            <label for="searchInput" class="visually-hidden">검색창</label>
+            <input type="search" id="searchInput" class="form-control" value="" placeholder="무엇을 배우고 싶으신가요?" autocomplete="off"/>
+            <button type="button" id="clearSearch" class="btn btn-clear d-flex align-items-center justify-content-center">
+              <i class="bi bi-x-circle-fill"></i>
+            </button>
+          </form>
         </div>
-        <div class="header-icon visually-hidden">
-          <div><a href="">장바구니</a></div>
-          <div><a href="">알람</a></div>
-          <div class="mini-profile">
-            미니 프로필
-            <div>
-              <img src="" alt="">프로필사진
+        <div class="header_icon d-flex gap-3">
+          <div>
+            <a href=""><i class="bi bi-cart"></i></a>
+          </div>
+          <div class="mini_bell">
+            <a href="">
+              <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="22" height="22" viewBox="0 0 24 24" fill="#d2d2d2">
+                <path d="M 11.988281 0.99023438 A 0.750075 0.750075 0 0 0 11.25 1.75 L 11.25 3.1523438 C 7.2185669 3.5496326 4.0175781 6.8479156 4.0175781 10.982422 L 4.0175781 14.082031 C 4.0175781 16.848644 2.1699219 18.71875 2.1699219 18.71875 A 0.750075 0.750075 0 0 0 2.6992188 20 L 9 20 C 9 21.648068 10.351932 23 12 23 C 13.648068 23 15 21.648068 15 20 L 21.300781 20 A 0.750075 0.750075 0 0 0 21.830078 18.71875 C 21.830078 18.71875 19.982422 16.848644 19.982422 14.082031 L 19.982422 10.982422 C 19.982422 6.8479156 16.781433 3.5496326 12.75 3.1523438 L 12.75 1.75 A 0.750075 0.750075 0 0 0 11.988281 0.99023438 z M 12 4.5 C 15.588642 4.5 18.482422 7.3928035 18.482422 10.982422 L 18.482422 14.082031 C 18.482422 16.107423 19.179375 17.513214 19.832031 18.5 L 4.1679688 18.5 C 4.8206249 17.513214 5.5175781 16.107423 5.5175781 14.082031 L 5.5175781 10.982422 C 5.5175781 7.3928035 8.411358 4.5 12 4.5 z M 10.5 20 L 13.5 20 C 13.5 20.837932 12.837932 21.5 12 21.5 C 11.162068 21.5 10.5 20.837932 10.5 20 z">
+                </path>
+              </svg>
+            </a>
+          </div>
+          <div class="mini_profile">
+            <a href="">
+              <i class="bi bi-person"></i>
+            </a>
+            <div class="profile_menu">
+              <a href="">
+                <div class="profile_header d-flex align-items-center">
+                  <img src="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/front/images/profile.png" alt="기본프로필이미지">
+                  <p><?= $_SESSION['AUNAME'] ?></p>
+                  <i class="bi bi-chevron-right"></i>
+                </div>
+              </a>
+              <div class="profile_btn d-flex gap-2">
+                <a href="">쿠폰 <span class="ms-1">1</span></a>
+                <a href="">수강중인강좌 <span class="ms-1">2</span></a>
+              </div>
+              <ul>
+                <li><a href="">나의 수업</a></li>
+                <li><a href="">장바구니</a></li>
+                <li><a href="">찜한 강좌</a></li>
+                <li><a href="">기본 정보 설정</a></li>
+                <li><a href="">로그아웃</a></li>
+              </ul>
             </div>
-            <ul>
-              <li>
-                <a href=""><img src="" alt="">프로필사진</a>
-                <div>쿠폰 <span></span> </div>
-                <div>수강 중인 강좌 <span></span> </div>
-              </li>
-              <hr>
-              <li><a href="">나의 수업</a></li>
-              <hr>
-              <li><a href="">장바구니</a></li>
-              <li><a href="">찜한 강좌</a></li>
-              <hr>
-              <li><a href="">기본 정보 설정</a></li>
-              <li><a href="">로그아웃</a></li>
-            </ul>
           </div>
         </div>
       </div>
@@ -207,7 +339,7 @@ if (!isset($title)) {
             <div class="modal-footer d-flex justify-content-center">
               <div class="d-flex row">
                 <button class="btn loginbtn redbtn">로그인</button>
-                <a href="https://kauth.kakao.com/oauth/authorize?client_id=<?= $REST_API_KEY ?>&response_type=code&redirect_uri=<?= $REDIRECT_URI ?>" class="kakao"><img src="front/images/kakaobtn.png" width="360" height="34" class="mt-1 " /></a>
+                <a href="https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=a292c01fc2579fbd7965ca9524a3032f&redirect_uri=http://localhost/code_even/" class="kakao"><img src="images/kakao_login_large_wide.png" width="360" height="34" class="mt-1 " /></a>
               </div>
 
               <div class="mt-3 d-flex justify-content-center gap-3 mb-5">
