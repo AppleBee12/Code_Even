@@ -282,13 +282,16 @@ if(isset($_GET['code'])){
               <i class="bi bi-person"></i>
             </a>
             <div class="profile_menu">
-              <div class="profile_header d-flex">
-                <img src="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/front/images/profile.png" alt="">
-                <p>이븐 학생</p>
-              </div>
-              <div class="profile_btn d-flex gap-3">
-                <a href="">쿠폰 1</a>
-                <a href="">수강중인강좌 2</a>
+              <a href="">
+                <div class="profile_header d-flex align-items-center">
+                  <img src="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/front/images/profile.png" alt="기본프로필이미지">
+                  <p><?= $_SESSION['AUNAME'] ?></p>
+                  <i class="bi bi-chevron-right"></i>
+                </div>
+              </a>
+              <div class="profile_btn d-flex gap-2">
+                <a href="">쿠폰 <span class="ms-1">1</span></a>
+                <a href="">수강중인강좌 <span class="ms-1">2</span></a>
               </div>
               <ul>
                 <li><a href="">나의 수업</a></li>
