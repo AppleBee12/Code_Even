@@ -280,10 +280,42 @@
 
 
 /* sec05 끝 */
+
 /* sec06 시작 */
+.sec06{
+  padding-top: 90px;
+  padding-bottom: 90px;
+  text-align: center;
+  h2{
+    margin-bottom: 60px;
+  }
+
+  .card{
+    background: none;
+    border: 0.8px solid var(--bk400);
+    color: var(--bk200);
+    text-align: left;
+  }
+  .card-img-top{
+    background: var(--bk100);
+  }
+  .card-body{
+    padding: 24px;
+    .tc_desc{
+      color: var(--bk300);
+      line-height: 24px;
+    }
+    .tc_tit{
+      font-size: 20px;
+      font-weight: 600;
+    }
+  }
+}
+
 
 
 /* sec06 끝 */
+
 /* sec07 시작 */
 .sec_height{
   height: 400px;
