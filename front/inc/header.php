@@ -312,11 +312,11 @@ if (isset($_GET['code'])) {
                 </div>
                 <div class="profile_menu_list">
                   <ul>
-                    <li><a href=""><i class="bi bi-book"></i>나의 수업</a></li>
-                    <li><a href=""><i class="bi bi-cart"></i>장바구니</a></li>
-                    <li><a href=""><i class="bi bi-heart"></i>찜한 강좌</a></li>
-                    <li><a href=""><i class="bi bi-person-circle"></i>기본 정보 설정</a></li>
-                    <li><a href=""><i class="bi bi-box-arrow-right"></i>로그아웃</a></li>
+                    <li class="list_pt list_pb"><a href=""><i class="bi bi-book"></i><span>나의 수업</span></a></li>
+                    <li class="list_pt"><a href=""><i class="bi bi-cart"></i><span>장바구니</span></a></li>
+                    <li class="list_pb"><a href=""><i class="bi bi-heart"></i><span>찜한 강좌</span></a></li>
+                    <li class="list_pt"><a href=""><i class="bi bi-person-circle"></i><span>기본 정보 설정</span></a></li>
+                    <li class="list_pb"><a href=""><i class="bi bi-box-arrow-right"></i><span>로그아웃</span></a></li>
                   </ul>
                 </div>
               </div>
