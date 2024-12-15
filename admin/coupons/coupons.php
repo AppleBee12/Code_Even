@@ -82,12 +82,7 @@ while ($data = $result->fetch_object()) {
 
 <div class="container">
   <h2 class="mb-5">쿠폰관리</h2>
-  <!-- <div class="d-flex gap-5">
-      <h5>총 쿠폰 수 18개</h5>
-      <h5>활성화 쿠폰 수 9개</h5>
-      <h5>비활성화 쿠폰 수 9개</h5>
-    </div> -->
-  <form class="row justify-content-end">
+  <!-- <form class="row justify-content-end">
     <div class="col-lg-4">
       <div class="input-group mb-3">
         <input type="text" class="form-control" id="search" name="search_keyword" placeholder="검색어를 입력하세요."
@@ -97,7 +92,7 @@ while ($data = $result->fetch_object()) {
         </button>
       </div>
     </div>
-  </form>
+  </form> -->
 
   <div class="row  mb-5 justify-content-center">
     <?php
@@ -144,7 +139,7 @@ while ($data = $result->fetch_object()) {
         }
       }
       ?>
-    </div>
+  </div>
 
   <div class="d-flex justify-content-end">
     <a href="coupons_up.php" type="button" class="btn btn-secondary">쿠폰등록</a>
