@@ -393,31 +393,34 @@ $main_js = "<script src=\"http://" . $_SERVER['HTTP_HOST'] . "/code_even/front/j
   <h2 class="headt4">이달의 BEST 강사</h2>
   <div class="row">
     <div class="col-4">
-      <div class="card">
+      <a href="#" class="card">
+        <span class="badge eng">Best Teacher</span>
         <img src="front/images/sec06_tc1.png" class="card-img-top" alt="베스트 강사1">
         <div class="card-body">
           <p class="card-text tc_desc">Rock’s Easyweb 차근차근 제대로 배워봅시다</p>
           <p class="card-text tc_tit">김동주 | 웹개발 </p>
         </div>
-      </div>
+      </a>
     </div>
     <div class="col-4">
-      <div class="card">
+      <a href="#" class="card">
+        <span class="badge eng">Best Teacher</span>
         <img src="front/images/sec06_tc2.png" class="card-img-top" alt="베스트 강사2">
         <div class="card-body">
           <p class="card-text tc_desc">백문이불여일타 따라하는 데이터분석</p>
           <p class="card-text tc_tit">박수호 | 클라우드·DB</p>
         </div>
-      </div>
+      </a>
     </div>
     <div class="col-4">
-      <div class="card">
+      <a href="#" class="card">
+        <span span class="badge eng">Best Teacher</span>
         <img src="front/images/sec06_tc3.png" class="card-img-top" alt="베스트 강사3">
         <div class="card-body">
           <p class="card-text tc_desc">차이를 만드는 첫걸음, 보안정복</p>
           <p class="card-text tc_tit">이정환 | 보안·네트워크</p>
         </div>
-      </div>
+      </a>
     </div>
   </div>
 </section>

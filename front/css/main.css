@@ -289,12 +289,20 @@
   h2{
     margin-bottom: 60px;
   }
-
   .card{
     background: none;
     border: 0.8px solid var(--bk400);
     color: var(--bk200);
     text-align: left;
+    position: relative;
+  }
+  .badge{
+    background: var(--red900);
+    position: absolute;
+    top: 15px; left: 15px;
+    padding: 10px;
+    font-size: 14px;
+    font-weight: 500;
   }
   .card-img-top{
     background: var(--bk100);
