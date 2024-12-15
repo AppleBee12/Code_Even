@@ -1,5 +1,5 @@
 <?php
-session_start(); 
+session_start();
 include_once($_SERVER['DOCUMENT_ROOT'] . '/code_even/front/inc/check_cookie.php');
 include_once($_SERVER['DOCUMENT_ROOT'] . '/code_even/admin/inc/dbcon.php');
 
@@ -10,7 +10,7 @@ if (!isset($title)) {
 
 
 //카카오 간편 로그인 --시작
-if(isset($_GET['code'])){
+if (isset($_GET['code'])) {
   $code = $_GET['code'];
   $client_id = 'a292c01fc2579fbd7965ca9524a3032f';
   $redirect_uri = 'http://localhost/code_even/';
@@ -19,15 +19,15 @@ if(isset($_GET['code'])){
   $url = 'https://kauth.kakao.com/oauth/token';
   $data = [
     'grant_type' => 'authorization_code',
-    'client_id'=> $client_id,
-    'redirect_uri'=> $redirect_uri,
-    'code'=> $code
+    'client_id' => $client_id,
+    'redirect_uri' => $redirect_uri,
+    'code' => $code
   ];
   $options = [
-    'http'=> [
-      'header'=>'Content-Type: application/x-www-form-urlencoded;charset=utf-8',
-      'method'=> 'POST',
-      'content'=> http_build_query($data)
+    'http' => [
+      'header' => 'Content-Type: application/x-www-form-urlencoded;charset=utf-8',
+      'method' => 'POST',
+      'content' => http_build_query($data)
     ]
   ];
   $context = stream_context_create($options);
@@ -47,7 +47,7 @@ if(isset($_GET['code'])){
   ]);
 
   $response_result = curl_exec($ch);
-  $status = curl_getinfo($ch,CURLINFO_HTTP_CODE);
+  $status = curl_getinfo($ch, CURLINFO_HTTP_CODE);
 
   curl_close($ch);
 
@@ -57,14 +57,14 @@ if(isset($_GET['code'])){
   // print_r($resultArr);
   // echo '</pre>';
 
-  if($status === 200) {
-    $mysqli = new mysqli('localhost','code_even', '12345', 'code_even');
-    if($mysqli->connect_errno){
-      die('연결실패'. $mysqli->connect_errno);
+  if ($status === 200) {
+    $mysqli = new mysqli('localhost', 'code_even', '12345', 'code_even');
+    if ($mysqli->connect_errno) {
+      die('연결실패' . $mysqli->connect_errno);
     }
     $userId = $resultArr['id'];
     $userName = $resultArr['properties']['nickname'] ?? '';
-    $profileImg= $resultArr['properties']['thumbnail_image'] ??'';
+    $profileImg = $resultArr['properties']['thumbnail_image'] ?? '';
 
     // echo $userId;
     // echo $userName;
@@ -73,14 +73,14 @@ if(isset($_GET['code'])){
     $tempsql = "INSERT INTO members (userid, name, profile_image) VALUES(?,?,?)";
     $sql = $mysqli->prepare($tempsql);
 
-    if($sql){
+    if ($sql) {
       $sql->bind_param("sss", $userId, $userName, $profileImg);
-      if($sql->execute()){
-       // echo "<p>유저 정보 입력 성공</p>";
+      if ($sql->execute()) {
+        // echo "<p>유저 정보 입력 성공</p>";
       }
       $sql->close();
-    }else{
-     // echo "<p>쿼리준비 실패".$mysqli->error."</p>";
+    } else {
+      // echo "<p>쿼리준비 실패".$mysqli->error."</p>";
     }
     $mysqli->close();
   }
@@ -127,7 +127,7 @@ if(isset($_GET['code'])){
       echo '<link rel="stylesheet" href="http://' . $_SERVER['HTTP_HOST'] . '/code_even/front/css/mypage_header.css">';
       break;
   }
-    switch ($page) { //mypage_lecture.css
+  switch ($page) { //mypage_lecture.css
     case 'mypage_lecture.php':
       echo '<link rel="stylesheet" href="http://' . $_SERVER['HTTP_HOST'] . '/code_even/front/css/mypage_lecture.css">';
       break;
@@ -148,7 +148,7 @@ if(isset($_GET['code'])){
     <div class="container">
       <div class="header_grade1 d-flex justify-content-end align-items-center">
         <div class="header_logo">
-          <h1 class="logo text-center"><a href="">CODE EVEN</a></h1>
+          <h1 class="logo text-center"><a href="http://<?= $_SERVER['HTTP_HOST'] ?>/code_even/index.php">CODE EVEN</a></h1>
         </div>
         <div class="header_join">
           <ul class="d-flex justify-content-end">
@@ -157,17 +157,17 @@ if(isset($_GET['code'])){
                 <a href="#" data-bs-toggle="modal" data-bs-target="#exampleModaltest" data-bs-whatever="@mdo">로그인</a>
               </li>
               <li><a href="members/signup/signup.php">회원가입</a></li>
-              <?php }else{?>
-            <li> 
-              <a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/members/login/logout.php">로그아웃</a>
-            </li>
-              <?php
-                } 
-              ?>
+            <?php } else { ?>
+              <li>
+                <a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/members/login/logout.php">로그아웃</a>
+              </li>
+            <?php
+            }
+            ?>
             <li><a href="#">고객센터</a></li>
           </ul>
         </div>
-      </div> 
+      </div>
       <div class="header_grade2 d-flex justify-content-between align-items-center">
         <nav class="header_menu">
           <ul class="d-flex align-items-center">
@@ -252,11 +252,11 @@ if(isset($_GET['code'])){
             <li class="menu_depth1">
               <a href="">커뮤니티</a>
               <div class="menu_depth2">
-              <ul>
+                <ul>
                   <li><a href="#">고민상담</a></li>
                   <li><a href="#">팀 프로젝트</a></li>
                   <li><a href="#">블로그</a></li>
-                </ul> 
+                </ul>
               </div>
             </li>
           </ul>
@@ -267,7 +267,7 @@ if(isset($_GET['code'])){
               <i class="bi bi-search"></i>
             </button>
             <label for="searchInput" class="visually-hidden">검색창</label>
-            <input type="search" id="searchInput" class="form-control" value="" placeholder="무엇을 배우고 싶으신가요?" autocomplete="off"/>
+            <input type="search" id="searchInput" class="form-control" value="" placeholder="무엇을 배우고 싶으신가요?" autocomplete="off" />
             <button type="button" id="clearSearch" class="btn btn-clear d-flex align-items-center justify-content-center">
               <i class="bi bi-x-circle-fill"></i>
             </button>
@@ -275,52 +275,52 @@ if(isset($_GET['code'])){
         </div>
         <div class="header_icon d-flex gap-3">
           <?php if (!isset($_SESSION['AUID'])) { ?>
-          <div>
-            <a href=""><i class="bi bi-cart"></i></a>
-          </div>
+            <div>
+              <a href=""><i class="bi bi-cart"></i></a>
+            </div>
           <?php
-          } else{  
-          ?> 
-          <div>
-            <a href=""><i class="bi bi-cart"></i></a>
-          </div>
-          <div class="mini_bell">
-            <a href="">
-              <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="22" height="22" viewBox="0 0 24 24" fill="#d2d2d2">
-                <path d="M 11.988281 0.99023438 A 0.750075 0.750075 0 0 0 11.25 1.75 L 11.25 3.1523438 C 7.2185669 3.5496326 4.0175781 6.8479156 4.0175781 10.982422 L 4.0175781 14.082031 C 4.0175781 16.848644 2.1699219 18.71875 2.1699219 18.71875 A 0.750075 0.750075 0 0 0 2.6992188 20 L 9 20 C 9 21.648068 10.351932 23 12 23 C 13.648068 23 15 21.648068 15 20 L 21.300781 20 A 0.750075 0.750075 0 0 0 21.830078 18.71875 C 21.830078 18.71875 19.982422 16.848644 19.982422 14.082031 L 19.982422 10.982422 C 19.982422 6.8479156 16.781433 3.5496326 12.75 3.1523438 L 12.75 1.75 A 0.750075 0.750075 0 0 0 11.988281 0.99023438 z M 12 4.5 C 15.588642 4.5 18.482422 7.3928035 18.482422 10.982422 L 18.482422 14.082031 C 18.482422 16.107423 19.179375 17.513214 19.832031 18.5 L 4.1679688 18.5 C 4.8206249 17.513214 5.5175781 16.107423 5.5175781 14.082031 L 5.5175781 10.982422 C 5.5175781 7.3928035 8.411358 4.5 12 4.5 z M 10.5 20 L 13.5 20 C 13.5 20.837932 12.837932 21.5 12 21.5 C 11.162068 21.5 10.5 20.837932 10.5 20 z">
-                </path>
-              </svg>
-            </a>
-          </div>
-          <div class="mini_profile">
-            <a href="">
-              <i class="bi bi-person"></i>
-            </a>
-            <div class="profile_menu">
-              <div class="profile_menu_top">
-                <a href="">
-                  <div class="profile_header d-flex align-items-center">
-                    <img src="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/front/images/profile.png" alt="기본프로필이미지">
-                    <p><?= $_SESSION['AUNAME'] ?></p>
-                    <i class="bi bi-chevron-right"></i>
+          } else {
+          ?>
+            <div>
+              <a href=""><i class="bi bi-cart"></i></a>
+            </div>
+            <div class="mini_bell">
+              <a href="">
+                <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="22" height="22" viewBox="0 0 24 24" fill="#d2d2d2">
+                  <path d="M 11.988281 0.99023438 A 0.750075 0.750075 0 0 0 11.25 1.75 L 11.25 3.1523438 C 7.2185669 3.5496326 4.0175781 6.8479156 4.0175781 10.982422 L 4.0175781 14.082031 C 4.0175781 16.848644 2.1699219 18.71875 2.1699219 18.71875 A 0.750075 0.750075 0 0 0 2.6992188 20 L 9 20 C 9 21.648068 10.351932 23 12 23 C 13.648068 23 15 21.648068 15 20 L 21.300781 20 A 0.750075 0.750075 0 0 0 21.830078 18.71875 C 21.830078 18.71875 19.982422 16.848644 19.982422 14.082031 L 19.982422 10.982422 C 19.982422 6.8479156 16.781433 3.5496326 12.75 3.1523438 L 12.75 1.75 A 0.750075 0.750075 0 0 0 11.988281 0.99023438 z M 12 4.5 C 15.588642 4.5 18.482422 7.3928035 18.482422 10.982422 L 18.482422 14.082031 C 18.482422 16.107423 19.179375 17.513214 19.832031 18.5 L 4.1679688 18.5 C 4.8206249 17.513214 5.5175781 16.107423 5.5175781 14.082031 L 5.5175781 10.982422 C 5.5175781 7.3928035 8.411358 4.5 12 4.5 z M 10.5 20 L 13.5 20 C 13.5 20.837932 12.837932 21.5 12 21.5 C 11.162068 21.5 10.5 20.837932 10.5 20 z">
+                  </path>
+                </svg>
+              </a>
+            </div>
+            <div class="mini_profile">
+              <a href="">
+                <i class="bi bi-person"></i>
+              </a>
+              <div class="profile_menu">
+                <div class="profile_menu_top">
+                  <a href="">
+                    <div class="profile_header d-flex align-items-center">
+                      <img src="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/front/images/profile.png" alt="기본프로필이미지">
+                      <p><?= $_SESSION['AUNAME'] ?></p>
+                      <i class="bi bi-chevron-right"></i>
+                    </div>
+                  </a>
+                  <div class="profile_btn d-flex gap-2">
+                    <a href="">쿠폰 <span class="ms-1">1</span></a>
+                    <a href="http://<?= $_SERVER['HTTP_HOST'] ?>/code_even/front/mypage/mypage_lecture.php">수강중인강좌 <span class="ms-1">2</span></a>
                   </div>
-                </a>
-                <div class="profile_btn d-flex gap-2">
-                  <a href="">쿠폰 <span class="ms-1">1</span></a>
-                  <a href="">수강중인강좌 <span class="ms-1">2</span></a>
+                </div>
+                <div class="profile_menu_list">
+                  <ul>
+                    <li><a href=""><i class="bi bi-book"></i>나의 수업</a></li>
+                    <li><a href=""><i class="bi bi-cart"></i>장바구니</a></li>
+                    <li><a href=""><i class="bi bi-heart"></i>찜한 강좌</a></li>
+                    <li><a href=""><i class="bi bi-person-circle"></i>기본 정보 설정</a></li>
+                    <li><a href=""><i class="bi bi-box-arrow-right"></i>로그아웃</a></li>
+                  </ul>
                 </div>
               </div>
-              <div class="profile_menu_list">
-                <ul>
-                  <li><a href=""><i class="bi bi-book"></i>나의 수업</a></li>
-                  <li><a href=""><i class="bi bi-cart"></i>장바구니</a></li>
-                  <li><a href=""><i class="bi bi-heart"></i>찜한 강좌</a></li>
-                  <li><a href=""><i class="bi bi-person-circle"></i>기본 정보 설정</a></li>
-                  <li><a href=""><i class="bi bi-box-arrow-right"></i>로그아웃</a></li>
-                </ul>
-              </div>
             </div>
-          </div>
           <?php
           }
           ?>
