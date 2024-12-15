@@ -33,38 +33,25 @@ while($data = $category_result->fetch_object()){
 }
 ?>
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
-  integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-  <link rel="stylesheet" href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/css/common.css">
-  <link rel="stylesheet" href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/front/css/main.css">
-  <link rel="stylesheet" href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/front/css/tc_applyform.css">
-  <title>CodeEven</title>
-</head>
-<body>
+
   <div class=" gap-5  bgsz">
   <section class="mb-5 s_h pt-5">
     <div class="container d-flex justify-content-center">
-      <div class="data d-flex">
+      <div class="data d-flex gap-5">
         <img src="front/images/data.png" class="my-3 img_w" alt="data.png">
         <div class="value_cover">
           <div class="headt5">1인 평균 누적수입</div>
           <div class="headt3">5783만원</div>
         </div>
       </div>
-      <div class="data d-flex b_l">
+      <div class="data d-flex b_l gap-5">
         <img src="front/images/graduated.png" class="my-3 img_w" alt="data.png">
         <div>
           <div class="headt5">총 회원수</div>
           <div class="headt3">100만명</div>
         </div>
       </div>
-      <div class="data d-flex b_l">
+      <div class="data d-flex b_l gap-5">
         <img src="front/images/group.png" class="my-3 img_w" alt="data.png">
         <div>
           <div class="headt5">누적 수강생</div>
@@ -194,5 +181,5 @@ $(document).ready(function(){
 </script>
 
 
-</body>
-</html>
+<?php include_once($_SERVER['DOCUMENT_ROOT'] . '/CODE_EVEN/front/inc/footer.php');
+?>
