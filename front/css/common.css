@@ -388,7 +388,7 @@ header {
 }
 
 .profile_menu {
-  display: block; 
+  display: none; 
   position: absolute;
   top: 62px;
   right: 0;

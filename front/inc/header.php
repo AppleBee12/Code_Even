@@ -293,7 +293,7 @@ if (isset($_GET['code'])) {
               </a>
             </div>
             <div class="mini_profile">
-              <a href="">
+              <a id="profileIcon" href="">
                 <i class="bi bi-person"></i>
               </a>
               <div class="profile_menu">
