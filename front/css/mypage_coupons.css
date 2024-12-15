@@ -1,0 +1,28 @@
+.discount_box{
+	border: 1px solid var(--bk1000);
+	padding: 12px;
+	border-radius: 8px;
+	background: var(--bk0);
+	color: #000;
+}
+
+.discount_box:hover{
+	border: none;
+	background: var(--red700);
+	color: var(--bk0);
+}
+
+.ok_btn button{
+	background: var(--red700);
+	color: var(--bk0);
+}
+.ok_btn button:hover{
+	background: var(--red800);
+	color: var(--bk0);
+}
+.list_style_auto{
+	/* list-style: auto; */
+}
+.color_change{
+	color: #6C757D;
+}
