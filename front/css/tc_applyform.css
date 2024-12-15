@@ -11,9 +11,9 @@
   }
 }
 .data{
-  gap: 30px;
+  /* gap: 30px; */
   flex-wrap: wrap;
-  padding: 0 95px;
+  padding: 0 55px;
 }
 .b_l{
   border-left: 1px solid var(--bk0);
