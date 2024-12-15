@@ -274,6 +274,13 @@ if(isset($_GET['code'])){
           </form>
         </div>
         <div class="header_icon d-flex gap-3">
+          <?php if (!isset($_SESSION['AUID'])) { ?>
+          <div>
+            <a href=""><i class="bi bi-cart"></i></a>
+          </div>
+          <?php
+          } else{  
+          ?> 
           <div>
             <a href=""><i class="bi bi-cart"></i></a>
           </div>
@@ -290,26 +297,33 @@ if(isset($_GET['code'])){
               <i class="bi bi-person"></i>
             </a>
             <div class="profile_menu">
-              <a href="">
-                <div class="profile_header d-flex align-items-center">
-                  <img src="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/front/images/profile.png" alt="기본프로필이미지">
-                  <p><?= $_SESSION['AUNAME'] ?></p>
-                  <i class="bi bi-chevron-right"></i>
+              <div class="profile_menu_top">
+                <a href="">
+                  <div class="profile_header d-flex align-items-center">
+                    <img src="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/front/images/profile.png" alt="기본프로필이미지">
+                    <p><?= $_SESSION['AUNAME'] ?></p>
+                    <i class="bi bi-chevron-right"></i>
+                  </div>
+                </a>
+                <div class="profile_btn d-flex gap-2">
+                  <a href="">쿠폰 <span class="ms-1">1</span></a>
+                  <a href="">수강중인강좌 <span class="ms-1">2</span></a>
                 </div>
-              </a>
-              <div class="profile_btn d-flex gap-2">
-                <a href="">쿠폰 <span class="ms-1">1</span></a>
-                <a href="">수강중인강좌 <span class="ms-1">2</span></a>
               </div>
-              <ul>
-                <li><a href="">나의 수업</a></li>
-                <li><a href="">장바구니</a></li>
-                <li><a href="">찜한 강좌</a></li>
-                <li><a href="">기본 정보 설정</a></li>
-                <li><a href="">로그아웃</a></li>
-              </ul>
+              <div class="profile_menu_list">
+                <ul>
+                  <li><a href=""><i class="bi bi-book"></i>나의 수업</a></li>
+                  <li><a href=""><i class="bi bi-cart"></i>장바구니</a></li>
+                  <li><a href=""><i class="bi bi-heart"></i>찜한 강좌</a></li>
+                  <li><a href=""><i class="bi bi-person-circle"></i>기본 정보 설정</a></li>
+                  <li><a href=""><i class="bi bi-box-arrow-right"></i>로그아웃</a></li>
+                </ul>
+              </div>
             </div>
           </div>
+          <?php
+          }
+          ?>
         </div>
       </div>
     </div>
