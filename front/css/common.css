@@ -388,7 +388,7 @@ header {
 }
 
 .profile_menu {
-  display: block; /* 기본적으로 숨김 */
+  display: block; 
   position: absolute;
   top: 63px;
   right: 0;
@@ -396,13 +396,17 @@ header {
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   border-radius: 8px;
   width: 250px;
-  padding: 20px;
   z-index: 10;
-  ul li{
-    font-size: 16px;
+  font-size: 16px;
+  .profile_menu_top{
+    padding: 20px;
+    border-bottom: 1px solid var(--bk900);
   }
 }
 
+.profile_menu_list{
+  padding: 20px;
+}
 .profile_menu ul {
   list-style: none;
   margin: 0;
