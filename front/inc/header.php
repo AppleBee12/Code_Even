@@ -116,6 +116,7 @@ if (isset($_GET['code'])) {
   $page = basename($_SERVER['PHP_SELF']); // 현재 실행 중인 페이지 이름을 가져옵니다
   switch ($page) { //main.css
     case 'index.php':
+    case 'tc_applyform.php':
       echo '<link rel="stylesheet" href="http://' . $_SERVER['HTTP_HOST'] . '/code_even/front/css/main.css">';
       break;
   }
@@ -130,6 +131,11 @@ if (isset($_GET['code'])) {
   switch ($page) { //mypage_lecture.css
     case 'mypage_lecture.php':
       echo '<link rel="stylesheet" href="http://' . $_SERVER['HTTP_HOST'] . '/code_even/front/css/mypage_lecture.css">';
+      break;
+  }
+  switch ($page) { //tc_applyform.css
+    case 'tc_applyform.php':
+      echo '<link rel="stylesheet" href="http://' . $_SERVER['HTTP_HOST'] . '/code_even/front/css/tc_applyform.css">';
       break;
   }
   ?>
