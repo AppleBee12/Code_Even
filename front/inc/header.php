@@ -96,7 +96,7 @@ if (isset($_GET['code'])) {
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>코드이븐 <?= $title ?>페이지에 오신것을 환영합니다.</title>
+  <title>코드이븐 <?= $title ?></title>
 
   <!-- 공통 CSS -->
   <link rel="stylesheet" href="http://<?= $_SERVER['HTTP_HOST'] ?>/code_even/admin/css/reset.css">
@@ -132,6 +132,18 @@ if (isset($_GET['code'])) {
   switch ($page) { //mypage_lecture.css
     case 'mypage_lecture.php':
       echo '<link rel="stylesheet" href="http://' . $_SERVER['HTTP_HOST'] . '/code_even/front/css/mypage_lecture.css">';
+      break;
+  }
+  switch ($page) { //what_recipe.css
+    case 'what_recipe.php':
+      echo '<link rel="stylesheet" href="http://' . $_SERVER['HTTP_HOST'] . '/code_even/front/css/what_recipe.css">';
+      break;
+  }
+  switch ($page) { //community.css
+    case 'counsel.php':
+    case 'teamproject.php':
+    case 'blog.php':
+      echo '<link rel="stylesheet" href="http://' . $_SERVER['HTTP_HOST'] . '/code_even/front/css/community.css">';
       break;
   }
   switch ($page) { //tc_applyform.css
@@ -260,14 +272,14 @@ if (isset($_GET['code'])) {
                 </ul>
               </div>
             </li>
-            <li class="menu_depth1"><a href="#">'레시피 강좌'란?</a></li>
+            <li class="menu_depth1"><a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/front/what_recipe/what_recipe.php">'레시피 강좌'란?</a></li>
             <li class="menu_depth1">
-              <a href="">커뮤니티</a>
+              커뮤니티
               <div class="menu_depth2">
                 <ul>
-                  <li><a href="#">고민상담</a></li>
-                  <li><a href="#">팀 프로젝트</a></li>
-                  <li><a href="#">블로그</a></li>
+                  <li><a href="http://<?=$_SERVER['HTTP_HOST']?>/code_even/front/community/counsel.php">고민상담</a></li>
+                  <li><a href="http://<?=$_SERVER['HTTP_HOST']?>/code_even/front/community/teamproject.php">팀 프로젝트</a></li>
+                  <li><a href="http://<?=$_SERVER['HTTP_HOST']?>/code_even/front/community/blog.php">블로그</a></li>
                 </ul>
               </div>
             </li>
