@@ -5,13 +5,16 @@ include_once($_SERVER['DOCUMENT_ROOT'] . '/CODE_EVEN/admin/inc/dbcon.php');
 $title = '마이페이지-보유쿠폰';
 include_once($_SERVER['DOCUMENT_ROOT'] . '/CODE_EVEN/front/inc/mypage_header.php');
 
-
-
-if (!isset($_SESSION['AUID'])) {
+if (isset($_SESSION['AUID'])) {
+  $userid = $_SESSION['AUID'];
+} elseif (isset($_SESSION['KAKAO_UID'])) {
+  $userid = $_SESSION['KAKAO_UID'];
+} else {
   echo "<script>
-  alert('로그인을 해주세요');
-  location.href='../../index.php';
-  </script>";
+      alert('로그인이 필요합니다.');
+      history.back();
+    </script>";
+  exit;
 }
 // 게시글 개수 구하기
 $keywords = isset($_GET['keywords']) ? $mysqli->real_escape_string($_GET['keywords']) : '';
@@ -197,39 +200,39 @@ while ($data = $result->fetch_object()) {
     ?>
   </div>
   <div class="list_pagination" aria-label="Page navigation example">
-      <ul class="pagination d-flex justify-content-center">
-        <?php
-          $previous = $block_start - $block_ct;
-          if ($previous < 1) $previous = 1;
-          if ($block_num > 1) { 
-        ?>
-        <li class="page-item">
-          <a class="page-link" href="coupons.php?page=<?= $previous; ?>" aria-label="Previous">
-            <i class="bi bi-chevron-left"></i>
-          </a>
-        </li>
-        <?php
-          }
-        ?>
-        <?php
-          for ($i = $block_start; $i <= $block_end; $i++) {
-            $active = ($page == $i) ? 'active' : '';
-        ?>
-        <li class="page-item <?= $active; ?>"><a class="page-link" href="coupons.php?page=<?= $i; ?>"><?= $i; ?></a></li>
-        <?php
-          }
-          $next = $block_end + 1;
-          if($total_block > $block_num){
-        ?>
-        <li class="page-item">
-          <a class="page-link" href="coupons.php?page=<?= $next; ?>" aria-label="Next">
-            <i class="bi bi-chevron-right"></i>
-          </a>
-        </li>
-        <?php
-          }
-        ?>
-      </ul>
+    <ul class="pagination d-flex justify-content-center">
+      <?php
+        $previous = $block_start - $block_ct;
+        if ($previous < 1) $previous = 1;
+        if ($block_num > 1) { 
+      ?>
+      <li class="page-item">
+        <a class="page-link" href="coupons.php?page=<?= $previous; ?>" aria-label="Previous">
+          <i class="bi bi-chevron-left"></i>
+        </a>
+      </li>
+      <?php
+        }
+      ?>
+      <?php
+        for ($i = $block_start; $i <= $block_end; $i++) {
+          $active = ($page == $i) ? 'active' : '';
+      ?>
+      <li class="page-item <?= $active; ?>"><a class="page-link" href="coupons.php?page=<?= $i; ?>"><?= $i; ?></a></li>
+      <?php
+        }
+        $next = $block_end + 1;
+        if($total_block > $block_num){
+      ?>
+      <li class="page-item">
+        <a class="page-link" href="coupons.php?page=<?= $next; ?>" aria-label="Next">
+          <i class="bi bi-chevron-right"></i>
+        </a>
+      </li>
+      <?php
+        }
+      ?>
+    </ul>
 </div>
   <!--나중에 이 div만 삭제하고 사용하세요-->
 

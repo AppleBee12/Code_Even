@@ -1,37 +1,57 @@
 <?php
-include_once($_SERVER['DOCUMENT_ROOT'].'/CODE_EVEN/admin/inc/dbcon.php');
+include_once($_SERVER['DOCUMENT_ROOT'] . '/CODE_EVEN/admin/inc/dbcon.php');
 include_once($_SERVER['DOCUMENT_ROOT'] . '/code_even/front/inc/header.php');
 
 // 로그인 여부 확인
-if (!isset($_SESSION['AUID'])) {
+if (isset($_SESSION['AUID'])) {
+    $userid = $_SESSION['AUID'];
+} elseif (isset($_SESSION['KAKAO_UID'])) {
+    $userid = $_SESSION['KAKAO_UID'];
+} else {
     echo "<script>
         alert('로그인이 필요합니다.');
-        location.href='/CODE_EVEN/';
         history.back();
-    </script>";
+      </script>";
     exit;
 }
 
-$userid = $_SESSION['AUID']; // 세션에서 로그인된 사용자 ID 가져오기
+// 사용자 정보 가져오기 (Prepared Statement 사용)
+$user_sql = "SELECT username, userphonenum, useremail FROM user WHERE userid = ?";
+$stmt = $mysqli->prepare($user_sql);
 
-// 사용자 정보 가져오기
-$user_sql = "SELECT username, userphonenum, useremail FROM user WHERE userid = '$userid'";
-$user_result = $mysqli->query($user_sql);
-if ($user_result && $user_result->num_rows > 0) {
-    $user_data = $user_result->fetch_object();
+if ($stmt) {
+    $stmt->bind_param("s", $userid);
+    $stmt->execute();
+    $user_result = $stmt->get_result();
+
+    if ($user_result && $user_result->num_rows > 0) {
+        $user_data = $user_result->fetch_object();
+    } else {
+        echo "<p>사용자 정보를 찾을 수 없습니다.</p>";
+        exit;
+    }
+    $stmt->close();
 } else {
-    echo "<p>사용자 정보를 찾을 수 없습니다.</p>";
-    exit;
+    die("쿼리 준비 실패: " . $mysqli->error);
 }
 
 // 'code'가 'A'로 시작하는 category 데이터를 가져오기
 $category_sql = "SELECT * FROM category WHERE code LIKE 'A%' ORDER BY cgid ASC";
 $category_result = $mysqli->query($category_sql);
 
-while($data = $category_result->fetch_object()){
-    $categories[] = $data;
+$categories = [];
+if ($category_result && $category_result->num_rows > 0) {
+    while ($data = $category_result->fetch_object()) {
+        $categories[] = $data;
+    }
+} else {
+    echo "<p>카테고리 정보를 찾을 수 없습니다.</p>";
+    exit;
 }
+
+// $mysqli->close();
 ?>
+
 
 
   <div class=" gap-5  bgsz">
