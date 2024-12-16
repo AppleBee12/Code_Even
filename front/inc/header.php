@@ -191,7 +191,7 @@ if (isset($_GET['code'])) {
                     <a href="">프론트엔드</a>
                     <div class="menu_depth3">
                       <ul>
-                        <li><a href="">HTML/CSS</a></li>
+                        <li><a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/front/lecture_list.php">HTML/CSS</a></li>
                         <li><a href="">JavaScript</a></li>
                         <li><a href="">jQuery</a></li>
                         <li><a href="">React</a></li>
@@ -318,17 +318,17 @@ if (isset($_GET['code'])) {
                     </div>
                   </a>
                   <div class="profile_btn d-flex gap-2">
-                    <a href="">쿠폰 <span class="ms-1">1</span></a>
+                    <a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/front/mypage/mypage_coupons.php">쿠폰 <span class="ms-1">1</span></a>
                     <a href="http://<?= $_SERVER['HTTP_HOST'] ?>/code_even/front/mypage/mypage_lecture.php">수강중인강좌 <span class="ms-1">2</span></a>
                   </div>
                 </div>
                 <div class="profile_menu_list">
                   <ul>
-                    <li class="list_pt list_pb"><a href=""><i class="bi bi-book"></i><span>나의 수업</span></a></li>
-                    <li class="list_pt"><a href=""><i class="bi bi-cart"></i><span>장바구니</span></a></li>
+                    <li class="list_pt list_pb"><a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/front/mypage/mypage_lecture.php"><i class="bi bi-book"></i><span>나의 수업</span></a></li>
+                    <li class="list_pt"><a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/front/mypage/mypage_cart.php"><i class="bi bi-cart"></i><span>장바구니</span></a></li>
                     <li class="list_pb"><a href=""><i class="bi bi-heart"></i><span>찜한 강좌</span></a></li>
                     <li class="list_pt"><a href=""><i class="bi bi-person-circle"></i><span>기본 정보 설정</span></a></li>
-                    <li class="list_pb"><a href=""><i class="bi bi-box-arrow-right"></i><span>로그아웃</span></a></li>
+                    <li class="list_pb"><a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/members/login/logout.php"><i class="bi bi-box-arrow-right"></i><span>로그아웃</span></a></li>
                   </ul>
                 </div>
               </div>
