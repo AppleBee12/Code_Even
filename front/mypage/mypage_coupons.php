@@ -66,7 +66,7 @@ while ($data = $result->fetch_object()) {
   }
 
   .card {
-    width: 45%;
+    width: 46%;
     height: 210px;
     .c-img img{
       height: 210px;
@@ -76,6 +76,9 @@ while ($data = $result->fetch_object()) {
   .cps {
     /* gap: 110px; */
     height: 250px;
+  }
+  .text-bd-secondary{
+    color: var(--bk700);
   }
   
 </style>
