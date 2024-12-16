@@ -83,7 +83,7 @@ if ($result_recipe && $result_recipe->num_rows > 0) {
           <a href="admin/inquiry/notice.php">문의 게시판 관리 </a>
         </span><br>
         <span><b>조채림 : </b>
-          <a href="members/signup/signup.php">로그인/회원가입, </a>
+          <a href="front/signup/signup.php">로그인/회원가입, </a>
           <a href="admin/category/category.php">카테고리관리, </a>
           <a href="admin/coupons/coupons.php">쿠폰관리 </a>
         </span><br>
@@ -369,9 +369,9 @@ if ($result_recipe && $result_recipe->num_rows > 0) {
           <div class="reviewBG">
             <div>
               <div>
-                <p class="body2 review_title">기초부터 확실하게!</p>
+                <p class="body2 review_title">HTML/CSS : 기초부터 실전까지 올인원</p>
                 <div class="box">
-                  <span class="review_bk">성춘향</span><span class="body2 review_date">2024년 11월 30일</span>
+                  <span class="review_bk">김태희</span><span class="body2 review_date">2024년 11월 30일</span>
                 </div>
               </div>
               <span>
@@ -382,16 +382,16 @@ if ($result_recipe && $result_recipe->num_rows > 0) {
                 <i class="bi bi-star-fill"></i>
               </span>
             </div>
-            <p class="review_bk">너무 쉽게 알려주셔서 감사합니다. 덕분에 많은 걸 배울 수 있었어요.</p>
+            <p class="review_bk">웹 페이지의 구조를 더욱 깔끔하게 만들 수 있을 것 같습니다.</p>
           </div>
         </li>
         <li class="swiper-slide">
           <div class="reviewBG">
             <div>
               <div>
-                <p class="body2 review_title">기초부터 확실하게!</p>
+                <p class="body2 review_title">기초부터 확실하게!...</p>
                 <div class="box">
-                  <span class="review_bk">성춘향</span><span class="body2 review_date">2024년 11월 30일</span>
+                  <span class="review_bk">이세훈</span><span class="body2 review_date">2024년 11월 30일</span>
                 </div>
               </div>
               <span>
@@ -402,16 +402,16 @@ if ($result_recipe && $result_recipe->num_rows > 0) {
                 <i class="bi bi-star-fill"></i>
               </span>
             </div>
-            <p class="review_bk">너무 쉽게 알려주셔서 감사합니다. 덕분에 많은 걸 배울 수 있었어요.</p>
+            <p class="review_bk">이해도가 높아졌습니다.</p>
           </div>
         </li>
         <li class="swiper-slide">
           <div class="reviewBG">
             <div>
               <div>
-                <p class="body2 review_title">기초부터 확실하게!</p>
+                <p class="body2 review_title">HTML/CSS : 기초부터 실전까지 올인원</p>
                 <div class="box">
-                  <span class="review_bk">성춘향</span><span class="body2 review_date">2024년 11월 30일</span>
+                  <span class="review_bk">조윤호</span><span class="body2 review_date">2024년 11월 30일</span>
                 </div>
               </div>
               <span>
@@ -422,16 +422,16 @@ if ($result_recipe && $result_recipe->num_rows > 0) {
                 <i class="bi bi-star-fill"></i>
               </span>
             </div>
-            <p class="review_bk">너무 쉽게 알려주셔서 감사합니다. 덕분에 많은 걸 배울 수 있었어요.</p>
+            <p class="review_bk"> 다양한 레이아웃을 만드는 데 자신감을 얻었습니다.</p>
           </div>
         </li>
         <li class="swiper-slide">
           <div class="reviewBG">
             <div>
               <div>
-                <p class="body2 review_title">기초부터 확실하게!</p>
+                <p class="body2 review_title">기초부터 확실하게!...</p>
                 <div class="box">
-                  <span class="review_bk">성춘향</span><span class="body2 review_date">2024년 11월 30일</span>
+                  <span class="review_bk">최하늘</span><span class="body2 review_date">2024년 11월 30일</span>
                 </div>
               </div>
               <span>
@@ -439,19 +439,19 @@ if ($result_recipe && $result_recipe->num_rows > 0) {
                 <i class="bi bi-star-fill"></i>
                 <i class="bi bi-star-fill"></i>
                 <i class="bi bi-star-fill"></i>
-                <i class="bi bi-star-fill"></i>
+                <i class="bi bi-star-empty"></i>
               </span>
             </div>
-            <p class="review_bk">너무 쉽게 알려주셔서 감사합니다. 덕분에 많은 걸 배울 수 있었어요.</p>
+            <p class="review_bk">당장 웹 페이지를 개선할 수 있을 것 같아요.</p>
           </div>
         </li>
         <li class="swiper-slide">
           <div class="reviewBG">
             <div>
               <div>
-                <p class="body2 review_title">기초부터 확실하게!</p>
+                <p class="body2 review_title">HTML/CSS : 기초부터 실전까지 올인원</p>
                 <div class="box">
-                  <span class="review_bk">성춘향</span><span class="body2 review_date">2024년 11월 30일</span>
+                  <span class="review_bk">서영준</span><span class="body2 review_date">2024년 11월 30일</span>
                 </div>
               </div>
               <span>
@@ -462,87 +462,7 @@ if ($result_recipe && $result_recipe->num_rows > 0) {
                 <i class="bi bi-star-fill"></i>
               </span>
             </div>
-            <p class="review_bk">너무 쉽게 알려주셔서 감사합니다. 덕분에 많은 걸 배울 수 있었어요.</p>
-          </div>
-        </li>
-        <li class="swiper-slide">
-          <div class="reviewBG">
-            <div>
-              <div>
-                <p class="body2 review_title">기초부터 확실하게!</p>
-                <div class="box">
-                  <span class="review_bk">성춘향</span><span class="body2 review_date">2024년 11월 30일</span>
-                </div>
-              </div>
-              <span>
-                <i class="bi bi-star-fill"></i>
-                <i class="bi bi-star-fill"></i>
-                <i class="bi bi-star-fill"></i>
-                <i class="bi bi-star-fill"></i>
-                <i class="bi bi-star-fill"></i>
-              </span>
-            </div>
-            <p class="review_bk">너무 쉽게 알려주셔서 감사합니다. 덕분에 많은 걸 배울 수 있었어요.</p>
-          </div>
-        </li>
-        <li class="swiper-slide">
-          <div class="reviewBG">
-            <div>
-              <div>
-                <p class="body2 review_title">기초부터 확실하게!</p>
-                <div class="box">
-                  <span class="review_bk">성춘향</span><span class="body2 review_date">2024년 11월 30일</span>
-                </div>
-              </div>
-              <span>
-                <i class="bi bi-star-fill"></i>
-                <i class="bi bi-star-fill"></i>
-                <i class="bi bi-star-fill"></i>
-                <i class="bi bi-star-fill"></i>
-                <i class="bi bi-star-fill"></i>
-              </span>
-            </div>
-            <p class="review_bk">너무 쉽게 알려주셔서 감사합니다. 덕분에 많은 걸 배울 수 있었어요.</p>
-          </div>
-        </li>
-        <li class="swiper-slide">
-          <div class="reviewBG">
-            <div>
-              <div>
-                <p class="body2 review_title">기초부터 확실하게!</p>
-                <div class="box">
-                  <span class="review_bk">성춘향</span><span class="body2 review_date">2024년 11월 30일</span>
-                </div>
-              </div>
-              <span>
-                <i class="bi bi-star-fill"></i>
-                <i class="bi bi-star-fill"></i>
-                <i class="bi bi-star-fill"></i>
-                <i class="bi bi-star-fill"></i>
-                <i class="bi bi-star-fill"></i>
-              </span>
-            </div>
-            <p class="review_bk">너무 쉽게 알려주셔서 감사합니다. 덕분에 많은 걸 배울 수 있었어요.</p>
-          </div>
-        </li>
-        <li class="swiper-slide">
-          <div class="reviewBG">
-            <div>
-              <div>
-                <p class="body2 review_title">기초부터 확실하게!</p>
-                <div class="box">
-                  <span class="review_bk">성춘향</span><span class="body2 review_date">2024년 11월 30일</span>
-                </div>
-              </div>
-              <span>
-                <i class="bi bi-star-fill"></i>
-                <i class="bi bi-star-fill"></i>
-                <i class="bi bi-star-fill"></i>
-                <i class="bi bi-star-fill"></i>
-                <i class="bi bi-star-fill"></i>
-              </span>
-            </div>
-            <p class="review_bk">너무 쉽게 알려주셔서 감사합니다. 덕분에 많은 걸 배울 수 있었어요.</p>
+            <p class="review_bk">실제 프로젝트에서 바로 적용할 수 있을 것 같습니다.</p>
           </div>
         </li>
       </ul>
@@ -594,7 +514,7 @@ if ($result_recipe && $result_recipe->num_rows > 0) {
           코드이븐의 꿈나무들에게 미래를 응원해주세요!</div>
         </div>  
         <div class="tc_borderline_banner mt-5">
-          <a href="tc_applyform.php">강사 신청하러 가기</a>
+          <a href="front/signup/tc_applyform.php">강사 신청하러 가기</a>
         </div>
       </div>
       <div class="logo_img d-flex align-items-center col-6 justify-content-end">

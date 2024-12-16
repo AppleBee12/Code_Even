@@ -194,7 +194,7 @@ foreach ($data as $date => $count) {
           <a href="inquiry/notice.php">문의 게시판 관리 </a>
           </span><br>
           <span><b>조채림 : </b>
-          <a href="../members/signup/signup.php">로그인/회원가입, </a>
+          <a href="../front/signup/signup.php">로그인/회원가입, </a>
           <a href="category/category.php">카테고리관리, </a>
           <a href="coupons/coupons.php">쿠폰관리 </a>
           </span><br>
