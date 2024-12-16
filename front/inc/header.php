@@ -3,92 +3,98 @@ session_start();
 include_once($_SERVER['DOCUMENT_ROOT'] . '/code_even/front/inc/check_cookie.php');
 include_once($_SERVER['DOCUMENT_ROOT'] . '/code_even/admin/inc/dbcon.php');
 
-
+// 타이틀 초기화
 if (!isset($title)) {
-  $title = '';
+    $title = '';
 }
 
-
-//카카오 간편 로그인 --시작
+// 카카오 간편 로그인 시작
 if (isset($_GET['code'])) {
   $code = $_GET['code'];
-  $client_id = 'a292c01fc2579fbd7965ca9524a3032f';
+  $client_id = 'dc8b785f75c0ed7ecca5dad87f2b18ff';
   $redirect_uri = 'http://localhost/code_even/';
 
-  //토큰 요청
+  // 1. 토큰 요청
   $url = 'https://kauth.kakao.com/oauth/token';
   $data = [
-    'grant_type' => 'authorization_code',
-    'client_id' => $client_id,
-    'redirect_uri' => $redirect_uri,
-    'code' => $code
+      'grant_type' => 'authorization_code',
+      'client_id' => $client_id,
+      'redirect_uri' => $redirect_uri,
+      'code' => $code
   ];
+
   $options = [
-    'http' => [
-      'header' => 'Content-Type: application/x-www-form-urlencoded;charset=utf-8',
-      'method' => 'POST',
-      'content' => http_build_query($data)
-    ]
+      'http' => [
+          'header' => 'Content-Type: application/x-www-form-urlencoded;charset=utf-8',
+          'method' => 'POST',
+          'content' => http_build_query($data)
+      ],
+      'ssl' => [
+          'verify_peer' => false, // SSL 인증서 확인 비활성화 (개발용)
+          'verify_peer_name' => false
+      ]
   ];
+
   $context = stream_context_create($options);
   $result = file_get_contents($url, false, $context);
   $response = json_decode($result, true);
-  // echo '<pre>';
-  // print_r($response);
-  // echo '</pre>';
 
-  //사용자 정보요청
-  $ACCESS_TOKEN = $response['access_token'];
-  $ch = curl_init(); //새로운 세션 생성 / 초기화
-  curl_setopt($ch, CURLOPT_URL, "https://kapi.kakao.com/v2/user/me");
-  curl_setopt($ch, CURLOPT_RETURNTRANSFER, true); // 결과를 문자열로 반환
-  curl_setopt($ch, CURLOPT_HTTPHEADER, [
-    "Authorization: Bearer $ACCESS_TOKEN"
-  ]);
+  if (isset($response['access_token'])) {
+      $ACCESS_TOKEN = $response['access_token'];
 
-  $response_result = curl_exec($ch);
-  $status = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+      // 2. 사용자 정보 요청
+      $ch = curl_init();
+      curl_setopt($ch, CURLOPT_URL, "https://kapi.kakao.com/v2/user/me");
+      curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+      curl_setopt($ch, CURLOPT_HTTPHEADER, [
+          "Authorization: Bearer $ACCESS_TOKEN"
+      ]);
 
-  curl_close($ch);
+      $response_result = curl_exec($ch);
+      $status = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+      curl_close($ch);
 
-  $resultArr = json_decode($response_result, true);
+      $resultArr = json_decode($response_result, true);
 
-  // echo '<pre>';
-  // print_r($resultArr);
-  // echo '</pre>';
+      if ($status === 200) {
+          // DB 연결
+          $mysqli = new mysqli('localhost', 'code_even', '12345', 'code_even');
+          if ($mysqli->connect_errno) {
+              die('연결 실패: ' . $mysqli->connect_error);
+          }
 
-  if ($status === 200) {
-    $mysqli = new mysqli('localhost', 'code_even', '12345', 'code_even');
-    if ($mysqli->connect_errno) {
-      die('연결실패' . $mysqli->connect_errno);
-    }
-    $userId = $resultArr['id'];
-    $userName = $resultArr['properties']['nickname'] ?? '';
-    $profileImg = $resultArr['properties']['thumbnail_image'] ?? '';
+          // 사용자 정보 저장
+          $userId = $resultArr['id'] ?? '';
+          $userNick = $resultArr['properties']['nickname'] ?? '닉네임 없음';
+          $userName = $resultArr['kakao_account']['profile']['nickname'] ?? '이름 없음';
 
-    // echo $userId;
-    // echo $userName;
-    // echo $profileImg;
+          $tempsql = "INSERT INTO user (userid, usernick, username) VALUES (?, ?, ?) ON DUPLICATE KEY UPDATE usernick = VALUES(usernick), username = VALUES(username)";
+          $sql = $mysqli->prepare($tempsql);
 
-    $tempsql = "INSERT INTO members (userid, name, profile_image) VALUES(?,?,?)";
-    $sql = $mysqli->prepare($tempsql);
+          if ($sql) {
+              $sql->bind_param("sss", $userId, $userNick, $userName);
+              if ($sql->execute()) {
+                  $_SESSION['KAKAO_UID'] = $userId; // 카카오 로그인 성공 시 세션 저장
+                  $_SESSION['USER_NICK'] = $userNick;
+                  $_SESSION['AUNAME'] = $userName;
+              }
+              $sql->close();
+          } else {
+              die("쿼리 준비 실패: " . $mysqli->error);
+          }
 
-    if ($sql) {
-      $sql->bind_param("sss", $userId, $userName, $profileImg);
-      if ($sql->execute()) {
-        // echo "<p>유저 정보 입력 성공</p>";
+          // $mysqli->close();
+      } else {
+          echo "사용자 정보 요청 실패: {$status}";
       }
-      $sql->close();
-    } else {
-      // echo "<p>쿼리준비 실패".$mysqli->error."</p>";
-    }
-    $mysqli->close();
+  } else {
+      echo "토큰 요청 실패: " . ($response['error_description'] ?? '알 수 없는 오류');
   }
 }
-//카카오 간편 로그인 --끝
-
-
 ?>
+
+
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -182,7 +188,7 @@ if (isset($_GET['code'])) {
         </div>
         <div class="header_join">
           <ul class="d-flex justify-content-end">
-            <?php if (!isset($_SESSION['AUID'])) { ?>
+            <?php if (!isset($_SESSION['AUID']) && !isset($_SESSION['KAKAO_UID'])) { ?>
               <li>
                 <a href="#" data-bs-toggle="modal" data-bs-target="#exampleModaltest" data-bs-whatever="@mdo">로그인</a>
               </li>
@@ -304,7 +310,7 @@ if (isset($_GET['code'])) {
           </form>
         </div>
         <div class="header_icon d-flex gap-3">
-          <?php if (!isset($_SESSION['AUID'])) { ?>
+          <?php if (!isset($_SESSION['AUID']) && !isset($_SESSION['KAKAO_UID'])) { ?>
             <div>
               <a href=""><i class="bi bi-cart"></i></a>
             </div>
@@ -386,7 +392,7 @@ if (isset($_GET['code'])) {
               <div class="d-flex row gap-1">
                 <button class="btn loginbtn redbtn">로그인</button>
                 <button class="btn kakao_loginbtn yellowbtn">
-                  <a href="https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=a292c01fc2579fbd7965ca9524a3032f&redirect_uri=http://localhost/code_even/" class="kakao m-0 ">
+                  <a href="https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=dc8b785f75c0ed7ecca5dad87f2b18ff&redirect_uri=http://localhost/code_even/" class="kakao m-0 ">
                     카카오 로그인
                   </a>
                 </button>
