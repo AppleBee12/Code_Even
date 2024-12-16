@@ -64,7 +64,7 @@ if (isset($_GET['code'])) {
           }
 
           // 사용자 정보 저장
-          $userId = $resultArr['id'] ?? '';
+          $userid = $resultArr['id'] ?? '';
           $userNick = $resultArr['properties']['nickname'] ?? '닉네임 없음';
           $userName = $resultArr['kakao_account']['profile']['nickname'] ?? '이름 없음';
 
@@ -72,9 +72,9 @@ if (isset($_GET['code'])) {
           $sql = $mysqli->prepare($tempsql);
 
           if ($sql) {
-              $sql->bind_param("sss", $userId, $userNick, $userName);
+              $sql->bind_param("sss", $userid, $userNick, $userName);
               if ($sql->execute()) {
-                  $_SESSION['KAKAO_UID'] = $userId; // 카카오 로그인 성공 시 세션 저장
+                  $_SESSION['KAKAO_UID'] = $userid; // 카카오 로그인 성공 시 세션 저장
                   $_SESSION['USER_NICK'] = $userNick;
                   $_SESSION['AUNAME'] = $userName;
               }
