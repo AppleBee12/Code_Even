@@ -66,11 +66,11 @@ while ($data = $result->fetch_object()) {
   }
 
   .card {
-    width: 46%;
+    /* width: 46%; */
     height: 210px;
     .c-img img{
       height: 210px;
-      width: 366px;
+      /* width: 366px; */
     }
   }
   .cps {
@@ -100,38 +100,38 @@ while ($data = $result->fetch_object()) {
             <h1 class="modal-title fs-5" id="exampleModalLabel">쿠폰 이용 안내서</h1>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
-          <div class="modal-body color_change">
-          <ol>
-            <li>쿠폰 확인
-              <ul>
-                <li>내 쿠폰함에서 보유하고 있는 쿠폰을 확인하세요.</li>
-                <li>쿠폰의 유효기간과 사용 조건을 반드시 확인해야 합니다.</li>
-              </ul>
-            </li>
-            <li>쿠폰 선택
-              <ul>
-                <li>강좌를 구매할 때 쿠폰을 선택할 수 있습니다.</li>
-                <li>구매 화면에서 사용할 쿠폰을 선택하여 적용하세요.</li>
-              </ul>
-            </li>
-            <li>이용 제한 확인
-              <ul>
-                <li>유효기간이 지난 쿠폰은 사용할 수 없으니 미리 확인하고 사용하세요.</li>
-              </ul>
-            </li>
-            <li>기타 유의사항
-              <ul>
-                <li>하나의 강좌에 한 개의 쿠폰만 사용할 수 있습니다.</li>
-                <li>쿠폰은 다른 할인 혜택과 중복 적용되지 않습니다.</li>
-                <li>쿠폰을 사용한 구매는 환불 시 쿠폰이 복원되지 않을 수 있으니 신중히 사용하세요.</li>
-              </ul>
-            </li>
-            <li>문의사항
-              <ul>
-                <li>쿠폰 사용에 문제가 있거나 도움이 필요하시면 고객센터에 문의하세요.</li>
-              </ul>
-            </li>
-          </ol>
+          <div class="modal-body color_change coupon_info">
+            <ol>
+              <li>쿠폰 확인
+                <ul>
+                  <li>내 쿠폰함에서 보유하고 있는 쿠폰을 확인하세요.</li>
+                  <li>쿠폰의 유효기간과 사용 조건을 반드시 확인해야 합니다.</li>
+                </ul>
+              </li>
+              <li>쿠폰 선택
+                <ul>
+                  <li>강좌를 구매할 때 쿠폰을 선택할 수 있습니다.</li>
+                  <li>구매 화면에서 사용할 쿠폰을 선택하여 적용하세요.</li>
+                </ul>
+              </li>
+              <li>이용 제한 확인
+                <ul>
+                  <li>유효기간이 지난 쿠폰은 사용할 수 없으니 미리 확인하고 사용하세요.</li>
+                </ul>
+              </li>
+              <li>기타 유의사항
+                <ul>
+                  <li>하나의 강좌에 한 개의 쿠폰만 사용할 수 있습니다.</li>
+                  <li>쿠폰은 다른 할인 혜택과 중복 적용되지 않습니다.</li>
+                  <li>쿠폰을 사용한 구매는 환불 시 쿠폰이 복원되지 않을 수 있으니 신중히 사용하세요.</li>
+                </ul>
+              </li>
+              <li>문의사항
+                <ul>
+                  <li>쿠폰 사용에 문제가 있거나 도움이 필요하시면 고객센터에 문의하세요.</li>
+                </ul>
+              </li>
+            </ol>
           </div>
           <div class="modal-footer ok_btn">
             <button type="button" class="btn" data-bs-dismiss="modal">확인</button>
@@ -144,21 +144,16 @@ while ($data = $result->fetch_object()) {
 </div>
 <!--탭 메뉴 끝-->
 <!--제목 시작-->
-<div class="mypage_title_wrapper">
-  <p class="mypage_title headt5">사용 가능한 쿠폰</p>
-</div>
+
 <!--제목 끝-->
-<div class="container">
-
-
-  <!--나중에 이 div만 삭제하고 사용하세요-->
-  <div class="for_explain_remove_plz">
-    <div class="row  mb-5 justify-content-center">
-      <?php
-      if (isset($dataArr)) {
-      foreach ($dataArr as $item) {
-        ?>
-      <div class="col-6 card p-0 m-3">
+<div class="container p-0">
+  <div class="row  mb-5 justify-content-center d-flex">
+    <?php
+    if (isset($dataArr)) {
+    foreach ($dataArr as $item) {
+      ?>
+    <div class="col-6">
+      <div class="card mb-4">
         <div class="row g-0">
           <div class="col-md-7 c-img">
             <img src="<?= $item->coupon_image; ?>" class="img-fluid rounded-start" alt="Coupon Image">
@@ -191,12 +186,13 @@ while ($data = $result->fetch_object()) {
             </div>
           </div>
         </div>
-      <?php
-        }
+      </div>
+    <?php
       }
-      ?>
-    </div>
-    <div class="list_pagination" aria-label="Page navigation example">
+    }
+    ?>
+  </div>
+  <div class="list_pagination" aria-label="Page navigation example">
       <ul class="pagination d-flex justify-content-center">
         <?php
           $previous = $block_start - $block_ct;
@@ -230,7 +226,6 @@ while ($data = $result->fetch_object()) {
           }
         ?>
       </ul>
-  </div>
 </div>
   <!--나중에 이 div만 삭제하고 사용하세요-->
 
