@@ -2,8 +2,9 @@
 
 .service_tab {
   padding-top: 160px;
+  .nav_list_actice {border: 1px solid var(--bk700);}
   li {
-    flex: 1 1; line-height: 70px; border: 1px solid var(--bk700);
+    flex: 1 1; line-height: 70px;
     a {
       display: block; text-align: center;
       font-size: 24px;
@@ -39,10 +40,10 @@
   margin: 80px 0;
   .faq_tab {
     li {
-      flex: 1 1; padding-bottom: 30px;
-      a {display: block; line-height: 30px; text-align: center; font-size: 18px;}
+      flex: 1 1; padding-bottom: 30px; cursor: pointer;
+      span {display: block; line-height: 30px; text-align: center; font-size: 18px;}
     }
-    li:first-child {border-bottom: 2px solid var(--bk50);}
+    .active {border-bottom: 2px solid var(--bk50);}
   }
   .accordion {
     --bs-accordion-btn-bg: none; border: 1px solid var(--bk700); margin-top: 40px;
