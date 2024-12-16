@@ -84,10 +84,14 @@ while ($data = $result->fetch_object()) {
 </style>
 <!--탭 메뉴 시작-->
 <div class="mypage_tap_wrapper d-flex justify-content-between">
-  <div class="coupons_wrapper d-flex">
-    <div class="mypage_tap headt6 active"><a href="#">사용 가능한 쿠폰 (4)</a></div>
-    <div class="mypage_tap headt6"><a href="">사용완료·기간만료 (1)</a></div>
-  </div>
+  <!--탭 메뉴 시작-->
+  <nav>
+    <div class="mypage_tap_wrapper nav nav-underline headt6" id="nav-tab" role="tablist">
+      <button class="mypage_tap nav-link active" id="nav-myLecTab1-tab" data-bs-toggle="tab" data-bs-target="#nav-myLecTab1"  role="tab" aria-controls="nav-myLecTab1" aria-selected="true">사용 가능한 쿠폰 (4)</button>
+      <button class="mypage_tap nav-link" id="nav-myLecTab2-tab" data-bs-toggle="tab" data-bs-target="#nav-myLecTab2"  role="tab" aria-controls="nav-myLecTab2" aria-selected="false">사용완료·기간만료 (1)</button>
+    </div>
+  </nav>
+  <!--탭 메뉴 끝-->
   <div class="asdf d-flex align-items-center">
     <button type="button" class="btn discount_box subtitle2" data-bs-toggle="modal" data-bs-target="#exampleModal">
     쿠폰 및 할인 이용 안내
