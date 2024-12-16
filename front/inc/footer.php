@@ -94,6 +94,10 @@ if (isset($chart_js)) {
 if (isset($mypage_main_js)) {
   echo $mypage_main_js;
 }
+if (isset($what_recipe_js)) {
+  echo $what_recipe_js;
+}
+
 ?>
 
 
