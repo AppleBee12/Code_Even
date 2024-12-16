@@ -3,7 +3,7 @@
 include_once($_SERVER['DOCUMENT_ROOT'] . '/CODE_EVEN/front/inc/header.php');
 $main_js = "<script src=\"http://" . $_SERVER['HTTP_HOST'] . "/code_even/front/js/main.js\"></script>";
 
-// lecture_section 시작
+/* lecture_section 시작 */
 // isbest = 1
 $sql_best = "SELECT * FROM lecture 
   WHERE isbest = 1 
@@ -46,7 +46,7 @@ if ($result_recipe && $result_recipe->num_rows > 0) {
   }
 }
 
-// lecture_section 끝
+/* lecture_section 끝 */
 
 ?>
 

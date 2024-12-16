@@ -68,7 +68,7 @@
           </button>
         </li>
         <div id="collapseFrontend" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
-          <ul class="accordion-body">
+          <ul class="accordion-body eng">
             <li>
               <a href="lecture_list.php?category=C0001">HTML / CSS</a>
             </li>
@@ -100,7 +100,7 @@
           </button>
         </li>
         <div id="collapseBackend" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
-          <ul class="accordion-body">
+          <ul class="accordion-body eng">
             <li>
               <a href="lecture_list.php?category=C0008">Java</a>
             </li>
@@ -126,7 +126,7 @@
           </button>
         </li>
         <div id="collapseCloud" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
-          <ul class="accordion-body">
+          <ul class="accordion-body eng">
             <li>
               <a href="lecture_list.php?category=C0012">AWS</a>
             </li>
@@ -152,7 +152,7 @@
           </button>
         </li>
         <div id="collapseDatabase" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
-          <ul class="accordion-body">
+          <ul class="accordion-body eng">
             <li>
               <a href="lecture_list.php?category=C0017">SQL</a>
             </li>
@@ -190,7 +190,7 @@
           </button>
         </li>
         <div id="collapseNetwork" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
-          <ul class="accordion-body">
+          <ul class="accordion-body eng">
             <li>
               <a href="lecture_list.php?category=C0025">TCP / IP</a>
             </li>
@@ -207,7 +207,7 @@
           </button>
         </li>
         <div id="collapseSecurity" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
-          <ul class="accordion-body">
+          <ul class="accordion-body eng">
             <li>
               <a href="lecture_list.php?category=C0027">CPPG</a>
             </li>
