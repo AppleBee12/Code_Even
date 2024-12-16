@@ -6,7 +6,7 @@ include_once($_SERVER['DOCUMENT_ROOT'] . '/code_even/front/inc/header.php');
 if (!isset($_SESSION['AUID'])) {
     echo "<script>
         alert('로그인이 필요합니다.');
-        // location.href='/CODE_EVEN/';
+        location.href='/CODE_EVEN/';
         history.back();
     </script>";
     exit;
