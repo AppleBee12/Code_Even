@@ -5,7 +5,7 @@
     <div class="footer-logo d-flex justify-content-between mb-5">
         <!-- <img src="admin/images/txt_logo_white.png" alt="footer_logo">   -->
         <div>
-          <h2 class="logo"><a href="">CODE EVEN</a></h2>
+          <h2 class="logo"><a href="http://<?=$_SERVER['HTTP_HOST']?>/code_even/index.php">CODE EVEN</a></h2>
         </div>
       <div>
         <div class="tc_borderline">
@@ -24,11 +24,11 @@
       </div>
       <div class=" col-7 d-flex g_ml justify-content-end mb-5">
         <div class="menu_list">
-          <div class="list_title">코드이븐</div>
+          <div class="list_title"><a href="http://<?=$_SERVER['HTTP_HOST']?>/code_even/index.php">코드이븐</a></div>
           <ul class="menu_sublist p-0">
-            <li>레시피 강좌</li>
-            <li>블로그</li>
-            <li>팀 프로젝트</li>
+            <li><a href="http://<?=$_SERVER['HTTP_HOST']?>/code_even/front/what_recipe/what_recipe.php">레시피 강좌</a></li>
+            <li><a href="http://<?=$_SERVER['HTTP_HOST']?>/code_even/front/community/blog.php">블로그</a></li>
+            <li><a href="http://<?=$_SERVER['HTTP_HOST']?>/code_even/front/community/teamproject.php">팀 프로젝트</a></li>
           </ul>
         </div>
         <div class="menu_list">
