@@ -76,6 +76,19 @@ let swiper = new Swiper('.sec01_swiper', {
 /* sec02 끝 */
 /* sec03 시작 */
 
+$(document).ready(function() {
+  // 부모 요소를 통해 이벤트 위임
+  $(document).on("click", ".heart-icon", function() {
+    $(this).addClass("d-none"); // 빈 하트 숨기기
+    $(this).siblings(".heart-icon-filled").removeClass("d-none"); // 채워진 하트 보이기
+  });
+
+  $(document).on("click", ".heart-icon-filled", function() {
+    $(this).addClass("d-none"); // 채워진 하트 숨기기
+    $(this).siblings(".heart-icon").removeClass("d-none"); // 빈 하트 보이기
+  });
+});
+
 
 /* sec03 끝 */
 /* sec04 시작 */
