@@ -10,7 +10,7 @@ include_once($_SERVER['DOCUMENT_ROOT'] . '/CODE_EVEN/front/inc/mypage_header.php
 if (!isset($_SESSION['AUID'])) {
   echo "<script>
   alert('로그인을 해주세요');
-  location.href='../login/login.php';
+  location.href='../../index.php';
   </script>";
 }
 // 게시글 개수 구하기
