@@ -68,7 +68,7 @@
           </button>
         </li>
         <div id="collapseFrontend" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
-          <ul class="accordion-body">
+          <ul class="accordion-body eng">
             <li>
               <a href="lecture_list.php?category=C0001">HTML / CSS</a>
             </li>
@@ -100,7 +100,7 @@
           </button>
         </li>
         <div id="collapseBackend" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
-          <ul class="accordion-body">
+          <ul class="accordion-body eng">
             <li>
               <a href="lecture_list.php?category=C0008">Java</a>
             </li>
@@ -126,7 +126,7 @@
           </button>
         </li>
         <div id="collapseCloud" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
-          <ul class="accordion-body">
+          <ul class="accordion-body eng">
             <li>
               <a href="lecture_list.php?category=C0012">AWS</a>
             </li>
@@ -152,7 +152,7 @@
           </button>
         </li>
         <div id="collapseDatabase" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
-          <ul class="accordion-body">
+          <ul class="accordion-body eng">
             <li>
               <a href="lecture_list.php?category=C0017">SQL</a>
             </li>
@@ -190,7 +190,7 @@
           </button>
         </li>
         <div id="collapseNetwork" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
-          <ul class="accordion-body">
+          <ul class="accordion-body eng">
             <li>
               <a href="lecture_list.php?category=C0025">TCP / IP</a>
             </li>
@@ -207,7 +207,7 @@
           </button>
         </li>
         <div id="collapseSecurity" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
-          <ul class="accordion-body">
+          <ul class="accordion-body eng">
             <li>
               <a href="lecture_list.php?category=C0027">CPPG</a>
             </li>
@@ -232,9 +232,23 @@
               <div class="d-flex justify-content-between">
                 <!-- 상 시작-->
                 <div>
-                  <span class="badge text-bg-danger badge-outline">BEST</span>
-                  <span class="badge text-bg-danger badge-outline">NEW</span>
-                  <span class="badge text-bg-danger">레시피</span>
+                  <?php if ($item->isbest == 1) { ?>
+                    <i class="bi bi-heart"></i>
+                  <?php } else { ?>
+                    <i class="bi bi-heart d-none"></i> <!-- 숨김 -->
+                  <?php } ?>
+
+                  <?php if ($item->isnew == 1) { ?>
+                    <i class="bi bi-heart-fill"></i>
+                  <?php } else { ?>
+                    <i class="bi bi-heart-fill d-none"></i> <!-- 숨김 -->
+                  <?php } ?>
+
+                  <?php if ($item->course_type === 'recipe') { ?>
+                    <i class="bi bi-cart-plus"></i>
+                  <?php } else { ?>
+                    <i class="bi bi-cart-plus d-none"></i> <!-- 숨김 -->
+                  <?php } ?>
                 </div>
                 <div class="d-flex gap-2">
                   <i class="bi bi-star-fill"></i>
@@ -254,12 +268,12 @@
               <div class="d-flex justify-content-between">
                 <div>
                   <b><?= number_format($item->price); ?></b>원
-                </div>       
-                <div>
-                  <i class="bi bi-heart"></i>
-                  <i class="bi bi-heart-fill"></i>
-                  <i class="bi bi-cart-plus"></i>
                 </div>
+                <div class="icon-container">
+                  <i class="bi bi-heart heart-icon" id="heart-icon"></i>
+                  <i class="bi bi-heart-fill heart-icon-filled d-none" id="heart-icon-filled"></i>
+                  <i class="bi bi-cart-plus"></i>
+                </div>      
               </div>
               <!-- 하 끝 -->
             </div>
@@ -272,41 +286,63 @@
     <!-- 강좌 리스트 출력 끝 -->
   </div>
 </div>
-<!-- Pagination -->
-<div class="list_pagination" aria-label="Page navigation example">
-  <ul class="pagination d-flex justify-content-center">
-    <?php
-    $previous = $block_start - $block_ct;
-    if ($previous < 1)
-      $previous = 1;
-    if ($block_num > 1) {
-      ?>
-      <li class="page-item">
-        <a class="page-link" href="lecture_list.php?page=<?= $previous; ?>" aria-label="Previous">
-          <i class="bi bi-chevron-left"></i>
-        </a>
-      </li>
-    <?php } ?>
-    <?php
-    for ($i = $block_start; $i <= $block_end; $i++) {
-      $active = ($page == $i) ? 'active' : '';
-      ?>
-      <li class="page-item <?= $active; ?>">
-        <a class="page-link" href="lecture_list.php?page=<?= $i; ?>"><?= $i; ?></a>
-      </li>
-    <?php } ?>
-    <?php
-    $next = $block_end + 1;
-    if ($total_block > $block_num) {
-      ?>
-      <li class="page-item">
-        <a class="page-link" href="lecture_list.php?page=<?= $next; ?>" aria-label="Next">
-          <i class="bi bi-chevron-right"></i>
-        </a>
-      </li>
-    <?php } ?>
-  </ul>
+<div class="container">
+  <div class="row">
+    <div class="col-3"></div>
+    <!-- Pagination -->
+    <div class="list_pagination col-9" aria-label="Page navigation example">
+      <ul class="pagination d-flex justify-content-center">
+        <?php
+        $previous = $block_start - $block_ct;
+        if ($previous < 1)
+          $previous = 1;
+        if ($block_num > 1) {
+          ?>
+          <li class="page-item">
+            <a class="page-link" href="lecture_list.php?page=<?= $previous; ?>" aria-label="Previous">
+              <i class="bi bi-chevron-left"></i>
+            </a>
+          </li>
+        <?php } ?>
+        <?php
+        for ($i = $block_start; $i <= $block_end; $i++) {
+          $active = ($page == $i) ? 'active' : '';
+          ?>
+          <li class="page-item <?= $active; ?>">
+            <a class="page-link" href="lecture_list.php?page=<?= $i; ?>"><?= $i; ?></a>
+          </li>
+        <?php } ?>
+        <?php
+        $next = $block_end + 1;
+        if ($total_block > $block_num) {
+          ?>
+          <li class="page-item">
+            <a class="page-link" href="lecture_list.php?page=<?= $next; ?>" aria-label="Next">
+              <i class="bi bi-chevron-right"></i>
+            </a>
+          </li>
+        <?php } ?>
+      </ul>
+    </div>
+  </div>
 </div>
+
+<script>
+
+  $(document).ready(function() {
+    // 부모 요소를 통해 이벤트 위임
+    $(document).on("click", ".heart-icon", function() {
+      $(this).addClass("d-none"); // 빈 하트 숨기기
+      $(this).siblings(".heart-icon-filled").removeClass("d-none"); // 채워진 하트 보이기
+    });
+
+    $(document).on("click", ".heart-icon-filled", function() {
+      $(this).addClass("d-none"); // 채워진 하트 숨기기
+      $(this).siblings(".heart-icon").removeClass("d-none"); // 빈 하트 보이기
+    });
+  });
+
+</script>
 
 <?php
 

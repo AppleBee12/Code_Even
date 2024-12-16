@@ -115,3 +115,14 @@
   margin-top: 90px;
   margin-bottom: 90px;
 }
+
+.icon-container {
+  display: flex;
+  gap: 7px;
+  font-size: 18px;
+  cursor: pointer;
+}
+
+.d-none {
+  display: none;
+}

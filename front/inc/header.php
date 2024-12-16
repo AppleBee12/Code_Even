@@ -161,6 +161,11 @@ if (isset($_GET['code'])) {
       echo '<link rel="stylesheet" href="http://' . $_SERVER['HTTP_HOST'] . '/code_even/front/css/lecture.css">';
       break;
   }
+  switch ($page) { //mypage_coupons.css
+    case 'faq.php':
+      echo '<link rel="stylesheet" href="http://' . $_SERVER['HTTP_HOST'] . '/code_even/front/css/service.css">';
+      break;
+  }
   ?>
 
   <!-- jquery, swiper 제외한 모든 js는 푸터 -->
@@ -193,7 +198,7 @@ if (isset($_GET['code'])) {
             <?php
             }
             ?>
-            <li><a href="#">고객센터</a></li>
+            <li><a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/front/service/faq.php">고객센터</a></li>
           </ul>
         </div>
       </div>
@@ -201,76 +206,76 @@ if (isset($_GET['code'])) {
         <nav class="header_menu">
           <ul class="d-flex align-items-center">
             <li class="menu_depth1">
-              <a href="">강좌</a>
+              <a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/front/lecture_list.php">강좌</a>
               <div class="menu_depth2">
                 <ul class="depth2_lec">
                   <li>
-                    <a href="">프론트엔드</a>
+                    <a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/front/lecture_list.php?category=B0001">프론트엔드</a>
                     <div class="menu_depth3">
                       <ul>
-                        <li><a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/front/lecture_list.php">HTML/CSS</a></li>
-                        <li><a href="">JavaScript</a></li>
-                        <li><a href="">jQuery</a></li>
-                        <li><a href="">React</a></li>
-                        <li><a href="">Angular</a></li>
-                        <li><a href="">Vue.js</a></li>
-                        <li><a href="">TypeScript</a></li>
+                        <li><a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/front/lecture_list.php?category=C0001">HTML/CSS</a></li>
+                        <li><a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/front/lecture_list.php?category=C0002">JavaScript</a></li>
+                        <li><a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/front/lecture_list.php?category=C0003">jQuery</a></li>
+                        <li><a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/front/lecture_list.php?category=C0004">React</a></li>
+                        <li><a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/front/lecture_list.php?category=C0005">Angular</a></li>
+                        <li><a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/front/lecture_list.php?category=C0006">Vue.js</a></li>
+                        <li><a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/front/lecture_list.php?category=C0007">TypeScript</a></li>
                       </ul>
                     </div>
                   </li>
                   <li>
-                    <a href="">백엔드</a>
+                    <a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/front/lecture_list.php?category=B0002">백엔드</a>
                     <div class="menu_depth3">
                       <ul>
-                        <li><a href="">Java</a></li>
-                        <li><a href="">PHP</a></li>
-                        <li><a href="">Next.js</a></li>
-                        <li><a href="">Node.js</a></li>
+                        <li><a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/front/lecture_list.php?category=C0008">Java</a></li>
+                        <li><a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/front/lecture_list.php?category=C0009">PHP</a></li>
+                        <li><a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/front/lecture_list.php?category=C0010">Next.js</a></li>
+                        <li><a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/front/lecture_list.php?category=C0011">Node.js</a></li>
                       </ul>
                     </div>
                   </li>
                   <li>
-                    <a href="">클라우드 컴퓨팅</a>
+                    <a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/front/lecture_list.php?category=B0003">클라우드 컴퓨팅</a>
                     <div class="menu_depth3">
                       <ul>
-                        <li><a href="">AWS</a></li>
-                        <li><a href="">Azure</a></li>
-                        <li><a href="">Google Cloud Platform</a></li>
-                        <li><a href="">DevOps</a></li>
-                        <li><a href="">kubernetes</a></li>
+                        <li><a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/front/lecture_list.php?category=C0012">AWS</a></li>
+                        <li><a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/front/lecture_list.php?category=C0013">Azure</a></li>
+                        <li><a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/front/lecture_list.php?category=C0014">Google Cloud Platform</a></li>
+                        <li><a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/front/lecture_list.php?category=C0015">DevOps</a></li>
+                        <li><a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/front/lecture_list.php?category=C0016">kubernetes</a></li>
                       </ul>
                     </div>
                   </li>
                   <li>
-                    <a href="">데이터베이스</a>
+                    <a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/front/lecture_list.php?category=B0004">데이터베이스</a>
                     <div class="menu_depth3">
                       <ul>
-                        <li><a href="">SQL</a></li>
-                        <li><a href="">MySQL</a></li>
-                        <li><a href="">PostgreSQL</a></li>
-                        <li><a href="">Oracle</a></li>
-                        <li><a href="">NoSQL</a></li>
-                        <li><a href="">MongoDB</a></li>
-                        <li><a href="">Cassandra</a></li>
-                        <li><a href="">Couchbase</a></li>
+                        <li><a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/front/lecture_list.php?category=C0017">SQL</a></li>
+                        <li><a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/front/lecture_list.php?category=C0018">MySQL</a></li>
+                        <li><a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/front/lecture_list.php?category=C0019">PostgreSQL</a></li>
+                        <li><a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/front/lecture_list.php?category=C0020">Oracle</a></li>
+                        <li><a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/front/lecture_list.php?category=C0021">NoSQL</a></li>
+                        <li><a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/front/lecture_list.php?category=C0022">MongoDB</a></li>
+                        <li><a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/front/lecture_list.php?category=C0023">Cassandra</a></li>
+                        <li><a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/front/lecture_list.php?category=C0024">Couchbase</a></li>
                       </ul>
                     </div>
                   </li>
                   <li>
-                    <a href="">네트워크 관리</a>
+                    <a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/front/lecture_list.php?category=B0005">네트워크 관리</a>
                     <div class="menu_depth3">
                       <ul>
-                        <li><a href="">TCP/IP</a></li>
-                        <li><a href="">C/C++</a></li>
+                        <li><a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/front/lecture_list.php?category=C0025">TCP/IP</a></li>
+                        <li><a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/front/lecture_list.php?category=C0026">C/C++</a></li>
                       </ul>
                     </div>
                   </li>
                   <li>
-                    <a href="">보안</a>
+                    <a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/front/lecture_list.php?category=B0006">보안</a>
                     <div class="menu_depth3">
                       <ul>
-                        <li><a href="">CPPG</a></li>
-                        <li><a href="">security</a></li>
+                        <li><a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/front/lecture_list.php?category=C0027">CPPG</a></li>
+                        <li><a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/front/lecture_list.php?category=C0028">security</a></li>
                       </ul>
                     </div>
                   </li>
