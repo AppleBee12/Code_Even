@@ -20,9 +20,15 @@
 	background: var(--red800);
 	color: var(--bk0);
 }
-.list_style_auto{
-	/* list-style: auto; */
-}
+
 .color_change{
 	color: #6C757D;
+}
+.coupon_info ol>li{
+	list-style: decimal;
+	margin-bottom: 15px;
+}
+.coupon_info ol li ul li{
+	list-style: disc;
+	margin-left: 20px;
 }

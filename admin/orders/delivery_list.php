@@ -2,6 +2,29 @@
 $title = "배송 목록";
 include_once($_SERVER['DOCUMENT_ROOT'] . '/CODE_EVEN/admin/inc/header.php');
 
+// 게시글 키워드 검색
+$keywords = isset($_GET['keywords']) ? $mysqli->real_escape_string($_GET['keywords']) : '';
+
+//날짜검색 추가
+$start_date = isset($_GET['start_date']) ? $mysqli->real_escape_string($_GET['start_date']) : '';
+$end_date = isset($_GET['end_date']) ? $mysqli->real_escape_string($_GET['end_date']) : '';
+
+// $where_clause 초기화
+$where_clause = ""; 
+
+if ($keywords) {
+  $where_clause .= ($where_clause ? ' AND ' : 'WHERE ') . "(user.userid LIKE '%$keywords%' OR order_delivery.book_title LIKE '%$keywords%')";
+}
+
+if ($start_date && $end_date) {
+    $where_clause .= ($where_clause ? ' AND ' : 'WHERE ') . "order_delivery.order_date BETWEEN '$start_date' AND '$end_date'";
+} elseif ($start_date) {
+    $where_clause .= ($where_clause ? ' AND ' : 'WHERE ') . "order_delivery.order_date >= '$start_date'";
+} elseif ($end_date) {
+    $where_clause .= ($where_clause ? ' AND ' : 'WHERE ') . "order_delivery.order_date <= '$end_date'";
+}
+
+
 $page_sql = "SELECT COUNT(*) AS cnt FROM order_delivery";
 $page_result = $mysqli->query($page_sql);
 $page_data = $page_result->fetch_assoc();
@@ -22,6 +45,26 @@ if ($block_end > $total_page) {
   $block_end = $total_page;
 }
 
+  $sql = "SELECT * 
+  FROM
+    order_delivery
+  LEFT JOIN 
+    user
+  ON 
+    order_delivery.uid = user.uid
+  " . $where_clause . "
+    GROUP BY 
+      order_delivery.oddvid 
+    ORDER BY 
+      order_delivery.oddvid DESC 
+    LIMIT 
+      $start_num, $list";
+
+  $result = $mysqli->query($sql); //쿼리 실행 결과
+
+  while($data = $result->fetch_object()){
+  $dataArr[] = $data;
+  }
 ?>
 
 
@@ -30,14 +73,21 @@ if ($block_end > $total_page) {
   <h2 class="page_title">교재배송목록</h2>
 
 
-  <form action="" id="search_form" class="row justify-content-end">
-    <div class="col-lg-3">
-      <input type="date" class="form-control" />
+  <form action="#" id="search_form" class="row justify-content-end" method="GET">
+    <div class="col-lg-2 d-flex align-items-center date_form">
+      <label class="date_lable me-2" for="start_date" >시작일</label>
+      <input type="date" id="start_date" class="form-control" name="start_date" value="<?= htmlspecialchars($_GET['start_date'] ?? ''); ?>">
     </div>
+    
+    <div class="col-lg-2 d-flex align-items-center date_form">
+      <label class="date_lable me-2" for="end_date">종료일</label>
+      <input type="date" id="end_date" class="form-control" name="end_date" value="<?= htmlspecialchars($_GET['end_date'] ?? ''); ?>">
+    </div>
+    
     <div class="col-lg-3">
     <div class="input-group mb-3">
-      <input type="text" class="form-control" placeholder="분류 선택 또는 검색어를 입력해주세요" aria-label="Recipient's username" aria-describedby="basic-addon2">
-      <button type="button" class="btn btn-secondary">
+      <input type="text" class="form-control" placeholder="기간 선택 또는 검색어를 입력해주세요" name="keywords" value="<?= htmlspecialchars($keywords); ?>" aria-label="검색창" >
+      <button class="btn btn-secondary">
         <i class="bi bi-search"></i>
       </button>
       </div>
@@ -57,24 +107,32 @@ if ($block_end > $total_page) {
           <th scope="col">결제일</th>
           <th scope="col">상태</th>
           <th scope="col">배송상태</th>
-          <th scope="col">배송완료일</th>
+          <th scope="col">송장번호</th>
           <th scope="col">배송추적</th>
         </tr>
       </thead>
       <tbody>
+      <?php
+          if(isset($dataArr)){
+            foreach($dataArr as $item){
+        ?> 
         <tr>
-          <th scope="row">1</th>
-          <td><a href="teacher_details.php">123</a></td>
-          <td><a href="teacher_details.php">231</td>
-          <td><a href="teacher_details.php">nany</td>
-          <td><a href="orders_details.php">기초부터 확실하게! 페이지의 내용 전달을 위한...</td>
-          <td><a href="teacher_details.php">1</td>
-          <td><a href="teacher_details.php">2024/10/29</td>
-          <td><a href="teacher_details.php">결제완료</td>
-          <td><a href="teacher_details.php">배송준비중</td>
-          <td><a href="teacher_details.php">-</td>
-          <td><a href="teacher_details.php"><button type="button" class="btn btn-light btn-sm btn-bd">배송추적</button></td>
-        </tr>   
+          <td><?= $item->oddvid; ?></td>
+          <td><?= $item->odid; ?></td>
+          <td><?= $item->oddtid; ?></td>
+          <td><?= $item->userid; ?></td>
+          <td><?= $item->book_title; ?></td>
+          <td><?= $item->cnt; ?></td>
+          <td><?= date('Y-m-d', strtotime($item->order_date)); ?></td>
+          <td>결제완료</td>
+          <td>배송준비중</td>
+          <td><?= $item->tracking_num; ?></td>
+          <td><button type="button" class="btn btn-light btn-sm btn-bd">배송추적</button></td>
+        </tr>
+      <?php
+          }
+        }
+      ?>    
     </table>
     <!-- //table -->
   </form>

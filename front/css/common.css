@@ -122,6 +122,11 @@ body{
   line-height: 30px;
 }
 
+/* 입력필수값 "*별모양" */
+th b,
+label b {
+  color: var(--red950);
+}
 
 
  
@@ -351,6 +356,24 @@ header {
 
 #clearSearch:hover {
   color: var(--bk700);
+}
+
+/* 페이지네이션 */
+.list_pagination {
+  background: none;
+  .page-link {
+    color: var(--bk700);
+    margin: 0 10px;
+  }
+  .active > .page-link,
+  .page-link.active {
+    color: var(--bk0);
+    background-color: var(--bk700);
+    border-color: var(--bk700);
+  }
+  .page-link:focus {
+    box-shadow: none;
+  }
 }
     
 /* 퀵 아이콘 */
