@@ -157,7 +157,7 @@ header{
   z-index: 10;
 }
 
-header h1.logo, footer h2.logo{
+header h1.logo, footer h2.logo, .login_logo{
   font-family: "League Gothic", sans-serif;
   font-optical-sizing: auto;
   font-weight: 400;
@@ -169,7 +169,9 @@ header h1.logo, footer h2.logo{
     color: var(--bk0);
   }
 }
-
+.login_logo a{
+  color: #000 !important;
+}
 header {
   .header_grade1{
     height: 70px;

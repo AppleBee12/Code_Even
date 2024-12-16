@@ -2,16 +2,36 @@
 include_once($_SERVER['DOCUMENT_ROOT'] . '/CODE_EVEN/front/inc/header.php');
 $mypage_main_js = "<script src=\"http://" . $_SERVER['HTTP_HOST'] . "/code_even/front/js/mypage_main.js\"></script>";
 
-$userid = $_SESSION['AUID']; // 세션에서 로그인된 사용자 ID 가져오기
-
-//사용자 정보 가져오기
- $user_sql = "SELECT username, userphonenum, useremail FROM user WHERE userid = '$userid'";
-$user_result = $mysqli->query($user_sql);
-if ($user_result && $user_result->num_rows > 0) {
-  $user_data = $user_result->fetch_object();
+if (isset($_SESSION['AUID'])) {
+  $userid = $_SESSION['AUID'];
+} elseif (isset($_SESSION['KAKAO_UID'])) {
+  $userid = $_SESSION['KAKAO_UID'];
 } else {
-  echo "<p>사용자 정보를 찾을 수 없습니다.</p>";
+  echo "<script>
+      alert('로그인이 필요합니다.');
+      history.back();
+    </script>";
   exit;
+}
+
+// 사용자 정보 가져오기 (Prepared Statement 사용)
+$user_sql = "SELECT username, userphonenum, useremail FROM user WHERE userid = ?";
+$stmt = $mysqli->prepare($user_sql);
+
+if ($stmt) {
+  $stmt->bind_param("s", $userid);
+  $stmt->execute();
+  $user_result = $stmt->get_result();
+
+  if ($user_result && $user_result->num_rows > 0) {
+      $user_data = $user_result->fetch_object();
+  } else {
+      echo "<p>사용자 정보를 찾을 수 없습니다.</p>";
+      exit;
+  }
+  $stmt->close();
+} else {
+  die("쿼리 준비 실패: " . $mysqli->error);
 }
 
 ?>
