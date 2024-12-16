@@ -144,6 +144,11 @@ if (isset($_GET['code'])) {
       echo '<link rel="stylesheet" href="http://' . $_SERVER['HTTP_HOST'] . '/code_even/front/css/mypage_coupons.css">';
       break;
   }
+  switch ($page) { //mypage_coupons.css
+    case 'faq.php':
+      echo '<link rel="stylesheet" href="http://' . $_SERVER['HTTP_HOST'] . '/code_even/front/css/service.css">';
+      break;
+  }
   ?>
 
   <!-- jquery, swiper 제외한 모든 js는 푸터 -->
@@ -176,7 +181,7 @@ if (isset($_GET['code'])) {
             <?php
             }
             ?>
-            <li><a href="#">고객센터</a></li>
+            <li><a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/front/service/faq.php">고객센터</a></li>
           </ul>
         </div>
       </div>
