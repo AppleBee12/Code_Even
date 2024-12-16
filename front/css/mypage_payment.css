@@ -1,4 +1,14 @@
+
+/* 장바구니 page */
 .container_wrap{
   padding-top: 80px;
   padding-bottom: 100px;
+  .headt5{
+    font-weight: 700;
+  }
+
+  .cart_detail, .cart_total{
+    border: 1px solid var(--bk100);
+  }
+
 }
