@@ -32,7 +32,7 @@ if ($block_end > $total_page) {
 }
 
 // 강좌 목록 불러오기
-$sql = "SELECT leid, image, title, name, period, course_type, isbest, isrecom, state FROM lecture 
+$sql = "SELECT leid, image, title, name, period, course_type, isbest, isnew, state FROM lecture 
           $where_clause 
           ORDER BY leid DESC 
           LIMIT $start_num, $list";
@@ -53,7 +53,7 @@ while ($data = $result->fetch_object()) {
             <button type="button" class="btn lesearch"><i class="bi bi-search"></i></button>
         </div>
     </form>
-    <form action="best_recom_modify.php" method="POST">
+    <form action="best_new_modify.php" method="POST">
         <table class="table list_table">
             <thead>
                 <tr>
@@ -100,10 +100,10 @@ while ($data = $result->fetch_object()) {
                             <label class="form-check-label" for="isbest[<?= $item->leid; ?>]">베스트</label>
                         </div>
                         <div class="form-check d-inline-block">
-                            <input type="hidden" name="isrecom[<?= $item->leid; ?>]" value="0">
-                            <input class="form-check-input" type="checkbox" id="isrecom[<?= $item->leid; ?>]"
-                                name="isrecom[<?= $item->leid; ?>]" value="1" <?= $item->isrecom ? 'checked' : ''; ?>>
-                            <label class="form-check-label" for="isrecom[<?= $item->leid; ?>]">추천</label>
+                            <input type="hidden" name="isnew[<?= $item->leid; ?>]" value="0">
+                            <input class="form-check-input" type="checkbox" id="isnew[<?= $item->leid; ?>]"
+                                name="isnew[<?= $item->leid; ?>]" value="1" <?= $item->isnew ? 'checked' : ''; ?>>
+                            <label class="form-check-label" for="isnew[<?= $item->leid; ?>]">추천</label>
                         </div>
                     </td>
                     <td>

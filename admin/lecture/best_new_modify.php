@@ -4,19 +4,19 @@
 
   // 전달받은 데이터 배열 초기화
   $isbest = $_POST['isbest'] ?? [];   // '베스트' 값
-  $isrecom = $_POST['isrecom'] ?? []; // '추천' 값
+  $isnew = $_POST['isnew'] ?? []; // '추천' 값
   $leid_list = $_POST['leid'] ?? [];  // 강좌 ID 목록
 
   // 각 강좌의 값이 없을 경우 0으로 설정하고 업데이트 쿼리 실행
   foreach ($leid_list as $leid) {
     // 각 강좌의 값이 없을 경우 0으로 설정
     $isbest[$leid] = $isbest[$leid] ?? 0;
-    $isrecom[$leid] = $isrecom[$leid] ?? 0;
+    $isnew[$leid] = $isnew[$leid] ?? 0;
 
     // SQL 업데이트 쿼리
     $sql = "UPDATE lecture SET 
       isbest = {$isbest[$leid]}, 
-      isrecom = {$isrecom[$leid]} 
+      isnew = {$isnew[$leid]} 
     WHERE leid = $leid";
 
     // 쿼리 실행

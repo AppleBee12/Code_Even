@@ -156,6 +156,11 @@ if (isset($_GET['code'])) {
       echo '<link rel="stylesheet" href="http://' . $_SERVER['HTTP_HOST'] . '/code_even/front/css/mypage_coupons.css">';
       break;
   }
+  switch ($page) { //lecture.css
+    case 'lecture_list.php':
+      echo '<link rel="stylesheet" href="http://' . $_SERVER['HTTP_HOST'] . '/code_even/front/css/lecture.css">';
+      break;
+  }
   ?>
 
   <!-- jquery, swiper 제외한 모든 js는 푸터 -->
