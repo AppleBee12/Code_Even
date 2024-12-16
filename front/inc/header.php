@@ -125,6 +125,7 @@ if (isset($_GET['code'])) {
     case 'mypage_header.php':
     case 'mypage_lecture.php':
     case 'mypage_coupons.php':
+    case 'mypage_paid.php':
     case 'mypage_copy.php':
       echo '<link rel="stylesheet" href="http://' . $_SERVER['HTTP_HOST'] . '/code_even/front/css/mypage_header.css">';
       break;
@@ -154,6 +155,12 @@ if (isset($_GET['code'])) {
   switch ($page) { //mypage_coupons.css
     case 'mypage_coupons.php':
       echo '<link rel="stylesheet" href="http://' . $_SERVER['HTTP_HOST'] . '/code_even/front/css/mypage_coupons.css">';
+      break;
+  }
+  switch ($page) { //mypage_payment.css
+    case 'mypage_payment.php':
+    case 'cart.php':
+      echo '<link rel="stylesheet" href="http://' . $_SERVER['HTTP_HOST'] . '/code_even/front/css/mypage_payment.css">';
       break;
   }
   ?>
@@ -192,7 +199,9 @@ if (isset($_GET['code'])) {
           </ul>
         </div>
       </div>
+
       <div class="header_grade2 d-flex justify-content-between align-items-center">
+        <!-- 메인메뉴 -->
         <nav class="header_menu">
           <ul class="d-flex align-items-center">
             <li class="menu_depth1">
@@ -285,6 +294,8 @@ if (isset($_GET['code'])) {
             </li>
           </ul>
         </nav>
+
+        <!-- 검색창 -->
         <div class="header_search">
           <form action="#" class="d-flex align-items-center header_search_inner" method="get">
             <button type="submit" class="search_btn d-flex align-items-center">
@@ -297,6 +308,8 @@ if (isset($_GET['code'])) {
             </button>
           </form>
         </div>
+
+        <!-- 아이콘 퀵메뉴 -->
         <div class="header_icon d-flex gap-3">
           <?php if (!isset($_SESSION['AUID'])) { ?>
             <div>
@@ -337,7 +350,7 @@ if (isset($_GET['code'])) {
                 <div class="profile_menu_list">
                   <ul>
                     <li class="list_pt list_pb"><a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/front/mypage/mypage_lecture.php"><i class="bi bi-book"></i><span>나의 수업</span></a></li>
-                    <li class="list_pt"><a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/front/mypage/mypage_cart.php"><i class="bi bi-cart"></i><span>장바구니</span></a></li>
+                    <li class="list_pt"><a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/front/cart.php"><i class="bi bi-cart"></i><span>장바구니</span></a></li>
                     <li class="list_pb"><a href=""><i class="bi bi-heart"></i><span>찜한 강좌</span></a></li>
                     <li class="list_pt"><a href=""><i class="bi bi-person-circle"></i><span>기본 정보 설정</span></a></li>
                     <li class="list_pb"><a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/members/login/logout.php"><i class="bi bi-box-arrow-right"></i><span>로그아웃</span></a></li>
