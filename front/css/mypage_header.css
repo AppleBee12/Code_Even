@@ -160,16 +160,12 @@ section.mypage_header .row{
   justify-content: center;
   align-items: center;
   border-bottom: 3px solid var(--bk0);
+  color: var(--bk900);
 }
 
-.mypage_tap a{
-    color: var(--bk900);
-}
-
-.mypage_tap.active{
-  border-bottom: 3px solid var(--primary);
-  font-weight: 700;
-  color: var(--bk1000);
+.nav-underline .nav-link.active, 
+.nav-underline .show>.nav-link{
+  border-bottom:3px solid var(--primary);
 }
 
 /* 탭 제목 */

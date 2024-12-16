@@ -6,7 +6,7 @@ include_once($_SERVER['DOCUMENT_ROOT'] . '/code_even/front/inc/header.php');
 if (!isset($_SESSION['AUID'])) {
     echo "<script>
         alert('로그인이 필요합니다.');
-        // location.href='/CODE_EVEN/';
+        location.href='/CODE_EVEN/';
         history.back();
     </script>";
     exit;
@@ -38,21 +38,21 @@ while($data = $category_result->fetch_object()){
   <section class="mb-5 s_h pt-5">
     <div class="container d-flex justify-content-center">
       <div class="data d-flex gap-5">
-        <img src="front/images/data.png" class="my-3 img_w" alt="data.png">
+        <img src="../images/data.png" class="my-3 img_w" alt="data.png">
         <div class="value_cover">
           <div class="headt5">1인 평균 누적수입</div>
           <div class="headt3">5783만원</div>
         </div>
       </div>
       <div class="data d-flex b_l gap-5">
-        <img src="front/images/graduated.png" class="my-3 img_w" alt="data.png">
+        <img src="../images/graduated.png" class="my-3 img_w" alt="graduated.png">
         <div>
           <div class="headt5">총 회원수</div>
           <div class="headt3">100만명</div>
         </div>
       </div>
       <div class="data d-flex b_l gap-5">
-        <img src="front/images/group.png" class="my-3 img_w" alt="data.png">
+        <img src="../images/group.png" class="my-3 img_w" alt="group.png">
         <div>
           <div class="headt5">누적 수강생</div>
           <div class="headt3">500만명</div>
@@ -65,7 +65,7 @@ while($data = $category_result->fetch_object()){
       <div class="data d-flex justify-content-center ">
         <div class="value_cover">
           <div class="d-flex justify-content-center img_b">
-            <img src="admin/images/txt_logo.png" class="my-3" alt="data.png">
+            <img src="../../admin/images/txt_logo.png" class="my-3" alt="txt_logo.png">
           </div>
           <div class="headt2">왜 코드이븐일까요?</h2>
         </div>
@@ -73,7 +73,7 @@ while($data = $category_result->fetch_object()){
       <div class="d-flex justify-content-center g_new">
         <div class="in_sz">
           <div class="d-flex justify-content-center mb-3">
-            <img src="front/images/lock_up.png" class="my-3" alt="data.png">
+            <img src="../images/lock_up.png" class="my-3" alt="lock_up.png">
           </div>
           <div class="text_agn">
             <div class="fz_1">지식 콘텐츠를 함부로 다루지 않습니다.</div><br>
@@ -85,7 +85,7 @@ while($data = $category_result->fetch_object()){
         </div>
         <div class="in_sz">
           <div class="d-flex justify-content-center mb-3">
-            <img src="front/images/management.png" class="my-3" alt="data.png">
+            <img src="../images/management.png" class="my-3" alt="management.png">
           </div>
           <div class="text_agn">
             <div class="fz_1">수익이 가능한 유일한 곳</div><br>
@@ -103,7 +103,7 @@ while($data = $category_result->fetch_object()){
         </div>
         <div class="in_sz">
           <div class="d-flex justify-content-center mb-3">
-            <img src="front/images/green.png" class="my-3" alt="data.png">
+            <img src="../images/green.png" class="my-3" alt="green.png">
           </div>
           <div class="text_agn">
             <div class="fz_1">사회적 가치를 실현하세요</div><br>

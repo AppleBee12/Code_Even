@@ -1,7 +1,55 @@
 <?php
+
 include_once($_SERVER['DOCUMENT_ROOT'] . '/CODE_EVEN/front/inc/header.php');
 $main_js = "<script src=\"http://" . $_SERVER['HTTP_HOST'] . "/code_even/front/js/main.js\"></script>";
+
+/* lecture_section 시작 */
+// isbest = 1
+$sql_best = "SELECT * FROM lecture 
+  WHERE isbest = 1 
+  ORDER BY leid DESC 
+  LIMIT 8
+";
+$result_best = $mysqli->query($sql_best);
+$best_lectures = [];
+if ($result_best && $result_best->num_rows > 0) {
+  while ($row = $result_best->fetch_object()) {
+    $best_lectures[] = $row;
+  }
+}
+
+// isnew = 1
+$sql_new = "SELECT * FROM lecture
+  WHERE isnew = 1
+  ORDER BY leid DESC
+  LIMIT 8
+";
+$result_new = $mysqli->query($sql_new);
+$new_lectures = [];
+if ($result_new && $result_new->num_rows > 0) {
+  while ($row = $result_new->fetch_object()) {
+    $new_lectures[] = $row;
+  }
+}
+
+// course_type = 'recipe'
+  $sql_recipe = "SELECT * FROM lecture
+  WHERE course_type = 'recipe'
+  ORDER BY leid DESC
+  LIMIT 6
+";
+$result_recipe = $mysqli->query($sql_recipe);
+$recipe_lectures = [];
+if ($result_recipe && $result_recipe->num_rows > 0) {
+  while ($row = $result_recipe->fetch_object()) {
+    $recipe_lectures[] = $row;
+  }
+}
+
+/* lecture_section 끝 */
+
 ?>
+
 
 <!-- 쿠키 모달 창 -->
 <div id="cookieModal" class="cookie-modal ">
@@ -39,7 +87,7 @@ $main_js = "<script src=\"http://" . $_SERVER['HTTP_HOST'] . "/code_even/front/j
           <a href="admin/inquiry/notice.php">문의 게시판 관리 </a>
         </span><br>
         <span><b>조채림 : </b>
-          <a href="members/signup/signup.php">로그인/회원가입, </a>
+          <a href="front/signup/signup.php">로그인/회원가입, </a>
           <a href="admin/category/category.php">카테고리관리, </a>
           <a href="admin/coupons/coupons.php">쿠폰관리 </a>
         </span><br>
@@ -189,12 +237,128 @@ $main_js = "<script src=\"http://" . $_SERVER['HTTP_HOST'] . "/code_even/front/j
   </ul>
 </section>
 <section class="sec03 container">
-  <h5>sec03 베스트 추천 강좌</h5>
-  <div></div>
+  <div class="best_title">
+    <h2 class="headt4">베스트 추천 강좌</h2>
+  </div>
+  <div class="row">
+    <?php
+    if (isset($best_lectures) && !empty($best_lectures)) { // BEST 강좌 배열
+      foreach ($best_lectures as $item) {
+        ?> 
+        <div class="lecture_box col-3 mb-3"> <!-- 한 줄에 4개 출력 -->
+          <div class="image_box mb-2">
+            <img src="<?= $item->image; ?>" alt="강좌 이미지" class="img-fluid" />
+          </div>
+          <div class="d-flex justify-content-between">
+            <div>
+              <?php if ($item->isbest == 1) { ?>
+                <span class="badge badge-outline">BEST</span>
+              <?php } ?>
+
+              <?php if ($item->isnew == 1) { ?>
+                <span class="badge badge-outline">NEW</span>
+              <?php } ?>
+              <?php 
+              // course_type이 recipe일 경우 '레시피'로 표시
+              if ($item->course_type === 'recipe') { ?>
+                <span class="badge text-bg-danger">레시피</span>
+              <?php 
+              // course_type이 general이 아닌 경우만 출력
+              } elseif ($item->course_type !== 'general') { ?>
+                <span class="badge text-bg-danger"><?= htmlspecialchars($item->course_type); ?></span>
+              <?php } ?>
+            </div>
+            <div class="d-flex gap-2">
+              <i class="bi bi-star-fill"></i>
+              <span>5.0</span>
+            </div>
+          </div>
+          <div>
+            <p><?= htmlspecialchars($item->title); ?></p>
+          </div>
+          <div>
+            <p class="tc_name"><?= htmlspecialchars($item->name); ?></p>
+          </div>
+          <div class="d-flex justify-content-between">
+            <div>
+              <b><?= number_format($item->price); ?></b>원
+            </div>       
+            <div class="icon-container">
+              <i class="bi bi-heart heart-icon" id="heart-icon"></i>
+              <i class="bi bi-heart-fill heart-icon-filled d-none" id="heart-icon-filled"></i>
+              <i class="bi bi-cart-plus"></i>
+            </div>
+          </div>
+        </div>
+        <?php
+      }
+    } else {
+        echo "<p>베스트 추천 강좌가 없습니다.</p>";
+    }
+    ?>
+  </div>
 </section>
 <section class="sec04 container">
-  <h5>sec04 지금 가장 인기있는 레시피</h5>
-  <div></div>
+  <div class="recipe_title">
+    <h2 class="headt4">지금 가장 인기있는 레시피</h2>
+  </div>
+  <div class="row">
+    <?php
+    if (isset($recipe_lectures) && !empty($recipe_lectures)) { // BEST 강좌 배열
+      foreach ($recipe_lectures as $item) {
+        ?> 
+        <div class="lecture_box col-4 mb-3"> <!-- 한 줄에 4개 출력 -->
+          <div class="image_box mb-2">
+            <img src="<?= $item->image; ?>" alt="강좌 이미지" class="img-fluid" />
+          </div>
+          <div class="d-flex justify-content-between">
+            <div>
+              <?php if ($item->isbest == 1) { ?>
+                <span class="badge badge-outline">BEST</span>
+              <?php } ?>
+
+              <?php if ($item->isnew == 1) { ?>
+                <span class="badge badge-outline">NEW</span>
+              <?php } ?>
+              <?php 
+              // course_type이 recipe일 경우 '레시피'로 표시
+              if ($item->course_type === 'recipe') { ?>
+                <span class="badge text-bg-danger">레시피</span>
+              <?php 
+              // course_type이 general이 아닌 경우만 출력
+              } elseif ($item->course_type !== 'general') { ?>
+                <span class="badge text-bg-danger"><?= htmlspecialchars($item->course_type); ?></span>
+              <?php } ?>
+            </div>
+            <div class="d-flex gap-2">
+              <i class="bi bi-star-fill"></i>
+              <span>5.0</span>
+            </div>
+          </div>
+          <div>
+            <p><?= htmlspecialchars($item->title); ?></p>
+          </div>
+          <div>
+            <p class="tc_name"><?= htmlspecialchars($item->name); ?></p>
+          </div>
+          <div class="d-flex justify-content-between">
+            <div>
+              <b><?= number_format($item->price); ?></b>원
+            </div>       
+            <div class="icon-container">
+              <i class="bi bi-heart heart-icon" id="heart-icon"></i>
+              <i class="bi bi-heart-fill heart-icon-filled d-none" id="heart-icon-filled"></i>
+              <i class="bi bi-cart-plus"></i>
+            </div>
+          </div>
+        </div>
+        <?php
+      }
+    } else {
+        echo "<p>베스트 추천 강좌가 없습니다.</p>";
+    }
+    ?>
+  </div>
 </section>
 <section class="sec05">
   <div class="container d-flex">
@@ -354,7 +518,7 @@ $main_js = "<script src=\"http://" . $_SERVER['HTTP_HOST'] . "/code_even/front/j
           코드이븐의 꿈나무들에게 미래를 응원해주세요!</div>
         </div>  
         <div class="tc_borderline_banner mt-5">
-          <a href="tc_applyform.php">강사 신청하러 가기</a>
+          <a href="front/signup/tc_applyform.php">강사 신청하러 가기</a>
         </div>
       </div>
       <div class="logo_img d-flex align-items-center col-6 justify-content-end">
@@ -365,8 +529,66 @@ $main_js = "<script src=\"http://" . $_SERVER['HTTP_HOST'] . "/code_even/front/j
   </div>
 </section>
 <section class="sec08 container">
-  <h5>sec08 최신 강좌</h5>
-  <div></div>
+  <div class="new_title">
+    <h2 class="headt4">최신 강좌</h2>
+  </div>
+  <div class="row">
+    <?php
+    if (isset($new_lectures) && !empty($new_lectures)) { // BEST 강좌 배열
+      foreach ($new_lectures as $item) {
+        ?> 
+        <div class="lecture_box col-3 mb-3"> <!-- 한 줄에 4개 출력 -->
+          <div class="image_box mb-2">
+            <img src="<?= $item->image; ?>" alt="강좌 이미지" class="img-fluid" />
+          </div>
+          <div class="d-flex justify-content-between">
+            <div>
+              <?php if ($item->isbest == 1) { ?>
+                <span class="badge badge-outline">BEST</span>
+              <?php } ?>
+
+              <?php if ($item->isnew == 1) { ?>
+                <span class="badge badge-outline">NEW</span>
+              <?php } ?>
+              <?php 
+              // course_type이 recipe일 경우 '레시피'로 표시
+              if ($item->course_type === 'recipe') { ?>
+                <span class="badge text-bg-danger">레시피</span>
+              <?php 
+              // course_type이 general이 아닌 경우만 출력
+              } elseif ($item->course_type !== 'general') { ?>
+                <span class="badge text-bg-danger"><?= htmlspecialchars($item->course_type); ?></span>
+              <?php } ?>
+            </div>
+            <div class="d-flex gap-2">
+              <i class="bi bi-star-fill"></i>
+              <span>5.0</span>
+            </div>
+          </div>
+          <div>
+            <p><?= htmlspecialchars($item->title); ?></p>
+          </div>
+          <div>
+            <p class="tc_name"><?= htmlspecialchars($item->name); ?></p>
+          </div>
+          <div class="d-flex justify-content-between">
+            <div>
+              <b><?= number_format($item->price); ?></b>원
+            </div>       
+            <div class="icon-container">
+              <i class="bi bi-heart heart-icon" id="heart-icon"></i>
+              <i class="bi bi-heart-fill heart-icon-filled d-none" id="heart-icon-filled"></i>
+              <i class="bi bi-cart-plus"></i>
+            </div>
+          </div>
+        </div>
+        <?php
+      }
+    } else {
+        echo "<p>베스트 추천 강좌가 없습니다.</p>";
+    }
+    ?>
+  </div>
 </section>
 
 <?php include_once($_SERVER['DOCUMENT_ROOT'] . '/CODE_EVEN/front/inc/footer.php');

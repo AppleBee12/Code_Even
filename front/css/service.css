@@ -1,0 +1,95 @@
+.hide {display: none;}
+
+.service_tab {
+  padding-top: 160px;
+  li {
+    flex: 1 1; line-height: 70px; border: 1px solid var(--bk700);
+    a {
+      display: block; text-align: center;
+      font-size: 24px;
+    }
+  }
+  .nav_list_active {background: rgba(220,53,69,.2); border: none; border-bottom: 5px solid #DC3545;}
+}
+
+.service_title {
+  padding: 90px 0; 
+  display: flex; flex-direction: column; gap: 100px;
+  h2 {font-weight: 300;}
+  .content {
+    display: flex; flex-direction: column; gap: 60px;
+    .title {
+      display: flex; flex-direction: column; gap: 20px;
+    }
+    .search {
+      border-bottom: 4px solid var(--bk50); padding-bottom: 20px;
+      form {
+        input {background: none; border: none; font-size: 20px; vertical-align: top; margin-left: 36px;}
+        input::placeholder {color: var(--bk700);}
+        input:focus {background-color: transparent; outline: none; box-shadow: none; color: var(--bk200);}
+        button {background: none; border: none; color: var(--bk50);
+          i {font-size: 24px;}
+        }
+      }
+    }
+  }
+}
+
+.faq_content {
+  margin: 80px 0;
+  .faq_tab {
+    li {
+      flex: 1 1; padding-bottom: 30px;
+      a {display: block; line-height: 30px; text-align: center; font-size: 18px;}
+    }
+    li:first-child {border-bottom: 2px solid var(--bk50);}
+  }
+  .accordion {
+    --bs-accordion-btn-bg: none; border: 1px solid var(--bk700); margin-top: 40px;
+    --bs-accordion-btn-icon: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='none' stroke='%23ffffff' stroke-linecap='round' stroke-linejoin='round'%3e%3cpath d='M2 5L8 11L14 5'/%3e%3c/svg%3e");
+    --bs-accordion-btn-active-icon: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='none' stroke='%23ffffff' stroke-linecap='round' stroke-linejoin='round'%3e%3cpath d='M2 5L8 11L14 5'/%3e%3c/svg%3e");
+  }
+  .accordion-item {
+    background: none; border: none; border-bottom: 1px solid var(--bk700);
+    h5 button, .accordion-body {color: var(--bk50);}
+  }
+  .accordion-item:last-child {border-bottom: none;}
+  .accordion-button {padding: 20px 30px;}
+  .accordion-button::before {content: "Q"; padding-right: 10px; font-weight: 800;}
+  .accordion-body {padding: 30px; background: var(--bk1000); border-top: 1px solid var(--bk700);}
+  .accordion-body::before {content: "A"; padding-right: 10px; font-weight: 800;}
+  .accordion-button:focus {box-shadow: none;}
+  .accordion-button:not(.collapsed) {background: none; box-shadow: none;}
+  p {margin-top: 40px; font-size: 18px; color: var(--bk300);
+    em {font-weight: bold; color: var(--red950);}
+  }
+}
+
+.qna_more {
+  .box {
+    .circle {background: rgba(244,244,244,.5); width: 80px; height: 80px; border-radius: 50%; text-align: center; line-height: 80px;
+      i {font-size: 40px; color: var(--bk1000);}
+    }
+    .description {
+      display: flex; flex-direction: column; gap: 10px;
+      p {font-weight: bold;}
+      span {font-size: 18px; font-weight: 400;}
+    }
+  }
+  button {background: none; border: 1px solid var(--bk50); border-radius: 10px; padding: 20px 50px; color: var(--bk50);}
+}
+
+.myQna {
+  margin: 80px 0px; display: flex; flex-direction: column; gap: 30px;
+  h2 {font-weight: 300;}
+  .table {--bs-table-bg: none;
+    tr {height: 60px;
+      th,
+      td {
+        vertical-align: middle;
+        text-align: center;
+        color: var(--bk50);
+      }
+    }
+  }
+}
