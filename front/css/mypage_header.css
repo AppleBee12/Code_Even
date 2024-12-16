@@ -163,13 +163,14 @@ section.mypage_header .row{
 }
 
 .mypage_tap a{
-    color: var(--bk900);
+  color: var(--bk900);
+  display: block;
+  width: 100%;
 }
 
-.mypage_tap.active{
-  border-bottom: 3px solid var(--primary);
-  font-weight: 700;
-  color: var(--bk1000);
+.nav-underline .nav-link.active, 
+.nav-underline .show>.nav-link{
+  border-bottom:3px solid var(--primary);
 }
 
 /* 탭 제목 */
