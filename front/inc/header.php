@@ -96,7 +96,7 @@ if (isset($_GET['code'])) {
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>코드이븐 <?= $title ?>페이지에 오신것을 환영합니다.</title>
+  <title>코드이븐 <?= $title ?></title>
 
   <!-- 공통 CSS -->
   <link rel="stylesheet" href="http://<?= $_SERVER['HTTP_HOST'] ?>/code_even/admin/css/reset.css">
@@ -132,6 +132,18 @@ if (isset($_GET['code'])) {
   switch ($page) { //mypage_lecture.css
     case 'mypage_lecture.php':
       echo '<link rel="stylesheet" href="http://' . $_SERVER['HTTP_HOST'] . '/code_even/front/css/mypage_lecture.css">';
+      break;
+  }
+  switch ($page) { //what_recipe.css
+    case 'what_recipe.php':
+      echo '<link rel="stylesheet" href="http://' . $_SERVER['HTTP_HOST'] . '/code_even/front/css/what_recipe.css">';
+      break;
+  }
+  switch ($page) { //community.css
+    case 'counsel.php':
+    case 'teamproject.php':
+    case 'blog.php':
+      echo '<link rel="stylesheet" href="http://' . $_SERVER['HTTP_HOST'] . '/code_even/front/css/community.css">';
       break;
   }
   switch ($page) { //tc_applyform.css
@@ -191,7 +203,7 @@ if (isset($_GET['code'])) {
                     <a href="">프론트엔드</a>
                     <div class="menu_depth3">
                       <ul>
-                        <li><a href="">HTML/CSS</a></li>
+                        <li><a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/front/lecture_list.php">HTML/CSS</a></li>
                         <li><a href="">JavaScript</a></li>
                         <li><a href="">jQuery</a></li>
                         <li><a href="">React</a></li>
@@ -260,14 +272,14 @@ if (isset($_GET['code'])) {
                 </ul>
               </div>
             </li>
-            <li class="menu_depth1"><a href="#">'레시피 강좌'란?</a></li>
+            <li class="menu_depth1"><a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/front/what_recipe/what_recipe.php">'레시피 강좌'란?</a></li>
             <li class="menu_depth1">
-              <a href="">커뮤니티</a>
+              커뮤니티
               <div class="menu_depth2">
                 <ul>
-                  <li><a href="#">고민상담</a></li>
-                  <li><a href="#">팀 프로젝트</a></li>
-                  <li><a href="#">블로그</a></li>
+                  <li><a href="http://<?=$_SERVER['HTTP_HOST']?>/code_even/front/community/counsel.php">고민상담</a></li>
+                  <li><a href="http://<?=$_SERVER['HTTP_HOST']?>/code_even/front/community/teamproject.php">팀 프로젝트</a></li>
+                  <li><a href="http://<?=$_SERVER['HTTP_HOST']?>/code_even/front/community/blog.php">블로그</a></li>
                 </ul>
               </div>
             </li>
@@ -318,17 +330,17 @@ if (isset($_GET['code'])) {
                     </div>
                   </a>
                   <div class="profile_btn d-flex gap-2">
-                    <a href="">쿠폰 <span class="ms-1">1</span></a>
+                    <a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/front/mypage/mypage_coupons.php">쿠폰 <span class="ms-1">1</span></a>
                     <a href="http://<?= $_SERVER['HTTP_HOST'] ?>/code_even/front/mypage/mypage_lecture.php">수강중인강좌 <span class="ms-1">2</span></a>
                   </div>
                 </div>
                 <div class="profile_menu_list">
                   <ul>
-                    <li class="list_pt list_pb"><a href=""><i class="bi bi-book"></i><span>나의 수업</span></a></li>
-                    <li class="list_pt"><a href=""><i class="bi bi-cart"></i><span>장바구니</span></a></li>
+                    <li class="list_pt list_pb"><a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/front/mypage/mypage_lecture.php"><i class="bi bi-book"></i><span>나의 수업</span></a></li>
+                    <li class="list_pt"><a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/front/mypage/mypage_cart.php"><i class="bi bi-cart"></i><span>장바구니</span></a></li>
                     <li class="list_pb"><a href=""><i class="bi bi-heart"></i><span>찜한 강좌</span></a></li>
                     <li class="list_pt"><a href=""><i class="bi bi-person-circle"></i><span>기본 정보 설정</span></a></li>
-                    <li class="list_pb"><a href=""><i class="bi bi-box-arrow-right"></i><span>로그아웃</span></a></li>
+                    <li class="list_pb"><a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/members/login/logout.php"><i class="bi bi-box-arrow-right"></i><span>로그아웃</span></a></li>
                   </ul>
                 </div>
               </div>

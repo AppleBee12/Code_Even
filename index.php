@@ -209,9 +209,9 @@ $main_js = "<script src=\"http://" . $_SERVER['HTTP_HOST'] . "/code_even/front/j
           <div class="reviewBG">
             <div>
               <div>
-                <p class="body2 review_title">기초부터 확실하게!</p>
+                <p class="body2 review_title">HTML/CSS : 기초부터 실전까지 올인원</p>
                 <div class="box">
-                  <span class="review_bk">성춘향</span><span class="body2 review_date">2024년 11월 30일</span>
+                  <span class="review_bk">김태희</span><span class="body2 review_date">2024년 11월 30일</span>
                 </div>
               </div>
               <span>
@@ -222,16 +222,16 @@ $main_js = "<script src=\"http://" . $_SERVER['HTTP_HOST'] . "/code_even/front/j
                 <i class="bi bi-star-fill"></i>
               </span>
             </div>
-            <p class="review_bk">너무 쉽게 알려주셔서 감사합니다. 덕분에 많은 걸 배울 수 있었어요.</p>
+            <p class="review_bk">웹 페이지의 구조를 더욱 깔끔하게 만들 수 있을 것 같습니다.</p>
           </div>
         </li>
         <li class="swiper-slide">
           <div class="reviewBG">
             <div>
               <div>
-                <p class="body2 review_title">기초부터 확실하게!</p>
+                <p class="body2 review_title">기초부터 확실하게!...</p>
                 <div class="box">
-                  <span class="review_bk">성춘향</span><span class="body2 review_date">2024년 11월 30일</span>
+                  <span class="review_bk">이세훈</span><span class="body2 review_date">2024년 11월 30일</span>
                 </div>
               </div>
               <span>
@@ -242,16 +242,16 @@ $main_js = "<script src=\"http://" . $_SERVER['HTTP_HOST'] . "/code_even/front/j
                 <i class="bi bi-star-fill"></i>
               </span>
             </div>
-            <p class="review_bk">너무 쉽게 알려주셔서 감사합니다. 덕분에 많은 걸 배울 수 있었어요.</p>
+            <p class="review_bk">이해도가 높아졌습니다.</p>
           </div>
         </li>
         <li class="swiper-slide">
           <div class="reviewBG">
             <div>
               <div>
-                <p class="body2 review_title">기초부터 확실하게!</p>
+                <p class="body2 review_title">HTML/CSS : 기초부터 실전까지 올인원</p>
                 <div class="box">
-                  <span class="review_bk">성춘향</span><span class="body2 review_date">2024년 11월 30일</span>
+                  <span class="review_bk">조윤호</span><span class="body2 review_date">2024년 11월 30일</span>
                 </div>
               </div>
               <span>
@@ -262,16 +262,16 @@ $main_js = "<script src=\"http://" . $_SERVER['HTTP_HOST'] . "/code_even/front/j
                 <i class="bi bi-star-fill"></i>
               </span>
             </div>
-            <p class="review_bk">너무 쉽게 알려주셔서 감사합니다. 덕분에 많은 걸 배울 수 있었어요.</p>
+            <p class="review_bk"> 다양한 레이아웃을 만드는 데 자신감을 얻었습니다.</p>
           </div>
         </li>
         <li class="swiper-slide">
           <div class="reviewBG">
             <div>
               <div>
-                <p class="body2 review_title">기초부터 확실하게!</p>
+                <p class="body2 review_title">기초부터 확실하게!...</p>
                 <div class="box">
-                  <span class="review_bk">성춘향</span><span class="body2 review_date">2024년 11월 30일</span>
+                  <span class="review_bk">최하늘</span><span class="body2 review_date">2024년 11월 30일</span>
                 </div>
               </div>
               <span>
@@ -279,19 +279,19 @@ $main_js = "<script src=\"http://" . $_SERVER['HTTP_HOST'] . "/code_even/front/j
                 <i class="bi bi-star-fill"></i>
                 <i class="bi bi-star-fill"></i>
                 <i class="bi bi-star-fill"></i>
-                <i class="bi bi-star-fill"></i>
+                <i class="bi bi-star-empty"></i>
               </span>
             </div>
-            <p class="review_bk">너무 쉽게 알려주셔서 감사합니다. 덕분에 많은 걸 배울 수 있었어요.</p>
+            <p class="review_bk">당장 웹 페이지를 개선할 수 있을 것 같아요.</p>
           </div>
         </li>
         <li class="swiper-slide">
           <div class="reviewBG">
             <div>
               <div>
-                <p class="body2 review_title">기초부터 확실하게!</p>
+                <p class="body2 review_title">HTML/CSS : 기초부터 실전까지 올인원</p>
                 <div class="box">
-                  <span class="review_bk">성춘향</span><span class="body2 review_date">2024년 11월 30일</span>
+                  <span class="review_bk">서영준</span><span class="body2 review_date">2024년 11월 30일</span>
                 </div>
               </div>
               <span>
@@ -302,87 +302,7 @@ $main_js = "<script src=\"http://" . $_SERVER['HTTP_HOST'] . "/code_even/front/j
                 <i class="bi bi-star-fill"></i>
               </span>
             </div>
-            <p class="review_bk">너무 쉽게 알려주셔서 감사합니다. 덕분에 많은 걸 배울 수 있었어요.</p>
-          </div>
-        </li>
-        <li class="swiper-slide">
-          <div class="reviewBG">
-            <div>
-              <div>
-                <p class="body2 review_title">기초부터 확실하게!</p>
-                <div class="box">
-                  <span class="review_bk">성춘향</span><span class="body2 review_date">2024년 11월 30일</span>
-                </div>
-              </div>
-              <span>
-                <i class="bi bi-star-fill"></i>
-                <i class="bi bi-star-fill"></i>
-                <i class="bi bi-star-fill"></i>
-                <i class="bi bi-star-fill"></i>
-                <i class="bi bi-star-fill"></i>
-              </span>
-            </div>
-            <p class="review_bk">너무 쉽게 알려주셔서 감사합니다. 덕분에 많은 걸 배울 수 있었어요.</p>
-          </div>
-        </li>
-        <li class="swiper-slide">
-          <div class="reviewBG">
-            <div>
-              <div>
-                <p class="body2 review_title">기초부터 확실하게!</p>
-                <div class="box">
-                  <span class="review_bk">성춘향</span><span class="body2 review_date">2024년 11월 30일</span>
-                </div>
-              </div>
-              <span>
-                <i class="bi bi-star-fill"></i>
-                <i class="bi bi-star-fill"></i>
-                <i class="bi bi-star-fill"></i>
-                <i class="bi bi-star-fill"></i>
-                <i class="bi bi-star-fill"></i>
-              </span>
-            </div>
-            <p class="review_bk">너무 쉽게 알려주셔서 감사합니다. 덕분에 많은 걸 배울 수 있었어요.</p>
-          </div>
-        </li>
-        <li class="swiper-slide">
-          <div class="reviewBG">
-            <div>
-              <div>
-                <p class="body2 review_title">기초부터 확실하게!</p>
-                <div class="box">
-                  <span class="review_bk">성춘향</span><span class="body2 review_date">2024년 11월 30일</span>
-                </div>
-              </div>
-              <span>
-                <i class="bi bi-star-fill"></i>
-                <i class="bi bi-star-fill"></i>
-                <i class="bi bi-star-fill"></i>
-                <i class="bi bi-star-fill"></i>
-                <i class="bi bi-star-fill"></i>
-              </span>
-            </div>
-            <p class="review_bk">너무 쉽게 알려주셔서 감사합니다. 덕분에 많은 걸 배울 수 있었어요.</p>
-          </div>
-        </li>
-        <li class="swiper-slide">
-          <div class="reviewBG">
-            <div>
-              <div>
-                <p class="body2 review_title">기초부터 확실하게!</p>
-                <div class="box">
-                  <span class="review_bk">성춘향</span><span class="body2 review_date">2024년 11월 30일</span>
-                </div>
-              </div>
-              <span>
-                <i class="bi bi-star-fill"></i>
-                <i class="bi bi-star-fill"></i>
-                <i class="bi bi-star-fill"></i>
-                <i class="bi bi-star-fill"></i>
-                <i class="bi bi-star-fill"></i>
-              </span>
-            </div>
-            <p class="review_bk">너무 쉽게 알려주셔서 감사합니다. 덕분에 많은 걸 배울 수 있었어요.</p>
+            <p class="review_bk">실제 프로젝트에서 바로 적용할 수 있을 것 같습니다.</p>
           </div>
         </li>
       </ul>
