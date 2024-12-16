@@ -12,3 +12,14 @@
   }
 
 }
+
+.btn_ok_red{
+  background-color: var(--red800);
+  border-color: var(--red800);
+  font-size: 16px;
+  font-weight: 600;
+}
+.btn_ok_red:hover {
+  background-color: var(--red900);
+  border-color: var(--red900);
+}
