@@ -1,13 +1,38 @@
 <?php
 include_once($_SERVER['DOCUMENT_ROOT'] . '/CODE_EVEN/front/inc/header.php');
+
+$sql = "SELECT category FROM faq";
+$result = $mysqli->query($sql);
+
+$dataArr = [];
+$categories = [];
+$categoryNames = [
+  1 => '결제/환불',
+  2 => '강의',
+  3 => '쿠폰',
+  4 => '가입/탈퇴',
+  5 => '기타',
+  6 => '수료',
+  7 => '정산',
+  8 => '강사',
+];
+while ($data = $result->fetch_object()) {
+  $dataArr[] = $data;
+
+  // 카테고리 저장
+  if (!in_array($data->category, $categories)) {
+    $categories[] = $data->category;
+  }
+}
+
 ?>
 <div class="container">
   <ul class="d-flex justify-content-center service_tab">
     <li class="nav_list_active">
-      <a class="nav_item" href="#">FAQ</a>
+      <a class="nav_item" href="http://<?= $_SERVER['HTTP_HOST'] ?>/code_even/front/service/faq.php">FAQ</a>
     </li>
     <li class="nav_list">
-      <a class="nav_item" href="#">공지사항</a>
+      <a class="nav_item" href="http://<?= $_SERVER['HTTP_HOST'] ?>/code_even/front/service/notice.php">공지사항</a>
     </li>
   </ul>
   <div class="service_title">
@@ -30,21 +55,17 @@ include_once($_SERVER['DOCUMENT_ROOT'] . '/CODE_EVEN/front/inc/header.php');
   </div>
   <div class="faq_content">
     <ul class="d-flex justify-content-center faq_tab">
-      <li class="nav_list">
-        <a class="nav_item" href="#">강의</a>
+      <?php
+        foreach ($categories as $index => $cate) {
+          $categoryName = $categoryNames[$cate] ?? '알 수 없음';
+          $activeClass = ($index === 0) ? 'active' : '';
+      ?>
+      <li class="nav_list <?= $activeClass; ?>">
+        <span><?= htmlspecialchars($categoryName); ?></span>
       </li>
-      <li class="nav_list">
-        <a class="nav_item" href="#">가입/탈퇴</a>
-      </li>
-      <li class="nav_list">
-        <a class="nav_item" href="#">결제/환불</a>
-      </li>
-      <li class="nav_list">
-        <a class="nav_item" href="#">쿠폰</a>
-      </li>
-      <li class="nav_list">
-        <a class="nav_item" href="#">수료</a>
-      </li>
+      <?php
+        }
+      ?>
     </ul>
     <p class="hide">“검색어” 관련 공지사항 검색 결과가 총 <em>1</em>건 있습니다.</p>
 
@@ -98,25 +119,37 @@ include_once($_SERVER['DOCUMENT_ROOT'] . '/CODE_EVEN/front/inc/header.php');
   <div class="myQna">
     <h2 class="headt3">나의 문의내역</h2>
     <table class="table list_table">
-  <thead>
-    <tr>
-      <th scope="col">등록일</th>
-      <th scope="col">문의 분류</th>
-      <th scope="col">제목</th>
-      <th scope="col">상태</th>
-      <th scope="col">삭제</th>
-    </tr>
-  </thead>
-    <tbody>
-      <tr>
-        <th scope="row">1</th>
-        <td>Mark</td>
-        <td>Otto</td>
-        <td>@mdo</td>
-        <td>X</td>
-      </tr>
-    </tbody>
-  </table>
+      <thead>
+        <tr>
+          <th scope="col">등록일</th>
+          <th scope="col">문의 분류</th>
+          <th scope="col">제목</th>
+          <th scope="col">상태</th>
+          <th scope="col">삭제</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th scope="row">1</th>
+          <td>Mark</td>
+          <td>Otto</td>
+          <td>@mdo</td>
+          <td>X</td>
+        </tr>
+      </tbody>
+    </table>
   </div>
 </div>
+<script>
+const tabs = document.querySelectorAll(".faq_content ul li");
+tabs.forEach(tab => {
+  tab.addEventListener("click", function () {
+    tabs.forEach(t => t.classList.remove("active"));
+    this.classList.add("active");
+    // 연결된 콘텐츠 활성화
+    const target = this.getAttribute("data-tab");
+    document.getElementById(target).classList.add("active");
+  });
+});
+</script>
 <?php include_once($_SERVER['DOCUMENT_ROOT'] . '/CODE_EVEN/front/inc/footer.php');?>
