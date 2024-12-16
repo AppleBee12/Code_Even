@@ -109,6 +109,7 @@ if (isset($_GET['code'])) {
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
   <link rel="stylesheet" href="http://<?= $_SERVER['HTTP_HOST'] ?>/code_even/front/css/common.css">
+  <link rel="stylesheet" href="http://<?= $_SERVER['HTTP_HOST'] ?>/code_even/front/css/main.css">
 
 
   <!-- 개인 CSS -->
@@ -161,11 +162,6 @@ if (isset($_GET['code'])) {
       echo '<link rel="stylesheet" href="http://' . $_SERVER['HTTP_HOST'] . '/code_even/front/css/lecture.css">';
       break;
   }
-  switch ($page) { //mypage_coupons.css
-    case 'faq.php':
-      echo '<link rel="stylesheet" href="http://' . $_SERVER['HTTP_HOST'] . '/code_even/front/css/service.css">';
-      break;
-  }
   ?>
 
   <!-- jquery, swiper 제외한 모든 js는 푸터 -->
@@ -190,7 +186,7 @@ if (isset($_GET['code'])) {
               <li>
                 <a href="#" data-bs-toggle="modal" data-bs-target="#exampleModaltest" data-bs-whatever="@mdo">로그인</a>
               </li>
-              <li><a href="front/signup/signup.php">회원가입</a></li>
+              <li><a href="http://<?= $_SERVER['HTTP_HOST'] ?>/code_even/front/signup/signup.php">회원가입</a></li>
             <?php } else { ?>
               <li>
                 <a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/front/login/logout.php">로그아웃</a>
@@ -198,7 +194,7 @@ if (isset($_GET['code'])) {
             <?php
             }
             ?>
-            <li><a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/front/service/faq.php">고객센터</a></li>
+            <li><a href="#">고객센터</a></li>
           </ul>
         </div>
       </div>
@@ -206,76 +202,76 @@ if (isset($_GET['code'])) {
         <nav class="header_menu">
           <ul class="d-flex align-items-center">
             <li class="menu_depth1">
-              <a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/front/lecture_list.php">강좌</a>
+              <a href="">강좌</a>
               <div class="menu_depth2">
                 <ul class="depth2_lec">
                   <li>
-                    <a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/front/lecture_list.php?category=B0001">프론트엔드</a>
+                    <a href="">프론트엔드</a>
                     <div class="menu_depth3">
                       <ul>
-                        <li><a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/front/lecture_list.php?category=C0001">HTML/CSS</a></li>
-                        <li><a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/front/lecture_list.php?category=C0002">JavaScript</a></li>
-                        <li><a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/front/lecture_list.php?category=C0003">jQuery</a></li>
-                        <li><a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/front/lecture_list.php?category=C0004">React</a></li>
-                        <li><a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/front/lecture_list.php?category=C0005">Angular</a></li>
-                        <li><a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/front/lecture_list.php?category=C0006">Vue.js</a></li>
-                        <li><a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/front/lecture_list.php?category=C0007">TypeScript</a></li>
+                        <li><a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/front/lecture_list.php">HTML/CSS</a></li>
+                        <li><a href="">JavaScript</a></li>
+                        <li><a href="">jQuery</a></li>
+                        <li><a href="">React</a></li>
+                        <li><a href="">Angular</a></li>
+                        <li><a href="">Vue.js</a></li>
+                        <li><a href="">TypeScript</a></li>
                       </ul>
                     </div>
                   </li>
                   <li>
-                    <a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/front/lecture_list.php?category=B0002">백엔드</a>
+                    <a href="">백엔드</a>
                     <div class="menu_depth3">
                       <ul>
-                        <li><a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/front/lecture_list.php?category=C0008">Java</a></li>
-                        <li><a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/front/lecture_list.php?category=C0009">PHP</a></li>
-                        <li><a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/front/lecture_list.php?category=C0010">Next.js</a></li>
-                        <li><a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/front/lecture_list.php?category=C0011">Node.js</a></li>
+                        <li><a href="">Java</a></li>
+                        <li><a href="">PHP</a></li>
+                        <li><a href="">Next.js</a></li>
+                        <li><a href="">Node.js</a></li>
                       </ul>
                     </div>
                   </li>
                   <li>
-                    <a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/front/lecture_list.php?category=B0003">클라우드 컴퓨팅</a>
+                    <a href="">클라우드 컴퓨팅</a>
                     <div class="menu_depth3">
                       <ul>
-                        <li><a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/front/lecture_list.php?category=C0012">AWS</a></li>
-                        <li><a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/front/lecture_list.php?category=C0013">Azure</a></li>
-                        <li><a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/front/lecture_list.php?category=C0014">Google Cloud Platform</a></li>
-                        <li><a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/front/lecture_list.php?category=C0015">DevOps</a></li>
-                        <li><a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/front/lecture_list.php?category=C0016">kubernetes</a></li>
+                        <li><a href="">AWS</a></li>
+                        <li><a href="">Azure</a></li>
+                        <li><a href="">Google Cloud Platform</a></li>
+                        <li><a href="">DevOps</a></li>
+                        <li><a href="">kubernetes</a></li>
                       </ul>
                     </div>
                   </li>
                   <li>
-                    <a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/front/lecture_list.php?category=B0004">데이터베이스</a>
+                    <a href="">데이터베이스</a>
                     <div class="menu_depth3">
                       <ul>
-                        <li><a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/front/lecture_list.php?category=C0017">SQL</a></li>
-                        <li><a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/front/lecture_list.php?category=C0018">MySQL</a></li>
-                        <li><a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/front/lecture_list.php?category=C0019">PostgreSQL</a></li>
-                        <li><a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/front/lecture_list.php?category=C0020">Oracle</a></li>
-                        <li><a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/front/lecture_list.php?category=C0021">NoSQL</a></li>
-                        <li><a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/front/lecture_list.php?category=C0022">MongoDB</a></li>
-                        <li><a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/front/lecture_list.php?category=C0023">Cassandra</a></li>
-                        <li><a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/front/lecture_list.php?category=C0024">Couchbase</a></li>
+                        <li><a href="">SQL</a></li>
+                        <li><a href="">MySQL</a></li>
+                        <li><a href="">PostgreSQL</a></li>
+                        <li><a href="">Oracle</a></li>
+                        <li><a href="">NoSQL</a></li>
+                        <li><a href="">MongoDB</a></li>
+                        <li><a href="">Cassandra</a></li>
+                        <li><a href="">Couchbase</a></li>
                       </ul>
                     </div>
                   </li>
                   <li>
-                    <a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/front/lecture_list.php?category=B0005">네트워크 관리</a>
+                    <a href="">네트워크 관리</a>
                     <div class="menu_depth3">
                       <ul>
-                        <li><a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/front/lecture_list.php?category=C0025">TCP/IP</a></li>
-                        <li><a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/front/lecture_list.php?category=C0026">C/C++</a></li>
+                        <li><a href="">TCP/IP</a></li>
+                        <li><a href="">C/C++</a></li>
                       </ul>
                     </div>
                   </li>
                   <li>
-                    <a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/front/lecture_list.php?category=B0006">보안</a>
+                    <a href="">보안</a>
                     <div class="menu_depth3">
                       <ul>
-                        <li><a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/front/lecture_list.php?category=C0027">CPPG</a></li>
-                        <li><a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/front/lecture_list.php?category=C0028">security</a></li>
+                        <li><a href="">CPPG</a></li>
+                        <li><a href="">security</a></li>
                       </ul>
                     </div>
                   </li>
@@ -350,7 +346,7 @@ if (isset($_GET['code'])) {
                     <li class="list_pt"><a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/front/mypage/mypage_cart.php"><i class="bi bi-cart"></i><span>장바구니</span></a></li>
                     <li class="list_pb"><a href=""><i class="bi bi-heart"></i><span>찜한 강좌</span></a></li>
                     <li class="list_pt"><a href=""><i class="bi bi-person-circle"></i><span>기본 정보 설정</span></a></li>
-                    <li class="list_pb"><a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/members/login/logout.php"><i class="bi bi-box-arrow-right"></i><span>로그아웃</span></a></li>
+                    <li class="list_pb"><a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/front/login/logout.php"><i class="bi bi-box-arrow-right"></i><span>로그아웃</span></a></li>
                   </ul>
                 </div>
               </div>
@@ -370,8 +366,10 @@ if (isset($_GET['code'])) {
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         <div class="modal-header d-flex justify-content-center">
           <div class="wrappers d-flex row justify-content-center">
-            <img src="admin/images/txt_logo.png" class="mt-5" width="309" height="46" alt="코드이븐로고">
-            <h1 class="modal-title fs-5 mt-5 d-flex justify-content-center" id="exampleModalLabel login">로그인</h1>
+            <div class="header_logo">
+              <h1 class="login_logo logo text-center"><a href="http://<?= $_SERVER['HTTP_HOST'] ?>/code_even/index.php">CODE EVEN</a></h1>
+            </div>
+            <h1 class="modal-title headt4 mt-3 d-flex justify-content-center" id="exampleModalLabel login">로그인</h1>
           </div>
         </div>
         <div class="modal-body">
@@ -385,15 +383,19 @@ if (isset($_GET['code'])) {
               <input type="password" class="form-control pw" id="inputPassword" placeholder="비밀번호를 입력하세요" name="userpw" required>
             </div>
             <div class="modal-footer d-flex justify-content-center">
-              <div class="d-flex row">
+              <div class="d-flex row gap-1">
                 <button class="btn loginbtn redbtn">로그인</button>
-                <a href="https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=a292c01fc2579fbd7965ca9524a3032f&redirect_uri=http://localhost/code_even/" class="kakao"><img src="images/kakao_login_large_wide.png" width="360" height="34" class="mt-1 " /></a>
+                <button class="btn kakao_loginbtn yellowbtn">
+                  <a href="https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=a292c01fc2579fbd7965ca9524a3032f&redirect_uri=http://localhost/code_even/" class="kakao m-0 ">
+                    카카오 로그인
+                  </a>
+                </button>
               </div>
 
               <div class="mt-3 d-flex justify-content-center gap-3 mb-5">
                 <a href="#" class="link-body-emphasis ">아이디 찾기</a>
                 <a href="#" class="link-body-emphasis">비밀번호 찾기</a>
-                <a href="members/signup/signup.php" class="link-body-emphasis text-decoration-underline">회원가입</a>
+                <a href="http://<?= $_SERVER['HTTP_HOST'] ?>/code_even/front/signup/signup.php" class="link-body-emphasis text-decoration-underline">회원가입</a>
               </div>
             </div>
           </form>

@@ -127,22 +127,36 @@
       color: #000;
     }
   }
-  .redbtn{
-    background: var(--red800);
+  .redbtn, .yellowbtn{
     border: none;
     color: white;
     width: 360px;
     margin: 0 auto; 
   }
-  a.kakao{
+  .redbtn{
+    background: var(--red800);
+  }
+  /* a.kakao{
     width: 360px;
     margin-left: 75px; 
-  }
+  } */
   .redbtn:hover{
     background: var(--red900);
     border: none;
   }
+  .yellowbtn{
+    background: #FEE500;
+    a{
+      color: #181600;
+    }
+  }
+  .yellowbtn:hover{
+    background: #FEE500;
+    a{
+      color: #181600;
+    }
 
+  }
 /* sec01 시작 */
 
 .sec01_banner {
