@@ -88,6 +88,7 @@ let reviewSwiper = new Swiper('.sec05_swiper', {
   loop: true,
   slidesPerView: 3,
   speed: 2000,
+  centeredSlides: true,
   direction: 'vertical',
   autoplay: {
     delay: 0

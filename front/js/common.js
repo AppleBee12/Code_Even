@@ -1,4 +1,6 @@
 $(document).ready(function () {
+
+  //Header 검색창
   const $searchInput = $("#searchInput");
   const $clearIcon = $("#clearSearch i");
 
@@ -19,22 +21,27 @@ $(document).ready(function () {
   });
 
 
-  const $profileToggle = $("#profileToggle");
+  //Header 아이콘 퀵메뉴
+  const $profileIcon = $("#profileIcon");
   const $profileMenu = $(".profile_menu");
 
-  // 프로필 아이콘 클릭 시 메뉴 토글
-  $profileToggle.on("click", function (e) {
-    e.preventDefault(); // 기본 링크 동작 방지
-    $profileMenu.toggle(); // 메뉴의 display 토글
+  $profileIcon.on("click", function (e) {
+    e.preventDefault(); 
+    e.stopPropagation(); 
+    $profileMenu.toggle();
   });
 
   // 페이지 외부 클릭 시 메뉴 닫기
   $(document).on("click", function (e) {
-    if (!$profileToggle.is(e.target) && !$profileMenu.is(e.target) && $profileMenu.has(e.target).length === 0) {
+    if (!$profileIcon.is(e.target) && !$profileMenu.is(e.target) && $profileMenu.has(e.target).length === 0) {
       $profileMenu.hide(); // 메뉴 닫기
     }
   });
 
+   // 메뉴 내부 클릭 시 이벤트 버블링 방지
+   $profileMenu.on("click", function (e) {
+    e.stopPropagation();
+  });
 
 
 

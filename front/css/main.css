@@ -250,13 +250,20 @@
 
 /* sec04 끝 */
 /* sec05 시작 */
-.sec05 {background: var(--bk950); height: 600px; overflow: hidden;}
+.sec05 {
+  background: 
+  url('../images/reviewBG.png') no-repeat,
+  var(--bk950); 
+  background-position: 70% 50%;
+  height: 600px; overflow: hidden;
+}
 .reviewBG {
   background: var(--bk0); width: 500px; border-radius: 10px; 
-  padding: 30px; display: flex; flex-direction: column; gap: 20px;
+  padding: 30px; display: flex; flex-direction: column; gap: 30px;
   box-shadow: 12px 12px 8px 0 rgba(0,0,0,.5);
 }
-.reviewBG span i {color: #FFCE0C;}
+.reviewBG span .bi-star-fill {color: #FFCE0C;}
+.reviewBG span .bi-star-empty {color: var(--bk300);}
 .reviewBG .box {display: flex; align-items: center; gap: 10px;}
 .reviewBG li {display: inline-block;}
 .review_title {color: var(--red700); font-weight: bold; margin-bottom: 0;}
@@ -264,7 +271,7 @@
 .review_date {color: var(--bk500); font-weight: bold; margin-bottom: 0;}
 
 .sec05 .container {height: 100%;}
-.sec05 .swiper {width: 600px; height: 100%;}
+.sec05 .swiper {width: 500px;}
 .sec05 .swiper .swiper-wrapper {
   width: 100%; display: flex;
 }
@@ -274,16 +281,56 @@
 }
 
 .reviewContent {display: flex; flex-direction: column; justify-content: center; align-items: flex-start; gap: 40px;}
-.reviewTitle {color: var(--bk50); width: 532px; word-break: keep-all;}
+.reviewTitle {color: var(--bk50); width: 502px; word-break: keep-all; line-height: 64px;}
 .reviewMore {background: none; border: 1px solid var(--bk50); color: var(--bk50); padding: 16px 24px; border-radius: 6px; font-weight: bold;}
 .reviewMore:hover {background: var(--bk50); color: var(--bk1000);}
 
 
 /* sec05 끝 */
+
 /* sec06 시작 */
+.sec06{
+  padding-top: 90px;
+  padding-bottom: 90px;
+  text-align: center;
+  h2{
+    margin-bottom: 60px;
+  }
+  .card{
+    background: none;
+    border: 0.8px solid var(--bk400);
+    color: var(--bk200);
+    text-align: left;
+    position: relative;
+  }
+  .badge{
+    background: var(--red900);
+    position: absolute;
+    top: 15px; left: 15px;
+    padding: 10px;
+    font-size: 14px;
+    font-weight: 500;
+  }
+  .card-img-top{
+    background: var(--bk100);
+  }
+  .card-body{
+    padding: 24px;
+    .tc_desc{
+      color: var(--bk300);
+      line-height: 24px;
+    }
+    .tc_tit{
+      font-size: 20px;
+      font-weight: 600;
+    }
+  }
+}
+
 
 
 /* sec06 끝 */
+
 /* sec07 시작 */
 .sec_height{
   height: 400px;

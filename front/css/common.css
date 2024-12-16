@@ -378,8 +378,8 @@ header {
     display: block; 
     color: var(--bk200);
   }
-  .mini_profile > i{
-    font-size: 24px;
+  .mini_profile > a > i{
+    font-size: 23px;
   }
 }
 
@@ -388,9 +388,9 @@ header {
 }
 
 .profile_menu {
-  display: block; 
+  display: none; 
   position: absolute;
-  top: 63px;
+  top: 62px;
   right: 0;
   background-color: #5A5A5A;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
@@ -404,47 +404,22 @@ header {
   }
 }
 
-.profile_menu_list{
-  padding: 20px;
-}
-.profile_menu ul {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-}
-
-.profile_menu ul li {
-  margin: 10px 0;
-}
-
-.profile_menu ul li a {
-  text-decoration: none;
-  color: var(--bk200);
-  display: block;
-  padding: 5px 10px;
-  border-radius: 5px;
-}
-
-.profile_menu ul li a:hover {
-  background-color: var(--bk900);
-}
-
 .profile_header {
-  margin-bottom: 12px;
-}
-
-.profile_header img {
-  width: 50px;
-  height: 50px;
-}
-
-.profile_header p {
-  margin-left: 28px;
-  color: var(--bk200);
-  flex: 1;
-}
-.profile_header i{
-  font-size: 16px;
+  margin-bottom: 18px;
+  img {
+    width: 60px;
+    height: 60px;
+  }
+  p {
+    margin-left: 24px;
+    color: var(--bk200);
+    flex: 1;
+    font-size: 18px;
+  }
+  i{
+    font-size: 16px;
+  }
+  
 }
 
 .profile_btn{
@@ -460,6 +435,42 @@ header {
     }
   }
 }
+
+.profile_menu_list{
+  li{ 
+    padding: 10px 40px;
+    box-sizing: border-box;
+    font-weight: 400;
+  }
+  .list_pt{
+    padding-top: 18px;
+  }
+  .list_pb{
+    padding-bottom: 18px;
+  }
+  li:first-child, li:nth-child(3){
+    border-bottom: 1px solid var(--bk900);
+  }
+  li a {
+    display: flex; 
+    align-items: center;
+    color: var(--bk100);
+    transition: all 0.3s ease;
+  }
+  li a i{
+    margin-right: 20px;
+    font-size: 17px;
+  }
+  li a i::before{
+    display: block; 
+  }
+}
+
+.profile_menu_list li:hover a{
+  font-weight: 500;
+  color: var(--bk300);
+}
+
 
 
 /* 푸터 footer */

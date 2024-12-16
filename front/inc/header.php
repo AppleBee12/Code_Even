@@ -116,6 +116,7 @@ if (isset($_GET['code'])) {
   $page = basename($_SERVER['PHP_SELF']); // 현재 실행 중인 페이지 이름을 가져옵니다
   switch ($page) { //main.css
     case 'index.php':
+    case 'tc_applyform.php':
       echo '<link rel="stylesheet" href="http://' . $_SERVER['HTTP_HOST'] . '/code_even/front/css/main.css">';
       break;
   }
@@ -123,6 +124,7 @@ if (isset($_GET['code'])) {
   switch ($page) { //mypage_header.css, 마이페이지가 추가되면 이 아래에 php이름을 추가하세요
     case 'mypage_header.php':
     case 'mypage_lecture.php':
+    case 'mypage_coupons.php':
     case 'mypage_copy.php':
       echo '<link rel="stylesheet" href="http://' . $_SERVER['HTTP_HOST'] . '/code_even/front/css/mypage_header.css">';
       break;
@@ -142,6 +144,16 @@ if (isset($_GET['code'])) {
     case 'teamproject.php':
     case 'blog.php':
       echo '<link rel="stylesheet" href="http://' . $_SERVER['HTTP_HOST'] . '/code_even/front/css/community.css">';
+      break;
+  }
+  switch ($page) { //tc_applyform.css
+    case 'tc_applyform.php':
+      echo '<link rel="stylesheet" href="http://' . $_SERVER['HTTP_HOST'] . '/code_even/front/css/tc_applyform.css">';
+      break;
+  }
+  switch ($page) { //mypage_coupons.css
+    case 'mypage_coupons.php':
+      echo '<link rel="stylesheet" href="http://' . $_SERVER['HTTP_HOST'] . '/code_even/front/css/mypage_coupons.css">';
       break;
   }
   ?>
@@ -305,7 +317,7 @@ if (isset($_GET['code'])) {
               </a>
             </div>
             <div class="mini_profile">
-              <a href="">
+              <a id="profileIcon" href="">
                 <i class="bi bi-person"></i>
               </a>
               <div class="profile_menu">
@@ -324,11 +336,11 @@ if (isset($_GET['code'])) {
                 </div>
                 <div class="profile_menu_list">
                   <ul>
-                    <li><a href=""><i class="bi bi-book"></i>나의 수업</a></li>
-                    <li><a href=""><i class="bi bi-cart"></i>장바구니</a></li>
-                    <li><a href=""><i class="bi bi-heart"></i>찜한 강좌</a></li>
-                    <li><a href=""><i class="bi bi-person-circle"></i>기본 정보 설정</a></li>
-                    <li><a href=""><i class="bi bi-box-arrow-right"></i>로그아웃</a></li>
+                    <li class="list_pt list_pb"><a href=""><i class="bi bi-book"></i><span>나의 수업</span></a></li>
+                    <li class="list_pt"><a href=""><i class="bi bi-cart"></i><span>장바구니</span></a></li>
+                    <li class="list_pb"><a href=""><i class="bi bi-heart"></i><span>찜한 강좌</span></a></li>
+                    <li class="list_pt"><a href=""><i class="bi bi-person-circle"></i><span>기본 정보 설정</span></a></li>
+                    <li class="list_pb"><a href=""><i class="bi bi-box-arrow-right"></i><span>로그아웃</span></a></li>
                   </ul>
                 </div>
               </div>

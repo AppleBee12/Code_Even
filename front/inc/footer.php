@@ -9,7 +9,7 @@
         </div>
       <div>
         <div class="tc_borderline">
-          <a href="tc_applyform.php">강사 신청하러 가기
+          <a href="http://<?= $_SERVER['HTTP_HOST'] ?>/code_even/tc_applyform.php">강사 신청하러 가기
             <!-- <i class="fa-solid fa-arrow-up-right-from-square"></i> -->
           </a>
         </div>
