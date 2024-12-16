@@ -102,7 +102,15 @@
   .form-label{
     margin-bottom: 0;
   }
-
+  .width_ch{
+    width: 404px;
+  }
+  .padding_ch{
+    padding-left: 100px;
+  }
+.signin_logo{
+  font-size: 100px;
+}
   /* .w_input{
     margin-left: -6%;
   } */

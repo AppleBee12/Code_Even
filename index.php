@@ -39,7 +39,7 @@ $main_js = "<script src=\"http://" . $_SERVER['HTTP_HOST'] . "/code_even/front/j
           <a href="admin/inquiry/notice.php">문의 게시판 관리 </a>
         </span><br>
         <span><b>조채림 : </b>
-          <a href="members/signup/signup.php">로그인/회원가입, </a>
+          <a href="front/signup/signup.php">로그인/회원가입, </a>
           <a href="admin/category/category.php">카테고리관리, </a>
           <a href="admin/coupons/coupons.php">쿠폰관리 </a>
         </span><br>
@@ -354,7 +354,7 @@ $main_js = "<script src=\"http://" . $_SERVER['HTTP_HOST'] . "/code_even/front/j
           코드이븐의 꿈나무들에게 미래를 응원해주세요!</div>
         </div>  
         <div class="tc_borderline_banner mt-5">
-          <a href="tc_applyform.php">강사 신청하러 가기</a>
+          <a href="front/signup/tc_applyform.php">강사 신청하러 가기</a>
         </div>
       </div>
       <div class="logo_img d-flex align-items-center col-6 justify-content-end">

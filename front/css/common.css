@@ -122,6 +122,11 @@ body{
   line-height: 30px;
 }
 
+/* 입력필수값 "*별모양" */
+th b,
+label b {
+  color: var(--red950);
+}
 
 
  

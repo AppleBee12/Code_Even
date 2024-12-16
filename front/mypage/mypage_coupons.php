@@ -10,7 +10,7 @@ include_once($_SERVER['DOCUMENT_ROOT'] . '/CODE_EVEN/front/inc/mypage_header.php
 if (!isset($_SESSION['AUID'])) {
   echo "<script>
   alert('로그인을 해주세요');
-  location.href='../login/login.php';
+  location.href='../../index.php';
   </script>";
 }
 // 게시글 개수 구하기
@@ -66,7 +66,7 @@ while ($data = $result->fetch_object()) {
   }
 
   .card {
-    width: 45%;
+    width: 46%;
     height: 210px;
     .c-img img{
       height: 210px;
@@ -76,6 +76,9 @@ while ($data = $result->fetch_object()) {
   .cps {
     /* gap: 110px; */
     height: 250px;
+  }
+  .text-bd-secondary{
+    color: var(--bk700);
   }
   
 </style>

@@ -180,10 +180,10 @@ if (isset($_GET['code'])) {
               <li>
                 <a href="#" data-bs-toggle="modal" data-bs-target="#exampleModaltest" data-bs-whatever="@mdo">로그인</a>
               </li>
-              <li><a href="members/signup/signup.php">회원가입</a></li>
+              <li><a href="front/signup/signup.php">회원가입</a></li>
             <?php } else { ?>
               <li>
-                <a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/members/login/logout.php">로그아웃</a>
+                <a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/front/login/logout.php">로그아웃</a>
               </li>
             <?php
             }
@@ -365,7 +365,7 @@ if (isset($_GET['code'])) {
           </div>
         </div>
         <div class="modal-body">
-          <form action="members/login/login_ok.php" method="POST">
+          <form action="front/login/login_ok.php" method="POST">
             <div class="mb-3 d-flex justify-content-center gap-4 mid">
               <label for="inputId" class="col-form-label align-self-center">아이디</label>
               <input type="text" class="form-control id" id="inputId" placeholder="아이디를 입력하세요" name="userid" required>
