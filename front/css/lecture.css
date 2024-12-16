@@ -1,0 +1,117 @@
+/* lecture_list.php */
+
+.title_wrap {
+  margin-top: 90px;
+  margin-bottom: 90px;
+}
+
+
+/* Outline-only badge */
+.badge-outline {
+  color: #C93333 !important;
+  /* 텍스트 색 */
+  background-color: transparent !important;
+  /* 내부색 제거 */
+  border: 1px solid #C93333 !important;
+  /* 테두리 색 */
+}
+
+.tc_name {
+  color: var(--bk500);
+}
+
+.acc_title {
+  background: #BCBCBC;
+  height: 50px;
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--bk900);
+  position: relative;
+
+  p {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    padding-left: 20px;
+  }
+}
+
+.accordion {
+  --bs-accordion-btn-focus-box-shadow: none;
+  --bs-accordion-btn-active-icon: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='none' stroke='%23fff' stroke-linecap='round' stroke-linejoin='round'%3e%3cpath d='M2 5L8 11L14 5'/%3e%3c/svg%3e");
+}
+
+.accordion-item,
+.accordion-item:first-of-type>.accordion-header .accordion-button {
+  border-top-left-radius: 0 !important;
+  border-top-right-radius: 0 !important;
+  border-bottom-left-radius: 0 !important;
+  border-bottom-right-radius: 0 !important;
+}
+
+.accordion-button:not(.collapsed) {
+  color: #fff;
+  background-color: rgba(0, 0, 0, .7);
+}
+
+.accordion-button {
+  padding-left: 40px;
+}
+
+.accordion-body {
+
+  padding: 0;
+
+  li {
+    height: 50px;
+    padding-left: 60px;
+    position: relative;
+
+    a {
+      color: rgba(0, 0, 0, .7);
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+    }
+  }
+
+  li:hover {
+    background-color: rgba(0, 0, 0, .7);
+    
+    a{
+      color: #fff;
+    }
+  }
+}
+
+.lecture_box{
+  
+  .image_box{
+    height: 200px;
+    position: relative;
+    overflow: hidden;
+    
+    img{
+      width: 100%;
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      object-fit: cover;
+    }
+  }
+
+}
+
+.bi-star-fill {
+  color: #FFCE0C;
+}
+
+.bi-heart-fill {
+  color: var(--primary);
+}
+
+.list_pagination{
+  margin-top: 90px;
+  margin-bottom: 90px;
+}
