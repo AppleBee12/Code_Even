@@ -160,12 +160,7 @@ section.mypage_header .row{
   justify-content: center;
   align-items: center;
   border-bottom: 3px solid var(--bk0);
-}
-
-.mypage_tap a{
   color: var(--bk900);
-  display: block;
-  width: 100%;
 }
 
 .nav-underline .nav-link.active, 
