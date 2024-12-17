@@ -233,22 +233,28 @@
                 <!-- 상 시작-->
                 <div>
                   <?php if ($item->isbest == 1) { ?>
-                    <i class="bi bi-heart"></i>
+                    <span class="badge badge-outline">BEST</span>
                   <?php } else { ?>
-                    <i class="bi bi-heart d-none"></i> <!-- 숨김 -->
+                    <span class="badge badge-outline d-none">BEST</span> <!-- 숨김 -->
                   <?php } ?>
-
                   <?php if ($item->isnew == 1) { ?>
-                    <i class="bi bi-heart-fill"></i>
+                    <span class="badge badge-outline">NEW</span>
                   <?php } else { ?>
-                    <i class="bi bi-heart-fill d-none"></i> <!-- 숨김 -->
+                    <span class="badge badge-outline d-none">NEW</span> <!-- 숨김 -->
                   <?php } ?>
-
-                  <?php if ($item->course_type === 'recipe') { ?>
-                    <i class="bi bi-cart-plus"></i>
-                  <?php } else { ?>
-                    <i class="bi bi-cart-plus d-none"></i> <!-- 숨김 -->
+                  <?php
+                  // course_type이 recipe일 경우 '레시피'로 표시
+                  if ($item->course_type === 'recipe') { ?>
+                    <span class="badge text-bg-danger">레시피</span>
+                  <?php
+                    // course_type이 general이 아닌 경우만 출력
+                  } elseif ($item->course_type !== 'general') { ?>
+                    <span class="badge text-bg-danger"><?= htmlspecialchars($item->course_type); ?></span>
                   <?php } ?>
+                  <div class="d-flex gap-2">
+                    <i class="bi bi-star-fill"></i>
+                    <span>5.0</span>
+                  </div>
                 </div>
                 <div class="d-flex gap-2">
                   <i class="bi bi-star-fill"></i>
@@ -269,11 +275,25 @@
                 <div>
                   <b><?= number_format($item->price); ?></b>원
                 </div>
-                <div class="icon-container">
-                  <i class="bi bi-heart heart-icon" id="heart-icon"></i>
-                  <i class="bi bi-heart-fill heart-icon-filled d-none" id="heart-icon-filled"></i>
-                  <i class="bi bi-cart-plus"></i>
-                </div>      
+                <div>
+                  <?php if ($item->isbest == 1) { ?>
+                    <i class="bi bi-heart"></i>
+                  <?php } else { ?>
+                    <i class="bi bi-heart d-none"></i> <!-- 숨김 -->
+                  <?php } ?>
+
+                  <?php if ($item->isnew == 1) { ?>
+                    <i class="bi bi-heart-fill"></i>
+                  <?php } else { ?>
+                    <i class="bi bi-heart-fill d-none"></i> <!-- 숨김 -->
+                  <?php } ?>
+
+                  <?php if ($item->course_type === 'recipe') { ?>
+                    <i class="bi bi-cart-plus"></i>
+                  <?php } else { ?>
+                    <i class="bi bi-cart-plus d-none"></i> <!-- 숨김 -->
+                  <?php } ?>
+                </div>     
               </div>
               <!-- 하 끝 -->
             </div>
