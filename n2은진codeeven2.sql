@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- 생성 시간: 24-12-13 09:06
+-- 생성 시간: 24-12-17 08:29
 -- 서버 버전: 10.4.32-MariaDB
 -- PHP 버전: 8.2.12
 
@@ -194,6 +194,13 @@ CREATE TABLE `order_delivery` (
   `tracking_num` int(11) DEFAULT NULL COMMENT '운송장번호'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- 테이블의 덤프 데이터 `order_delivery`
+--
+
+INSERT INTO `order_delivery` (`oddvid`, `odid`, `oddtid`, `uid`, `bookid`, `book_title`, `cnt`, `order_date`, `pay_status`, `delivery_status`, `arrival_date`, `tracking_num`) VALUES
+(1, 20, 20, 34, 1, '실무자 JAVA 코스\r\n', 1, '2024-12-15 17:14:44', 0, 0, NULL, 2147483647);
+
 -- --------------------------------------------------------
 
 --
@@ -247,7 +254,8 @@ INSERT INTO `order_details` (`oddtid`, `odid`, `tc_uid`, `product_id`, `product_
 
 CREATE TABLE `refunds` (
   `reid` int(11) NOT NULL COMMENT '환불고유번호',
-  `oddtid` int(11) NOT NULL COMMENT '주문상세항목고유번호',
+  `odid` int(11) NOT NULL COMMENT '주문고유번호',
+  `uid` int(11) NOT NULL COMMENT '회원고유번호',
   `refund_date` datetime NOT NULL DEFAULT current_timestamp() COMMENT '환불요청일자',
   `re_amount` decimal(10,2) NOT NULL COMMENT '환불금액',
   `re_status` tinyint(4) NOT NULL DEFAULT 0 COMMENT '환불상태(환불요청0)',
@@ -273,6 +281,7 @@ CREATE TABLE `teachers` (
   `tc_cate` varchar(50) NOT NULL COMMENT '대표분야',
   `tc_url` varchar(100) DEFAULT NULL COMMENT '사이트링크',
   `tc_thumbnail` varchar(100) DEFAULT NULL COMMENT '프로필이미지',
+  `tc_main_intro` varchar(30) NOT NULL COMMENT '메인소개글',
   `tc_intro` varchar(250) NOT NULL COMMENT '소개글',
   `tc_bank` varchar(50) DEFAULT NULL COMMENT '은행명',
   `tc_account` varchar(50) DEFAULT NULL COMMENT '계좌번호',
@@ -285,40 +294,40 @@ CREATE TABLE `teachers` (
 -- 테이블의 덤프 데이터 `teachers`
 --
 
-INSERT INTO `teachers` (`tcid`, `uid`, `cgid`, `tc_userid`, `tc_name`, `tc_userphone`, `tc_email`, `tc_cate`, `tc_url`, `tc_thumbnail`, `tc_intro`, `tc_bank`, `tc_account`, `tc_ok`, `isrecom`, `isnew`) VALUES
-(1, 2, 1, 'even_teacher', '이븐선생', '010-4567-8910', 'eventeacher@even.co.kr', '1', '', '', '안녕하세요 익힘의 정도가 적절한 이븐선생입니다~', '', '', 1, 1, 0),
-(2, 4, 1, 'my_teacher', '김동주', '010-4567-8910', 'rocks@even.co.kr', '1', 'https://www.youtube.com/@Ezweb', '/code_even/admin/upload/teacher/20241120172340324741.jpg', '반갑습니다. 바위처럼, 이지웹입니다.', '', '', 1, 1, 0),
-(3, 70, 2, 'teacher3', '조한결', '010-8723-4519', 'user70@example.com', '2', 'https://www.youtube.com/@jocode-official', '/code_even/admin/upload/teacher/20241120175857212464.png', 'JoCODE 조한결 입니다.', '', '', 1, 0, 1),
-(4, 68, 3, 'teacher4', '이상민', '010-9482-1365', 'user68@example.com', '3', '', '/code_even/admin/upload/teacher/20241120181520409651.png', '새로운 기술을 학습하고 전달하는 것을 좋아합니다.', '', '', 1, 0, 0),
-(5, 75, 1, 'teacher5', '코딩웍스', '010-2345-6789', 'randomuser1@example.com', '1', 'https://www.youtube.com/@CodingWorks', '/code_even/admin/upload/teacher/20241213083843819429.png', '<p><br></p>', '', '', 1, 0, 0),
-(6, 76, 1, 'teacher6', '얄코', '010-8765-4321', 'user6@example.com', '1', 'https://www.youtube.com/@yalco-coding', '/code_even/admin/upload/teacher/20241213084239189335.png', '<p><br></p>', '', '', 1, 0, 0),
-(7, 77, 1, 'teacher7', '조코딩', '010-9876-5432', 'lovelycat32@gmail.com', '1', 'https://www.youtube.com/@jocoding', '/code_even/admin/upload/teacher/20241213084539156010.png', '<p><br></p>', '', '', 1, 0, 0),
-(8, 78, 1, 'teacher8', '제주코딩베이스캠프', '010-1357-2468', 'user8@example.com', '1', 'https://www.youtube.com/channel/UC4GnvNKtuJ4cqWsYjxNxAEQ', '/code_even/admin/upload/teacher/20241213084623102898.png', '<p><br></p>', '', '', 1, 0, 0),
-(9, 79, 1, 'teacher9', '홍팍', '010-4682-7351', 'supernova_77@yahoo.com', '1', 'https://www.youtube.com/channel/UCpW1MaTjw4X-2Y6MwAVptcQ', '/code_even/admin/upload/teacher/20241213084649125650.png', '<p><br></p>', '', '', 1, 0, 0),
-(10, 80, 1, 'teacher10', '김영보', '010-7890-1234', 'user10@example.com', '1', 'https://www.youtube.com/@tonextday', '/code_even/admin/upload/teacher/20241213084722188172.png', '<p><br></p>', '', '', 1, 0, 0),
-(11, 81, 1, 'teacher11', '개발자의 품격', '010-6543-2109', 'fastcar45@outlook.com', '1', 'https://www.youtube.com/@thegreat-programmers', '/code_even/admin/upload/teacher/20241213084808153324.png', '<p><br></p>', '', '', 1, 0, 0),
-(12, 82, 1, 'teacher12', '윤재성', '010-3698-1472', 'bluebird99@hotmail.com', '1', 'https://www.youtube.com/@isoftcampus/search', '/code_even/admin/upload/teacher/20241213084833932891.png', '<p><br></p>', '', '', 1, 0, 0),
-(13, 83, 1, 'teacher13', '짐코딩', '010-1927-3648', 'user13@example.com', '1', 'https://www.youtube.com/@gymcoding', '/code_even/admin/upload/teacher/20241213084857119305.png', '<p><br></p>', '', '', 1, 0, 0),
-(14, 84, 1, 'teacher14', '노마드크리에이터', '010-4729-3851', 'blud99@hotmail.com', '1', 'https://www.youtube.com/@creApplecom', '/code_even/admin/upload/teacher/20241213084921194839.png', '<p><br></p>', '', '', 1, 0, 0),
-(15, 85, 1, 'teacher15', '코지코더', '010-8147-9263', 'techgeek2024@gmail.com', '1', 'https://github.com/kossiecoder', '', '<p><br></p>', '', '', 1, 0, 0),
-(16, 86, 1, 'teacher16', '제로초', '010-4758-2941', 'user16@example.com', '1', 'https://www.rallit.com/hub/resumes/1572/조현영', '/code_even/admin/upload/teacher/20241213085110178305.png', '<p><br></p>', '', '', 1, 0, 0),
-(17, 87, 2, 'teacher17', 'AWS강의실', '010-2391-8465', 'unshine_day@naver.com', '2', 'https://www.rallit.com/hub/resumes/196278/박상운', '/code_even/admin/upload/teacher/20241213085139185754.png', '<p><br></p>', '', '', 1, 0, 0),
-(18, 88, 2, 'teacher18', '이상희', '010-6874-9102', 'user18@example.com', '2', '', '/code_even/admin/upload/teacher/20241213085200972435.png', '<p><br></p>', '', '', 1, 0, 0),
-(19, 89, 2, 'teacher19', 'JeongSuk Lee', '010-3421-8674', 'happyworld2023@daum.net', '2', '', '', '', '', '', 1, 0, 0),
-(20, 90, 2, 'teacher20', '일프로', '010-5647-2831', 'user20@example.com', '2', 'https://www.rallit.com/hub/resumes/23145/김태민', '/code_even/admin/upload/teacher/20241213085248149827.png', '<p><br></p>', '', '', 1, 0, 0),
-(21, 91, 2, 'teacher21', '데이터리안', '010-1482-7395', 'nightowl88@live.com', '2', '', '/code_even/admin/upload/teacher/20241213085311158494.png', '<p><br></p>', '', '', 1, 0, 0),
-(22, 92, 2, 'teacher22', '이성욱', '010-2874-5632', 'oceanview55@icloud.com', '2', '', '', '', '', '', 1, 0, 0),
-(23, 93, 2, 'teacher23', '권철민', '010-9271-4638', 'user23@example.com', '2', '', '/code_even/admin/upload/teacher/20241213085347197458.png', '<p><br></p>', '', '', 1, 0, 0),
-(24, 94, 2, 'teacher24', '잔재미코딩', '010-4758-9210', 'user24@example.com', '2', 'https://www.youtube.com/@fun-coding', '/code_even/admin/upload/teacher/20241213085421100170.png', '<p><br></p>', '', '', 1, 0, 0),
-(25, 95, 2, 'teacher25', '김시훈', '010-8465-1273', 'user25@example.com', '2', 'https://www.linkedin.com/in/sihoon-kim/', '', '<p><br></p>', '', '', 1, 0, 0),
-(26, 96, 2, 'teacher26', '윤석찬', '010-9374-6581', 'user96@example.com', '2', 'https://www.youtube.com/watch?v=4ZnlZCbbN_A', '/code_even/admin/upload/teacher/20241213085514482122.png', '<p><br></p>', '', '', 1, 0, 0),
-(27, 97, 2, 'teacher27', '쿠만', '010-2947-1365', 'user27@example.com', '2', '', '', '', '', '', 1, 0, 0),
-(28, 98, 3, 'teacher28', '에릭권', '010-1284-9465', 'user28@example.com', '3', '', '', '', '', '', 1, 0, 0),
-(29, 99, 3, 'teacher29', '널널한개발자', '010-5673-8492', 'user29@example.com', '3', 'https://www.youtube.com/@nullnull_not_eq_null', '/code_even/admin/upload/teacher/20241213085545212384.png', '<p><br></p>', '', '', 1, 0, 0),
-(30, 100, 3, 'teacher30', '컴공로드맵', '010-9483-1652', 'user30@example.com', '3', '', '/code_even/admin/upload/teacher/20241213085605345002.png', '<p><br></p>', '', '', 1, 0, 0),
-(31, 101, 3, 'teacher31', '제로미니', '010-2354-7890', 'user31@example.com', '3', 'https://www.youtube.com/@z3romini', '/code_even/admin/upload/teacher/20241213085627483951.png', '<p><br></p>', '', '', 1, 0, 0),
-(32, 102, 1, 'teacher32', '장기효(캡틴판교)', '010-3852-9471', 'user32@example.com', '1', 'https://www.rallit.com/hub/resumes/126/장기효', '/code_even/admin/upload/teacher/20241213085025163488.png', '<p><br></p>', '', '', 1, 0, 0),
-(33, 103, 1, 'teacher33', '쩡원', '010-9823-7415', 'user33@example.com', '1', 'https://www.youtube.com/@PHP', '/code_even/admin/upload/teacher/20241213085046193501.png', '<p><br></p>', '', '', 1, 0, 0);
+INSERT INTO `teachers` (`tcid`, `uid`, `cgid`, `tc_userid`, `tc_name`, `tc_userphone`, `tc_email`, `tc_cate`, `tc_url`, `tc_thumbnail`, `tc_main_intro`, `tc_intro`, `tc_bank`, `tc_account`, `tc_ok`, `isrecom`, `isnew`) VALUES
+(1, 2, 1, 'even_teacher', '이븐선생', '010-4567-8910', 'eventeacher@even.co.kr', '1', '', '', '', '안녕하세요 익힘의 정도가 적절한 이븐선생입니다~', '', '', 1, 0, 0),
+(2, 4, 1, 'my_teacher', '김동주', '010-4567-8910', 'rocks@even.co.kr', '1', 'https://www.youtube.com/@Ezweb', '/code_even/admin/upload/teacher/20241217071938198717.png', 'Rock’s Easyweb 차근차근 제대로 배워봅시다', '반갑습니다. 바위처럼, 이지웹입니다.', '', '', 1, 1, 0),
+(3, 70, 2, 'teacher3', '조한결', '010-8723-4519', 'user70@example.com', '1', 'https://www.youtube.com/@jocode-official', '/code_even/admin/upload/teacher/20241217063622106996.png', '웹 프론트엔드 한 입 크기로 잘라먹어 볼까요?', '<div class=\"mantine-Group-root css-1rsd43v mantine-is20oa\" style=\"margin-bottom: 0.75rem; font-size: 16px; display: flex; flex-flow: row; -webkit-box-align: start; align-items: start; -webkit-box-pack: justify; justify-content: space-between; gap: 0r', '', '', 1, 1, 0),
+(4, 68, 3, 'teacher4', '이상민', '010-9482-1365', 'user68@example.com', '3', '', '/code_even/admin/upload/teacher/20241120181520409651.png', '', '새로운 기술을 학습하고 전달하는 것을 좋아합니다.', '', '', 1, 0, 0),
+(5, 75, 1, 'teacher5', '코딩웍스', '010-2345-6789', 'randomuser1@example.com', '1', 'https://www.youtube.com/@CodingWorks', '/code_even/admin/upload/teacher/20241213083843819429.png', '', '<p><br></p>', '', '', 1, 0, 0),
+(6, 76, 1, 'teacher6', '얄코', '010-8765-4321', 'user6@example.com', '1', 'https://www.youtube.com/@yalco-coding', '/code_even/admin/upload/teacher/20241213084239189335.png', '', '<p><br></p>', '', '', 1, 0, 0),
+(7, 77, 1, 'teacher7', '조코딩', '010-9876-5432', 'lovelycat32@gmail.com', '1', 'https://www.youtube.com/@jocoding', '/code_even/admin/upload/teacher/20241213084539156010.png', '', '<p><br></p>', '', '', 1, 0, 0),
+(8, 78, 1, 'teacher8', '제주코딩베이스캠프', '010-1357-2468', 'user8@example.com', '1', 'https://www.youtube.com/channel/UC4GnvNKtuJ4cqWsYjxNxAEQ', '/code_even/admin/upload/teacher/20241213084623102898.png', '', '<p><br></p>', '', '', 1, 0, 0),
+(9, 79, 1, 'teacher9', '홍팍', '010-4682-7351', 'supernova_77@yahoo.com', '1', 'https://www.youtube.com/channel/UCpW1MaTjw4X-2Y6MwAVptcQ', '/code_even/admin/upload/teacher/20241213084649125650.png', '', '<p><br></p>', '', '', 1, 0, 0),
+(10, 80, 1, 'teacher10', '김영보', '010-7890-1234', 'user10@example.com', '1', 'https://www.youtube.com/@tonextday', '/code_even/admin/upload/teacher/20241213084722188172.png', '', '<p><br></p>', '', '', 1, 0, 0),
+(11, 81, 1, 'teacher11', '개발자의 품격', '010-6543-2109', 'fastcar45@outlook.com', '1', 'https://www.youtube.com/@thegreat-programmers', '/code_even/admin/upload/teacher/20241213084808153324.png', '', '<p><br></p>', '', '', 1, 0, 0),
+(12, 82, 1, 'teacher12', '윤재성', '010-3698-1472', 'bluebird99@hotmail.com', '1', 'https://www.youtube.com/@isoftcampus/search', '/code_even/admin/upload/teacher/20241213084833932891.png', '', '<p><br></p>', '', '', 1, 0, 0),
+(13, 83, 1, 'teacher13', '짐코딩', '010-1927-3648', 'user13@example.com', '1', 'https://www.youtube.com/@gymcoding', '/code_even/admin/upload/teacher/20241213084857119305.png', '', '<p><br></p>', '', '', 1, 0, 0),
+(14, 84, 1, 'teacher14', '노마드크리에이터', '010-4729-3851', 'blud99@hotmail.com', '1', 'https://www.youtube.com/@creApplecom', '/code_even/admin/upload/teacher/20241213084921194839.png', '', '', '', '', 1, 0, 0),
+(15, 85, 1, 'teacher15', '코지코더', '010-8147-9263', 'techgeek2024@gmail.com', '1', 'https://github.com/kossiecoder', '', '', '<p><br></p>', '', '', 1, 0, 0),
+(16, 86, 1, 'teacher16', '제로초', '010-4758-2941', 'user16@example.com', '1', 'https://www.rallit.com/hub/resumes/1572/조현영', '/code_even/admin/upload/teacher/20241213085110178305.png', '', '<p><br></p>', '', '', 1, 0, 0),
+(17, 87, 2, 'teacher17', 'AWS강의실', '010-2391-8465', 'unshine_day@naver.com', '2', 'https://www.rallit.com/hub/resumes/196278/박상운', '/code_even/admin/upload/teacher/20241213085139185754.png', '', '<p><br></p>', '', '', 1, 0, 0),
+(18, 88, 2, 'teacher18', '이상희', '010-6874-9102', 'user18@example.com', '2', '', '/code_even/admin/upload/teacher/20241213085200972435.png', '', '<p><br></p>', '', '', 1, 0, 0),
+(19, 89, 2, 'teacher19', 'JeongSuk Lee', '010-3421-8674', 'happyworld2023@daum.net', '2', '', '', '', '', '', '', 1, 0, 0),
+(20, 90, 2, 'teacher20', '일프로', '010-5647-2831', 'user20@example.com', '2', 'https://www.rallit.com/hub/resumes/23145/김태민', '/code_even/admin/upload/teacher/20241213085248149827.png', '', '<p><br></p>', '', '', 1, 0, 0),
+(21, 91, 2, 'teacher21', '데이터리안', '010-1482-7395', 'nightowl88@live.com', '2', '', '/code_even/admin/upload/teacher/20241213085311158494.png', '', '<p><br></p>', '', '', 1, 0, 0),
+(22, 92, 2, 'teacher22', '이성욱', '010-2874-5632', 'oceanview55@icloud.com', '2', '', '', '', '', '', '', 1, 0, 0),
+(23, 93, 2, 'teacher23', '권철민', '010-9271-4638', 'user23@example.com', '2', '', '/code_even/admin/upload/teacher/20241213085347197458.png', '', '<p><br></p>', '', '', 1, 0, 0),
+(24, 94, 2, 'teacher24', '잔재미코딩', '010-4758-9210', 'user24@example.com', '2', 'https://www.youtube.com/@fun-coding', '/code_even/admin/upload/teacher/20241213085421100170.png', '', '<p><br></p>', '', '', 1, 0, 0),
+(25, 95, 2, 'teacher25', '김시훈', '010-8465-1273', 'user25@example.com', '2', 'https://www.linkedin.com/in/sihoon-kim/', '', '', '<p><br></p>', '', '', 1, 0, 0),
+(26, 96, 2, 'teacher26', '윤석찬', '010-9374-6581', 'user96@example.com', '2', 'https://www.youtube.com/watch?v=4ZnlZCbbN_A', '/code_even/admin/upload/teacher/20241213085514482122.png', '', '<p><br></p>', '', '', 1, 0, 0),
+(27, 97, 2, 'teacher27', '쿠만', '010-2947-1365', 'user27@example.com', '2', '', '', '', '', '', '', 1, 0, 0),
+(28, 98, 3, 'teacher28', '에릭권', '010-1284-9465', 'user28@example.com', '3', '', '', '', '', '', '', 1, 0, 0),
+(29, 99, 3, 'teacher29', '널널한개발자', '010-5673-8492', 'user29@example.com', '3', 'https://www.youtube.com/@nullnull_not_eq_null', '/code_even/admin/upload/teacher/20241213085545212384.png', '차이를 만드는 첫걸음, 보안정복', '<p><br></p>', '', '', 1, 1, 0),
+(30, 100, 3, 'teacher30', '컴공로드맵', '010-9483-1652', 'user30@example.com', '3', '', '/code_even/admin/upload/teacher/20241213085605345002.png', '', '<p><br></p>', '', '', 1, 0, 0),
+(31, 101, 3, 'teacher31', '제로미니', '010-2354-7890', 'user31@example.com', '3', 'https://www.youtube.com/@z3romini', '/code_even/admin/upload/teacher/20241213085627483951.png', '', '<p><br></p>', '', '', 1, 0, 0),
+(32, 102, 1, 'teacher32', '장기효(캡틴판교)', '010-3852-9471', 'user32@example.com', '1', 'https://www.rallit.com/hub/resumes/126/장기효', '/code_even/admin/upload/teacher/20241213085025163488.png', '', '<p><br></p>', '', '', 1, 0, 0),
+(33, 103, 1, 'teacher33', '쩡원', '010-9823-7415', 'user33@example.com', '1', 'https://www.youtube.com/@PHP', '/code_even/admin/upload/teacher/20241213085046193501.png', '', '<p>소개</p>', '', '', 1, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -350,10 +359,10 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`uid`, `userid`, `username`, `usernick`, `userpw`, `userphonenum`, `useremail`, `email_ok`, `post_code`, `addr_line1`, `addr_line2`, `addr_line3`, `signup_date`, `last_date`, `user_level`, `user_status`) VALUES
-(1, 'code_even', '이븐관리자', '이븐이', '3627909a29c31381a071ec27f7c9ca97726182aed29a7ddd2e54353322cfb30abb9e3a6df2ac2c20fe23436311d678564d0c8d305930575f60e2d3d048184d79', '010-1234-5678', 'hong@example.com', 1, 45617, '서울특별시 강남구', '101호', NULL, '2024-01-01', '2024-11-22 12:06:41', 100, 0),
+(1, 'code_even', '이븐관리자', '이븐이', '3627909a29c31381a071ec27f7c9ca97726182aed29a7ddd2e54353322cfb30abb9e3a6df2ac2c20fe23436311d678564d0c8d305930575f60e2d3d048184d79', '010-1234-5678', 'hong@example.com', 1, 45617, '서울특별시 강남구', '101호', NULL, '2024-01-01', '2024-12-17 13:54:59', 100, 0),
 (2, 'even_teacher', '이븐선생', '이븐하게', '3627909a29c31381a071ec27f7c9ca97726182aed29a7ddd2e54353322cfb30abb9e3a6df2ac2c20fe23436311d678564d0c8d305930575f60e2d3d048184d79', '010-4567-8910', 'eventeacher@even.co.kr', 1, 11234, '서울특별시 종로구', '2층 그린컴퓨터 아트학원', NULL, '2024-01-04', '2024-11-18 00:34:45', 10, 0),
 (3, 'even_student', '이븐학생', '이도령', '3627909a29c31381a071ec27f7c9ca97726182aed29a7ddd2e54353322cfb30abb9e3a6df2ac2c20fe23436311d678564d0c8d305930575f60e2d3d048184d79', '010-1234-5600', '2doryung@even.co.kr', 1, 11000, '서울시 영등포구', '여의도 한강공원', NULL, '2024-01-17', '2024-01-17 08:01:44', 1, 0),
-(4, 'my_teacher', '김동주', '멋진선생님', '3627909a29c31381a071ec27f7c9ca97726182aed29a7ddd2e54353322cfb30abb9e3a6df2ac2c20fe23436311d678564d0c8d305930575f60e2d3d048184d79', '010-4567-8910', 'rocks@even.co.kr', 1, 11234, '서울특별시 종로구', '2층 그린컴퓨터 아트학원', '', '2024-01-20', '2024-11-21 12:52:16', 10, 0),
+(4, 'my_teacher', '김동주', '멋진선생님', '3627909a29c31381a071ec27f7c9ca97726182aed29a7ddd2e54353322cfb30abb9e3a6df2ac2c20fe23436311d678564d0c8d305930575f60e2d3d048184d79', '010-4567-8910', 'rocks@even.co.kr', 1, 11234, '서울특별시 종로구', '2층 그린컴퓨터 아트학원', '', '2024-01-20', '2024-12-17 08:51:00', 10, 0),
 (5, 'user_kdhj_5', '이서윤', '학생A', '3627909a29c31381a071ec27f7c9ca97726182aed29a7ddd2e54353322cfb30abb9e3a6df2ac2c20fe23436311d678564d0c8d305930575f60e2d3d048184d79', '010-2345-6789', 'randomuser1@example.com', NULL, 12000, '경기도 성남시', '1층', NULL, '2024-01-21', '2024-11-19 10:15:30', 1, 0),
 (6, 'user_abcd_6', '최민준', '유저B', '3627909a29c31381a071ec27f7c9ca97726182aed29a7ddd2e54353322cfb30abb9e3a6df2ac2c20fe23436311d678564d0c8d305930575f60e2d3d048184d79', '010-8765-4321', 'user6@example.com', 1, NULL, NULL, NULL, NULL, '2024-02-12', '2024-11-18 09:45:20', 1, 0),
 (7, 'user_efgh_7', '김하늘', '모범생', '3627909a29c31381a071ec27f7c9ca97726182aed29a7ddd2e54353322cfb30abb9e3a6df2ac2c20fe23436311d678564d0c8d305930575f60e2d3d048184d79', '010-9876-5432', 'lovelycat32@gmail.com', NULL, 13579, '부산광역시 해운대구', '3층', '해운대 아파트', '2024-11-14', '2024-11-19 14:12:45', 1, 0),
@@ -412,47 +421,47 @@ INSERT INTO `user` (`uid`, `userid`, `username`, `usernick`, `userpw`, `userphon
 (60, 'user_stuv_60', '서지민', '비상하는매', '3627909a29c31381a071ec27f7c9ca97726182aed29a7ddd2e54353322cfb30abb9e3a6df2ac2c20fe23436311d678564d0c8d305930575f60e2d3d048184d79', '010-8193-2547', 'user60@example.com', NULL, 13321, '대전광역시 서구', NULL, NULL, '2024-11-14', '2024-11-20 14:40:35', 1, 0),
 (61, 'user_wxyz_61', '조윤호', '강한바람', '3627909a29c31381a071ec27f7c9ca97726182aed29a7ddd2e54353322cfb30abb9e3a6df2ac2c20fe23436311d678564d0c8d305930575f60e2d3d048184d79', '010-7483-9165', 'user61@example.com', 1, NULL, NULL, NULL, '특별 메모', '2024-10-17', '2024-11-19 10:05:25', 1, 0),
 (62, 'user_abcd_62', '김민수', '별빛반짝', '3627909a29c31381a071ec27f7c9ca97726182aed29a7ddd2e54353322cfb30abb9e3a6df2ac2c20fe23436311d678564d0c8d305930575f60e2d3d048184d79', '010-8453-2198', 'user62@example.com', NULL, 13400, '경기도 의정부시', '지하 3층', NULL, '2024-10-18', '2024-11-20 12:35:40', 1, 0),
-(63, 'teacher5', '이정민', '구름산책', '3627909a29c31381a071ec27f7c9ca97726182aed29a7ddd2e54353322cfb30abb9e3a6df2ac2c20fe23436311d678564d0c8d305930575f60e2d3d048184d79', '010-4923-5718', 'user63@example.com', 0, NULL, NULL, NULL, NULL, '2024-11-16', '2024-11-21 12:12:33', 10, 0),
+(63, 'teacher5', '이정민', '구름산책', '3627909a29c31381a071ec27f7c9ca97726182aed29a7ddd2e54353322cfb30abb9e3a6df2ac2c20fe23436311d678564d0c8d305930575f60e2d3d048184d79', '010-4923-5718', 'user63@example.com', 0, NULL, NULL, NULL, NULL, '2024-11-16', '2024-12-16 03:44:07', 10, 0),
 (64, 'user_ijkl_64', '박진영', '햇빛추적', '3627909a29c31381a071ec27f7c9ca97726182aed29a7ddd2e54353322cfb30abb9e3a6df2ac2c20fe23436311d678564d0c8d305930575f60e2d3d048184d79', '010-9385-7216', 'user64@example.com', NULL, NULL, NULL, NULL, NULL, '2024-10-12', '2024-11-18 16:20:55', 1, 0),
 (65, 'user_mnop_65', '최서영', '사랑가득', '3627909a29c31381a071ec27f7c9ca97726182aed29a7ddd2e54353322cfb30abb9e3a6df2ac2c20fe23436311d678564d0c8d305930575f60e2d3d048184d79', '010-2384-7512', 'user65@example.com', 1, NULL, '', '', '', '2024-10-19', '2024-11-20 09:00:10', 1, -1),
 (66, 'user_qrst_66', '정은호', '도전왕', '3627909a29c31381a071ec27f7c9ca97726182aed29a7ddd2e54353322cfb30abb9e3a6df2ac2c20fe23436311d678564d0c8d305930575f60e2d3d048184d79', '010-1934-8527', 'user66@example.com', NULL, NULL, NULL, NULL, '중요 참고 사항', '2024-10-18', '2024-11-19 19:20:05', 1, 0),
 (67, 'user_uvwx_67', '윤지수2', '꽃바람', '3627909a29c31381a071ec27f7c9ca97726182aed29a7ddd2e54353322cfb30abb9e3a6df2ac2c20fe23436311d678564d0c8d305930575f60e2d3d048184d79', '010-8934-2158', 'user67@example.com', 0, NULL, '', '', '', '2024-11-17', '2024-11-20 12:50:40', 1, 0),
 (68, 'teacher4', '이상민', '이상민', '3627909a29c31381a071ec27f7c9ca97726182aed29a7ddd2e54353322cfb30abb9e3a6df2ac2c20fe23436311d678564d0c8d305930575f60e2d3d048184d79', '010-9482-1365', 'user68@example.com', 1, NULL, '제주특별자치도 서귀포시', '1층 사무실', NULL, '2024-11-16', '2024-11-19 17:15:30', 10, 0),
 (69, 'user_cdef_69', '한유진2', '바다별', '3627909a29c31381a071ec27f7c9ca97726182aed29a7ddd2e54353322cfb30abb9e3a6df2ac2c20fe23436311d678564d0c8d305930575f60e2d3d048184d79', '010-3492-1758', 'user69@example.com', 0, 13100, '', '', '', '2024-11-15', '2024-11-19 14:25:20', 1, -1),
-(70, 'teacher3', '조한결', '조한결', '3627909a29c31381a071ec27f7c9ca97726182aed29a7ddd2e54353322cfb30abb9e3a6df2ac2c20fe23436311d678564d0c8d305930575f60e2d3d048184d79', '010-8723-4519', 'user70@example.com', 1, NULL, NULL, NULL, NULL, '2024-11-12', '2024-11-20 11:45:05', 10, 0),
+(70, 'teacher3', '조한결', '조한결', '3627909a29c31381a071ec27f7c9ca97726182aed29a7ddd2e54353322cfb30abb9e3a6df2ac2c20fe23436311d678564d0c8d305930575f60e2d3d048184d79', '010-8723-4519', 'user70@example.com', 1, NULL, NULL, NULL, NULL, '2024-11-12', '2024-12-16 02:03:59', 10, 0),
 (71, 'user_klmn_71', '정민아', '그린스톰', '3627909a29c31381a071ec27f7c9ca97726182aed29a7ddd2e54353322cfb30abb9e3a6df2ac2c20fe23436311d678564d0c8d305930575f60e2d3d048184d79', '010-2394-1765', 'user71@example.com', 0, NULL, '경상남도 김해시', '빌딩 A동', '참고사항', '2024-11-14', '2024-11-19 16:40:25', 1, 1),
 (72, 'ctest', '내이름', '쿠폰테스트', '3627909a29c31381a071ec27f7c9ca97726182aed29a7ddd2e54353322cfb30abb9e3a6df2ac2c20fe23436311d678564d0c8d305930575f60e2d3d048184d79', '010-1234-5678', 'hong@hong.com', NULL, NULL, NULL, NULL, NULL, '2024-11-22', '2024-11-22 11:44:44', 1, 0),
 (73, 'test1', '박이름', '박네임', '3627909a29c31381a071ec27f7c9ca97726182aed29a7ddd2e54353322cfb30abb9e3a6df2ac2c20fe23436311d678564d0c8d305930575f60e2d3d048184d79', '010-5555-6666', 'abc@abc.com', NULL, NULL, NULL, NULL, NULL, '2024-11-24', '2024-11-25 01:30:33', 1, 0),
 (74, 'example_user', '예시용', '예시입니다', '12345', '010-0000-0000', '0627_b@naver.com', 1, NULL, '', '', '', '2024-11-25', '2024-11-25 11:17:16', 1, 0),
 (75, 'teacher5', '코딩웍스', '코딩웍스', '3627909a29c31381a071ec27f7c9ca97726182aed29a7ddd2e54353322cfb30abb9e3a6df2ac2c20fe23436311d678564d0c8d305930575f60e2d3d048184d79', '010-2345-6789', 'randomuser1@example.com', NULL, 12000, '경기도 성남시', '1층', NULL, '2024-01-21', '2024-12-11 15:05:59', 10, 0),
-(76, 'teacher6', '얄코', '얄코', '3627909a29c31381a071ec27f7c9ca97726182aed29a7ddd2e54353322cfb30abb9e3a6df2ac2c20fe23436311d678564d0c8d305930575f60e2d3d048184d79', '010-8765-4321', 'user6@example.com', 1, NULL, NULL, NULL, NULL, '2024-02-12', '2024-11-18 09:45:20', 10, 0),
-(77, 'teacher7', '조코딩', '조코딩', '3627909a29c31381a071ec27f7c9ca97726182aed29a7ddd2e54353322cfb30abb9e3a6df2ac2c20fe23436311d678564d0c8d305930575f60e2d3d048184d79', '010-9876-5432', 'lovelycat32@gmail.com', NULL, 13579, '부산광역시 해운대구', '3층', '해운대 아파트', '2024-11-14', '2024-11-19 14:12:45', 10, 0),
-(78, 'teacher8', '제주코딩베이스캠프', '제주코딩베이스캠프', '3627909a29c31381a071ec27f7c9ca97726182aed29a7ddd2e54353322cfb30abb9e3a6df2ac2c20fe23436311d678564d0c8d305930575f60e2d3d048184d79', '010-1357-2468', 'user8@example.com', 0, 12300, NULL, NULL, NULL, '2024-02-18', '2024-11-17 07:55:10', 10, 0),
-(79, 'teacher9', '홍팍', '홍팍', '3627909a29c31381a071ec27f7c9ca97726182aed29a7ddd2e54353322cfb30abb9e3a6df2ac2c20fe23436311d678564d0c8d305930575f60e2d3d048184d79', '010-4682-7351', 'supernova_77@yahoo.com', 1, NULL, '대전광역시 유성구', '빌딩 5층', NULL, '2024-11-15', '2024-11-18 15:30:22', 10, 0),
-(80, 'teacher10', '김영보', '김영보', '3627909a29c31381a071ec27f7c9ca97726182aed29a7ddd2e54353322cfb30abb9e3a6df2ac2c20fe23436311d678564d0c8d305930575f60e2d3d048184d79', '010-7890-1234', 'user10@example.com', 1, NULL, NULL, NULL, NULL, '2024-02-20', '2024-11-19 08:47:59', 10, 0),
-(81, 'teacher11', '개발자의 품격', '개발자의 품격', '3627909a29c31381a071ec27f7c9ca97726182aed29a7ddd2e54353322cfb30abb9e3a6df2ac2c20fe23436311d678564d0c8d305930575f60e2d3d048184d79', '010-6543-2109', 'fastcar45@outlook.com', 0, 11300, '서울특별시 동대문구', '아파트 2동', NULL, '2024-02-28', '2024-11-18 16:40:15', 10, 0),
-(82, 'teacher12', '윤재성', '윤재성', '3627909a29c31381a071ec27f7c9ca97726182aed29a7ddd2e54353322cfb30abb9e3a6df2ac2c20fe23436311d678564d0c8d305930575f60e2d3d048184d79', '010-3698-1472', 'bluebird99@hotmail.com', NULL, 78452, '전라남도 목포시', '해양타운', '참고 사항', '2024-11-12', '2024-11-19 11:20:33', 10, 0),
-(83, 'teacher13', '짐코딩', '짐코딩', '3627909a29c31381a071ec27f7c9ca97726182aed29a7ddd2e54353322cfb30abb9e3a6df2ac2c20fe23436311d678564d0c8d305930575f60e2d3d048184d79', '010-1927-3648', 'user13@example.com', 1, NULL, NULL, NULL, NULL, '2024-03-01', '2024-11-17 12:30:15', 10, 0),
-(84, 'teacher14', '노마드크리에이터', '노마드크리에이터', '3627909a29c31381a071ec27f7c9ca97726182aed29a7ddd2e54353322cfb30abb9e3a6df2ac2c20fe23436311d678564d0c8d305930575f60e2d3d048184d79', '010-4729-3851', 'blud99@hotmail.com', 1, 15000, '강원도 춘천시', NULL, NULL, '2024-03-05', '2024-11-18 13:22:08', 10, 0),
-(85, 'teacher15', '코지코더', '코지코더', '3627909a29c31381a071ec27f7c9ca97726182aed29a7ddd2e54353322cfb30abb9e3a6df2ac2c20fe23436311d678564d0c8d305930575f60e2d3d048184d79', '010-8147-9263', 'techgeek2024@gmail.com', NULL, NULL, NULL, NULL, NULL, '2024-03-15', '2024-11-19 17:09:43', 10, 0),
-(86, 'teacher16', '제로초', '제로초', '3627909a29c31381a071ec27f7c9ca97726182aed29a7ddd2e54353322cfb30abb9e3a6df2ac2c20fe23436311d678564d0c8d305930575f60e2d3d048184d79', '010-4758-2941', 'user16@example.com', 0, 15678, '인천광역시 미추홀구', '별관 6층', NULL, '2024-03-16', '2024-11-18 09:18:29', 10, 0),
-(87, 'teacher17', 'AWS강의실', 'AWS강의실', '3627909a29c31381a071ec27f7c9ca97726182aed29a7ddd2e54353322cfb30abb9e3a6df2ac2c20fe23436311d678564d0c8d305930575f60e2d3d048184d79', '010-2391-8465', 'unshine_day@naver.com', NULL, NULL, NULL, NULL, '참고 항목', '2024-03-20', '2024-11-19 16:27:14', 10, 0),
-(88, 'teacher18', '이상희', '이상희', '3627909a29c31381a071ec27f7c9ca97726182aed29a7ddd2e54353322cfb30abb9e3a6df2ac2c20fe23436311d678564d0c8d305930575f60e2d3d048184d79', '010-6874-9102', 'user18@example.com', 1, NULL, NULL, NULL, NULL, '2024-03-29', '2024-11-19 14:52:38', 10, 0),
-(89, 'teacher19', 'JeongSuk Lee', 'JeongSuk Lee', '3627909a29c31381a071ec27f7c9ca97726182aed29a7ddd2e54353322cfb30abb9e3a6df2ac2c20fe23436311d678564d0c8d305930575f60e2d3d048184d79', '010-3421-8674', 'happyworld2023@daum.net', NULL, NULL, '경상남도 창원시', '2층', NULL, '2024-03-30', '2024-11-20 08:12:23', 10, 0),
-(90, 'teacher20', '일프로', '일프로', '3627909a29c31381a071ec27f7c9ca97726182aed29a7ddd2e54353322cfb30abb9e3a6df2ac2c20fe23436311d678564d0c8d305930575f60e2d3d048184d79', '010-5647-2831', 'user20@example.com', 1, NULL, NULL, NULL, NULL, '2024-04-11', '2024-11-18 07:25:39', 10, 0),
-(91, 'teacher21', '데이터리안', '데이터리안', '3627909a29c31381a071ec27f7c9ca97726182aed29a7ddd2e54353322cfb30abb9e3a6df2ac2c20fe23436311d678564d0c8d305930575f60e2d3d048184d79', '010-1482-7395', 'nightowl88@live.com', 0, 14200, '울산광역시 남구', '빌라', NULL, '2024-04-12', '2024-11-19 15:45:16', 10, 0),
-(92, 'teacher22', '이성욱', '이성욱', '3627909a29c31381a071ec27f7c9ca97726182aed29a7ddd2e54353322cfb30abb9e3a6df2ac2c20fe23436311d678564d0c8d305930575f60e2d3d048184d79', '010-2874-5632', 'oceanview55@icloud.com', NULL, NULL, NULL, NULL, NULL, '2024-04-13', '2024-11-18 11:20:50', 10, 0),
-(93, 'teacher23', '권철민', '권철민', '3627909a29c31381a071ec27f7c9ca97726182aed29a7ddd2e54353322cfb30abb9e3a6df2ac2c20fe23436311d678564d0c8d305930575f60e2d3d048184d79', '010-9271-4638', 'user23@example.com', 1, NULL, '경기도 고양시', NULL, '기타 정보', '2024-04-14', '2024-11-19 17:35:40', 10, 0),
-(94, 'teacher24', '잔재미코딩', '잔재미코딩', '3627909a29c31381a071ec27f7c9ca97726182aed29a7ddd2e54353322cfb30abb9e3a6df2ac2c20fe23436311d678564d0c8d305930575f60e2d3d048184d79', '010-4758-9210', 'user24@example.com', NULL, 11900, NULL, NULL, NULL, '2024-05-15', '2024-11-17 12:47:39', 10, 0),
-(95, 'teacher25', '김시훈', '김시훈', '3627909a29c31381a071ec27f7c9ca97726182aed29a7ddd2e54353322cfb30abb9e3a6df2ac2c20fe23436311d678564d0c8d305930575f60e2d3d048184d79', '010-8465-1273', 'user25@example.com', 0, 13457, '충청남도 천안시', '사무실 1층', NULL, '2024-05-16', '2024-11-19 18:19:54', 10, 0),
-(96, 'teacher26', '윤석찬', '윤석찬', '3627909a29c31381a071ec27f7c9ca97726182aed29a7ddd2e54353322cfb30abb9e3a6df2ac2c20fe23436311d678564d0c8d305930575f60e2d3d048184d79', '010-9374-6581', 'user96@example.com', 1, NULL, NULL, NULL, NULL, '2024-05-17', '2024-05-19 14:30:10', 10, 0),
-(97, 'teacher27', '쿠만', '쿠만', '3627909a29c31381a071ec27f7c9ca97726182aed29a7ddd2e54353322cfb30abb9e3a6df2ac2c20fe23436311d678564d0c8d305930575f60e2d3d048184d79', '010-2947-1365', 'user27@example.com', NULL, NULL, '제주특별자치도', '건물 5층', '참고 항목2', '2024-05-18', '2024-11-20 10:35:48', 10, 0),
-(98, 'teacher28', '에릭권', '에릭권', '3627909a29c31381a071ec27f7c9ca97726182aed29a7ddd2e54353322cfb30abb9e3a6df2ac2c20fe23436311d678564d0c8d305930575f60e2d3d048184d79', '010-1284-9465', 'user28@example.com', 1, 11234, '대구광역시 수성구', '빌라 A동', NULL, '2024-06-17', '2024-11-19 09:45:30', 10, 0),
-(99, 'teacher29', '널널한개발자', '널널한개발자', '3627909a29c31381a071ec27f7c9ca97726182aed29a7ddd2e54353322cfb30abb9e3a6df2ac2c20fe23436311d678564d0c8d305930575f60e2d3d048184d79', '010-5673-8492', 'user29@example.com', 0, NULL, NULL, NULL, '참고 데이터', '2024-11-15', '2024-06-20 14:15:40', 10, 0),
-(100, 'teacher30', '컴공로드맵', '컴공로드맵', '3627909a29c31381a071ec27f7c9ca97726182aed29a7ddd2e54353322cfb30abb9e3a6df2ac2c20fe23436311d678564d0c8d305930575f60e2d3d048184d79', '010-9483-1652', 'user30@example.com', NULL, 13500, '부산광역시 서구', '오피스텔', NULL, '2024-06-12', '2024-11-18 17:25:55', 10, 0),
-(101, 'teacher31', '제로미니', '제로미니', '3627909a29c31381a071ec27f7c9ca97726182aed29a7ddd2e54353322cfb30abb9e3a6df2ac2c20fe23436311d678564d0c8d305930575f60e2d3d048184d79', '010-2354-7890', 'user31@example.com', 1, 12780, '서울특별시 서대문구', '2층 201호', NULL, '2024-06-14', '2024-11-19 16:45:50', 10, 0),
-(102, 'teacher32', '장기효(캡틴판교)', '장기효(캡틴판교)', '3627909a29c31381a071ec27f7c9ca97726182aed29a7ddd2e54353322cfb30abb9e3a6df2ac2c20fe23436311d678564d0c8d305930575f60e2d3d048184d79', '010-3852-9471', 'user32@example.com', 0, NULL, NULL, NULL, '참고 항목', '2024-11-18', '2024-06-20 13:50:25', 10, 0),
-(103, 'teacher33', '쩡원', '쩡원', '3627909a29c31381a071ec27f7c9ca97726182aed29a7ddd2e54353322cfb30abb9e3a6df2ac2c20fe23436311d678564d0c8d305930575f60e2d3d048184d79', '010-9823-7415', 'user33@example.com', 1, 14500, '광주광역시 북구', '연립주택 3층', NULL, '2024-06-11', '2024-11-19 10:15:10', 10, 0);
+(76, 'teacher6', '얄코', '얄코', '3627909a29c31381a071ec27f7c9ca97726182aed29a7ddd2e54353322cfb30abb9e3a6df2ac2c20fe23436311d678564d0c8d305930575f60e2d3d048184d79', '010-8765-4321', 'user6@example.com', 1, NULL, NULL, NULL, NULL, '2024-02-12', '2024-12-17 06:10:19', 10, 0),
+(77, 'teacher7', '조코딩', '조코딩', '3627909a29c31381a071ec27f7c9ca97726182aed29a7ddd2e54353322cfb30abb9e3a6df2ac2c20fe23436311d678564d0c8d305930575f60e2d3d048184d79', '010-9876-5432', 'lovelycat32@gmail.com', NULL, 13579, '부산광역시 해운대구', '3층', '해운대 아파트', '2024-11-14', '2024-12-17 05:55:39', 10, 0),
+(78, 'teacher8', '제주코딩베이스캠프', '제주코딩베이스캠프', '3627909a29c31381a071ec27f7c9ca97726182aed29a7ddd2e54353322cfb30abb9e3a6df2ac2c20fe23436311d678564d0c8d305930575f60e2d3d048184d79', '010-1357-2468', 'user8@example.com', 0, 12300, NULL, NULL, NULL, '2024-02-18', '2024-12-17 05:38:18', 10, 0),
+(79, 'teacher9', '홍팍', '홍팍', '3627909a29c31381a071ec27f7c9ca97726182aed29a7ddd2e54353322cfb30abb9e3a6df2ac2c20fe23436311d678564d0c8d305930575f60e2d3d048184d79', '010-4682-7351', 'supernova_77@yahoo.com', 1, NULL, '대전광역시 유성구', '빌딩 5층', NULL, '2024-11-15', '2024-12-17 05:09:38', 10, 0),
+(80, 'teacher10', '김영보', '김영보', '3627909a29c31381a071ec27f7c9ca97726182aed29a7ddd2e54353322cfb30abb9e3a6df2ac2c20fe23436311d678564d0c8d305930575f60e2d3d048184d79', '010-7890-1234', 'user10@example.com', 1, NULL, NULL, NULL, NULL, '2024-02-20', '2024-12-17 04:34:13', 10, 0),
+(81, 'teacher11', '개발자의 품격', '개발자의 품격', '3627909a29c31381a071ec27f7c9ca97726182aed29a7ddd2e54353322cfb30abb9e3a6df2ac2c20fe23436311d678564d0c8d305930575f60e2d3d048184d79', '010-6543-2109', 'fastcar45@outlook.com', 0, 11300, '서울특별시 동대문구', '아파트 2동', NULL, '2024-02-28', '2024-12-17 04:11:56', 10, 0),
+(82, 'teacher12', '윤재성', '윤재성', '3627909a29c31381a071ec27f7c9ca97726182aed29a7ddd2e54353322cfb30abb9e3a6df2ac2c20fe23436311d678564d0c8d305930575f60e2d3d048184d79', '010-3698-1472', 'bluebird99@hotmail.com', NULL, 78452, '전라남도 목포시', '해양타운', '참고 사항', '2024-11-12', '2024-12-17 03:50:25', 10, 0),
+(83, 'teacher13', '짐코딩', '짐코딩', '3627909a29c31381a071ec27f7c9ca97726182aed29a7ddd2e54353322cfb30abb9e3a6df2ac2c20fe23436311d678564d0c8d305930575f60e2d3d048184d79', '010-1927-3648', 'user13@example.com', 1, NULL, NULL, NULL, NULL, '2024-03-01', '2024-12-16 02:22:18', 10, 0),
+(84, 'teacher14', '노마드크리에이터', '노마드크리에이터', '3627909a29c31381a071ec27f7c9ca97726182aed29a7ddd2e54353322cfb30abb9e3a6df2ac2c20fe23436311d678564d0c8d305930575f60e2d3d048184d79', '010-4729-3851', 'blud99@hotmail.com', 1, 15000, '강원도 춘천시', NULL, NULL, '2024-03-05', '2024-12-16 01:52:13', 10, 0),
+(85, 'teacher15', '코지코더', '코지코더', '3627909a29c31381a071ec27f7c9ca97726182aed29a7ddd2e54353322cfb30abb9e3a6df2ac2c20fe23436311d678564d0c8d305930575f60e2d3d048184d79', '010-8147-9263', 'techgeek2024@gmail.com', NULL, NULL, NULL, NULL, NULL, '2024-03-15', '2024-12-16 01:36:34', 10, 0),
+(86, 'teacher16', '제로초', '제로초', '3627909a29c31381a071ec27f7c9ca97726182aed29a7ddd2e54353322cfb30abb9e3a6df2ac2c20fe23436311d678564d0c8d305930575f60e2d3d048184d79', '010-4758-2941', 'user16@example.com', 0, 15678, '인천광역시 미추홀구', '별관 6층', NULL, '2024-03-16', '2024-12-16 00:14:30', 10, 0),
+(87, 'teacher17', 'AWS강의실', 'AWS강의실', '3627909a29c31381a071ec27f7c9ca97726182aed29a7ddd2e54353322cfb30abb9e3a6df2ac2c20fe23436311d678564d0c8d305930575f60e2d3d048184d79', '010-2391-8465', 'unshine_day@naver.com', NULL, NULL, NULL, NULL, '참고 항목', '2024-03-20', '2024-12-16 00:02:22', 10, 0),
+(88, 'teacher18', '이상희', '이상희', '3627909a29c31381a071ec27f7c9ca97726182aed29a7ddd2e54353322cfb30abb9e3a6df2ac2c20fe23436311d678564d0c8d305930575f60e2d3d048184d79', '010-6874-9102', 'user18@example.com', 1, NULL, NULL, NULL, NULL, '2024-03-29', '2024-12-15 23:52:07', 10, 0),
+(89, 'teacher19', 'JeongSuk Lee', 'JeongSuk Lee', '3627909a29c31381a071ec27f7c9ca97726182aed29a7ddd2e54353322cfb30abb9e3a6df2ac2c20fe23436311d678564d0c8d305930575f60e2d3d048184d79', '010-3421-8674', 'happyworld2023@daum.net', NULL, NULL, '경상남도 창원시', '2층', NULL, '2024-03-30', '2024-12-15 23:24:25', 10, 0),
+(90, 'teacher20', '일프로', '일프로', '3627909a29c31381a071ec27f7c9ca97726182aed29a7ddd2e54353322cfb30abb9e3a6df2ac2c20fe23436311d678564d0c8d305930575f60e2d3d048184d79', '010-5647-2831', 'user20@example.com', 1, NULL, NULL, NULL, NULL, '2024-04-11', '2024-12-15 16:59:11', 10, 0),
+(91, 'teacher21', '데이터리안', '데이터리안', '3627909a29c31381a071ec27f7c9ca97726182aed29a7ddd2e54353322cfb30abb9e3a6df2ac2c20fe23436311d678564d0c8d305930575f60e2d3d048184d79', '010-1482-7395', 'nightowl88@live.com', 0, 14200, '울산광역시 남구', '빌라', NULL, '2024-04-12', '2024-12-15 16:43:40', 10, 0),
+(92, 'teacher22', '이성욱', '이성욱', '3627909a29c31381a071ec27f7c9ca97726182aed29a7ddd2e54353322cfb30abb9e3a6df2ac2c20fe23436311d678564d0c8d305930575f60e2d3d048184d79', '010-2874-5632', 'oceanview55@icloud.com', NULL, NULL, NULL, NULL, NULL, '2024-04-13', '2024-12-15 16:27:53', 10, 0),
+(93, 'teacher23', '권철민', '권철민', '3627909a29c31381a071ec27f7c9ca97726182aed29a7ddd2e54353322cfb30abb9e3a6df2ac2c20fe23436311d678564d0c8d305930575f60e2d3d048184d79', '010-9271-4638', 'user23@example.com', 1, NULL, '경기도 고양시', NULL, '기타 정보', '2024-04-14', '2024-12-15 16:10:33', 10, 0),
+(94, 'teacher24', '잔재미코딩', '잔재미코딩', '3627909a29c31381a071ec27f7c9ca97726182aed29a7ddd2e54353322cfb30abb9e3a6df2ac2c20fe23436311d678564d0c8d305930575f60e2d3d048184d79', '010-4758-9210', 'user24@example.com', NULL, 11900, NULL, NULL, NULL, '2024-05-15', '2024-12-15 16:00:43', 10, 0),
+(95, 'teacher25', '김시훈', '김시훈', '3627909a29c31381a071ec27f7c9ca97726182aed29a7ddd2e54353322cfb30abb9e3a6df2ac2c20fe23436311d678564d0c8d305930575f60e2d3d048184d79', '010-8465-1273', 'user25@example.com', 0, 13457, '충청남도 천안시', '사무실 1층', NULL, '2024-05-16', '2024-12-15 15:51:32', 10, 0),
+(96, 'teacher26', '윤석찬', '윤석찬', '3627909a29c31381a071ec27f7c9ca97726182aed29a7ddd2e54353322cfb30abb9e3a6df2ac2c20fe23436311d678564d0c8d305930575f60e2d3d048184d79', '010-9374-6581', 'user96@example.com', 1, NULL, NULL, NULL, NULL, '2024-05-17', '2024-12-15 15:33:21', 10, 0),
+(97, 'teacher27', '쿠만', '쿠만', '3627909a29c31381a071ec27f7c9ca97726182aed29a7ddd2e54353322cfb30abb9e3a6df2ac2c20fe23436311d678564d0c8d305930575f60e2d3d048184d79', '010-2947-1365', 'user27@example.com', NULL, NULL, '제주특별자치도', '건물 5층', '참고 항목2', '2024-05-18', '2024-12-15 15:14:42', 10, 0),
+(98, 'teacher28', '에릭권', '에릭권', '3627909a29c31381a071ec27f7c9ca97726182aed29a7ddd2e54353322cfb30abb9e3a6df2ac2c20fe23436311d678564d0c8d305930575f60e2d3d048184d79', '010-1284-9465', 'user28@example.com', 1, 11234, '대구광역시 수성구', '빌라 A동', NULL, '2024-06-17', '2024-12-15 15:02:01', 10, 0),
+(99, 'teacher29', '널널한개발자', '널널한개발자', '3627909a29c31381a071ec27f7c9ca97726182aed29a7ddd2e54353322cfb30abb9e3a6df2ac2c20fe23436311d678564d0c8d305930575f60e2d3d048184d79', '010-5673-8492', 'user29@example.com', 0, NULL, NULL, NULL, '참고 데이터', '2024-11-15', '2024-12-15 14:33:53', 10, 0),
+(100, 'teacher30', '컴공로드맵', '컴공로드맵', '3627909a29c31381a071ec27f7c9ca97726182aed29a7ddd2e54353322cfb30abb9e3a6df2ac2c20fe23436311d678564d0c8d305930575f60e2d3d048184d79', '010-9483-1652', 'user30@example.com', NULL, 13500, '부산광역시 서구', '오피스텔', NULL, '2024-06-12', '2024-12-15 04:13:11', 10, 0),
+(101, 'teacher31', '제로미니', '제로미니', '3627909a29c31381a071ec27f7c9ca97726182aed29a7ddd2e54353322cfb30abb9e3a6df2ac2c20fe23436311d678564d0c8d305930575f60e2d3d048184d79', '010-2354-7890', 'user31@example.com', 1, 12780, '서울특별시 서대문구', '2층 201호', NULL, '2024-06-14', '2024-12-15 02:16:57', 10, 0),
+(102, 'teacher32', '장기효(캡틴판교)', '장기효(캡틴판교)', '3627909a29c31381a071ec27f7c9ca97726182aed29a7ddd2e54353322cfb30abb9e3a6df2ac2c20fe23436311d678564d0c8d305930575f60e2d3d048184d79', '010-3852-9471', 'user32@example.com', 0, NULL, NULL, NULL, '참고 항목', '2024-11-18', '2024-12-17 06:21:21', 10, 0),
+(103, 'teacher33', '쩡원', '쩡원', '3627909a29c31381a071ec27f7c9ca97726182aed29a7ddd2e54353322cfb30abb9e3a6df2ac2c20fe23436311d678564d0c8d305930575f60e2d3d048184d79', '010-9823-7415', 'user33@example.com', 1, 14500, '광주광역시 북구', '연립주택 3층', NULL, '2024-06-11', '2024-12-17 07:47:24', 10, 0);
 
 --
 -- 덤프된 테이블의 인덱스
@@ -510,7 +519,7 @@ ALTER TABLE `order_details`
 --
 ALTER TABLE `refunds`
   ADD PRIMARY KEY (`reid`),
-  ADD KEY `oddtid` (`oddtid`);
+  ADD KEY `oddtid` (`odid`);
 
 --
 -- 테이블의 인덱스 `teachers`
@@ -546,7 +555,7 @@ ALTER TABLE `orders`
 -- 테이블의 AUTO_INCREMENT `order_delivery`
 --
 ALTER TABLE `order_delivery`
-  MODIFY `oddvid` int(11) NOT NULL AUTO_INCREMENT COMMENT '배송고유번호';
+  MODIFY `oddvid` int(11) NOT NULL AUTO_INCREMENT COMMENT '배송고유번호', AUTO_INCREMENT=2;
 
 --
 -- 테이블의 AUTO_INCREMENT `order_details`
@@ -600,7 +609,7 @@ ALTER TABLE `order_details`
 -- 테이블의 제약사항 `refunds`
 --
 ALTER TABLE `refunds`
-  ADD CONSTRAINT `refunds_ibfk_1` FOREIGN KEY (`oddtid`) REFERENCES `order_details` (`oddtid`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `refunds_ibfk_1` FOREIGN KEY (`odid`) REFERENCES `orders` (`odid`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- 테이블의 제약사항 `teachers`
