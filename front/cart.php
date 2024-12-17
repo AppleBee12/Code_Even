@@ -7,16 +7,35 @@
     <main>
       <h2 class="headt5">장바구니</h2>
       <div class="form-check">
+      <div class="check_total d-flex gap-2 align-item-center">
         <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked">
         <label class="form-check-label" for="flexCheckChecked">
-          <p>전체 선택 3/3</p>
-          <p>3</p>
-          <p>/3</p>
+            <p>전체 선택<span class="check_cnt"> 3</span> / 3</p>
         </label>
+        </div>
       </div>
 
       <div class="row g-5">
         <div class="col-md-7 col-lg-8">
+          <ul>
+            <li>
+              <div class="lec_item col-6">
+                <p>퍼블리셔 취업을 위해 제대로 배워 보는 html과 css 그리고 웹표준</p>
+                <p>김코딩</p>
+                <button>x</button>
+
+                <div class="lec_book">
+                  <span class="badge text-bg-secondary">교재포함강좌</span>
+                  <p>html과 css 그리고 웹표준</p>
+                  <button>-</button>
+                  <span>1</span>
+                  <button>+</button>
+                </div>
+              </div>
+              <p class="item_price col-2">44,000원</p>
+              <p class="item_price">15,000원</p>
+            </li>
+          </ul>
           <hr class="my-4">
           <button class="btn btn-primary btn-lg" type="submit">Continue to checkout</button>
   
