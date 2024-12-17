@@ -6,11 +6,11 @@ $username = $_POST['username'];
 $userid = $_POST['userid'];
 $title = $_POST['title'];
 $content = $_POST['content'];
-$status = $_POST['status'];
+$fix = $_POST['fix'];
 
 $notice_sql = "
-    INSERT INTO notice (uid, title, content, status)
-    SELECT uid, '$title', '$content', '$status'  
+    INSERT INTO notice (uid, title, content, fix)
+    SELECT uid, '$title', '$content', '$fix'  
     FROM user
     WHERE username = '$username' AND userid = '$userid'
 ";
