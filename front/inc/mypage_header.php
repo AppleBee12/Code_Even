@@ -124,7 +124,7 @@ if ($stmt) {
               <li><a href=""><i class="bi bi-heart"></i>찜한 강좌</a></li>
               <li><a href="http://<?=$_SERVER['HTTP_HOST']?>/code_even/front/mypage/mypage_coupons.php"><i class="bi bi-ticket-perforated"></i></i>보유 쿠폰</a></li>
               <li class="mynav_title"><i class="bi bi-gear-fill"></i></i>설정</li>
-              <li><a href="http://<?=$_SERVER['HTTP_HOST']?>/code_even/front/mypage/mypage_info.php"><i class="bi bi-person-lines-fill"></i>기본 정보 설정</a></li>
+              <li><a href="http://<?=$_SERVER['HTTP_HOST']?>/code_even/front/mypage/mypage_info_edit.php"><i class="bi bi-person-lines-fill"></i>기본 정보 설정</a></li>
             </ul>
           </nav>
         </div>
