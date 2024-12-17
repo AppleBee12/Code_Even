@@ -61,7 +61,7 @@ if ($result->num_rows > 0) {
                 <label for="userpw" class="form-label align-self-center">비밀번호</label>
               </div>
               <div class="col-6 user_info">
-                <input type="password" class="form-control" id="userpw" name="userpw" value="" placeholder="새 비밀번호를 입력해주세요.">
+                <input type="password" class="form-control" id="userpw" name="userpw" value="" placeholder="* 비밀번호는 변경시에만 입력해주세요.">
               </div>
             </div>
             <div class="d-flex info_wrapper align-items-center mt-3">
@@ -69,7 +69,7 @@ if ($result->num_rows > 0) {
                 <label for="userpw" class="form-label align-self-center">비밀번호 확인</label>
               </div>
               <div class="col-6 user_info">
-                <input type="password" class="form-control" id="userpw" name="userpw" value="" placeholder="새 비밀번호를 확인해주세요.">
+                <input type="password" class="form-control" id="userpw" name="userpw" value="" placeholder="* 비밀번호는 변경시에만 입력해주세요.">
               </div>
             </div>
             <div class="d-flex info_wrapper align-items-center mt-3">
@@ -147,7 +147,8 @@ if ($result->num_rows > 0) {
             </div>
           </div>
         </div>
-        <div class="info_btn mb-5 d-flex justify-content-end">
+        <div class="info_btn mb-5 d-flex justify-content-between align-items-center">
+          <a href="#" class="link-body-emphasis text-decoration-underline">계정 탈퇴하기</a>
           <button type="submit" class="btn">저장</button>
         </div>
       </div>
