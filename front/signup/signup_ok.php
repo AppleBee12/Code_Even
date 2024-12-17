@@ -7,7 +7,7 @@ $userid = $_POST['userid'];
 $userpw = $_POST['userpw'];
 $userphonenum = $_POST['userphonenum'];
 $useremail = $_POST['useremail'];
-$email_ok = $_POST['email_ok'];
+$email_ok = isset($_POST['email_ok']) ? intval($_POST['email_ok']) : 0;
 $userpw = hash('sha512', $userpw);
 
 $sql = "INSERT INTO user (username, usernick, userid, userphonenum, useremail, email_ok, userpw) VALUES ('$username', '$usernick', '$userid', '$userphonenum', '$useremail', '$email_ok', '$userpw')";
@@ -27,23 +27,13 @@ if($result){
 
   echo "<script>
   alert('회원가입이 완료되었습니다. 가입축하쿠폰이 발행되었습니다!');
-  location.href='../../index.php';
+  location.href=\"http://" . $_SERVER['HTTP_HOST'] . "/code_even/\";
   </script>";
 }else{
   echo "<script>
   alert('회원가입이 실패되었습니다.');
   history.back();
   </script>";
-}
-
-// email_ok 값을 처리
-$email_ok = isset($_POST['email_ok']) ? $_POST['email_ok'] : 0;
-
-// 데이터 확인
-if ($email_ok == 1) {
-    echo "이메일 수신 동의: 1";
-} else {
-    echo "이메일 수신 동의: 0";
 }
 
 ?>
