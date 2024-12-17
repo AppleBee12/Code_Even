@@ -126,55 +126,6 @@ function uploadImage(file) {
     }
   });
 }
-
-// function handleImageDeletion(contents) {
-//   const parser = new DOMParser();
-//   const doc = parser.parseFromString(contents, 'text/html');
-
-//   // 에디터에 남아 있는 이미지 URL을 수집
-//   const remainingImages = Array.from(doc.querySelectorAll('img')).map(img => img.src);
-
-//   if (remainingImages.length > 0) {
-//     // 서버에 업로드된 이미지 목록 요청
-//     $.ajax({
-//       url: '/get-uploaded-images.php',
-//       method: 'GET',
-//       dataType: 'json',
-//       success: function(uploadedImages) {
-//         console.log('서버에 업로드된 이미지 목록:', uploadedImages);
-
-//         // 서버 데이터 검증 및 배열화
-//         if (!Array.isArray(uploadedImages)) {
-//           uploadedImages = Array.isArray(uploadedImages.images) ? uploadedImages.images : [];
-//         }
-
-//         // 삭제할 이미지 필터링
-//         const imagesToDelete = uploadedImages.filter(img => !remainingImages.includes(img));
-
-//         if (imagesToDelete.length > 0) {
-//           // 삭제 요청 전송
-//           $.ajax({
-//             url: '/delete-images.php',
-//             method: 'POST',
-//             contentType: 'application/json',
-//             data: JSON.stringify({ images: imagesToDelete }),
-//             success: function(data) {
-//               console.log(imagesToDelete.length === 1 
-//                 ? '이미지 하나 삭제 완료' 
-//                 : `${imagesToDelete.length}개의 이미지 삭제 완료`, data);
-//             },
-//             error: function(xhr, status, error) {
-//               console.error('이미지 삭제 실패:', error);
-//             }
-//           });
-//         }
-//       },
-//       error: function(xhr, status, error) {
-//         console.error('이미지 목록 요청 실패:', error);
-//       }
-//     });
-//   }
-// }
 </script>
 
 </body>
