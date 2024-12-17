@@ -7,7 +7,11 @@ $leid = isset($_GET['leid']) ? (int) $_GET['leid'] : 0;
 
 // 강좌 book 이미지 정보 조회
 $lecture_sql = "
-    SELECT l.*, b.image AS book_image 
+    SELECT l.*, 
+           b.image AS book_image, 
+           b.des AS book_description,
+           b.book AS book_title,
+           b.price AS book_price
     FROM lecture l
     LEFT JOIN book b ON l.boid = b.boid
     WHERE l.leid = $leid
@@ -16,9 +20,9 @@ $lecture_sql = "
 $lecture_result = $mysqli->query($lecture_sql);
 
 if ($lecture_result && $lecture_result->num_rows > 0) {
-    $lecture = $lecture_result->fetch_object();
+  $lecture = $lecture_result->fetch_object();
 } else {
-    die("강좌 정보를 가져올 수 없습니다.");
+  die("강좌 정보를 가져올 수 없습니다.");
 }
 
 
@@ -126,7 +130,7 @@ $totalTimeFormatted = secondsToHMS($totalSeconds);
     </div>
     <div class="con_border col-3 p-4">
       <h4 class="mb-2 lecture_tt"><?= $lecture->title; ?></h4>
-      <p class="fs-5 fw-bold"><?= number_format($lecture->price); ?>원</p>
+      <p class="fs-5 fw-bold"><?= number_format($lecture->price); ?> 원</p>
       <hr>
       <ul>
         <li>
@@ -149,17 +153,23 @@ $totalTimeFormatted = secondsToHMS($totalSeconds);
         </li>
       </ul>
       <hr>
-      <p class="mt-4 fw-semibold mb-2">[교재] 목요일 TOO MUCH 친절한 HTML+CSS+자바...</p>
-      <div class="d-flex justify-content-between">
-        <p class="fs-5 fw-bold mb-3">28,800 원</p>
-        <div class="form-check">
-          <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-          <label class="form-check-label" for="flexCheckDefault">
-            <p>교재 함께 구매</p>
-          </label>
-        </div>
-      </div>
-      <hr>
+      <?php 
+      if (!empty($lecture->book_title) && !empty($lecture->book_price)): 
+      ?>
+          <p class="mt-4 fw-semibold mb-2">[교재] <?php echo htmlspecialchars($lecture->book_title); ?></p>
+          <div class="d-flex justify-content-between">
+              <p class="fs-5 fw-bold mb-3"><?php echo number_format($lecture->book_price); ?> 원</p>
+              <div class="form-check">
+                  <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                  <label class="form-check-label" for="flexCheckDefault">
+                      <p>교재 함께 구매</p>
+                  </label>
+              </div>
+          </div>
+          <hr>
+      <?php 
+      endif; 
+      ?>
       <div class="row gx-2 align-items-center mt-3">
         <!-- 장바구니 버튼 -->
         <div class="col-2">
@@ -192,22 +202,27 @@ $totalTimeFormatted = secondsToHMS($totalSeconds);
       </div>
     </div>
   </div>
-  <div class="row tab-menu text-center">
+  <div class="tab-menu d-flex justify-content-around <?php echo !empty($lecture->book_title) ? 'with-book' : 'no-book'; ?>">
     <div class="col">
-      <a href="#section-intro" class="tab-link active">강좌 소개</a>
+        <a href="#section-intro" class="tab-link active">강좌 소개</a>
+    </div>
+    <?php if (!empty($lecture->book_title) && !empty($lecture->book_image)): ?>
+    <div class="col">
+        <a href="#section-book" class="tab-link">교재 소개</a>
+    </div>
+    <?php endif; ?>
+    <div class="col">
+        <a href="#section-teacher" class="tab-link">강사 소개</a>
     </div>
     <div class="col">
-      <a href="#section-book" class="tab-link">교재 소개</a>
+        <a href="#section-lecture" class="tab-link">강의</a>
     </div>
     <div class="col">
-      <a href="#section-teacher" class="tab-link">강사 소개</a>
+        <a href="#section-review" class="tab-link">리뷰</a>
     </div>
-    <div class="col">
-      <a href="#section-lecture" class="tab-link">강의</a>
-    </div>
-    <div class="col">
-      <a href="#section-review" class="tab-link">리뷰</a>
-    </div>
+    <div class="tab-underline"></div>
+  </div>
+
     <!-- 언더라인 추가 -->
     <div class="tab-underline"></div>
   </div>
@@ -219,13 +234,15 @@ $totalTimeFormatted = secondsToHMS($totalSeconds);
       <h2 class="mb-5">강좌 소개</h2>
       <p><?= $lecture->des; ?></p>
     </section>
-    <section id="section-book">
-      <h2 class="mb-5">교재 소개</h2>
-      <div class="col-9 view_bookImg mb-3">
-        <img src="<?php echo htmlspecialchars($lecture->book_image); ?>" alt="교재 이미지">
-      </div>
-      <p>교재 설명이 여기 나옵니다다</p>
-    </section>
+    <?php if (!empty($lecture->book_image) && !empty($lecture->book_description)): ?>
+      <section id="section-book">
+        <h2 class="mb-5">교재 소개</h2>
+        <div class="col-9 view_bookImg mb-3">
+          <img src="<?php echo htmlspecialchars($lecture->book_image); ?>" alt="교재 이미지">
+        </div>
+        <p><?php echo htmlspecialchars($lecture->book_description); ?></p>
+      </section>
+    <?php endif; ?>
     <!-- // 은화 -->
     <!-- 은진 -->
     <section id="section-teacher">
@@ -277,82 +294,6 @@ $totalTimeFormatted = secondsToHMS($totalSeconds);
     <!-- // 유나 -->
   </div>
 </div>
-<script>
-
-  /* 탭메뉴 언더라인 이동 */
-  $(document).ready(function () {
-    // 탭 클릭 이벤트
-    $(".tab-link").on("click", function (e) {
-      e.preventDefault();
-
-      // 모든 탭에서 active 클래스 제거
-      $(".tab-link").removeClass("active");
-
-      // 클릭된 탭에 active 클래스 추가
-      $(this).addClass("active");
-
-      // 언더라인 이동
-      const index = $(this).parent().index();
-      const tabWidth = $(".tab-menu .col").outerWidth();
-      $(".tab-underline").css("left", index * tabWidth + "px");
-
-      // 해당 섹션으로 부드럽게 스크롤 이동
-      const target = $(this).attr("href");
-      $("html, body").animate(
-        {
-          scrollTop: $(target).offset().top - $(".tab-menu").outerHeight(), // 탭 메뉴 높이만큼 상단 여백 추가
-        },
-        500 // 부드러운 스크롤 애니메이션
-      );
-    });
-
-    // 스크롤 이벤트: 탭이 상단에 고정된 상태 유지
-    $(window).on("scroll", function () {
-      const sections = $("section");
-      let scrollTop = $(this).scrollTop();
-
-      sections.each(function (index) {
-        const sectionTop = $(this).offset().top - $(".tab-menu").outerHeight() - 50; // 상단 여백 추가
-        const sectionBottom = sectionTop + $(this).outerHeight();
-
-        if (scrollTop >= sectionTop && scrollTop < sectionBottom) {
-          $(".tab-link").removeClass("active");
-          $(".tab-link").eq(index).addClass("active");
-
-          // 언더라인 이동
-          const tabWidth = $(".tab-menu .col").outerWidth();
-          $(".tab-underline").css("left", index * tabWidth + "px");
-        }
-      });
-    });
-  });
-
-
-
-
-  $(document).ready(function () {
-    $(".tab-link").on("click", function (e) {
-      e.preventDefault(); // 기본 앵커 링크 동작 방지
-
-      // 모든 탭에서 active 클래스 제거
-      $(".tab-link").removeClass("active");
-
-      // 클릭된 탭에 active 클래스 추가
-      $(this).addClass("active");
-
-      // 해당 섹션으로 부드럽게 스크롤 이동
-      const target = $(this).attr("href");
-      $("html, body").animate(
-        {
-          scrollTop: $(target).offset().top - 50, // 상단 여백 추가
-        },
-        500 // 애니메이션 시간 (밀리초 단위)
-      );
-    });
-  });
-
-
-</script>
 <?php
 
 include_once($_SERVER['DOCUMENT_ROOT'] . '/code_even/front/inc/footer.php');
