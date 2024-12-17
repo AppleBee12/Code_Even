@@ -77,21 +77,21 @@
 
   li:hover {
     background-color: rgba(0, 0, 0, .7);
-    
-    a{
+
+    a {
       color: #fff;
     }
   }
 }
 
-.lecture_box{
-  
-  .image_box{
+.lecture_box {
+
+  .image_box {
     height: 200px;
     position: relative;
     overflow: hidden;
-    
-    img{
+
+    img {
       width: 100%;
       position: absolute;
       left: 50%;
@@ -111,7 +111,7 @@
   color: var(--primary);
 }
 
-.list_pagination{
+.list_pagination {
   margin-top: 90px;
   margin-bottom: 90px;
 }
@@ -126,3 +126,107 @@
 .d-none {
   display: none;
 }
+
+
+/* lecture_view 시작*/
+
+.img_info {
+  margin-top: 90px;
+  margin-bottom: 90px;
+}
+
+.con_border {
+  border: 1px solid rgba(217, 217, 217, .5);
+  border-radius: 8px;
+}
+
+/* 탭 메뉴 */
+.tab-menu {
+  position: sticky;
+  top: 0; /* 상단에 고정 */
+  z-index: 1000; /* 다른 콘텐츠 위에 표시 */
+  background-color: var(--bk1100);  /* 배경색 추가 (겹침 방지) */
+}
+
+.tab-menu .tab-link {
+  display: block;
+  text-align: center;
+  padding: 15px 0;
+  text-decoration: none;
+  color: #838383;
+  font-weight: normal;
+  position: relative;
+  transition: color 0.3s ease; /* 색상 변경 부드럽게 */
+}
+
+.tab-menu .tab-link.active {
+  color: var(--bk200); /* 활성 탭 색상 */
+  font-weight: bold;
+}
+
+/* 언더라인 스타일 */
+.tab-underline {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: calc(100% / 5); /* 탭 개수에 맞게 너비 설정 */
+  height: 3px;
+  background-color: var(--bk200); /* 언더라인 색상 */
+  transition: left 0.3s ease-in-out; /* 부드러운 이동 */
+}
+
+section{
+  margin-top: 90px;
+}
+
+/* 전체 강의 컨테이너 스타일 */
+.lecture-container {
+  width: 100%; /* 전체 너비 사용 */
+  max-width: 100%; /* 최대 너비 제한 해제 */
+  margin: 0 auto; /* 중앙 정렬 */
+  font-family: Arial, sans-serif;
+  color: var(--bk200);
+  background-color: #1A1A1A; /* 배경색 */
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+/* 헤더 스타일 */
+.lecture-header {
+  background-color: var(--bk500); /* 헤더 배경 색상 */
+  color: #1A1A1A; /* 글자 색상 */
+  font-weight: bold;
+  padding: 20px 30px; /* 좌우 여백 확대 */
+  font-size: 1.2rem;
+  height: 70px;
+  display: flex;
+  align-items: center;
+}
+
+/* 개별 강의 아이템 스타일 */
+.lecture-item {
+  background-color: #1A1A1A;
+  border-top: 1px solid var(--bk950); /* 위쪽 경계선 */
+  height: 90px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 30px; /* 좌우 여백 확대 */
+  font-size: 1rem;
+  transition: background-color 0.3s ease;
+}
+
+/* 시간 표시 스타일 */
+.lecture-item .time {
+  font-size: 0.9rem;
+  color: var(--bk200);
+}
+
+/* 호버 효과 */
+.lecture-item:hover {
+  background-color: var(--bk1100); /* 호버 시 배경 색상 변경 */
+}
+
+
+
+/* lecture_view 끝 */
