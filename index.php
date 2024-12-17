@@ -48,6 +48,15 @@ if ($result_recipe && $result_recipe->num_rows > 0) {
 
 /* lecture_section 끝 */
 
+/* teacher_section 시작 */
+
+$tc_sql = "SELECT * FROM teachers WHERE isrecom = 1;";
+  $tc_result = $mysqli->query($tc_sql); 
+  while($data = $tc_result->fetch_object()){
+    $tc_dataArr[] = $data;
+  }
+/* teacher_section 끝 */
+
 ?>
 
 
@@ -476,36 +485,38 @@ if ($result_recipe && $result_recipe->num_rows > 0) {
 <section class="sec06 container">
   <h2 class="headt4">이달의 BEST 강사</h2>
   <div class="row">
+  <?php
+          if(isset($tc_dataArr)){
+            foreach($tc_dataArr as $item){
+        ?> 
     <div class="col-4">
       <a href="#" class="card">
         <span class="badge eng">Best Teacher</span>
-        <img src="front/images/sec06_tc1.png" class="card-img-top" alt="베스트 강사1">
+        <img src="<?= $item->tc_thumbnail; ?>" class="card-img-top" alt="베스트 강사1">
         <div class="card-body">
-          <p class="card-text tc_desc">Rock’s Easyweb 차근차근 제대로 배워봅시다</p>
-          <p class="card-text tc_tit">김동주 | 웹개발 </p>
+          <p class="card-text tc_desc"><?= $item->tc_main_intro; ?></p>
+          <p class="card-text tc_tit">
+                <?= $item->tc_name; ?> | 
+                <?php
+                if ($item->tc_cate == 1) {
+                  echo "웹개발";
+                } elseif ($item->tc_cate == 2) {
+                  echo "클라우드·DB";
+                } elseif ($item->tc_cate == 3) {
+                  echo "보안·네트워크";
+                } else {
+                  echo "기타";
+                }
+                ?>
+              </p>
         </div>
       </a>
     </div>
-    <div class="col-4">
-      <a href="#" class="card">
-        <span class="badge eng">Best Teacher</span>
-        <img src="front/images/sec06_tc2.png" class="card-img-top" alt="베스트 강사2">
-        <div class="card-body">
-          <p class="card-text tc_desc">백문이불여일타 따라하는 데이터분석</p>
-          <p class="card-text tc_tit">박수호 | 클라우드·DB</p>
-        </div>
-      </a>
-    </div>
-    <div class="col-4">
-      <a href="#" class="card">
-        <span span class="badge eng">Best Teacher</span>
-        <img src="front/images/sec06_tc3.png" class="card-img-top" alt="베스트 강사3">
-        <div class="card-body">
-          <p class="card-text tc_desc">차이를 만드는 첫걸음, 보안정복</p>
-          <p class="card-text tc_tit">이정환 | 보안·네트워크</p>
-        </div>
-      </a>
-    </div>
+
+    <?php
+            }
+          }
+        ?>
   </div>
 </section>
 <section class="sec07">

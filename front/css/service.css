@@ -1,15 +1,4 @@
-.service_tab {
-  padding-top: 160px;
-  li {
-    flex: 1 1; line-height: 70px; border: 1px solid var(--bk700);
-    a {
-      display: block; text-align: center;
-      font-size: 24px;
-    }
-  }
-  .nav_list_active {background: rgba(220,53,69,.2); border: none; border-bottom: 5px solid #DC3545;}
-}
-
+/* ------ service 공통 CSS ------ */
 .service_title {
   padding: 90px 0; 
   display: flex; flex-direction: column; gap: 100px;
@@ -32,6 +21,19 @@
       }
     }
   }
+}
+
+/* ------ FAQ ------ */
+.service_tab {
+  padding-top: 160px;
+  li {
+    flex: 1 1; line-height: 70px; border: 1px solid var(--bk700);
+    a {
+      display: block; text-align: center;
+      font-size: 24px;
+    }
+  }
+  .nav_list_active {background: rgba(220,53,69,.2); border: none; border-bottom: 5px solid #DC3545;}
 }
 
 .faq_content {
@@ -94,5 +96,40 @@
         .title {text-decoration: underline;}
       }
     }
+  }
+}
+
+/* ------ NOTICE ------ */
+.notice_content {
+  display: flex; flex-direction: column; gap: 60px;
+  p {margin-top: 40px; font-size: 18px; color: var(--bk300);
+    em {font-weight: bold; color: var(--red950);}
+  }
+  .notice_list {
+    .notice_item {
+      display: flex; flex-direction: column; gap: 10px; padding: 30px 0 30px 20px;
+      border-top: 1px solid var(--bk700);
+      .title {
+        display: flex; gap: 10px;
+        .bi-pin-angle-fill {color: var(--red950);}
+      }
+    }
+    .notice_item:hover {background: var(--bk1000);}
+    .notice_item:last-child {
+      border-bottom: 1px solid var(--bk700);
+    }
+    .writer {
+      display: flex; gap: 10px;
+    }
+  }
+}
+
+.notice_details {
+  .head {display: flex; flex-direction: column; gap: 20px; padding-bottom: 40px; border-bottom: 1px solid var(--bk700);}
+  .writer {display: flex; gap: 20px;}
+  .content {padding: 60px 0;}
+  .bottom {border-top: 1px solid var(--bk700); padding: 20px 0 80px 0; display: flex; justify-content: end; 
+    .list {border: 1px solid var(--bk50); color: var(--bk50); border-radius: 10px; padding: 10px 40px;
+    display: flex; gap: 10px;}
   }
 }

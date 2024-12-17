@@ -70,7 +70,7 @@ while ($qdata = $question_result->fetch_object()) {
         <div class="search">
           <form method="GET" class="d-flex align-items-center">
             <button type="submit"><i class="bi bi-search"></i></button type="submit">
-            <input type="text" class="form-control" id="faqSearch" placeholder="검색어를 입력해주세요" name="keywords"
+            <input type="text" class="form-control" placeholder="검색어를 입력해주세요" name="keywords"
             value="<?= htmlspecialchars($keywords); ?>">
           </form>
         </div>

@@ -356,7 +356,9 @@
 
 /* sec05 끝 */
 
+
 /* sec06 시작 */
+
 .sec06{
   padding-top: 90px;
   padding-bottom: 90px;
@@ -370,6 +372,12 @@
     color: var(--bk200);
     text-align: left;
     position: relative;
+    img{
+      width: 100%;
+      height: 308px; 
+      object-fit: cover;
+      overflow: hidden;  
+    }
   }
   .badge{
     background: var(--red900);
@@ -394,7 +402,6 @@
     }
   }
 }
-
 
 
 /* sec06 끝 */

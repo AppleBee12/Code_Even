@@ -187,6 +187,7 @@ if (isset($_GET['code'])) {
   switch ($page) { //lecture.css
     case 'faq.php':
     case 'notice.php':
+    case 'notice_details.php':
       echo '<link rel="stylesheet" href="http://' . $_SERVER['HTTP_HOST'] . '/code_even/front/css/service.css">';
       break;
   }
@@ -370,7 +371,7 @@ if (isset($_GET['code'])) {
               </a>
               <div class="profile_menu">
                 <div class="profile_menu_top">
-                  <a href="">
+                  <a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/front/mypage/mypage_info.php">
                     <div class="profile_header d-flex align-items-center">
                       <img src="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/front/images/profile.png" alt="기본프로필이미지">
                       <p><?= $_SESSION['AUNAME'] ?>님</p>
