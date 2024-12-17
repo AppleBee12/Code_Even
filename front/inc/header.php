@@ -371,7 +371,7 @@ if (isset($_GET['code'])) {
               </a>
               <div class="profile_menu">
                 <div class="profile_menu_top">
-                  <a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/front/mypage/mypage_info.php">
+                  <a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/front/mypage/mypage_info_edit.php">
                     <div class="profile_header d-flex align-items-center">
                       <img src="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/front/images/profile.png" alt="기본프로필이미지">
                       <p><?= $_SESSION['AUNAME'] ?>님</p>
@@ -439,7 +439,8 @@ if (isset($_GET['code'])) {
                 <button class="btn kakao_loginbtn yellowbtn">
                   <a href="https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=dc8b785f75c0ed7ecca5dad87f2b18ff&redirect_uri=http://localhost/code_even/"
                     class="kakao m-0 ">
-                    카카오 로그인
+                    <img src="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/front/images/kakao_icon.png" alt="">
+                    <span >카카오 로그인</span>
                   </a>
                 </button>
               </div>
