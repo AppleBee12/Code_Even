@@ -2,9 +2,8 @@
 
 .service_tab {
   padding-top: 160px;
-  .nav_list_actice {border: 1px solid var(--bk700);}
   li {
-    flex: 1 1; line-height: 70px;
+    flex: 1 1; line-height: 70px; border: 1px solid var(--bk700);
     a {
       display: block; text-align: center;
       font-size: 24px;
@@ -43,7 +42,7 @@
       flex: 1 1; padding-bottom: 30px; cursor: pointer;
       span {display: block; line-height: 30px; text-align: center; font-size: 18px;}
     }
-    .active {border-bottom: 2px solid var(--bk50);}
+    .active {border-bottom: 3px solid var(--bk50);}
   }
   .accordion {
     --bs-accordion-btn-bg: none; border: 1px solid var(--bk700); margin-top: 40px;
@@ -64,6 +63,8 @@
   p {margin-top: 40px; font-size: 18px; color: var(--bk300);
     em {font-weight: bold; color: var(--red950);}
   }
+  .list-group {display: none;}
+  .list-group.active {display: block;}
 }
 
 .qna_more {
