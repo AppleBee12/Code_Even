@@ -145,15 +145,15 @@
     border: none;
   }
   .yellowbtn{
-    background: #FEE500;
+    background: #FFEB3B;
     a{
-      color: #181600;
+      color: #3E2723;
     }
   }
   .yellowbtn:hover{
-    background: #FEE500;
+    background: #FFEB3B;
     a{
-      color: #181600;
+      color: #3E2723;
     }
 
   }

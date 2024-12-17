@@ -134,7 +134,7 @@ if (isset($_GET['code'])) {
     case 'mypage_header.php':
     case 'mypage_lecture.php':
     case 'mypage_coupons.php':
-    case 'mypage_info.php':
+    case 'mypage_info_edit.php':
     case 'mypage_paid.php':
     case 'mypage_copy.php':
       echo '<link rel="stylesheet" href="http://' . $_SERVER['HTTP_HOST'] . '/code_even/front/css/mypage_header.css">';
@@ -168,7 +168,7 @@ if (isset($_GET['code'])) {
       break;
   }
   switch ($page) { //mypage_coupons.css
-    case 'mypage_info.php':
+    case 'mypage_info_edit.php':
       echo '<link rel="stylesheet" href="http://' . $_SERVER['HTTP_HOST'] . '/code_even/front/css/mypage_info.css">';
       break;
   }
@@ -187,6 +187,7 @@ if (isset($_GET['code'])) {
   switch ($page) { //lecture.css
     case 'faq.php':
     case 'notice.php':
+    case 'notice_details.php':
       echo '<link rel="stylesheet" href="http://' . $_SERVER['HTTP_HOST'] . '/code_even/front/css/service.css">';
       break;
   }
@@ -370,7 +371,7 @@ if (isset($_GET['code'])) {
               </a>
               <div class="profile_menu">
                 <div class="profile_menu_top">
-                  <a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/front/mypage/mypage_info.php">
+                  <a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/front/mypage/mypage_info_edit.php">
                     <div class="profile_header d-flex align-items-center">
                       <img src="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/front/images/profile.png" alt="기본프로필이미지">
                       <p><?= $_SESSION['AUNAME'] ?>님</p>
@@ -392,7 +393,7 @@ if (isset($_GET['code'])) {
                     <li class="list_pt"><a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/front/cart.php"><i
                           class="bi bi-cart"></i><span>장바구니</span></a></li>
                     <li class="list_pb"><a href=""><i class="bi bi-heart"></i><span>찜한 강좌</span></a></li>
-                    <li class="list_pt"><a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/front/mypage/mypage_info.php"><i class="bi bi-person-circle"></i><span>기본 정보 설정</span></a></li>
+                    <li class="list_pt"><a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/front/mypage/mypage_info_edit.php"><i class="bi bi-person-circle"></i><span>기본 정보 설정</span></a></li>
                     <li class="list_pb"><a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/front/login/logout.php"><i
                           class="bi bi-box-arrow-right"></i><span>로그아웃</span></a></li>
                   </ul>
@@ -438,7 +439,8 @@ if (isset($_GET['code'])) {
                 <button class="btn kakao_loginbtn yellowbtn">
                   <a href="https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=dc8b785f75c0ed7ecca5dad87f2b18ff&redirect_uri=http://localhost/code_even/"
                     class="kakao m-0 ">
-                    카카오 로그인
+                    <img src="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/front/images/kakao_icon.png" alt="">
+                    <span >카카오 로그인</span>
                   </a>
                 </button>
               </div>

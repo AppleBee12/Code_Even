@@ -13,3 +13,13 @@
 .user_info input{
   color: var(--bk500);
 }
+.info_btn {
+  button{
+    background: var(--red700);
+    color: var(--bk0);
+  }
+  button:hover{
+    background: var(--red800);
+    color: var(--bk0);
+  }
+}
