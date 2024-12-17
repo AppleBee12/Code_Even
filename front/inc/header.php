@@ -372,7 +372,7 @@ if (isset($_GET['code'])) {
                   <a href="">
                     <div class="profile_header d-flex align-items-center">
                       <img src="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/front/images/profile.png" alt="기본프로필이미지">
-                      <p><?= $_SESSION['AUNAME'] ?></p>
+                      <p><?= $_SESSION['AUNAME'] ?>님</p>
                       <i class="bi bi-chevron-right"></i>
                     </div>
                   </a>
