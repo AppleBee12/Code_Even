@@ -49,12 +49,15 @@ if ($result_recipe && $result_recipe->num_rows > 0) {
 /* lecture_section 끝 */
 
 /* teacher_section 시작 */
+$tc_sql = "SELECT * FROM teachers WHERE isrecom = 1 ORDER BY RAND() LIMIT 3;";
+$tc_result = $mysqli->query($tc_sql); 
 
-$tc_sql = "SELECT * FROM teachers WHERE isrecom = 1;";
-  $tc_result = $mysqli->query($tc_sql); 
-  while($data = $tc_result->fetch_object()){
+$tc_dataArr = [];
+if ($tc_result && $tc_result->num_rows > 0) {
+  while ($data = $tc_result->fetch_object()) {
     $tc_dataArr[] = $data;
   }
+}
 /* teacher_section 끝 */
 
 ?>
@@ -486,9 +489,9 @@ $tc_sql = "SELECT * FROM teachers WHERE isrecom = 1;";
   <h2 class="headt4">이달의 BEST 강사</h2>
   <div class="row">
   <?php
-          if(isset($tc_dataArr)){
-            foreach($tc_dataArr as $item){
-        ?> 
+    if(isset($tc_dataArr)){
+      foreach($tc_dataArr as $item){
+  ?> 
     <div class="col-4">
       <a href="#" class="card">
         <span class="badge eng">Best Teacher</span>
@@ -512,11 +515,10 @@ $tc_sql = "SELECT * FROM teachers WHERE isrecom = 1;";
         </div>
       </a>
     </div>
-
-    <?php
-            }
-          }
-        ?>
+  <?php
+      }
+    }
+  ?>
   </div>
 </section>
 <section class="sec07">
