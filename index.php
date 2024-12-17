@@ -188,7 +188,7 @@ if ($result_recipe && $result_recipe->num_rows > 0) {
   <ul class="images_wh">
     <li>
       <div>
-        <a href="http://<?= $_SERVER['HTTP_HOST'] ?>/code_even/front/mypage/mypage_copy.php"><img src="front/images/frontend.png" alt="프론트엔드">
+        <a href="#"><img src="front/images/frontend.png" alt="프론트엔드">
           <div class="headt5 mb-2">프론트엔드</div>
           <div>프론트엔드 개발자를 위한, <br> 실전 웹 성능 최적화 <br>(feat. React)</div>
         </a>
