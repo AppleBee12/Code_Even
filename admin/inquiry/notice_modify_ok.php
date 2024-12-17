@@ -7,14 +7,14 @@ $username = $_POST['username'];
 $userid = $_POST['userid'];
 $title = $_POST['title'];
 $content = $_POST['content'];
-$status = $_POST['status'];
+$fix = $_POST['fix'];
 
 $notice_sql = "
     UPDATE notice 
     SET 
         title = '$title',
         content = '$content',
-        status = '$status'
+        fix = '$fix'
     WHERE uid = (
         SELECT uid 
         FROM user 
