@@ -234,7 +234,7 @@ if (isset($_GET['code'])) {
         <nav class="header_menu">
           <ul class="d-flex align-items-center">
             <li class="menu_depth1">
-              <a href="">강좌</a>
+              <a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/front/lecture_list.php">강좌</a>
               <div class="menu_depth2">
                 <ul class="depth2_lec">
                   <li>
