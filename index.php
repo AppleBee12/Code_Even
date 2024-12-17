@@ -197,7 +197,7 @@ $tc_sql = "SELECT * FROM teachers WHERE isrecom = 1;";
   <ul class="images_wh">
     <li>
       <div>
-        <a href="#"><img src="front/images/frontend.png" alt="프론트엔드">
+        <a href="http://<?=$_SERVER['HTTP_HOST']?>/code_even/front/lecture_list.php?category=B0001"><img src="front/images/frontend.png" alt="프론트엔드">
           <div class="headt5 mb-2">프론트엔드</div>
           <div>프론트엔드 개발자를 위한, <br> 실전 웹 성능 최적화 <br>(feat. React)</div>
         </a>
@@ -205,7 +205,7 @@ $tc_sql = "SELECT * FROM teachers WHERE isrecom = 1;";
     </li>
     <li>
       <div>
-        <a href="#"><img src="front/images/backend.png" alt="백엔드">
+        <a href="http://<?=$_SERVER['HTTP_HOST']?>/code_even/front/lecture_list.php?category=B0002"><img src="front/images/backend.png" alt="백엔드">
           <div class="headt5 mb-2">백엔드</div>
           <div>탄탄한 백엔드 NestJS,  <br>기초부터 심화까지</div>
         </a>
@@ -213,7 +213,7 @@ $tc_sql = "SELECT * FROM teachers WHERE isrecom = 1;";
     </li>
     <li>
       <div>
-        <a href="#"><img src="front/images/cloud.png" alt="클라우드/DB">
+        <a href="http://<?=$_SERVER['HTTP_HOST']?>/code_even/front/lecture_list.php?category=B0003"><img src="front/images/cloud.png" alt="클라우드/DB">
           <div class="headt5 mb-2">클라우드/DB</div>
           <div>스스로 구축하는 <br>AWS 클라우드 <br>  인프라 </div>
         </a>
@@ -221,7 +221,7 @@ $tc_sql = "SELECT * FROM teachers WHERE isrecom = 1;";
     </li>
     <li>
       <div>
-        <a href="#"><img src="front/images/database.png" alt="데이터베이스">
+        <a href="http://<?=$_SERVER['HTTP_HOST']?>/code_even/front/lecture_list.php?category=B0004"><img src="front/images/database.png" alt="데이터베이스">
           <div class="headt5 mb-2">데이터베이스</div>
           <div>초보자를 위한 쉬운 파이썬 <br> 기초와 데이터 분석</div>
         </a>
@@ -229,7 +229,7 @@ $tc_sql = "SELECT * FROM teachers WHERE isrecom = 1;";
     </li>
     <li>
       <div>
-        <a href="#"><img src="front/images/network.png" alt="네트워크 관리">
+        <a href="http://<?=$_SERVER['HTTP_HOST']?>/code_even/front/lecture_list.php?category=B0005"><img src="front/images/network.png" alt="네트워크 관리">
           <div class="headt5 mb-2">네트워크 관리</div>
           <div>실습으로 배우는  <br> 핵심 네트워크 기술</div>
         </a>
@@ -237,7 +237,7 @@ $tc_sql = "SELECT * FROM teachers WHERE isrecom = 1;";
     </li>
     <li>
       <div>
-        <a href="#"><img src="front/images/security.png" alt="보안">
+        <a href="http://<?=$_SERVER['HTTP_HOST']?>/code_even/front/lecture_list.php?category=B0001"><img src="front/images/security.png" alt="보안">
           <div class="headt5 mb-2">보안</div>
           <div>기초부터 따라하는  <br> 디지털포렌식</div>
         </a>

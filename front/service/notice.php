@@ -30,7 +30,12 @@ if ($block_end > $total_page) {
   $block_end = $total_page;
 }
 
-$notice_sql = "SELECT * FROM notice $where_clause ORDER BY notice.ntid DESC LIMIT $start_num, $list";
+$notice_sql = "
+    SELECT * FROM notice 
+    $where_clause 
+    ORDER BY fix DESC, ntid DESC 
+    LIMIT $start_num, $list
+    ";
 $notice_result = $mysqli->query($notice_sql);
 
 $dataArr = [];
@@ -76,20 +81,23 @@ while ($data = $notice_result->fetch_object()) {
       <?php
         foreach ($dataArr as $data) {
       ?>
-      <div class="notice_item">
-        <a href="">
+      <a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/front/service/notice_details.php?ntid=<?= $data->ntid; ?>">
+        <div class="notice_item">
           <div class="title">
-            <i class="bi bi-pin-angle-fill headt6"></i><span class="headt6"><?=$data->title;?></span>
+            <?php if ($data->fix == 1): ?>
+              <i class="bi bi-pin-angle-fill headt6"></i>
+            <?php endif; ?>
+            <span class="headt6"><?=$data->title;?></span>
           </div>
-        </a>
-        <div class="writer">
-          <span>글쓴이: <?= ($data->uid == 1) ? '코드이븐' : htmlspecialchars($data->uid); ?></span>
-          <span>|</span>
-          <span><?=$data->regdate;?></span>
-          <span>|</span>
-          <span>조회수 <?=$data->view;?></span>
+          <div class="writer">
+            <span>글쓴이: <?= ($data->uid == 1) ? '코드이븐' : htmlspecialchars($data->uid); ?></span>
+            <span>|</span>
+            <span><?=$data->regdate;?></span>
+            <span>|</span>
+            <span>조회수 <?=$data->view;?></span>
+          </div>
         </div>
-      </div>
+      </a>
       <?php
         }
       ?>

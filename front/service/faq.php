@@ -37,7 +37,7 @@ $question_sql = "SELECT admin_question.*, user.uid, admin_answer.aaid
                 FROM admin_question 
                 JOIN user ON admin_question.uid = user.uid 
                 LEFT JOIN admin_answer ON admin_question.aqid = admin_answer.aqid 
-                WHERE user.userid = '" . $_SESSION['AUID'] . "'";
+                WHERE user.userid = '" . (isset($_SESSION['AUID']) ? $_SESSION['AUID'] : '') . "'";
 $question_result = $mysqli->query($question_sql);
 while ($qdata = $question_result->fetch_object()) {
   $qdataArr[] = $qdata;
@@ -160,10 +160,12 @@ while ($qdata = $question_result->fetch_object()) {
         </tr>
       </thead>
       <tbody>
-        <?php
+      <?php
+        // 세션에 AUID가 있으면 질문 데이터를 출력
+        if (isset($_SESSION['AUID']) && !empty($_SESSION['AUID'])) {
           foreach ($qdataArr as $question) {
             $categoryName = $categoryNames[$question->category] ?? '알 수 없음';
-        ?>
+      ?>
         <tr>
           <th scope="row"><?=$question->regdate;?></th>
           <td><?= htmlspecialchars($categoryName); ?></td>
@@ -176,6 +178,9 @@ while ($qdata = $question_result->fetch_object()) {
           </td>
         </tr>
         <?php
+              }
+            } else {
+            echo '<tr><td colspan="5" class="text-center">로그인이 필요합니다.</td></tr>';
           }
         ?>
       </tbody>

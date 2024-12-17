@@ -192,7 +192,7 @@ $sequence_number = $row_num - $start_num;
     if ($block_num > 1) {
       ?>
       <li class="page-item">
-        <a class="page-link" href="teacher_faq.php?page=<?= $previous; ?>" aria-label="Previous">
+        <a class="page-link" href="teacher_faq.php?page=<?= $previous; ?>&keywords=<?= urlencode($keywords); ?>" aria-label="Previous">
           <i class="bi bi-chevron-left"></i>
         </a>
       </li>
@@ -203,15 +203,14 @@ $sequence_number = $row_num - $start_num;
     for ($i = $block_start; $i <= $block_end; $i++) {
       $active = ($page == $i) ? 'active' : '';
       ?>
-      <li class="page-item <?= $active; ?>"><a class="page-link" href="teacher_faq.php?page=<?= $i; ?>"><?= $i; ?></a>
-      </li>
+      <li class="page-item <?= $active; ?>"><a class="page-link" href="teacher_faq.php?page=<?= $i; ?>&keywords=<?= urlencode($keywords); ?>"><?= $i; ?></a></li>
       <?php
     }
     $next = $block_end + 1;
     if ($total_block > $block_num) {
       ?>
       <li class="page-item">
-        <a class="page-link" href="teacher_faq.php?page=<?= $next; ?>" aria-label="Next">
+        <a class="page-link" href="teacher_faq.php?page=<?= $next; ?>&keywords=<?= urlencode($keywords); ?>" aria-label="Next">
           <i class="bi bi-chevron-right"></i>
         </a>
       </li>

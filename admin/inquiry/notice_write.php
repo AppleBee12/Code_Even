@@ -39,15 +39,15 @@ $data = $result->fetch_object();
           <th scope="row">상태 <b>*</b></th>
           <td class="d-flex gap-3">
             <div class="form-check">
-              <input class="form-check-input" type="radio" name="status" id="statusOn" value="on" required>
-              <label class="form-check-label" for="statusOn">
-                노출
+              <input class="form-check-input" type="radio" name="fix" id="fixOn" value=1>
+              <label class="form-check-label" for="fixOn">
+                고정
               </label>
             </div>
             <div class="form-check">
-              <input class=" form-check-input" type="radio" name="status" id="statusOff" value="off" checked>
-              <label class="form-check-label" for="statusOff">
-                숨김
+              <input class=" form-check-input" type="radio" name="fix" id="fixOff" value=0 checked>
+              <label class="form-check-label" for="fixOff">
+                일반
               </label>
             </div>
           </td>

@@ -6,15 +6,8 @@ include_once($_SERVER['DOCUMENT_ROOT'] . '/code_even/admin/inc/header.php');
 $keywords = isset($_GET['keywords']) ? $mysqli->real_escape_string($_GET['keywords']) : '';
 $where_clause = "";
 
-if ($level == 100) {
-  $where_clause .= " ";
-}
-if ($level == 10) {
-  $where_clause .= " WHERE notice.status = 'on'";
-}
-
 if ($keywords) {
-  $where_clause .= " AND (notice.title LIKE '%$keywords%' OR user.username LIKE '%$keywords%' OR user.userid LIKE '%$keywords%')";
+  $where_clause = "WHERE notice.title LIKE '%$keywords%' OR user.username LIKE '%$keywords%' OR user.userid LIKE '%$keywords%'";
 }
 
 $page_sql = "SELECT COUNT(*) AS cnt FROM notice JOIN user ON notice.uid = user.uid $where_clause";
@@ -41,7 +34,7 @@ $sql = "SELECT notice.*, user.username, user.userid
         FROM notice 
         JOIN user ON notice.uid = user.uid 
         $where_clause 
-        ORDER BY notice.ntid DESC 
+        ORDER BY notice.fix DESC, notice.ntid DESC 
         LIMIT $start_num, $list";
 $result = $mysqli->query($sql);
 
@@ -106,14 +99,18 @@ while ($data = $result->fetch_object()) {
                 class="form-check-input itemCheckbox" type="checkbox" value="<?=$no->ntid?>"
                 data-id="<?= $no->ntid; ?>" 
                 data-title="<?= htmlspecialchars($no->title); ?>" 
-                data-status="<?= $no->status; ?>">
+                data-fix=<?= $no->fix; ?>>
             </th>
           <?php endif; ?>
-            <?php if ($level == 10): ?>
-              <td><?= $sequence_number--; ?></td> <!-- level이 10일 때만 순번 출력 -->
-            <?php else: ?>
-              <td><?= $no->ntid; ?></td>
-            <?php endif; ?>
+
+              <td>
+                <?php if ($no->fix == 1): ?>
+                  <i class="bi bi-pin-angle-fill"></i>
+                <?php else: ?>
+                  <?= $no->ntid ?>
+                <?php endif; ?>
+              </td>
+
             <?php if ($level == 100): ?>
               <td><?= $no->userid; ?></td>
             <?php endif; ?>
@@ -137,8 +134,8 @@ while ($data = $result->fetch_object()) {
               <?php if ($level == 100): ?>
               <td>
                 <?php
-                $class = $no->status == 'on' ? 'text-bg-success' : 'text-bg-light';
-                $text = $no->status == 'on' ? '노출' : '숨김';
+                $class = $no->fix == 0 ? 'text-bg-light' : 'text-bg-success';
+                $text = $no->fix == 1 ? '고정' : '일반';
                 echo "<span class='badge $class'>$text</span>";
                 ?>
               </td>
@@ -164,7 +161,7 @@ while ($data = $result->fetch_object()) {
     </table>
 <?php if ($level == 100): ?>
   <div class="d-flex justify-content-end gap-2">
-    <button type="button" id="statusBtn" data-bs-toggle="modal" class="btn btn-outline-secondary">상태 변경</button>
+    <button type="button" id="fixBtn" data-bs-toggle="modal" class="btn btn-outline-secondary">상태 변경</button>
     <button type="submit" class="btn btn-secondary">등록</button>
   </div>
 <?php endif; ?>
@@ -181,7 +178,7 @@ while ($data = $result->fetch_object()) {
     if ($block_num > 1) {
       ?>
       <li class="page-item">
-        <a class="page-link" href="notice.php?page=<?= $previous; ?>" aria-label="Previous">
+        <a class="page-link" href="notice.php?page=<?= $previous; ?>&keywords=<?= urlencode($keywords); ?>" aria-label="Previous">
           <i class="bi bi-chevron-left"></i>
         </a>
       </li>
@@ -192,14 +189,14 @@ while ($data = $result->fetch_object()) {
     for ($i = $block_start; $i <= $block_end; $i++) {
       $active = ($page == $i) ? 'active' : '';
       ?>
-      <li class="page-item <?= $active; ?>"><a class="page-link" href="notice.php?page=<?= $i; ?>"><?= $i; ?></a></li>
+      <li class="page-item <?= $active; ?>"><a class="page-link" href="notice.php?page=<?= $i; ?>&keywords=<?= urlencode($keywords); ?>"><?= $i; ?></a></li>
       <?php
     }
     $next = $block_end + 1;
     if ($total_block > $block_num) {
       ?>
       <li class="page-item">
-        <a class="page-link" href="notice.php?page=<?= $next; ?>" aria-label="Next">
+        <a class="page-link" href="notice.php?page=<?= $next; ?>&keywords=<?= urlencode($keywords); ?>" aria-label="Next">
           <i class="bi bi-chevron-right"></i>
         </a>
       </li>
@@ -217,7 +214,7 @@ while ($data = $result->fetch_object()) {
         <h5 class="modal-title">글 상태 변경</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
-      <form action="notice_status_ok.php" method="POST" id="statusForm">
+      <form action="notice_status_ok.php" method="POST" id="fixForm">
         <input type="hidden" name="ntid" id="modal_ntid">
         <div class="modal-body">
             <table class="table">
@@ -242,15 +239,15 @@ while ($data = $result->fetch_object()) {
                   <th scope="row">상태 <b>*</b></th>
                   <td class="d-flex gap-3">
                     <div class="form-check">
-                      <input class="form-check-input" type="radio" name="status" id="status_on" value="on">
-                      <label class="form-check-label" for="status_on">
-                        노출
+                      <input class="form-check-input" type="radio" name="fix" id="fix_on" value=1>
+                      <label class="form-check-label" for="fix_on">
+                        고정
                       </label>
                     </div>
                     <div class="form-check">
-                      <input class=" form-check-input" type="radio" name="status" id="status_off" value="off">
-                      <label class="form-check-label" for="status_off">
-                        숨김
+                      <input class=" form-check-input" type="radio" name="fix" id="fix_off" value=0>
+                      <label class="form-check-label" for="fix_off">
+                        일반
                       </label>
                     </div>
                   </td>
@@ -292,20 +289,26 @@ checkboxes.forEach(function (checkbox) {
 });
 
 /* == 상태 변경 모달 띄우기 == */
-const statusBtn = document.getElementById('statusBtn');
+const fixBtn = document.getElementById('fixBtn');
 
-statusBtn.addEventListener('click', function () {
+fixBtn.addEventListener('click', function () {
   const selectedCheckbox = document.querySelector('.itemCheckbox:checked');
   if (selectedCheckbox) {
     const ntid = selectedCheckbox.dataset.id; // 체크박스의 data-id 속성값
     const title = selectedCheckbox.dataset.title; // 체크박스의 data-title 속성값
-    const status = selectedCheckbox.dataset.status; // 체크박스의 data-status 속성값
+    const fix = selectedCheckbox.dataset.fix; // 체크박스의 data-fix 속성값
 
     // 모달 필드에 값 설정
     document.getElementById('modal_ntid').value = ntid;
     document.getElementById('modal_title').value = title;
-    document.getElementById('status_on').checked = status === 'on';
-    document.getElementById('status_off').checked = status === 'off';
+    
+    if (fix == 1) {
+      document.getElementById('fix_on').checked = true;
+      document.getElementById('fix_off').checked = false;
+    } else {
+      document.getElementById('fix_on').checked = false;
+      document.getElementById('fix_off').checked = true;
+    }
 
     // 모달 띄우기
     const modal = new bootstrap.Modal(document.querySelector('.modal'));
@@ -317,11 +320,11 @@ statusBtn.addEventListener('click', function () {
 
   // 입력값 가져오기
   
-  document.getElementById('statusForm').addEventListener('submit', function (event) {
+  document.getElementById('fixForm').addEventListener('submit', function (event) {
     event.preventDefault();
     
     const ntid = document.querySelector('[name="ntid"]').value;
-    const status = document.querySelector('[name="status"]:checked').value;
+    const fix = document.querySelector('[name="fix"]:checked').value;
 
   // 서버로 POST 요청 보내기
   fetch('notice_status_ok.php', {
@@ -331,7 +334,7 @@ statusBtn.addEventListener('click', function () {
     },
     body: new URLSearchParams({
       ntid: ntid,
-      status: status 
+      fix: fix 
     })
   })
     .then(response => response.text())
