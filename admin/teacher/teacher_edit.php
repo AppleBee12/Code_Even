@@ -101,6 +101,12 @@
             <input type="text" class="form-control" id="tc_url" name="tc_url" value="<?= $data->tc_url; ?>" placeholder="https://">
           </td>
         </tr>
+        <tr> 
+          <th scope="row"><label for="tc_main_intro">대표 소개글 <b>*</b></label></th>
+          <td colspan="3">
+            <input type="text" class="form-control" id="tc_main_intro" name="tc_main_intro" value="<?= $data->tc_main_intro; ?>">
+          </td>
+        </tr>
         <tr>
           <th scope="row">소개글 <b>*</b></th>
           <td colspan="3">
@@ -136,16 +142,16 @@
           </td>
           <th scope="row"><label for="isnew">강사전시옵션</label></th>
           <td>
-            <div class="form-check form-check-inline d-inline-block">
+            <!-- <div class="form-check form-check-inline d-inline-block">
               <input class="form-check-input" type="checkbox" <?php echo $data->isnew ? 'checked' : ''; ?> value="<?= $data->isnew ?>" name="isnew" id="isnew">
               <label class="form-check-label" for="isnew">
                 신규
               </label>
-            </div>
+            </div> -->
             <div class="form-check d-inline-block">
               <input class="form-check-input" type="checkbox" <?php echo $data->isrecom ? 'checked' : ''; ?> value="<?= $data->isrecom ?>" name="isrecom" id="isrecom">
               <label class="form-check-label" for="isrecom">
-                추천
+                베스트
               </label>
             </div>
           </td>

@@ -15,6 +15,7 @@
     $tc_ok = $_POST['tc_ok'];
     $isnew = $_POST['isnew'] ?? 0;
     $isrecom = $_POST['isrecom'] ?? 0;
+    $tc_main_intro = $_POST['tc_main_intro'] ?? '';
     $tc_intro = rawurldecode($_POST['tc_intro']);
 
     /* ---------------- 이미지 업로드 함수 호출 로직 시작 --------------------- */
@@ -62,6 +63,7 @@
         tc_ok = $tc_ok,
         isnew = $isnew,
         isrecom = $isrecom,
+        tc_main_intro = '$tc_main_intro',
         tc_intro = '$tc_intro'";
 
     /* ---------------- 이미지 업로드 업데이트 sql --------------------- */
