@@ -1,5 +1,5 @@
 
-/* 장바구니 page */
+/* 장바구니 page
 .container_wrap{
   padding-top: 80px;
   padding-bottom: 100px;
@@ -30,3 +30,96 @@
   background-color: var(--red900);
   border-color: var(--red900);
 }
+ */
+
+ .check_total label{
+  color: var(--bk1000);
+  .check_cnt{
+    color: var(--red800);
+  }
+}
+
+ .container_wrap {
+  padding-top: 50px;
+  padding-bottom: 50px;
+}
+
+.headt5 {
+  font-weight: 700;
+  margin-bottom: 30px;
+}
+
+.cart_table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.cart_table thead th {
+  background-color: #f8f9fa;
+  font-weight: bold;
+  text-align: center;
+  padding: 10px;
+  border-bottom: 2px solid #dee2e6;
+}
+
+.cart_table tbody td {
+  text-align: center;
+  padding: 15px;
+  border-bottom: 1px solid #dee2e6;
+}
+
+
+
+.cart_table .item_img {
+  width: 80px;
+  height: 60px;
+  object-fit: cover;
+  margin-right: 15px;
+}
+
+.btn-outline-danger {
+  border-color: #dc3545;
+  color: #dc3545;
+}
+
+.btn-outline-danger:hover {
+  background-color: #dc3545;
+  color: #fff;
+}
+
+.btn-outline-secondary {
+  font-size: 14px;
+}
+
+.btn_ok_red {
+  background-color: #dc3545;
+  border-color: #dc3545;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.btn_ok_red:hover {
+  background-color: #c82333;
+}
+
+.lec_book {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+
+.badge_custom{
+  display: inline-block;
+  padding: 8px;
+  border: 1px solid var(--bk300);
+  font-size: 14px;
+  line-height: 1;
+  color: var(--bk700);
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: baseline;
+  border-radius: 5px;
+}
+
+
