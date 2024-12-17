@@ -12,15 +12,6 @@
 	color: var(--bk0);
 }
 
-.ok_btn button{
-	background: var(--red700);
-	color: var(--bk0);
-}
-.ok_btn button:hover{
-	background: var(--red800);
-	color: var(--bk0);
-}
-
 .color_change{
 	color: #6C757D;
 }
@@ -31,4 +22,21 @@
 .coupon_info ol li ul li{
 	list-style: disc;
 	margin-left: 20px;
+}
+.modal-header{
+	border-bottom: var(--bs-modal-header-border-width) solid var(--bs-modal-header-border-color);
+  .coupon_info_wrapper{
+    color: #212529;
+  }
+}
+.ok_btn{
+  border-top: var(--bs-modal-footer-border-width) solid var(--bs-modal-footer-border-color);
+  button{
+    background: var(--red700);
+    color: var(--bk0);
+  }
+  button:hover{
+    background: var(--red800);
+    color: var(--bk0);
+  }
 }

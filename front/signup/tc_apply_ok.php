@@ -35,7 +35,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if ($check_result && $check_result->num_rows > 0) {
         echo "<script>
             alert('이미 강사신청이 완료된 회원입니다.');
-            location.href = 'index.php';
+            location.href = '../../index.php';
         </script>";
         exit;
     }
@@ -82,7 +82,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if ($mysqli->query($insert_sql)) {
         echo "<script>
             alert('강사 신청이 완료되었습니다.');
-            location.href = 'index.php';
+            location.href = '../../index.php';
         </script>";
     } else {
         echo "<script>
