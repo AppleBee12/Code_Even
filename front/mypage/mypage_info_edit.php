@@ -5,16 +5,36 @@ include_once($_SERVER['DOCUMENT_ROOT'] . '/CODE_EVEN/admin/inc/dbcon.php');
 $mypage_main_js = "<script src=\"http://" . $_SERVER['HTTP_HOST'] . "/code_even/front/js/mypage_main.js\"></script>";
 
 
-// 사용자 정보 가져오기 (Prepared Statement 사용)
-$user_sql = "SELECT * FROM user";
-$result = $mysqli->query($user_sql);
+if (!isset($_SESSION['AUID'])) {
+  echo "<script>
+  alert('로그인을 해주세요');
+  location.href=\"http://". $_SERVER['HTTP_HOST'] ."/code_even/\";
+  </script>";
+}
 
-if ($result->num_rows > 0) {
-  // 첫 번째 행의 데이터를 가져옴
-  $user_data = $result->fetch_object();
+// 사용자 정보 가져오기 (Prepared Statement 사용)
+$user_sql = "SELECT userid, usernick, username, userpw, userphonenum, useremail, post_code, addr_line1, addr_line2, email_ok 
+             FROM user 
+             WHERE userid = ?";
+
+$stmt = $mysqli->prepare($user_sql);
+
+if ($stmt) {
+    $stmt->bind_param("s", $userid); // userid 바인딩
+    $stmt->execute();
+    $result = $stmt->get_result();
+
+    if ($result && $result->num_rows > 0) {
+        // 사용자 데이터 가져오기
+        $user_data = $result->fetch_object();
+    } else {
+        echo "사용자 데이터를 찾을 수 없습니다.";
+        exit;
+    }
+    $stmt->close();
 } else {
-  echo "데이터가 없습니다.";
-  exit;
+    echo "쿼리 준비 실패: " . $mysqli->error;
+    exit;
 }
 
 ?>
@@ -69,7 +89,7 @@ if ($result->num_rows > 0) {
                 <label for="userpw" class="form-label align-self-center">비밀번호 확인</label>
               </div>
               <div class="col-6 user_info">
-                <input type="password" class="form-control" id="userpw" name="userpw" value="" placeholder="* 비밀번호는 변경시에만 입력해주세요.">
+                <input type="password" class="form-control" id="userpw_check" name="userpw" value="" placeholder="* 비밀번호는 변경시에만 입력해주세요.">
               </div>
             </div>
             <div class="d-flex info_wrapper align-items-center mt-3">
@@ -130,19 +150,21 @@ if ($result->num_rows > 0) {
             <div class="header_grade2">마케팅 수신 동의 (선택)</div>
             <div class="d-flex info_wrapper align-items-center">
               <div class="col-2">
-                <label for="email_ok" class="form-label align-self-center">이메일 수신</label>
+                <label class="form-label align-self-center">이메일 수신</label>
               </div>
-              <div class="form-check">
-                <input class="form-check-input" type="radio" value="<?= $user_data->email_ok; ?>" name="email_ok" id="email_ok">
-                <label class="form-check-label" for="email_ok">
-                  동의
-                </label>
-              </div>
-              <div class="form-check">
-                <input class="form-check-input" type="radio" value="<?= $user_data->email_ok; ?>" name="email_ok" id="email_ok">
-                <label class="form-check-label" for="email_ok">
-                  동의하지않음
-                </label>
+              <div class="d-flex gap-3">
+                <!-- 동의 -->
+                <div class="form-check">
+                  <input class="form-check-input" type="radio" value="1" name="email_ok" id="email_ok_yes" 
+                    <?= (isset($user_data->email_ok) && intval($user_data->email_ok) === 1) ? 'checked' : ''; ?>>
+                  <label class="form-check-label" for="email_ok_yes">동의</label>
+                </div>
+                <!-- 동의하지 않음 -->
+                <div class="form-check">
+                  <input class="form-check-input" type="radio" value="0" name="email_ok" id="email_ok_no" 
+                    <?= (isset($user_data->email_ok) && intval($user_data->email_ok) === 0) ? 'checked' : ''; ?>>
+                  <label class="form-check-label" for="email_ok_no">동의하지 않음</label>
+                </div>
               </div>
             </div>
           </div>

@@ -20,17 +20,17 @@ if($data){
   if ($_SESSION['AULEVEL'] == 100) {
     echo "<script>
       alert('관리자님, 반갑습니다.');
-      location.href='../../index.php';
+      location.href=\"http://". $_SERVER['HTTP_HOST'] ."/code_even/\";
     </script>";
 } elseif ($_SESSION['AULEVEL'] == 10) {
     echo "<script>
       alert('선생님, 반갑습니다.');
-      location.href='../../index.php';
+      location.href=\"http://". $_SERVER['HTTP_HOST'] ."/code_even/\";
     </script>";
 } else {
     echo "<script>
       alert('회원님, 반갑습니다!');
-      location.href='../../index.php';
+      location.href=\"http://". $_SERVER['HTTP_HOST'] ."/code_even/\";
     </script>";
 }
 } else {
