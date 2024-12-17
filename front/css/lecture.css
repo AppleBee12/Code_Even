@@ -1,5 +1,10 @@
 /* lecture_list.php */
 
+p,
+div{
+  color: var(--bk200);
+}
+
 .title_wrap {
   margin-top: 90px;
   margin-bottom: 90px;
@@ -130,6 +135,14 @@
 
 /* lecture_view 시작*/
 
+.view_imgBox{
+  overflow: hidden;
+
+  img{
+    width: 100%;
+  }
+}
+
 .img_info {
   margin-top: 90px;
   margin-bottom: 90px;
@@ -138,6 +151,14 @@
 .con_border {
   border: 1px solid rgba(217, 217, 217, .5);
   border-radius: 8px;
+
+  .lecture_tt{
+    padding-top: 20px;
+  }
+
+  .info_bottom{
+    padding-bottom: 20px;
+  }
 }
 
 /* 탭 메뉴 */
@@ -177,6 +198,19 @@
 
 section{
   margin-top: 90px;
+}
+
+.view_bookImg{
+  width: 100%;
+  height: 700px;
+  position: relative;
+
+  img{
+    height: 100%;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+  }
 }
 
 /* 전체 강의 컨테이너 스타일 */
