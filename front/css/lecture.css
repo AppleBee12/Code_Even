@@ -1,15 +1,9 @@
 /* lecture_list.php */
 
-p,
-div{
-  color: var(--bk200);
-}
-
 .title_wrap {
   margin-top: 90px;
   margin-bottom: 90px;
 }
-
 
 /* Outline-only badge */
 .badge-outline {
@@ -23,6 +17,10 @@ div{
 
 .tc_name {
   color: var(--bk500);
+}
+
+.custom_tt{
+  color: var(--bk200);
 }
 
 .acc_title {
@@ -161,43 +159,38 @@ div{
   }
 }
 
-/* 탭 메뉴 */
-.tab-menu {
-  position: sticky;
-  top: 0; /* 상단에 고정 */
-  z-index: 1000; /* 다른 콘텐츠 위에 표시 */
-  background-color: var(--bk1100);  /* 배경색 추가 (겹침 방지) */
+/* 기본 스타일 (교재 있을 때) */
+.tab-menu.with-book {
+  top: 0;
+  background-color: var(--bk1100);
+  padding: 10px 0;
 }
 
-.tab-menu .tab-link {
+/* 교재 없을 때 스타일 */
+.tab-menu.no-book {
+  background-color: var(--bk1100); /* 약간 어두운 색상 */
+  padding: 15px 0; /* 여백 조정 */
+  display: flex; /* Flexbox 적용 */
+  justify-content: center; /* 가운데 정렬 */
+}
+
+/* 섹션 간 여백 추가 */
+section {
+  margin-top: 50px;
+}
+
+/* 탭 링크 스타일 */
+.tab-menu .col a {
   display: block;
   text-align: center;
-  padding: 15px 0;
+  color: #fff;
   text-decoration: none;
-  color: #838383;
-  font-weight: normal;
-  position: relative;
-  transition: color 0.3s ease; /* 색상 변경 부드럽게 */
+  padding: 10px;
 }
 
+/* 활성 탭 스타일 */
 .tab-menu .tab-link.active {
-  color: var(--bk200); /* 활성 탭 색상 */
-  font-weight: bold;
-}
-
-/* 언더라인 스타일 */
-.tab-underline {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: calc(100% / 5); /* 탭 개수에 맞게 너비 설정 */
-  height: 3px;
-  background-color: var(--bk200); /* 언더라인 색상 */
-  transition: left 0.3s ease-in-out; /* 부드러운 이동 */
-}
-
-section{
-  margin-top: 90px;
+  border-bottom: 2px solid #fff;
 }
 
 .view_bookImg{
@@ -212,6 +205,7 @@ section{
     transform: translateX(-50%);
   }
 }
+
 
 /* 전체 강의 컨테이너 스타일 */
 .lecture-container {

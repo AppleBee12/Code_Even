@@ -255,12 +255,12 @@ if ($result && $result->num_rows > 0) {
                   </div>
                   <div class="d-flex gap-2">
                     <i class="bi bi-star-fill"></i>
-                    <span>5.0</span>
+                    <span class="custom_tt">5.0</span>
                   </div>
                 </div>
                 <!-- 중 시작 -->
                 <div>
-                  <p><?= $item->title; ?></p>
+                  <p class="custom_tt"><?= $item->title; ?></p>
                 </div>
                 <div>
                   <p class="tc_name"><?= $item->name; ?></p>
