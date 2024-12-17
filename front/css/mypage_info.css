@@ -1,0 +1,15 @@
+.my_info_wrapper .my_info {
+  border: 1px solid var(--bk300);
+  border-radius: 8px;
+  padding: 60px;
+}
+
+.info_wrapper label{
+  color: var(--bk1000);
+}
+.color_gray span{
+  color: var(--bk300);
+}
+.user_info input{
+  color: var(--bk500);
+}

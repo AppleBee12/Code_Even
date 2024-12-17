@@ -2,18 +2,37 @@
 include_once($_SERVER['DOCUMENT_ROOT'] . '/CODE_EVEN/front/inc/header.php');
 $mypage_main_js = "<script src=\"http://" . $_SERVER['HTTP_HOST'] . "/code_even/front/js/mypage_main.js\"></script>";
 
+if (isset($_SESSION['AUID'])) {
+  $userid = $_SESSION['AUID'];
+} elseif (isset($_SESSION['KAKAO_UID'])) {
+  $userid = $_SESSION['KAKAO_UID'];
+} else {
+  echo "<script>
+      alert('로그인이 필요합니다.');
+      history.back();
+    </script>";
+  exit;
+}
 
-//$userid = $_SESSION['AUID']; // 세션에서 로그인된 사용자 ID 가져오기
+// 사용자 정보 가져오기 (Prepared Statement 사용)
+$user_sql = "SELECT username, userphonenum, useremail FROM user WHERE userid = ?";
+$stmt = $mysqli->prepare($user_sql);
 
-// 사용자 정보 가져오기
-//나중에 풀기 $user_sql = "SELECT username, userphonenum, useremail FROM user WHERE userid = '$userid'";
-//$user_result = $mysqli->query($user_sql);
-// if ($user_result && $user_result->num_rows > 0) {
-//   $user_data = $user_result->fetch_object();
-// } else {
-//   echo "<p>사용자 정보를 찾을 수 없습니다.</p>";
-//   exit;
-// }
+if ($stmt) {
+  $stmt->bind_param("s", $userid);
+  $stmt->execute();
+  $user_result = $stmt->get_result();
+
+  if ($user_result && $user_result->num_rows > 0) {
+      $user_data = $user_result->fetch_object();
+  } else {
+      echo "<p>사용자 정보를 찾을 수 없습니다.</p>";
+      exit;
+  }
+  $stmt->close();
+} else {
+  die("쿼리 준비 실패: " . $mysqli->error);
+}
 
 ?>
 
@@ -95,7 +114,7 @@ $mypage_main_js = "<script src=\"http://" . $_SERVER['HTTP_HOST'] . "/code_even/
           <nav class="mypage_nav">
             <ul>
               <li class="mynav_title"><i class="fa-solid fa-school"></i>나의 수업</li>
-              <li><a href=""><i class="fa-solid fa-chalkboard-user"></i>진행 / 종료 강좌</a></li>
+              <li><a href="http://<?=$_SERVER['HTTP_HOST']?>/code_even/front/mypage/mypage_lecture.php"><i class="fa-solid fa-chalkboard-user"></i>진행 / 종료 강좌</a></li>
               <li><a href=""><i class="bi bi-question-circle"></i>내 문의글</a></li>
               <li><a href=""><i class="bi bi-pencil"></i>내가 쓴 글 / 댓글</a></li>
               <li><a href=""><i class="fa-solid fa-file-pen"></i>내 강의 후기</a></li>
@@ -103,7 +122,7 @@ $mypage_main_js = "<script src=\"http://" . $_SERVER['HTTP_HOST'] . "/code_even/
               <li><a href=""><i class="bi bi-receipt"></i>결제 내역</a></li>
               <li><a href=""><i class="bi bi-cart-check"></i>장바구니</a></li>
               <li><a href=""><i class="bi bi-heart"></i>찜한 강좌</a></li>
-              <li><a href=""><i class="bi bi-ticket-perforated"></i></i>보유 쿠폰</a></li>
+              <li><a href="http://<?=$_SERVER['HTTP_HOST']?>/code_even/front/mypage/mypage_coupons.php"><i class="bi bi-ticket-perforated"></i></i>보유 쿠폰</a></li>
               <li class="mynav_title"><i class="bi bi-gear-fill"></i></i>설정</li>
               <li><a href=""><i class="bi bi-person-lines-fill"></i>기본 정보 설정</a></li>
             </ul>
