@@ -174,6 +174,7 @@ if (isset($_GET['code'])) {
   }
   switch ($page) { //lecture.css
     case 'lecture_list.php':
+    case 'lecture_view.php':
       echo '<link rel="stylesheet" href="http://' . $_SERVER['HTTP_HOST'] . '/code_even/front/css/lecture.css">';
       break;
   }

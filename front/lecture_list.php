@@ -1,49 +1,50 @@
 <?php
 
-  include_once($_SERVER['DOCUMENT_ROOT'] . '/code_even/front/inc/header.php');
+include_once($_SERVER['DOCUMENT_ROOT'] . '/code_even/front/inc/header.php');
 
-  // 현재 선택된 카테고리 코드 가져오기
-  $category_code = isset($_GET['category']) ? $_GET['category'] : null;
+// 현재 선택된 카테고리 코드 가져오기
+$category_code = isset($_GET['category']) ? $_GET['category'] : null;
 
-  // 페이지네이션 설정
-  $page = isset($_GET['page']) ? (int)$_GET['page'] : 1; // 현재 페이지 번호
-  $list = 9; // 한 페이지에 보여줄 강좌 수
-  $block_ct = 5; // 한 번에 보여질 페이지 블록 수
-  $start_num = ($page - 1) * $list; // LIMIT 시작점
+// 페이지네이션 설정
+$page = isset($_GET['page']) ? (int) $_GET['page'] : 1; // 현재 페이지 번호
+$list = 9; // 한 페이지에 보여줄 강좌 수
+$block_ct = 5; // 한 번에 보여질 페이지 블록 수
+$start_num = ($page - 1) * $list; // LIMIT 시작점
 
-  // 카테고리 조건 추가
-  $where_clause = "";
-  if ($category_code) {
-      $where_clause = "WHERE cate1 = '$category_code' OR cate2 = '$category_code' OR cate3 = '$category_code'";
+// 카테고리 조건 추가
+$where_clause = "";
+if ($category_code) {
+  $where_clause = "WHERE cate1 = '$category_code' OR cate2 = '$category_code' OR cate3 = '$category_code'";
+}
+
+// 전체 강좌 수 가져오기 (카테고리 조건 포함)
+$page_sql = "SELECT COUNT(*) AS cnt FROM lecture $where_clause";
+$page_result = $mysqli->query($page_sql);
+$page_data = $page_result->fetch_object();
+$row_num = $page_data->cnt; // 전체 강좌 수
+
+// 전체 페이지 및 블록 계산
+$total_page = ceil($row_num / $list); // 전체 페이지 수
+$total_block = ceil($total_page / $block_ct); // 전체 블록 수
+$block_num = ceil($page / $block_ct); // 현재 블록
+$block_start = (($block_num - 1) * $block_ct) + 1; // 블록 시작 페이지
+$block_end = $block_start + $block_ct - 1; // 블록 끝 페이지
+if ($block_end > $total_page)
+  $block_end = $total_page; // 블록 끝이 총 페이지를 초과할 경우 조정
+
+// 강좌 리스트 가져오기 (카테고리 조건 및 페이지네이션 포함)
+$sql = "SELECT * FROM lecture $where_clause ORDER BY leid DESC LIMIT $start_num, $list";
+$result = $mysqli->query($sql);
+
+// 결과를 객체 배열에 저장
+$lecture_sql = [];
+if ($result && $result->num_rows > 0) {
+  while ($row = $result->fetch_object()) {
+    $lecture_sql[] = $row;
   }
-
-  // 전체 강좌 수 가져오기 (카테고리 조건 포함)
-  $page_sql = "SELECT COUNT(*) AS cnt FROM lecture $where_clause";
-  $page_result = $mysqli->query($page_sql);
-  $page_data = $page_result->fetch_object();
-  $row_num = $page_data->cnt; // 전체 강좌 수
-
-  // 전체 페이지 및 블록 계산
-  $total_page = ceil($row_num / $list); // 전체 페이지 수
-  $total_block = ceil($total_page / $block_ct); // 전체 블록 수
-  $block_num = ceil($page / $block_ct); // 현재 블록
-  $block_start = (($block_num - 1) * $block_ct) + 1; // 블록 시작 페이지
-  $block_end = $block_start + $block_ct - 1; // 블록 끝 페이지
-  if ($block_end > $total_page) $block_end = $total_page; // 블록 끝이 총 페이지를 초과할 경우 조정
-
-  // 강좌 리스트 가져오기 (카테고리 조건 및 페이지네이션 포함)
-  $sql = "SELECT * FROM lecture $where_clause ORDER BY leid DESC LIMIT $start_num, $list";
-  $result = $mysqli->query($sql);
-
-  // 결과를 객체 배열에 저장
-  $lecture_sql = [];
-  if ($result && $result->num_rows > 0) {
-      while ($row = $result->fetch_object()) {
-          $lecture_sql[] = $row;
-      }
-  } else {
-      echo "데이터가 없습니다.";
-  }
+} else {
+  echo "데이터가 없습니다.";
+}
 
 ?>
 
@@ -63,7 +64,8 @@
       </div>
       <ul class="accordion-item">
         <li class="accordion-header">
-          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFrontend" aria-expanded="true" aria-controls="collapseFrontend">
+          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+            data-bs-target="#collapseFrontend" aria-expanded="true" aria-controls="collapseFrontend">
             프론트엔드
           </button>
         </li>
@@ -95,7 +97,8 @@
       </ul>
       <ul class="accordion-item">
         <li class="accordion-header">
-          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseBackend" aria-expanded="false" aria-controls="collapseBackend">
+          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+            data-bs-target="#collapseBackend" aria-expanded="false" aria-controls="collapseBackend">
             백엔드
           </button>
         </li>
@@ -121,7 +124,8 @@
       </div>
       <ul class="accordion-item">
         <li class="accordion-header">
-          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseCloud" aria-expanded="true" aria-controls="collapseCloud">
+          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+            data-bs-target="#collapseCloud" aria-expanded="true" aria-controls="collapseCloud">
             클라우드 컴퓨팅
           </button>
         </li>
@@ -147,7 +151,8 @@
       </ul>
       <ul class="accordion-item">
         <li class="accordion-header">
-          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseDatabase" aria-expanded="false" aria-controls="collapseDatabase">
+          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+            data-bs-target="#collapseDatabase" aria-expanded="false" aria-controls="collapseDatabase">
             데이터베이스
           </button>
         </li>
@@ -185,7 +190,8 @@
       </div>
       <ul class="accordion-item">
         <li class="accordion-header">
-          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseNetwork" aria-expanded="true" aria-controls="collapseNetwork">
+          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+            data-bs-target="#collapseNetwork" aria-expanded="true" aria-controls="collapseNetwork">
             네트워크 관리
           </button>
         </li>
@@ -202,7 +208,8 @@
       </ul>
       <ul class="accordion-item">
         <li class="accordion-header">
-          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSecurity" aria-expanded="false" aria-controls="collapseSecurity">
+          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+            data-bs-target="#collapseSecurity" aria-expanded="false" aria-controls="collapseSecurity">
             보안
           </button>
         </li>
@@ -224,11 +231,11 @@
         <?php
         if (isset($lecture_sql)) {
           foreach ($lecture_sql as $item) {
-            ?> 
+            ?>
             <div class="lecture_box col-4 mb-3">
               <div class="image_box mb-2">
                 <img src="<?= $item->image; ?>" alt="강좌 이미지" />
-              </div>         
+              </div>
               <div class="d-flex justify-content-between">
                 <!-- 상 시작-->
                 <div>
@@ -246,7 +253,7 @@
                   // course_type이 recipe일 경우 '레시피'로 표시
                   if ($item->course_type === 'recipe') { ?>
                     <span class="badge text-bg-danger">레시피</span>
-                  <?php
+                    <?php
                     // course_type이 general이 아닌 경우만 출력
                   } elseif ($item->course_type !== 'general') { ?>
                     <span class="badge text-bg-danger"><?= htmlspecialchars($item->course_type); ?></span>
@@ -275,25 +282,11 @@
                 <div>
                   <b><?= number_format($item->price); ?></b>원
                 </div>
-                <div>
-                  <?php if ($item->isbest == 1) { ?>
-                    <i class="bi bi-heart"></i>
-                  <?php } else { ?>
-                    <i class="bi bi-heart d-none"></i> <!-- 숨김 -->
-                  <?php } ?>
-
-                  <?php if ($item->isnew == 1) { ?>
-                    <i class="bi bi-heart-fill"></i>
-                  <?php } else { ?>
-                    <i class="bi bi-heart-fill d-none"></i> <!-- 숨김 -->
-                  <?php } ?>
-
-                  <?php if ($item->course_type === 'recipe') { ?>
-                    <i class="bi bi-cart-plus"></i>
-                  <?php } else { ?>
-                    <i class="bi bi-cart-plus d-none"></i> <!-- 숨김 -->
-                  <?php } ?>
-                </div>     
+                <div class="icon-container">
+                  <i class="bi bi-heart heart-icon" id="heart-icon"></i>
+                  <i class="bi bi-heart-fill heart-icon-filled d-none" id="heart-icon-filled"></i>
+                  <i class="bi bi-cart-plus"></i>
+                </div>
               </div>
               <!-- 하 끝 -->
             </div>
@@ -349,14 +342,14 @@
 
 <script>
 
-  $(document).ready(function() {
+  $(document).ready(function () {
     // 부모 요소를 통해 이벤트 위임
-    $(document).on("click", ".heart-icon", function() {
+    $(document).on("click", ".heart-icon", function () {
       $(this).addClass("d-none"); // 빈 하트 숨기기
       $(this).siblings(".heart-icon-filled").removeClass("d-none"); // 채워진 하트 보이기
     });
 
-    $(document).on("click", ".heart-icon-filled", function() {
+    $(document).on("click", ".heart-icon-filled", function () {
       $(this).addClass("d-none"); // 채워진 하트 숨기기
       $(this).siblings(".heart-icon").removeClass("d-none"); // 빈 하트 보이기
     });
