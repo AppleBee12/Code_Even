@@ -178,7 +178,7 @@ while ($data = $result->fetch_object()) {
     if ($block_num > 1) {
       ?>
       <li class="page-item">
-        <a class="page-link" href="notice.php?page=<?= $previous; ?>" aria-label="Previous">
+        <a class="page-link" href="notice.php?page=<?= $previous; ?>&keywords=<?= urlencode($keywords); ?>" aria-label="Previous">
           <i class="bi bi-chevron-left"></i>
         </a>
       </li>
@@ -196,7 +196,7 @@ while ($data = $result->fetch_object()) {
     if ($total_block > $block_num) {
       ?>
       <li class="page-item">
-        <a class="page-link" href="notice.php?page=<?= $next; ?>" aria-label="Next">
+        <a class="page-link" href="notice.php?page=<?= $next; ?>&keywords=<?= urlencode($keywords); ?>" aria-label="Next">
           <i class="bi bi-chevron-right"></i>
         </a>
       </li>
