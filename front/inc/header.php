@@ -125,6 +125,7 @@ if (isset($_GET['code'])) {
   switch ($page) { //main.css
     case 'index.php':
     case 'tc_applyform.php':
+    case 'faq.php':
       echo '<link rel="stylesheet" href="http://' . $_SERVER['HTTP_HOST'] . '/code_even/front/css/main.css">';
       break;
   }
@@ -422,7 +423,7 @@ if (isset($_GET['code'])) {
           </div>
         </div>
         <div class="modal-body">
-          <form action="front/login/login_ok.php" method="POST">
+          <form action="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/front/login/login_ok.php" method="POST">
             <div class="mb-3 d-flex justify-content-center gap-4 mid">
               <label for="inputId" class="col-form-label align-self-center">아이디</label>
               <input type="text" class="form-control id" id="inputId" placeholder="아이디를 입력하세요" name="userid" required>
