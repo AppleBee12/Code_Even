@@ -495,7 +495,7 @@ if ($tc_result && $tc_result->num_rows > 0) {
     <div class="col-4">
       <a href="#" class="card">
         <span class="badge eng">Best Teacher</span>
-        <img src="<?= $item->tc_thumbnail; ?>" class="card-img-top" alt="베스트 강사1">
+        <img src="<?= $item->tc_thumbnail; ?>" class="card-img-top" alt="<?= $item->tc_name; ?>">
         <div class="card-body">
           <p class="card-text tc_desc"><?= $item->tc_main_intro; ?></p>
           <p class="card-text tc_tit">
