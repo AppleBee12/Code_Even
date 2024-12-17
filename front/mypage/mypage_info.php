@@ -24,8 +24,8 @@ if ($result->num_rows > 0) {
   </div>
 <!--탭 메뉴 끝-->
 <div class="tab-content" id="nav-tabContent"><!--탭 메뉴 내용 시작-->
-  <div class="tab-pane fade show active" id="nav-myLecTab1" role="tabpanel" aria-labelledby="nav-myLecTab1-tab"><!-- 탭메뉴1 -->
-    <div class="my_info_wrapper"><!-- 탭메뉴1내용 -->
+  <div class="tab-pane fade show active" id="nav-myLecTab1" role="tabpanel" aria-labelledby="nav-myLecTab1-tab">
+    <div class="my_info_wrapper mb-5">
       <div class="my_info">
         <div class="header_grade2">개인정보</div>
         <div class="d-flex info_wrapper align-items-center">
@@ -88,8 +88,56 @@ if ($result->num_rows > 0) {
           </div>
         </div>
       </div>
-    </div><!-- 탭메뉴1내용 끝-->
-  </div><!-- 탭메뉴1 끝 -->
+    </div>
+    <div class="my_info_wrapper mb-5">
+      <div class="my_info">
+        <div class="header_grade2">배송 주소</div>
+        <div class="d-flex info_wrapper align-items-center">
+          <div class="col-2">
+            <label for="post_code" class="form-label align-self-center">우편번호</label>
+          </div>
+          <div class="col-6 user_info">
+            <input type="text" class="form-control" id="post_code" name="post_code" value="<?= $user_data->post_code; ?>">
+          </div>
+          <div class="btn">
+            <button type="button" class="btn btn-light">우편번호찾기</button>
+          </div>
+        </div>
+        <div class="d-flex info_wrapper align-items-center mt-3">
+          <div class="col-2">
+            <label for="addr_line1" class="form-label align-self-center">기본주소</label>
+          </div>
+          <div class="col-6 user_info">
+            <input type="text" class="form-control" id="addr_line1" name="addr_line1" value="<?= $user_data->addr_line1; ?>">
+          </div>
+        </div>
+        <div class="d-flex info_wrapper align-items-center mt-3">
+          <div class="col-2">
+            <label for="addr_line2" class="form-label align-self-center">상세주소</label>
+          </div>
+          <div class="col-6 user_info">
+            <input type="text" class="form-control" id="addr_line2" name="addr_line2" value="<?= $user_data->addr_line2; ?>">
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="my_info_wrapper mb-5">
+      <div class="my_info">
+        <div class="header_grade2">마케팅 수신 동의 (선택)</div>
+        <div class="d-flex info_wrapper align-items-center">
+          <div class="col-2">
+            <label for="email_ok" class="form-label align-self-center">우편번호</label>
+          </div>
+          <div class="form-check">
+            <input class="form-check-input" type="text" value="<?= $user_data->email_ok; ?>" name="email_ok" id="email_ok">
+            <label class="form-check-label" for="email_ok">
+              동의
+            </label>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
 </div>
 </div><!--여기부터는 마이페이지 헤더의 닫는 태그-->
