@@ -97,6 +97,9 @@ if (isset($mypage_main_js)) {
 if (isset($what_recipe_js)) {
   echo $what_recipe_js;
 }
+if (isset($service_js)) {
+  echo $service_js;
+}
 
 ?>
 

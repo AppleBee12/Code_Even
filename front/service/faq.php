@@ -1,8 +1,16 @@
 <?php
 include_once($_SERVER['DOCUMENT_ROOT'] . '/CODE_EVEN/front/inc/header.php');
+$service_js = "<script src=\"http://" . $_SERVER['HTTP_HOST'] . "/code_even/front/js/service.js\"></script>";
 
-$sql = "SELECT * FROM faq";
-$result = $mysqli->query($sql);
+$keywords = isset($_GET['keywords']) ? $mysqli->real_escape_string($_GET['keywords']) : '';
+$where_clause = '';
+
+if ($keywords) {
+  $where_clause = "WHERE faq.title LIKE '%$keywords%' OR faq.content LIKE '%$keywords%'";
+}
+
+$faq_sql = "SELECT * FROM faq $where_clause";
+$faq_result = $mysqli->query($faq_sql);
 
 $dataArr = [];
 $categories = [];
@@ -16,12 +24,27 @@ $categoryNames = [
   7 => '정산',
   8 => '강사',
 ];
-while ($data = $result->fetch_object()) {
+while ($data = $faq_result->fetch_object()) {
   $dataArr[] = $data;
 
   // 카테고리 저장
   if (!in_array($data->category, $categories)) {
     $categories[] = $data->category;
+  }
+}
+
+$question_sql = "SELECT admin_question.*, user.uid, admin_answer.aaid 
+                FROM admin_question 
+                JOIN user ON admin_question.uid = user.uid 
+                LEFT JOIN admin_answer ON admin_question.aqid = admin_answer.aqid 
+                WHERE user.userid = '" . $_SESSION['AUID'] . "'";
+$question_result = $mysqli->query($question_sql);
+while ($qdata = $question_result->fetch_object()) {
+  $qdataArr[] = $qdata;
+
+  // 카테고리 저장
+  if (!in_array($qdata->category, $categories)) {
+    $categories[] = $qdata->category;
   }
 }
 
@@ -45,10 +68,10 @@ while ($data = $result->fetch_object()) {
           <h4 class="headt6">자주 질문하는 내용은 FAQ에 정리되어 있으니 참고해주세요.</h4>
         </div>
         <div class="search">
-          <form action="#" class="d-flex align-items-center">
+          <form method="GET" class="d-flex align-items-center">
             <button type="submit"><i class="bi bi-search"></i></button type="submit">
-            <label for="faqSearch" class="visually-hidden">FAQ 검색창</label>
-            <input type="search" class="form-control" id="faqSearch" placeholder="검색어를 입력해주세요">
+            <input type="text" class="form-control" id="faqSearch" placeholder="검색어를 입력해주세요" name="keywords"
+            value="<?= htmlspecialchars($keywords); ?>">
           </form>
         </div>
       </div>
@@ -56,20 +79,25 @@ while ($data = $result->fetch_object()) {
   </div>
 
   <div class="faq_content">
-    <ul class="d-flex justify-content-center faq_tab">
-      <?php
+    <?php if (!$keywords): ?>
+      <ul class="d-flex justify-content-center faq_tab">
+        <?php
         foreach ($categories as $index => $cate) {
           $categoryName = $categoryNames[$cate] ?? '알 수 없음';
           $activeClass = ($index === 0) ? 'active' : '';
-      ?>
-      <li class="nav_list cate <?= $activeClass; ?>" data-tab="<?=$cate?>">
-        <span><?= htmlspecialchars($categoryName); ?></span>
-      </li>
-      <?php
+        ?>
+          <li class="nav_list cate <?= $activeClass; ?>" data-tab="<?=$cate?>">
+            <span><?= htmlspecialchars($categoryName); ?></span>
+          </li>
+        <?php
         }
-      ?>
-    </ul>
-    <p class="hide">“검색어” 관련 공지사항 검색 결과가 총 <em>1</em>건 있습니다.</p>
+        ?>
+      </ul>
+    <?php endif; ?>
+
+    <?php if ($keywords): ?>
+    <p>“<?= htmlspecialchars($keywords); ?>” 관련 FAQ 검색 결과가 총 <em><?= count($dataArr); ?></em>건 있습니다.</p>
+    <?php endif; ?>
 
     <?php
       foreach ($categories as $index => $cate) {
@@ -105,6 +133,7 @@ while ($data = $result->fetch_object()) {
     ?>
   </div>
 
+
   <div class="qna_more d-flex align-items-center justify-content-between">
     <div class="box d-flex align-items-center gap-4">
       <div class="circle">
@@ -131,42 +160,27 @@ while ($data = $result->fetch_object()) {
         </tr>
       </thead>
       <tbody>
+        <?php
+          foreach ($qdataArr as $question) {
+            $categoryName = $categoryNames[$question->category] ?? '알 수 없음';
+        ?>
         <tr>
-          <th scope="row">1</th>
-          <td>Mark</td>
-          <td>Otto</td>
-          <td>@mdo</td>
-          <td>X</td>
+          <th scope="row"><?=$question->regdate;?></th>
+          <td><?= htmlspecialchars($categoryName); ?></td>
+          <td><a href="" class="title"><?=$question->qtitle;?></a></td>
+          <td><?= $question->aqid ? "답변완료" : "답변대기"; ?></td>
+          <td>
+            <a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/front/service/qna_delete.php?aqid=<?= $question->aqid; ?>" class="delete">
+              <i class="bi bi-trash-fill"></i>
+            </a>
+          </td>
         </tr>
+        <?php
+          }
+        ?>
       </tbody>
     </table>
   </div>
 </div>
-
-<script>
-const tabItems = document.querySelectorAll('.faq_tab .cate');
-const faqLists = document.querySelectorAll('.faq_content .list-group');
-const accordionItems = document.querySelectorAll('.accordion-item');
-
-// 탭 메뉴 클릭 이벤트
-tabItems.forEach((tab) => {
-  tab.addEventListener('click', function () {
-    const selectedCategory = this.getAttribute('data-tab');
-
-    // 모든 탭 비활성화
-    tabItems.forEach((item) => item.classList.remove('active'));
-    this.classList.add('active'); // 선택된 탭 활성화
-
-    // 모든 FAQ 리스트 숨기기
-    faqLists.forEach((list) => {
-      if (list.getAttribute('data-category') === selectedCategory) {
-        list.classList.add('active');
-      } else {
-        list.classList.remove('active');
-      }
-    });
-  });
-});
-</script>
 
 <?php include_once($_SERVER['DOCUMENT_ROOT'] . '/CODE_EVEN/front/inc/footer.php');?>

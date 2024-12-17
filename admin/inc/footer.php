@@ -43,7 +43,9 @@ integrity="sha256-y2bkXLA0VKwUx5hwbBKnaboRThcu7YOFyuYarJbCnoQ=" crossorigin="ano
 if (isset($jqueryui_js)) {
     echo $jqueryui_js;
   }
+?>
 
+<?php
   $uploadPath = 'http://localhost/code_even/admin/inc/upload_image.php';
   $getUploadPath = 'http://localhost/code_even/admin/inc/get_uploaded_images.php';
   $delete_images = 'http://localhost/code_even/admin/inc/get_uploaded_images.php';
