@@ -7,9 +7,10 @@ $userid = $_POST['userid'];
 $userpw = $_POST['userpw'];
 $userphonenum = $_POST['userphonenum'];
 $useremail = $_POST['useremail'];
+$email_ok = $_POST['email_ok'];
 $userpw = hash('sha512', $userpw);
 
-$sql = "INSERT INTO user (username, usernick, userid, userphonenum, useremail, userpw) VALUES ('$username', '$usernick', '$userid', '$userphonenum', '$useremail', '$userpw')";
+$sql = "INSERT INTO user (username, usernick, userid, userphonenum, useremail, email_ok, userpw) VALUES ('$username', '$usernick', '$userid', '$userphonenum', '$useremail', '$email_ok', '$userpw')";
 $result = $mysqli->query($sql);
 
 if($result){
@@ -33,6 +34,16 @@ if($result){
   alert('회원가입이 실패되었습니다.');
   history.back();
   </script>";
+}
+
+// email_ok 값을 처리
+$email_ok = isset($_POST['email_ok']) ? $_POST['email_ok'] : 0;
+
+// 데이터 확인
+if ($email_ok == 1) {
+    echo "이메일 수신 동의: 1";
+} else {
+    echo "이메일 수신 동의: 0";
 }
 
 ?>
