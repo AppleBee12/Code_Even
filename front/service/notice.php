@@ -9,7 +9,28 @@ if ($keywords) {
   $where_clause = "WHERE notice.title LIKE '%$keywords%'";
 }
 
-$notice_sql = "SELECT * FROM notice $where_clause";
+$page_sql = "SELECT COUNT(*) AS cnt 
+            FROM notice $where_clause";
+$page_result = $mysqli->query($page_sql);
+$page_data = $page_result->fetch_assoc();
+$row_num = $page_data['cnt'];
+
+// 페이지네이션
+$page = isset($_GET['page']) ? $_GET['page'] : 1;
+$list = 10;
+$start_num = ($page - 1) * $list;
+$block_ct = 5;
+$block_num = ceil($page / $block_ct);
+$block_start = (($block_num - 1) * $block_ct) + 1;
+$block_end = $block_start + $block_ct - 1;
+
+$total_page = ceil($row_num / $list);
+$total_block = ceil($total_page / $block_ct);
+if ($block_end > $total_page) {
+  $block_end = $total_page;
+}
+
+$notice_sql = "SELECT * FROM notice $where_clause ORDER BY notice.ntid DESC LIMIT $start_num, $list";
 $notice_result = $mysqli->query($notice_sql);
 
 $dataArr = [];
@@ -61,14 +82,56 @@ while ($data = $notice_result->fetch_object()) {
             <i class="bi bi-pin-angle-fill headt6"></i><span class="headt6"><?=$data->title;?></span>
           </div>
         </a>
-        <div class="">
+        <div class="writer">
           <span>글쓴이: <?= ($data->uid == 1) ? '코드이븐' : htmlspecialchars($data->uid); ?></span>
-          <span><?=$data->title;?></span>
+          <span>|</span>
+          <span><?=$data->regdate;?></span>
+          <span>|</span>
+          <span>조회수 <?=$data->view;?></span>
         </div>
       </div>
       <?php
         }
       ?>
+    </div>
+
+    <!-- //Pagination -->
+    <div class="list_pagination">
+      <ul class="pagination d-flex justify-content-center">
+        <?php
+        $previous = $block_start - $block_ct;
+        if ($previous < 1)
+          $previous = 1;
+        if ($block_num > 1) {
+          ?>
+          <li class="page-item">
+            <a class="page-link" href="notice.php?page=<?= $previous; ?>" aria-label="Previous">
+              <i class="bi bi-chevron-left"></i>
+            </a>
+          </li>
+          <?php
+        }
+        ?>
+        <?php
+        for ($i = $block_start; $i <= $block_end; $i++) {
+          $active = ($page == $i) ? 'active' : '';
+          ?>
+          <li class="page-item <?= $active; ?>"><a class="page-link" href="notice.php?page=<?= $i; ?>"><?= $i; ?></a>
+          </li>
+          <?php
+        }
+        $next = $block_end + 1;
+        if ($total_block > $block_num) {
+          ?>
+          <li class="page-item">
+            <a class="page-link" href="notice.php?page=<?= $next; ?>" aria-label="Next">
+              <i class="bi bi-chevron-right"></i>
+            </a>
+          </li>
+          <?php
+        }
+        ?>
+      </ul>
     </div>
 
   </div>
