@@ -217,6 +217,8 @@ while ($row = $result_test->fetch_object()) {
               <option value="60" <?= $lecture->period == 60 ? 'selected' : '' ?>>60일</option>
               <option value="90" <?= $lecture->period == 90 ? 'selected' : '' ?>>90일</option>
               <option value="120" <?= $lecture->period == 120 ? 'selected' : '' ?>>120일</option>
+              <option value="150" <?= $lecture->period == 150 ? 'selected' : '' ?>>150일</option>
+              <option value="180" <?= $lecture->period == 180 ? 'selected' : '' ?>>180일</option>
             </select>
             <small class="text-muted">* 교육 기간은 30일 단위로 설정 가능합니다.</small>
           </td>
