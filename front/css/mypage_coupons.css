@@ -1,6 +1,6 @@
 .discount_box{
 	border: 1px solid var(--bk1000);
-	padding: 12px;
+	padding: 8px;
 	border-radius: 8px;
 	background: var(--bk0);
 	color: #000;
@@ -39,4 +39,7 @@
     background: var(--red800);
     color: var(--bk0);
   }
+}
+.modao_dialog{
+	max-width: 600px;
 }
