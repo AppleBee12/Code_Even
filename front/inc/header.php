@@ -125,7 +125,6 @@ if (isset($_GET['code'])) {
   switch ($page) { //main.css
     case 'index.php':
     case 'tc_applyform.php':
-    case 'faq.php':
       echo '<link rel="stylesheet" href="http://' . $_SERVER['HTTP_HOST'] . '/code_even/front/css/main.css">';
       break;
   }
@@ -453,7 +452,7 @@ if (isset($_GET['code'])) {
     <div class="modal-dialog w_c">
       <div class="modal-content">
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        <div class="modal-header d-flex justify-content-center">
+        <div class="modal-header m_h d-flex justify-content-center">
           <div class="wrappers d-flex row justify-content-center">
             <div class="header_logo">
               <h1 class="login_logo logo text-center"><a
@@ -473,14 +472,14 @@ if (isset($_GET['code'])) {
               <input type="password" class="form-control pw" id="inputPassword" placeholder="비밀번호를 입력하세요" name="userpw"
                 required>
             </div>
-            <div class="modal-footer d-flex justify-content-center">
+            <div class="modal-footer m_f d-flex justify-content-center">
               <div class="d-flex row gap-1">
                 <button class="btn loginbtn redbtn">로그인</button>
                 <button class="btn kakao_loginbtn yellowbtn">
                   <a href="https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=dc8b785f75c0ed7ecca5dad87f2b18ff&redirect_uri=http://localhost/code_even/"
                     class="kakao m-0 ">
                     <img src="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/front/images/kakao_icon.png" alt="">
-                    <span >카카오 로그인</span>
+                    카카오 로그인
                   </a>
                 </button>
               </div>
