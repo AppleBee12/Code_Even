@@ -115,9 +115,9 @@ if ($stmt) {
             <ul>
               <li class="mynav_title"><i class="fa-solid fa-school"></i>나의 수업</li>
               <li><a href="http://<?=$_SERVER['HTTP_HOST']?>/code_even/front/mypage/mypage_lecture.php"><i class="fa-solid fa-chalkboard-user"></i>진행 / 종료 강좌</a></li>
-              <li><a href=""><i class="bi bi-question-circle"></i>내 문의글</a></li>
+              <li><a href="http://<?=$_SERVER['HTTP_HOST']?>/code_even/front/mypage/mypage_qna.php"><i class="bi bi-question-circle"></i>내 문의글</a></li>
               <li><a href=""><i class="bi bi-pencil"></i>내가 쓴 글 / 댓글</a></li>
-              <li><a href=""><i class="fa-solid fa-file-pen"></i>내 강의 후기</a></li>
+              <li><a href="http://<?=$_SERVER['HTTP_HOST']?>/code_even/front/mypage/mypage_reivew.php"><i class="fa-solid fa-file-pen"></i>내 강의 후기</a></li>
               <li class="mynav_title"><i class="bi bi-mortarboard"></i>수강신청 관리</li>
               <li><a href=""><i class="bi bi-receipt"></i>결제 내역</a></li>
               <li><a href=""><i class="bi bi-cart-check"></i>장바구니</a></li>
