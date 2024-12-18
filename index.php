@@ -6,10 +6,6 @@ $main_js = "<script src=\"http://" . $_SERVER['HTTP_HOST'] . "/code_even/front/j
 /* lecture_section 시작 */
 
 $leid = $_GET['leid'] ?? null;
-if ($leid) {
-} else {
-    echo "강좌 정보가 없습니다.";
-}
 
 // isbest = 1
 $sql_best = "SELECT * FROM lecture 

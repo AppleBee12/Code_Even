@@ -156,3 +156,13 @@ hr {
 h3, h5 {
   color: var(--bk200);
 }
+
+/* 선택된 강의 항목 스타일 */
+.lecture-item.selected {
+  background-color: var(--bk1000);
+  color: var(--bk200);
+  border: 1px solid var(--bk950);
+  transition: background-color 0.3s, color 0.3s;
+}
+
+
