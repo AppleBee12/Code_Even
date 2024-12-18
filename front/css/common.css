@@ -728,3 +728,9 @@ header {
 }
 
 /* 기타 공통 부분 */
+.nav-underline .nav-link:hover {
+  border-bottom-color: var(--bk300);
+}
+.nav-link:hover {
+  color: var(--bk1000);
+}
