@@ -351,56 +351,51 @@ if (isset($_GET['code'])) {
 
         <!-- 아이콘 퀵메뉴 -->
         <div class="header_icon d-flex gap-3">
-          <?php if (!isset($_SESSION['AUID']) && !isset($_SESSION['KAKAO_UID'])) { ?>
-            <div class="mini_cart">
-              <a href=""><i class="bi bi-cart"></i></a>
+          <div class="mini_cart">
+            <a href="" id="cartIcon"><i class="bi bi-cart"></i></a>
+            <div id="miniCartContent" class="cart_dropdown">
+              <div class="mncart_header">
+                <h4>장바구니<span id="cartCount">3</span></h4>
+              </div>
+              <div class="mncart_list">
+                <ul>
+                  <li>
+                    <div class="item_tit d-flex">
+                      <img src="http://<?= $_SERVER['HTTP_HOST'] ?>/code_even/admin/upload/lecture/20241215082240797607.png" alt="상품 이미지">
+                      <p>퍼블리셔 취업을 위해 제대로 배워 보는 html과 css 그리고 웹표준<span>김코딩</span></p>
+                    </div>
+                    <div class="item_price">
+                      <p>44,000 원</p>
+                    </div>
+                  </li>
+                  <li>
+                    <div class="item_tit d-flex">
+                      <img src="http://<?= $_SERVER['HTTP_HOST'] ?>/code_even/admin/upload/lecture/20241215082240797607.png" alt="상품 이미지">
+                      <p>퍼블리셔 취업을 위해 제대로 배워 보는 html과 css 그리고 웹표준<span>김코딩</span></p>
+                    </div>
+                    <div class="item_price">
+                      <p>44,000 원</p>
+                    </div>
+                  </li>
+                  <li>
+                    <div class="item_tit d-flex">
+                      <img src="http://<?= $_SERVER['HTTP_HOST'] ?>/code_even/admin/upload/lecture/20241215082240797607.png" alt="상품 이미지">
+                      <p>퍼블리셔 취업을 위해 제대로 배워 보는 html과 css 그리고 웹표준<span>김코딩</span></p>
+                    </div>
+                    <div class="item_price">
+                      <p>44,000 원</p>
+                    </div>
+                  </li>
+                </ul>
+              </div>
+              <div class="mncart_footer">
+                <p>총 결제 금액: <strong>114,000 원</strong></p>
+                <button id="goToCart">장바구니로 이동</button>
+              </div>
             </div>
-            <?php
-          } else {
-            ?>
-            <div class="mini_cart">
-              <a href="" id="cartIcon"><i class="bi bi-cart"></i></a>
-              <div id="miniCartContent" class="cart_dropdown">
-                <div class="mncart_header">
-                  <h4>장바구니<span id="cartCount">3</span></h4>
-                </div>
-                <div class="mncart_list">
-                  <ul>
-                    <li>
-                      <div class="item_tit d-flex">
-                        <img src="http://<?= $_SERVER['HTTP_HOST'] ?>/code_even/admin/upload/lecture/20241215082240797607.png" alt="상품 이미지">
-                        <p>퍼블리셔 취업을 위해 제대로 배워 보는 html과 css 그리고 웹표준<span>김코딩</span></p>
-                      </div>
-                      <div class="item_price">
-                        <p>44,000 원</p>
-                      </div>
-                    </li>
-                    <li>
-                      <div class="item_tit d-flex">
-                        <img src="http://<?= $_SERVER['HTTP_HOST'] ?>/code_even/admin/upload/lecture/20241215082240797607.png" alt="상품 이미지">
-                        <p>퍼블리셔 취업을 위해 제대로 배워 보는 html과 css 그리고 웹표준<span>김코딩</span></p>
-                      </div>
-                      <div class="item_price">
-                        <p>44,000 원</p>
-                      </div>
-                    </li>
-                    <li>
-                      <div class="item_tit d-flex">
-                        <img src="http://<?= $_SERVER['HTTP_HOST'] ?>/code_even/admin/upload/lecture/20241215082240797607.png" alt="상품 이미지">
-                        <p>퍼블리셔 취업을 위해 제대로 배워 보는 html과 css 그리고 웹표준<span>김코딩</span></p>
-                      </div>
-                      <div class="item_price">
-                        <p>44,000 원</p>
-                      </div>
-                    </li>
-                  </ul>
-                </div>
-                <div class="mncart_footer">
-                  <p>총 결제 금액: <strong>114,000 원</strong></p>
-                  <button id="goToCart">장바구니로 이동</button>
-                </div>
-            </div>
-            </div>
+          </div>
+
+          <?php if (isset($_SESSION['AUID']) || isset($_SESSION['KAKAO_UID'])) { ?>
             <div class="mini_bell">
               <a href="">
                 <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="22" height="22" viewBox="0 0 24 24"
@@ -446,8 +441,8 @@ if (isset($_GET['code'])) {
                 </div>
               </div>
             </div>
-            <?php
-          }
+          <?php
+            }
           ?>
         </div>
       </div>
