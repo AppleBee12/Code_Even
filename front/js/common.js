@@ -23,7 +23,7 @@ $(document).ready(function () {
 
 
   //Header 아이콘 퀵메뉴 - 장바구니
-  const $cartIcon = $("#cartIcon");
+  const $cartIcon = $(".mini_cart a");
   const $cartList = $(".cart_dropdown");
   const $profileMenu = $(".profile_menu"); // 프로필 메뉴 추가
 

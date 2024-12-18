@@ -24,6 +24,7 @@ $useremail = $_POST['useremail'] ?? '';
 $post_code = $_POST['post_code'] ?? '';
 $addr_line1 = $_POST['addr_line1'] ?? '';
 $addr_line2 = $_POST['addr_line2'] ?? '';
+$addr_line3 = $_POST['addr_line3'] ?? '';
 $email_ok = isset($_POST['email_ok']) ? intval($_POST['email_ok']) : 0;
 
 if (!empty($userpw)) {
@@ -39,6 +40,7 @@ if (!empty($userpw)) {
       post_code = ?, 
       addr_line1 = ?, 
       addr_line2 = ?, 
+      addr_line3 = ?, 
       email_ok = ? 
   WHERE userid = ?";
 
@@ -53,6 +55,7 @@ if (!empty($userpw)) {
         $post_code, 
         $addr_line1, 
         $addr_line2, 
+        $addr_line3, 
         $email_ok, 
         $userid
     );
@@ -66,12 +69,13 @@ if (!empty($userpw)) {
         post_code = ?, 
         addr_line1 = ?, 
         addr_line2 = ?, 
+        addr_line3 = ?, 
         email_ok = ? 
     WHERE userid = ?";
 
     $stmt = $mysqli->prepare($sql);
     $stmt->bind_param(
-        "sssssssis", 
+        "ssssssssis", 
         $usernick, 
         $username, 
         $userphonenum, 
@@ -79,6 +83,7 @@ if (!empty($userpw)) {
         $post_code, 
         $addr_line1, 
         $addr_line2, 
+        $addr_line3, 
         $email_ok, 
         $userid
     );

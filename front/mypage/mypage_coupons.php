@@ -91,7 +91,7 @@ while ($data = $result->fetch_object()) {
     </button>
     <!-- Modal -->
     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-      <div class="modal-dialog">
+      <div class="modal-dialog modao_dialog">
         <div class="modal-content">
           <div class="modal-header">
             <h1 class="modal-title fs-5 coupon_info_wrapper" id="exampleModalLabel">쿠폰 이용 안내서</h1>
