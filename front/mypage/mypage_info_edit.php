@@ -8,7 +8,7 @@ $mypage_main_js = "<script src=\"http://" . $_SERVER['HTTP_HOST'] . "/code_even/
 
 
 // 사용자 정보 가져오기 (Prepared Statement 사용)
-$user_sql = "SELECT userid, usernick, username, userpw, userphonenum, useremail, post_code, addr_line1, addr_line2, addr_line3, email_ok 
+$user_sql = "SELECT uid, userid, usernick, username, userpw, userphonenum, useremail, post_code, addr_line1, addr_line2, addr_line3, email_ok 
              FROM user 
              WHERE userid = ?";
 
@@ -39,6 +39,7 @@ if ($stmt) {
   </div>
 
   <form action="mypage_info_edit_ok.php" method="POST">
+  <input type="hidden" name="uid" value="<?= $user_data->uid; ?>">
     <div class="tab-content" id="nav-tabContent"><!--탭 메뉴 내용 시작-->
       <div class="tab-pane fade show active" id="nav-myLecTab1" role="tabpanel" aria-labelledby="nav-myLecTab1-tab">
         <div class="my_info_wrapper mb-5">
@@ -173,7 +174,7 @@ if ($stmt) {
           </div>
         </div>
         <div class="info_btn mb-5 d-flex justify-content-between align-items-center">
-          <a href="#" class="link-body-emphasis text-decoration-underline">계정 탈퇴하기</a>
+          <a href="mypage_del.php?uid=<?=$user_data->uid?>" class="link-body-emphasis text-decoration-underline secession">계정 탈퇴하기</a>
           <button type="submit" class="btn">저장</button>
         </div>
       </div>
@@ -188,7 +189,12 @@ if ($stmt) {
 
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script>
-
+  $('.secession').click(function (e) {
+    e.preventDefault();
+    if (confirm('정말 삭제할까요?')) {
+      window.location.href = $(this).attr('href');
+    }
+  });
 
 function sample6_execDaumPostcode() {
   new daum.Postcode({
