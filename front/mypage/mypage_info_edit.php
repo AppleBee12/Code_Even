@@ -5,15 +5,10 @@ include_once($_SERVER['DOCUMENT_ROOT'] . '/CODE_EVEN/admin/inc/dbcon.php');
 $mypage_main_js = "<script src=\"http://" . $_SERVER['HTTP_HOST'] . "/code_even/front/js/mypage_main.js\"></script>";
 
 
-if (!isset($_SESSION['AUID'])) {
-  echo "<script>
-  alert('로그인을 해주세요');
-  location.href=\"http://". $_SERVER['HTTP_HOST'] ."/code_even/\";
-  </script>";
-}
+
 
 // 사용자 정보 가져오기 (Prepared Statement 사용)
-$user_sql = "SELECT userid, usernick, username, userpw, userphonenum, useremail, post_code, addr_line1, addr_line2, email_ok 
+$user_sql = "SELECT userid, usernick, username, userpw, userphonenum, useremail, post_code, addr_line1, addr_line2, addr_line3, email_ok 
              FROM user 
              WHERE userid = ?";
 
@@ -121,7 +116,7 @@ if ($stmt) {
                 <label for="post_code" class="form-label align-self-center">우편번호</label>
               </div>
               <div class="col-6 user_info">
-                <input type="text" class="form-control" id="post_code" name="post_code" value="<?= $user_data->post_code; ?>">
+                <input type="text" class="form-control" id="sample6_postcode" name="post_code" value="<?= $user_data->post_code; ?>">
               </div>
               <div class="btn post_btn">
               <input type="button" class="post_search_btn" onclick="sample6_execDaumPostcode()" value="우편번호 찾기">
@@ -132,7 +127,15 @@ if ($stmt) {
                 <label for="addr_line1" class="form-label align-self-center">기본주소</label>
               </div>
               <div class="col-6 user_info">
-                <input type="text" class="form-control" id="addr_line1" name="addr_line1" value="<?= $user_data->addr_line1; ?>">
+                <input type="text" class="form-control" id="sample6_address" name="addr_line1" value="<?= $user_data->addr_line1; ?>">
+              </div>
+            </div>
+            <div class="d-flex info_wrapper align-items-center mt-3">
+              <div class="col-2">
+                <label for="addr_line3" class="form-label align-self-center"></label>
+              </div>
+              <div class="col-6 user_info">
+                <input type="text" class="form-control" id="sample6_extraAddress" name="addr_line3" value="<?= $user_data->addr_line3; ?>">
               </div>
             </div>
             <div class="d-flex info_wrapper align-items-center mt-3">
@@ -140,7 +143,7 @@ if ($stmt) {
                 <label for="addr_line2" class="form-label align-self-center">상세주소</label>
               </div>
               <div class="col-6 user_info">
-                <input type="text" class="form-control" id="addr_line2" name="addr_line2" value="<?= $user_data->addr_line2; ?>">
+                <input type="text" class="form-control" id="sample6_detailAddress" name="addr_line2" value="<?= $user_data->addr_line2 ?>">
               </div>
             </div>
           </div>

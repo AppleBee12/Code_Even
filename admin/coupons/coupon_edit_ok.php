@@ -60,7 +60,6 @@ if (!isset($cpid)) {
 
 $sql = "UPDATE coupons SET 
   coupon_name = '$coupon_name',
-  -- coupon_image = '$coupon_image',
   coupon_type = '$coupon_type',
   coupon_price = $coupon_price,
   coupon_ratio = $coupon_ratio,

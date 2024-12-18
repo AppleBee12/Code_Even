@@ -110,7 +110,7 @@ thead,
               <img id="thumbnail_preview" src="<?= $image_src; ?>" style="width:383px;height: 280px;" alt="">
             </div>
           </div>
-          <input type="file" multiple accept="image/*" class="form-control w-50 coupon_image" name="coupon_image" id="coupon_image" value="" required>
+          <input type="file" multiple accept="image/*" class="form-control w-50 coupon_image" name="coupon_image" id="coupon_image" value="" >
         </td>
         </tr>
         <tr>
