@@ -136,6 +136,8 @@ if (isset($_GET['code'])) {
     case 'mypage_info_edit.php':
     case 'mypage_paid.php':
     case 'mypage_qna.php':
+    case 'mypage_qna_question.php':
+    case 'mypage_qna_question_details.php':
     case 'mypage_reivew.php':
     case 'mypage_copy.php':
       echo '<link rel="stylesheet" href="http://' . $_SERVER['HTTP_HOST'] . '/code_even/front/css/mypage_header.css">';
@@ -187,6 +189,8 @@ if (isset($_GET['code'])) {
   }
   switch ($page) { //mypage_qna.css
     case 'mypage_qna.php':
+    case 'mypage_qna_question.php':
+    case 'mypage_qna_question_details.php':
       echo '<link rel="stylesheet" href="http://' . $_SERVER['HTTP_HOST'] . '/code_even/front/css/mypage_qna_review.css">';
       break;
   }
