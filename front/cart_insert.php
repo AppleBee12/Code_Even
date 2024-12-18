@@ -3,9 +3,8 @@ session_start();
 include_once($_SERVER['DOCUMENT_ROOT'] . '/code_even/admin/inc/dbcon.php');
 
 $leid = $_POST['leid'];
-$boid = $_POST['boid'];
-$price = $_POST['price'];
-$cnt = $_POST['cnt'];
+// $boid = $_POST['boid'];
+$lec_price = $_POST['price'];
 
 if(isset($_SESSION['UID'])){
   $uid = $_SESSION['UID'];
@@ -17,8 +16,8 @@ if(isset($_SESSION['UID'])){
 
 
     $sql = "INSERT INTO cart 
-    (leid, uid, ssid, lec_price) VALUES 
-    ($leid, '$uid', '$ssid', $lec_price)";
+    (leid, uid, ssid, total_price) VALUES 
+    ($leid, $uid, '$ssid', $lec_price)";
 
     $result = $mysqli->query($sql);
 

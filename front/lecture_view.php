@@ -5,9 +5,11 @@ include_once($_SERVER['DOCUMENT_ROOT'] . '/code_even/front/inc/header.php');
 /* lecture, book Start */
 $leid = isset($_GET['leid']) ? (int) $_GET['leid'] : 0;
 
+
 // 강좌 book 이미지 정보 조회
 $lecture_sql = "
-    SELECT l.*, 
+    SELECT l.*,
+           b.boid AS boid, 
            b.image AS book_image, 
            b.des AS book_description,
            b.book AS book_title,
@@ -129,77 +131,85 @@ $totalTimeFormatted = secondsToHMS($totalSeconds);
       <img src="<?= $lecture->image; ?>" alt="강좌 이미지">
     </div>
     <div class="con_border col-3 p-4">
-      <h4 class="mb-2 lecture_tt"><?= $lecture->title; ?></h4>
-      <p class="fs-5 fw-bold"><?= number_format($lecture->price); ?> 원</p>
-      <hr>
-      <ul>
-        <li>
-          <div class=" d-flex gap-2 mb-2">
-            <i class="bi bi-play-circle"></i>
-            <p>VOD / 총 <?= $lecture_detail_result->num_rows; ?>강 / <?= $totalTimeFormatted; ?></p>
+      <form action="" method="post" id="cartform">
+        <h4 class="mb-2 lecture_tt"><?= $lecture->title; ?></h4>
+        <p class="fs-5 fw-bold"><?= number_format($lecture->price); ?> 원</p>
+        <hr>
+        <ul>
+          <li>
+            <div class=" d-flex gap-2 mb-2">
+              <i class="bi bi-play-circle"></i>
+              <p>VOD / 총 <?= $lecture_detail_result->num_rows; ?>강 / <?= $totalTimeFormatted; ?></p>
+            </div>
+          </li>
+          <li>
+            <div class=" d-flex gap-2 mb-2">
+              <i class="bi bi-calendar"></i>
+              <p><?= htmlspecialchars($lecture->period); ?>일 수강 가능</p>
+            </div>
+          </li>
+          <li>
+            <div class=" d-flex gap-2">
+              <i class="bi bi-archive"></i>
+              <p>강의 자료 있음</p>
+            </div>
+          </li>
+        </ul>
+        <hr>
+        <?php 
+        if (!empty($lecture->book_title) && !empty($lecture->book_price)): 
+        ?>
+            <p class="mt-4 fw-semibold mb-2">[교재] <?php echo htmlspecialchars($lecture->book_title); ?></p>
+            <div class="d-flex justify-content-between">
+                <p class="fs-5 fw-bold mb-3"><?php echo number_format($lecture->book_price); ?> 원</p>
+                <div class="form-check">
+                    <input class="form-check-input" 
+                    type="checkbox" 
+                    name="book_name"
+                    id="book_<?= $lecture->boid; ?>" 
+                    value="<?= $lecture->boid;?>" 
+                    data-price="<?= $lecture->book_price ;?>" 
+                    >
+                    <label class="form-check-label" for="book_<?= $lecture->boid; ?>">
+                        <p>교재 함께 구매</p>
+                    </label>
+                </div>
+            </div>
+            <hr>
+        <?php 
+        endif; 
+        ?>
+        <div class="row gx-2 align-items-center mt-3">
+          <!-- 장바구니 버튼 -->
+          <div class="col-2">
+            <button type="submit" class="btn btn-light w-100">
+              <i class="bi bi-cart"></i>
+            </button>
           </div>
-        </li>
-        <li>
-          <div class=" d-flex gap-2 mb-2">
-            <i class="bi bi-calendar"></i>
-            <p><?= htmlspecialchars($lecture->period); ?>일 수강 가능</p>
+          <!-- 바로 결제하기 버튼 -->
+          <div class="col-10">
+            <button  type="button" class="btn btn-outline-light w-100">
+              바로 결제하기
+            </button>
           </div>
-        </li>
-        <li>
-          <div class=" d-flex gap-2">
-            <i class="bi bi-archive"></i>
-            <p>강의 자료 있음</p>
+        </div>
+        <div class="row gx-2 mt-2 info_bottom">
+          <!-- 찜하기 버튼 -->
+          <div class="col-6">
+            <button  type="button" class="btn btn-outline-light w-100 d-flex align-items-center justify-content-center gap-2">
+              <i class="bi bi-heart"></i>
+              <span>찜하기</span>
+            </button>
           </div>
-        </li>
-      </ul>
-      <hr>
-      <?php 
-      if (!empty($lecture->book_title) && !empty($lecture->book_price)): 
-      ?>
-          <p class="mt-4 fw-semibold mb-2">[교재] <?php echo htmlspecialchars($lecture->book_title); ?></p>
-          <div class="d-flex justify-content-between">
-              <p class="fs-5 fw-bold mb-3"><?php echo number_format($lecture->book_price); ?> 원</p>
-              <div class="form-check">
-                  <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                  <label class="form-check-label" for="flexCheckDefault">
-                      <p>교재 함께 구매</p>
-                  </label>
-              </div>
+          <!-- 공유하기 버튼 -->
+          <div class="col-6">
+            <button  type="button" class="btn btn-outline-light w-100 d-flex align-items-center justify-content-center gap-2">
+              <i class="bi bi-share"></i>
+              <span>공유하기</span>
+            </button>
           </div>
-          <hr>
-      <?php 
-      endif; 
-      ?>
-      <div class="row gx-2 align-items-center mt-3">
-        <!-- 장바구니 버튼 -->
-        <div class="col-2">
-          <button class="btn btn-light w-100">
-            <i class="bi bi-cart"></i>
-          </button>
         </div>
-        <!-- 바로 결제하기 버튼 -->
-        <div class="col-10">
-          <button class="btn btn-outline-light w-100">
-            바로 결제하기
-          </button>
-        </div>
-      </div>
-      <div class="row gx-2 mt-2 info_bottom">
-        <!-- 찜하기 버튼 -->
-        <div class="col-6">
-          <button class="btn btn-outline-light w-100 d-flex align-items-center justify-content-center gap-2">
-            <i class="bi bi-heart"></i>
-            <span>찜하기</span>
-          </button>
-        </div>
-        <!-- 공유하기 버튼 -->
-        <div class="col-6">
-          <button class="btn btn-outline-light w-100 d-flex align-items-center justify-content-center gap-2">
-            <i class="bi bi-share"></i>
-            <span>공유하기</span>
-          </button>
-        </div>
-      </div>
+      </form>
     </div>
   </div>
   <div class="tab-menu d-flex justify-content-around <?php echo !empty($lecture->book_title) ? 'with-book' : 'no-book'; ?>">
@@ -238,7 +248,7 @@ $totalTimeFormatted = secondsToHMS($totalSeconds);
       <section id="section-book">
         <h2 class="mb-5">교재 소개</h2>
         <div class="col-9 view_bookImg mb-3">
-          <img src="<?php echo htmlspecialchars($lecture->book_image); ?>" alt="교재 이미지">
+          <!-- <img src="<?php echo htmlspecialchars($lecture->book_image); ?>" alt="교재 이미지"> -->
         </div>
         <p><?php echo htmlspecialchars($lecture->book_description); ?></p>
       </section>
@@ -294,6 +304,51 @@ $totalTimeFormatted = secondsToHMS($totalSeconds);
     <!-- // 유나 -->
   </div>
 </div>
+<script>
+    $('#cartform').submit(function(e){
+        e.preventDefault();
+        let book_info =  '';
+        let sub_total = Number(<?= $lecture->price; ?>);
+
+        $(".con_border input[type='checkbox']:checked").each(function(){
+            book_info += $(this).val();
+            let price = Number($(this).attr('data-price'));
+            sub_total += price;
+        });
+
+        let leid = <?= $leid; ?>;
+
+        let data = {
+            leid : leid,
+            opts: book_info,
+            price : sub_total,
+        }
+        console.log(data);
+
+        $.ajax({
+            async:false,
+            type:'post',
+            url:'cart_insert.php',
+            data:data,
+            dataType:'json',
+            error:function(e){
+                console.log(e)
+            },
+            success:function(data){
+                if(data.result == '중복입니다.'){
+                    alert('이미 장바구니에 있습니다.');
+                }else if(data.result == 'ok'){
+                    alert('장바구니에 추가되었습니다.');
+                }else{
+                    alert('장바구니 담기 실패');
+                }
+            }
+        })
+
+    });
+</script>
+
+
 <?php
 
 include_once($_SERVER['DOCUMENT_ROOT'] . '/code_even/front/inc/footer.php');

@@ -51,42 +51,7 @@
 
 /* ---- 로그인 모달창 css ---*/
 
-/* 로그인 */
-.pointer{
-    cursor: pointer;
-    color: #000;
-  }
-  
-  .mid{
-    margin-right: 10%;
-    label{
-      color: #000;
-    }
-  }
-  .mpw{
-    margin-right: 11%;
-    label{
-      color: #000;
-    }
-  }
-  
-  .modal-dialog{
-    max-width: 600px;
-  }
 
-  .modal-content .btn-close{
-    position: absolute;
-    right: 0;
-    padding: 30px;
-  }
-
-  #inputId, #inputPassword{
-    width: 360px;
-    height: 50px;
-  }
-  .modal-header, .modal-footer{
-    border: none;
-  }
   
   /* ---- 회원가입 ---- */
   .images1 img{
@@ -111,52 +76,6 @@
 .signin_logo{
   font-size: 100px;
 }
-  /* .w_input{
-    margin-left: -6%;
-  } */
-
-  .wrappers{
-    margin-top: 30px;
-    label{
-      width: 100px;
-    }
-    input{
-      height: 50px;
-    }
-    h1{
-      color: #000;
-    }
-  }
-  .redbtn, .yellowbtn{
-    border: none;
-    color: white;
-    width: 360px;
-    margin: 0 auto; 
-  }
-  .redbtn{
-    background: var(--red800);
-  }
-  /* a.kakao{
-    width: 360px;
-    margin-left: 75px; 
-  } */
-  .redbtn:hover{
-    background: var(--red900);
-    border: none;
-  }
-  .yellowbtn{
-    background: #FFEB3B;
-    a{
-      color: #3E2723;
-    }
-  }
-  .yellowbtn:hover{
-    background: #FFEB3B;
-    a{
-      color: #3E2723;
-    }
-
-  }
 /* sec01 시작 */
 
 .sec01_banner {
