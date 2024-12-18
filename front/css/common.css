@@ -361,7 +361,7 @@ header {
 }
 
 /* 로그인 */
-.pointer{
+.pointer{ 
   cursor: pointer;
   color: #000;
 }
