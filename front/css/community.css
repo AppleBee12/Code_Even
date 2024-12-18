@@ -1,1 +1,22 @@
 /* 메인메뉴의 community전체 common.stylesheet입니다 */
+.counsel_contents_wrapper{
+  margin: 60px 0;
+}
+.counsel_content{
+  border-top: 1px solid var(--bk0);
+  padding: 40px 20px;
+}
+
+.counsel_txt>p:nth-child(1){
+  width: 100%;
+  line-height: 30px;
+}
+.counsel_txt>p:nth-child(2){
+  width: 110%;
+  margin-bottom:16px;
+}
+
+.counsel_txt p:nth-child(2){
+  color:var(--bk500);
+  padding-left: 5px;
+}
