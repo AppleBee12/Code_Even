@@ -1,18 +1,20 @@
-.qna_form { display: flex; flex-direction: column; gap: 20px;
-  button {
-    background: none; border: 1px solid var(--bk700); border-radius: 10px; padding: 10px 30px;
-    color: var(--bk1000); background-color: none; transition: background-color 0.3s;
-  }
-  button:hover {background-color: var(--bk700); color: var(--bk50);}
-  table { border-top: 1px solid var(--bk500);
-    tr {height: 60px;
-      th,
-      td {
-        vertical-align: middle;
-        text-align: center;
-        color: var(--bk1000);
-        a {color: var(--bk1000);}
-        .underline {text-decoration: underline;}
+.list_content {
+  form { display: flex; flex-direction: column; gap: 20px;
+    button {
+      background: none; border: 1px solid var(--bk700); border-radius: 10px; padding: 10px 30px;
+      color: var(--bk1000); background-color: none; transition: background-color 0.3s;
+    }
+    button:hover {background-color: var(--bk700); color: var(--bk50);}
+    table { border-top: 1px solid var(--bk500);
+      tr {height: 60px;
+        th,
+        td {
+          vertical-align: middle;
+          text-align: center;
+          color: var(--bk1000);
+          a {color: var(--bk1000);}
+          .underline {text-decoration: underline;}
+        }
       }
     }
   }
