@@ -233,50 +233,39 @@ if ($result && $result->num_rows > 0) {
           foreach ($lecture_sql as $item) {
             ?>
             <div class="lecture_box col-4 mb-3">
-              <div class="image_box mb-2">
-                <img src="<?= $item->image; ?>" alt="강좌 이미지" />
-              </div>
-              <div class="d-flex justify-content-between">
-                <!-- 상 시작-->
-                <div>
-                  <?php if ($item->isbest == 1) { ?>
-                    <span class="badge badge-outline">BEST</span>
-                  <?php } else { ?>
-                    <span class="badge badge-outline d-none">BEST</span> <!-- 숨김 -->
-                  <?php } ?>
-                  <?php if ($item->isnew == 1) { ?>
-                    <span class="badge badge-outline">NEW</span>
-                  <?php } else { ?>
-                    <span class="badge badge-outline d-none">NEW</span> <!-- 숨김 -->
-                  <?php } ?>
-                  <?php
-                  // course_type이 recipe일 경우 '레시피'로 표시
-                  if ($item->course_type === 'recipe') { ?>
-                    <span class="badge text-bg-danger">레시피</span>
+              <a href="lecture_view.php?leid=<?= $item->leid; ?>" class="text-decoration-none text-dark">
+                <div class="image_box mb-2">
+                  <img src="<?= $item->image; ?>" alt="강좌 이미지" />
+                </div>
+                <div class="d-flex justify-content-between">
+                  <!-- 상 시작-->
+                  <div>
+                    <?php if ($item->isbest == 1) { ?>
+                      <span class="badge badge-outline">BEST</span>
+                    <?php } ?>
+                    <?php if ($item->isnew == 1) { ?>
+                      <span class="badge badge-outline">NEW</span>
+                    <?php } ?>
                     <?php
-                    // course_type이 general이 아닌 경우만 출력
-                  } elseif ($item->course_type !== 'general') { ?>
-                    <span class="badge text-bg-danger"><?= htmlspecialchars($item->course_type); ?></span>
-                  <?php } ?>
+                    if ($item->course_type === 'recipe') { ?>
+                      <span class="badge text-bg-danger">레시피</span>
+                    <?php } elseif ($item->course_type !== 'general') { ?>
+                      <span class="badge text-bg-danger"><?= htmlspecialchars($item->course_type); ?></span>
+                    <?php } ?>
+                  </div>
                   <div class="d-flex gap-2">
                     <i class="bi bi-star-fill"></i>
-                    <span>5.0</span>
+                    <span class="custom_tt">5.0</span>
                   </div>
                 </div>
-                <div class="d-flex gap-2">
-                  <i class="bi bi-star-fill"></i>
-                  <span>5.0</span>
+                <!-- 중 시작 -->
+                <div>
+                  <p class="custom_tt"><?= $item->title; ?></p>
                 </div>
-              </div>
-              <!-- 상 시작-->
-              <!-- 중 시작 -->
-              <div>
-                <p><?= $item->title; ?></p>
-              </div>
-              <div>
-                <p class="tc_name"><?= $item->name; ?></p>
-              </div>
-              <!-- 중 끝 -->
+                <div>
+                  <p class="tc_name"><?= $item->name; ?></p>
+                </div>
+              </a>
               <!-- 하 시작 -->
               <div class="d-flex justify-content-between">
                 <div>

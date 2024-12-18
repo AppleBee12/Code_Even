@@ -39,6 +39,10 @@
   }
 }
 
+
+
+
+
  .container_wrap {
   padding-top: 50px;
   padding-bottom: 50px;
@@ -66,6 +70,10 @@
   text-align: center;
   padding: 15px;
   border-bottom: 1px solid #dee2e6;
+  vertical-align: middle;
+}
+.cart_table tbody tr:first-child {
+  border-top: 1px solid #dee2e6;
 }
 
 

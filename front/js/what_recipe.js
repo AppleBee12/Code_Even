@@ -6,6 +6,6 @@ let sec07Swiper = new Swiper('.sec07_swiper', {
   speed: 3000,
   centeredSlides: true,
   autoplay: {
-    delay: 2000
+    delay: 1000
   }
 });

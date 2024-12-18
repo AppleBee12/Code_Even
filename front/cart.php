@@ -87,7 +87,7 @@
         <!-- 상품 테이블 -->
         <div class="col-md-8">
           <table class="table cart_table">
-            <thead>
+            <thead class="visually-hidden">
               <tr>
                 <th><input type="checkbox" id="selectAllItems"></th>
                 <th>상품 정보</th>
@@ -112,12 +112,12 @@
               </tr>
               <tr>
                 <td><input type="checkbox" class="item-check form-check-input"></td>
-                <td class="d-flex align-items-center">
-                  <div class="d-flex align-items-center justify-content-center gap-2">
+                <td>
+                  <div class="d-flex align-items-center justify-content-between">
                     <span class="badge_custom bd_bk">교재포함강좌</span>
                     <p class="lec_title">HTML과 CSS 그리고 웹표준</p>
                     <div class="lec_book">
-                      <button class="btn btn-sm btn-outline-secondary">-</button>
+                      <button class="btn btn-sm btn-outline-secondary btn_cnt">-</button>
                       <span class="quantity">1</span>
                       <button class="btn btn-sm btn-outline-secondary">+</button>
                     </div>
