@@ -121,5 +121,12 @@ table.table th{
 
 
 /* 고민상담 끝 */
+/* 댓글 시작 */
+.comment_wrapper{
+  border: 1px solid var(--bk800);
+  border-radius: 8px;
+}
 
+
+/* 댓글 끝 */
 /* 고민상담 시작 */

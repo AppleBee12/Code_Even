@@ -7,11 +7,11 @@ $post_id = $_GET['post_id'] ?? null;
 
 // 댓글 가져오기: board_type 결정
 $board_type = '';
-if ($_SERVER['PHP_SELF'] == '/counsel_detail.php') {
-    $board_type = 'C';
-} else if ($_SERVER['PHP_SELF'] == '/teamproject_detail.php') {
+if (strpos($_SERVER['PHP_SELF'], 'counsel_detail.php') !== false) {
+    $board_type = 'C'; //strpos, 조건을 '같은 php값이 포함되어있으면' 으로 변경
+} else if (strpos($_SERVER['PHP_SELF'], 'teamproject_detail.php') !== false) {
     $board_type = 'T';
-} else if ($_SERVER['PHP_SELF'] == '/blog_detail.php') {
+} else if (strpos($_SERVER['PHP_SELF'], 'blog_detail.php') !== false) {
     $board_type = 'B';
 }
 
@@ -25,8 +25,6 @@ if ($post_id) {
                               WHERE c.post_id = ?
                             ");
     $stmt->bind_param('i', $post_id); // post_id는 숫자로 처리
-    $stmt->execute();
-    $result_post = $stmt->get_result();
 
     // 댓글 가져오기 쿼리
     $query_comment = "
@@ -137,15 +135,16 @@ if ($post_id) {
       <button class="btn btn-secondary button"><a href="http://<?= $_SERVER['HTTP_HOST'] ?>/code_even/front/community/counsel.php"><i class="bi bi-box-arrow-up-left"> </i> 목록으로 돌아가기</a></button>
     </div>
   </div>
-  <?php
-    $p_com->execute();
-    $result_comment = $p_com->get_result();
 
-    if ($result_comment->num_rows > 0) {
-      while ($row_comment = $result_comment->fetch_assoc()) {
-   ?>
-  <div class="row">
-    <div class="col-11 text-end comment_write">    
+  <div class="row comment_wrapper">
+    <?php
+      $p_com->execute();
+      $result_comment = $p_com->get_result();
+
+      if ($result_comment->num_rows > 0) {
+        while ($row_comment = $result_comment->fetch_assoc()) {
+    ?>
+    <div class="comment_write col-11 text-end">    
       <div class="comment_title">
         <img src="../images/profile.png" alt="이븐학생 프로필 사진">
         <div>
@@ -157,15 +156,14 @@ if ($post_id) {
         <?=$row_comment['contents']?>
       </div>        
     </div>
-  </div>
-  <?php
+    <?php
         }
       } else {
         echo "<p>첫 댓글을 남겨보세요!</p>";
       }
       $p_com->close();
       ?>
-
+  </div>
 
 </div>
 
