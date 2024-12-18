@@ -1,5 +1,10 @@
 </div>
 
+<?php
+  $sql = "SELECT * FROM company_info WHERE comid = 1";
+  $result = $mysqli->query($sql);
+  $cidata = $result->fetch_object();
+?>
 <footer>
   <div class="container all_p">
     <div class="footer-logo d-flex justify-content-between mb-5">
@@ -17,10 +22,10 @@
     </div>
     <div class="d-flex mb-5 footer_border ">
       <div class="row mb-5">
-        <p>회사명 : (주) 디제이컴퍼니 | 회사대표명 : 김동주</p>
-        <p>주소 : 03192 서울 종로구 수표로 96 드림팰리스</p>
-        <p>사업자등록번호 : 192-01-23456 | 통신판매업번호 : 2024-서울종로-1234</p>
-        <p>코드이븐 고객센터 | code_even@gmail.com | 고객센터 전화번호 : 02-1234-5678</p>
+        <p>회사명 : <?= $cidata->company ?> | 회사대표명 : <?= $cidata->ceo_name ?></p>
+        <p>주소 : <?= $cidata->address_one ?></p>
+        <p>사업자등록번호 : <?= $cidata->bussiness_registration_num ?> | 통신판매업번호 : <?= $cidata->commerce_registration_num ?></p>
+        <p>코드이븐 고객센터 | <?= $cidata->email ?> | 고객센터 전화번호 : <?= $cidata->tax_manager_phone ?></p>
       </div>
       <div class=" col-7 d-flex g_ml justify-content-end mb-5">
         <div class="menu_list">
