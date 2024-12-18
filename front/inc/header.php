@@ -184,7 +184,7 @@ if (isset($_GET['code'])) {
       echo '<link rel="stylesheet" href="http://' . $_SERVER['HTTP_HOST'] . '/code_even/front/css/mypage_payment.css">';
       break;
   }
-  switch ($page) { //lecture.css
+  switch ($page) { //service.css
     case 'faq.php':
     case 'notice.php':
     case 'notice_details.php':
