@@ -360,6 +360,85 @@ header {
   color: var(--bk700);
 }
 
+/* 로그인 */
+.pointer{ 
+  cursor: pointer;
+  color: #000;
+}
+
+.mid{
+  margin-right: 10%;
+  label{
+    color: #000;
+  }
+}
+.mpw{
+  margin-right: 11%;
+  label{
+    color: #000;
+  }
+}
+
+.w_c{
+  max-width: 600px;
+}
+
+.modal-content .btn-close{
+  position: absolute;
+  right: 0;
+  padding: 30px;
+}
+
+#inputId, #inputPassword{
+  width: 360px;
+  height: 50px;
+}
+/* 모달 헤더푸터 */
+.m_h, .m_f{ 
+  border: none;
+}
+
+
+.wrappers{
+  margin-top: 30px;
+  label{
+    width: 100px;
+  }
+  input{
+    height: 50px;
+  }
+  h1{
+    color: #000;
+  }
+}
+
+.redbtn, .yellowbtn{
+  border: none;
+  color: white;
+  width: 360px;
+  margin: 0 auto; 
+}
+.redbtn{
+  background: var(--red800);
+}
+.redbtn:hover{
+  background: var(--red900);
+  border: none;
+}
+.yellowbtn{
+  background: #FFEB3B;
+  a{
+    color: #3E2723;
+  }
+}
+.yellowbtn:hover{
+  background: #FFEB3B;
+  a{
+    color: #3E2723;
+  }
+}
+/* 로그인 끝 */
+
 /* 페이지네이션 */
 .list_pagination {
   .page-link {

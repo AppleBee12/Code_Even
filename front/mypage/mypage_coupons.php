@@ -5,17 +5,7 @@ include_once($_SERVER['DOCUMENT_ROOT'] . '/CODE_EVEN/admin/inc/dbcon.php');
 $title = '마이페이지-보유쿠폰';
 include_once($_SERVER['DOCUMENT_ROOT'] . '/CODE_EVEN/front/inc/mypage_header.php');
 
-if (isset($_SESSION['AUID'])) {
-  $userid = $_SESSION['AUID'];
-} elseif (isset($_SESSION['KAKAO_UID'])) {
-  $userid = $_SESSION['KAKAO_UID'];
-} else {
-  echo "<script>
-      alert('로그인이 필요합니다.');
-      history.back();
-    </script>";
-  exit;
-}
+
 // 게시글 개수 구하기
 $keywords = isset($_GET['keywords']) ? $mysqli->real_escape_string($_GET['keywords']) : '';
 $where_clause = '';

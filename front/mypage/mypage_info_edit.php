@@ -5,12 +5,7 @@ include_once($_SERVER['DOCUMENT_ROOT'] . '/CODE_EVEN/admin/inc/dbcon.php');
 $mypage_main_js = "<script src=\"http://" . $_SERVER['HTTP_HOST'] . "/code_even/front/js/mypage_main.js\"></script>";
 
 
-if (!isset($_SESSION['AUID'])) {
-  echo "<script>
-  alert('로그인을 해주세요');
-  location.href=\"http://". $_SERVER['HTTP_HOST'] ."/code_even/\";
-  </script>";
-}
+
 
 // 사용자 정보 가져오기 (Prepared Statement 사용)
 $user_sql = "SELECT userid, usernick, username, userpw, userphonenum, useremail, post_code, addr_line1, addr_line2, email_ok 
