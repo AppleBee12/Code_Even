@@ -233,7 +233,7 @@ if ($result && $result->num_rows > 0) {
           foreach ($lecture_sql as $item) {
             ?>
             <div class="lecture_box col-4 mb-3">
-              <a href="lecture_view.php?leid=<?= $item->leid; ?>" class="text-decoration-none text-dark">
+              <a href="lecture_view.php?leid=<?= $item->leid; ?>">
                 <div class="image_box mb-2">
                   <img src="<?= $item->image; ?>" alt="강좌 이미지" />
                 </div>
