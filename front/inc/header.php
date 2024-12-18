@@ -153,6 +153,8 @@ if (isset($_GET['code'])) {
   }
   switch ($page) { //community.css
     case 'counsel.php':
+    case 'counsel_detail.php':
+    case 'counsel_edit.php':
     case 'teamproject.php':
     case 'blog.php':
       echo '<link rel="stylesheet" href="http://' . $_SERVER['HTTP_HOST'] . '/code_even/front/css/community.css">';
