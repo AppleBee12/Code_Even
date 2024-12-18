@@ -45,14 +45,15 @@ while ($data = $result->fetch_object()) {
 }
 
 ?>
+
 <div class="container">
-  <div class="community_title">
-    <h2 class="headt2">고민상담</h2>
-    <div class="d-flex justify-content-center">
-      <div class="content">
+  <div class="community_title d-flex flex-column gap-5">
+    <h3 class="headt3">고민상담</h3>
+    <div class="d-flex justify-content-center align-items-center">
+      <div class="content d-flex flex-column gap-3 mx-auto">
         <div class="title">
-          <h3 class="headt3">이야기를 나누고 토론해보세요?</h3>
-          <h4 class="headt6">최신IT정보부터 커리어 고민까지 궁금한 점을 자유롭게 이야기하세요.</h4>
+          <div class="headt3">이야기를 나누고 토론해보세요</div>
+          <div class="headt6">최신IT정보부터 커리어 고민까지 궁금한 점을 자유롭게 이야기하세요.</div>
         </div>
         <!-- //키워드 검색 -->
         <div class="search">
@@ -66,9 +67,9 @@ while ($data = $result->fetch_object()) {
   </div>
 
 
-  <div class="counsel_contents_wrapper">
+  <div class="community_contents_wrapper">
     <?php if ($keywords): ?>
-      <p>“<?= htmlspecialchars($keywords); ?>” 관련 <?=$title?> 검색 결과가 총 <em><?= count($dataArr); ?></em>건 있습니다.</p>
+      <p class="keywords">“<?= htmlspecialchars($keywords); ?>” 관련 <?=$title?> 검색 결과가 총 <em><?= count($dataArr); ?></em>건 있습니다.</p>
       
         <!-- <p>“<?= htmlspecialchars($keywords); ?>” 관련 <?=$title?> 검색 결과가 없습니다.</p> -->
       <?php endif; ?>
@@ -88,7 +89,7 @@ while ($data = $result->fetch_object()) {
                 <p> 작성일: <?= $counsel->regdate ?></p>
               </div>
             </div>
-            <div class="counsel_btn col-2">
+            <div class="counsel_btn col-2 d-flex flex-column justify-content-between align-items-end">
               <div class="d-flex justify-content-between">
                 <p><i class="bi bi-eye"></i> <?= $counsel->hits ?></p>  
                 <p><i class="bi bi-chat-dots"></i> <?= $counsel->comments ?></p>

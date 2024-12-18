@@ -1,10 +1,75 @@
 /* 메인메뉴의 community전체 common.stylesheet입니다 */
-.counsel_contents_wrapper{
-  margin: 60px 0;
+
+/* 공통부분 */
+
+.community_title {
+  padding: 90px 0; 
 }
+.community_contents_wrapper {
+  padding-bottom: 90px;
+}
+
+
+.community_contents_wrapper .keywords{
+  margin-bottom: 30px;
+}
+
+.community_title .title {
+text-align: center;
+}
+.community_title .search {
+  border-bottom: 4px solid var(--bk50);
+  margin-top: 30px; 
+  padding-bottom:10px;
+}
+.community_title .search form .form-control{
+  color: var(--bk50);
+  background: none;
+  border: none;
+  font-size: 20px;
+  vertical-align: top;
+  margin-left: 36px;
+}
+.community_title .search form .form-control:placeholder{      
+  color: var(--bk700);
+}
+.community_title .search form .form-control:focus {
+  background-color: transparent;
+  outline: none;
+  box-shadow: none;
+  color: var(--bk200);
+}
+.community_title .search button {
+  background: none;
+  border: none;
+  color: var(--bk50);
+}
+.community_title .search i {
+  font-size: 24px;
+}      
+
+
+.community_contents_wrapper{
+  padding: 30px 0;
+  border-bottom: 1px solid var(--bk800);
+}
+.community_contents_wrapper button a{
+  color:var(--bk0);
+  text-align: end;
+
+}
+
+/* 공통부분 끝 */
+
+/* 고민상담 시작 */
+
 .counsel_content{
   border-top: 1px solid var(--bk0);
   padding: 40px 20px;
+}
+
+.counsel_content:hover{
+ background: var(--bk1000);
 }
 
 .counsel_txt>p:nth-child(1){
@@ -20,3 +85,41 @@
   color:var(--bk500);
   padding-left: 5px;
 }
+.counsel_btn div{
+  width: 100%;
+}
+
+/* 고민상담 디테일 */
+
+table.table,
+table.table tr,
+table.table th,
+table.table td,
+.table>:not(caption)>*>* {
+  background: var(--bk1100);
+  border-bottom:0;
+  color:var(--bk200);
+}
+
+table.table tr + tr{
+  border-top: 1px solid var(--bk900);
+}
+table.table tr{
+  line-height: 38px;
+}
+
+table.table th{
+  text-align: center;
+}
+.community_contents_wrapper .text-end{
+  margin-top:30px;
+}
+
+.community_contents_wrapper .text-end i{
+  padding-right: 5px;
+}
+
+
+/* 고민상담 끝 */
+
+/* 고민상담 시작 */
