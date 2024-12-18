@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- 생성 시간: 24-12-18 06:29
+-- 생성 시간: 24-12-18 09:01
 -- 서버 버전: 10.4.32-MariaDB
 -- PHP 버전: 8.2.12
 
@@ -32,11 +32,8 @@ CREATE TABLE `cart` (
   `uid` int(11) DEFAULT NULL COMMENT '회원고유번호',
   `ssid` varchar(100) DEFAULT NULL COMMENT '세션번호',
   `leid` int(11) NOT NULL COMMENT '강좌고유번호',
-  `lec_price` decimal(10,2) NOT NULL COMMENT '강좌가격',
   `boid` int(11) DEFAULT NULL COMMENT '교재고유번호',
-  `book_price` decimal(10,2) DEFAULT NULL COMMENT '교재가격',
-  `cnt` int(11) DEFAULT NULL COMMENT '수량',
-  `total_price` decimal(10,2) DEFAULT NULL COMMENT '총가격(수량*가격)',
+  `total_price` decimal(10,2) NOT NULL COMMENT '총가격(교재+강좌)',
   `coupon_id` int(11) DEFAULT NULL COMMENT '적용쿠폰',
   `discount_price` decimal(10,2) DEFAULT NULL COMMENT '쿠폰할인금액',
   `regdate` datetime NOT NULL DEFAULT current_timestamp() COMMENT '상품추가일자'
@@ -60,7 +57,7 @@ ALTER TABLE `cart`
 -- 테이블의 AUTO_INCREMENT `cart`
 --
 ALTER TABLE `cart`
-  MODIFY `cartid` int(11) NOT NULL AUTO_INCREMENT COMMENT '장바구니고유번호', AUTO_INCREMENT=7;
+  MODIFY `cartid` int(11) NOT NULL AUTO_INCREMENT COMMENT '장바구니고유번호', AUTO_INCREMENT=14;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
