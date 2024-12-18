@@ -307,11 +307,11 @@ $totalTimeFormatted = secondsToHMS($totalSeconds);
 <script>
     $('#cartform').submit(function(e){
         e.preventDefault();
-        let book_info =  '';
+        let book_id =  '';
         let sub_total = Number(<?= $lecture->price; ?>);
 
         $(".con_border input[type='checkbox']:checked").each(function(){
-            book_info += $(this).val();
+            book_id = Number($(this).val());
             let price = Number($(this).attr('data-price'));
             sub_total += price;
         });
@@ -320,7 +320,7 @@ $totalTimeFormatted = secondsToHMS($totalSeconds);
 
         let data = {
             leid : leid,
-            opts: book_info,
+            boid : book_id,
             price : sub_total,
         }
         console.log(data);
