@@ -25,7 +25,8 @@
         <p>회사명 : <?= $cidata->company ?> | 회사대표명 : <?= $cidata->ceo_name ?></p>
         <p>주소 : <?= $cidata->address_one ?></p>
         <p>사업자등록번호 : <?= $cidata->bussiness_registration_num ?> | 통신판매업번호 : <?= $cidata->commerce_registration_num ?></p>
-        <p>코드이븐 고객센터 | <?= $cidata->email ?> | 고객센터 전화번호 : <?= $cidata->tax_manager_phone ?></p>
+        <p>코드이븐 고객센터 | <?= $cidata->email ?> </p>
+        <p>고객센터 전화번호 | <?= $cidata->tax_manager_phone ?></p>
       </div>
       <div class=" col-7 d-flex g_ml justify-content-end mb-5">
         <div class="menu_list">
