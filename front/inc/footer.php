@@ -104,7 +104,7 @@ if (isset($service_js)) {
 ?>
 
 
-<!-- 채널톡 스크립트 -->
+<!-- 채널톡 스크립트 
 <script>
   (function() {
     var w = window;
@@ -160,6 +160,7 @@ if (isset($service_js)) {
     }
   });
 </script>
+-->
 
 
 <!-- 썸머노트 -->
