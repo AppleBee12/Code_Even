@@ -144,12 +144,12 @@ while ($qdata = $question_result->fetch_object()) {
         <span>궁금한 질문은 1:1 문의를 이용해보세요.</span>
       </div>
     </div>
-    <button class="headt6">1:1문의하기</button>
+    <a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/front/mypage/mypage_qna.php" class="headt6">1:1문의하기</a>
   </div>
 
   <div class="myQna">
     <h2 class="headt3">나의 문의내역</h2>
-    <table class="table list_table">
+    <table class="table">
       <thead>
         <tr>
           <th scope="col">등록일</th>
@@ -169,7 +169,7 @@ while ($qdata = $question_result->fetch_object()) {
         <tr>
           <th scope="row"><?=$question->regdate;?></th>
           <td><?= htmlspecialchars($categoryName); ?></td>
-          <td><a href="" class="title"><?=$question->qtitle;?></a></td>
+          <td><a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/front/mypage/mypage_qna_question_details.php?aqid=<?= $question->aqid; ?>" class="title"><?=$question->qtitle;?></a></td>
           <td><?= $question->aqid ? "답변완료" : "답변대기"; ?></td>
           <td>
             <a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/front/service/qna_delete.php?aqid=<?= $question->aqid; ?>" class="delete">
