@@ -6,9 +6,14 @@
   padding: 90px 0; 
 }
 .community_contents_wrapper {
-  padding-bottom: 90px;
+  padding: 30px 0 30px;
+  border-top: 2px solid var(--bk700);
+  border-bottom: 2px solid var(--bk700);
 }
-
+.community_contents_wrapper button a{
+  color:var(--bk0);
+  text-align: end;
+}
 
 .community_contents_wrapper .keywords{
   margin-bottom: 30px;
@@ -20,7 +25,7 @@ text-align: center;
 .community_title .search {
   border-bottom: 4px solid var(--bk50);
   margin-top: 30px; 
-  padding-bottom:10px;
+  padding-bottom:10px;  
 }
 .community_title .search form .form-control{
   color: var(--bk50);
@@ -49,15 +54,7 @@ text-align: center;
 }      
 
 
-.community_contents_wrapper{
-  padding: 30px 0;
-  border-bottom: 1px solid var(--bk800);
-}
-.community_contents_wrapper button a{
-  color:var(--bk0);
-  text-align: end;
 
-}
 
 /* 공통부분 끝 */
 
@@ -118,15 +115,57 @@ table.table th{
 .community_contents_wrapper .text-end i{
   padding-right: 5px;
 }
+.info_table .likes{
+  margin-left:15px;
+}
+
 
 
 /* 고민상담 끝 */
 /* 댓글 시작 */
 .comment_wrapper{
+  margin-right: 0px;
+}
+
+.comment_write{
   border: 1px solid var(--bk800);
   border-radius: 8px;
+  padding: 20px 30px;
+}
+.comment_write,
+.comment_wrapper>p,
+.submit_comment_wrapper{
+  margin: 30px 0 0 108px;
+}
+
+.comment_title>div{
+  margin-left:20px;
+}
+.comment_title>div p:last-child{
+  color: var(--bk600);
+}
+
+.comment_text{
+  margin-top:20px;
+  line-height: 40px;
+  font-size: 18px;
 }
 
 
+/* 댓글 달기 submit */
+.submit_comment_wrapper{
+  border: 1px solid var(--bk800);
+  border-radius: 8px;
+  padding: 20px 30px;
+}
+
+.submit_comments textarea{
+  height: 100px;
+  color:var(--bk1000);
+  margin-bottom: 20px;
+}
+
+
+
 /* 댓글 끝 */
-/* 고민상담 시작 */
+/*  시작 */
