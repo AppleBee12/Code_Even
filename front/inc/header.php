@@ -186,7 +186,7 @@ if (isset($_GET['code'])) {
       echo '<link rel="stylesheet" href="http://' . $_SERVER['HTTP_HOST'] . '/code_even/front/css/mypage_payment.css">';
       break;
   }
-  switch ($page) { //mypage_payment.css
+  switch ($page) { //mypage_qna.css
     case 'mypage_qna.php':
       echo '<link rel="stylesheet" href="http://' . $_SERVER['HTTP_HOST'] . '/code_even/front/css/mypage_qna_review.css">';
       break;
