@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- 생성 시간: 24-12-17 17:35
+-- 생성 시간: 24-12-18 01:24
 -- 서버 버전: 10.4.32-MariaDB
 -- PHP 버전: 8.2.12
 
@@ -1326,9 +1326,9 @@ CREATE TABLE `stuscores` (
 
 CREATE TABLE `summer_images` (
   `imgid` int(11) NOT NULL COMMENT '기본 pk',
-  `cateid` int(11) NOT NULL COMMENT '메뉴카테고리에따른분류(ntid-notice,sqid-stuq/a,post_id/counsel,teamproject,blog)',
-  `pid` int(11) NOT NULL COMMENT '글번호(각 카테고리의pk)',
-  `src` varchar(500) NOT NULL COMMENT '이미지경로'
+  `table_name` varchar(255) NOT NULL COMMENT '테이블명(text)',
+  `table_id` varchar(255) NOT NULL COMMENT '테이블id (fqid, ntid 등)',
+  `file_name` varchar(500) NOT NULL COMMENT '이미지경로'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='썸머노트이미지들';
 
 -- --------------------------------------------------------
