@@ -117,8 +117,7 @@ if (isset($_GET['code'])) {
     integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
     crossorigin="anonymous" referrerpolicy="no-referrer" />
   <link rel="stylesheet" href="http://<?= $_SERVER['HTTP_HOST'] ?>/code_even/front/css/common.css">
-  <link rel="stylesheet" href="http://<?= $_SERVER['HTTP_HOST'] ?>/code_even/front/css/main.css">
-
+  
 
   <!-- 개인 CSS -->
   <?php
@@ -126,6 +125,7 @@ if (isset($_GET['code'])) {
   switch ($page) { //main.css
     case 'index.php':
     case 'tc_applyform.php':
+    case 'faq.php':
       echo '<link rel="stylesheet" href="http://' . $_SERVER['HTTP_HOST'] . '/code_even/front/css/main.css">';
       break;
   }
@@ -371,7 +371,7 @@ if (isset($_GET['code'])) {
               </a>
               <div class="profile_menu">
                 <div class="profile_menu_top">
-                  <a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/front/mypage/mypage_info.php">
+                  <a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/front/mypage/mypage_info_edit.php">
                     <div class="profile_header d-flex align-items-center">
                       <img src="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/front/images/profile.png" alt="기본프로필이미지">
                       <p><?= $_SESSION['AUNAME'] ?>님</p>
@@ -423,7 +423,7 @@ if (isset($_GET['code'])) {
           </div>
         </div>
         <div class="modal-body">
-          <form action="front/login/login_ok.php" method="POST">
+          <form action="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/front/login/login_ok.php" method="POST">
             <div class="mb-3 d-flex justify-content-center gap-4 mid">
               <label for="inputId" class="col-form-label align-self-center">아이디</label>
               <input type="text" class="form-control id" id="inputId" placeholder="아이디를 입력하세요" name="userid" required>
@@ -439,7 +439,8 @@ if (isset($_GET['code'])) {
                 <button class="btn kakao_loginbtn yellowbtn">
                   <a href="https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=dc8b785f75c0ed7ecca5dad87f2b18ff&redirect_uri=http://localhost/code_even/"
                     class="kakao m-0 ">
-                    카카오 로그인
+                    <img src="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/front/images/kakao_icon.png" alt="">
+                    <span >카카오 로그인</span>
                   </a>
                 </button>
               </div>

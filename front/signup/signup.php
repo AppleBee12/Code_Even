@@ -79,15 +79,15 @@ include_once($_SERVER['DOCUMENT_ROOT'].'/CODE_EVEN/admin/inc/dbcon.php');
                 [필수] 개인정보 수집  및 이용에 동의합니다.
               </label>
             </div>
+            <input type="hidden" name="email_ok" value="0">
             <div class="form-check">
               <input class="form-check-input" type="checkbox" value="1" id="email_ok" name="email_ok" >
               <label class="form-check-label" for="email_ok">
                 [선택] 광고성 이메일 수신에 동의합니다.
               </label>
             </div>
-            <input type="hidden" name="email_ok" value="0">
           </div>
-          <button type="submit" class="btn btn-secondary mt-4 w-100 mb-5 redbtn">회원가입</button>
+          <button type="submit" class="btn btn-secondary mt-4 w-100 mb-5 redbtn" id="submit_btn">회원가입</button>
         </form>
       </div>
     </div>

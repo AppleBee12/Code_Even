@@ -90,7 +90,7 @@ $what_recipe_js = "<script src=\"http://" . $_SERVER['HTTP_HOST'] . "/code_even/
       </div>
     </div>
   </section>
-  <section class="sec07">
+  <section class="sec07 white">
     <div class="container">
       <div class="title_wrapper">
         <p class="headt4">어떤 개념이 필요한지 어떤 언어를 사용하는지</p>
@@ -133,7 +133,13 @@ $what_recipe_js = "<script src=\"http://" . $_SERVER['HTTP_HOST'] . "/code_even/
           </li>
         </ul>
       </div>
+      <div class="recipe_lec_btn_wrap">
+        <p class=" recipe_lec_btn">
+          <a href="http://<?= $_SERVER['HTTP_HOST'] ?>/code_even/front/lecture_list.php" class="headt4">지금 바로 레시피 강좌 보러가기 <i class="fa-solid fa-arrow-right"></i></a>
+        </p>
+      </div>
     </div>
+
   </section>
 </div>
 

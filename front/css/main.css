@@ -145,15 +145,15 @@
     border: none;
   }
   .yellowbtn{
-    background: #FEE500;
+    background: #FFEB3B;
     a{
-      color: #181600;
+      color: #3E2723;
     }
   }
   .yellowbtn:hover{
-    background: #FEE500;
+    background: #FFEB3B;
     a{
-      color: #181600;
+      color: #3E2723;
     }
 
   }
@@ -339,12 +339,12 @@
 .review_date {color: var(--bk500); font-weight: bold; margin-bottom: 0;}
 
 .sec05 .container {height: 100%;}
-.sec05 .swiper {width: 500px;}
+.sec05 .swiper {width: 520px;}
 .sec05 .swiper .swiper-wrapper {
   width: 100%; display: flex;
 }
 .sec05 .swiper .swiper-wrapper .swiper-slide {
-  width: 500px;
+  width: 520px;
   height: 200px;
 }
 
