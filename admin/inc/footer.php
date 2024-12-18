@@ -48,10 +48,12 @@ if (isset($jqueryui_js)) {
 <?php
   $uploadPath = 'http://localhost/code_even/admin/inc/upload_image.php';
   $getUploadPath = 'http://localhost/code_even/admin/inc/get_uploaded_images.php';
-  $delete_images = 'http://localhost/code_even/admin/inc/get_uploaded_images.php';
+  $delete_images = 'http://localhost/code_even/admin/inc/summer_inner_del.php';
 ?>
 
 <script>
+  var delete_images = "<?= $delete_images ?>";
+
   let target = $('#summernote');
 target.summernote({
   placeholder: '내용을 입력해주세요.',
@@ -73,33 +75,30 @@ target.summernote({
         uploadImage(file);
       }
     },
-    // onChange: function(contents) {
-    //   handleImageDeletion(contents);
-    // },
-    // onMediaDelete: function(target) {
-    //   let imageUrl = $(target).attr('src'); // 삭제할 이미지 URL 가져오기
-    //   $.ajax({
-    //     url: '/delete-image', // 서버의 이미지 삭제 URL
-    //     method: 'POST',
-    //     data: { imageUrl: imageUrl },
-    //     success: function(response) {
-    //       if (response.success) {
-    //         console.log('이미지가 삭제되었습니다.');
-    //       } else {
-    //         alert('이미지 삭제 중 오류가 발생했습니다.');
-    //       }
-    //     },
-    //     error: function() {
-    //       alert('이미지 삭제 요청에 실패했습니다.');
-    //     }
-    //   });
-    // }
+    onMediaDelete: function(target) {
+      // 삭제된 이미지의 src 경로를 가져옴
+      let imageUrl = target[0].src;
+
+      // 서버에 이미지 삭제 요청
+      $.ajax({
+        url: delete_images, // 이미지 삭제 처리 파일
+        type: 'POST',
+        data: { url: imageUrl }, // 이미지 경로 전달
+        success: function(response) {
+          console.log('이미지 삭제 성공:', response);
+        },
+        error: function(xhr, status, error) {
+          console.error('이미지 삭제 실패:', error);
+          alert('이미지 삭제에 실패했습니다.');
+        }
+      });
+    }
+    
   }
 });
 
 var uploadPath = "<?= $uploadPath ?>";
 var getUploadPath = "<?= $getUploadPath ?>";
-var delete_images = "<?= $delete_images ?>";
 
 // 글 등록 후 이미지 업로드
 function uploadImage(file) {
@@ -127,55 +126,6 @@ function uploadImage(file) {
     }
   });
 }
-
-// function handleImageDeletion(contents) {
-//   const parser = new DOMParser();
-//   const doc = parser.parseFromString(contents, 'text/html');
-
-//   // 에디터에 남아 있는 이미지 URL을 수집
-//   const remainingImages = Array.from(doc.querySelectorAll('img')).map(img => img.src);
-
-//   if (remainingImages.length > 0) {
-//     // 서버에 업로드된 이미지 목록 요청
-//     $.ajax({
-//       url: '/get-uploaded-images.php',
-//       method: 'GET',
-//       dataType: 'json',
-//       success: function(uploadedImages) {
-//         console.log('서버에 업로드된 이미지 목록:', uploadedImages);
-
-//         // 서버 데이터 검증 및 배열화
-//         if (!Array.isArray(uploadedImages)) {
-//           uploadedImages = Array.isArray(uploadedImages.images) ? uploadedImages.images : [];
-//         }
-
-//         // 삭제할 이미지 필터링
-//         const imagesToDelete = uploadedImages.filter(img => !remainingImages.includes(img));
-
-//         if (imagesToDelete.length > 0) {
-//           // 삭제 요청 전송
-//           $.ajax({
-//             url: '/delete-images.php',
-//             method: 'POST',
-//             contentType: 'application/json',
-//             data: JSON.stringify({ images: imagesToDelete }),
-//             success: function(data) {
-//               console.log(imagesToDelete.length === 1 
-//                 ? '이미지 하나 삭제 완료' 
-//                 : `${imagesToDelete.length}개의 이미지 삭제 완료`, data);
-//             },
-//             error: function(xhr, status, error) {
-//               console.error('이미지 삭제 실패:', error);
-//             }
-//           });
-//         }
-//       },
-//       error: function(xhr, status, error) {
-//         console.error('이미지 목록 요청 실패:', error);
-//       }
-//     });
-//   }
-// }
 </script>
 
 </body>

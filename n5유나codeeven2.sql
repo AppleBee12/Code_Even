@@ -407,9 +407,9 @@ INSERT INTO `student_qna` (`sqid`, `cdid`, `qtitle`, `qcontent`, `regdate`) VALU
 
 CREATE TABLE `summer_images` (
   `imgid` int(11) NOT NULL COMMENT '기본 pk',
-  `cateid` int(11) NOT NULL COMMENT '메뉴카테고리에따른분류(ntid-notice,sqid-stuq/a,post_id/counsel,teamproject,blog)',
-  `pid` int(11) NOT NULL COMMENT '글번호(각 카테고리의pk)',
-  `src` varchar(500) NOT NULL COMMENT '이미지경로'
+  `table_name` varchar(255) NOT NULL COMMENT '테이블명(text)',
+  `table_id` varchar(255) NOT NULL COMMENT '테이블id (fqid, ntid 등)',
+  `file_name` varchar(500) NOT NULL COMMENT '이미지경로'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='썸머노트이미지들';
 
 -- --------------------------------------------------------
