@@ -2,6 +2,9 @@
 
 include_once($_SERVER['DOCUMENT_ROOT'] . '/code_even/front/inc/header.php');
 
+// 검색어 가져오기
+$search = isset($_GET['search']) ? trim($_GET['search']) : null;
+
 // 현재 선택된 카테고리 코드 가져오기
 $category_code = isset($_GET['category']) ? $_GET['category'] : null;
 
@@ -11,11 +14,24 @@ $list = 9; // 한 페이지에 보여줄 강좌 수
 $block_ct = 5; // 한 번에 보여질 페이지 블록 수
 $start_num = ($page - 1) * $list; // LIMIT 시작점
 
-// 카테고리 조건 추가
-$where_clause = "";
-if ($category_code) {
-  $where_clause = "WHERE cate1 = '$category_code' OR cate2 = '$category_code' OR cate3 = '$category_code'";
+
+// 검색어와 카테고리 조건 추가
+$conditions = [];
+
+// 검색 조건 추가
+if ($search) {
+    $search = $mysqli->real_escape_string($search); // SQL Injection 방지
+    $conditions[] = "(title LIKE '%$search%' OR name LIKE '%$search%')";
 }
+
+// 카테고리 조건 추가
+if ($category_code) {
+    $conditions[] = "(cate1 = '$category_code' OR cate2 = '$category_code' OR cate3 = '$category_code')";
+}
+
+// 조건 연결
+$where_clause = count($conditions) > 0 ? "WHERE " . implode(" AND ", $conditions) : "";
+
 
 // 전체 강좌 수 가져오기 (카테고리 조건 포함)
 $page_sql = "SELECT COUNT(*) AS cnt FROM lecture $where_clause";
@@ -42,8 +58,6 @@ if ($result && $result->num_rows > 0) {
   while ($row = $result->fetch_object()) {
     $lecture_sql[] = $row;
   }
-} else {
-  echo "데이터가 없습니다.";
 }
 
 ?>
@@ -228,10 +242,19 @@ if ($result && $result->num_rows > 0) {
     <!-- 강좌 리스트 출력 시작-->
     <div class="col-9">
       <div class="row w-100">
-        <?php
-        if (isset($lecture_sql)) {
-          foreach ($lecture_sql as $item) {
-            ?>
+        <?php if (empty($lecture_sql)) { ?>
+        <!-- 검색 결과가 없을 경우 -->
+        <div class="col-12">
+          <p class="text-center mt-5">&#128064;</p>
+          <p class="text-center my-5"> 원하시는 강좌를 찾을 수 없습니다. 방금 검색한 강좌의 첫 번째 강사가 되어보세요!</p>
+          <div class="tc_borderline text-center">
+          <a href="http://<?= $_SERVER['HTTP_HOST'] ?>/code_even/front/signup/tc_applyform.php">강사 신청하러 가기
+          </a>
+        </div>
+        </div>
+        <?php } else { ?>
+        <!-- 검색 결과 있을경우 또는 리스트 출력 -->
+        <?php foreach ($lecture_sql as $item) { ?>
             <div class="lecture_box col-4 mb-3">
               <a href="lecture_view.php?leid=<?= $item->leid; ?>">
                 <div class="image_box mb-2">

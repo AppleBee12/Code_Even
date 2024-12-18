@@ -43,9 +43,9 @@ while ($qdata = $question_result->fetch_object()) {
     <div class="mypage_title_wrapper">
       <p class="mypage_title headt5">나의 문의 내역</p>
     </div>
-
-    <div>
-      <form class="table qna_form">
+    <!--제목 끝-->
+    <div class="list_content">
+      <form>
         <div class="d-flex justify-content-between align-items-center">
           <p>총 건</p>
           <button type="submit">1:1 문의하기</button>
@@ -72,8 +72,6 @@ while ($qdata = $question_result->fetch_object()) {
         </table>
       </form>
     </div>  
-
-    <!--제목 끝-->
   </div>
   <div class="tab-pane fade" id="nav-myLecTab2" role="tabpanel" aria-labelledby="nav-myLecTab2-tab"><!-- 탭메뉴2//탭이 없으면 삭제하세용-->
     <!--제목 시작-->
@@ -81,13 +79,13 @@ while ($qdata = $question_result->fetch_object()) {
       <p class="mypage_title headt5">나의 문의 내역</p>
     </div>
     <!--제목 끝-->  
-    <div class="qna_content">
-      <form action="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/front/mypage/mypage_qna_question.php" class="qna_form">
+    <div class="list_content">
+      <form action="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/front/mypage/mypage_qna_question.php">
         <div class="d-flex justify-content-between align-items-center">
           <p>총 <?= count($qdataArr); ?>건</p>
           <button type="submit">1:1 문의하기</button>
         </div>
-        <table class="table qna_table">
+        <table class="table">
           <thead>
             <tr>
               <th scope="col">등록일</th>

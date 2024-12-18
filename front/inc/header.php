@@ -189,10 +189,11 @@ if (isset($_GET['code'])) {
       echo '<link rel="stylesheet" href="http://' . $_SERVER['HTTP_HOST'] . '/code_even/front/css/mypage_payment.css">';
       break;
   }
-  switch ($page) { //mypage_qna.css
+  switch ($page) { //mypage_qna.css, mypage_reivew.php
     case 'mypage_qna.php':
     case 'mypage_qna_question.php':
     case 'mypage_qna_question_details.php':
+    case 'mypage_reivew.php':
       echo '<link rel="stylesheet" href="http://' . $_SERVER['HTTP_HOST'] . '/code_even/front/css/mypage_qna_review.css">';
       break;
   }
@@ -341,13 +342,15 @@ if (isset($_GET['code'])) {
 
         <!-- 검색창 -->
         <div class="header_search">
-          <form action="#" class="d-flex align-items-center header_search_inner" method="get">
+          <form action="http://<?= $_SERVER['HTTP_HOST'] ?>/code_even/front/lecture_list.php" method="get"  class="d-flex align-items-center header_search_inner" method="get">
             <button type="submit" class="search_btn d-flex align-items-center">
               <i class="bi bi-search"></i>
             </button>
             <label for="searchInput" class="visually-hidden">검색창</label>
-            <input type="search" id="searchInput" class="form-control" value="" placeholder="무엇을 배우고 싶으신가요?"
-              autocomplete="off" />
+            <input type="search" id="searchInput" name="search" class="form-control" 
+            placeholder="무엇을 배우고 싶으신가요?" 
+            value="<?= htmlspecialchars($search ?? '') ?>" 
+            autocomplete="off" />
             <button type="button" id="clearSearch"
               class="btn btn-clear d-flex align-items-center justify-content-center">
               <i class="bi bi-x-circle-fill"></i>
