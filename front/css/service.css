@@ -27,23 +27,25 @@
 .service_tab {
   padding-top: 160px;
   li {
-    flex: 1 1; line-height: 70px; border: 1px solid var(--bk700);
+    flex: 1 1; line-height: 70px; border: 1px solid var(--bk700); background: none;
     a {
       display: block; text-align: center;
       font-size: 24px;
     }
   }
   .nav_list_active {background: rgba(220,53,69,.2); border: none; border-bottom: 5px solid #DC3545;}
+  .nav_list:hover {background: var(--bk1000);}
 }
 
 .faq_content {
   margin: 80px 0;
   .faq_tab {
     li {
-      flex: 1 1; padding-bottom: 30px; cursor: pointer;
+      flex: 1 1; padding-bottom: 30px; cursor: pointer; color: var(--bk500); transition: color 0.3s;
       span {display: block; line-height: 30px; text-align: center; font-size: 18px;}
     }
-    .active {border-bottom: 3px solid var(--bk50);}
+    li:hover {color: var(--bk50);}
+    .active {border-bottom: 3px solid var(--bk50); color: var(--bk50);}
   }
   .accordion {
     --bs-accordion-btn-bg: none; border: 1px solid var(--bk700); margin-top: 40px;
@@ -53,6 +55,9 @@
   .accordion-item {
     background: none; border: none; border-bottom: 1px solid var(--bk700);
     h5 button, .accordion-body {color: var(--bk50);}
+  }
+  .accordion-item:hover {
+    background: var(--bk1000);
   }
   .accordion-item:last-child {border-bottom: none;}
   .accordion-button {padding: 20px 30px;}
@@ -79,13 +84,14 @@
       span {font-size: 18px; font-weight: 400;}
     }
   }
-  button {background: none; border: 1px solid var(--bk50); border-radius: 10px; padding: 20px 50px; color: var(--bk50);}
+  a {background: none; border: 1px solid var(--bk50); border-radius: 10px; padding: 10px 40px; color: var(--bk50); transition: background-color 0.3s;}
+  a:hover {background-color: var(--bk50); color: var(--bk1000);}
 }
 
 .myQna {
   margin: 80px 0px; display: flex; flex-direction: column; gap: 30px;
   h2 {font-weight: 300;}
-  .table {--bs-table-bg: none;
+  .table {--bs-table-bg: none; border-color: var(--bk700); border-top: 2px solid var(--bk50);
     tr {height: 60px;
       th,
       td {
