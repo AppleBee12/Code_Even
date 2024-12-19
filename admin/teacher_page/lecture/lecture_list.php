@@ -1,15 +1,7 @@
 <?php
-ob_start(); // 출력 버퍼링 시작
-
-include_once($_SERVER['DOCUMENT_ROOT'] . '/code_even/admin/inc/header.php');
-
 $title = "강좌 목록";
 
-if (!isset($_SESSION['user_level']) || $_SESSION['user_level'] != 100) {
-  // user_level이 없거나 100이 아니면 접근 차단
-  header('Location: /code_even/admin/teacher_page/lecture/lecture_list.php');
-  exit; // 추가 코드 실행 방지
-}
+include_once($_SERVER['DOCUMENT_ROOT'] . '/code_even/admin/inc/header.php');
 
 // 게시글 개수 구하기
 $keywords = isset($_GET['keywords']) ? $_GET['keywords'] : '';
@@ -72,7 +64,7 @@ while ($data = $result->fetch_object()) {
           <th scope="col">강좌 유형</th>
           <th scope="col">강좌 전시 옵션</th>
           <th scope="col">상태</th>
-          <th scope="col">승인</th>
+          <!-- <th scope="col">승인</th> -->
           <th scope="col">관리</th>
         </tr>
       </thead>
@@ -119,14 +111,13 @@ while ($data = $result->fetch_object()) {
                   <?= $item->state == 2 ? '개설' : '개설 대기'; ?>
                 </span>
               </td>
-              <td>
-                <div class="d-flex justify-content-center align-items-center">
-                  <div class="form-check form-switch">
-                    <input id="toggle-<?= $item->leid; ?>" class="form-check-input tog toggle-switch" type="checkbox"
-                      role="switch" data-id="<?= $item->leid; ?>" <?= $item->state == 2 ? 'checked' : ''; ?>>
-                  </div>
-                </div>
-              </td>
+              <!-- <td>
+                        <div class="d-flex justify-content-center align-items-center">
+                            <div class="form-check form-switch">
+                            <input id="toggle-<?= $item->leid; ?>" class="form-check-input tog toggle-switch" type="checkbox" role="switch" data-id="<?= $item->leid; ?>" <?= $item->state == 2 ? 'checked' : ''; ?>>
+                            </div>
+                        </div>
+                    </td> -->
               <td>
                 <div class="d-flex justify-content-center gap-4">
                   <a href="lecture_edit.php?id=<?= $item->leid; ?>"><i class="bi bi-pencil-fill"></i></a>
