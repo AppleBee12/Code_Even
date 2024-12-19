@@ -32,25 +32,33 @@
 }
  */
 
- .check_total label{
-  color: var(--bk1000);
-  .check_cnt{
-    color: var(--red800);
-  }
-}
 
 
-
-
-
- .container_wrap {
-  padding-top: 50px;
-  padding-bottom: 50px;
+.container_wrap {
+  padding-top: 80px;
+  padding-bottom: 100px;
 }
 
 .headt5 {
   font-weight: 700;
-  margin-bottom: 30px;
+  margin-bottom: 50px;
+}
+
+
+
+.form-check-input{
+  width: 18px;
+  height: 18px;
+}
+
+
+.check_total label span{
+  vertical-align: middle;
+  margin-right: 3px;
+
+}
+.check_cnt{
+  color: var(--red800);
 }
 
 .cart_table {
