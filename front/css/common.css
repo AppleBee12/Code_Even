@@ -393,6 +393,7 @@ header {
   width: 360px;
   height: 50px;
 }
+
 /* 모달 헤더푸터 */
 .m_h, .m_f{ 
   border: none;
@@ -438,25 +439,6 @@ header {
   }
 }
 /* 로그인 끝 */
-
-/* 페이지네이션 */
-.list_pagination {
-  .page-link {
-    background: none;
-    border-color: var(--bk700);
-    color: var(--bk300);
-    margin: 0 10px;
-  }
-  .active > .page-link,
-  .page-link.active {
-    color: var(--bk0);
-    background-color: var(--red700);
-    border-color: var(--red700);
-  }
-  .page-link:focus {
-    box-shadow: none;
-  }
-}
 
 
 /* 퀵아이콘 - 장바구니 */
@@ -514,7 +496,6 @@ header {
     padding: 10px 0;
   }
 }
-
 
 .cart_dropdown ul {
   list-style: none;
@@ -682,6 +663,8 @@ header {
 }
 
 
+/* 헤더 header 끝*/
+
 
 /* 푸터 footer */
 
@@ -733,4 +716,35 @@ header {
 }
 .nav-link:hover {
   color: var(--bk1000);
+}
+
+/* 체크박스 */
+.form-check-input:checked{
+  background-color: var(--red800);
+  border-color: var(--red800);
+}
+
+.form-check-input:focus {
+  border-color: var(--red800);
+  outline: 0;
+  box-shadow: none;
+}
+
+/* 페이지네이션 */
+.list_pagination {
+  .page-link {
+    background: none;
+    border-color: var(--bk700);
+    color: var(--bk300);
+    margin: 0 10px;
+  }
+  .active > .page-link,
+  .page-link.active {
+    color: var(--bk0);
+    background-color: var(--red700);
+    border-color: var(--red700);
+  }
+  .page-link:focus {
+    box-shadow: none;
+  }
 }
