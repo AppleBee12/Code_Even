@@ -192,61 +192,67 @@ $detail_result = $mysqli->query($detail_query);
     });
 
 
-    $(document).ready(function () {
-      // 퀴즈/시험 버튼 클릭 이벤트
-      $(document).on('click', '.quiz-btn, .exam-btn', function () {
-        const type = $(this).data('type'); // quiz 또는 exam
-        const exid = $(this).data('id');   // exid
+    // 퀴즈/시험 버튼 클릭 이벤트
+    $(document).on('click', '.quiz-btn, .exam-btn', function () {
+      const type = $(this).data('type'); // quiz 또는 exam
+      const exid = $(this).data('id');   // exid
 
-        $.ajax({
-          url: "fetch_quiz_exam.php",
-          method: "POST",
-          data: { type: type, id: exid },
-          dataType: "json",
-          success: function (response) {
-            if (response.success) {
-              renderContent(response.data, type);
-            } else {
-              alert("데이터를 불러오는 데 실패했습니다.");
-            }
-          },
-          error: function () {
-            alert("서버 요청 중 오류가 발생했습니다.");
+      $.ajax({
+        url: "fetch_quiz_exam.php",
+        method: "POST",
+        data: { type: type, id: exid },
+        dataType: "json",
+        success: function (response) {
+          if (response.success) {
+            // 데이터가 성공적으로 로드되었을 경우 콘텐츠 렌더링
+            renderContent(response.data, type);
+          } else {
+            alert("데이터를 불러오는 데 실패했습니다.");
           }
-        });
+        },
+        error: function () {
+          alert("서버 요청 중 오류가 발생했습니다.");
+        }
       });
+    });
 
-      // 퀴즈/시험 콘텐츠 렌더링
-      function renderContent(data, type) {
-        // 상단 메시지 추가
-        let contentHtml = `
+    // 퀴즈/시험 콘텐츠 렌더링 함수
+    function renderContent(data, type) {
+      const timeLimit = type === 'quiz' ? 10 * 60 : 60 * 60;
+
+      // 콘텐츠 클리어
+      $("#mainContent").empty();
+
+      // 타이머 추가
+      const timerHtml = `
+    <div id="timerContainer" class="text-center my-3">
+      <span id="timer" class="badge bg-danger fs-5"></span>
+    </div>
+  `;
+      $("#mainContent").append(timerHtml);
+
+      // 콘텐츠 생성
+      let contentHtml = `
     <div class="p-5">
       <h5 class="text-center mb-4 fw-bold">
         해당 강의에 포함된 ${type === 'quiz' ? '퀴즈' : '시험'}는 
         <span class="text-danger">${type === 'quiz' ? '10분' : '1시간'}</span> 내 1회 한정 풀기 가능합니다.
       </h5>
-      <p class="text-center mb-4">네트워크 환경을 꼭 체크해 주세요.</p>
-      
-      <!-- 퀴즈/시험 폼 -->
       <form id="${type}Form" class="quiz-exam-container">
         <h3 class="mb-4 fw-bold headt5">${type === 'quiz' ? '퀴즈' : '시험'}</h3>
         <ol>`;
 
-        if (type === 'quiz') {
-          // 퀴즈 렌더링
-          contentHtml += renderQuestion(data.question, data.options, 1);
-        } else if (type === 'exam') {
-          // 시험 렌더링
-          if (Array.isArray(data)) {
-            data.forEach((item, index) => {
-              contentHtml += renderQuestion(item.question, item.options, index + 1);
-            });
-          } else {
-            console.error("시험 데이터가 배열이 아닙니다:", data);
-          }
+      if (type === 'quiz') {
+        contentHtml += renderQuestion(data.question, data.options, 1);
+      } else if (type === 'exam') {
+        if (Array.isArray(data)) {
+          data.forEach((item, index) => {
+            contentHtml += renderQuestion(item.question, item.options, index + 1);
+          });
         }
+      }
 
-        contentHtml += `
+      contentHtml += `
         </ol>
         <div class="text-center mt-4">
           <button type="submit" class="btn btn-danger">제출</button>
@@ -254,31 +260,55 @@ $detail_result = $mysqli->query($detail_query);
       </form>
     </div>`;
 
-        $("#mainContent").html(contentHtml);
-      }
+      $("#mainContent").append(contentHtml);
 
-      function renderQuestion(question, options, number) {
-        let questionHtml = `
+      // 타이머 시작
+      startTimer(timeLimit, type);
+    }
+
+    // 타이머 함수
+    function startTimer(duration, type) {
+      let timerDisplay = $("#timer");
+      let remainingTime = duration;
+
+      const timerInterval = setInterval(() => {
+        const minutes = Math.floor(remainingTime / 60).toString().padStart(2, '0');
+        const seconds = (remainingTime % 60).toString().padStart(2, '0');
+        timerDisplay.text(`${minutes}:${seconds}`);
+
+        if (remainingTime <= 0) {
+          clearInterval(timerInterval);
+          alert(`${type === 'quiz' ? '퀴즈' : '시험'} 시간이 종료되었습니다. 자동 제출됩니다.`);
+          $("#mainContent form").submit(); // 자동 제출
+        }
+
+        remainingTime -= 1;
+      }, 1000);
+    }
+
+    // 퀴즈/시험 문제 렌더링 함수
+    function renderQuestion(question, options, number) {
+      let questionHtml = `
     <li class="mb-4">
       <p class="mb-2">${number}. ${question}</p>
       <ul class="list-unstyled">`;
 
-        if (Array.isArray(options)) {
-          questionHtml += options.map((option, i) => `
+      if (Array.isArray(options)) {
+        questionHtml += options.map((option, i) => `
       <li class="mb-2">
         <label>
           <input type="radio" name="q${number}" value="${i}"> ${option.trim()}
         </label>
       </li>
     `).join('');
-        } else {
-          questionHtml += `<li>옵션을 불러오지 못했습니다.</li>`;
-        }
-
-        questionHtml += `</ul></li>`;
-        return questionHtml;
+      } else {
+        questionHtml += `<li>옵션을 불러오지 못했습니다.</li>`;
       }
-    })
+
+      questionHtml += `</ul></li>`;
+      return questionHtml;
+    }
+
 
 
   </script>
