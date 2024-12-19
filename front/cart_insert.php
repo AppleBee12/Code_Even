@@ -8,6 +8,7 @@ $total_price = (float)$_POST['price'];
 
 if (isset($_SESSION['UID'])) {
     $uid = (int)$_SESSION['UID']; // 문자열로 저장된 UID를 정수로 변환
+    $userid = $_SESSION['AUID'];
     $ssid = 'NULL';
 } else {
     $uid = 'NULL';
@@ -30,8 +31,8 @@ if ($check_result && $check_result->num_rows > 0) {
 } else {
     // 중복이 아닌 경우 INSERT 실행
     $insert_sql = "
-        INSERT INTO cart (leid, boid, uid, ssid, total_price)
-        VALUES ($leid, $boid, $uid, $ssid, $total_price)
+        INSERT INTO cart (leid, boid, uid, userid, ssid, total_price)
+        VALUES ($leid, $boid, $uid, '$userid', '$ssid', $total_price)
     ";
     $insert_result = $mysqli->query($insert_sql);
 
