@@ -1,5 +1,40 @@
 <?php
   include_once($_SERVER['DOCUMENT_ROOT'] . '/code_even/front/inc/header.php');
+
+  if(isset($_SESSION['UID'])){
+      $userid = $_SESSION['UID'];
+  } else {
+      $userid =  '';
+  }
+  
+  // 카트 조회
+  $cart_sql = "SELECT 
+      c.*, 
+      l.leid, 
+      l.image, 
+      l.title, 
+      l.name, 
+      l.price AS lecture_price, 
+      b.book AS book_name, 
+      b.price AS book_price,
+      b.writer AS book_writer,
+      b.company AS book_company
+    FROM 
+      cart c
+    LEFT JOIN 
+      lecture l ON c.leid = l.leid
+    LEFT JOIN 
+      book b ON c.boid = b.boid
+    WHERE 
+      c.ssid = '$session_id' OR c.uid = '$userid'
+  ";
+
+
+  $cart_result = $mysqli->query($cart_sql);
+  $cartArr = [];
+  while ($cart_data = $cart_result->fetch_object()) {
+      $cartArr[] = $cart_data;
+  }
 ?>
 
 <div class="white container_wrap">
@@ -8,6 +43,7 @@
       <h2 class="headt5">장바구니</h2>
       <div class="row">
         <div class="col-md-8">
+
           <!-- 전체 선택 -->
           <div class="check_del d-flex align-items-center">
             <div class="form-check">
@@ -25,68 +61,43 @@
           
           <!-- 상품 테이블 -->
           <ul class="cart_list">
+            <?php
+              $total = 0;
+              if(isset($cartArr)){
+                  foreach($cartArr as $cart){
+                      $total += $cart->lecture_price;                               
+            ?>
             <li>
               <div class="d-flex align-items-center">
                 <div class="item_check">
                   <input type="checkbox" class="item-check form-check-input">
                 </div>
                 <a href="" class="item_lnfo d-flex flex-fill">
-                  <img src="../admin/upload/lecture/20241215082240797607.png" alt="강좌 이미지" class="item_img">
+                  <img src="<?= $cart->image;?>" alt="강좌 이미지" class="item_img">
                   <div class="item_txt d-flex flex-column justify-content-between">
-                    <p class="lec_title">퍼블리셔 취업을 위해 제대로 배워 보는 html과 css 그리고 웹표준 그리고 웹표준 그리고 웹표준 그리고 웹표준</p>
-                    <p class="lec_tc">이코딩</p>
+                    <p class="lec_title"><?= $cart->title;?></p>
+                    <p class="lec_tc"><?= $cart->name;?></p>
                   </div>     
                 </a>
-                <div class="item_price flex-column d-flex  align-items-center justify-content-center">
-                  <p>44,000원</p>
+                <div class="item_price d-flex  align-items-center justify-content-center">
+                  <p><span class="number"><?= $cart->lecture_price;?></span>원</p>
                 </div>
                 <button type="button" class="btn btn_item_del" aria-label="Delete"><i class="bi bi-x-circle-fill"></i></button>
               </div>
             </li>
+
+          <?php if (!empty($cart->boid)) { ?>
             <li class="d-flex align-items-center book_list">
               <span class="badge_custom book_badge">교재포함강좌</span>
-              <p class="book_title">HTML과 CSS 그리고 웹표준</p>
-              <p class="book_price">15,000원</p>
+              <p class="book_title"><?= $cart->book_name;?><span class="book_info"> | <?= $cart->book_writer;?> | <?= $cart->book_company;?></span></p>
+              <p class="book_price"><span class="number"><?= $cart->book_price;?></span>원</p>
             </li>
-
-
-            <li>
-              <div class="d-flex align-items-center">
-                <div class="item_check">
-                  <input type="checkbox" class="item-check form-check-input">
-                </div>
-                <a href="" class="item_lnfo d-flex flex-fill">
-                  <img src="../admin/upload/lecture/20241215082240797607.png" alt="강좌 이미지" class="item_img">
-                  <div class="item_txt d-flex flex-column justify-content-between">
-                    <p class="lec_title">퍼블리셔 취업을 위해 제대로 배워 보는 html과 css 그리고 웹표준 그리고 웹표준 그리고 웹표준 그리고 웹표준</p>
-                    <p class="lec_tc">이코딩</p>
-                  </div>     
-                </a>
-                <div class="item_price flex-column d-flex  align-items-center justify-content-center">
-                  <p>44,000원</p>
-                </div>
-                <button type="button" class="btn btn_item_del" aria-label="Delete"><i class="bi bi-x-circle-fill"></i></button>
-              </div>
-            </li>
-            <li>
-              <div class="d-flex align-items-center">
-                <div class="item_check">
-                  <input type="checkbox" class="item-check form-check-input">
-                </div>
-                <a href="" class="item_lnfo d-flex flex-fill">
-                  <img src="../admin/upload/lecture/20241215082240797607.png" alt="강좌 이미지" class="item_img">
-                  <div class="item_txt d-flex flex-column justify-content-between">
-                    <p class="lec_title">퍼블리셔 취업을 위해 제대로 배워 보는 html과 css 그리고 웹표준 그리고 웹표준 그리고 웹표준 그리고 웹표준</p>
-                    <p class="lec_tc">이코딩</p>
-                  </div>     
-                </a>
-                <div class="item_price flex-column d-flex  align-items-center justify-content-center">
-                  <p>44,000원</p>
-                </div>
-                <button type="button" class="btn btn_item_del" aria-label="Delete"><i class="bi bi-x-circle-fill"></i></button>
-              </div>
-            </li>
-
+            <?php 
+        $total += $cart->book_price; 
+      } 
+    }
+}
+?> 
           </ul>
           <button type="button" class="btn btn-outline-secondary mt-3">선택삭제</button>
         </div>
