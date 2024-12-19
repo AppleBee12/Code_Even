@@ -47,7 +47,6 @@ if ($post_id) {
 $hit = "hit$post_id";
 
 if (!isset($_SESSION[$hit]) || $_SESSION[$hit] < strtotime('today')) {
-
   $hitSql = "UPDATE counsel SET hits = hits + 1 WHERE post_id = $post_id;";
   $mysqli->query($hitSql);
 
@@ -155,12 +154,31 @@ if (!isset($_SESSION[$hit]) || $_SESSION[$hit] < strtotime('today')) {
         } else {
           echo "해당 게시글을 찾을 수 없습니다.";
         }
-        $stmt->close();
+
         ?>
       </tbody>
     </table>
-    <div class="text-end">
-      <button class="btn btn-secondary button"><a href="http://<?= $_SERVER['HTTP_HOST'] ?>/code_even/front/community/counsel.php"><i class="bi bi-box-arrow-up-left"> </i> 목록으로 돌아가기</a></button>
+    <div class="">
+      <div class="d-flex justify-content-end gap-2">
+
+        <?php
+        if (isset($_SESSION['UID'])) {
+          $logged_in_uid = $_SESSION['UID'];
+        } else {
+          $logged_in_uid = null;
+        }
+
+        if ($logged_in_uid == $row['uid']) {
+        ?>
+          <button class="btn btn-outline-secondary" onClick="window.location.href='http://<?= $_SERVER['HTTP_HOST'] ?>/code_even/front/community/counsel_edit.php?post_id=<?= $post_id ?>'">수정</button>
+          <button type="button" class="btn btn-danger" onClick="window.location.href='http://<?= $_SERVER['HTTP_HOST'] ?>/code_even/front/community/counsel_delete.php?post_id=<?= $post_id ?>'">삭제</button>
+        <?php
+        }
+        $stmt->close();
+        ?>
+
+        <button class="btn btn-secondary button"><a href="http://<?= $_SERVER['HTTP_HOST'] ?>/code_even/front/community/counsel.php"><i class="bi bi-box-arrow-up-left"> </i> 목록으로 돌아가기</a></button>
+      </div>
     </div>
   </div>
 
@@ -217,6 +235,9 @@ if (!isset($_SESSION[$hit]) || $_SESSION[$hit] < strtotime('today')) {
     </div>
   </div>
 </div>
+
+
+
 <script>
   function cancle() {
     if (confirm('취소하시겠습니까?')) {
