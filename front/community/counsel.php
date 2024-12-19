@@ -68,93 +68,95 @@ while ($data = $result->fetch_object()) {
 
 
   <div class="community_contents_wrapper">
-    <?php if ($keywords): ?>
-      <p class="keywords">“<?= htmlspecialchars($keywords); ?>” 관련 <?=$title?> 검색 결과가 총 <em><?= count($dataArr); ?></em>건 있습니다.</p>
-      
-        <!-- <p>“<?= htmlspecialchars($keywords); ?>” 관련 <?=$title?> 검색 결과가 없습니다.</p> -->
-      <?php endif; ?>
+    <div class="row d-flex justify-content-between align-items-center">
+      <p class="keywords col-11">
+        <?php if ($keywords): ?>
+          “<?= htmlspecialchars($keywords); ?>” 관련 <?= $title ?> 검색 결과가 총 <em><?= count($dataArr); ?></em>건 있습니다.
+        <?php endif; ?>
+      </p>
+      <button class="btn btn-danger mb-4 col-1"><a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/front/community/counsel_write.php"><i class="bi bi-pencil-fill"></i> 글쓰기</a></button>
+    </div>
     <ul class="d-flex flex-column justify-content-center">
-    <?php
-        if ($dataArr) {
-          foreach ($dataArr as $counsel) {
-        ?>
-      <li class="counsel_content">
-        <div>
-          <a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/front/community/counsel_detail.php?post_id=<?= $counsel->post_id ?>" class="row">
-            <div class="counsel_txt col-10">
-              <p class="headt5 d-inline-block text-truncate"><?= $counsel->post_id ?>. <?= $counsel->titles ?></p>
-              <p class="d-inline-block text-truncate"><?= strip_tags($counsel->contents) ?></p><!-- 본문 html태그 적용되어있어 strip_tag사용 -->
-              <div class="d-flex">
-                <p>닉네임: <?= $counsel->usernick ?> |</p>
-                <p> 작성일: <?= $counsel->regdate ?></p>
-              </div>
-            </div>
-            <div class="counsel_btn col-2 d-flex flex-column justify-content-between align-items-end">
-              <div class="d-flex justify-content-between">
-                <p><i class="bi bi-eye"></i> <?= $counsel->hits ?></p>  
-                <p><i class="bi bi-chat-dots"></i> <?= $counsel->comments ?></p>
-                <p><i class="bi bi-hand-thumbs-up"></i> <?= $counsel->likes ?></p>
-              </div>
-              <?= $counsel->status == 0 ?
-                  '<span class="badge text-bg-light">미해결</span>'
-                  : '<span class="badge text-bg-success">해결</span>' ?>
-            </div>
-          </a>
-        </div>
-      </li>
       <?php
-          }
-        } else {
-          echo "<li>검색 결과가 없습니다.</li>";
+      if ($dataArr) {
+        foreach ($dataArr as $counsel) {
+      ?>
+          <li class="counsel_content">
+            <div>
+              <a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/front/community/counsel_detail.php?post_id=<?= $counsel->post_id ?>" class="row">
+                <div class="counsel_txt col-10">
+                  <p class="headt5 d-inline-block text-truncate"><?= $counsel->post_id ?>. <?= $counsel->titles ?></p>
+                  <p class="d-inline-block text-truncate"><?= strip_tags($counsel->contents) ?></p><!-- 본문 html태그 적용되어있어 strip_tag사용 -->
+                  <div class="d-flex">
+                    <p>닉네임: <?= $counsel->usernick ?> |</p>
+                    <p> 작성일: <?= $counsel->regdate ?></p>
+                  </div>
+                </div>
+                <div class="counsel_btn col-2 d-flex flex-column justify-content-between align-items-end">
+                  <div class="d-flex justify-content-between">
+                    <p><i class="bi bi-eye"></i> <?= $counsel->hits ?></p>
+                    <p><i class="bi bi-chat-dots"></i> <?= $counsel->comments ?></p>
+                    <p><i class="bi bi-hand-thumbs-up"></i> <?= $counsel->likes ?></p>
+                  </div>
+                  <?= $counsel->status == 0 ?
+                    '<span class="badge text-bg-light">미해결</span>'
+                    : '<span class="badge text-bg-success">해결</span>' ?>
+                </div>
+              </a>
+            </div>
+          </li>
+      <?php
+        }
+      } else {
+        echo "<li>검색 결과가 없습니다.</li>";
+      }
+      ?>
+    </ul>
+
+
+
+
+
+    <!-- //Pagination -->
+    <div class="list_pagination" aria-label="Page navigation example">
+      <ul class="pagination d-flex justify-content-center">
+        <?php
+        $previous = $block_start - $block_ct;
+        if ($previous < 1) $previous = 1;
+        if ($block_num > 1) {
+        ?>
+          <li class="page-item">
+            <a class="page-link" href="counsel.php?page=<?= $previous; ?>" aria-label="Previous">
+              <i class="bi bi-chevron-left"></i>
+            </a>
+          </li>
+        <?php
         }
         ?>
-    </ul>
+        <?php
+        for ($i = $block_start; $i <= $block_end; $i++) {
+          $active = ($page == $i) ? 'active' : '';
+        ?>
+          <li class="page-item <?= $active; ?>"><a class="page-link" href="counsel.php?page=<?= $i; ?>"><?= $i; ?></a></li>
+        <?php
+        }
+        $next = $block_end + 1;
+        if ($total_block > $block_num) {
+        ?>
+          <li class="page-item">
+            <a class="page-link" href="counsel.php?page=<?= $next; ?>" aria-label="Next">
+              <i class="bi bi-chevron-right"></i>
+            </a>
+          </li>
+        <?php
+        }
+        ?>
+      </ul>
+    </div>
 
 
-
-
-
-      <!-- //Pagination -->
-  <div class="list_pagination" aria-label="Page navigation example">
-    <ul class="pagination d-flex justify-content-center">
-      <?php
-      $previous = $block_start - $block_ct;
-      if ($previous < 1) $previous = 1;
-      if ($block_num > 1) {
-      ?>
-        <li class="page-item">
-          <a class="page-link" href="counsel.php?page=<?= $previous; ?>" aria-label="Previous">
-            <i class="bi bi-chevron-left"></i>
-          </a>
-        </li>
-      <?php
-      }
-      ?>
-      <?php
-      for ($i = $block_start; $i <= $block_end; $i++) {
-        $active = ($page == $i) ? 'active' : '';
-      ?>
-        <li class="page-item <?= $active; ?>"><a class="page-link" href="counsel.php?page=<?= $i; ?>"><?= $i; ?></a></li>
-      <?php
-      }
-      $next = $block_end + 1;
-      if ($total_block > $block_num) {
-      ?>
-        <li class="page-item">
-          <a class="page-link" href="counsel.php?page=<?= $next; ?>" aria-label="Next">
-            <i class="bi bi-chevron-right"></i>
-          </a>
-        </li>
-      <?php
-      }
-      ?>
-    </ul>
-  </div>
-
-    
   </div>
 </div>
 
 <?php include_once($_SERVER['DOCUMENT_ROOT'] . '/CODE_EVEN/front/inc/footer.php');
 ?>
-

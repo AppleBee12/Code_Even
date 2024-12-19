@@ -156,6 +156,7 @@ if (isset($_GET['code'])) {
   switch ($page) { //community.css
     case 'counsel.php':
     case 'counsel_detail.php':
+    case 'counsel_write.php':
     case 'counsel_edit.php':
     case 'teamproject.php':
     case 'blog.php':

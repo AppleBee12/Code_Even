@@ -166,8 +166,27 @@ table.table th{
   color:var(--bk1000);
   margin-bottom: 20px;
 }
-
-
-
 /* 댓글 끝 */
-/*  시작 */
+
+/*  고민상담 글쓰기 counsel_write 시작 */
+
+.form-control:disabled {
+  background-color: var(--bk500);
+  border-color: var(--bk400);
+}
+.form-check-input:checked {
+  background-color:var(--primary);
+  border-color: var(--red1000);
+}
+.note-editor.note-frame{
+  background: var(--bk0);
+}
+.note-editing-area{
+  height: 250px;
+}
+
+.radio input{
+  margin: 0 10px 0 0;
+
+}
+/*  고민상담 글쓰기 counsel_write 끝 */
