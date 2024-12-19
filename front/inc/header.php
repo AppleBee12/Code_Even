@@ -414,7 +414,7 @@ if (isset($_GET['code'])) {
               </div>
               <div class="mncart_footer">
                 <p>총 결제 금액: <strong>114,000 원</strong></p>
-                <button id="goToCart">장바구니로 이동</button>
+                <a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/front/cart.php" class="goto_cart">장바구니로 이동</a>
               </div>
             </div>
           </div>
