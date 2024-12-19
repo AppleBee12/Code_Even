@@ -7,7 +7,6 @@
 }
 .community_contents_wrapper {
   padding: 30px 0 30px;
-
 }
 .community_contents_wrapper button a{
   color:var(--bk0);
@@ -16,6 +15,10 @@
 
 .community_contents_wrapper .keywords{
   margin-bottom: 30px;
+}
+.community_contents_wrapper .row{
+  margin-right: 0px;
+  margin-left: 0px;  
 }
 
 .community_title .title {
@@ -26,13 +29,17 @@ text-align: center;
   margin-top: 30px; 
   padding-bottom:10px;  
 }
+.search input::placeholder {
+  color: var(--bk700);
+}
 .community_title .search form .form-control{
   color: var(--bk50);
   background: none;
   border: none;
   font-size: 20px;
   vertical-align: top;
-  margin-left: 36px;
+  margin-right: 36px;
+  text-align: center;
 }
 .community_title .search form .form-control:placeholder{      
   color: var(--bk700);
@@ -51,7 +58,23 @@ text-align: center;
 .community_title .search i {
   font-size: 24px;
 }      
+.col-9half{
+  flex: 0 0 auto;
+  width: 79.175%;
+}
+.col-2half{
+  flex: 0 0 auto;
+  width: 20.825%;
+}
 
+.col-9n8{
+  flex: 0 0 auto;
+  width: 81.666667%;
+}
+.col-2n2{
+  flex: 0 0 auto;
+  width: 18.333333%;
+}
 
 
 /* 공통부분 끝 */
@@ -169,7 +192,6 @@ table.table th{
 /* 댓글 끝 */
 
 /*  고민상담 글쓰기 counsel_write 시작 */
-
 .form-control:disabled {
   background-color: var(--bk500);
   border-color: var(--bk400);
@@ -190,3 +212,57 @@ table.table th{
 
 }
 /*  고민상담 글쓰기 counsel_write 끝 */
+
+/*  고민상담 전체 끝 */
+/*  팀프로젝트 전체 시작 */
+
+/* 팀 프로젝트 teamprj.php 시작 */
+
+.teamproject_detail_wrapper .community_contents_wrapper,
+.keybtn_container{
+  border-bottom: 2px solid var(--bk700);
+}
+
+.teamprj_content{
+  border: 1px solid var(--bk500);
+  border-radius: 8px;
+  padding: 40px 20px;
+  margin-top: 60px;
+  z-index: 1;
+}
+
+.teamprj_content:hover{
+ background: var(--bk1000);
+}
+
+.teamprj_content .subtitle2{
+  color:var(--bk500);
+}
+
+.teamprj_content .teamprj_btn button.btn-outline-secondary{
+  color:var(--bk0);
+}
+
+.teamprj_txt .teaprj_title{
+  margin-bottom: 20px;
+}
+
+.teamprj_txt .teaprj_title .headt5{
+  line-height: 40px;
+}
+
+.teamprj_txt .dev_env{
+  margin-top: 20px;
+}
+.teamprj_txt .dev_env .icon{
+  margin-left:5px;
+}
+
+.list_pagination{
+  
+}
+
+
+
+
+/* 팀 프로젝트 teamprj.php 끝 */
