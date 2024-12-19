@@ -51,7 +51,9 @@
   height: 18px;
 }
 
-
+.check_del{
+  margin-bottom: 15px;
+}
 .check_total label span{
   vertical-align: middle;
   margin-right: 3px;
@@ -61,62 +63,75 @@
   color: var(--red800);
 }
 
-.cart_table {
+/* 상품 테이블 */
+.cart_list {
   width: 100%;
-  border-collapse: collapse;
+  border-top: 1px solid var(--bk200);
+  border-bottom: 1px solid var(--bk200);
+
+  li{
+    border-bottom: 1px solid var(--bk200);
+  }
+  li:last-child{
+    border-bottom: none;
+  }
+  .item_lnfo{
+    padding: 15px 0;
+  }
+
+  .item_check{
+    margin-right: 15px;
+  }
+  .item_txt{
+    padding: 0 10px;
+    .lec_title{
+      width: 450px;
+      font-weight: 600;
+    }
+    .lec_tc{
+      font-size: 14px;
+      color: var(--bk700);
+    }
+  }
+  .item_price {
+    border-right: 1px solid var(--bk200);
+    border-left: 1px solid var(--bk200);
+    width: 145px;
+    padding: 54px 10px;
+    height: 100%;
+    white-space: nowrap;
+    font-weight: 700;
+  }
+  .btn_item_del{
+    color: var(--bk300);
+  }
+  .btn_item_del:hover{
+    color: var(--bk900);
+  }
+  :not(.btn-check)+.btn:active{
+    border-color: var(--bk0);
+  }
+  
 }
 
-.cart_table thead th {
-  background-color: #f8f9fa;
-  font-weight: bold;
-  text-align: center;
-  padding: 10px;
-  border-bottom: 2px solid #dee2e6;
-}
-
-.cart_table tbody td {
-  text-align: center;
-  padding: 15px;
-  border-bottom: 1px solid #dee2e6;
-  vertical-align: middle;
-}
-.cart_table tbody tr:first-child {
-  border-top: 1px solid #dee2e6;
-}
 
 
 
-.cart_table .item_img {
-  width: 80px;
-  height: 60px;
+
+.cart_list .item_img {
+  width: 150px;
+  height: 96px;
   object-fit: cover;
-  margin-right: 15px;
+  border-radius: 5px;
 }
 
-.btn-outline-danger {
-  border-color: #dc3545;
-  color: #dc3545;
-}
 
-.btn-outline-danger:hover {
-  background-color: #dc3545;
-  color: #fff;
-}
+
 
 .btn-outline-secondary {
   font-size: 14px;
 }
 
-.btn_ok_red {
-  background-color: #dc3545;
-  border-color: #dc3545;
-  font-size: 16px;
-  font-weight: bold;
-}
-
-.btn_ok_red:hover {
-  background-color: #c82333;
-}
 
 .lec_book {
   display: flex;
