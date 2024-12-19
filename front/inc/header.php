@@ -136,6 +136,8 @@ if (isset($_GET['code'])) {
     case 'mypage_info_edit.php':
     case 'mypage_paid.php':
     case 'mypage_qna.php':
+    case 'mypage_qna_question.php':
+    case 'mypage_qna_question_details.php':
     case 'mypage_reivew.php':
     case 'mypage_copy.php':
       echo '<link rel="stylesheet" href="http://' . $_SERVER['HTTP_HOST'] . '/code_even/front/css/mypage_header.css">';
@@ -153,6 +155,8 @@ if (isset($_GET['code'])) {
   }
   switch ($page) { //community.css
     case 'counsel.php':
+    case 'counsel_detail.php':
+    case 'counsel_edit.php':
     case 'teamproject.php':
     case 'blog.php':
       echo '<link rel="stylesheet" href="http://' . $_SERVER['HTTP_HOST'] . '/code_even/front/css/community.css">';
@@ -185,8 +189,11 @@ if (isset($_GET['code'])) {
       echo '<link rel="stylesheet" href="http://' . $_SERVER['HTTP_HOST'] . '/code_even/front/css/mypage_payment.css">';
       break;
   }
-  switch ($page) { //mypage_qna.css
+  switch ($page) { //mypage_qna.css, mypage_reivew.php
     case 'mypage_qna.php':
+    case 'mypage_qna_question.php':
+    case 'mypage_qna_question_details.php':
+    case 'mypage_reivew.php':
       echo '<link rel="stylesheet" href="http://' . $_SERVER['HTTP_HOST'] . '/code_even/front/css/mypage_qna_review.css">';
       break;
   }
@@ -335,13 +342,15 @@ if (isset($_GET['code'])) {
 
         <!-- 검색창 -->
         <div class="header_search">
-          <form action="#" class="d-flex align-items-center header_search_inner" method="get">
+          <form action="http://<?= $_SERVER['HTTP_HOST'] ?>/code_even/front/lecture_list.php" method="get"  class="d-flex align-items-center header_search_inner" method="get">
             <button type="submit" class="search_btn d-flex align-items-center">
               <i class="bi bi-search"></i>
             </button>
             <label for="searchInput" class="visually-hidden">검색창</label>
-            <input type="search" id="searchInput" class="form-control" value="" placeholder="무엇을 배우고 싶으신가요?"
-              autocomplete="off" />
+            <input type="search" id="searchInput" name="search" class="form-control" 
+            placeholder="무엇을 배우고 싶으신가요?" 
+            value="<?= htmlspecialchars($search ?? '') ?>" 
+            autocomplete="off" />
             <button type="button" id="clearSearch"
               class="btn btn-clear d-flex align-items-center justify-content-center">
               <i class="bi bi-x-circle-fill"></i>
@@ -351,56 +360,51 @@ if (isset($_GET['code'])) {
 
         <!-- 아이콘 퀵메뉴 -->
         <div class="header_icon d-flex gap-3">
-          <?php if (!isset($_SESSION['AUID']) && !isset($_SESSION['KAKAO_UID'])) { ?>
-            <div class="mini_cart">
-              <a href=""><i class="bi bi-cart"></i></a>
+          <div class="mini_cart">
+            <a href="" id="cartIcon"><i class="bi bi-cart"></i></a>
+            <div id="miniCartContent" class="cart_dropdown">
+              <div class="mncart_header">
+                <h4>장바구니<span id="cartCount">3</span></h4>
+              </div>
+              <div class="mncart_list">
+                <ul>
+                  <li>
+                    <div class="item_tit d-flex">
+                      <img src="http://<?= $_SERVER['HTTP_HOST'] ?>/code_even/admin/upload/lecture/20241215082240797607.png" alt="상품 이미지">
+                      <p>퍼블리셔 취업을 위해 제대로 배워 보는 html과 css 그리고 웹표준<span>김코딩</span></p>
+                    </div>
+                    <div class="item_price">
+                      <p>44,000 원</p>
+                    </div>
+                  </li>
+                  <li>
+                    <div class="item_tit d-flex">
+                      <img src="http://<?= $_SERVER['HTTP_HOST'] ?>/code_even/admin/upload/lecture/20241215082240797607.png" alt="상품 이미지">
+                      <p>퍼블리셔 취업을 위해 제대로 배워 보는 html과 css 그리고 웹표준<span>김코딩</span></p>
+                    </div>
+                    <div class="item_price">
+                      <p>44,000 원</p>
+                    </div>
+                  </li>
+                  <li>
+                    <div class="item_tit d-flex">
+                      <img src="http://<?= $_SERVER['HTTP_HOST'] ?>/code_even/admin/upload/lecture/20241215082240797607.png" alt="상품 이미지">
+                      <p>퍼블리셔 취업을 위해 제대로 배워 보는 html과 css 그리고 웹표준<span>김코딩</span></p>
+                    </div>
+                    <div class="item_price">
+                      <p>44,000 원</p>
+                    </div>
+                  </li>
+                </ul>
+              </div>
+              <div class="mncart_footer">
+                <p>총 결제 금액: <strong>114,000 원</strong></p>
+                <button id="goToCart">장바구니로 이동</button>
+              </div>
             </div>
-            <?php
-          } else {
-            ?>
-            <div class="mini_cart">
-              <a href="" id="cartIcon"><i class="bi bi-cart"></i></a>
-              <div id="miniCartContent" class="cart_dropdown">
-                <div class="mncart_header">
-                  <h4>장바구니<span id="cartCount">3</span></h4>
-                </div>
-                <div class="mncart_list">
-                  <ul>
-                    <li>
-                      <div class="item_tit d-flex">
-                        <img src="http://<?= $_SERVER['HTTP_HOST'] ?>/code_even/admin/upload/lecture/20241215082240797607.png" alt="상품 이미지">
-                        <p>퍼블리셔 취업을 위해 제대로 배워 보는 html과 css 그리고 웹표준<span>김코딩</span></p>
-                      </div>
-                      <div class="item_price">
-                        <p>44,000 원</p>
-                      </div>
-                    </li>
-                    <li>
-                      <div class="item_tit d-flex">
-                        <img src="http://<?= $_SERVER['HTTP_HOST'] ?>/code_even/admin/upload/lecture/20241215082240797607.png" alt="상품 이미지">
-                        <p>퍼블리셔 취업을 위해 제대로 배워 보는 html과 css 그리고 웹표준<span>김코딩</span></p>
-                      </div>
-                      <div class="item_price">
-                        <p>44,000 원</p>
-                      </div>
-                    </li>
-                    <li>
-                      <div class="item_tit d-flex">
-                        <img src="http://<?= $_SERVER['HTTP_HOST'] ?>/code_even/admin/upload/lecture/20241215082240797607.png" alt="상품 이미지">
-                        <p>퍼블리셔 취업을 위해 제대로 배워 보는 html과 css 그리고 웹표준<span>김코딩</span></p>
-                      </div>
-                      <div class="item_price">
-                        <p>44,000 원</p>
-                      </div>
-                    </li>
-                  </ul>
-                </div>
-                <div class="mncart_footer">
-                  <p>총 결제 금액: <strong>114,000 원</strong></p>
-                  <button id="goToCart">장바구니로 이동</button>
-                </div>
-            </div>
-            </div>
+          </div>
+
+          <?php if (isset($_SESSION['AUID']) || isset($_SESSION['KAKAO_UID'])) { ?>
             <div class="mini_bell">
               <a href="">
                 <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="22" height="22" viewBox="0 0 24 24"
@@ -446,8 +450,8 @@ if (isset($_GET['code'])) {
                 </div>
               </div>
             </div>
-            <?php
-          }
+          <?php
+            }
           ?>
         </div>
       </div>

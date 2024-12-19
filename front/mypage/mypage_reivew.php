@@ -8,20 +8,40 @@ include_once($_SERVER['DOCUMENT_ROOT'] . '/CODE_EVEN/front/inc/mypage_header.php
     <!--제목 시작-->
     <div class="mypage_title_wrapper">
       <p class="mypage_title headt5">수강 후기 목록</p>
-    </div>
-    <div>
-    </div>  
-
+    </div> 
     <!--제목 끝-->
-  </div>
-  <div class="tab-pane fade" id="nav-myLecTab2" role="tabpanel" aria-labelledby="nav-myLecTab2-tab"><!-- 탭메뉴2//탭이 없으면 삭제하세용-->
-    <!--제목 시작-->
-    <div class="mypage_title_wrapper">
-      <p class="mypage_title headt5">탭메뉴2의 제목이에요</p>
+    <div class="list_content">
+      <form action="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/front/mypage/mypage_qna_question.php" class="qna_form">
+        <div class="d-flex justify-content-between align-items-center">
+          <p>총 건</p>
+          <button type="submit">후기 작성하기</button>
+        </div>
+        <table class="table">
+          <thead>
+            <tr>
+              <th scope="col">등록일</th>
+              <th scope="col">강좌명</th>
+              <th scope="col">제목</th>
+              <th scope="col">평점</th>
+              <th scope="col">삭제</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th></th>
+              <td></td>
+              <td>
+                <a href="" class="underline"></a>
+              </td>
+              <td></td>
+              <td><a href="">X</a></td>
+            </tr>
+
+          </tbody>
+        </table>
+      </form>
     </div>
-    <!--제목 끝-->  
-    <div>탭 메뉴 2의 내용이 들어갈 자리입니다~~</div>
-  </div><!-- 탭메뉴2 끝-->
+  </div>
 </div>
 
 

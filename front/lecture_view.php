@@ -4,6 +4,7 @@ include_once($_SERVER['DOCUMENT_ROOT'] . '/code_even/front/inc/header.php');
 
 /* lecture, book Start */
 $leid = isset($_GET['leid']) ? (int) $_GET['leid'] : 0;
+$user_id = $_SESSION['AUID']; // 로그인한 유저 ID
 
 
 // 강좌 book 이미지 정보 조회
@@ -188,7 +189,7 @@ $totalTimeFormatted = secondsToHMS($totalSeconds);
           </div>
           <!-- 바로 결제하기 버튼 -->
           <div class="col-10">
-            <button  type="button" class="btn btn-outline-light w-100">
+            <button type="button" class="btn btn-outline-light w-100">
               바로 결제하기
             </button>
           </div>
@@ -196,14 +197,14 @@ $totalTimeFormatted = secondsToHMS($totalSeconds);
         <div class="row gx-2 mt-2 info_bottom">
           <!-- 찜하기 버튼 -->
           <div class="col-6">
-            <button  type="button" class="btn btn-outline-light w-100 d-flex align-items-center justify-content-center gap-2">
+            <button type="button" class="btn btn-outline-light w-100 d-flex align-items-center justify-content-center gap-2 btn-like">
               <i class="bi bi-heart"></i>
               <span>찜하기</span>
             </button>
           </div>
           <!-- 공유하기 버튼 -->
           <div class="col-6">
-            <button  type="button" class="btn btn-outline-light w-100 d-flex align-items-center justify-content-center gap-2">
+            <button type="button" class="btn btn-outline-light w-100 d-flex align-items-center justify-content-center gap-2">
               <i class="bi bi-share"></i>
               <span>공유하기</span>
             </button>
@@ -305,13 +306,38 @@ $totalTimeFormatted = secondsToHMS($totalSeconds);
   </div>
 </div>
 <script>
+  // 찜하기 버튼 클릭 이벤트
+  $('.btn-like').on('click', function () {
+        const lectureId = <?= $leid; ?>; // 현재 강좌 ID
+        let data = { lecture_id: lectureId }
+
+
+        $.ajax({
+            type: 'POST',
+            url: 'wishlist_handler.php',
+            data: data,
+            dataType: 'json',
+            success: function (response) {
+                if (response.status === 'success') {
+                    alert(response.message);
+                } else {
+                    alert(response.message);
+                }
+            },
+            error: function () {
+                alert('찜하기 요청 중 오류가 발생했습니다.');
+            }
+        });
+    });
+
+  //장바구니 추가 이벤트
     $('#cartform').submit(function(e){
         e.preventDefault();
-        let book_info =  '';
+        let book_id =  '';
         let sub_total = Number(<?= $lecture->price; ?>);
 
         $(".con_border input[type='checkbox']:checked").each(function(){
-            book_info += $(this).val();
+            book_id = Number($(this).val());
             let price = Number($(this).attr('data-price'));
             sub_total += price;
         });
@@ -320,14 +346,15 @@ $totalTimeFormatted = secondsToHMS($totalSeconds);
 
         let data = {
             leid : leid,
-            opts: book_info,
+            boid : book_id,
             price : sub_total,
         }
         console.log(data);
 
+
         $.ajax({
             async:false,
-            type:'post',
+            type:'POST',
             url:'cart_insert.php',
             data:data,
             dataType:'json',
@@ -336,11 +363,11 @@ $totalTimeFormatted = secondsToHMS($totalSeconds);
             },
             success:function(data){
                 if(data.result == '중복입니다.'){
-                    alert('이미 장바구니에 있습니다.');
+                    alert('이미 장바구니에 추가한 강좌입니다.');
                 }else if(data.result == 'ok'){
                     alert('장바구니에 추가되었습니다.');
                 }else{
-                    alert('장바구니 담기 실패');
+                    alert('장바구니 담기 실패하였습니다. 다시 시도해주세요.');
                 }
             }
         })
