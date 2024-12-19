@@ -272,8 +272,33 @@ table.table th{
   margin-left:5px;
 }
 
-
-
-
-
 /* 팀 프로젝트 teamprj.php 끝 */
+/* 블로그 blog 시작*/
+
+.card_wrapper .multi-2line-ellipsis {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2; /* 2줄로 제한 */
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+.card_wrapper .multi-3line-ellipsis {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3; /* 2줄로 제한 */
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .blog_txt .card-title{
+    font-weight: 700;
+    line-height: 28px;
+  }
+
+  .blog_txt .card-text{
+    line-height: 20px;
+    font-weight: 400;
+  }
+
+/* 블로그 blog 끝*/
