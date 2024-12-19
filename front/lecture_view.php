@@ -4,7 +4,7 @@ include_once($_SERVER['DOCUMENT_ROOT'] . '/code_even/front/inc/header.php');
 
 /* lecture, book Start */
 $leid = isset($_GET['leid']) ? (int) $_GET['leid'] : 0;
-$user_id = $_SESSION['AUID']; // 로그인한 유저 ID
+
 
 
 // 강좌 book 이미지 정보 조회
@@ -330,49 +330,52 @@ $totalTimeFormatted = secondsToHMS($totalSeconds);
         });
     });
 
-  //장바구니 추가 이벤트
-    $('#cartform').submit(function(e){
-        e.preventDefault();
-        let book_id =  '';
-        let sub_total = Number(<?= $lecture->price; ?>);
+  // 장바구니 추가 이벤트
+  $('#cartform').submit(function(e) {
+      e.preventDefault();
+      let book_id = ''; // 교재 ID 초기화 
+      let sub_total = Number(<?= $lecture->price; ?>); // 기본 강좌 가격 설정
 
-        $(".con_border input[type='checkbox']:checked").each(function(){
-            book_id = Number($(this).val());
-            let price = Number($(this).attr('data-price'));
-            sub_total += price;
-        });
+      // 체크된 교재의 정보를 가져와서 합산
+      $(".con_border input[type='checkbox']:checked").each(function() {
+          book_id = Number($(this).val());
+          let price = Number($(this).attr('data-price'));
+          sub_total += price;
+      });
 
-        let leid = <?= $leid; ?>;
+      let leid = <?= $leid; ?>; // 강좌 ID
 
-        let data = {
-            leid : leid,
-            boid : book_id,
-            price : sub_total,
-        }
-        console.log(data);
+      // 서버로 전송할 데이터 준비
+      let data = {
+          leid: leid,
+          boid: book_id, // 선택된 교재 ID (없으면 빈값)
+          price: sub_total // 총 금액
+      };
 
+      console.log(data);
 
-        $.ajax({
-            async:false,
-            type:'POST',
-            url:'cart_insert.php',
-            data:data,
-            dataType:'json',
-            error:function(e){
-                console.log(e)
-            },
-            success:function(data){
-                if(data.result == '중복입니다.'){
-                    alert('이미 장바구니에 추가한 강좌입니다.');
-                }else if(data.result == 'ok'){
-                    alert('장바구니에 추가되었습니다.');
-                }else{
-                    alert('장바구니 담기 실패하였습니다. 다시 시도해주세요.');
-                }
-            }
-        })
+      // AJAX 요청
+      $.ajax({
+          async: false,
+          type: 'POST',
+          url: 'cart_insert.php',
+          data: data,
+          dataType: 'json',
+          error: function(e) {
+              console.log(e);
+          },
+          success: function(response) {
+              if (response.result === '중복입니다.') {
+                  alert('이미 장바구니에 추가한 강좌입니다.');
+              } else if (response.result === 'ok') {
+                  alert('장바구니에 추가되었습니다.');
+              } else {
+                  alert('장바구니 담기 실패하였습니다. 다시 시도해주세요.');
+              }
+          }
+      });
+  });
 
-    });
 </script>
 
 

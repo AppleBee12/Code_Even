@@ -2,33 +2,45 @@
 session_start();
 include_once($_SERVER['DOCUMENT_ROOT'] . '/code_even/admin/inc/dbcon.php');
 
-$leid = $_POST['leid'];
-$boid = $_POST['boid'] ?? '';
-$total_price = $_POST['price'];
+$leid = (int)$_POST['leid'];
+$boid = isset($_POST['boid']) && $_POST['boid'] !== '' ? (int)$_POST['boid'] : 'NULL';
+$total_price = (float)$_POST['price'];
 
-if(isset($_SESSION['UID'])){
-  $uid = $_SESSION['UID'];
-  $ssid = '';
-} else{
-  $uid = '';
-  $ssid = session_id();
+if (isset($_SESSION['UID'])) {
+    $uid = (int)$_SESSION['UID']; // 문자열로 저장된 UID를 정수로 변환
+    $ssid = 'NULL';
+} else {
+    $uid = 'NULL';
+    $ssid = "'" . session_id() . "'";
 }
 
+// 중복 확인 쿼리
+$check_sql = "
+    SELECT 1 
+    FROM cart 
+    WHERE leid = $leid 
+    AND (uid = $uid OR ssid = $ssid)
+    LIMIT 1
+";
+$check_result = $mysqli->query($check_sql);
 
-    $sql = "INSERT INTO cart 
-    (leid, boid, uid, ssid, total_price) VALUES 
-    ($leid, $boid, $uid, '$ssid', $total_price)";
+if ($check_result && $check_result->num_rows > 0) {
+    // 중복된 경우 처리
+    $data = array('result' => '중복입니다.');
+} else {
+    // 중복이 아닌 경우 INSERT 실행
+    $insert_sql = "
+        INSERT INTO cart (leid, boid, uid, ssid, total_price)
+        VALUES ($leid, $boid, $uid, $ssid, $total_price)
+    ";
+    $insert_result = $mysqli->query($insert_sql);
 
-    $result = $mysqli->query($sql);
-
-    if($result){
-      $data = array('result'=>'ok');
-    } else{
-      $data = array('result'=>'fail');
+    if ($insert_result) {
+        $data = array('result' => 'ok');
+    } else {
+        $data = array('result' => 'fail', 'error' => $mysqli->error);
     }
+}
 
-
-
-echo json_encode($data); 
-
+echo json_encode($data);
 ?>

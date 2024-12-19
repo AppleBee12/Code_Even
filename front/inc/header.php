@@ -3,6 +3,16 @@ session_start();
 include_once($_SERVER['DOCUMENT_ROOT'] . '/code_even/front/inc/check_cookie.php');
 include_once($_SERVER['DOCUMENT_ROOT'] . '/code_even/admin/inc/dbcon.php');
 
+$session_id = session_id();
+
+/*
+if(isset($_SESSION['UID'])){
+    $userid = $_SESSION['UID'];
+}else{
+    $userid = '';
+}
+*/
+
 // 타이틀 초기화
 if (!isset($title)) {
   $title = '';
