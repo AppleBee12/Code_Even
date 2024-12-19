@@ -7,7 +7,6 @@
 }
 .community_contents_wrapper {
   padding: 30px 0 30px;
-
 }
 .community_contents_wrapper button a{
   color:var(--bk0);
@@ -16,6 +15,10 @@
 
 .community_contents_wrapper .keywords{
   margin-bottom: 30px;
+}
+.community_contents_wrapper .row{
+  margin-right: 0px;
+  margin-left: 0px;  
 }
 
 .community_title .title {
@@ -26,13 +29,17 @@ text-align: center;
   margin-top: 30px; 
   padding-bottom:10px;  
 }
+.search input::placeholder {
+  color: var(--bk700);
+}
 .community_title .search form .form-control{
   color: var(--bk50);
   background: none;
   border: none;
   font-size: 20px;
   vertical-align: top;
-  margin-left: 36px;
+  margin-right: 36px;
+  text-align: center;
 }
 .community_title .search form .form-control:placeholder{      
   color: var(--bk700);
@@ -51,6 +58,19 @@ text-align: center;
 .community_title .search i {
   font-size: 24px;
 }      
+
+.col-9n8{
+  flex: 0 0 auto;
+  width: 81.666667%;
+}
+.col-2n2{
+  flex: 0 0 auto;
+  width: 18.333333%;
+}
+
+.btn_wrapper button.btn-secondary i{
+  margin-right: 5px;
+}
 
 
 
@@ -161,15 +181,23 @@ table.table th{
   padding: 20px 30px;
 }
 
-.submit_comments textarea{
+.submit_comments textarea,
+.submit_comments #notLoginContents
+{
   height: 100px;
   color:var(--bk1000);
   margin-bottom: 20px;
 }
+
+.submit_comments p#notLoginContents{
+  background: var(--bk300);
+  border-radius: 8px;
+  padding: 10px;
+}
+
 /* 댓글 끝 */
 
 /*  고민상담 글쓰기 counsel_write 시작 */
-
 .form-control:disabled {
   background-color: var(--bk500);
   border-color: var(--bk400);
@@ -190,3 +218,87 @@ table.table th{
 
 }
 /*  고민상담 글쓰기 counsel_write 끝 */
+
+/*  고민상담 전체 끝 */
+/*  팀프로젝트 전체 시작 */
+
+/* 팀 프로젝트 teamprj.php 시작 */
+
+.teamprj_wrapper .community_contents_wrapper,
+.keybtn_container{
+  border-bottom: 2px solid var(--bk700);
+}
+
+.teamprj_wrapper .info_table{
+  margin-top: 30px;
+}
+
+
+.teamprj_content{
+  border: 1px solid var(--bk500);
+  border-radius: 8px;
+  padding: 40px 20px;
+  margin-top: 60px;
+  z-index: 1;
+}
+
+.teamproject_wrapper .teamprj_content:hover{
+ background: var(--bk1000);
+}
+
+.teamprj_content .subtitle2{
+  color:var(--bk500);
+}
+.teamprj_content .teamprj_btn button.btn-outline-secondary i{
+  margin-right:5px;
+}
+
+.teamprj_content .teamprj_btn button.btn-outline-secondary{
+  color:var(--bk0);
+}
+
+.teamprj_txt .teaprj_title{
+  margin-bottom: 20px;
+}
+
+.teamprj_txt .teaprj_title .headt5{
+  line-height: 40px;
+}
+
+.teamprj_txt .dev_env{
+  margin-top: 20px;
+}
+.teamprj_txt .dev_env .icon{
+  margin-left:5px;
+}
+
+/* 팀 프로젝트 teamprj.php 끝 */
+/* 블로그 blog 시작*/
+
+.card_wrapper .multi-2line-ellipsis {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2; /* 2줄로 제한 */
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+.card_wrapper .multi-3line-ellipsis {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3; /* 2줄로 제한 */
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .blog_txt .card-title{
+    font-weight: 700;
+    line-height: 28px;
+  }
+
+  .blog_txt .card-text{
+    line-height: 20px;
+    font-weight: 400;
+  }
+
+/* 블로그 blog 끝*/
