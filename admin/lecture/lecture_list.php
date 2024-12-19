@@ -1,15 +1,7 @@
 <?php
-ob_start(); // 출력 버퍼링 시작
-
-include_once($_SERVER['DOCUMENT_ROOT'] . '/code_even/admin/inc/header.php');
-
 $title = "강좌 목록";
 
-if (!isset($_SESSION['user_level']) || $_SESSION['user_level'] != 100) {
-  // user_level이 없거나 100이 아니면 접근 차단
-  header('Location: /code_even/admin/teacher_page/lecture/lecture_list.php');
-  exit; // 추가 코드 실행 방지
-}
+include_once($_SERVER['DOCUMENT_ROOT'] . '/code_even/admin/inc/header.php');
 
 // 게시글 개수 구하기
 $keywords = isset($_GET['keywords']) ? $_GET['keywords'] : '';

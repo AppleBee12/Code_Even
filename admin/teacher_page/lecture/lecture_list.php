@@ -52,7 +52,7 @@ while ($data = $result->fetch_object()) {
       <button type="button" class="btn lesearch"><i class="bi bi-search"></i></button>
     </div>
   </form>
-  <form action="best_new_modify.php" method="POST">
+  <form action="http://<?=$_SERVER['HTTP_HOST']?>//code_even/admin/teacher_page/lecture/best_new_modify.php" method="POST">
     <table class="table list_table">
       <thead>
         <tr>
@@ -120,8 +120,8 @@ while ($data = $result->fetch_object()) {
                     </td> -->
               <td>
                 <div class="d-flex justify-content-center gap-4">
-                  <a href="lecture_edit.php?id=<?= $item->leid; ?>"><i class="bi bi-pencil-fill"></i></a>
-                  <a href="lecture_delete.php?id=<?= $item->leid; ?>" onclick="return confirm('이 강좌를 삭제하시겠습니까?');"><i
+                  <a href="http://<?=$_SERVER['HTTP_HOST']?>//code_even/admin/lecture_edit.php?id=<?= $item->leid; ?>"><i class="bi bi-pencil-fill"></i></a>
+                  <a href="http://<?=$_SERVER['HTTP_HOST']?>//code_even/admin/lecture_delete.php?id=<?= $item->leid; ?>" onclick="return confirm('이 강좌를 삭제하시겠습니까?');"><i
                       class="bi bi-trash"></i></a>
                 </div>
               </td>
@@ -147,7 +147,7 @@ while ($data = $result->fetch_object()) {
       if ($block_num > 1) {
         ?>
         <li class="page-item">
-          <a class="page-link" href="lecture_list.php?page=<?= $previous; ?>" aria-label="Previous">
+          <a class="page-link" href="http://<?=$_SERVER['HTTP_HOST']?>//code_even/admin/teacher_page/lecture/lecture_list.php?page=<?= $previous; ?>" aria-label="Previous">
             <i class="bi bi-chevron-left"></i>
           </a>
         </li>
@@ -157,7 +157,7 @@ while ($data = $result->fetch_object()) {
         $active = ($page == $i) ? 'active' : '';
         ?>
         <li class="page-item <?= $active; ?>">
-          <a class="page-link" href="lecture_list.php?page=<?= $i; ?>"><?= $i; ?></a>
+          <a class="page-link" href="http://<?=$_SERVER['HTTP_HOST']?>//code_even/admin/teacher_page/lecture/lecture_list.php?page=<?= $i; ?>"><?= $i; ?></a>
         </li>
       <?php } ?>
       <?php
@@ -165,7 +165,7 @@ while ($data = $result->fetch_object()) {
       if ($total_block > $block_num) {
         ?>
         <li class="page-item">
-          <a class="page-link" href="lecture_list.php?page=<?= $next; ?>" aria-label="Next">
+          <a class="page-link" href="http://<?=$_SERVER['HTTP_HOST']?>//code_even/admin/teacher_page/lecture/lecture_list.php?page=<?= $next; ?>" aria-label="Next">
             <i class="bi bi-chevron-right"></i>
           </a>
         </li>
@@ -174,6 +174,7 @@ while ($data = $result->fetch_object()) {
   </div>
 </div>
 <script>
+  /*
   $('.toggle-switch').on('change', function () {
     const lectureId = $(this).data('id'); // 강좌 ID
     const isChecked = $(this).prop('checked'); // 토글 상태
@@ -210,7 +211,7 @@ while ($data = $result->fetch_object()) {
       }
     });
   });
-
+*/
 
   $('.title-cell').each(function () {
     const originalText = $(this).text().trim(); // 셀의 원래 텍스트를 가져옴
