@@ -21,12 +21,12 @@ if (isset($_POST['type'], $_POST['id'])) {
       ];
     }
   } elseif ($type === 'exam') {
-    // 시험 데이터 가져오기 - exid를 기준으로 동일한 lecture_id의 시험 문제 모두 가져오기
+    // 시험 데이터 가져오기
     $query = "
-      SELECT t.pn, t.question 
-      FROM test t
-      JOIN lecture_detail ld ON t.exid = ld.test_id
-      WHERE ld.test_id = $exid
+        SELECT t.pn, t.question 
+        FROM test t
+        WHERE t.exid >= $exid AND t.exid < $exid + 4
+        ORDER BY t.exid ASC
     ";
 
     $result = $mysqli->query($query);
@@ -45,6 +45,7 @@ if (isset($_POST['type'], $_POST['id'])) {
       $response['data'] = $exam_data;
     }
   }
+
 
   // JSON 응답 반환
   echo json_encode($response, JSON_UNESCAPED_UNICODE);

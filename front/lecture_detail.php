@@ -66,16 +66,18 @@ $detail_result = $mysqli->query($detail_query);
 
 <!DOCTYPE html>
 <html lang="en">
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Lecture Detail</title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-  <link rel="stylesheet" href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/front/css/common.css">
-  <link rel="stylesheet" href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/front/css/main.css">
-  <link rel="stylesheet" href="http://<?= $_SERVER['HTTP_HOST'] ?>/code_even/admin/css/reset.css">
-  <link rel="stylesheet" href="http://<?= $_SERVER['HTTP_HOST'] ?>/code_even/front/css/lecture_detail.css">
-  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lecture Detail</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+  integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+<link rel="stylesheet" href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/front/css/common.css">
+<link rel="stylesheet" href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/front/css/main.css">
+<link rel="stylesheet" href="http://<?= $_SERVER['HTTP_HOST'] ?>/code_even/admin/css/reset.css">
+<link rel="stylesheet" href="http://<?= $_SERVER['HTTP_HOST'] ?>/code_even/front/css/lecture_detail.css">
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
+
 <body>
   <div class="container-fluid content-wrapper">
     <div class="row h-100">
@@ -87,11 +89,9 @@ $detail_result = $mysqli->query($detail_query);
         <div id="mainContent" class="flex-grow-1">
           <!-- 유튜브 동영상 임베드 영역 -->
           <div id="defaultContent" class="h-100 d-flex">
-            <iframe id="mainVideo" 
-                    src="" 
-                    style="flex-grow: 1; height: 100%; background-color: black; border: none;"
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                    allowfullscreen>
+            <iframe id="mainVideo" src="" style="flex-grow: 1; height: 100%; background-color: black; border: none;"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowfullscreen>
             </iframe>
           </div>
         </div>
@@ -100,36 +100,38 @@ $detail_result = $mysqli->query($detail_query);
         <h6 class="mb-4 subtitle1">강좌명: <?= htmlspecialchars($lecture_title); ?></h6>
         <div class="lecture-list">
           <?php if ($detail_result && $detail_result->num_rows > 0): ?>
-                  <?php while ($row = $detail_result->fetch_object()): ?>
-                          <?php
-                          // 재생 시간을 가져오되 실패 시 기본값 설정
-                          $play_time = "시간 없음";
-                          if (!empty($row->video_url)) {
-                            $play_time = getYouTubeVideoDuration($row->video_url, $api_key);
-                          }
-                          ?>
-                          <div class="lecture-item mb-3" 
-                              data-video-url="<?= htmlspecialchars($row->video_url); ?>" 
-                              data-full-title="<?= htmlspecialchars($row->title); ?>">
-                            <div class="lecture-actions d-flex justify-content-between align-items-center">
-                              <span class="lecture-title" style="cursor: pointer;">
-                                <?= htmlspecialchars($row->video_order); ?>강. <?= htmlspecialchars(mb_strimwidth($row->title, 0, 40, "...", "UTF-8")); ?>
-                              </span>
-                              <a href="#" class="text-decoration-none">
-                                <i class="fas fa-download"></i> 실습 파일
-                              </a>
-                            </div>
-                            <div class="lecture-time mt-2 d-flex justify-content-between">
-                              <span><i class="fas fa-clock"></i> <?= htmlspecialchars($play_time); ?></span>
-                              <div>
-                                <button class="btn btn-sm btn-secondary quiz-btn" data-type="quiz" data-id="<?= $row->quiz_id; ?>">퀴즈</button>
-                                <button class="btn btn-sm btn-secondary exam-btn" data-type="exam" data-id="<?= $row->test_id; ?>">시험</button>
-                              </div>
-                            </div>
-                          </div>
-                  <?php endwhile; ?>
+            <?php while ($row = $detail_result->fetch_object()): ?>
+              <?php
+              // 재생 시간을 가져오되 실패 시 기본값 설정
+              $play_time = "시간 없음";
+              if (!empty($row->video_url)) {
+                $play_time = getYouTubeVideoDuration($row->video_url, $api_key);
+              }
+              ?>
+              <div class="lecture-item mb-3" data-video-url="<?= htmlspecialchars($row->video_url); ?>"
+                data-full-title="<?= htmlspecialchars($row->title); ?>">
+                <div class="lecture-actions d-flex justify-content-between align-items-center">
+                  <span class="lecture-title" style="cursor: pointer;">
+                    <?= htmlspecialchars($row->video_order); ?>강.
+                    <?= htmlspecialchars(mb_strimwidth($row->title, 0, 40, "...", "UTF-8")); ?>
+                  </span>
+                  <a href="#" class="text-decoration-none">
+                    <i class="fas fa-download"></i> 실습 파일
+                  </a>
+                </div>
+                <div class="lecture-time mt-2 d-flex justify-content-between">
+                  <span><i class="fas fa-clock"></i> <?= htmlspecialchars($play_time); ?></span>
+                  <div>
+                    <button class="btn btn-sm btn-secondary quiz-btn" data-type="quiz"
+                      data-id="<?= $row->quiz_id; ?>">퀴즈</button>
+                    <button class="btn btn-sm btn-secondary exam-btn" data-type="exam"
+                      data-id="<?= $row->test_id; ?>">시험</button>
+                  </div>
+                </div>
+              </div>
+            <?php endwhile; ?>
           <?php else: ?>
-                  <p>등록된 강의가 없습니다.</p>
+            <p>등록된 강의가 없습니다.</p>
           <?php endif; ?>
         </div>
         <a href="inquiry.html" class="inquiry-link">
@@ -147,21 +149,21 @@ $detail_result = $mysqli->query($detail_query);
       window.history.back();
     }
 
-    $(document).ready(function() {
+    $(document).ready(function () {
       var myModal = new bootstrap.Modal(document.getElementById('customModal'));
       myModal.show();
     });
 
-  
-    $(document).ready(function() {
+
+    $(document).ready(function () {
       // 강의 제목 클릭 이벤트
-      $(".lecture-title").on("click", function() {
+      $(".lecture-title").on("click", function () {
         // 클릭된 강의 항목
         var $lectureItem = $(this).closest(".lecture-item");
 
         // 전체 강의명 가져오기 (data-full-title)
         var fullTitle = $lectureItem.data("full-title");
-        
+
         // 왼쪽 상단 강의명 업데이트
         $("#lectureTitle").text(fullTitle);
 
@@ -190,34 +192,34 @@ $detail_result = $mysqli->query($detail_query);
     });
 
 
-      $(document).ready(function() {
-        // 퀴즈/시험 버튼 클릭 이벤트
-        $(document).on('click', '.quiz-btn, .exam-btn', function() {
-          const type = $(this).data('type'); // quiz 또는 exam
-          const exid = $(this).data('id');   // exid
+    $(document).ready(function () {
+      // 퀴즈/시험 버튼 클릭 이벤트
+      $(document).on('click', '.quiz-btn, .exam-btn', function () {
+        const type = $(this).data('type'); // quiz 또는 exam
+        const exid = $(this).data('id');   // exid
 
-          $.ajax({
-            url: "fetch_quiz_exam.php",
-            method: "POST",
-            data: { type: type, id: exid },
-            dataType: "json",
-            success: function(response) {
-              if (response.success) {
-                renderContent(response.data, type);
-              } else {
-                alert("데이터를 불러오는 데 실패했습니다.");
-              }
-            },
-            error: function() {
-              alert("서버 요청 중 오류가 발생했습니다.");
+        $.ajax({
+          url: "fetch_quiz_exam.php",
+          method: "POST",
+          data: { type: type, id: exid },
+          dataType: "json",
+          success: function (response) {
+            if (response.success) {
+              renderContent(response.data, type);
+            } else {
+              alert("데이터를 불러오는 데 실패했습니다.");
             }
-          });
+          },
+          error: function () {
+            alert("서버 요청 중 오류가 발생했습니다.");
+          }
         });
+      });
 
       // 퀴즈/시험 콘텐츠 렌더링
       function renderContent(data, type) {
-  // 상단 메시지 추가
-  let contentHtml = `
+        // 상단 메시지 추가
+        let contentHtml = `
     <div class="p-5">
       <h5 class="text-center mb-4 fw-bold">
         해당 강의에 포함된 ${type === 'quiz' ? '퀴즈' : '시험'}는 
@@ -230,23 +232,21 @@ $detail_result = $mysqli->query($detail_query);
         <h3 class="mb-4 fw-bold headt5">${type === 'quiz' ? '퀴즈' : '시험'}</h3>
         <ol>`;
 
-  // 퀴즈 렌더링
-  if (type === 'quiz') {
-    contentHtml += renderQuestion(data.question, data.options, 1);
-  } 
-  // 시험 렌더링
-  else if (type === 'exam') {
-    if (Array.isArray(data)) {
-      data.forEach((item, index) => {
-        console.log(`문제 ${index + 1}:`, item); // 문제 확인용 로그
-        contentHtml += renderQuestion(item.question, item.options, index + 1);
-      });
-    } else {
-      console.error("시험 데이터 오류: 데이터가 배열이 아닙니다.");
-    }
-  }
+        if (type === 'quiz') {
+          // 퀴즈 렌더링
+          contentHtml += renderQuestion(data.question, data.options, 1);
+        } else if (type === 'exam') {
+          // 시험 렌더링
+          if (Array.isArray(data)) {
+            data.forEach((item, index) => {
+              contentHtml += renderQuestion(item.question, item.options, index + 1);
+            });
+          } else {
+            console.error("시험 데이터가 배열이 아닙니다:", data);
+          }
+        }
 
-  contentHtml += `
+        contentHtml += `
         </ol>
         <div class="text-center mt-4">
           <button type="submit" class="btn btn-danger">제출</button>
@@ -254,35 +254,34 @@ $detail_result = $mysqli->query($detail_query);
       </form>
     </div>`;
 
-  // 메인 콘텐츠에 삽입
-  $("#mainContent").html(contentHtml);
-}
+        $("#mainContent").html(contentHtml);
+      }
 
-
-    // 단일 문제 렌더링 함수
-    function renderQuestion(question, options, number) {
-  let questionHtml = `
+      function renderQuestion(question, options, number) {
+        let questionHtml = `
     <li class="mb-4">
       <p class="mb-2">${number}. ${question}</p>
       <ul class="list-unstyled">`;
 
-  if (Array.isArray(options)) {
-    questionHtml += options.map((option, i) => `
+        if (Array.isArray(options)) {
+          questionHtml += options.map((option, i) => `
       <li class="mb-2">
         <label>
           <input type="radio" name="q${number}" value="${i}"> ${option.trim()}
         </label>
       </li>
     `).join('');
-  } else {
-    questionHtml += `<li>옵션을 불러오지 못했습니다.</li>`;
-  }
+        } else {
+          questionHtml += `<li>옵션을 불러오지 못했습니다.</li>`;
+        }
 
-  questionHtml += `</ul></li>`;
-  return questionHtml;
-}
-      })
+        questionHtml += `</ul></li>`;
+        return questionHtml;
+      }
+    })
+
 
   </script>
 </body>
+
 </html>
