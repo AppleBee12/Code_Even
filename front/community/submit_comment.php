@@ -17,9 +17,24 @@ $sql = "INSERT INTO post_comment (uid, board_type, post_id, contents)
 $result = $mysqli->query($sql);
 //echo $sql;
 
-
-
+// 글을 작성한 게시판, 글의 정보에 댓글 갯수 +1 만들기
 if ($result) {
+  $table_name = '';
+  if ($board_type === 'C') {
+    $table_name = 'counsel'; // 상담 게시판
+  } elseif ($board_type === 'B') {
+    $table_name = 'blog'; // 블로그 게시판
+  } elseif ($board_type === 'T') {
+    $table_name = 'teamproject'; // 팀 프로젝트 게시판
+  }
+
+  if ($table_name) {
+    $sql_update_comments = "UPDATE $table_name SET comments = comments + 1 WHERE post_id = ?";
+    $stmt_update = $mysqli->prepare($sql_update_comments);
+    $stmt_update->bind_param("i", $post_id);
+    $stmt_update->execute();
+  }
+
   echo
   "<script>
         if (confirm('댓글을 등록하시겠습니까?')){
