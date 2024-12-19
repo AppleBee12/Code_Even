@@ -75,10 +75,13 @@
       <h2 class="headt5">장바구니</h2>
       <!-- 전체 선택 -->
       <div class="form-check">
-        <div class="check_total d-flex gap-2 align-items-center">
-          <input class="form-check-input" type="checkbox" id="selectAll">
+        <div class="check_total d-flex gap-3 align-items-center">
+          <input class="form-check-input checkbox_custom" type="checkbox" id="selectAll">
           <label class="form-check-label" for="selectAll">
-            전체 선택<span class="check_cnt"> 3</span> / 3
+            <span>전체 선택</span>
+            <span class="check_cnt">3</span>
+            <span>/</span> 
+            <span class="total_cnt">3</span>
           </label>
         </div>
       </div>
@@ -130,6 +133,7 @@
             </tbody>
           </table>
           <button type="button" class="btn btn-outline-secondary mt-3">선택삭제</button>
+
         </div>
 
         <!-- 결제 정보 -->
