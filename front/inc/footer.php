@@ -88,6 +88,10 @@
 
 
 <script src="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/front/js/common.js"></script>
+<script src="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/front/js/jquery.number.min.js"></script>
+<script>
+  $('.number').number( true );
+</script>
 
 <!-- 개인 js -->
 <?php

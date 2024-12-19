@@ -148,6 +148,10 @@ div.white, section.white{
   background: var(--bk0);
   color: var(--bk1000);
 }
+
+div.white a, section.white a{
+  color: var(--bk1000);
+}
  
 /* 헤더 header */
 header{

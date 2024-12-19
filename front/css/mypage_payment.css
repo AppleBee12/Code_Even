@@ -1,37 +1,4 @@
-
-/* 장바구니 page
-.container_wrap{
-  padding-top: 80px;
-  padding-bottom: 100px;
-  .headt5{
-    font-weight: 700;
-    margin-bottom: 50px;
-  }
-
-  .cart_detail, .cart_total{
-    border: 1px solid var(--bk100);
-  }
-
-  .check_total label{
-    color: var(--bk1000);
-    .check_cnt{
-      color: var(--red800);
-    }
-  }
-}
-
-.btn_ok_red{
-  background-color: var(--red800);
-  border-color: var(--red800);
-  font-size: 16px;
-  font-weight: 600;
-}
-.btn_ok_red:hover {
-  background-color: var(--red900);
-  border-color: var(--red900);
-}
- */
-
+/* 장바구니 page*/
 
 
 .container_wrap {
@@ -46,96 +13,179 @@
 
 
 
-.form-check-input{
+.form-check-input {
   width: 18px;
   height: 18px;
 }
 
+.check_del {
+  margin-bottom: 15px;
+}
 
-.check_total label span{
+.check_total label span {
   vertical-align: middle;
   margin-right: 3px;
 
 }
-.check_cnt{
+
+.check_cnt {
   color: var(--red800);
 }
 
-.cart_table {
+/* 상품 테이블 */
+.cart_list {
   width: 100%;
-  border-collapse: collapse;
-}
+  border-top: 1px solid var(--bk200);
+  border-bottom: 1px solid var(--bk200);
 
-.cart_table thead th {
-  background-color: #f8f9fa;
-  font-weight: bold;
-  text-align: center;
-  padding: 10px;
-  border-bottom: 2px solid #dee2e6;
-}
+  li {
+    border-bottom: 1px solid var(--bk200);
+  }
 
-.cart_table tbody td {
-  text-align: center;
-  padding: 15px;
-  border-bottom: 1px solid #dee2e6;
-  vertical-align: middle;
-}
-.cart_table tbody tr:first-child {
-  border-top: 1px solid #dee2e6;
-}
+  li:last-child {
+    border-bottom: none;
+  }
+
+  .item_lnfo {
+    padding: 15px 0;
+  }
+
+  .item_check {
+    margin-right: 15px;
+  }
+
+  .item_img {
+    width: 150px;
+    height: 96px;
+    object-fit: cover;
+    border-radius: 5px;
+  }
 
 
+  .item_txt {
+    padding: 5px 10px;
 
-.cart_table .item_img {
-  width: 80px;
-  height: 60px;
-  object-fit: cover;
-  margin-right: 15px;
-}
+    .lec_title {
+      width: 450px;
+      font-size: 17px;
+      font-weight: 600;
+    }
 
-.btn-outline-danger {
-  border-color: #dc3545;
-  color: #dc3545;
-}
+    .lec_tc {
+      font-size: 14px;
+      color: var(--bk700);
+    }
+  }
 
-.btn-outline-danger:hover {
-  background-color: #dc3545;
-  color: #fff;
+  .item_price {
+    border-right: 1px solid var(--bk200);
+    border-left: 1px solid var(--bk200);
+    width: 145px;
+    padding: 54px 10px;
+    height: 100%;
+    white-space: nowrap;
+  }
+
+  .item_price p,
+  .book_price {
+    font-weight: 800;
+    font-size: 18px;
+  }
+
+  .btn_item_del {
+    color: var(--bk300);
+  }
+
+  .btn_item_del:hover {
+    color: var(--bk900);
+  }
+
+  :not(.btn-check)+.btn:active {
+    border-color: var(--bk0);
+  }
+
+  .book_list {
+    padding: 10px;
+  }
+
+  .book_title {
+    margin-left: 70px;
+    width: 450px;
+    font-weight: 600;
+  }
+
+  .book_info {
+    font-size: 14px;
+    color: var(--bk500);
+    vertical-align: sup;
+  }
+
+  .book_badge {
+    margin-left: 22px;
+  }
+
+  .badge_custom {
+    display: inline-block;
+    padding: 8px;
+    border: 1px solid var(--bk300);
+    font-size: 14px;
+    line-height: 1;
+    color: var(--bk700);
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: baseline;
+    border-radius: 5px;
+  }
+
+  .book_price {
+    margin-left: 26px;
+    width: 145px;
+    height: 100%;
+    text-align: center;
+    /* border-right: 1px solid var(--bk200);
+    border-left: 1px solid var(--bk200); */
+  }
 }
 
 .btn-outline-secondary {
   font-size: 14px;
 }
 
+
+/* 결제 정보 */
+.payment_sum li {
+  border-bottom: none;
+  padding: 10px 30px;
+}
+
+.payment_sum li:first-child {
+  padding-top: 30px;
+}
+
+.payment_sum li:last-child {
+  border-bottom: var(--bs-list-group-border-width) solid var(--bs-list-group-border-color);
+  padding-bottom: 30px;
+}
+
+.price_sum {
+  font-size: 18px;
+  font-weight: 600;
+}
+
+/* 공통레드버튼 */
 .btn_ok_red {
-  background-color: #dc3545;
-  border-color: #dc3545;
+  background-color: var(--red800);
+  border-color: var(--red800);
   font-size: 16px;
-  font-weight: bold;
+  font-weight: 600;
 }
 
 .btn_ok_red:hover {
-  background-color: #c82333;
+  background-color: var(--red900);
+  border-color: var(--red900);
 }
 
-.lec_book {
-  display: flex;
-  align-items: center;
-  gap: 5px;
+:not(.btn-check)+.btn_ok_red.btn:active {
+  background-color: var(--red950);
+  border-color: var(--red950);
 }
-
-
-.badge_custom{
-  display: inline-block;
-  padding: 8px;
-  border: 1px solid var(--bk300);
-  font-size: 14px;
-  line-height: 1;
-  color: var(--bk700);
-  text-align: center;
-  white-space: nowrap;
-  vertical-align: baseline;
-  border-radius: 5px;
-}
-
-
