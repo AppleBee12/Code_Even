@@ -171,6 +171,9 @@ if (isset($_GET['code'])) {
     case 'counsel_write.php':
     case 'counsel_edit.php':
     case 'teamproject.php':
+    case 'teamproject_detail.php':
+    case 'teamproject_write.php':
+    case 'teamproject_edit.php':
     case 'blog.php':
       echo '<link rel="stylesheet" href="http://' . $_SERVER['HTTP_HOST'] . '/code_even/front/css/community.css">';
       break;

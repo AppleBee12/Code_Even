@@ -44,7 +44,7 @@ while ($data = $result->fetch_object()) {
 }
 ?>
 
-<div class="container teamproject_detail_wrapper">
+<div class="container teamprj_wrapper teamproject_wrapper">
   <div class="community_title d-flex flex-column gap-5">
     <h3 class="headt3"><?= $title ?></h3>
     <div class="d-flex justify-content-center align-items-center">
