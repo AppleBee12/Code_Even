@@ -11,7 +11,7 @@ include_once($_SERVER['DOCUMENT_ROOT'] . '/CODE_EVEN/front/inc/mypage_header.php
     </div> 
     <!--제목 끝-->
     <div class="list_content">
-      <form action="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/front/mypage/mypage_qna_question.php" class="qna_form">
+      <form action="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/front/mypage/mypage_review_write.php" class="qna_form">
         <div class="d-flex justify-content-between align-items-center">
           <p>총 건</p>
           <button type="submit">후기 작성하기</button>
