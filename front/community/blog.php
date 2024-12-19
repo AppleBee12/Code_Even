@@ -85,7 +85,7 @@ while ($data = $result->fetch_object()) {
                 <div class="card">
                   <img src="http://<?= $_SERVER['HTTP_HOST']; ?><?= $blog->thumbnails ?>" class="card-img-top" alt="">
                   <div class="blog_txt card-body card_wrapper">
-                    <p class="card-title headt6 multi-2line-ellipsis"><?= $blog->post_id ?>. <?= $blog->titles ?></p>
+                    <p class="card-title headt6 multi-2line-ellipsis"><?= $blog->post_id ?>. <?= strip_tags($blog->titles) ?></p>
                     <p class="card-text subtitle1 multi-3line-ellipsis"><?= strip_tags($blog->contents) ?></p><!-- 본문 html태그 적용되어있어 strip_tag사용 -->
                     <div class="d-flex justify-content-between mt-3">
                       <div class="d-flex gap-2 justify-content-between">
