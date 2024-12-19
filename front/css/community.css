@@ -7,8 +7,7 @@
 }
 .community_contents_wrapper {
   padding: 30px 0 30px;
-  border-top: 2px solid var(--bk700);
-  border-bottom: 2px solid var(--bk700);
+
 }
 .community_contents_wrapper button a{
   color:var(--bk0);
@@ -55,7 +54,6 @@ text-align: center;
 
 
 
-
 /* 공통부분 끝 */
 
 /* 고민상담 시작 */
@@ -87,6 +85,10 @@ text-align: center;
 }
 
 /* 고민상담 디테일 */
+.counsel_detail_wrapper .community_contents_wrapper{
+  border-top: 2px solid var(--bk700);
+  border-bottom: 2px solid var(--bk700);
+}
 
 table.table,
 table.table tr,

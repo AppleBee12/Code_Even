@@ -26,6 +26,7 @@ if ($post_id) {
                             ");
   $stmt->bind_param('i', $post_id); // post_id는 숫자로 처리
 
+
   // 댓글 가져오기 쿼리
   $query_comment = "
                       SELECT pc.*, 
@@ -40,10 +41,23 @@ if ($post_id) {
   $p_com = $mysqli->prepare($query_comment);
   $p_com->bind_param("si", $board_type, $post_id); // board_type: 문자열, post_id: 숫자
 }
+
+
+// 조회수 체크 쿼리
+$hit = "hit$post_id";
+
+if (!isset($_SESSION[$hit]) || $_SESSION[$hit] < strtotime('today')) {
+
+  $hitSql = "UPDATE counsel SET hits = hits + 1 WHERE post_id = $post_id;";
+  $mysqli->query($hitSql);
+
+  $_SESSION[$hit] = time();
+}
+
 ?>
 
 
-<div class="container">
+<div class="container counsel_detail_wrapper">
   <div class="community_title d-flex flex-column gap-5">
     <h3 class="headt3">고민상담</h3>
     <div class="d-flex justify-content-center align-items-center">
