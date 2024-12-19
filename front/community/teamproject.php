@@ -72,7 +72,16 @@ while ($data = $result->fetch_object()) {
           “<?= htmlspecialchars($keywords); ?>” 관련 <?= $title ?> 검색 결과가 총 <em><?= count($dataArr); ?></em>건 있습니다.
         <?php endif; ?>
       </p>
-      <button class="btn btn-danger mb-4 col-1"><a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/front/community/teamproject_write.php"><i class="bi bi-pencil-fill"></i> 글쓰기</a></button>
+
+      <button class="btn btn-danger mb-4 col-1">
+        <?php if (isset($_SESSION['UID'])): ?>
+          <a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/front/community/teamproject_write.php"><i class="bi bi-pencil-fill"></i> 글쓰기
+          </a>
+        <?php else: ?>
+          <!-- 사용자가 로그인하지 않은 경우 -->
+          <a href="#" data-bs-toggle="modal" data-bs-target="#exampleModaltest" data-bs-whatever="@mdo"><i class="bi bi-pencil-fill"></i> 글쓰기</a>
+        <?php endif; ?>
+      </button>
     </div>
     <ul class="d-flex flex-column justify-content-center">
       <?php
