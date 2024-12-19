@@ -45,7 +45,7 @@ while ($qdata = $question_result->fetch_object()) {
     </div>
     <!--제목 끝-->
     <div class="list_content">
-      <form>
+      <form action="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/front/mypage/mypage_class_qna_question.php">
         <div class="d-flex justify-content-between align-items-center">
           <p>총 건</p>
           <button type="submit">1:1 문의하기</button>

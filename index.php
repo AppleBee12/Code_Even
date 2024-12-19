@@ -6,10 +6,6 @@ $main_js = "<script src=\"http://" . $_SERVER['HTTP_HOST'] . "/code_even/front/j
 /* lecture_section 시작 */
 
 $leid = $_GET['leid'] ?? null;
-if ($leid) {
-} else {
-    echo "강좌 정보가 없습니다.";
-}
 
 // isbest = 1
 $sql_best = "SELECT * FROM lecture 
@@ -387,7 +383,6 @@ if ($tc_result && $tc_result->num_rows > 0) {
     <div class="reviewContent">
       <h3 class="headt3 reviewTitle">수강생들의 이야기,
       코드이븐에서 확인해보세요!</h3>
-      <a href="" alt="" class="reviewMore">수강평 더보기 ></a>
     </div>
     <div class="swiper sec05_swiper">
       <ul class="swiper-wrapper">

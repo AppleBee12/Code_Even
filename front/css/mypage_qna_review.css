@@ -4,16 +4,16 @@
       background: none; border: 1px solid var(--bk700); border-radius: 10px; padding: 10px 30px;
       color: var(--bk1000); background-color: none; transition: background-color 0.3s;
     }
-    button:hover {background-color: var(--bk700); color: var(--bk50);}
+    button:hover { background-color: var(--bk700); color: var(--bk50);}
     table { border-top: 1px solid var(--bk500);
-      tr {height: 60px;
+      tr { height: 60px;
         th,
         td {
           vertical-align: middle;
           text-align: center;
           color: var(--bk1000);
-          a {color: var(--bk1000);}
-          .underline {text-decoration: underline;}
+          a { color: var(--bk1000);}
+          .underline { text-decoration: underline;}
         }
       }
     }
@@ -22,24 +22,25 @@
 
 /* ------ question 작성페이지 ------ */
 .question_content {
+  .line { border-bottom: 1px solid var(--bk300);}
   .head { padding-bottom: 60px; border-bottom: 1px solid var(--bk300);
     .description_box {
       display: flex; justify-content: center; gap: 40px; align-items: center; padding: 30px 0;
       background: rgba(188,188,188,.1); border: 1px solid var(--bk300); border-radius: 10px;
-      i {font-size: 60px; color: var(--bk700);}
+      i { font-size: 60px; color: var(--bk700);}
       ul { display: flex; flex-direction: column; gap: 10px;
-        li {list-style: inside; color: var(--bk700);}
+        li { list-style: inside; color: var(--bk700);}
       }
     }
   }
-  .body {padding: 60px 0;
-    .col-width-137 {width: 137px;}
-    .col-width-959 {width: 959;}
+  .body { padding: 60px 0;
+    .col-width-137 { width: 137px;}
+    .col-width-959 { width: 959;}
   }
   .footer { border-top: 1px solid var(--bk300); padding-top: 20px;
     .button_box { gap: 10px;
-      a {border: 1px solid var(--bk700); padding: 10px 40px; background-color: none; transition: background-color 0.3s;}
-      button {border: 1px solid var(--bk700); padding: 10px 40px; background: var(--bk700); color: var(--bk50); transition: background-color 0.3s;}
+      a { border: 1px solid var(--bk700); padding: 10px 40px; background-color: none; transition: background-color 0.3s;}
+      button { border: 1px solid var(--bk700); padding: 10px 40px; background: var(--bk700); color: var(--bk50); transition: background-color 0.3s;}
       a:hover {
         background-color: var(--bk700); color: var(--bk50);
       }
@@ -61,9 +62,9 @@
     box-sizing: border-box;
     color: var(--bk1000);
   }
-  td span {vertical-align: text-top; margin-left: 10px;}
-  td textarea {height: 200px;}
-  input[readonly] {background-color: #e9ecef; border: 1px solid #dee2e6; color: #666; cursor: not-allowed;}
+  td span { vertical-align: text-top; margin-left: 10px;}
+  td textarea { height: 200px;}
+  input[readonly] { background-color: #e9ecef; border: 1px solid #dee2e6; color: #666; cursor: not-allowed;}
 }
 
 .none {
@@ -81,22 +82,25 @@
 
 /* ------ qna 상세 페이지 ------ */
 .qna_details { padding: 60px; border: 1px solid var(--bk300); border-radius: 10px;
-  .title {display: flex; flex-direction: column; gap: 20px; padding-bottom: 40px; border-bottom: 1px solid var(--bk300);
-    .category {color: var(--bk500); font-weight: bold;}
-    .writer {display: flex; gap: 20px;}
+  .title { display: flex; flex-direction: column; gap: 20px; padding-bottom: 40px; border-bottom: 1px solid var(--bk300);
+    .category { color: var(--bk500); font-weight: bold;}
+    .writer { display: flex; gap: 20px;}
   }
-  .content {padding: 60px 20px;}
-  .answer {border-top: 1px solid var(--bk300); padding-top: 40px; display: flex; flex-direction: column; gap: 20px;
+  .content { padding: 60px 20px;}
+  .answer { border-top: 1px solid var(--bk300); padding-top: 40px; display: flex; flex-direction: column; gap: 20px;
     .profile { display: flex; align-items: center; gap: 20px;
-      img {background-color: var(--bk300); width: 50px; height: 50px; border-radius: 50%;}
+      img { background-color: var(--bk300); width: 50px; height: 50px; border-radius: 50%;}
     }
   }
 }
 
-.btn_box {margin-top: 20px;
+.btn_box { margin-top: 20px;
   a {
     border: 1px solid var(--bk700); padding: 10px 40px; display: flex; gap: 10px;
     background-color: none; transition: background-color 0.3s; color: var(--bk700);
   }
-  a:hover {background-color: var(--bk700); color: var(--bk50);}
+  a:hover { background-color: var(--bk700); color: var(--bk50);}
 }
+
+
+/* review_write 페이지 */

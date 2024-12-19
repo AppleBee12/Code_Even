@@ -3,6 +3,16 @@ session_start();
 include_once($_SERVER['DOCUMENT_ROOT'] . '/code_even/front/inc/check_cookie.php');
 include_once($_SERVER['DOCUMENT_ROOT'] . '/code_even/admin/inc/dbcon.php');
 
+$session_id = session_id();
+
+/*
+if(isset($_SESSION['UID'])){
+    $userid = $_SESSION['UID'];
+}else{
+    $userid = '';
+}
+*/
+
 // 타이틀 초기화
 if (!isset($title)) {
   $title = '';
@@ -138,7 +148,9 @@ if (isset($_GET['code'])) {
     case 'mypage_qna.php':
     case 'mypage_qna_question.php':
     case 'mypage_qna_question_details.php':
+    case 'mypage_class_qna_question.php':
     case 'mypage_reivew.php':
+    case 'mypage_review_write.php':
     case 'mypage_copy.php':
       echo '<link rel="stylesheet" href="http://' . $_SERVER['HTTP_HOST'] . '/code_even/front/css/mypage_header.css">';
       break;
@@ -194,7 +206,9 @@ if (isset($_GET['code'])) {
     case 'mypage_qna.php':
     case 'mypage_qna_question.php':
     case 'mypage_qna_question_details.php':
+    case 'mypage_class_qna_question.php':
     case 'mypage_reivew.php':
+    case 'mypage_review_write.php':
       echo '<link rel="stylesheet" href="http://' . $_SERVER['HTTP_HOST'] . '/code_even/front/css/mypage_qna_review.css">';
       break;
   }
