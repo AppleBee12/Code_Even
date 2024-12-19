@@ -73,68 +73,97 @@
   <div class="container">
     <main>
       <h2 class="headt5">장바구니</h2>
-      <!-- 전체 선택 -->
-      <div class="form-check">
-        <div class="check_total d-flex gap-3 align-items-center">
-          <input class="form-check-input checkbox_custom" type="checkbox" id="selectAll">
-          <label class="form-check-label" for="selectAll">
-            <span>전체 선택</span>
-            <span class="check_cnt">3</span>
-            <span>/</span> 
-            <span class="total_cnt">3</span>
-          </label>
-        </div>
-      </div>
+
 
       <div class="row">
         <!-- 상품 테이블 -->
         <div class="col-md-8">
-          <table class="table cart_table">
-            <thead class="visually-hidden">
-              <tr>
-                <th><input type="checkbox" id="selectAllItems"></th>
-                <th>상품 정보</th>
-                <th>강사</th>
-                <th>가격</th>
-                <th>삭제</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td><input type="checkbox" class="item-check form-check-input"></td>
-                <td>
-                  <div class="d-flex align-items-center">
-                    <img src="../admin/upload/lecture/20241215082240797607.png" alt="상품 이미지" class="item_img">
-                    <p class="lec_title">퍼블리셔 취업을 위해 제대로 배워 보는 html과 css 그리고 웹표준</p>
-                  </div>
-    
-                </td>
-                <td>김코딩</td>
-                <td>44,000원</td>
-                <td><button type="button" class="btn-close" aria-label="Close"></button></td>
-              </tr>
-              <tr>
-                <td><input type="checkbox" class="item-check form-check-input"></td>
-                <td>
-                  <div class="d-flex align-items-center justify-content-between">
-                    <span class="badge_custom bd_bk">교재포함강좌</span>
-                    <p class="lec_title">HTML과 CSS 그리고 웹표준</p>
-                    <div class="lec_book">
-                      <button class="btn btn-sm btn-outline-secondary btn_cnt">-</button>
-                      <span class="quantity">1</span>
-                      <button class="btn btn-sm btn-outline-secondary">+</button>
-                    </div>
-                  </div>
-                </td>
-                <td>이리닝</td>
-                <td>15,000원</td>
-                <td><button type="button" class="btn-close" aria-label="Close"></button></td>
-              </tr>
-            </tbody>
-          </table>
-          <button type="button" class="btn btn-outline-secondary mt-3">선택삭제</button>
 
+        <!-- 전체 선택 -->
+       <div class="check_del d-flex align-items-center">
+         <div class="form-check">
+           <div class="check_total d-flex gap-3 align-items-center">
+             <input class="form-check-input checkbox_custom" type="checkbox" id="selectAll">
+             <label class="form-check-label" for="selectAll">
+               <span>전체 선택</span>
+               <span class="check_cnt">3</span>
+               <span>/</span> 
+               <span class="total_cnt">3</span>
+             </label>   
+           </div>
+         </div>
+       </div>
+          <ul class="cart_list">
+            <li>
+              <div class="d-flex align-items-center">
+                <div class="item_check">
+                  <input type="checkbox" class="item-check form-check-input">
+                </div>
+                <a href="" class="item_lnfo d-flex flex-fill">
+                  <img src="../admin/upload/lecture/20241215082240797607.png" alt="강좌 이미지" class="item_img">
+                  <div class="item_txt d-flex flex-column justify-content-between">
+                    <p class="lec_title">퍼블리셔 취업을 위해 제대로 배워 보는 html과 css 그리고 웹표준 그리고 웹표준 그리고 웹표준 그리고 웹표준</p>
+                    <p class="lec_tc">이코딩</p>
+                  </div>     
+                </a>
+                <div class="item_price flex-column d-flex  align-items-center justify-content-center">
+                  <p>44,000원</p>
+                </div>
+                <button type="button" class="btn btn_item_del" aria-label="Delete"><i class="bi bi-x-circle-fill"></i></button>
+              </div>
+            </li>
+            <li>
+              <a href="" class="d-flex align-items-center">
+                <span class="badge_custom bd_bk">교재포함강좌</span>
+                <p class="lec_title">HTML과 CSS 그리고 웹표준</p>
+                <p>이리닝</p>
+                <p>15,000원</p>
+                <button type="button" class="btn-close" aria-label="Close"></button>  
+              </a>
+            </li>
+
+
+            <li>
+              <div class="d-flex align-items-center">
+                <div class="item_check">
+                  <input type="checkbox" class="item-check form-check-input">
+                </div>
+                <a href="" class="item_lnfo d-flex flex-fill">
+                  <img src="../admin/upload/lecture/20241215082240797607.png" alt="강좌 이미지" class="item_img">
+                  <div class="item_txt d-flex flex-column justify-content-between">
+                    <p class="lec_title">퍼블리셔 취업을 위해 제대로 배워 보는 html과 css 그리고 웹표준 그리고 웹표준 그리고 웹표준 그리고 웹표준</p>
+                    <p class="lec_tc">이코딩</p>
+                  </div>     
+                </a>
+                <div class="item_price flex-column d-flex  align-items-center justify-content-center">
+                  <p>44,000원</p>
+                </div>
+                <button type="button" class="btn btn_item_del" aria-label="Delete"><i class="bi bi-x-circle-fill"></i></button>
+              </div>
+            </li>
+            <li>
+              <div class="d-flex align-items-center">
+                <div class="item_check">
+                  <input type="checkbox" class="item-check form-check-input">
+                </div>
+                <a href="" class="item_lnfo d-flex flex-fill">
+                  <img src="../admin/upload/lecture/20241215082240797607.png" alt="강좌 이미지" class="item_img">
+                  <div class="item_txt d-flex flex-column justify-content-between">
+                    <p class="lec_title">퍼블리셔 취업을 위해 제대로 배워 보는 html과 css 그리고 웹표준 그리고 웹표준 그리고 웹표준 그리고 웹표준</p>
+                    <p class="lec_tc">이코딩</p>
+                  </div>     
+                </a>
+                <div class="item_price flex-column d-flex  align-items-center justify-content-center">
+                  <p>44,000원</p>
+                </div>
+                <button type="button" class="btn btn_item_del" aria-label="Delete"><i class="bi bi-x-circle-fill"></i></button>
+              </div>
+            </li>
+
+          </ul>
+          <button type="button" class="btn btn-outline-secondary mt-3">선택삭제</button>
         </div>
+
 
         <!-- 결제 정보 -->
         <div class="col-md-4">
