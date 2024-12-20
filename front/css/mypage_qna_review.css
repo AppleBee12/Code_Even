@@ -102,5 +102,6 @@
   a:hover { background-color: var(--bk700); color: var(--bk50);}
 }
 
-
+.bi-star-fill {color: #FFCE0C; padding-right: 5px;}
+.bi-star-fill:last-child {padding-right: 0px;}
 /* review_write 페이지 */

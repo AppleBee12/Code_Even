@@ -1,6 +1,6 @@
 <?php
 include_once($_SERVER['DOCUMENT_ROOT'] . '/CODE_EVEN/admin/inc/dbcon.php');
-include_once($_SERVER['DOCUMENT_ROOT'] . '/CODE_EVEN/admin/inc/delete_summernote_image.php');
+include_once($_SERVER['DOCUMENT_ROOT'] . '/CODE_EVEN/admin/inc/page_summernote_delete.php');
 
 $table_id = $_GET['fqid'];
 

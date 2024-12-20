@@ -56,9 +56,9 @@
         <div class="menu_list">
           <div class="list_title">코드이븐고객센터</div>
           <ul class="menu_sublist">
-            <li>공지사항</li>
-            <li>FAQ</li>
-            <li>내 문의글</li>
+            <li><a href="http://<?=$_SERVER['HTTP_HOST']?>/code_even/front/service/notice.php">공지사항</a></li>
+            <li><a href="http://<?=$_SERVER['HTTP_HOST']?>/code_even/front/service/faq.php">FAQ</a></li>
+            <li><a href="http://<?=$_SERVER['HTTP_HOST']?>/code_even/front/mypage/mypage_qna.php">내 문의글</a></li>
           </ul>
         </div>
       </div>

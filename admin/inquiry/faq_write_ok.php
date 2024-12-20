@@ -2,6 +2,7 @@
 // ** 세션 시작 함수 **
 session_start();
 include_once($_SERVER['DOCUMENT_ROOT'] . '/CODE_EVEN/admin/inc/dbcon.php');
+include_once($_SERVER['DOCUMENT_ROOT'] . '/CODE_EVEN/admin/inc/page_summernote_insert.php');
 
 $category = $_POST['category'];
 $username = $_POST['username'];
@@ -29,23 +30,29 @@ $faq_sql = "
 $faq_result = $mysqli->query($faq_sql);
 
 // ** 최근 실행된 INSERT 쿼리의 자동증가 ID값 가져오기 (summer_images에 넣기위함) **
-$faq_id = $mysqli->insert_id;
+$create_id = $mysqli->insert_id;
 
-if ($imageUrl) {
-  // ** 여러 개의 이미지가 있는 경우 처리 **
-  foreach ($imageUrl as $image) {
-      // ** summer_images 테이블에 삽입 **
-      $image_sql = "INSERT INTO summer_images (table_name, table_id, file_name) VALUES ('$table_name', '$faq_id', '$image')";
-      $image_result = $mysqli->query($image_sql);
-  }
-} else {
-  // ** 이미지가 없으면 삽입하지 않음 **
-  $image_result = true;
-}
+// ** 이미지 삽입 처리 함수 호출 **
+$image_result = insertSummerImages($mysqli, $table_name, $create_id, $imageUrl);
+
+// if ($imageUrl) {
+//   // ** 여러 개의 이미지가 있는 경우 처리 **
+//   foreach ($imageUrl as $image) {
+//       // ** summer_images 테이블에 삽입 **
+//       $image_sql = "INSERT INTO summer_images (table_name, table_id, file_name) VALUES ('$table_name', '$faq_id', '$image')";
+//       $image_result = $mysqli->query($image_sql);
+//   }
+// } else {
+//   // ** 이미지가 없으면 삽입하지 않음 **
+//   $image_result = true;
+// }
 
 if ($faq_result === true && $image_result === true) {
 
+  unset($_SESSION['imageUrl']);
+
   $redirect_url = ($target === 'teacher') ? 'teacher_faq.php' : (($target === 'student') ? 'student_faq.php' : 'faq.php');
+
   echo
     "<script>
     confirm('글을 등록하시겠습니까?');
