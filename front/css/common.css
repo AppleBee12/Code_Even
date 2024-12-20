@@ -478,7 +478,7 @@ header {
 }
 
 .mncart_list{
-  padding: 20px;
+  padding: 20px 20px 0;
   .item_tit p{
     font-size: 14px;
     font-weight: 400;
@@ -498,6 +498,20 @@ header {
 
   .item_price{
     padding: 10px 0;
+  }
+  .book_price{
+    padding-bottom: 10px;
+  }
+  .badge_custom {
+    display: inline-block;
+    padding: 8px;
+    border: 1px solid var(--bk300);
+    font-size: 12px;
+    line-height: 1;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: baseline;
+    border-radius: 5px;
   }
 }
 
