@@ -33,7 +33,7 @@ if ($check_result && $check_result->num_rows > 0) {
     // 중복이 아닌 경우 INSERT 실행
     $insert_sql = "
         INSERT INTO cart (leid, boid, uid, userid, ssid, total_price)
-        VALUES ($leid, $boid, $uid, $userid, '$ssid', $total_price)
+        VALUES ($leid, $boid, $uid, '$userid', '$ssid', $total_price)
     ";
     $insert_result = $mysqli->query($insert_sql);
 
