@@ -241,10 +241,10 @@ while ($row = $result_test->fetch_object()) {
           </td>
         </tr>
         <tr>
-            <th scope="row">강좌 설명</th>
-            <td colspan="6">
-              <textarea name="description" class="form-control"><?= htmlspecialchars($lecture->des) ?></textarea>
-            </td>
+          <th scope="row">강좌 설명</th>
+          <td colspan="6">
+            <textarea name="description" class="form-control"><?= htmlspecialchars($lecture->des) ?></textarea>
+          </td>
         </tr>
       </tbody>
     </table>

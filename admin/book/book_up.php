@@ -141,7 +141,7 @@ while ($cates = $result_cate->fetch_object()) {
         <tr>
           <th scope="row">교재 설명 <b>*</b></th>
           <td colspan="6">
-            <textarea name="desc" class="form-control" rows="3" placeholder="교재 설명을 입력해 주세요."></textarea>
+            <textarea name="description" class="form-control" rows="3" placeholder="교재 설명을 입력해 주세요."></textarea>
           </td>
         </tr>
       </tbody>

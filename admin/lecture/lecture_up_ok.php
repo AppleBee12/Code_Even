@@ -33,6 +33,8 @@ $price = $_POST['price'] ?? 0;
 $book_id = $_POST['book'] ?? null;
 $period = $_POST['period'] ?? 30;
 $course_type = $_POST['courseType'] ?? 'general';
+$description = $mysqli->real_escape_string($_POST['description'] ?? '');
+
 
 // 썸네일 업로드
 $thumbnailPath = '';
@@ -60,9 +62,9 @@ $boid = isset($boid) ? "'$boid'" : "NULL";
 
 $query_lecture = "
     INSERT INTO lecture (
-        boid, lecid, cate1, cate2, cate3, image, title, price, period, name, course_type, state
+        boid, lecid, cate1, cate2, cate3, image, title, des, price, period, name, course_type, state
     ) VALUES (
-        $boid, '$uid', '$cate1', '$cate2', '$cate3', '$thumbnailPath', '$title', '$price', '$period', '$username', '$course_type', 1
+        $boid, '$uid', '$cate1', '$cate2', '$cate3', '$thumbnailPath', '$title', '$description', $price, $period, '$username', '$course_type', 1
     )
 ";
 

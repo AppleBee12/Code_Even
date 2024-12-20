@@ -27,7 +27,7 @@ if ($book_id <= 0) {
 // DB에서 교재 데이터 가져오기
 $sql_book = "SELECT * FROM book WHERE boid = $book_id";
 $result_book = $mysqli->query($sql_book);
-$book_data = $result_book->fetch_assoc();
+$book_data = $result_book->fetch_object();
 
 if (!$book_data) {
   echo "<script>alert('교재 정보를 찾을 수 없습니다.');</script>";
@@ -45,9 +45,9 @@ while ($cates = $result_cate->fetch_object()) {
 }
 
 // 분류 값 초기화
-$cate1_selected = substr($book_data['category'] ?? '', 0, 2); // 대분류 코드
-$cate2_selected = substr($book_data['category'] ?? '', 2, 2); // 중분류 코드
-$cate3_selected = substr($book_data['category'] ?? '', 4, 2); // 소분류 코드
+$cate1_selected = substr($book_data->category ?? '', 0, 2); // 대분류 코드
+$cate2_selected = substr($book_data->category ?? '', 2, 2); // 중분류 코드
+$cate3_selected = substr($book_data->category ?? '', 4, 2); // 소분류 코드
 
 ?>
 
@@ -57,7 +57,7 @@ $cate3_selected = substr($book_data['category'] ?? '', 4, 2); // 소분류 코�
     <h3>교재 기본 정보 수정</h3>
   </div>
   <form action="book_update_ok.php" method="POST" enctype="multipart/form-data">
-    <input type="hidden" name="id" value="<?php echo $book_data['boid']; ?>">
+    <input type="hidden" name="id" value="<?php echo $book_data->boid; ?>">
     <table class="table">
       <thead class="thead-hidden">
         <tr>
@@ -72,12 +72,12 @@ $cate3_selected = substr($book_data['category'] ?? '', 4, 2); // 소분류 코�
             <select name="cate1" id="cate1" class="form-select" aria-label="대분류">
               <option value="">대분류</option>
               <?php foreach ($categories as $category): ?>
-                  <?php if ($category->step == 1): ?>
-                      <option value="<?php echo $category->code; ?>" 
-                        <?php echo $category->code == $cate1_selected ? 'selected' : ''; ?>>
-                        <?php echo $category->name; ?>
-                      </option>
-                  <?php endif; ?>
+                    <?php if ($category->step == 1): ?>
+                          <option value="<?php echo $category->code; ?>" 
+                            <?php echo $category->code == $cate1_selected ? 'selected' : ''; ?>>
+                            <?php echo $category->name; ?>
+                          </option>
+                    <?php endif; ?>
               <?php endforeach; ?>
             </select>
           </td>
@@ -85,12 +85,12 @@ $cate3_selected = substr($book_data['category'] ?? '', 4, 2); // 소분류 코�
             <select name="cate2" id="cate2" class="form-select" aria-label="중분류">
               <option value="">중분류</option>
               <?php foreach ($categories as $category): ?>
-                  <?php if ($category->step == 2 && $category->pcode == $cate1_selected): ?>
-                      <option value="<?php echo $category->code; ?>" 
-                        <?php echo $category->code == $cate2_selected ? 'selected' : ''; ?>>
-                        <?php echo $category->name; ?>
-                      </option>
-                  <?php endif; ?>
+                    <?php if ($category->step == 2 && $category->pcode == $cate1_selected): ?>
+                          <option value="<?php echo $category->code; ?>" 
+                            <?php echo $category->code == $cate2_selected ? 'selected' : ''; ?>>
+                            <?php echo $category->name; ?>
+                          </option>
+                    <?php endif; ?>
               <?php endforeach; ?>
             </select>
           </td>
@@ -98,12 +98,12 @@ $cate3_selected = substr($book_data['category'] ?? '', 4, 2); // 소분류 코�
             <select name="cate3" id="cate3" class="form-select" aria-label="소분류">
               <option value="">소분류</option>
               <?php foreach ($categories as $category): ?>
-                  <?php if ($category->step == 3 && $category->pcode == $cate2_selected): ?>
-                      <option value="<?php echo $category->code; ?>" 
-                        <?php echo $category->code == $cate3_selected ? 'selected' : ''; ?>>
-                        <?php echo $category->name; ?>
-                      </option>
-                  <?php endif; ?>
+                    <?php if ($category->step == 3 && $category->pcode == $cate2_selected): ?>
+                          <option value="<?php echo $category->code; ?>" 
+                            <?php echo $category->code == $cate3_selected ? 'selected' : ''; ?>>
+                            <?php echo $category->name; ?>
+                          </option>
+                    <?php endif; ?>
               <?php endforeach; ?>
             </select>
           </td>
@@ -111,24 +111,24 @@ $cate3_selected = substr($book_data['category'] ?? '', 4, 2); // 소분류 코�
         <tr>
           <th scope="row">강좌명 <b>*</b></th>
           <td colspan="6">
-            <input name="title" type="text" class="form-control" value="<?php echo $book_data['title']; ?>" placeholder="강좌명을 입력하세요.">
+            <input name="title" type="text" class="form-control" value="<?php echo $book_data->title; ?>" placeholder="강좌명을 입력하세요.">
           </td>
         </tr>
         <tr>
           <th scope="row">교재명 <b>*</b></th>
           <td colspan="6">
-            <input name="book" type="text" class="form-control" value="<?php echo $book_data['book']; ?>" placeholder="교재명을 입력하세요.">
+            <input name="book" type="text" class="form-control" value="<?php echo $book_data->book; ?>" placeholder="교재명을 입력하세요.">
           </td>
         </tr>
         <tr>
           <th scope="row">출판사 <b>*</b></th>
           <td colspan="2">
-            <input name="company" type="text" class="form-control" value="<?php echo $book_data['company']; ?>" placeholder="길동사">
+            <input name="company" type="text" class="form-control" value="<?php echo $book_data->company; ?>" placeholder="길동사">
           </td>
           <td class="box_container" colspan="4" rowspan="4">
           <div class="bookBox">
             <div class="image">
-              <img src="<?php echo !empty($book_data['image']) ? $book_data['image'] : '/default/path/to/image.jpg'; ?>" alt="교재 이미지">
+              <img src="<?php echo !empty($book_data->image) ? $book_data->image : '/default/path/to/image.jpg'; ?>" alt="교재 이미지">
             </div>
           </div> 
             <div class="input-group mb-3">
@@ -140,7 +140,7 @@ $cate3_selected = substr($book_data['category'] ?? '', 4, 2); // 소분류 코�
           <th scope="row">가격 <b>*</b></th>
           <td colspan="2">
             <div class="input-group">
-              <input name="price" type="text" class="form-control" value="<?php echo $book_data['price']; ?>" aria-label="원">
+              <input name="price" type="text" class="form-control" value="<?php echo $book_data->price; ?>" aria-label="원">
               <span class="input-group-text">원</span>
             </div>
           </td>
@@ -149,7 +149,7 @@ $cate3_selected = substr($book_data['category'] ?? '', 4, 2); // 소분류 코�
           <th scope="row">출판일 <b>*</b></th>
           <td colspan="2">
             <div class="input-group">
-              <input name="pd" type="text" id="datepicker" class="form-control" value="<?php echo $book_data['pd']; ?>" placeholder="출판일을 선택하세요.">
+              <input name="pd" type="text" id="datepicker" class="form-control" value="<?php echo $book_data->pd; ?>" placeholder="출판일을 선택하세요.">
               <div class="input-group-append" id="calendar-icon-wrapper">
                 <span class="input-group-text" id="calendar-icon">
                   <i class="bi bi-calendar"></i>
@@ -161,15 +161,13 @@ $cate3_selected = substr($book_data['category'] ?? '', 4, 2); // 소분류 코�
         <tr>
           <th scope="row">저자 <b>*</b></th>
           <td colspan="2">
-            <input name="writer" type="text" class="form-control" value="<?php echo $book_data['writer']; ?>" placeholder="홍길동">
+            <input name="writer" type="text" class="form-control" value="<?php echo $book_data->writer; ?>" placeholder="홍길동">
           </td>
         </tr>
         <tr>
           <th scope="row">교재 설명 <b>*</b></th>
           <td colspan="6">
-            <textarea name="desc" class="form-control" rows="3" placeholder="교재 설명을 입력해 주세요.">
-              <?php echo !empty($book_data['desc']) ? $book_data['desc'] : ''; ?>
-            </textarea>
+            <textarea name="desc" class="form-control" rows="3" placeholder="교재 설명을 입력해 주세요."><?php echo !empty($book_data->des) ? htmlspecialchars($book_data->des) : ''; ?></textarea>
           </td>
         </tr>
       </tbody>

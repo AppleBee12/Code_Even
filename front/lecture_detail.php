@@ -234,10 +234,13 @@ $detail_result = $mysqli->query($detail_query);
       // 콘텐츠 생성
       let contentHtml = `
     <div class="p-5">
-      <h5 class="text-center mb-4 fw-bold">
-        해당 강의에 포함된 ${type === 'quiz' ? '퀴즈' : '시험'}는 
-        <span class="text-danger">${type === 'quiz' ? '10분' : '1시간'}</span> 내 1회 한정 풀기 가능합니다.
-      </h5>
+      <div class="text-center mb-5">
+        <h5 class="fw-bold mb-2">
+          해당 강의에 포함된 ${type === 'quiz' ? '퀴즈' : '시험'}는 
+          <span class="text-danger">${type === 'quiz' ? '10분' : '1시간'}</span> 내 1회 한정 풀기 가능합니다.
+        </h5>
+        <p>네트워크 환경을 꼭 체크해 주세요.</p>
+      </div>
       <form id="${type}Form" class="quiz-exam-container">
         <h3 class="mb-4 fw-bold headt5">${type === 'quiz' ? '퀴즈' : '시험'}</h3>
         <ol>`;
@@ -254,7 +257,7 @@ $detail_result = $mysqli->query($detail_query);
 
       contentHtml += `
         </ol>
-        <div class="text-center mt-4">
+        <div class="d-flex justify-content-end mt-4">
           <button type="submit" class="btn btn-danger">제출</button>
         </div>
       </form>
