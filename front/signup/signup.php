@@ -67,9 +67,11 @@ include_once($_SERVER['DOCUMENT_ROOT'].'/CODE_EVEN/admin/inc/dbcon.php');
               </div>
           </div>
             
-          <div class="wrappers d-flex gap-4">
+          <div class="wrappers d-flex">
             <label for="useremail" class="form-label align-self-center">이메일 <b>*</b></label>
-            <input type="email" id="useremail" class="form-control" aria-describedby="passwordHelpBlock" placeholder="code@even.com" name="useremail" required>
+            <div class="width_ch">
+              <input type="email" id="useremail" class="form-control" aria-describedby="passwordHelpBlock" placeholder="code@even.com" name="useremail" required>
+            </div>
           </div>
 
           <div class="padding_ch">
@@ -88,7 +90,7 @@ include_once($_SERVER['DOCUMENT_ROOT'].'/CODE_EVEN/admin/inc/dbcon.php');
             </div>
           </div>
           <button type="submit" class="btn btn-secondary mt-4 w-100 mb-1 redbtn" id="submit_btn">회원가입</button>
-          <button class="btn kakao_loginbtn yellowbtn w-100">
+          <button class="btn kakao_loginbtn yellowbtn w-100 mb-5">
             <a href="https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=dc8b785f75c0ed7ecca5dad87f2b18ff&redirect_uri=http://localhost/code_even/"
               class="kakao">
               <div class="d-flex justify-content-center align-items-center">
