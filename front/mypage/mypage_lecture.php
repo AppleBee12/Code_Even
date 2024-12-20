@@ -60,7 +60,7 @@ $mypage_main_js = "<script src=\"http://" . $_SERVER['HTTP_HOST'] . "/code_even/
                         </div>
                       </div>
                     </div>
-                    <button class="btn btn-outline-dark btn-sm">수료증</button>
+                    <button type="button" class="btn btn-outline-dark btn-sm printButton">이수증</button>
                   </div>
                 </div>
                 <div class="my_lec_graph_wrapper d-flex">
@@ -256,6 +256,33 @@ $mypage_main_js = "<script src=\"http://" . $_SERVER['HTTP_HOST'] . "/code_even/
     //   const percentage = e.target.value;
     //   updateDonut(percentage);
     // });
+
+
+    /* 이수증 버튼 함수 */
+    function printPage() {
+    const fileUrl = "../../images/certificate_of_completion.pdf";
+
+    // PDF를 iframe으로 페이지에 삽입
+    const iframe = document.createElement("iframe");
+    iframe.style.position = "absolute";
+    iframe.style.width = "0px";
+    iframe.style.height = "0px";
+    iframe.style.border = "none";
+    iframe.src = fileUrl;
+
+    // iframe을 body에 추가
+    document.body.appendChild(iframe);
+
+    // PDF 파일이 로드된 후 인쇄
+    iframe.onload = function () {
+      iframe.contentWindow.print();  // iframe 내에서 print() 호출
+    };
+  }
+
+  const button = document.querySelector(".printButton");
+  if (button) {
+    button.addEventListener("click", printPage);
+  }
   </script>
 <?php include_once($_SERVER['DOCUMENT_ROOT'] . '/CODE_EVEN/front/inc/footer.php');
 ?>
