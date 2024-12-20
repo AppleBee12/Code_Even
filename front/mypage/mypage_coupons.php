@@ -81,7 +81,7 @@ while ($data = $result->fetch_object()) {
   <nav>
     <div class=" nav nav-underline headt6" id="nav-tab" role="tablist">
       <button class="mypage_tap nav-link active" id="nav-myLecTab1-tab" data-bs-toggle="tab" data-bs-target="#nav-myLecTab1"  role="tab" aria-controls="nav-myLecTab1" aria-selected="true">사용 가능한 쿠폰 (4)</button>
-      <button class="mypage_tap nav-link" id="nav-myLecTab2-tab" data-bs-toggle="tab" data-bs-target="#nav-myLecTab2"  role="tab" aria-controls="nav-myLecTab2" aria-selected="false">사용완료·기간만료 (1)</button>
+      <button class="mypage_tap nav-link" id="nav-myLecTab2-tab" data-bs-toggle="tab" data-bs-target="#nav-myLecTab2"  role="tab" aria-controls="nav-myLecTab2" aria-selected="false">사용완료·기간만료 (0)</button>
     </div>
   </nav>
   <!--탭 메뉴 끝-->
@@ -195,6 +195,38 @@ while ($data = $result->fetch_object()) {
       </div>
     </div>
   </div>
+
+  <div class="tab-content" id="nav-tabContent">
+      <div class="tab-pane fade show " id="nav-myLecTab2" role="tabpane2" aria-labelledby="nav-myLecTab2-tab"><!-- 탭메뉴1 -->
+        <div class=""><!-- 탭메뉴1내용 -->
+          <div class="row  mb-5 justify-content-center d-flex">
+            <div class="col-6">
+              <div class="card mb-4">
+                <div class="row g-0">
+                  <div class="col-md-7 c-img">
+                    <img src="<?= $item->coupon_image; ?>" class="img-fluid rounded-start" alt="Coupon Image">
+                    </div>
+                    <div class="col-md-5">
+                      <div class="card-body">
+                      <span class="badge text-bd-secondary mb-3">비활성화</span>
+                        <h5>
+                          <div class="card-title">리뷰쿠폰</div>
+                        </h5>
+                        <p class="card-text bd">사용기한 : 2024-12-31
+                        </p>
+                        <p class="card-text bd">할인금액 : <?= $item->max_value; ?>원</p>
+                        <p class="card-text bd"> 최소 사용금액 : <?= $item->use_min_price; ?>원</p>
+                        
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
   <div class="list_pagination" aria-label="Page navigation example">
     <ul class="pagination d-flex justify-content-center">
       <?php
