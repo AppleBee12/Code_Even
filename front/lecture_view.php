@@ -2,6 +2,7 @@
 
 include_once($_SERVER['DOCUMENT_ROOT'] . '/code_even/front/inc/header.php');
 
+
 /* lecture, book Start */
 $leid = isset($_GET['leid']) ? (int) $_GET['leid'] : 0;
 
@@ -356,29 +357,34 @@ while ($review = $review_result->fetch_object()) {
   </div>
 </div>
 <script>
+
   // 찜하기 버튼 클릭 이벤트
   $('.btn-like').on('click', function () {
-        const lectureId = <?= $leid; ?>; // 현재 강좌 ID
-        let data = { lecture_id: lectureId }
+      const lectureId = <?= $leid; ?>; // 현재 강좌 ID
+      let data = { lecture_id: lectureId };
 
+      console.log(data);
+      $.ajax({
+          type: 'POST',
+          url: 'wishlist_handler.php',
+          data: data,
+          dataType: 'json',
+          success: function (response) {
+              if (response.status === 'success') {
+                  alert(response.message);
+              } else if (response.status === 'not_logged_in') {
+                  // 로그인 모달 창 열기
+                  $('#exampleModaltest').modal('show');
+              } else {
+                  alert(response.message);
+              }
+          },
+          error: function () {
+              alert('찜하기 요청 중 오류가 발생했습니다.');
+          }
+      });
+  });
 
-        $.ajax({
-            type: 'POST',
-            url: 'wishlist_handler.php',
-            data: data,
-            dataType: 'json',
-            success: function (response) {
-                if (response.status === 'success') {
-                    alert(response.message);
-                } else {
-                    alert(response.message);
-                }
-            },
-            error: function () {
-                alert('찜하기 요청 중 오류가 발생했습니다.');
-            }
-        });
-    });
 
   // 장바구니 추가 이벤트
   $('#cartform').submit(function(e) {
