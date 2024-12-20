@@ -82,8 +82,8 @@ while ($data = $result->fetch_object()) {
             <tr>
               <th scope="row"><?= $tp->post_id ?></th>
               <td><?= $tp->usernick ?></td>
-              <td><a href="#" class="d-inline-block text-truncate"><?= $tp->titles ?></a></td>
-              <td><a href="#" class="d-inline-block text-truncate"><?= $tp->contents ?></a></td>
+              <td><a href="#" class="d-inline-block text-truncate"><?= strip_tags($tp->titles) ?></a></td>
+              <td><a href="#" class="d-inline-block text-truncate"><?= strip_tags($tp->contents) ?></a></td>
               <td>
                 <?= $tp->status == '모집중' ?
                   '<span class="badge text-bg-light">모집중</span>'

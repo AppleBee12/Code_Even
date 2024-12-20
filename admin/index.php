@@ -8,9 +8,8 @@ include_once($_SERVER['DOCUMENT_ROOT'] . '/CODE_EVEN/admin/inc/header.php');
 
 //오늘 방문자 수와 6개월 방문자 수 계산
 
-$dataFile =$_SERVER['DOCUMENT_ROOT'] . '/code_even/inc/visit_data.json';
+$dataFile =$_SERVER['DOCUMENT_ROOT'] . '/code_even/front/inc/visit_data.json';
 $data = file_exists($dataFile) ? json_decode(file_get_contents($dataFile), true) : [];
-
 $monthlyData = [];
 foreach ($data as $date => $count) {
     $month = substr($date, 5, 2);
