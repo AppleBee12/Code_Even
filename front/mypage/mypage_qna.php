@@ -2,7 +2,21 @@
 $title = '마이페이지-문의글보기';
 include_once($_SERVER['DOCUMENT_ROOT'] . '/CODE_EVEN/front/inc/mypage_header.php');
 
-// 강의 문의
+// 수강 문의
+$classQna_sql = "SELECT student_qna.*, class_data.*, lecture.*, user.*, teacher_qna.asid 
+        FROM student_qna 
+        LEFT JOIN teacher_qna ON student_qna.sqid = teacher_qna.sqid 
+        JOIN class_data ON student_qna.cdid = class_data.cdid
+        JOIN lecture ON class_data.leid = lecture.leid
+        JOIN user ON class_data.uid = user.uid 
+        WHERE user.uid = '" . (isset($_SESSION['UID']) ? $_SESSION['UID'] : '') . "'";
+
+$result = $mysqli->query($classQna_sql);
+
+$dataArr = [];
+while ($data = $result->fetch_object()) {
+  $dataArr[] = $data;
+}
 
 
 
@@ -61,13 +75,19 @@ while ($qdata = $question_result->fetch_object()) {
             </tr>
           </thead>
           <tbody>
+            <?php
+              foreach($dataArr as $data){
+            ?>
             <tr>
-              <th></th>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
+              <th><?= $data-> regdate; ?></th>
+              <td><?= $data-> title; ?></td>
+              <td><a href="" class="underline"><?= $data-> qtitle; ?></a></td>
+              <td><?= $data->asid ? "답변완료" : "답변대기"; ?></td>
+              <td><a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/front/mypage/mypage_class_qna_delete.php?sqid=<?= $data->sqid; ?>">X</a></td>
             </tr>
+            <?php
+              }
+            ?>
           </tbody>
         </table>
       </form>

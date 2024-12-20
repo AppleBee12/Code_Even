@@ -256,5 +256,23 @@ section {
 }
 
 
+/* review_content */
+.review_content { display: flex; flex-direction: column; justify-content: center;
+  .average_score { display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 10px;}
+  .review_box { display: flex; flex-direction: column; padding-top: 136px; gap: 40px;
+    .review_item { display: flex; flex-direction: column; gap: 16px; padding: 0 0 30px 20px; border-bottom: 1px solid var(--bk50);
+      .writer { display: flex; flex-direction: column; align-items: flex-start; gap: 10px;
+        .date { font-size: 14px;}
+      }
+      .title {
+        .class_title { font-size: 14px; color: var(--bk500);}
+      }
+    }
+    button { border: none; background: var(--bk50); border-radius: 10px; height: 50px; transition: 0.3s;}
+    button:hover { background: var(--bk300);}
+  }
+}
+
+
 
 /* lecture_view 끝 */
