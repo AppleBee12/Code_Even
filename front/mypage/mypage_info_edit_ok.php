@@ -46,7 +46,7 @@ if (!empty($userpw)) {
 
     $stmt = $mysqli->prepare($sql);
     $stmt->bind_param(
-        "ssssssssis", 
+        "sssssssssis", 
         $usernick, 
         $username, 
         $hashed_pw, 
