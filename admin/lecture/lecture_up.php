@@ -217,6 +217,12 @@ $mysqli->close();
             </div>
           </td>
         </tr>
+        <tr>
+          <th scope="row">강좌 설명</th>
+          <td colspan="6">
+            <textarea name="description" class="form-control"></textarea>
+          </td>
+        </tr>
       </tbody>
     </table>
 
