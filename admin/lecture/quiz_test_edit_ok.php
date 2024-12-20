@@ -7,6 +7,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   $cate1 = $_POST['cate1'] ?? '';
   $cate2 = $_POST['cate2'] ?? '';
   $cate3 = $_POST['cate3'] ?? '';
+  $tt = trim($_POST['tt']);
   $answer = $_POST['questions'][0]['answer'] ?? '';
   $pn = $_POST['questions'][0]['pn'] ?? '';
   $explan = $_POST['questions'][0]['explan'] ?? '';
@@ -23,10 +24,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   // 테이블 선택
   $tableName = ($type === 'quiz') ? 'quiz' : 'test';
 
-  // 데이터베이스 업데이트 (강좌명 관련 필드 제거)
-  $sql_update = "UPDATE $tableName SET cate1 = ?, cate2 = ?, cate3 = ?, answer = ?, pn = ?, question = ?, explan = ? WHERE exid = ?";
+  // 데이터베이스 업데이트
+  $sql_update = "UPDATE $tableName SET cate1 = ?, cate2 = ?, cate3 = ?, tt = ?, answer = ?, pn = ?, question = ?, explan = ? WHERE exid = ?";
   if ($stmt = $mysqli->prepare($sql_update)) {
-    $stmt->bind_param("sssssssi", $cate1, $cate2, $cate3, $answer, $pn, $question, $explan, $exid);
+    $stmt->bind_param("ssssssssi", $cate1, $cate2, $cate3, $tt, $answer, $pn, $question, $explan, $exid);
 
     if ($stmt->execute()) {
       echo "<script>alert('수정이 완료되었습니다.'); window.location.href='quiz_test_list.php';</script>";
