@@ -7,12 +7,13 @@ $boid = isset($_POST['boid']) && $_POST['boid'] !== '' ? (int)$_POST['boid'] : '
 $total_price = (float)$_POST['price'];
 
 if (isset($_SESSION['UID'])) {
-    $uid = (int)$_SESSION['UID']; // 문자열로 저장된 UID를 정수로 변환
+    $uid = (int)$_SESSION['UID']; // 로그인한 사용자의 UID
     $userid = $_SESSION['AUID'];
-    $ssid = 'NULL';
+    $ssid = 'NULL'; // 로그인한 경우 세션 ID 필요 없음
 } else {
-    $uid = 'NULL';
-    $ssid = "'" . session_id() . "'";
+    $uid = 'NULL'; // 로그인하지 않은 경우 UID는 NULL
+    $userid = 'NULL'; // 로그인하지 않은 경우 userid는 NULL
+    $ssid = session_id(); // 세션 ID로 비로그인 사용자 구분
 }
 
 // 중복 확인 쿼리
@@ -20,7 +21,7 @@ $check_sql = "
     SELECT 1 
     FROM cart 
     WHERE leid = $leid 
-    AND (uid = $uid OR ssid = $ssid)
+    AND (uid = $uid OR ssid = '$ssid')
     LIMIT 1
 ";
 $check_result = $mysqli->query($check_sql);
@@ -32,7 +33,7 @@ if ($check_result && $check_result->num_rows > 0) {
     // 중복이 아닌 경우 INSERT 실행
     $insert_sql = "
         INSERT INTO cart (leid, boid, uid, userid, ssid, total_price)
-        VALUES ($leid, $boid, $uid, '$userid', '$ssid', $total_price)
+        VALUES ($leid, $boid, $uid, $userid, '$ssid', $total_price)
     ";
     $insert_result = $mysqli->query($insert_sql);
 
