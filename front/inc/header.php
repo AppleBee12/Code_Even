@@ -508,7 +508,7 @@ if (isset($_GET['code'])) {
                           class="bi bi-book"></i><span>나의 수업</span></a></li>
                     <li class="list_pt"><a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/front/cart.php"><i
                           class="bi bi-cart"></i><span>장바구니</span></a></li>
-                    <li class="list_pb"><a href=""><i class="bi bi-heart"></i><span>찜한 강좌</span></a></li>
+                    <li class="list_pb"><a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/front/mypage/mypage_wishlist.php"><i class="bi bi-heart"></i><span>찜한 강좌</span></a></li>
                     <li class="list_pt"><a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/front/mypage/mypage_info_edit.php"><i class="bi bi-person-circle"></i><span>기본 정보 설정</span></a></li>
                     <li class="list_pb"><a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/front/login/logout.php"><i
                           class="bi bi-box-arrow-right"></i><span>로그아웃</span></a></li>
