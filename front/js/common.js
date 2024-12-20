@@ -16,20 +16,20 @@ $(document).ready(function () {
 
   $("#clearSearch").on("click", function () {
     $searchInput.val("");
-    $clearIcon.hide(); 
+    $clearIcon.hide();
     $searchInput.focus();
   });
 
 
 
   //Header 아이콘 퀵메뉴 - 장바구니
-  const $cartIcon = $(".mini_cart a");
+  const $cartIcon = $("#cartIcon");
   const $cartList = $(".cart_dropdown");
   const $profileMenu = $(".profile_menu"); // 프로필 메뉴 추가
 
   $cartIcon.on("click", function (e) {
-    e.preventDefault(); 
-    e.stopPropagation(); 
+    e.preventDefault();
+    e.stopPropagation();
     $cartList.toggle();
     $profileMenu.hide(); // 장바구니 열 때 프로필 메뉴 닫기
   });
@@ -41,19 +41,19 @@ $(document).ready(function () {
     }
   });
 
-   // 메뉴 내부 클릭 시 이벤트 버블링 방지
-   $cartList.on("click", function (e) {
+  // 메뉴 내부 클릭 시 이벤트 버블링 방지
+  $cartList.on("click", function (e) {
     e.stopPropagation();
   });
 
 
-  
+
   //Header 아이콘 퀵메뉴 - 프로필
   const $profileIcon = $("#profileIcon");
 
   $profileIcon.on("click", function (e) {
-    e.preventDefault(); 
-    e.stopPropagation(); 
+    e.preventDefault();
+    e.stopPropagation();
     $profileMenu.toggle();
     $cartList.hide(); // 프로필 열 때 장바구니 메뉴 닫기
   });
@@ -65,8 +65,8 @@ $(document).ready(function () {
     }
   });
 
-   // 메뉴 내부 클릭 시 이벤트 버블링 방지
-   $profileMenu.on("click", function (e) {
+  // 메뉴 내부 클릭 시 이벤트 버블링 방지
+  $profileMenu.on("click", function (e) {
     e.stopPropagation();
   });
 

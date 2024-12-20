@@ -158,7 +158,7 @@ if (!isset($_SESSION[$hit]) || $_SESSION[$hit] < strtotime('today')) {
         ?>
       </tbody>
     </table>
-    <div class="">
+    <div class="btn_wrapper">
       <div class="d-flex justify-content-end gap-2">
 
         <?php
@@ -214,24 +214,40 @@ if (!isset($_SESSION[$hit]) || $_SESSION[$hit] < strtotime('today')) {
 
     <!-- 댓글 쓰기-->
     <div class="submit_comment_wrapper col-11">
-      <form action="submit_comment.php" method="POST" id="counselCommentForm">
-        <div>
-          <input type="hidden" name="uid" value="<?= $_SESSION['UID']; ?>">
-          <input type="hidden" name="board_type" value="<?= $board_type; ?>">
-          <input type="hidden" name="post_id" value="<?= $post_id; ?>">
-          <p>댓글</p>
-          <div class="submit_comments">
-            <div>
-              <label for="contents floatingTextarea2"></label>
-              <textarea type="text" id="contents floatingTextarea2" name="contents" class="form-control" placeholder="댓글을 남겨보세요."></textarea>
+      <?php if (isset($_SESSION['UID'])): ?>
+        <form action="submit_comment.php" method="POST" id="counselCommentForm">
+          <div>
+            <input type="hidden" name="uid" value="<?= $_SESSION['UID']; ?>">
+            <input type="hidden" name="board_type" value="<?= $board_type; ?>">
+            <input type="hidden" name="post_id" value="<?= $post_id; ?>">
+            <p>댓글</p>
+            <div class="submit_comments">
+              <div>
+                <label for="contents floatingTextarea2"></label>
+                <textarea type="text" id="contents floatingTextarea2" name="contents" class="form-control" placeholder="댓글을 남겨보세요."></textarea>
+              </div>
+            </div>
+            <div class="d-flex justify-content-end gap-2">
+              <button type="button" class="btn btn-outline-danger" onClick="cancle()">취소</button>
+              <button class="btn btn-secondary">등록</button>
             </div>
           </div>
-          <div class="d-flex justify-content-end gap-2">
-            <button type="button" class="btn btn-outline-danger" onClick="cancle()">취소</button>
-            <button class="btn btn-secondary">등록</button>
-          </div>
+        </form>
+      <?php else: ?>
+        <!-- 사용자가 로그인하지 않은 경우 -->
+        <div>
+          <a href="#" data-bs-toggle="modal" data-bs-target="#exampleModaltest" data-bs-whatever="@mdo">
+            <p>댓글</p>
+            <div class="submit_comments">
+              <div>
+                <label for="contents"></label>
+                <p id="notLoginContents">로그인 후에 댓글을 남길 수 있습니다!</p>
+              </div>
+            </div>
+          </a>
         </div>
-      </form>
+      <?php endif; ?>
+
     </div>
   </div>
 </div>

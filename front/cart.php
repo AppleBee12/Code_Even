@@ -2,8 +2,10 @@
   include_once($_SERVER['DOCUMENT_ROOT'] . '/code_even/front/inc/header.php');
 
   if(isset($_SESSION['UID'])){
-      $userid = $_SESSION['UID'];
+      $uid = $_SESSION['UID'];
+      $userid = $_SESSION['AUID'];
   } else {
+      $uid = '';
       $userid =  '';
   }
   
@@ -26,7 +28,7 @@
     LEFT JOIN 
       book b ON c.boid = b.boid
     WHERE 
-      c.ssid = '$session_id' OR c.uid = '$userid'
+      c.ssid = '$session_id' OR c.uid = '$uid'
   ";
 
 
@@ -35,6 +37,26 @@
   while ($cart_data = $cart_result->fetch_object()) {
       $cartArr[] = $cart_data;
   }
+
+
+  //사용 가능 쿠폰 조회
+  /*
+
+  $uc_sql = "SELECT uc.ucid, c.coupon_name, c.coupon_price, c.coupon_ratio, c.max_value, c.use_min_price  
+  FROM user_coupons uc
+  JOIN coupons c
+  ON c.cpid = uc.couponid
+  WHERE uc.status = 1 
+  and uc.userid = '$userid' 
+  and uc.use_max_date >=now() ";
+
+  $uc_result = $mysqli->query($uc_sql);
+
+  $ucArr = [];
+  while($uc_data = $uc_result->fetch_object()){
+  $ucArr[] = $uc_data;
+  }
+*/
 ?>
 
 <div class="white container_wrap">
@@ -67,7 +89,7 @@
                   foreach($cartArr as $cart){
                       $total += $cart->lecture_price;                               
             ?>
-            <li>
+            <li data-cart-id="<?= $cart->cartid; ?>"> 
               <div class="d-flex align-items-center">
                 <div class="item_check">
                   <input type="checkbox" class="item-check form-check-input">
@@ -80,17 +102,17 @@
                   </div>     
                 </a>
                 <div class="item_price d-flex  align-items-center justify-content-center">
-                  <p><span class="number"><?= $cart->lecture_price;?></span>원</p>
+                  <p><span class="number" data-price="<?= $cart->lecture_price;?>"><?= $cart->lecture_price;?></span>원</p>
                 </div>
                 <button type="button" class="btn btn_item_del" aria-label="Delete"><i class="bi bi-x-circle-fill"></i></button>
               </div>
             </li>
 
           <?php if (!empty($cart->boid)) { ?>
-            <li class="d-flex align-items-center book_list">
+            <li class="d-flex align-items-center book_list" data-cart-id="<?= $cart->cartid; ?>">
               <span class="badge_custom book_badge">교재포함강좌</span>
               <p class="book_title"><?= $cart->book_name;?><span class="book_info"> | <?= $cart->book_writer;?> | <?= $cart->book_company;?></span></p>
-              <p class="book_price"><span class="number"><?= $cart->book_price;?></span>원</p>
+              <p class="book_price"><span class="number" data-price="<?= $cart->book_price;?>"><?= $cart->book_price;?></span>원</p>
             </li>
             <?php 
         $total += $cart->book_price; 
@@ -109,7 +131,9 @@
               <div>
                 <h6 class="my-0">총 결제 금액</h6>
               </div>
-              <span class="text-muted">114,000원</span>
+              <p class="total_price">
+                <span class="number">0</span>원
+              </p>
             </li>
             <li class="list-group-item d-flex justify-content-between lh-sm">
               <div>
@@ -119,7 +143,7 @@
             </li>
             <li class="list-group-item d-flex justify-content-between price_sum">
               <span>주문 금액</span>
-              <strong>114,000원</strong>
+              <strong id="grandTotal">0</strong>
             </li>
           </ul>
           <button class="w-100 btn btn-primary btn-lg btn_ok_red">주문하기</button>
@@ -129,7 +153,136 @@
   </div>
 </div>
 
+<!--
+<script>
+  function cart_calc(){
+      console.log('실행');
+      let sub_total = 0;
+      $('.cart_list li').each(function(){
+          console.log($(this));
 
+          let cart_item_price = Number($(this).find('.item_price p .number').attr('data-price'));
+          let cart_book_price = Number($(this).find('.book_price .number').attr('data-price'));
+
+          let cart_total = cart_item_price + cart_book_price;
+          //$(this).find('.cart_subtotal').val(cart_total);
+
+          let cart_total_target = $(this).find('.#grandTotal');
+          cart_total_target.text(cart_total);
+
+      });
+
+      $('.number').number( true );
+  }
+  cart_calc();
+ 
+
+  $('.cart-table .cart_item_del').click(function(){
+      let cartId = $(this).attr('id');
+
+      if(confirm('정말 삭제할까요?')){
+          let data = {
+              cartid : cartId
+          }
+          $.ajax({
+              url:'cart_delete.php',
+              async:false, //결과가 나오면 일해, 동기 방식
+              data:data,
+              method:'post',
+              dataType:'json', //javascript 객체 형식으로 받자
+              error:function(e){
+                  console.log(e);
+              },
+              success:function(data){
+                  if(data.result == 'ok'){
+                      alert('장바구니에서 삭제했습니다.');
+                      location.reload();
+                  }else{
+                      alert('삭제 실패!');
+                  }
+              }
+
+          })
+      } else {
+          alert('삭제를 취소했습니다.');
+      }
+
+  });
+</script>
+  -->
+
+<script>
+  function cart_calc() {
+    let grandTotal = 0; // 전체 합계를 저장할 변수
+
+    // 각 강좌와 교재의 가격 합산
+    $('.cart_list > li').each(function () {
+        // 강좌 가격
+        let lecturePrice = $(this).find('.item_price .number').data('price') || 0;
+
+        // 교재 가격
+        let bookPrice = $(this).find('.book_price .number').data('price') || 0;
+
+        // 합산
+        let itemTotal = parseInt(lecturePrice) + parseInt(bookPrice);
+
+        // 전체 합계에 추가
+        grandTotal += itemTotal;
+    });
+
+    // grandTotal에 값을 표시
+    $('#grandTotal').text(grandTotal.toLocaleString() + ' 원'); // 원 단위로 포맷
+}
+
+// 페이지 로드 후 계산 실행
+cart_calc();
+
+// 장바구니 삭제
+$('.btn_item_del').click(function () {
+    if (confirm('정말 장바구니에서 삭제할까요?')) {
+        const cartId = $(this).closest('li').data('cart-id'); // cart ID 가져오기
+
+        // Ajax 요청
+        $.ajax({
+            url: '/code_even/front/cart_delete.php', // 삭제 처리할 PHP 파일 경로
+            type: 'POST',
+            data: { cartid: cartId },
+            dataType: 'json',
+            success: function (response) {
+                if (response.result === 'ok') {
+                    alert('장바구니에서 삭제되었습니다.');
+                    
+                    // UI에서 강좌와 해당 교재 삭제
+                    $(`li[data-cart-id="${cartId}"]`).remove();
+
+                    // 합계 재계산
+                    cart_calc();
+                } else {
+                    alert('삭제 실패: ' + response.error);
+                }
+            },
+            error: function (xhr, status, error) {
+                console.error(error);
+                alert('삭제 요청 중 오류가 발생했습니다.');
+            }
+        });
+    }
+});
+
+$('.btn_ok_red').click(function () {
+    if ('<?= $uid ?>' === '') {
+        alert('강좌를 주문하시려면 먼저 로그인을 해주세요.');
+        window.location.reload(); // 현재 페이지로 리로드
+    } else {
+        const cartData = <?= json_encode($cartArr); ?>; // PHP 배열을 JSON으로 변환
+        const totalAmount = $('#grandTotal').text().replace(' 원', '').replace(/,/g, ''); // 총 결제 금액
+        window.location.href = `/code_even/front/checkout.php?data=${encodeURIComponent(JSON.stringify(cartData))}&total=${totalAmount}`;
+    }
+});
+
+
+
+</script>
 <?php
   include_once($_SERVER['DOCUMENT_ROOT'] . '/code_even/front/inc/footer.php');
 ?>

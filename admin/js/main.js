@@ -60,7 +60,7 @@ document.addEventListener("DOMContentLoaded", function () {
         labels: labels,
         datasets: [{
           label: '신규 가입자 수',
-          data: [2000, 2800, 3200, 3800, 4000, 2765],
+          data: [2000, 2800, 3200, 3800, 4000, 3265],
           borderColor: '#D25353',
           backgroundColor: '#c93333',
           borderWidth: 1,

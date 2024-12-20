@@ -44,8 +44,6 @@ if ($imageUrl) {
 }
 
 if ($faq_result === true && $image_result === true) {
-  // ** $_SESSION['imageUrl']만 삭제 (삭제하지 않으면 계속 남아있어 글만 등록할 때에 자동으로 등록됨) **
-  unset($_SESSION['imageUrl']);
 
   $redirect_url = ($target === 'teacher') ? 'teacher_faq.php' : (($target === 'student') ? 'student_faq.php' : 'faq.php');
   echo
