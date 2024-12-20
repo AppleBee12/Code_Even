@@ -32,8 +32,8 @@ if ($mysqli->query($order_sql)) {
         $mysqli->query($class_data_sql);
     }
 
-    echo "<script>alert('결제가 완료되었습니다.');
-    history.back();
+    echo "<script>alert('결제가 완료되었습니다. 나의 수업 페이지로 이동합니다.');
+    location.href='/CODE_EVEN/front/mypage/mypage_lecture.php';
     </script>";
 } else {
     echo "<script>alert('결제 처리 중 오류가 발생했습니다. 관리자에게 문의하세요.'); history.back();</script>";

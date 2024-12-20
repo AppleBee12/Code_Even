@@ -32,7 +32,7 @@
   LEFT JOIN 
       order_details od ON o.odid = od.odid
   LEFT JOIN 
-      refunds r ON od.oddtid = r.oddtid
+      refunds r ON o.odid = r.odid
   $where_clause
   GROUP BY 
       DATE_FORMAT(o.order_date, '%Y-%m')
@@ -138,7 +138,7 @@
           echo "<td></td>"; // 빈 칸
           echo "<td>" . number_format($total_order_amount) . "원 / " . $total_order_count . "건</td>";
           echo "<td>" . number_format($total_discount) . "원 / " . $total_order_count . "건</td>";
-          echo "<td>" . number_format($total_refund_amount) . "원 / " . $total_order_count . "건</td>";
+          echo "<td>" . number_format($total_refund_amount) . "원 / " . $total_refund_amount . "건</td>";
           echo "<td>" . number_format($total_final_sales) . "원</td>";
           echo "</tr>";
         ?>
