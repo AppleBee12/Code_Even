@@ -2,6 +2,7 @@
 // ** 세션 시작 함수 **
 session_start();
 include_once($_SERVER['DOCUMENT_ROOT'] . '/CODE_EVEN/admin/inc/dbcon.php');
+include_once($_SERVER['DOCUMENT_ROOT'] . '/CODE_EVEN/admin/inc/page_summernote_edit.php');
 
 $fqid = $_POST['fqid'];
 $username = $_POST['username'];
@@ -33,34 +34,8 @@ $faq_sql = "
 ";
 $faq_result = $mysqli->query($faq_sql);
 
-if ($imageUrl) {
-  // 기존 이미지 가져오기
-  $existing_img_sql = "SELECT file_name FROM summer_images WHERE table_id = $fqid AND table_name = '$table_name'";
-  $existing_img_result  = $mysqli->query($existing_img_sql);
-
-  $existing_images = [];
-  while ($row = $existing_img_result->fetch_assoc()) {
-    $existing_images[] = $row['file_name'];
-  }
-
-  $image_result = true;
-
-  // 새로운 이미지만 추가하기
-  foreach ($imageUrl as $image) {
-    // 기존에 동일한 이미지가 없으면 삽입
-    if (!in_array($image, $existing_images)) {
-      $image_sql = "INSERT INTO summer_images (table_name, table_id, file_name) VALUES ('$table_name', $fqid, '$image')";
-      $image_result = $mysqli->query($image_sql);
-
-      if ($image_result) {
-        echo "<script>console.log(이미지 '$image'가 추가되었습니다.);</script>";
-      } else {
-        echo "<script>console.log(이미지 '$image' 추가 실패: );</script>" . $mysqli->error;
-      }
-    }
-  }
-
-}
+// 이미지 추가 함수 호출
+$image_result = addImagesIfNotExists($fqid, $table_name, $imageUrl, $mysqli);
 
 if ($faq_result && $image_result) {
 

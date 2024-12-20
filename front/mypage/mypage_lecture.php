@@ -2,6 +2,20 @@
 $title = '마이페이지-강좌보기';
 include_once($_SERVER['DOCUMENT_ROOT'] . '/CODE_EVEN/front/inc/mypage_header.php');
 $mypage_main_js = "<script src=\"http://" . $_SERVER['HTTP_HOST'] . "/code_even/front/js/mypage_cmain.js\"></script>";
+
+$sql = "SELECT class_data.*, user.*, lecture.*, stuscores.* 
+        FROM class_data 
+        JOIN user ON class_data.uid = user.uid 
+        JOIN lecture ON class_data.leid = lecture.leid 
+        LEFT JOIN stuscores ON user.uid = stuscores.stu_id 
+        WHERE class_data.uid = '" . (isset($_SESSION['UID']) ? $_SESSION['UID'] : '') . "'";
+
+$result = $mysqli->query($sql);
+$classArr = [];
+while ($class_data = $result->fetch_object()) {
+  $classArr[] = $class_data; // 각 행을 배열에 추가
+  // print_r($classArr);
+}
 ?>
 <!--탭 메뉴 시작-->
 <nav>
@@ -14,12 +28,15 @@ $mypage_main_js = "<script src=\"http://" . $_SERVER['HTTP_HOST'] . "/code_even/
     <div class="tab-content" id="nav-tabContent"><!--탭 메뉴 내용 시작-->
       <div class="tab-pane fade show active" id="nav-myLecTab1" role="tabpanel" aria-labelledby="nav-myLecTab1-tab"><!-- 탭메뉴1 -->
         <div class="my_lecture_wrapper"><!-- 탭메뉴1내용 -->
+          <?php
+            foreach($classArr as $class){
+          ?>
           <div class="my_lecture">
             <div class="my_lec_top d-flex">
-              <img src="https://picsum.photos/180/180" alt="">
+              <img src="<?= $class->image; ?>" alt="">
               <div class="d-flex flex-column justify-content-evenly">
-                <p class="headt5">상단 메뉴부터 사이드메뉴까지 메뉴의 모든 것, 최종 끝판왕</p>
-                <p><b>이븐 선생님</b> | <span>레시피강좌</span></p>
+                <p class="headt5"><?= $class->title; ?></p>
+                <p><b><?= $class->name; ?></b> | <span>레시피강좌</span></p>
               </div>
             </div>
             <div class="my_lec_desc">
@@ -28,17 +45,16 @@ $mypage_main_js = "<script src=\"http://" . $_SERVER['HTTP_HOST'] . "/code_even/
                   <ul class="d-flex flex-column gap-2">
                     <li class="d-flex gap-5">
                       <p class="my_lec_title">강좌기간</p>
-                      <p>30일(2024-11-30 ~ 2024-01-04)</p>
+                      <p><?= $class->date; ?></p>
                     </li>
                     <li class="d-flex gap-5 align-items-center">
                       <p class="my_lec_title">진도율</p>
-
-                      <div class="progress" role="progressbar" aria-label="Example with label" aria-valuenow="33" aria-valuemin="0" aria-valuemax="100">
-                        <div class="progress-bar progress-bar-striped bg-danger progress-bar-animated" style="width: 33%">33%</div>
+                      <div class="progress" role="progressbar" aria-label="Example with label" aria-valuenow="<?= $class->progress_rate; ?>" aria-valuemin="0" aria-valuemax="100">
+                        <div class="progress-bar progress-bar-striped bg-danger progress-bar-animated" style="width: <?= $class->progress_rate; ?>%"><?= $class->progress_rate; ?>%</div>
                       </div>
                     </li>
-                    <li class="d-flex gap-5">
-                      <p class="my_lec_title">평균 점수</p>
+                    <li class="d-flex gap-3">
+                      <p class="my_lec_title">시험평균점수</p>
                       <p>90점</p>
                     </li>
                   </ul>
@@ -60,7 +76,7 @@ $mypage_main_js = "<script src=\"http://" . $_SERVER['HTTP_HOST'] . "/code_even/
                         </div>
                       </div>
                     </div>
-                    <button class="btn btn-outline-dark btn-sm">수료증</button>
+                    <button type="button" class="btn btn-outline-dark btn-sm printButton">이수증</button>
                   </div>
                 </div>
                 <div class="my_lec_graph_wrapper d-flex">
@@ -114,6 +130,10 @@ $mypage_main_js = "<script src=\"http://" . $_SERVER['HTTP_HOST'] . "/code_even/
                 </div>
               </div>  
             </div>
+          </div>
+          <?php
+            }
+          ?>
         </div>
 
           <!-- <div class="bg-success">
@@ -256,6 +276,33 @@ $mypage_main_js = "<script src=\"http://" . $_SERVER['HTTP_HOST'] . "/code_even/
     //   const percentage = e.target.value;
     //   updateDonut(percentage);
     // });
+
+
+    /* 이수증 버튼 함수 */
+    function printPage() {
+    const fileUrl = "../../images/certificate_of_completion.pdf";
+
+    // PDF를 iframe으로 페이지에 삽입
+    const iframe = document.createElement("iframe");
+    iframe.style.position = "absolute";
+    iframe.style.width = "0px";
+    iframe.style.height = "0px";
+    iframe.style.border = "none";
+    iframe.src = fileUrl;
+
+    // iframe을 body에 추가
+    document.body.appendChild(iframe);
+
+    // PDF 파일이 로드된 후 인쇄
+    iframe.onload = function () {
+      iframe.contentWindow.print();  // iframe 내에서 print() 호출
+    };
+  }
+
+  const button = document.querySelector(".printButton");
+  if (button) {
+    button.addEventListener("click", printPage);
+  }
   </script>
 <?php include_once($_SERVER['DOCUMENT_ROOT'] . '/CODE_EVEN/front/inc/footer.php');
 ?>
