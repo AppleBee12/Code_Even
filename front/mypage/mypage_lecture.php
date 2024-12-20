@@ -53,8 +53,8 @@ while ($class_data = $result->fetch_object()) {
                         <div class="progress-bar progress-bar-striped bg-danger progress-bar-animated" style="width: <?= $class->progress_rate; ?>%"><?= $class->progress_rate; ?>%</div>
                       </div>
                     </li>
-                    <li class="d-flex gap-5">
-                      <p class="my_lec_title">평균 점수</p>
+                    <li class="d-flex gap-3">
+                      <p class="my_lec_title">시험평균점수</p>
                       <p>90점</p>
                     </li>
                   </ul>
