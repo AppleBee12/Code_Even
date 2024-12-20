@@ -56,17 +56,6 @@ while ($coupon = $coupon_result->fetch_assoc()) {
                                         <?php endif; ?>
                                     </div>
                                 </div>
-                                <div class="mt-3">
-                                    <label for="coupon-<?= $item['cartid']; ?>">쿠폰 선택:</label>
-                                    <select name="coupon[<?= $item['cartid']; ?>]" class="form-select coupon-select" data-cartid="<?= $item['cartid']; ?>">
-                                        <option value="0" data-discount="0">쿠폰 사용 안함</option>
-                                        <?php foreach ($coupons as $coupon): ?>
-                                            <option value="<?= $coupon['ucid']; ?>" data-discount="<?= $coupon['coupon_price']; ?>">
-                                                <?= htmlspecialchars($coupon['coupon_name']); ?> - <?= number_format($coupon['coupon_price']); ?> 원 할인
-                                            </option>
-                                        <?php endforeach; ?>
-                                    </select>
-                                </div>
                             </div>
                         <?php endforeach; ?>
                     </div>
@@ -80,6 +69,7 @@ while ($coupon = $coupon_result->fetch_assoc()) {
                             <p>총 결제 금액: <strong id="totalAmount"><?= number_format($totalAmount); ?></strong> 원</p>
                             <p>할인 적용 금액: <strong id="finalAmount"><?= number_format($totalAmount); ?></strong> 원</p>
                             <input type="hidden" name="finalAmount" id="finalAmountInput" value="<?= $totalAmount; ?>">
+                            <input type="hidden" name="cart" value='<?= json_encode($cartData); ?>'>
                             <hr>
                             <button type="submit" class="btn btn-primary w-100 btn_ok_red">최종 결제하기</button>
                         </div>
@@ -101,7 +91,6 @@ while ($coupon = $coupon_result->fetch_assoc()) {
         </div>
     </form>
 </div>
-
 <script>
 $(document).ready(function () {
     // 쿠폰 선택 시 할인 금액 계산
