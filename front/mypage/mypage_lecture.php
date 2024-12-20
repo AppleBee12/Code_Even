@@ -17,30 +17,46 @@ $mypage_main_js = "<script src=\"http://" . $_SERVER['HTTP_HOST'] . "/code_even/
           <div class="my_lecture">
             <div class="my_lec_top d-flex">
               <img src="https://picsum.photos/180/180" alt="">
-              <div>
-                <p>상단 메뉴부터 사이드메뉴까지 메뉴의 모든 것, 최종 끝판왕</p>
+              <div class="d-flex flex-column justify-content-evenly">
+                <p class="headt5">상단 메뉴부터 사이드메뉴까지 메뉴의 모든 것, 최종 끝판왕</p>
                 <p><b>이븐 선생님</b> | <span>레시피강좌</span></p>
               </div>
             </div>
-            <hr>
             <div>
               <div class="my_lec_desc">
                 <ul>
-                  <li class="">
+                  <li class="d-flex gap-5">
                     <p>강좌기간</p>
                     <p>30일(2024-11-30 ~ 2024-01-04)</p>
                   </li>
-                  <li class="">
+                  <li class="d-flex gap-5">
                     <p>진도율</p>
                     <p>33%</p>
                   </li>
-                  <li class="">
+                  <li class="d-flex gap-5">
                     <p>평균 점수</p>
                     <p>90점</p>
                   </li>
                 </ul>
                 <div class="my_lec_btn d-flex">
-                  <div><a href="">수료기준</a></div>
+                  <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#howToGetCertificate">
+                    수료기준
+                  </button>
+                  <!-- Modal -->
+                  <div class="modal fade" id="howToGetCertificate" tabindex="-1" aria-labelledby="howToGetCertificateLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h1 class="modal-title fs-5" id="howToGetCertificateLabel">수료기준</h1>
+                          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                        <p>강좌 진도율: 총 <span>80%</span> 이상</p>
+                        <p>평균 점수: 총 <span>80점</span> 이상</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
                   <button>수료증</button>
                 </div>
               </div>
@@ -67,13 +83,13 @@ $mypage_main_js = "<script src=\"http://" . $_SERVER['HTTP_HOST'] . "/code_even/
             </div>
           </div>
 
-          <div class="bg-success">
+          <!-- <div class="bg-success">
             <a href="http://<?= $_SERVER['HTTP_HOST'] ?>/code_even/front/mypage/mypage_copy.php">Copy</a>
             <p>안녕하세요 팀원님!</p>
             <p>혹시 마이 페이지 복사하러 오셨나요?</p>
             <p>위쪽 Copy를 누르시면 mypage_copy로 이동합니다</p>
             <p>해당 페이지의 내용을 확인하시고 진행하세용!</p>
-          </div>
+          </div> -->
         </div><!-- 탭메뉴1내용 끝-->
       </div><!-- 탭메뉴1 끝 -->
       <div class="tab-pane fade" id="nav-myLecTab2" role="tabpanel" aria-labelledby="nav-myLecTab2-tab"><!-- 탭메뉴2 -->
