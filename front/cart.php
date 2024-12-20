@@ -115,11 +115,11 @@
               <p class="book_price"><span class="number" data-price="<?= $cart->book_price;?>"><?= $cart->book_price;?></span>원</p>
             </li>
             <?php 
-        $total += $cart->book_price; 
-      } 
-    }
-}
-?> 
+                    $total += $cart->book_price; 
+                  } 
+                }
+            }
+            ?> 
           </ul>
           <button type="button" class="btn btn-outline-secondary mt-3">선택삭제</button>
         </div>
@@ -236,6 +236,44 @@
 
 // 페이지 로드 후 계산 실행
 cart_calc();
+
+
+
+
+    // 페이지 로드 시 모든 체크박스를 기본적으로 선택
+    function initializeCheckBoxes() {
+        // 모든 체크박스 체크 상태로 변경
+        $('#selectAll').prop('checked', true); // 전체 선택 체크박스
+        $('.cart_list .item-check').prop('checked', true); // 목록의 체크박스들
+        updateCheckCount(); // 선택된 숫자 초기화
+    }
+
+    // 전체 선택 / 해제 기능
+    $('#selectAll').on('change', function () {
+        const isChecked = $(this).is(':checked'); // 전체 선택 여부
+        $('.cart_list .item-check').prop('checked', isChecked); // 목록의 체크박스 상태 변경
+        updateCheckCount(); // 선택된 숫자 갱신
+    });
+
+    // 개별 체크박스 변경 시 전체 선택 상태 업데이트
+    $('.cart_list').on('change', '.item-check', function () {
+        const allChecked = $('.cart_list .item-check').length === $('.cart_list .item-check:checked').length;
+        $('#selectAll').prop('checked', allChecked); // 전체 선택 체크박스 상태 동기화
+        updateCheckCount(); // 선택된 숫자 갱신
+    });
+
+    // 선택된 숫자 및 전체 숫자 갱신
+    function updateCheckCount() {
+        const selectedCount = $('.cart_list .item-check:checked').length; // 선택된 체크박스 수
+        const totalCount = $('.cart_list .item-check').length; // 전체 체크박스 수
+        $('.check_cnt').text(selectedCount); // 선택된 숫자 갱신
+        $('.total_cnt').text(totalCount); // 총 숫자 갱신
+    }
+
+    // 초기화
+    initializeCheckBoxes(); // 모든 체크박스 기본적으로 체크 상태
+
+
 
 // 장바구니 삭제
 $('.btn_item_del').click(function () {
