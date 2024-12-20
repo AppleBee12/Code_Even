@@ -3,6 +3,12 @@ session_start();
 include_once($_SERVER['DOCUMENT_ROOT'] . '/code_even/front/inc/check_cookie.php');
 include_once($_SERVER['DOCUMENT_ROOT'] . '/code_even/admin/inc/dbcon.php');
 
+// 로그인하지 않은 상태에서 현재 URL 저장
+if (!isset($_SESSION['AUID'])) {
+  $_SESSION['return_url'] = $_SERVER['REQUEST_URI']; // 현재 페이지 URL 저장
+}
+
+
 $session_id = session_id();
 
 
