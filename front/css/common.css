@@ -768,3 +768,32 @@ header {
     box-shadow: none;
   }
 }
+
+
+/* 상단 이동 top 버튼 */
+.top-button {
+  position: fixed;
+  bottom: 50px;
+  right: 50px;
+  width: 58px;
+  height: 58px;
+  background-color: #333;
+  color: #fff;
+  border-radius: 25px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid var(--bk100);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+  cursor: pointer;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.top-button:hover {
+  background-color: #555;
+}
+
+.top-button i {
+  font-size: 18px;
+}
