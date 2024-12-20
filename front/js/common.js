@@ -70,6 +70,23 @@ $(document).ready(function () {
     e.stopPropagation();
   });
 
+  
+  //top 버튼
+  const $topButton = $('#topButton'); 
+
+  // 스크롤 이벤트
+  $(window).on('scroll', function () {
+    if ($(window).scrollTop() > 300) {
+      $topButton.removeClass('d-none'); 
+    } else {
+      $topButton.addClass('d-none'); 
+    }
+  });
+
+  // 버튼 클릭 이벤트
+  $topButton.on('click', function () {
+    $('html, body').animate({ scrollTop: 0 }, 'smooth'); 
+  });
 
 
 });

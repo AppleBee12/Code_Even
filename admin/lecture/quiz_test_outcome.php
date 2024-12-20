@@ -3,10 +3,10 @@
 include_once($_SERVER['DOCUMENT_ROOT'] . '/code_even/admin/inc/header.php');
 
 // 검색 키워드 처리
-$keywords = isset($_GET['keywords']) ? $_GET['keywords'] : '';
+$keywords = isset($_GET['keywords']) ? $mysqli->real_escape_string($_GET['keywords']) : '';
 
 $where_clause = '';
-if ($keywords) {
+if (!empty($keywords)) {
   $where_clause = "WHERE lecture.title LIKE '%$keywords%' OR lecture.name LIKE '%$keywords%'";
 }
 
@@ -17,7 +17,7 @@ $page_data = $page_result->fetch_object();
 $row_num = $page_data->cnt;
 
 // 페이지네이션
-$page = isset($_GET['page']) ? $_GET['page'] : 1;
+$page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
 $list = 10;
 $start_num = ($page - 1) * $list;
 $block_ct = 5;

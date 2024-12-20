@@ -115,11 +115,11 @@
               <p class="book_price"><span class="number" data-price="<?= $cart->book_price;?>"><?= $cart->book_price;?></span>원</p>
             </li>
             <?php 
-        $total += $cart->book_price; 
-      } 
-    }
-}
-?> 
+                    $total += $cart->book_price; 
+                  } 
+                }
+            }
+            ?> 
           </ul>
           <button type="button" class="btn btn-outline-secondary mt-3">선택삭제</button>
         </div>
@@ -237,6 +237,44 @@
 // 페이지 로드 후 계산 실행
 cart_calc();
 
+
+
+
+    // 페이지 로드 시 모든 체크박스를 기본적으로 선택
+    function initializeCheckBoxes() {
+        // 모든 체크박스 체크 상태로 변경
+        $('#selectAll').prop('checked', true); // 전체 선택 체크박스
+        $('.cart_list .item-check').prop('checked', true); // 목록의 체크박스들
+        updateCheckCount(); // 선택된 숫자 초기화
+    }
+
+    // 전체 선택 / 해제 기능
+    $('#selectAll').on('change', function () {
+        const isChecked = $(this).is(':checked'); // 전체 선택 여부
+        $('.cart_list .item-check').prop('checked', isChecked); // 목록의 체크박스 상태 변경
+        updateCheckCount(); // 선택된 숫자 갱신
+    });
+
+    // 개별 체크박스 변경 시 전체 선택 상태 업데이트
+    $('.cart_list').on('change', '.item-check', function () {
+        const allChecked = $('.cart_list .item-check').length === $('.cart_list .item-check:checked').length;
+        $('#selectAll').prop('checked', allChecked); // 전체 선택 체크박스 상태 동기화
+        updateCheckCount(); // 선택된 숫자 갱신
+    });
+
+    // 선택된 숫자 및 전체 숫자 갱신
+    function updateCheckCount() {
+        const selectedCount = $('.cart_list .item-check:checked').length; // 선택된 체크박스 수
+        const totalCount = $('.cart_list .item-check').length; // 전체 체크박스 수
+        $('.check_cnt').text(selectedCount); // 선택된 숫자 갱신
+        $('.total_cnt').text(totalCount); // 총 숫자 갱신
+    }
+
+    // 초기화
+    initializeCheckBoxes(); // 모든 체크박스 기본적으로 체크 상태
+
+
+
 // 장바구니 삭제
 $('.btn_item_del').click(function () {
     if (confirm('정말 장바구니에서 삭제할까요?')) {
@@ -269,16 +307,42 @@ $('.btn_item_del').click(function () {
     }
 });
 
-$('.btn_ok_red').click(function () {
+
+  $('.btn_ok_red').click(function () {
     if ('<?= $uid ?>' === '') {
         alert('강좌를 주문하시려면 먼저 로그인을 해주세요.');
         window.location.reload(); // 현재 페이지로 리로드
     } else {
         const cartData = <?= json_encode($cartArr); ?>; // PHP 배열을 JSON으로 변환
         const totalAmount = $('#grandTotal').text().replace(' 원', '').replace(/,/g, ''); // 총 결제 금액
-        window.location.href = `/code_even/front/checkout.php?data=${encodeURIComponent(JSON.stringify(cartData))}&total=${totalAmount}`;
+
+        // 폼 생성
+        const form = $('<form>', {
+            action: '/code_even/front/checkout.php', // 데이터 전송 대상
+            method: 'POST'
+        });
+
+        // 데이터 추가 (cartData)
+        form.append($('<input>', {
+            type: 'hidden',
+            name: 'data',
+            value: JSON.stringify(cartData) // JSON 데이터를 문자열로 변환 후 전달
+        }));
+
+        // 데이터 추가 (totalAmount)
+        form.append($('<input>', {
+            type: 'hidden',
+            name: 'total',
+            value: totalAmount
+        }));
+
+        // 폼을 문서에 추가한 뒤 제출
+        $('body').append(form);
+        form.submit();
     }
-});
+  });
+
+
 
 
 

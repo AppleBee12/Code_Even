@@ -1,10 +1,107 @@
-.my_lecture_wrapper .my_lecture{
+/* 진행강좌 시작 */
+.my_lecture_wrapper .my_lecture .my_lec_top{
   border: 1px solid var(--bk300);
-  border-radius: 8px;
-  padding: 60px;
+  border-radius: 8px 8px 0 0;
+  padding: 60px 60px 30px 60px;
+}
+
+.my_lecture_wrapper .my_lec_desc{
+  border-left: 1px solid var(--bk300);
+  border-right: 1px solid var(--bk300);
+  border-bottom: 1px solid var(--bk300);
+  border-radius: 0 0 8px 8px;
+
+  padding: 30px 60px 60px 60px;
+}
+
+.my_lecture_wrapper .my_lec_desc .progress{
+  width: 400px;
+  margin-left:13px;
+}
+
+.my_lecture_wrapper .my_lec_txt .my_lec_title{
+  color:var(--bk500);
 }
 
 .my_lecture .my_lec_top img{
+  width: 180px;
+  height: 180px;
+}
+
+
+
+.my_lec_top>div{
+  height: 180px;
+  padding-left: 30px;
+}
+.my_lec_top .headt5{
+  line-height: 40px;
+}
+
+.my_lec_top p:last-child{
+  color:var(--bk600);
+}
+
+.my_lec_btn #howToGetCertificate .modal-body span{
+ color:var(--primary);
+}
+
+
+.donut-chart {
+  position: relative;
+  width: 110px;
+  height: 110px;
+  border-radius: 50%;
+  background: conic-gradient(
+    var(--primary) 0% var(--percentage),
+    var(--bk100) var(--percentage) 100%
+  );
+  mask: radial-gradient(circle, transparent 60%, var(--primary) 61%);
+  -webkit-mask: radial-gradient(circle, transparent 55%, var(--bk100) 56%);
+  margin-bottom: 20px;
+}
+.percentage-label {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 1.2em;
+  font-weight: bold;
+  color: var(--bk300);
+}
+.controls {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.controls input {
+  width: 200px;
+  margin: 10px 0;
+}
+
+.my_lec_graph + .my_lec_graph{
+  margin-left: 30px;
+}
+
+.lecture_one .lecture_title{
+  width: 350px;
+}
+
+.lecture_one .weight{
+  font-weight: 700;
+}
+
+/* 진행강좌 끝 */
+/* 종료된 강좌 시작*/
+
+
+.my_lecture_wrapper .my_end_lecture .my_lec_top{
+  border: 1px solid var(--bk300);
+  border-radius: 8px 8px 0 0;
+  padding: 60px 60px 30px 60px;
+}
+
+.my_end_lecture .my_lec_top img{
   width: 180px;
   height: 180px;
 }

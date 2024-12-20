@@ -5,13 +5,11 @@ include_once($_SERVER['DOCUMENT_ROOT'] . '/code_even/front/inc/header.php');
 /* lecture, book Start */
 $leid = isset($_GET['leid']) ? (int) $_GET['leid'] : 0;
 
-
-
 // 강좌 book 이미지 정보 조회
 $lecture_sql = "
     SELECT l.*,
            b.boid AS boid, 
-           b.image AS book_image, 
+           b.image AS book_image,
            b.des AS book_description,
            b.book AS book_title,
            b.price AS book_price
@@ -27,7 +25,6 @@ if ($lecture_result && $lecture_result->num_rows > 0) {
 } else {
   die("강좌 정보를 가져올 수 없습니다.");
 }
-
 
 // 강의 상세 정보 조회
 $lecture_detail_sql = "
@@ -175,28 +172,28 @@ while ($review = $review_result->fetch_object()) {
           </li>
         </ul>
         <hr>
-        <?php 
-        if (!empty($lecture->book_title) && !empty($lecture->book_price)): 
-        ?>
-            <p class="mt-4 fw-semibold mb-2">[교재] <?php echo htmlspecialchars($lecture->book_title); ?></p>
-            <div class="d-flex justify-content-between">
-                <p class="fs-5 fw-bold mb-3"><?php echo number_format($lecture->book_price); ?> 원</p>
-                <div class="form-check">
-                    <input class="form-check-input" 
-                    type="checkbox" 
-                    name="book_name"
-                    id="book_<?= $lecture->boid; ?>" 
-                    value="<?= $lecture->boid;?>" 
-                    data-price="<?= $lecture->book_price ;?>" 
-                    >
-                    <label class="form-check-label" for="book_<?= $lecture->boid; ?>">
-                        <p>교재 함께 구매</p>
-                    </label>
-                </div>
-            </div>
-            <hr>
-        <?php 
-        endif; 
+        <?php
+        if (!empty($lecture->book_title) && !empty($lecture->book_price)):
+          ?>
+              <p class="mt-4 fw-semibold mb-2">[교재] <?php echo htmlspecialchars($lecture->book_title); ?></p>
+              <div class="d-flex justify-content-between">
+                  <p class="fs-5 fw-bold mb-3"><?php echo number_format($lecture->book_price); ?> 원</p>
+                  <div class="form-check">
+                      <input class="form-check-input" 
+                      type="checkbox" 
+                      name="book_name"
+                      id="book_<?= $lecture->boid; ?>" 
+                      value="<?= $lecture->boid; ?>" 
+                      data-price="<?= $lecture->book_price; ?>" 
+                      >
+                      <label class="form-check-label" for="book_<?= $lecture->boid; ?>">
+                          <p>교재 함께 구매</p>
+                      </label>
+                  </div>
+              </div>
+              <hr>
+        <?php
+        endif;
         ?>
         <div class="row gx-2 align-items-center mt-3">
           <!-- 장바구니 버튼 -->
@@ -236,9 +233,9 @@ while ($review = $review_result->fetch_object()) {
         <a href="#section-intro" class="tab-link active">강좌 소개</a>
     </div>
     <?php if (!empty($lecture->book_title) && !empty($lecture->book_image)): ?>
-    <div class="col">
-        <a href="#section-book" class="tab-link">교재 소개</a>
-    </div>
+      <div class="col">
+          <a href="#section-book" class="tab-link">교재 소개</a>
+      </div>
     <?php endif; ?>
     <div class="col">
         <a href="#section-teacher" class="tab-link">강사 소개</a>
@@ -267,7 +264,7 @@ while ($review = $review_result->fetch_object()) {
       <section id="section-book">
         <h2 class="mb-5">교재 소개</h2>
         <div class="col-9 view_bookImg mb-3">
-          <!-- <img src="<?php echo htmlspecialchars($lecture->book_image); ?>" alt="교재 이미지"> -->
+          <img src="<?php echo htmlspecialchars($lecture->book_image); ?>" alt="교재 이미지">
         </div>
         <p><?php echo htmlspecialchars($lecture->book_description); ?></p>
       </section>
@@ -294,19 +291,19 @@ while ($review = $review_result->fetch_object()) {
             $videoId = getYouTubeVideoId($lecture_detail->video_url);
             $duration = $videoId ? secondsToHMS(getYouTubeVideoDuration($videoId, $apiKey)) : "00:00:00";
             ?>
-            <div class="lecture-item">
-              <div>
-                <i class="bi bi-play-circle"></i>
-                <span><?= htmlspecialchars($lecture_detail->video_order); ?>강.
-                  <?= htmlspecialchars($lecture_detail->title ?? "강의 제목 없음"); ?>
-                </span>
-              </div>
-              <div>
-                <i class="bi bi-alarm"></i>
-                <span class="time"><?= $duration; ?></span>
-              </div>
-            </div>
-            <?php
+                <div class="lecture-item">
+                  <div>
+                    <i class="bi bi-play-circle"></i>
+                    <span><?= htmlspecialchars($lecture_detail->video_order); ?>강.
+                      <?= htmlspecialchars($lecture_detail->title ?? "강의 제목 없음"); ?>
+                    </span>
+                  </div>
+                  <div>
+                    <i class="bi bi-alarm"></i>
+                    <span class="time"><?= $duration; ?></span>
+                  </div>
+                </div>
+                <?php
           endwhile;
         else:
           echo "<p>등록된 강의가 없습니다.</p>";

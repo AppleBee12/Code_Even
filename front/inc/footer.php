@@ -76,6 +76,10 @@
   </div>
 </footer>
 
+<div id="topButton" class="top-button d-none">
+  <i class="bi bi-chevron-up"></i>
+</div>
+
 <!-- 공통 js -->
 
 <!-- <script src="https://cdn.jsdelivr.net/npm/@floating-ui/dom@1.6.12"></script> -->
