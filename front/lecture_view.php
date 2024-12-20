@@ -124,6 +124,24 @@ $totalTimeFormatted = secondsToHMS($totalSeconds);
 
 /* lecture, book End */
 
+
+/* Review Start */
+
+$review_sql = "SELECT review.*, class_data.*, lecture.leid 
+              FROM review 
+              JOIN class_data ON review.cdid = class_data.cdid
+              JOIN lecture ON class_data.leid = lecture.leid 
+              WHERE class_data.leid = $leid";
+$review_result = $mysqli->query($review_sql);
+
+$reviewArr = [];
+while ($review = $review_result->fetch_object()) {
+  $reviewArr[] = $review;
+
+}
+
+/* Review End */
+
 ?>
 
 <div class="container">
@@ -300,7 +318,42 @@ $totalTimeFormatted = secondsToHMS($totalSeconds);
     <!-- 유나 -->
     <section id="section-review">
       <h2 class="mb-5">수강평</h2>
-      <p>수강평이 여기에 표시됩니다.</p>
+      <div class="review_content container">
+        <div class="average_score">
+          <h3 class="headt1">5.0</h3>
+          <div class="star_score">
+            <i class="bi bi-star-fill"></i>
+            <i class="bi bi-star-fill"></i>
+            <i class="bi bi-star-fill"></i>
+            <i class="bi bi-star-fill"></i>
+            <i class="bi bi-star-fill"></i>
+          </div>
+          <p>100개의 수강평</p>
+        </div>
+        <div class="review_box">
+          <div class="review_item">
+            <div class="writer">
+              <p>홍길동</p>
+              <span class="date">2024년 11월 30일</span>
+              <div class="star_score">
+                <i class="bi bi-star-fill"></i>
+                <i class="bi bi-star-fill"></i>
+                <i class="bi bi-star-fill"></i>
+                <i class="bi bi-star-fill"></i>
+                <i class="bi bi-star-fill"></i>
+              </div>
+            </div>
+            <div class="title">
+              <p class="class_title">강의명</p>
+              <p>제목</p>
+            </div>
+            <div class="content">
+              <p>내용</p>
+            </div>
+          </div>
+          <button>더보기</button>
+        </div>
+      </div>
     </section>
     <!-- // 유나 -->
   </div>
