@@ -1,4 +1,8 @@
 /* 진행강좌 시작 */
+.my_lecture_wrapper {
+  display: flex; flex-direction: column; gap: 30px;
+}
+
 .my_lecture_wrapper .my_lecture .my_lec_top{
   border: 1px solid var(--bk300);
   border-radius: 8px 8px 0 0;
@@ -26,6 +30,7 @@
 .my_lecture .my_lec_top img{
   width: 180px;
   height: 180px;
+  object-fit: cover;
 }
 
 
