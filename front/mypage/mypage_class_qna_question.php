@@ -7,7 +7,7 @@ include_once($_SERVER['DOCUMENT_ROOT'] . '/CODE_EVEN/front/inc/mypage_header.php
   <div class="tab-pane fade show active" id="nav-myLecTab1" role="tabpanel" aria-labelledby="nav-myLecTab1-tab"><!-- 탭메뉴1 -->
     <!--제목 시작-->
     <div class="mypage_title_wrapper">
-      <p class="mypage_title headt5">강의 문의 작성</p>
+      <p class="mypage_title headt5">수강 문의 작성</p>
     </div> 
     <!--제목 끝-->
 

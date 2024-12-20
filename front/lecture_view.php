@@ -2,6 +2,7 @@
 
 include_once($_SERVER['DOCUMENT_ROOT'] . '/code_even/front/inc/header.php');
 
+
 /* lecture, book Start */
 $leid = isset($_GET['leid']) ? (int) $_GET['leid'] : 0;
 
@@ -120,6 +121,24 @@ if ($lecture_detail_result && $lecture_detail_result->num_rows > 0) {
 $totalTimeFormatted = secondsToHMS($totalSeconds);
 
 /* lecture, book End */
+
+
+/* Review Start */
+
+$review_sql = "SELECT review.*, class_data.*, lecture.leid 
+              FROM review 
+              JOIN class_data ON review.cdid = class_data.cdid
+              JOIN lecture ON class_data.leid = lecture.leid 
+              WHERE class_data.leid = $leid";
+$review_result = $mysqli->query($review_sql);
+
+$reviewArr = [];
+while ($review = $review_result->fetch_object()) {
+  $reviewArr[] = $review;
+
+}
+
+/* Review End */
 
 ?>
 
@@ -297,35 +316,75 @@ $totalTimeFormatted = secondsToHMS($totalSeconds);
     <!-- 유나 -->
     <section id="section-review">
       <h2 class="mb-5">수강평</h2>
-      <p>수강평이 여기에 표시됩니다.</p>
+      <div class="review_content container">
+        <div class="average_score">
+          <h3 class="headt1">5.0</h3>
+          <div class="star_score">
+            <i class="bi bi-star-fill"></i>
+            <i class="bi bi-star-fill"></i>
+            <i class="bi bi-star-fill"></i>
+            <i class="bi bi-star-fill"></i>
+            <i class="bi bi-star-fill"></i>
+          </div>
+          <p>100개의 수강평</p>
+        </div>
+        <div class="review_box">
+          <div class="review_item">
+            <div class="writer">
+              <p>홍길동</p>
+              <span class="date">2024년 11월 30일</span>
+              <div class="star_score">
+                <i class="bi bi-star-fill"></i>
+                <i class="bi bi-star-fill"></i>
+                <i class="bi bi-star-fill"></i>
+                <i class="bi bi-star-fill"></i>
+                <i class="bi bi-star-fill"></i>
+              </div>
+            </div>
+            <div class="title">
+              <p class="class_title">강의명</p>
+              <p>제목</p>
+            </div>
+            <div class="content">
+              <p>내용</p>
+            </div>
+          </div>
+          <button>더보기</button>
+        </div>
+      </div>
     </section>
     <!-- // 유나 -->
   </div>
 </div>
 <script>
+
   // 찜하기 버튼 클릭 이벤트
   $('.btn-like').on('click', function () {
-        const lectureId = <?= $leid; ?>; // 현재 강좌 ID
-        let data = { lecture_id: lectureId }
+      const lectureId = <?= $leid; ?>; // 현재 강좌 ID
+      let data = { lecture_id: lectureId };
 
+      console.log(data);
+      $.ajax({
+          type: 'POST',
+          url: 'wishlist_handler.php',
+          data: data,
+          dataType: 'json',
+          success: function (response) {
+              if (response.status === 'success') {
+                  alert(response.message);
+              } else if (response.status === 'not_logged_in') {
+                  // 로그인 모달 창 열기
+                  $('#exampleModaltest').modal('show');
+              } else {
+                  alert(response.message);
+              }
+          },
+          error: function () {
+              alert('찜하기 요청 중 오류가 발생했습니다.');
+          }
+      });
+  });
 
-        $.ajax({
-            type: 'POST',
-            url: 'wishlist_handler.php',
-            data: data,
-            dataType: 'json',
-            success: function (response) {
-                if (response.status === 'success') {
-                    alert(response.message);
-                } else {
-                    alert(response.message);
-                }
-            },
-            error: function () {
-                alert('찜하기 요청 중 오류가 발생했습니다.');
-            }
-        });
-    });
 
   // 장바구니 추가 이벤트
   $('#cartform').submit(function(e) {
