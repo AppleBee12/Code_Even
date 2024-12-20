@@ -132,6 +132,10 @@ if (isset($_GET['code'])) {
   $cartArr[] = $cart_data;
   }
 
+  // 장바구니 개수 계산
+  $cart_count = sizeof($cartArr);
+
+
 ?>
 
 
@@ -414,7 +418,7 @@ if (isset($_GET['code'])) {
             <a href="" id="cartIcon"><i class="bi bi-cart"></i></a>
             <div id="miniCartContent" class="cart_dropdown">
               <div class="mncart_header">
-                <h4>장바구니<span id="cartCount">3</span></h4>
+                <h4>장바구니<span id="cartCount"><?= $cart_count; ?></span></h4>
               </div>
               <div class="mncart_list">
                 <ul>
@@ -423,7 +427,7 @@ if (isset($_GET['code'])) {
               if(isset($cartArr)){
                   foreach($cartArr as $cart){
                       $total += $cart->lecture_price;                               
-            ?>
+              ?>
                   <li>
                     <div class="item_tit d-flex">
                       <img src="http://<?= $_SERVER['HTTP_HOST'] ?><?= $cart->image;?>" alt="상품 이미지">
