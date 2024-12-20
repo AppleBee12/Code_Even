@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- 생성 시간: 24-12-19 22:54
+-- 생성 시간: 24-12-20 02:47
 -- 서버 버전: 10.4.32-MariaDB
 -- PHP 버전: 8.2.12
 
@@ -215,12 +215,11 @@ CREATE TABLE `book_sales` (
 CREATE TABLE `cart` (
   `cartid` int(11) NOT NULL COMMENT '장바구니고유번호',
   `uid` int(11) DEFAULT NULL COMMENT '회원고유번호',
-  `ssid` varchar(100) DEFAULT NULL COMMENT '세션번호',
-  `product_id` int(11) DEFAULT NULL COMMENT '강좌or교재 고유번호',
-  `product_type` tinyint(4) DEFAULT NULL COMMENT '상품유형(강좌1)',
-  `price` decimal(10,2) DEFAULT NULL COMMENT '강좌or교재가격',
-  `cnt` int(11) DEFAULT NULL COMMENT '수량',
-  `total_price` decimal(10,2) DEFAULT NULL COMMENT '총가격(수량*가격)',
+  `userid` varchar(50) DEFAULT NULL COMMENT '회원아이디',
+  `ssid` varchar(100) DEFAULT NULL COMMENT '세션아이디',
+  `leid` int(11) NOT NULL COMMENT '강좌고유번호',
+  `boid` int(11) DEFAULT NULL COMMENT '교재고유번호',
+  `total_price` decimal(10,2) NOT NULL COMMENT '총가격(교재+강좌)',
   `coupon_id` int(11) DEFAULT NULL COMMENT '적용쿠폰',
   `discount_price` decimal(10,2) DEFAULT NULL COMMENT '쿠폰할인금액',
   `regdate` datetime NOT NULL DEFAULT current_timestamp() COMMENT '상품추가일자'
@@ -1872,6 +1871,19 @@ CREATE TABLE `user_coupons` (
 INSERT INTO `user_coupons` (`ucid`, `couponid`, `userid`, `status`, `use_max_date`, `regdate`, `reason`) VALUES
 (1, 4, 'test2', 1, '2024-12-24 23:59:59', '2024-11-24 09:10:02', '신규 회원 15% 할인 쿠폰');
 
+-- --------------------------------------------------------
+
+--
+-- 테이블 구조 `wishlist`
+--
+
+CREATE TABLE `wishlist` (
+  `wishid` int(11) NOT NULL COMMENT '찜하기고유번호',
+  `uid` int(11) NOT NULL COMMENT '회원고유번호',
+  `leid` int(11) NOT NULL COMMENT '강좌고유번호',
+  `regdate` datetime NOT NULL DEFAULT current_timestamp() COMMENT '찜한날짜'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
 --
 -- 덤프된 테이블의 인덱스
 --
@@ -2133,6 +2145,14 @@ ALTER TABLE `user_coupons`
   ADD PRIMARY KEY (`ucid`);
 
 --
+-- 테이블의 인덱스 `wishlist`
+--
+ALTER TABLE `wishlist`
+  ADD PRIMARY KEY (`wishid`),
+  ADD KEY `wish_leidfk_1` (`leid`),
+  ADD KEY `wish_userfk_1` (`uid`);
+
+--
 -- 덤프된 테이블의 AUTO_INCREMENT
 --
 
@@ -2347,6 +2367,12 @@ ALTER TABLE `user_coupons`
   MODIFY `ucid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
+-- 테이블의 AUTO_INCREMENT `wishlist`
+--
+ALTER TABLE `wishlist`
+  MODIFY `wishid` int(11) NOT NULL AUTO_INCREMENT COMMENT '찜하기고유번호', AUTO_INCREMENT=16;
+
+--
 -- 덤프된 테이블의 제약사항
 --
 
@@ -2445,6 +2471,13 @@ ALTER TABLE `teachers`
 --
 ALTER TABLE `teacher_qna`
   ADD CONSTRAINT `teacher_qna_ibfk_1` FOREIGN KEY (`sqid`) REFERENCES `student_qna` (`sqid`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- 테이블의 제약사항 `wishlist`
+--
+ALTER TABLE `wishlist`
+  ADD CONSTRAINT `wish_leidfk_1` FOREIGN KEY (`leid`) REFERENCES `lecture` (`leid`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `wish_userfk_1` FOREIGN KEY (`uid`) REFERENCES `user` (`uid`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
