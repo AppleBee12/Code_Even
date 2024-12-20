@@ -23,7 +23,7 @@
         <img src="../images/sb_logo.png" alt="">
       </div>
     </div>
-    <div class="w-50 container d-flex justify-content-center align-items-center">
+    <div class="w-50 container d-flex justify-content-center align-items-center  mt-5 mb-5">
       <div class="w-50 d-flex flex-column align-items-center">
         <img src="../images/txt_logo.png" alt="">
         <h1 class="mt-5">회원가입</h1>

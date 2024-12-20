@@ -545,8 +545,8 @@ if (isset($_GET['code'])) {
               </div>
 
               <div class="mt-3 d-flex justify-content-center gap-3 mb-5">
-                <a href="#" class="link-body-emphasis ">아이디 찾기</a>
-                <a href="#" class="link-body-emphasis">비밀번호 찾기</a>
+                <!-- <a href="#" class="link-body-emphasis ">아이디 찾기</a>
+                <a href="#" class="link-body-emphasis">비밀번호 찾기</a> -->
                 <a href="http://<?= $_SERVER['HTTP_HOST'] ?>/code_even/front/signup/signup.php"
                   class="link-body-emphasis text-decoration-underline">회원가입</a>
               </div>
