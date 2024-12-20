@@ -87,7 +87,16 @@ include_once($_SERVER['DOCUMENT_ROOT'].'/CODE_EVEN/admin/inc/dbcon.php');
               </label>
             </div>
           </div>
-          <button type="submit" class="btn btn-secondary mt-4 w-100 mb-5 redbtn" id="submit_btn">회원가입</button>
+          <button type="submit" class="btn btn-secondary mt-4 w-100 mb-1 redbtn" id="submit_btn">회원가입</button>
+          <button class="btn kakao_loginbtn yellowbtn w-100">
+            <a href="https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=dc8b785f75c0ed7ecca5dad87f2b18ff&redirect_uri=http://localhost/code_even/"
+              class="kakao">
+              <div class="d-flex justify-content-center align-items-center">
+                <img src="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/front/images/kakao_icon.png" alt="">
+                카카오 로그인
+              </div>
+            </a>
+          </button>
         </form>
       </div>
     </div>
