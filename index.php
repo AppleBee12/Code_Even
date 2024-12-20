@@ -64,12 +64,17 @@ if ($tc_result && $tc_result->num_rows > 0) {
 /* teacher_section 끝 */
 
 ?>
-
+<style>
+.cookie_underline a:hover{
+  text-decoration : underline;
+  font-weight: 600;
+}
+</style>
 
 <!-- 쿠키 모달 창 -->
 <div id="cookieModal" class="cookie-modal ">
   <div class="cookie-modal-content ">
-    <h4 class="d-flex justify-content-center mb-3">CODE EVEN</h4>
+    <h4 class="d-flex justify-content-center mb-3">CODE EVEN | 프론트 페이지</h4>
     <p>본 웹사이트는 구직용 포트폴리오 웹사이트이며, <br>
       실제로 운영되는 사이트가 아닙니다.</p>
     <hr>
@@ -77,7 +82,7 @@ if ($tc_result && $tc_result->num_rows > 0) {
       <div>
         <span><b>팀원 : </b>홍수진(팀장), 배유나, 조채림, 최은화, 홍은진</span><br>
         <span><b>제작기간</b> : 2024.11.24 - 2024.12.23 </span><br>
-        <span><b>개발환경</b> : HTML/CSS, Javascript, J-Query, PHP</span><br>
+        <span><b>개발환경</b> : HTML/CSS, Javascript, PHP</span><br>
         <div class="link3">
           <span><b>기획자료 :</b> <a href="https://www.figma.com/deck/MQfJi66QGjjvn4nzpNfIQz/CODE_EVEN_LMS%EA%B5%AC%ED%98%84%EB%B0%9C%ED%91%9C-%EC%B5%9C%EC%A2%85?node-id=1-466&node-type=slide&viewport=-123%2C-137%2C0.7&t=QMdQYEzDrnraOO0y-1&scaling=min-zoom&content-scaling=fixed&page-id=0%3A1" target="_blank">figma</a>
             <b> 코드 :</b> <a href="https://github.com/AppleBee12/Code_Even.git" target="_blank">github</a>
@@ -90,37 +95,38 @@ if ($tc_result && $tc_result->num_rows > 0) {
         <p><b>기획 : </b>팀원 전체 <b>디자인 : </b>구현 담당자</p>
       </div>
       <hr>
-      <div class="link3">
+      <div class="link3 cookie_underline">
         <span><b>* 구현 완료 페이지 *</b></span><br>
         <span><b>홍수진 : </b>
-          <a href="admin/index.php">대시보드,</a> 공통헤더,
-          <a href="admin/community/counsel.php">커뮤니티 관리, </a>
-          <a href="admin/manual/for_admin.php">관리자 매뉴얼 </a>
+          <a href="#">메인 대시보드, </a> 
+          <a href="front/what_recipe/what_recipe.php">레시피강좌란, </a>
+          <a href="front/community/teamproject.php">커뮤니티, </a>
+          <a href="#">마이페이지, </a><br>
+          <a href="front/mypage/mypage_lecture.php">진행/종료강좌, </a>
+          <a href="front/mypage/mypage_lecture.php">내가 쓴 글/댓글 </a>
         </span><br>
         <span><b>배유나 : </b>
-          <a href="admin/student/student_list.php">수강생 관리, </a>
-          <a href="admin/inquiry/notice.php">문의 게시판 관리 </a>
+          <a href="front/service/faq.php">고객센터, </a>
+          <a href="front/mypage/mypage_qna.php">내 문의글/답변, </a>
+          <a href="front/mypage/mypage_reivew.php">내 강의후기 </a>
         </span><br>
         <span><b>조채림 : </b>
-          <a href="front/signup/signup.php">로그인/회원가입, </a>
-          <a href="admin/category/category.php">카테고리관리, </a>
-          <a href="admin/coupons/coupons.php">쿠폰관리 </a>
+          <a href="#">로그인, </a>
+          <a href="front/signup/signup.php">회원가입, </a>
+          <a href="front/signup/tc_applyform.php">강사등록, </a>
+          <a href="front/mypage/mypage_coupons.php">보유쿠폰 </a>
+          <a href="front/mypage/mypage_info_edit.php">기본정보수정 </a>
         </span><br>
         <span><b>최은화 : </b>
-          <a href="admin/lecture/lecture_list.php">강좌관리, </a>
-          <a href="admin/book/book_list.php">교재관리 </a>
+          <a href="front/lecture_list.php">강좌관리</a>
+          <a href="#">강의/퀴즈시험</a>
         </span><br>
         <span><b>홍은진 : </b>
-          <a href="admin/teacher/teacher_list.php">강사관리, </a>
-          <a href="admin/orders/orders_list.php">결제/배송관리, </a>
-          <a href="admin/sales/lectuer_sales.php">매출통계관리, </a>
-          <a href="admin/user/user_list.php">전체회원관리 </a>
+          <a href="front/cart.php">장바구니, </a>
+          <a href="#">최근 본 상품, </a>
+          <a href="#">결제내역, </a>
+          <a href="#">찜한강좌 </a>
         </span><br>
-      </div>
-      <hr>
-      <div>
-        <span><b>강사용 아이디 </b>: even_teacher</span><br>
-        <span><b>강사용 비밀번호 </b>: 12345</span>
       </div>
       <hr>
       <div>
