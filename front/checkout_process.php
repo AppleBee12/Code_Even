@@ -7,7 +7,7 @@ $userid = $_SESSION['AUID'];
 $finalAmount = (float)$_POST['finalAmount'];
 
 // orders 테이블 삽입
-$order_sql = "INSERT INTO orders (uid, total_price, order_date) VALUES ($uid, $finalAmount, NOW())";
+$order_sql = "INSERT INTO orders (uid, final_amount, order_date) VALUES ($uid, $finalAmount, NOW())";
 $mysqli->query($order_sql);
 $order_id = $mysqli->insert_id; // 마지막으로 삽입된 주문 ID
 
@@ -16,7 +16,7 @@ foreach ($_POST['cart'] as $item) {
     $leid = $item['leid'];
     $boid = !empty($item['boid']) ? $item['boid'] : 'NULL';
     $price = $item['lecture_price'];
-    $detail_sql = "INSERT INTO order_details (order_id, leid, boid, price) VALUES ($order_id, $leid, $boid, $price)";
+    $detail_sql = "INSERT INTO order_details (odid, leid, product_id, tc_uid, price) VALUES ($order_id, $leid, $boid, $price)";
     $mysqli->query($detail_sql);
 
     // class_data 테이블 삽입
