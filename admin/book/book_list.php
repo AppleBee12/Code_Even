@@ -144,7 +144,7 @@ while ($row = $result_cate->fetch_object()) {
               <td class="book-img">
                 <img src="<?= $item->image; ?>" alt="">
               </td>
-              <td class="title-cell"><?= $item->title; ?></td>
+              <td class="title-cell"><?= $item->book; ?></td>
               <td><?= $item->name; ?></td>
               <td><?= $item->company; ?></td>
               <td><?= date('Y-m-d', strtotime($item->pd)); ?></td>

@@ -1,12 +1,13 @@
 <?php
 session_start();
 
-include_once($_SERVER['DOCUMENT_ROOT'] . '/code_even/admin/inc/dbcon.php'); // DB 연결
+include_once($_SERVER['DOCUMENT_ROOT'] . '/code_even/admin/inc/dbcon.php');
 include_once($_SERVER['DOCUMENT_ROOT'] . '/code_even/admin/inc/img_upload_func.php');
 
 // 현재 로그인된 사용자 세션 값 가져오기
 $session_userid = $_SESSION['AUID'] ?? null;
 
+// 로그인 확인
 if (!$session_userid) {
   echo "<script>alert('로그인 정보가 없습니다. 다시 로그인해 주세요.'); location.href='/code_even/admin/login.php';</script>";
   exit;
@@ -31,17 +32,10 @@ $des = $_POST['desc'] ?? ''; // 교재 설명
 $writer = $_POST['writer'] ?? '';
 $company = $_POST['company'] ?? '';
 
-// 디버깅: 수신 데이터 확인
-// var_dump($book);
-// exit;
-
 // 이미지 업로드 처리
-$imagePath = ''; // 업로드된 이미지 경로를 저장할 변수
+$imagePath = '';
 if (isset($_FILES['image']) && $_FILES['image']['error'] == UPLOAD_ERR_OK) {
-  // 호출 디렉토리 설정
-  $callingFileDir = 'book_images'; // 업로드 폴더를 지정
-
-  // fileUpload 함수 호출
+  $callingFileDir = 'book_images';
   $imagePathResult = fileUpload($_FILES['image'], $callingFileDir);
   if ($imagePathResult) {
     $imagePath = $imagePathResult;
@@ -79,7 +73,23 @@ if ($imagePath) {
                 company = ?, 
                 image = ? 
             WHERE boid = ?";
-  $stmt = $mysqli->prepare($sql);
+} else {
+  $sql = "UPDATE book SET 
+                cate1 = ?, 
+                cate2 = ?, 
+                cate3 = ?, 
+                title = ?, 
+                price = ?, 
+                pd = ?, 
+                book = ?, 
+                des = ?, 
+                writer = ?, 
+                company = ? 
+            WHERE boid = ?";
+}
+
+$stmt = $mysqli->prepare($sql);
+if ($imagePath) {
   $stmt->bind_param(
     "ssssdsdssssi",
     $cate1,
@@ -96,19 +106,6 @@ if ($imagePath) {
     $book_id
   );
 } else {
-  $sql = "UPDATE book SET 
-                cate1 = ?, 
-                cate2 = ?, 
-                cate3 = ?, 
-                title = ?, 
-                price = ?, 
-                pd = ?, 
-                book = ?, 
-                des = ?, 
-                writer = ?, 
-                company = ? 
-            WHERE boid = ?";
-  $stmt = $mysqli->prepare($sql);
   $stmt->bind_param(
     "ssssdsdsssi",
     $cate1,
@@ -125,10 +122,12 @@ if ($imagePath) {
   );
 }
 
-if ($stmt->execute()) {
-  echo "<script>alert('교재가 성공적으로 수정되었습니다.'); location.href='/CODE_EVEN/admin/book/book_list.php';</script>";
+// 디버깅: 쿼리 실행 결과 확인
+if (!$stmt->execute()) {
+  echo "쿼리 오류: " . $stmt->error;
+  exit;
 } else {
-  echo "<script>alert('수정에 실패했습니다. 다시 시도해주세요. SQL Error: " . $stmt->error . "');</script>";
+  echo "<script>alert('교재가 성공적으로 수정되었습니다.'); location.href='/CODE_EVEN/admin/book/book_list.php';</script>";
 }
 
 $stmt->close();
