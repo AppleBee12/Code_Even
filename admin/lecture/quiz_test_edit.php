@@ -19,6 +19,9 @@ if ($result_cate) {
 
 $lecture_id = $data->lecture_id ?? ''; // 기존 lecture_id 가져오기
 
+// 빈 배열로 초기화
+$lectures = [];
+
 // AJAX 요청 처리
 if (isset($_GET['action']) && $_GET['action'] == 'get_lectures') {
   $cate1 = $_GET['cate1'];
@@ -32,20 +35,18 @@ if (isset($_GET['action']) && $_GET['action'] == 'get_lectures') {
   $stmt->execute();
   $result = $stmt->get_result();
 
-  $lectures = [];
-  while ($row = $result->fetch_assoc()) {
-    $lectures[] = $row;
+  if ($result) {
+    while ($row = $result->fetch_object()) { // fetch_object로 변경
+      $lectures[] = $row;
+    }
   }
-
-
 
   // JSON 형식으로 반환
   header('Content-Type: application/json');
   echo json_encode($lectures);
-  exit; // AJAX 요청만 처리하고 나머지 HTML은 출력하지 않도록 종료
-
-
+  exit; // AJAX 요청만 처리하고 종료
 }
+
 
 
 // 수정할 데이터 ID와 타입 가져오기
@@ -117,11 +118,11 @@ $decodedQuestions = json_decode($data->question, true) ?? []; // JSON을 디코�
               <select name="cate1" id="cate1" class="form-select">
                 <option value="" <?= $cate1 == '' ? 'selected' : '' ?>>대분류</option>
                 <?php foreach ($categories as $category): ?>
-                  <?php if ($category->step == 1): ?>
-                    <option value="<?= $category->code ?>" <?= $cate1 == $category->code ? 'selected' : '' ?>>
-                      <?= $category->name ?>
-                    </option>
-                  <?php endif; ?>
+                      <?php if ($category->step == 1): ?>
+                            <option value="<?= $category->code ?>" <?= $cate1 == $category->code ? 'selected' : '' ?>>
+                              <?= $category->name ?>
+                            </option>
+                      <?php endif; ?>
                 <?php endforeach; ?>
               </select>
 
@@ -129,11 +130,11 @@ $decodedQuestions = json_decode($data->question, true) ?? []; // JSON을 디코�
               <select name="cate2" id="cate2" class="form-select">
                 <option value="" <?= $cate2 == '' ? 'selected' : '' ?>>중분류</option>
                 <?php foreach ($categories as $category): ?>
-                  <?php if ($category->step == 2 && $category->pcode == $cate1): ?>
-                    <option value="<?= $category->code ?>" <?= $cate2 == $category->code ? 'selected' : '' ?>>
-                      <?= $category->name ?>
-                    </option>
-                  <?php endif; ?>
+                      <?php if ($category->step == 2 && $category->pcode == $cate1): ?>
+                            <option value="<?= $category->code ?>" <?= $cate2 == $category->code ? 'selected' : '' ?>>
+                              <?= $category->name ?>
+                            </option>
+                      <?php endif; ?>
                 <?php endforeach; ?>
               </select>
 
@@ -141,28 +142,28 @@ $decodedQuestions = json_decode($data->question, true) ?? []; // JSON을 디코�
               <select name="cate3" id="cate3" class="form-select">
                 <option value="" <?= $cate3 == '' ? 'selected' : '' ?>>소분류</option>
                 <?php foreach ($categories as $category): ?>
-                  <?php if ($category->step == 3 && $category->pcode == $cate2): ?>
-                    <option value="<?= $category->code ?>" <?= $cate3 == $category->code ? 'selected' : '' ?>>
-                      <?= $category->name ?>
-                    </option>
-                  <?php endif; ?>
+                      <?php if ($category->step == 3 && $category->pcode == $cate2): ?>
+                            <option value="<?= $category->code ?>" <?= $cate3 == $category->code ? 'selected' : '' ?>>
+                              <?= $category->name ?>
+                            </option>
+                      <?php endif; ?>
                 <?php endforeach; ?>
               </select>
             </div>
           </td>
         </tr>
         <tr>
-          <th scope="row">강좌명 <b>*</b></th>
-          <td>
-            <select id="lectureSelect" name="lecture_id" class="form-select">
-              <option value=""><?= htmlspecialchars($title) ?></option>
-              <?php foreach ($lectures as $lecture): ?>
-                <option value="<?= $lecture['leid'] ?>" <?= $lecture_id == $lecture['leid'] ? 'selected' : '' ?>>
-                  <?= $lecture['title'] ?>
-                </option>
-              <?php endforeach; ?>
-            </select>
-          </td>
+        <th scope="row">강좌명 <b>*</b></th>
+        <td>
+          <select id="lectureSelect" name="lecture_id" class="form-select">
+            <option value=""><?= htmlspecialchars($title) ?></option>
+            <?php foreach ($lectures as $lecture): ?>
+              <option value="<?= htmlspecialchars($lecture->leid) ?>" <?= $lecture_id == $lecture->leid ? 'selected' : '' ?>>
+                <?= htmlspecialchars($lecture->title) ?>
+              </option>
+            <?php endforeach; ?>
+          </select>
+        </td>
           <th scope="row">문제 유형 <b>*</b></th>
           <td colspan="3">
             <div class="d-flex custom-gap">
@@ -223,11 +224,11 @@ $decodedQuestions = json_decode($data->question, true) ?? []; // JSON을 디코�
             <td>
               <div class="d-flex gap-4">
                 <?php for ($i = 1; $i <= 4; $i++): ?>
-                  <div class="form-check">
-                    <input name="questions[0][answer]" class="form-check-input" type="radio" value="<?= $i ?>"
-                      id="answer_<?= $i ?>" <?= ($data->answer ?? '') == $i ? 'checked' : '' ?>>
-                    <label class="form-check-label" for="answer_<?= $i ?>"><?= $i ?>번</label>
-                  </div>
+                      <div class="form-check">
+                        <input name="questions[0][answer]" class="form-check-input" type="radio" value="<?= $i ?>"
+                          id="answer_<?= $i ?>" <?= ($data->answer ?? '') == $i ? 'checked' : '' ?>>
+                        <label class="form-check-label" for="answer_<?= $i ?>"><?= $i ?>번</label>
+                      </div>
                 <?php endfor; ?>
               </div>
             </td>
@@ -239,8 +240,8 @@ $decodedQuestions = json_decode($data->question, true) ?? []; // JSON을 디코�
               <?php
               $options = $decodedQuestions ?? ['', '', '', '']; // 기본값 설정
               foreach ($options as $index => $option): ?>
-                <input name="questions[0][options][]" type="text" class="form-control mb-2"
-                  value="<?= htmlspecialchars($option) ?>" placeholder="<?= $index + 1 ?>번 문항을 입력해 주세요.">
+                    <input name="questions[0][options][]" type="text" class="form-control mb-2"
+                      value="<?= htmlspecialchars($option) ?>" placeholder="<?= $index + 1 ?>번 문항을 입력해 주세요.">
               <?php endforeach; ?>
             </td>
           </tr>

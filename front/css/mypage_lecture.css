@@ -1,10 +1,33 @@
-.my_lecture_wrapper .my_lecture{
+.my_lecture_wrapper .my_lecture .my_lec_top{
   border: 1px solid var(--bk300);
-  border-radius: 8px;
-  padding: 60px;
+  border-radius: 8px 8px 0 0;
+  padding: 60px 60px 30px 60px;
+}
+.my_lecture_wrapper .my_lec_desc{
+  border-left: 1px solid var(--bk300);
+  border-right: 1px solid var(--bk300);
+  border-bottom: 1px solid var(--bk300);
+  border-radius: 0 0 8px 8px;
+
+  padding: 30px 60px 60px 60px;
 }
 
 .my_lecture .my_lec_top img{
   width: 180px;
   height: 180px;
+}
+.my_lec_top>div{
+  height: 180px;
+  padding-left: 30px;
+}
+.my_lec_top .headt5{
+  line-height: 40px;
+}
+
+.my_lec_top p:last-child{
+  color:var(--bk600);
+}
+
+#howToGetCertificate .modal-body span{
+ color:var(--primary);
 }
