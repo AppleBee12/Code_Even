@@ -35,6 +35,11 @@ if (!$book_data) {
   exit;
 }
 
+// 카테고리 선택 값 설정
+$cate1_selected = $book_data->cate1 ?? ''; // 대분류
+$cate2_selected = $book_data->cate2 ?? ''; // 중분류
+$cate3_selected = $book_data->cate3 ?? ''; // 소분류
+
 // DB에서 카테고리 데이터 가져오기
 $sql_cate = "SELECT * FROM category ORDER BY step, pcode";
 $result_cate = $mysqli->query($sql_cate);
@@ -44,10 +49,6 @@ while ($cates = $result_cate->fetch_object()) {
   $categories[] = $cates;
 }
 
-// 분류 값 초기화
-$cate1_selected = substr($book_data->category ?? '', 0, 2); // 대분류 코드
-$cate2_selected = substr($book_data->category ?? '', 2, 2); // 중분류 코드
-$cate3_selected = substr($book_data->category ?? '', 4, 2); // 소분류 코드
 
 ?>
 
@@ -66,50 +67,50 @@ $cate3_selected = substr($book_data->category ?? '', 4, 2); // 소분류 코드
         </tr>
       </thead>
       <tbody>
-      <tr>
-        <th scope="row">분류 설정 <b>*</b></th>
-        <td colspan="2">
-          <!-- 대분류 -->
-          <select name="cate1" id="cate1" class="form-select" aria-label="대분류">
-            <option value="">대분류</option>
-            <?php foreach ($categories as $category): ?>
-              <?php if ($category->step == 1): ?>
-                <option value="<?php echo htmlspecialchars($category->code); ?>" 
-                  <?php echo ($category->code == $cate1_selected) ? 'selected' : ''; ?>>
-                  <?php echo htmlspecialchars($category->name); ?>
-                </option>
-              <?php endif; ?>
-            <?php endforeach; ?>
-          </select>
-        </td>
-        <td colspan="2">
-          <!-- 중분류 -->
-          <select name="cate2" id="cate2" class="form-select" aria-label="중분류">
-            <option value="">중분류</option>
-            <?php foreach ($categories as $category): ?>
-              <?php if ($category->step == 2 && $category->pcode == $cate1_selected): ?>
-                <option value="<?php echo htmlspecialchars($category->code); ?>" 
-                  <?php echo ($category->code == $cate2_selected) ? 'selected' : ''; ?>>
-                  <?php echo htmlspecialchars($category->name); ?>
-                </option>
-              <?php endif; ?>
-            <?php endforeach; ?>
-          </select>
-        </td>
-        <td colspan="2">
-          <!-- 소분류 -->
-          <select name="cate3" id="cate3" class="form-select" aria-label="소분류">
-            <option value="">소분류</option>
-            <?php foreach ($categories as $category): ?>
-              <?php if ($category->step == 3 && $category->pcode == $cate2_selected): ?>
-                <option value="<?php echo htmlspecialchars($category->code); ?>" 
-                  <?php echo ($category->code == $cate3_selected) ? 'selected' : ''; ?>>
-                  <?php echo htmlspecialchars($category->name); ?>
-                </option>
-              <?php endif; ?>
-            <?php endforeach; ?>
-          </select>
-        </td>
+        <tr>
+          <th scope="row">분류 설정 <b>*</b></th>
+          <td colspan="2">
+            <!-- 대분류 -->
+            <select name="cate1" id="cate1" class="form-select" aria-label="대분류">
+              <option value="">대분류</option>
+              <?php foreach ($categories as $category): ?>
+                <?php if ($category->step == 1): ?>
+                  <option value="<?php echo htmlspecialchars($category->code); ?>" 
+                    <?php echo ($category->code == $cate1_selected) ? 'selected' : ''; ?>>
+                    <?php echo htmlspecialchars($category->name); ?>
+                  </option>
+                <?php endif; ?>
+              <?php endforeach; ?>
+            </select>
+          </td>
+          <td colspan="2">
+            <!-- 중분류 -->
+            <select name="cate2" id="cate2" class="form-select" aria-label="중분류">
+              <option value="">중분류</option>
+              <?php foreach ($categories as $category): ?>
+                <?php if ($category->step == 2 && $category->pcode == $cate1_selected): ?>
+                  <option value="<?php echo htmlspecialchars($category->code); ?>" 
+                    <?php echo ($category->code == $cate2_selected) ? 'selected' : ''; ?>>
+                    <?php echo htmlspecialchars($category->name); ?>
+                  </option>
+                <?php endif; ?>
+              <?php endforeach; ?>
+            </select>
+          </td>
+          <td colspan="2">
+            <!-- 소분류 -->
+            <select name="cate3" id="cate3" class="form-select" aria-label="소분류">
+              <option value="">소분류</option>
+              <?php foreach ($categories as $category): ?>
+                <?php if ($category->step == 3 && $category->pcode == $cate2_selected): ?>
+                  <option value="<?php echo htmlspecialchars($category->code); ?>" 
+                    <?php echo ($category->code == $cate3_selected) ? 'selected' : ''; ?>>
+                    <?php echo htmlspecialchars($category->name); ?>
+                  </option>
+                <?php endif; ?>
+              <?php endforeach; ?>
+            </select>
+          </td>
         </tr>
         <tr>
           <th scope="row">강좌명 <b>*</b></th>

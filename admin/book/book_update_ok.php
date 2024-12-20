@@ -14,23 +14,23 @@ if (!$session_userid) {
 }
 
 // 수정할 교재의 ID 가져오기
-$book_id = $_POST['id'] ?? 0;
-if (!$book_id) {
+$book_id = intval($_POST['id'] ?? 0);
+if ($book_id <= 0) {
   echo "<script>alert('잘못된 요청입니다.'); location.href='/code_even/admin/book/book_list.php';</script>";
   exit;
 }
 
-// 데이터 수신
-$cate1 = $_POST['cate1'] ?? '';
-$cate2 = $_POST['cate2'] ?? '';
-$cate3 = $_POST['cate3'] ?? '';
-$title = $_POST['title'] ?? '';
-$price = $_POST['price'] ?? 0;
-$pd = $_POST['pd'] ?? '';
-$book = $_POST['book'] ?? ''; // 교재명
-$des = $_POST['desc'] ?? ''; // 교재 설명
-$writer = $_POST['writer'] ?? '';
-$company = $_POST['company'] ?? '';
+// 데이터 수신 및 SQL 인젝션 방지
+$cate1 = $mysqli->real_escape_string($_POST['cate1'] ?? '');
+$cate2 = $mysqli->real_escape_string($_POST['cate2'] ?? '');
+$cate3 = $mysqli->real_escape_string($_POST['cate3'] ?? '');
+$title = $mysqli->real_escape_string($_POST['title'] ?? '');
+$price = floatval($_POST['price'] ?? 0); // 숫자는 floatval로 처리
+$pd = $mysqli->real_escape_string($_POST['pd'] ?? '');
+$book = $mysqli->real_escape_string($_POST['book'] ?? '');
+$des = $mysqli->real_escape_string($_POST['desc'] ?? '');
+$writer = $mysqli->real_escape_string($_POST['writer'] ?? '');
+$company = $mysqli->real_escape_string($_POST['company'] ?? '');
 
 // 이미지 업로드 처리
 $imagePath = '';
@@ -38,7 +38,7 @@ if (isset($_FILES['image']) && $_FILES['image']['error'] == UPLOAD_ERR_OK) {
   $callingFileDir = 'book_images';
   $imagePathResult = fileUpload($_FILES['image'], $callingFileDir);
   if ($imagePathResult) {
-    $imagePath = $imagePathResult;
+    $imagePath = $mysqli->real_escape_string($imagePathResult);
   } else {
     die('이미지 업로드 실패. 다시 시도해주세요.');
   }
@@ -49,87 +49,58 @@ $sql_old_image = "SELECT image FROM book WHERE boid = $book_id";
 $result_old_image = $mysqli->query($sql_old_image);
 $old_image_path = '';
 if ($result_old_image && $result_old_image->num_rows > 0) {
-  $row = $result_old_image->fetch_object(); // fetch_object 사용
+  $row = $result_old_image->fetch_object();
   $old_image_path = $row->image;
 }
 
-// SQL 작성 (이미지 경로 포함 여부에 따라 다르게 처리)
+// SQL 작성 및 실행
 if ($imagePath) {
   // 이전 이미지 삭제
   if ($old_image_path && file_exists($_SERVER['DOCUMENT_ROOT'] . $old_image_path)) {
     unlink($_SERVER['DOCUMENT_ROOT'] . $old_image_path);
   }
 
-  $sql = "UPDATE book SET 
-                cate1 = ?, 
-                cate2 = ?, 
-                cate3 = ?, 
-                title = ?, 
-                price = ?, 
-                pd = ?, 
-                book = ?, 
-                des = ?, 
-                writer = ?, 
-                company = ?, 
-                image = ? 
-            WHERE boid = ?";
+  $sql = "
+        UPDATE book SET
+            cate1 = '$cate1',
+            cate2 = '$cate2',
+            cate3 = '$cate3',
+            title = '$title',
+            price = $price,
+            pd = '$pd',
+            book = '$book',
+            des = '$des',
+            writer = '$writer',
+            company = '$company',
+            image = '$imagePath'
+        WHERE boid = $book_id
+    ";
 } else {
-  $sql = "UPDATE book SET 
-                cate1 = ?, 
-                cate2 = ?, 
-                cate3 = ?, 
-                title = ?, 
-                price = ?, 
-                pd = ?, 
-                book = ?, 
-                des = ?, 
-                writer = ?, 
-                company = ? 
-            WHERE boid = ?";
+  $sql = "
+        UPDATE book SET
+            cate1 = '$cate1',
+            cate2 = '$cate2',
+            cate3 = '$cate3',
+            title = '$title',
+            price = $price,
+            pd = '$pd',
+            book = '$book',
+            des = '$des',
+            writer = '$writer',
+            company = '$company'
+        WHERE boid = $book_id
+    ";
 }
 
-$stmt = $mysqli->prepare($sql);
-if ($imagePath) {
-  $stmt->bind_param(
-    "ssssdsdssssi",
-    $cate1,
-    $cate2,
-    $cate3,
-    $title,
-    $price,
-    $pd,
-    $book,
-    $des,
-    $writer,
-    $company,
-    $imagePath,
-    $book_id
-  );
-} else {
-  $stmt->bind_param(
-    "ssssdsdsssi",
-    $cate1,
-    $cate2,
-    $cate3,
-    $title,
-    $price,
-    $pd,
-    $book,
-    $des,
-    $writer,
-    $company,
-    $book_id
-  );
-}
+// 디버깅: 쿼리 확인
+// echo $sql; exit;
 
-// 디버깅: 쿼리 실행 결과 확인
-if (!$stmt->execute()) {
-  echo "쿼리 오류: " . $stmt->error;
-  exit;
+// 쿼리 실행 및 오류 확인
+if (!$mysqli->query($sql)) {
+  die("쿼리 오류: " . $mysqli->error);
 } else {
   echo "<script>alert('교재가 성공적으로 수정되었습니다.'); location.href='/CODE_EVEN/admin/book/book_list.php';</script>";
 }
 
-$stmt->close();
 $mysqli->close();
 ?>
