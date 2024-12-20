@@ -5,13 +5,14 @@ include_once($_SERVER['DOCUMENT_ROOT'] . '/code_even/admin/inc/dbcon.php');
 
 $session_id = session_id();
 
-/*
+
 if(isset($_SESSION['UID'])){
-    $userid = $_SESSION['UID'];
-}else{
-    $userid = '';
+  $uid = $_SESSION['UID'];
+  $userid = $_SESSION['AUID'];
+} else {
+  $uid = '';
+  $userid =  '';
 }
-*/
 
 // 타이틀 초기화
 if (!isset($title)) {
@@ -101,6 +102,40 @@ if (isset($_GET['code'])) {
     echo "토큰 요청 실패: " . ($response['error_description'] ?? '알 수 없는 오류');
   }
 }
+
+  // 카트 조회
+  $cart_sql = "SELECT 
+  c.*, 
+  l.leid, 
+  l.image, 
+  l.title, 
+  l.name, 
+  l.price AS lecture_price, 
+  b.book AS book_name, 
+  b.price AS book_price,
+  b.writer AS book_writer,
+  b.company AS book_company
+  FROM 
+  cart c
+  LEFT JOIN 
+  lecture l ON c.leid = l.leid
+  LEFT JOIN 
+  book b ON c.boid = b.boid
+  WHERE 
+  c.ssid = '$session_id' OR c.uid = '$uid'
+  ";
+
+
+  $cart_result = $mysqli->query($cart_sql);
+  $cartArr = [];
+  while ($cart_data = $cart_result->fetch_object()) {
+  $cartArr[] = $cart_data;
+  }
+
+  // 장바구니 개수 계산
+  $cart_count = sizeof($cartArr);
+
+
 ?>
 
 
@@ -202,6 +237,7 @@ if (isset($_GET['code'])) {
   switch ($page) { //mypage_payment.css
     case 'mypage_payment.php':
     case 'cart.php':
+    case 'checkout.php':
       echo '<link rel="stylesheet" href="http://' . $_SERVER['HTTP_HOST'] . '/code_even/front/css/mypage_payment.css">';
       break;
   }
@@ -382,41 +418,40 @@ if (isset($_GET['code'])) {
             <a href="" id="cartIcon"><i class="bi bi-cart"></i></a>
             <div id="miniCartContent" class="cart_dropdown">
               <div class="mncart_header">
-                <h4>장바구니<span id="cartCount">3</span></h4>
+                <h4>장바구니<span id="cartCount"><?= $cart_count; ?></span></h4>
               </div>
               <div class="mncart_list">
                 <ul>
+                <?php
+              $total = 0;
+              if(isset($cartArr)){
+                  foreach($cartArr as $cart){
+                      $total += $cart->lecture_price;                               
+              ?>
                   <li>
                     <div class="item_tit d-flex">
-                      <img src="http://<?= $_SERVER['HTTP_HOST'] ?>/code_even/admin/upload/lecture/20241215082240797607.png" alt="상품 이미지">
-                      <p>퍼블리셔 취업을 위해 제대로 배워 보는 html과 css 그리고 웹표준<span>김코딩</span></p>
+                      <img src="http://<?= $_SERVER['HTTP_HOST'] ?><?= $cart->image;?>" alt="상품 이미지">
+                      <p><?= $cart->title;?><span><?= $cart->name;?></span></p>
                     </div>
                     <div class="item_price">
-                      <p>44,000 원</p>
+                      <p><span class="number"><?= $cart->lecture_price;?></span>원</p>
+                    </div>
+                    <?php if (!empty($cart->boid)) { ?>
+                    <div class="book_price d-flex justify-content-between align-items-center">
+                      <p> +<span class="number"><?= $cart->book_price;?></span>원 </p>
+                      <span class="badge_custom book_badge">교재포함강좌</span>
                     </div>
                   </li>
-                  <li>
-                    <div class="item_tit d-flex">
-                      <img src="http://<?= $_SERVER['HTTP_HOST'] ?>/code_even/admin/upload/lecture/20241215082240797607.png" alt="상품 이미지">
-                      <p>퍼블리셔 취업을 위해 제대로 배워 보는 html과 css 그리고 웹표준<span>김코딩</span></p>
-                    </div>
-                    <div class="item_price">
-                      <p>44,000 원</p>
-                    </div>
-                  </li>
-                  <li>
-                    <div class="item_tit d-flex">
-                      <img src="http://<?= $_SERVER['HTTP_HOST'] ?>/code_even/admin/upload/lecture/20241215082240797607.png" alt="상품 이미지">
-                      <p>퍼블리셔 취업을 위해 제대로 배워 보는 html과 css 그리고 웹표준<span>김코딩</span></p>
-                    </div>
-                    <div class="item_price">
-                      <p>44,000 원</p>
-                    </div>
-                  </li>
+                  <?php 
+                    $total += $cart->book_price; 
+                  } 
+                }
+            }
+            ?> 
                 </ul>
               </div>
               <div class="mncart_footer">
-                <p>총 결제 금액: <strong>114,000 원</strong></p>
+                <p>총 결제 금액: <span class="number"><?= $total ?></span>원</p>
                 <a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/front/cart.php" class="goto_cart">장바구니로 이동</a>
               </div>
             </div>

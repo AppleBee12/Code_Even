@@ -478,7 +478,7 @@ header {
 }
 
 .mncart_list{
-  padding: 20px;
+  padding: 20px 20px 0;
   .item_tit p{
     font-size: 14px;
     font-weight: 400;
@@ -498,6 +498,20 @@ header {
 
   .item_price{
     padding: 10px 0;
+  }
+  .book_price{
+    padding-bottom: 10px;
+  }
+  .badge_custom {
+    display: inline-block;
+    padding: 8px;
+    border: 1px solid var(--bk300);
+    font-size: 12px;
+    line-height: 1;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: baseline;
+    border-radius: 5px;
   }
 }
 
@@ -753,4 +767,33 @@ header {
   .page-link:focus {
     box-shadow: none;
   }
+}
+
+
+/* 상단 이동 top 버튼 */
+.top-button {
+  position: fixed;
+  bottom: 50px;
+  right: 50px;
+  width: 58px;
+  height: 58px;
+  background-color: #333;
+  color: #fff;
+  border-radius: 25px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid var(--bk100);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+  cursor: pointer;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.top-button:hover {
+  background-color: #555;
+}
+
+.top-button i {
+  font-size: 18px;
 }
