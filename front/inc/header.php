@@ -192,6 +192,7 @@ if (isset($_GET['code'])) {
     case 'mypage_class_qna_question.php':
     case 'mypage_reivew.php':
     case 'mypage_review_write.php':
+    case 'mypage_wishlist.php':
     case 'mypage_copy.php':
       echo '<link rel="stylesheet" href="http://' . $_SERVER['HTTP_HOST'] . '/code_even/front/css/mypage_header.css">';
       break;
@@ -237,6 +238,7 @@ if (isset($_GET['code'])) {
   switch ($page) { //lecture.css
     case 'lecture_list.php':
     case 'lecture_view.php':
+    case 'mypage_wishlist.php':
       echo '<link rel="stylesheet" href="http://' . $_SERVER['HTTP_HOST'] . '/code_even/front/css/lecture.css">';
       break;
   }
@@ -245,6 +247,11 @@ if (isset($_GET['code'])) {
     case 'cart.php':
     case 'checkout.php':
       echo '<link rel="stylesheet" href="http://' . $_SERVER['HTTP_HOST'] . '/code_even/front/css/mypage_payment.css">';
+      break;
+  }
+  switch ($page) { //mypage_wishlist.css
+    case 'mypage_wishlist.php':
+      echo '<link rel="stylesheet" href="http://' . $_SERVER['HTTP_HOST'] . '/code_even/front/css/mypage_wishlist.css">';
       break;
   }
   switch ($page) { //mypage_qna.css, mypage_reivew.php
