@@ -269,6 +269,17 @@ $('.btn_item_del').click(function () {
     }
 });
 
+$('.btn_ok_red').click(function () {
+    if ('<?= $uid ?>' === '') {
+        alert('강좌를 주문하시려면 먼저 로그인을 해주세요.');
+        window.location.reload(); // 현재 페이지로 리로드
+    } else {
+        const cartData = <?= json_encode($cartArr); ?>; // PHP 배열을 JSON으로 변환
+        const totalAmount = $('#grandTotal').text().replace(' 원', '').replace(/,/g, ''); // 총 결제 금액
+        window.location.href = `/code_even/front/checkout.php?data=${encodeURIComponent(JSON.stringify(cartData))}&total=${totalAmount}`;
+    }
+});
+
 
 
 </script>
