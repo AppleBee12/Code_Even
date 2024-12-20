@@ -233,6 +233,7 @@ if (isset($_GET['code'])) {
   switch ($page) { //mypage_payment.css
     case 'mypage_payment.php':
     case 'cart.php':
+    case 'checkout.php':
       echo '<link rel="stylesheet" href="http://' . $_SERVER['HTTP_HOST'] . '/code_even/front/css/mypage_payment.css">';
       break;
   }
