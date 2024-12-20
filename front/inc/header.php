@@ -186,6 +186,7 @@ if (isset($_GET['code'])) {
     case 'mypage_class_qna_question.php':
     case 'mypage_reivew.php':
     case 'mypage_review_write.php':
+    case 'mypage_write_comment.php':
     case 'mypage_copy.php':
       echo '<link rel="stylesheet" href="http://' . $_SERVER['HTTP_HOST'] . '/code_even/front/css/mypage_header.css">';
       break;
@@ -193,6 +194,11 @@ if (isset($_GET['code'])) {
   switch ($page) { //mypage_lecture.css
     case 'mypage_lecture.php':
       echo '<link rel="stylesheet" href="http://' . $_SERVER['HTTP_HOST'] . '/code_even/front/css/mypage_lecture.css">';
+      break;
+  }
+  switch ($page) { //mypage_write_comment.css
+    case 'mypage_write_comment.php':
+      echo '<link rel="stylesheet" href="http://' . $_SERVER['HTTP_HOST'] . '/code_even/front/css/mypage_write_comment.css">';
       break;
   }
   switch ($page) { //what_recipe.css
