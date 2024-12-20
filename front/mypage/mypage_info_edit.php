@@ -191,7 +191,7 @@ if ($stmt) {
 <script>
   $('.secession').click(function (e) {
     e.preventDefault();
-    if (confirm('정말 삭제할까요?')) {
+    if (confirm('계정을 탈퇴하시겠습니까?')) {
       window.location.href = $(this).attr('href');
     }
   });

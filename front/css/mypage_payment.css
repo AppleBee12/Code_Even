@@ -153,6 +153,10 @@
 
 
 /* 결제 정보 */
+.payment_sum {
+  margin-top: 40px;
+}
+
 .payment_sum li {
   border-bottom: none;
   padding: 10px 30px;

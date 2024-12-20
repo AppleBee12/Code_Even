@@ -514,7 +514,7 @@ header {
 .cart_dropdown ul li:last-child{
   border-bottom: none;
   margin-bottom: 0;
-}
+} 
 
 .cart_dropdown ul li img {
   width: 84px;
@@ -530,9 +530,11 @@ header {
 }
 
 
-.mncart_footer button {
+.mncart_footer .goto_cart  {
   width: 100%;
   padding: 10px;
+  display: inline-block;
+  text-align: center;
   background-color: var(--red700);
   color: var(--bk0);
   border: none;
@@ -542,7 +544,7 @@ header {
   transition: all 0.3s ease;
 }
 
-.mncart_footer button:hover {
+.mncart_footer .goto_cart:hover {
   background-color: var(--red900);
 }
 
