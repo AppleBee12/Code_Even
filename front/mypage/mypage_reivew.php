@@ -7,15 +7,15 @@ $sql = "SELECT review.*, class_data.*, lecture.*, user.*
         JOIN class_data ON review.cdid = class_data.cdid 
         JOIN lecture ON class_data.leid = lecture.leid 
         JOIN user ON class_data.uid = user.uid 
-        WHERE user.uid = '" . (isset($_SESSION['UID']) ? $_SESSION['UID'] : '') . "'";
+        WHERE class_data.uid = '" . (isset($_SESSION['UID']) ? $_SESSION['UID'] : '') . "'";
 $result = $mysqli->query($sql);
 
 $dataArr = [];
 while ($data = $result->fetch_object()) {
   $dataArr[] = $data;
-  // echo "<pre>";
-  // print_r($data);
-  // echo "</pre>";
+  echo "<pre>";
+  print_r($dataArr);
+  echo "</pre>";
 }
 ?>
 <div class="tab-content" id="nav-tabContent"><!--탭 메뉴 내용 시작-->
@@ -43,7 +43,7 @@ while ($data = $result->fetch_object()) {
           </thead>
           <tbody>
             <?php
-             foreach($dataArr as $data)
+             foreach($dataArr as $data){
             ?>
             <tr>
               <th><?= $data->regdate; ?></th>
@@ -61,14 +61,16 @@ while ($data = $result->fetch_object()) {
                   if ($i < $data->rating) {
                     echo '<i class="bi bi-star-fill"></i>';
                   } else {
-                    echo '<i class="bi bi-star-fill star_null"></i>';
+                    echo '';
                   }
                 }
               ?>
               </td>
               <td><a href="">X</a></td>
             </tr>
-
+            <?php
+             }
+            ?>
           </tbody>
         </table>
       </form>
