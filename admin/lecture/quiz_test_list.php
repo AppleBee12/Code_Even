@@ -2,34 +2,52 @@
 
 include_once($_SERVER['DOCUMENT_ROOT'] . '/code_even/admin/inc/header.php');
 
+// 사용자 정보 가져오기
+$uid = (int) ($_SESSION['UID'] ?? 0);
+$user_level = null;
+
+// user_level 확인
+if ($uid) {
+  $result = $mysqli->query("SELECT user_level FROM user WHERE uid = $uid");
+  $user_level = $result ? $result->fetch_object()->user_level : null;
+}
+
 // 검색어와 검색 타입 받기
 $keywords = isset($_GET['keywords']) ? $mysqli->real_escape_string($_GET['keywords']) : '';
 $searchType = isset($_GET['searchType']) ? $_GET['searchType'] : 'title'; // 기본값: 시험지명
 
 // 검색 조건 설정
-$where_clause = ''; // 기본 검색 조건
-if ($keywords) {
-    if ($searchType === 'lecture') {
-        // 강좌명 검색
-        $where_clause = "WHERE title LIKE '%$keywords%'";
-    } elseif ($searchType === 'title') {
-        // 시험지명 검색
-        $where_clause = "WHERE tt LIKE '%$keywords%'";
-    }
+$where_clause = []; // 배열로 WHERE 절 생성
+
+// 사용자 권한에 따라 필터링
+if ($user_level != 100) {
+  $where_clause[] = "tid = $uid"; // 일반 사용자는 자신의 글만
 }
+
+// 검색어 조건 추가
+if ($keywords) {
+  if ($searchType === 'lecture') {
+    $where_clause[] = "title LIKE '%$keywords%'";
+  } elseif ($searchType === 'title') {
+    $where_clause[] = "tt LIKE '%$keywords%'";
+  }
+}
+
+// WHERE 절 최종 조합
+$where_sql = count($where_clause) > 0 ? 'WHERE ' . implode(' AND ', $where_clause) : '';
 
 // 페이지 카운트를 검색 조건에 맞게 수정
 $page_sql = "SELECT COUNT(*) AS cnt FROM (
-    SELECT exid FROM quiz $where_clause
+    SELECT exid FROM quiz $where_sql
     UNION ALL
-    SELECT exid FROM test $where_clause
+    SELECT exid FROM test $where_sql
 ) AS combined";
 $page_result = $mysqli->query($page_sql);
 $page_data = $page_result->fetch_assoc();
 $row_num = $page_data['cnt'];
 
 // 페이지네이션 설정
-$page = isset($_GET['page']) ? (int)$_GET['page'] : 1; // 현재 페이지
+$page = isset($_GET['page']) ? (int) $_GET['page'] : 1; // 현재 페이지
 $list = 10; // 페이지당 항목 수
 $start_num = ($page - 1) * $list; // 시작 번호
 $block_ct = 5; // 한 블록에 표시할 페이지 수
@@ -40,14 +58,14 @@ $block_end = $block_start + $block_ct - 1;
 $total_page = ceil($row_num / $list); // 전체 페이지 수
 $total_block = ceil($total_page / $block_ct);
 if ($block_end > $total_page) {
-    $block_end = $total_page;
+  $block_end = $total_page;
 }
 
 // 데이터 가져오기
 $quiz_sql = "SELECT exid, title, '퀴즈' AS problem_type, 'quiz' AS type, tid, tt, pn, answer, pnlevel, 'admin' AS registered_by 
-             FROM quiz $where_clause";
+             FROM quiz $where_sql";
 $test_sql = "SELECT exid, title, '시험' AS problem_type, 'test' AS type, tid, tt, pn, answer, pnlevel, 'admin' AS registered_by 
-             FROM test $where_clause";
+             FROM test $where_sql";
 
 // 두 쿼리 결합 및 데이터 페이징 처리
 $combined_sql = "($quiz_sql) UNION ALL ($test_sql) ORDER BY exid DESC LIMIT $start_num, $list";
@@ -56,21 +74,21 @@ $result = $mysqli->query($combined_sql);
 // 데이터 저장
 $dataArr = [];
 while ($row = $result->fetch_object()) {
-    $dataArr[] = $row;
+  $dataArr[] = $row;
 }
 
 // 사용자 이름 가져오기
 $usernames = [];
 if (!empty($dataArr)) {
-    $tid_list = implode(',', array_unique(array_map(fn($data) => $data->tid, $dataArr)));
+  $tid_list = implode(',', array_unique(array_map(fn($data) => $data->tid, $dataArr)));
 
-    // user 테이블에서 tid에 해당하는 사용자 이름 가져오기
-    $user_sql = "SELECT uid, username FROM user WHERE uid IN ($tid_list)";
-    $user_result = $mysqli->query($user_sql);
+  // user 테이블에서 tid에 해당하는 사용자 이름 가져오기
+  $user_sql = "SELECT uid, username FROM user WHERE uid IN ($tid_list)";
+  $user_result = $mysqli->query($user_sql);
 
-    while ($user = $user_result->fetch_object()) {
-        $usernames[$user->uid] = $user->username; // uid를 키로, username 저장
-    }
+  while ($user = $user_result->fetch_object()) {
+    $usernames[$user->uid] = $user->username; // uid를 키로, username 저장
+  }
 }
 
 ?>

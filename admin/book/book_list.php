@@ -2,30 +2,49 @@
 
 include_once($_SERVER['DOCUMENT_ROOT'] . '/code_even/admin/inc/header.php');
 
+// 사용자 정보 가져오기
+$uid = (int) ($_SESSION['UID'] ?? 0);
+$user_level = null;
+$username = null;
+
+// user_level 및 username 확인
+if ($uid) {
+  $result = $mysqli->query("SELECT user_level, username FROM user WHERE uid = $uid");
+  if ($result) {
+    $user_data = $result->fetch_object();
+    $user_level = $user_data->user_level;
+    $username = $user_data->username;
+  }
+}
 
 // 게시글 개수 구하기 및 검색 조건 추가
-$keywords = isset($_GET['keywords']) ? $_GET['keywords'] : '';
-$cate1 = isset($_GET['cate1']) ? $_GET['cate1'] : '';
-$cate2 = isset($_GET['cate2']) ? $_GET['cate2'] : '';
-$cate3 = isset($_GET['cate3']) ? $_GET['cate3'] : '';
+$keywords = isset($_GET['keywords']) ? $mysqli->real_escape_string($_GET['keywords']) : '';
+$cate1 = isset($_GET['cate1']) ? $mysqli->real_escape_string($_GET['cate1']) : '';
+$cate2 = isset($_GET['cate2']) ? $mysqli->real_escape_string($_GET['cate2']) : '';
+$cate3 = isset($_GET['cate3']) ? $mysqli->real_escape_string($_GET['cate3']) : '';
 
 // 기본 WHERE 조건 (1=1은 조건을 동적으로 추가하기 위해 사용)
 $where_clause = "WHERE 1=1";
 
+// 권한에 따른 필터링
+if ($user_level != 100 && $username) {
+  $where_clause .= " AND book.name = '$username'";
+}
+
+// 검색어 조건
 if ($keywords) {
-  $where_clause .= " AND book.title LIKE '%$keywords%'"; // 검색어 조건
+  $where_clause .= " AND book.title LIKE '%$keywords%'";
 }
 
+// 카테고리 조건
 if ($cate1) {
-  $where_clause .= " AND book.cate1 = '$cate1'"; // 대분류 조건
+  $where_clause .= " AND book.cate1 = '$cate1'";
 }
-
 if ($cate2) {
-  $where_clause .= " AND book.cate2 = '$cate2'"; // 중분류 조건
+  $where_clause .= " AND book.cate2 = '$cate2'";
 }
-
 if ($cate3) {
-  $where_clause .= " AND book.cate3 = '$cate3'"; // 소분류 조건
+  $where_clause .= " AND book.cate3 = '$cate3'";
 }
 
 // 전체 게시글 수 조회
@@ -34,9 +53,8 @@ $page_result = $mysqli->query($page_sql);
 $page_data = $page_result->fetch_assoc();
 $row_num = $page_data['cnt'];
 
-
 // 페이지네이션
-$page = isset($_GET['page']) ? $_GET['page'] : 1;
+$page = isset($_GET['page']) ? (int) $_GET['page'] : 1;
 $list = 5;
 $start_num = ($page - 1) * $list;
 $block_ct = 5;
@@ -50,11 +68,13 @@ if ($block_end > $total_page) {
   $block_end = $total_page;
 }
 
+// 게시글 데이터 가져오기
 $sql = "SELECT * FROM book $where_clause 
-            ORDER BY book.boid DESC 
-            LIMIT $start_num, $list";
+        ORDER BY book.boid DESC 
+        LIMIT $start_num, $list";
 $result = $mysqli->query($sql);
 
+$dataArr = [];
 while ($data = $result->fetch_object()) {
   $dataArr[] = $data;
 }
@@ -254,25 +274,25 @@ while ($row = $result_cate->fetch_object()) {
   });
 
   // jQuery로 "전체 선택" 및 "일괄 삭제" 기능 구현
-$(document).ready(function () {
+  $(document).ready(function () {
     // 전체 선택 기능
     $('#selectAll').on('change', function () {
-        $('.itemCheckbox').prop('checked', $(this).prop('checked'));
+      $('.itemCheckbox').prop('checked', $(this).prop('checked'));
     });
 
     // 폼 제출 확인
     $('#deleteSelectedBtn').on('click', function (e) {
-        const selectedCheckboxes = $('.itemCheckbox:checked'); // 체크된 항목 찾기
-        if (selectedCheckboxes.length === 0) {
-            e.preventDefault();
-            alert('삭제할 항목을 선택하세요.');
-        } else {
-            if (!confirm('선택한 항목을 삭제하시겠습니까?')) {
-                e.preventDefault();
-            }
+      const selectedCheckboxes = $('.itemCheckbox:checked'); // 체크된 항목 찾기
+      if (selectedCheckboxes.length === 0) {
+        e.preventDefault();
+        alert('삭제할 항목을 선택하세요.');
+      } else {
+        if (!confirm('선택한 항목을 삭제하시겠습니까?')) {
+          e.preventDefault();
         }
+      }
     });
-});
+  });
 
 </script>
 
