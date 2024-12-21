@@ -176,3 +176,20 @@ section.mypage_header .row{
 }
 
 /*----메뉴 + 본문 part mypage_basic ----끝*/
+
+
+/*---- mypage 공통 style ----시작*/
+
+/* 빈 페이지일 경우 이동 버튼 */
+div.white .empty_link{
+  border: 1px solid var(--bk300);
+  padding: 10px;
+  border-radius: 8px;
+  font-size: 15px;
+  transition: all 0.3s ease;
+}
+div.white .empty_link:hover{
+  background-color: var(--bk50);
+}
+
+
