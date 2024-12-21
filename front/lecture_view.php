@@ -1,7 +1,7 @@
 <?php
 
 include_once($_SERVER['DOCUMENT_ROOT'] . '/code_even/front/inc/header.php');
-
+$mypage_main_js = "<script src=\"http://" . $_SERVER['HTTP_HOST'] . "/code_even/front/js/wishlist.js\"></script>";
 
 /* lecture, book Start */
 $leid = isset($_GET['leid']) ? (int) $_GET['leid'] : 0;
@@ -120,6 +120,26 @@ if ($lecture_detail_result && $lecture_detail_result->num_rows > 0) {
 // 총 시간을 시:분:초로 변환
 $totalTimeFormatted = secondsToHMS($totalSeconds);
 
+/* 강좌 찜하기 Start */
+
+if (isset($_SESSION['UID'])) {
+  $uid = (int)$_SESSION['UID'];
+  $wishlist_sql = "SELECT leid FROM wishlist WHERE uid = $uid";
+  $wishlist_result = $mysqli->query($wishlist_sql);
+  $wishlist = [];
+
+  if ($wishlist_result && $wishlist_result->num_rows > 0) {
+      while ($row = $wishlist_result->fetch_assoc()) {
+          $wishlist[] = (int)$row['leid'];
+      }
+  }
+} else {
+  $wishlist = [];
+}
+
+/* 강좌 찜하기 End */
+
+
 /* lecture, book End */
 
 
@@ -214,7 +234,9 @@ while ($review = $review_result->fetch_object()) {
           <!-- 찜하기 버튼 -->
           <div class="col-6">
             <button type="button" class="btn btn-outline-light w-100 d-flex align-items-center justify-content-center gap-2 btn-like">
-              <i class="bi bi-heart"></i>
+              <i class="bi bi-heart heart-icon <?= in_array($leid, $wishlist) ? 'd-none' : ''; ?>" data-leid="<?= $leid; ?>"></i>
+              <!-- 채워진 하트 -->
+              <i class="bi bi-heart-fill heart-icon-filled <?= in_array($leid, $wishlist) ? '' : 'd-none'; ?>" data-leid="<?= $leid; ?>"></i>
               <span>찜하기</span>
             </button>
           </div>
@@ -357,34 +379,7 @@ while ($review = $review_result->fetch_object()) {
   </div>
 </div>
 <script>
-
-  // 찜하기 버튼 클릭 이벤트
-  $('.btn-like').on('click', function () {
-      const lectureId = <?= $leid; ?>; // 현재 강좌 ID
-      let data = { lecture_id: lectureId };
-
-      console.log(data);
-      $.ajax({
-          type: 'POST',
-          url: 'wishlist_handler.php',
-          data: data,
-          dataType: 'json',
-          success: function (response) {
-              if (response.status === 'success') {
-                  alert(response.message);
-              } else if (response.status === 'not_logged_in') {
-                  // 로그인 모달 창 열기
-                  $('#exampleModaltest').modal('show');
-              } else {
-                  alert(response.message);
-              }
-          },
-          error: function () {
-              alert('찜하기 요청 중 오류가 발생했습니다.');
-          }
-      });
-  });
-
+  //찜하기 이벤트
 
   // 장바구니 추가 이벤트
   $('#cartform').submit(function(e) {
