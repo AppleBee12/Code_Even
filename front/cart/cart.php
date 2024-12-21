@@ -129,7 +129,7 @@
           <ul class="list-group mb-3 payment_sum">
             <li class="list-group-item d-flex justify-content-between lh-sm">
               <div>
-                <h6 class="my-0">총 결제 금액</h6>
+                <p class="my-0">강좌 금액</p>
               </div>
               <p class="total_price">
                 <span class="number">0</span>원
@@ -137,7 +137,15 @@
             </li>
             <li class="list-group-item d-flex justify-content-between lh-sm">
               <div>
-                <h6 class="my-0">선택 상품 수</h6>
+                <p class="my-0">교재 금액</p>
+              </div>
+              <p class="total_price">
+                <span class="number">0</span>원
+              </p>
+            </li>
+            <li class="list-group-item d-flex justify-content-between lh-sm">
+              <div>
+                <p class="my-0">선택 강좌 수</p>
               </div>
               <span class="text-muted">총 3건</span>
             </li>
