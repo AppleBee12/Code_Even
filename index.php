@@ -122,7 +122,7 @@ if ($tc_result && $tc_result->num_rows > 0) {
           <a href="#">강의/퀴즈시험</a>
         </span><br>
         <span><b>홍은진 : </b>
-          <a href="front/cart.php">장바구니, </a>
+          <a href="front/cart/cart.php">장바구니, </a>
           <a href="#">최근 본 상품, </a>
           <a href="#">결제내역, </a>
           <a href="#">찜한강좌 </a>
