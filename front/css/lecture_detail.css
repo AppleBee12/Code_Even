@@ -3,15 +3,6 @@ body {
   color: var(--bk200);
 }
 
-.header {
-  background-color: var(--bk1100);
-  color: var(--bk200);
-  padding: 10px 20px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-
 .modal-content {
   background-color: #1e1e1e;
   color: #fff;
@@ -26,6 +17,8 @@ body {
 .modal-body {
   text-align: center;
   line-height: 1.5;
+  font-weight: 500 !important;
+  color: var(--bk200);
 }
 
 .modal-footer {
@@ -38,12 +31,16 @@ body {
 }
 
 .subtitle1 {
-  font-weight: 500;
+  font-weight: 700;
 }
 
 hr {
   padding: 0;
   margin: 0;
+}
+
+.btn-close{
+  color: var(--bk200) !important;
 }
 
 .back-icon {

@@ -80,6 +80,27 @@ $detail_result = $mysqli->query($detail_query);
 
 <body>
   <div class="container-fluid content-wrapper">
+    <div class="modal fade" id="customModal" tabindex="-1" aria-labelledby="customModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered">
+          <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title subtitle1" id="customModalLabel">수료증을 향한 첫걸음!</h5>
+              </div>
+              <hr>
+              <div class="modal-body subtitle2">
+                코드이븐의 각 강의는 <br>
+                <span class="message_str">퀴즈와 시험이 제출 되어야 진도 확인이 가능</span>합니다.<br>
+                그래야만 차후 수료증을 받아 보실 수 있어요.<br>
+                미루지 말고 꼭 풀고 다음 강의를 시청해 주세요.<br>
+                끝까지 풀고 멋진 수료증을 손에 쥘 수강생 여러분을 응원합니다!
+              </div>
+              <hr>
+              <div class="modal-footer">
+                  <button class="btn btn-danger" data-bs-dismiss="modal" aria-label="Close">확인</button>
+              </div>
+          </div>
+      </div>
+    </div>
     <div class="row h-100">
       <div class="col-md-9 d-flex flex-column main-content">
         <div class="main-header d-flex gap-3 align-items-center">
@@ -100,38 +121,38 @@ $detail_result = $mysqli->query($detail_query);
         <h6 class="mb-4 subtitle1">강좌명: <?= htmlspecialchars($lecture_title); ?></h6>
         <div class="lecture-list">
           <?php if ($detail_result && $detail_result->num_rows > 0): ?>
-            <?php while ($row = $detail_result->fetch_object()): ?>
-              <?php
-              // 재생 시간을 가져오되 실패 시 기본값 설정
-              $play_time = "시간 없음";
-              if (!empty($row->video_url)) {
-                $play_time = getYouTubeVideoDuration($row->video_url, $api_key);
-              }
-              ?>
-              <div class="lecture-item mb-3" data-video-url="<?= htmlspecialchars($row->video_url); ?>"
-                data-full-title="<?= htmlspecialchars($row->title); ?>">
-                <div class="lecture-actions d-flex justify-content-between align-items-center">
-                  <span class="lecture-title" style="cursor: pointer;">
-                    <?= htmlspecialchars($row->video_order); ?>강.
-                    <?= htmlspecialchars(mb_strimwidth($row->title, 0, 40, "...", "UTF-8")); ?>
-                  </span>
-                  <a href="#" class="text-decoration-none">
-                    <i class="fas fa-download"></i> 실습 파일
-                  </a>
-                </div>
-                <div class="lecture-time mt-2 d-flex justify-content-between">
-                  <span><i class="fas fa-clock"></i> <?= htmlspecialchars($play_time); ?></span>
-                  <div>
-                    <button class="btn btn-sm btn-secondary quiz-btn" data-type="quiz"
-                      data-id="<?= $row->quiz_id; ?>">퀴즈</button>
-                    <button class="btn btn-sm btn-secondary exam-btn" data-type="exam"
-                      data-id="<?= $row->test_id; ?>">시험</button>
+              <?php while ($row = $detail_result->fetch_object()): ?>
+                  <?php
+                  // 재생 시간을 가져오되 실패 시 기본값 설정
+                  $play_time = "시간 없음";
+                  if (!empty($row->video_url)) {
+                    $play_time = getYouTubeVideoDuration($row->video_url, $api_key);
+                  }
+                  ?>
+                  <div class="lecture-item mb-3" data-video-url="<?= htmlspecialchars($row->video_url); ?>"
+                    data-full-title="<?= htmlspecialchars($row->title); ?>">
+                    <div class="lecture-actions d-flex justify-content-between align-items-center">
+                      <span class="lecture-title" style="cursor: pointer;">
+                        <?= htmlspecialchars($row->video_order); ?>강.
+                        <?= htmlspecialchars(mb_strimwidth($row->title, 0, 40, "...", "UTF-8")); ?>
+                      </span>
+                      <a href="#" class="text-decoration-none">
+                        <i class="fas fa-download"></i> 실습 파일
+                      </a>
+                    </div>
+                    <div class="lecture-time mt-2 d-flex justify-content-between">
+                      <span><i class="fas fa-clock"></i> <?= htmlspecialchars($play_time); ?></span>
+                      <div>
+                        <button class="btn btn-sm btn-secondary quiz-btn" data-type="quiz"
+                          data-id="<?= $row->quiz_id; ?>">퀴즈</button>
+                        <button class="btn btn-sm btn-secondary exam-btn" data-type="exam"
+                          data-id="<?= $row->test_id; ?>">시험</button>
+                      </div>
+                    </div>
                   </div>
-                </div>
-              </div>
-            <?php endwhile; ?>
+              <?php endwhile; ?>
           <?php else: ?>
-            <p>등록된 강의가 없습니다.</p>
+              <p>등록된 강의가 없습니다.</p>
           <?php endif; ?>
         </div>
         <a href="inquiry.html" class="inquiry-link">
@@ -258,8 +279,8 @@ $detail_result = $mysqli->query($detail_query);
       contentHtml += `
         </ol>
         <div class="d-flex justify-content-end mt-4">
-          <button type="submit" class="btn btn-danger">제출</button>
-        </div>
+        <button type="submit" class="btn btn-danger">제출</button>
+      </div>
       </form>
     </div>`;
 

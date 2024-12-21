@@ -1,23 +1,42 @@
 <?php
+
 $title = "강좌 목록";
 
 include_once($_SERVER['DOCUMENT_ROOT'] . '/code_even/admin/inc/header.php');
 
-// 게시글 개수 구하기
-$keywords = isset($_GET['keywords']) ? $_GET['keywords'] : '';
-$where_clause = '';
+$uid = (int) ($_SESSION['UID'] ?? 0);
 
-if ($keywords) {
-  $where_clause = "WHERE lecture.title LIKE '%$keywords%'";
+// user_level 확인
+$user_level = null;
+if ($uid) {
+  $result = $mysqli->query("SELECT user_level FROM user WHERE uid = $uid");
+  $user_level = $result ? $result->fetch_object()->user_level : null;
 }
 
+// 사용자 필터링
+$user_filter = ($user_level == 100) ? "" : "lecid = $uid";
+
+// 검색어 필터링
+$keywords = isset($_GET['keywords']) ? $_GET['keywords'] : '';
+$search_filter = $keywords ? "title LIKE '%$keywords%'" : "";
+
+// 최종 WHERE 절 조합
+$conditions = [];
+if ($user_filter)
+  $conditions[] = $user_filter;
+if ($search_filter)
+  $conditions[] = $search_filter;
+
+$where_clause = $conditions ? "WHERE " . implode(" AND ", $conditions) : "";
+
+// 게시글 개수 구하기
 $page_sql = "SELECT COUNT(*) AS cnt FROM lecture $where_clause";
 $page_result = $mysqli->query($page_sql);
 $page_data = $page_result->fetch_assoc();
 $row_num = $page_data['cnt'];
 
 // 페이지네이션
-$page = isset($_GET['page']) ? $_GET['page'] : 1;
+$page = isset($_GET['page']) ? (int) $_GET['page'] : 1;
 $list = 10;
 $start_num = ($page - 1) * $list;
 $block_ct = 5;
@@ -32,17 +51,19 @@ if ($block_end > $total_page) {
 }
 
 // 강좌 목록 불러오기
-$sql = "SELECT leid, image, title, name, period, course_type, isbest, isnew, state FROM lecture 
-          $where_clause 
-          ORDER BY leid DESC 
-          LIMIT $start_num, $list";
+$sql = "SELECT leid, image, title, name, period, course_type, isbest, isnew, state 
+        FROM lecture $where_clause 
+        ORDER BY leid DESC 
+        LIMIT $start_num, $list";
 $result = $mysqli->query($sql);
 
 $dataArr = [];
 while ($data = $result->fetch_object()) {
   $dataArr[] = $data;
 }
+
 ?>
+
 
 <div class="container">
   <h2>강좌 목록</h2>
@@ -64,24 +85,37 @@ while ($data = $result->fetch_object()) {
           <th scope="col">강좌 유형</th>
           <th scope="col">강좌 전시 옵션</th>
           <th scope="col">상태</th>
-          <th scope="col">승인</th>
+          <?php if ($user_level == 100): ?>
+            <th scope="col">승인</th>
+          <?php endif; ?>
           <th scope="col">관리</th>
         </tr>
       </thead>
       <tbody>
-        <?php
-        if (isset($dataArr)) {
-          foreach ($dataArr as $item) {
-            ?>
+        <?php if (isset($dataArr) && count($dataArr) > 0): ?>
+          <?php foreach ($dataArr as $index => $item): ?>
             <tr>
+              <!-- 게시물 번호 (페이지별 순차 번호) -->
               <th scope="row">
-                <input type="hidden" name="leid[]" value="<?= $item->leid; ?>">
-                <?= $item->leid; ?>
+                <input type="hidden" name="leid[]" value="<?= htmlspecialchars($item->leid); ?>">
+                <?= $row_num - $start_num - $index; ?>
               </th>
-              <td class="lecture-img"><img src="<?= $item->image; ?>" alt="강좌 이미지"></td>
-              <td class="title-cell"><?= $item->title; ?></td>
-              <td><?= $item->name; ?></td>
-              <td><?= $item->period; ?>일</td>
+
+              <!-- 강좌 이미지 -->
+              <td class="lecture-img">
+                <img src="<?= htmlspecialchars($item->image); ?>" alt="강좌 이미지">
+              </td>
+
+              <!-- 강좌명 -->
+              <td class="title-cell"><?= htmlspecialchars($item->title); ?></td>
+
+              <!-- 등록자 -->
+              <td><?= htmlspecialchars($item->name); ?></td>
+
+              <!-- 학습 기간 -->
+              <td><?= htmlspecialchars($item->period); ?>일</td>
+
+              <!-- 강좌 유형 -->
               <td>
                 <div>
                   <?php if ($item->course_type === 'general'): ?>
@@ -91,46 +125,63 @@ while ($data = $result->fetch_object()) {
                   <?php endif; ?>
                 </div>
               </td>
+
+              <!-- 베스트 및 추천 체크박스 -->
               <td>
                 <div class="form-check d-inline-block me-2">
-                  <input type="hidden" name="isbest[<?= $item->leid; ?>]" value="0">
-                  <input class="form-check-input" type="checkbox" id="isbest[<?= $item->leid; ?>]"
-                    name="isbest[<?= $item->leid; ?>]" value="1" <?= $item->isbest ? 'checked' : ''; ?>>
-                  <label class="form-check-label" for="isbest[<?= $item->leid; ?>]">베스트</label>
+                  <input type="hidden" name="isbest[<?= htmlspecialchars($item->leid); ?>]" value="0">
+                  <input class="form-check-input" type="checkbox" id="isbest[<?= htmlspecialchars($item->leid); ?>]"
+                    name="isbest[<?= htmlspecialchars($item->leid); ?>]" value="1" <?= $item->isbest ? 'checked' : ''; ?>>
+                  <label class="form-check-label" for="isbest[<?= htmlspecialchars($item->leid); ?>]">베스트</label>
                 </div>
                 <div class="form-check d-inline-block">
-                  <input type="hidden" name="isnew[<?= $item->leid; ?>]" value="0">
-                  <input class="form-check-input" type="checkbox" id="isnew[<?= $item->leid; ?>]"
-                    name="isnew[<?= $item->leid; ?>]" value="1" <?= $item->isnew ? 'checked' : ''; ?>>
-                  <label class="form-check-label" for="isnew[<?= $item->leid; ?>]">추천</label>
+                  <input type="hidden" name="isnew[<?= htmlspecialchars($item->leid); ?>]" value="0">
+                  <input class="form-check-input" type="checkbox" id="isnew[<?= htmlspecialchars($item->leid); ?>]"
+                    name="isnew[<?= htmlspecialchars($item->leid); ?>]" value="1" <?= $item->isnew ? 'checked' : ''; ?>>
+                  <label class="form-check-label" for="isnew[<?= htmlspecialchars($item->leid); ?>]">추천</label>
                 </div>
               </td>
+
+              <!-- 상태 표시 -->
               <td>
-                <span id="status-badge-<?= $item->leid; ?>"
+                <span id="status-badge-<?= htmlspecialchars($item->leid); ?>"
                   class="badge <?= $item->state == 2 ? 'text-bg-secondary' : 'waitopen'; ?>">
                   <?= $item->state == 2 ? '개설' : '개설 대기'; ?>
                 </span>
               </td>
-              <td>
-                <div class="d-flex justify-content-center align-items-center">
-                  <div class="form-check form-switch">
-                    <input id="toggle-<?= $item->leid; ?>" class="form-check-input tog toggle-switch" type="checkbox"
-                      role="switch" data-id="<?= $item->leid; ?>" <?= $item->state == 2 ? 'checked' : ''; ?>>
+
+              <!-- 관리자 전용 토글 스위치 -->
+              <?php if ($user_level == 100): ?>
+                <td>
+                  <div class="d-flex justify-content-center align-items-center">
+                    <div class="form-check form-switch">
+                      <input id="toggle-<?= htmlspecialchars($item->leid); ?>" class="form-check-input tog toggle-switch"
+                        type="checkbox" role="switch" data-id="<?= htmlspecialchars($item->leid); ?>" <?= $item->state == 2 ? 'checked' : ''; ?>>
+                    </div>
                   </div>
-                </div>
-              </td>
+                </td>
+              <?php endif; ?>
+
+              <!-- 수정 및 삭제 버튼 -->
               <td>
                 <div class="d-flex justify-content-center gap-4">
-                  <a href="lecture_edit.php?id=<?= $item->leid; ?>"><i class="bi bi-pencil-fill"></i></a>
-                  <a href="lecture_delete.php?id=<?= $item->leid; ?>" onclick="return confirm('이 강좌를 삭제하시겠습니까?');"><i
-                      class="bi bi-trash"></i></a>
+                  <a href="lecture_edit.php?id=<?= htmlspecialchars($item->leid); ?>">
+                    <i class="bi bi-pencil-fill"></i>
+                  </a>
+                  <a href="lecture_delete.php?id=<?= htmlspecialchars($item->leid); ?>"
+                    onclick="return confirm('이 강좌를 삭제하시겠습니까?');">
+                    <i class="bi bi-trash"></i>
+                  </a>
                 </div>
               </td>
             </tr>
-            <?php
-          }
-        }
-        ?>
+          <?php endforeach; ?>
+        <?php else: ?>
+          <tr>
+            <td colspan="10" class="text-center text-muted">등록된 강좌가 없습니다.</td>
+          </tr>
+        <?php endif; ?>
+
       </tbody>
     </table>
     <div class="d-flex justify-content-end gap-2 mt-20 mb-50">
