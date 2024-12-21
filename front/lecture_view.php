@@ -236,7 +236,9 @@ while ($review = $review_result->fetch_object()) {
               <i class="bi bi-heart heart-icon <?= in_array($leid, $wishlist) ? 'd-none' : ''; ?>" data-leid="<?= $leid; ?>"></i>
               <!-- 채워진 하트 -->
               <i class="bi bi-heart-fill heart-icon-filled <?= in_array($leid, $wishlist) ? '' : 'd-none'; ?>" data-leid="<?= $leid; ?>"></i>
-              <span>찜하기</span>
+              <span>
+                <?= in_array($leid, $wishlist) ? '찜한 강좌' : '찜하기'; ?>
+              </span>
             </button>
           </div>
           <!-- 공유하기 버튼 -->
@@ -385,6 +387,7 @@ while ($review = $review_result->fetch_object()) {
     const $button = $(this);
     const $heartIcon = $button.find('.heart-icon');
     const $heartIconFilled = $button.find('.heart-icon-filled');
+    const $buttonText = $button.find('span'); // 버튼 내 텍스트 요소 선택
     const lectureId = $heartIcon.data('leid'); // 강좌 ID 가져오기
 
     // 현재 상태에 따라 처리
@@ -395,6 +398,7 @@ while ($review = $review_result->fetch_object()) {
                 alert(message);
                 $heartIcon.removeClass('d-none');
                 $heartIconFilled.addClass('d-none');
+                $buttonText.text('찜하기');
             } else {
                 alert('오류가 발생했습니다. 다시 시도해주세요.');
             }
@@ -406,6 +410,7 @@ while ($review = $review_result->fetch_object()) {
                 alert(message);
                 $heartIcon.addClass('d-none');
                 $heartIconFilled.removeClass('d-none');
+                $buttonText.text('찜한 강좌'); 
             } else {
                 alert('오류가 발생했습니다. 다시 시도해주세요.');
             }
