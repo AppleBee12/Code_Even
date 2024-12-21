@@ -114,6 +114,9 @@ if (isset($what_recipe_js)) {
 if (isset($service_js)) {
   echo $service_js;
 }
+if (isset($wishlist_js)) {
+  echo $wishlist_js;
+}
 
 ?>
 
