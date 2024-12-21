@@ -1,49 +1,42 @@
 <?php
-$dataFile = $_SERVER['DOCUMENT_ROOT'] . '/code_even/front/inc/visit_data.json';
+// session_start();
+// require ($_SERVER['DOCUMENT_ROOT'] . '/code_even/admin/inc/dbcon.php');
+
+// $dataFile = $_SERVER['DOCUMENT_ROOT'] . '/code_even/front/inc/visit_data.json';
 $today = date("Y-m-d");
 
+
+// 방문자 수 
 if (!isset($_COOKIE["visited"])) {
-    // 방문 데이터 로드
-    $data = [];
-    if (file_exists($dataFile)) {
-        $data = json_decode(file_get_contents($dataFile), true);
-    }
-
-    // 오늘 방문을 안했다면 기록1 추가
-    if (!isset($data[$today])) {
-        $data[$today] = 0;
-    }
-    $data[$today]++;
-
-    // 방문 데이터 저장
-    file_put_contents($dataFile, json_encode($data));
+    // 오늘 방문 데이터 추가
+    $visitor_sql = "INSERT INTO visitor_data (visit_date, visitors) 
+                    VALUES (?, 1) 
+                    ON DUPLICATE KEY UPDATE visitors = visitors + 1";
+    $todayVisitorData = $mysqli->prepare($visitor_sql);
+    $todayVisitorData->bind_param("s", $today);
+    $todayVisitorData->execute();
+    $todayVisitorData->close();
 
     // 쿠키 설정 (1일 유지)
-    setcookie("visited", "yes", time() + 86400);
+    setcookie("visited", "yes", time() + 86400, '/');
+}
+
+// 출석 체크 처리 (로그인한 사용자만)
+if (isset($_SESSION['UID'])) {
+    $uid = $_SESSION['UID'];
+
+    // 오늘 출석 체크 기록
+    $attendance_sql = "INSERT INTO attendance_data (uid, check_date) 
+                       VALUES (?, ?) 
+                       ON DUPLICATE KEY UPDATE created_at = NOW()";
+    $todayAttendanceData = $mysqli->prepare($attendance_sql);
+    $todayAttendanceData->bind_param("is", $uid, $today);
+    $todayAttendanceData->execute();
+    $todayAttendanceData->close();
 }
 
 
 
-/*
-매일의 방문자 수를 'visit_data.json'파일에 24시간 간격으로 저장해주는 쿠키 로직입니다.
 
-//방문 데이터를 로드를 하고 싶으실 때는 아래 json decode로 불러오세요!
-$dataFile = "visit_data.json";
-$data = file_exists($dataFile) ? json_decode(file_get_contents($dataFile), true) : [];
-
-//YYYY-MM까지만 추출 = 7
-$monthlyData = [];
-foreach ($data as $date => $count) {
-    $month = substr($date, 0, 7);
-    if (!isset($monthlyData[$month])) {
-        $monthlyData[$month] = 0;
-    }
-    $monthlyData[$month] += $count;
-}
-
-echo "<pre>";
-print_r($monthlyData);
-echo "</pre>";
-*/
 ?>
 
