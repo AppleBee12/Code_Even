@@ -1,7 +1,6 @@
 <?php
 
 include_once($_SERVER['DOCUMENT_ROOT'] . '/code_even/front/inc/header.php');
-$mypage_main_js = "<script src=\"http://" . $_SERVER['HTTP_HOST'] . "/code_even/front/js/wishlist.js\"></script>";
 
 /* lecture, book Start */
 $leid = isset($_GET['leid']) ? (int) $_GET['leid'] : 0;
@@ -379,8 +378,67 @@ while ($review = $review_result->fetch_object()) {
   </div>
 </div>
 <script>
-  //찜하기 이벤트
+/* ---- 찜하기 스크립트 시작 --- */
+  // btn-like 버튼 클릭 이벤트
+  $('.btn-like').on('click', function (event) {
+    event.preventDefault(); // 기본 동작 방지
+    const $button = $(this);
+    const $heartIcon = $button.find('.heart-icon');
+    const $heartIconFilled = $button.find('.heart-icon-filled');
+    const lectureId = $heartIcon.data('leid'); // 강좌 ID 가져오기
 
+    // 현재 상태에 따라 처리
+    if ($heartIcon.hasClass('d-none')) {
+        // 채워진 하트를 클릭한 경우 (찜 제거)
+        handleWishlist('remove', lectureId, function (success, message) {
+            if (success) {
+                alert(message);
+                $heartIcon.removeClass('d-none');
+                $heartIconFilled.addClass('d-none');
+            } else {
+                alert('오류가 발생했습니다. 다시 시도해주세요.');
+            }
+        });
+    } else {
+        // 빈 하트를 클릭한 경우 (찜 추가)
+        handleWishlist('add', lectureId, function (success, message) {
+            if (success) {
+                alert(message);
+                $heartIcon.addClass('d-none');
+                $heartIconFilled.removeClass('d-none');
+            } else {
+                alert('오류가 발생했습니다. 다시 시도해주세요.');
+            }
+        });
+    }
+  });
+
+  // 공통 찜하기 처리 함수
+  function handleWishlist(action, lectureId, callback) {
+      $.ajax({
+          type: 'POST',
+          url: '/code_even/front/wishlist_handler.php', // 공통 처리 PHP
+          data: { action: action, lecture_id: lectureId },
+          dataType: 'json',
+          success: function (response) {
+              if (response.status === 'success') {
+                  callback(true, response.message);
+              } else if (response.status === 'not_logged_in') {
+                  alert('로그인이 필요합니다.');
+                  $('#exampleModaltest').modal('show'); // 로그인 모달 열기
+              } else {
+                  callback(false, response.message);
+              }
+          },
+          error: function () {
+              alert('처리 중 오류가 발생했습니다.');
+              callback(false, 'Ajax 요청 실패');
+          }
+      });
+  }
+/* ---- 찜하기 스크립트 끝 --- */
+
+/* ---- 장바구니 추가 스크립트 시작 --- */
   // 장바구니 추가 이벤트
   $('#cartform').submit(function(e) {
       e.preventDefault();
@@ -426,6 +484,7 @@ while ($review = $review_result->fetch_object()) {
           }
       });
   });
+/* ---- 장바구니 추가 스크립트 끝 --- */
 
 </script>
 
