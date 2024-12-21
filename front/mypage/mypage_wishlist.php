@@ -3,29 +3,41 @@ $title = '마이페이지-찜한 강좌';
 include_once($_SERVER['DOCUMENT_ROOT'] . '/CODE_EVEN/front/inc/mypage_header.php');
 $mypage_main_js = "<script src=\"http://" . $_SERVER['HTTP_HOST'] . "/code_even/front/js/wishlist.js\"></script>";
 
-// 현재 사용자 ID 가져오기
-$uid = $_SESSION['UID'] ?? 0; // 로그인하지 않은 경우 0 설정
+if (isset($_SESSION['UID'])) {
+  $uid = (int)$_SESSION['UID']; // 로그인한 사용자의 UID
 
-if ($uid > 0) {
-    // 찜한 강좌 가져오기
-    $sql = "SELECT 
-        l.*
-        FROM wishlist w
-        JOIN lecture l ON w.leid = l.leid
-        WHERE w.uid = $uid
-        ORDER BY w.regdate DESC
-    ";
-    $result = $mysqli->query($sql);
+  // 찜한 강좌 ID 목록 가져오기
+  $wishlist_sql = "SELECT leid FROM wishlist WHERE uid = $uid";
+  $wishlist_result = $mysqli->query($wishlist_sql);
+  $wishlist = [];
 
-    // 결과를 객체 배열에 저장
-    $wish_lecture_sql = [];
-    if ($result && $result->num_rows > 0) {
-        while ($row = $result->fetch_object()) {
-            $wish_lecture_sql[] = $row;
-        }
-    }
+  if ($wishlist_result && $wishlist_result->num_rows > 0) {
+      while ($row = $wishlist_result->fetch_assoc()) {
+          $wishlist[] = (int)$row['leid'];
+      }
+  }
+
+  // 찜한 강좌 가져오기
+  $sql = "SELECT 
+      l.*
+      FROM wishlist w
+      JOIN lecture l ON w.leid = l.leid
+      WHERE w.uid = $uid
+      ORDER BY w.regdate DESC
+  ";
+  $result = $mysqli->query($sql);
+
+  // 결과를 객체 배열에 저장
+  $wish_lecture_sql = [];
+  if ($result && $result->num_rows > 0) {
+      while ($row = $result->fetch_object()) {
+          $wish_lecture_sql[] = $row;
+      }
+  }
 } else {
-    $wish_lecture_sql = [];
+  $uid = 'NULL'; // 로그인하지 않은 경우 UID는 NULL
+  $wishlist = []; // 빈 배열
+  $wish_lecture_sql = [];
 }
 ?>
 
@@ -43,8 +55,8 @@ if ($uid > 0) {
         <div>
           <p class="text-center mt-5">&#128064;</p>
           <p class="text-center my-5">찜한 강좌가 없습니다. 원하는 강좌를 찾아보세요!</p>
-          <div class="tc_borderline text-center">
-          <a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/front/lecture_list.php">강좌 보러가기
+          <div class="text-center">
+          <a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/front/lecture_list.php" class="empty_link">강좌 보러가기</i>
           </a>
         </div>
         </div>
@@ -92,9 +104,9 @@ if ($uid > 0) {
                 </div>
                 <div class="icon-container">
                   <!-- 빈 하트 -->
-                  <i class="bi bi-heart heart-icon d-none" data-leid="<?= $item->leid; ?>"></i>
+                  <i class="bi bi-heart heart-icon <?= in_array($item->leid, $wishlist) ? 'd-none' : ''; ?>" data-leid="<?= $item->leid; ?>"></i>
                   <!-- 채워진 하트 -->
-                  <i class="bi bi-heart-fill heart-icon-filled" data-leid="<?= $item->leid; ?>"></i>
+                  <i class="bi bi-heart-fill heart-icon-filled <?= in_array($item->leid, $wishlist) ? '' : 'd-none'; ?>" data-leid="<?= $item->leid; ?>"></i>
                   <i class="bi bi-cart-plus"></i>
                 </div>
               </div>
