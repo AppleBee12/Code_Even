@@ -414,7 +414,7 @@ while ($review = $review_result->fetch_object()) {
       $.ajax({
           async: false,
           type: 'POST',
-          url: 'cart_insert.php',
+          url: 'cart/cart_insert.php',
           data: data,
           dataType: 'json',
           error: function(e) {
