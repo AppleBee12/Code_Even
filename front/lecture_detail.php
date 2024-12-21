@@ -2,13 +2,6 @@
 
 include_once($_SERVER['DOCUMENT_ROOT'] . '/CODE_EVEN/admin/inc/dbcon.php');
 
-// 파라미터에서 lecture_id 가져오기
-// if (isset($_GET['lecture_id']) && is_numeric($_GET['lecture_id'])) {
-//   $lecture_id = (int)$_GET['lecture_id']; // 안전하게 정수 변환
-// } else {
-//   die("강좌 ID가 잘못되었습니다.");
-// }
-
 // 강좌 ID 임시 설정
 $lecture_id = 57;
 
@@ -24,7 +17,6 @@ if ($lecture_result && $lecture_row = $lecture_result->fetch_object()) {
 /* 유튜브 API 및 강의 동영상 */
 function getYouTubeVideoDuration($video_url, $api_key)
 {
-  // 동영상 ID 추출
   parse_str(parse_url($video_url, PHP_URL_QUERY), $query_params);
   if (isset($query_params['v'])) {
     $video_id = $query_params['v'];
@@ -32,10 +24,8 @@ function getYouTubeVideoDuration($video_url, $api_key)
     $video_id = basename(parse_url($video_url, PHP_URL_PATH));
   }
 
-  // YouTube Data API 요청 URL
   $api_url = "https://www.googleapis.com/youtube/v3/videos?id={$video_id}&part=contentDetails&key={$api_key}";
 
-  // API 호출 및 응답 확인
   $response = file_get_contents($api_url);
   if ($response) {
     $data = json_decode($response, true);
@@ -49,18 +39,16 @@ function getYouTubeVideoDuration($video_url, $api_key)
 
 function formatYouTubeDuration($duration)
 {
-  // ISO 8601 형식 -> HH:MM:SS 변환
   $interval = new DateInterval($duration);
   return $interval->format('%H:%I:%S');
 }
 
 // YouTube API 키
 $api_key = "AIzaSyC4aAKg0v67EziZJWlShXRlqsg7zKCPUVg";
+
 // 강의 목록 가져오기
 $detail_query = "SELECT * FROM lecture_detail WHERE lecture_id = $lecture_id";
 $detail_result = $mysqli->query($detail_query);
-
-
 
 ?>
 
@@ -69,8 +57,7 @@ $detail_result = $mysqli->query($detail_query);
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Lecture Detail</title>
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
-  integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 <link rel="stylesheet" href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/front/css/common.css">
 <link rel="stylesheet" href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/front/css/main.css">
 <link rel="stylesheet" href="http://<?= $_SERVER['HTTP_HOST'] ?>/code_even/admin/css/reset.css">
@@ -82,25 +69,26 @@ $detail_result = $mysqli->query($detail_query);
   <div class="container-fluid content-wrapper">
     <div class="modal fade" id="customModal" tabindex="-1" aria-labelledby="customModalLabel" aria-hidden="true">
       <div class="modal-dialog modal-dialog-centered">
-          <div class="modal-content">
-              <div class="modal-header">
-                <h5 class="modal-title subtitle1" id="customModalLabel">수료증을 향한 첫걸음!</h5>
-              </div>
-              <hr>
-              <div class="modal-body subtitle2">
-                코드이븐의 각 강의는 <br>
-                <span class="message_str">퀴즈와 시험이 제출 되어야 진도 확인이 가능</span>합니다.<br>
-                그래야만 차후 수료증을 받아 보실 수 있어요.<br>
-                미루지 말고 꼭 풀고 다음 강의를 시청해 주세요.<br>
-                끝까지 풀고 멋진 수료증을 손에 쥘 수강생 여러분을 응원합니다!
-              </div>
-              <hr>
-              <div class="modal-footer">
-                  <button class="btn btn-danger" data-bs-dismiss="modal" aria-label="Close">확인</button>
-              </div>
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title subtitle1" id="customModalLabel">수료증을 향한 첫걸음!</h5>
           </div>
+          <hr>
+          <div class="modal-body subtitle2">
+            코드이븐의 각 강의는 <br>
+            <span class="message_str">퀴즈와 시험이 제출 되어야 진도 확인이 가능</span>합니다.<br>
+            그래야만 차후 수료증을 받아 보실 수 있어요.<br>
+            미루지 말고 꼭 풀고 다음 강의를 시청해 주세요.<br>
+            끝까지 풀고 멋진 수료증을 손에 쥘 수강생 여러분을 응원합니다!
+          </div>
+          <hr>
+          <div class="modal-footer">
+            <button class="btn btn-danger" data-bs-dismiss="modal" aria-label="Close">확인</button>
+          </div>
+        </div>
       </div>
     </div>
+
     <div class="row h-100">
       <div class="col-md-9 d-flex flex-column main-content">
         <div class="main-header d-flex gap-3 align-items-center">
@@ -108,12 +96,9 @@ $detail_result = $mysqli->query($detail_query);
           <h6 id="lectureTitle" class="subtitle1"></h6>
         </div>
         <div id="mainContent" class="flex-grow-1">
-          <!-- 유튜브 동영상 임베드 영역 -->
           <div id="defaultContent" class="h-100 d-flex">
             <iframe id="mainVideo" src="" style="flex-grow: 1; height: 100%; background-color: black; border: none;"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-              allowfullscreen>
-            </iframe>
+              allowfullscreen></iframe>
           </div>
         </div>
       </div>
@@ -121,43 +106,35 @@ $detail_result = $mysqli->query($detail_query);
         <h6 class="mb-4 subtitle1">강좌명: <?= htmlspecialchars($lecture_title); ?></h6>
         <div class="lecture-list">
           <?php if ($detail_result && $detail_result->num_rows > 0): ?>
-              <?php while ($row = $detail_result->fetch_object()): ?>
-                  <?php
-                  // 재생 시간을 가져오되 실패 시 기본값 설정
-                  $play_time = "시간 없음";
-                  if (!empty($row->video_url)) {
-                    $play_time = getYouTubeVideoDuration($row->video_url, $api_key);
-                  }
-                  ?>
-                  <div class="lecture-item mb-3" data-video-url="<?= htmlspecialchars($row->video_url); ?>"
-                    data-full-title="<?= htmlspecialchars($row->title); ?>">
-                    <div class="lecture-actions d-flex justify-content-between align-items-center">
-                      <span class="lecture-title" style="cursor: pointer;">
-                        <?= htmlspecialchars($row->video_order); ?>강.
-                        <?= htmlspecialchars(mb_strimwidth($row->title, 0, 40, "...", "UTF-8")); ?>
-                      </span>
-                      <a href="#" class="text-decoration-none">
-                        <i class="fas fa-download"></i> 실습 파일
-                      </a>
-                    </div>
-                    <div class="lecture-time mt-2 d-flex justify-content-between">
-                      <span><i class="fas fa-clock"></i> <?= htmlspecialchars($play_time); ?></span>
-                      <div>
-                        <button class="btn btn-sm btn-secondary quiz-btn" data-type="quiz"
-                          data-id="<?= $row->quiz_id; ?>">퀴즈</button>
-                        <button class="btn btn-sm btn-secondary exam-btn" data-type="exam"
-                          data-id="<?= $row->test_id; ?>">시험</button>
-                      </div>
-                    </div>
+            <?php while ($row = $detail_result->fetch_object()): ?>
+              <?php
+              $play_time = "시간 없음";
+              if (!empty($row->video_url)) {
+                $play_time = getYouTubeVideoDuration($row->video_url, $api_key);
+              }
+              ?>
+              <div class="lecture-item mb-3" data-video-url="<?= htmlspecialchars($row->video_url); ?>"
+                data-full-title="<?= htmlspecialchars($row->title); ?>">
+                <div class="lecture-actions d-flex justify-content-between align-items-center">
+                  <span class="lecture-title"><?= htmlspecialchars($row->video_order); ?>강.
+                    <?= htmlspecialchars(mb_strimwidth($row->title, 0, 40, "...", "UTF-8")); ?>
+                  </span>
+                </div>
+                <div class="lecture-time mt-2 d-flex justify-content-between">
+                  <span><i class="fas fa-clock"></i> <?= htmlspecialchars($play_time); ?></span>
+                  <div>
+                    <button class="btn btn-sm btn-secondary quiz-btn" data-type="quiz"
+                      data-id="<?= $row->quiz_id; ?>">퀴즈</button>
+                    <button class="btn btn-sm btn-secondary exam-btn" data-type="exam"
+                      data-id="<?= $row->test_id; ?>">시험</button>
                   </div>
-              <?php endwhile; ?>
+                </div>
+              </div>
+            <?php endwhile; ?>
           <?php else: ?>
-              <p>등록된 강의가 없습니다.</p>
+            <p>등록된 강의가 없습니다.</p>
           <?php endif; ?>
         </div>
-        <a href="inquiry.html" class="inquiry-link">
-          <i class="fas fa-envelope"></i> 1:1 문의하러 가기
-        </a>
       </div>
     </div>
   </div>
@@ -225,8 +202,7 @@ $detail_result = $mysqli->query($detail_query);
         dataType: "json",
         success: function (response) {
           if (response.success) {
-            // 데이터가 성공적으로 로드되었을 경우 콘텐츠 렌더링
-            renderContent(response.data, type);
+            renderContent(response.data, type, exid);
           } else {
             alert("데이터를 불러오는 데 실패했습니다.");
           }
@@ -238,7 +214,7 @@ $detail_result = $mysqli->query($detail_query);
     });
 
     // 퀴즈/시험 콘텐츠 렌더링 함수
-    function renderContent(data, type) {
+    function renderContent(data, type, exid) {
       const timeLimit = type === 'quiz' ? 10 * 60 : 60 * 60;
 
       // 콘텐츠 클리어
@@ -263,7 +239,8 @@ $detail_result = $mysqli->query($detail_query);
         <p>네트워크 환경을 꼭 체크해 주세요.</p>
       </div>
       <form id="${type}Form" class="quiz-exam-container">
-        <h3 class="mb-4 fw-bold headt5">${type === 'quiz' ? '퀴즈' : '시험'}</h3>
+        <input type="hidden" name="type" value="${type}">
+        <input type="hidden" name="id" value="${exid}">
         <ol>`;
 
       if (type === 'quiz') {
@@ -279,8 +256,8 @@ $detail_result = $mysqli->query($detail_query);
       contentHtml += `
         </ol>
         <div class="d-flex justify-content-end mt-4">
-        <button type="submit" class="btn btn-danger">제출</button>
-      </div>
+          <button type="button" id="submitQuizExam" class="btn btn-danger">제출</button>
+        </div>
       </form>
     </div>`;
 
@@ -303,7 +280,7 @@ $detail_result = $mysqli->query($detail_query);
         if (remainingTime <= 0) {
           clearInterval(timerInterval);
           alert(`${type === 'quiz' ? '퀴즈' : '시험'} 시간이 종료되었습니다. 자동 제출됩니다.`);
-          $("#mainContent form").submit(); // 자동 제출
+          $("#mainContent form").submit();
         }
 
         remainingTime -= 1;
@@ -321,10 +298,9 @@ $detail_result = $mysqli->query($detail_query);
         questionHtml += options.map((option, i) => `
       <li class="mb-2">
         <label>
-          <input type="radio" name="q${number}" value="${i}"> ${option.trim()}
+          <input type="radio" name="answer" value="${i + 1}"> ${option.trim()}
         </label>
-      </li>
-    `).join('');
+      </li>`).join('');
       } else {
         questionHtml += `<li>옵션을 불러오지 못했습니다.</li>`;
       }
@@ -332,6 +308,45 @@ $detail_result = $mysqli->query($detail_query);
       questionHtml += `</ul></li>`;
       return questionHtml;
     }
+
+    // 퀴즈/시험 제출 버튼 이벤트
+    $(document).on('click', '#submitQuizExam', function (e) {
+      e.preventDefault();
+
+      const form = $(this).closest('form');
+      const type = form.find('input[name="type"]').val();
+      const id = form.find('input[name="id"]').val();
+      const answer = form.find('input[name="answer"]:checked').val();
+
+      if (!type || !id || !answer) {
+        alert('⚠️ 모든 필드를 채워주세요.');
+        return;
+      }
+
+      $.ajax({
+        url: 'save_score.php',
+        method: 'POST',
+        data: {
+          type: type,
+          id: id,
+          answer: answer
+        },
+        success: function (response) {
+          if (response && typeof response === 'object') {
+            if (response.success) {
+              alert(response.message || '점수가 성공적으로 저장되었습니다.');
+            } else {
+              alert(response.message || '점수 저장에 실패했습니다.');
+            }
+          } else {
+            alert('서버에서 올바른 응답을 받지 못했습니다.');
+          }
+        },
+        error: function () {
+          alert('서버 요청 중 오류가 발생했습니다.');
+        }
+      });
+    });
 
 
 
