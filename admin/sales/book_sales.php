@@ -245,7 +245,7 @@
         if ($block_num > 1) { 
       ?>
       <li class="page-item">
-        <a class="page-link" href="lectuer_sales.php?page=<?= $previous; ?>" aria-label="Previous">
+        <a class="page-link" href="lecture_sales.php?page=<?= $previous; ?>" aria-label="Previous">
           <i class="bi bi-chevron-left"></i>
         </a>
       </li>

@@ -152,7 +152,7 @@
         <a href="../user/user_list.php">전체회원관리, </a>
         <a href="../teacher/teacher_list.php">강사관리, </a>
         <a href="../orders/orders_list.php">결제/배송관리,  </a>
-        <a href="../sales/lectuer_sales.php">매출통계관리 </a>
+        <a href="../sales/lecture_sales.php">매출통계관리 </a>
         </span><br>
       </div>
       <hr>
