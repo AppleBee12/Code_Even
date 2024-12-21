@@ -1,3 +1,19 @@
 section{
   margin-top: 0;
 }
+
+.lecture_box{
+  border: 1px solid var(--bk200);
+  box-sizing: border-box; 
+  border-radius: 8px;
+  .image_box {
+    border-radius: 8px 8px 0 0 ;
+    img{
+      overflow: hidden;
+    }
+  }
+  .lecture_info{
+    padding: 15px;
+    box-sizing: border-box;
+  } 
+}
