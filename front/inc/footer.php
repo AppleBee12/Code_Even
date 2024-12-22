@@ -40,17 +40,17 @@
         <div class="menu_list">
           <div class="list_title">강좌</div>
           <ul class="menu_sublist">
-            <li>카테고리별 강좌</li>
-            <li>나의 수업</li>
-            <li>이수증 발급</li>
+            <li><a href="http://<?=$_SERVER['HTTP_HOST']?>/code_even/front/lecture_list.php">카테고리별 강좌</a></li>
+            <li><a href="http://<?=$_SERVER['HTTP_HOST']?>/code_even/front/mypage/mypage_lecture.php">나의 수업</a></li>
+            <li><a href="http://<?=$_SERVER['HTTP_HOST']?>/code_even/front/lecture_list.php">이수증 발급</a></li>
           </ul>
         </div>
         <div class="menu_list">
           <div class="list_title">결제서비스</div>
           <ul class="menu_sublist">
-            <li>장바구니</li>
-            <li>찜한 상품</li>
-            <li>결제 내역</li>
+            <li><a href="http://<?=$_SERVER['HTTP_HOST']?>/code_even/front/lecture_list.php">장바구니</a></li>
+            <li><a href="http://<?=$_SERVER['HTTP_HOST']?>/code_even/front/mypage/mypage_wishlist.php">찜한 상품</a></li>
+            <li></a>결제 내역</li>
           </ul>
         </div>
         <div class="menu_list">
@@ -65,9 +65,9 @@
     </div>
     <div class="d-flex justify-content-between">
       <div class="footer-policy d-flex">
-        <p><a href="">개인정보 정책</a></p>
+        <p>개인정보 정책</p>
         <p>&nbsp;|&nbsp;</p>
-        <p><a href="">이용 약관</a></p>
+        <p>이용 약관</p>
       </div>
       <div>
         <p>CODE EVEN LMS ©2024 All Rights Reserved.</p>
