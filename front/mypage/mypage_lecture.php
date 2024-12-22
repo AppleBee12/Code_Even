@@ -4,22 +4,6 @@ include_once($_SERVER['DOCUMENT_ROOT'] . '/CODE_EVEN/front/inc/mypage_header.php
 $mypage_main_js = "<script src=\"http://" . $_SERVER['HTTP_HOST'] . "/code_even/front/js/mypage_main.js\"></script>";
 
 
-// //강좌데이터
-// $sql = "SELECT class_data.*, user.*, lecture.*, stuscores.* 
-//         FROM class_data 
-//         JOIN user ON class_data.uid = user.uid 
-//         JOIN lecture ON class_data.leid = lecture.leid 
-//         LEFT JOIN stuscores ON user.uid = stuscores.stu_id 
-//         WHERE class_data.uid = '" . (isset($_SESSION['UID']) ? $_SESSION['UID'] : '') . "'";
-
-// $result = $mysqli->query($sql);
-// $classArr = [];
-// while ($class_data = $result->fetch_object()) {
-//   $classArr[] = $class_data; // 각 행을 배열에 추가
-//   //print_r($classArr);
-// }
-
-
 $sql = "
     SELECT 
         cd.*, 
@@ -75,25 +59,14 @@ foreach ($classArr as $class) {
       <!-- 강의목록 시작 -->
 
       <?php
-      // $currentLectureId = null;
-      // foreach ($classArr as $class) {
-      //   if ($currentLectureId !== $class->leid) {
-      //     // 이전 강좌의 강의 목록 출력 완료
-      //     if ($currentLectureId !== null) {
-      //       // 강좌 닫기
-      //     }
-
-      //     // 새로운 강좌 시작
-      //     $currentLectureId = $class->leid;
-
         foreach ($groupedClasses as $lectureId => $classes): 
       ?>
           <div class="my_lecture mb-4">
             <div class="my_lec_top d-flex">
-              <img src="<?= isset($class->lecture_image) ? htmlspecialchars($class->lecture_image) : 'default.jpg'; ?>" alt="강좌 이미지">
+              <img src="<?= isset($classes[0]->lecture_image) ? htmlspecialchars($classes[0]->lecture_image) : 'default.jpg'; ?>" alt="강좌 이미지">
               <div class="d-flex flex-column justify-content-evenly">
-                <p class="headt5"><?= isset($class->lecture_title) ? htmlspecialchars($class->lecture_title) : '강좌 제목 없음'; ?></p>
-                <p><b><?= isset($class->lecture_teacher) ? htmlspecialchars($class->lecture_teacher) : '강사명 없음'; ?></b> | <span>레시피강좌</span></p>
+                <p class="headt5"><?= isset($classes[0]->lecture_title) ? htmlspecialchars($classes[0]->lecture_title) : '강좌 제목 없음'; ?></p>
+                <p><b><?= isset($classes[0]->lecture_teacher) ? htmlspecialchars($classes[0]->lecture_teacher) : '강사명 없음'; ?></b> | <span>레시피강좌</span></p>
               </div>
             </div>
             <!-- 강좌 디테일 시작 -->
@@ -103,19 +76,19 @@ foreach ($classArr as $class) {
                   <ul class="d-flex flex-column gap-2">
                     <li class="d-flex gap-5">
                       <p class="my_lec_title">강좌기간</p>
-                      <p><?= isset($class->regdate) ? htmlspecialchars($class->regdate) : '기간 정보 없음'; ?></p>
+                      <p><?= isset($classes[0]->regdate) ? htmlspecialchars($classes[0]->regdate) : '기간 정보 없음'; ?></p>
                     </li>
                     <li class="d-flex gap-5 align-items-center">
                       <p class="my_lec_title">진도율</p>
-                      <div class="progress" role="progressbar" aria-valuenow="<?= isset($class->progress_rate) ? $class->progress_rate : 0; ?>" aria-valuemin="0" aria-valuemax="100">
-                        <div class="progress-bar progress-bar-striped bg-danger progress-bar-animated" style="width: <?= isset($class->progress_rate) ? $class->progress_rate : 0; ?>%">
-                          <?= isset($class->progress_rate) ? $class->progress_rate : 0; ?>%
+                      <div class="progress" role="progressbar" aria-valuenow="<?= isset($classes[0]->progress_rate) ? $classes[0]->progress_rate : 0; ?>" aria-valuemin="0" aria-valuemax="100">
+                        <div class="progress-bar progress-bar-striped bg-danger progress-bar-animated" style="width: <?= isset($classes[0]->progress_rate) ? $classes[0]->progress_rate : 0; ?>%">
+                          <?= isset($classes[0]->progress_rate) ? $classes[0]->progress_rate : 0; ?>%
                         </div>
                       </div>
                     </li>
                     <li class="d-flex gap-5">
                       <p class="my_lec_title">평균 점수</p>
-                      <p><?= isset($class->test_score) ? $class->test_score : '0'; ?>점</p>
+                      <p><?= isset($classes[0]->test_score) ? $classes[0]->test_score : '0'; ?>점</p>
                     </li>
                   </ul>
                   <div class="my_lec_btn d-flex mt-3 gap-2">
@@ -143,20 +116,20 @@ foreach ($classArr as $class) {
                 <!-- 그래프 영역 -->
                 <div class="my_lec_graph_wrapper d-flex">
                   <div class="my_lec_graph d-flex flex-column align-items-center">
-                    <div class="donut-chart" style="--percentage: <?= isset($class->quiz_score) ? $class->quiz_score : 0; ?>%;">
-                      <div class="percentage-label"><?= isset($class->quiz_score) ? $class->quiz_score : 0; ?>%</div>
+                    <div class="donut-chart" style="--percentage: <?= isset($classes[0]->quiz_score) ? $classes[0]->quiz_score : 0; ?>%;">
+                      <div class="percentage-label"><?= isset($classes[0]->quiz_score) ? $classes[0]->quiz_score : 0; ?>%</div>
                     </div>
                     <p>강의</p>
                   </div>
                   <div class="my_lec_graph d-flex flex-column align-items-center">
-                    <div class="donut-chart" style="--percentage: <?= isset($class->quiz_score) ? $class->quiz_score : 0; ?>%;">
-                      <div class="percentage-label"><?= isset($class->quiz_score) ? $class->quiz_score : 0; ?>%</div>
+                    <div class="donut-chart" style="--percentage: <?= isset($classes[0]->quiz_score) ? $classes[0]->quiz_score : 0; ?>%;">
+                      <div class="percentage-label"><?= isset($classes[0]->quiz_score) ? $classes[0]->quiz_score : 0; ?>%</div>
                     </div>
                     <p>퀴즈</p>
                   </div>
                   <div class="my_lec_graph d-flex flex-column align-items-center">
-                    <div class="donut-chart" style="--percentage: <?= isset($class->test_score) ? $class->test_score : 0; ?>%;">
-                      <div class="percentage-label"><?= isset($class->test_score) ? $class->test_score : 0; ?>%</div>
+                    <div class="donut-chart" style="--percentage: <?= isset($classes[0]->test_score) ? $classes[0]->test_score : 0; ?>%;">
+                      <div class="percentage-label"><?= isset($classes[0]->test_score) ? $classes[0]->test_score : 0; ?>%</div>
                     </div>
                     <p>시험</p>
                   </div>
