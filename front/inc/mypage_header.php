@@ -69,13 +69,16 @@ if (isset($_SESSION['UID'])) {
   $weekDates = [];
   $weekMonths = [];
   for ($i = 0; $i < 7; $i++) {
-    $currentDate = date('Y-m-d', strtotime($startOfWeek . " +$i days"));
+    $currentDate = date('Y-m-d', strtotime("+$i days", strtotime($startOfWeek)));
     $weekDates[] = $currentDate;
     $weekMonths[] = date('n월', strtotime($currentDate)); // 해당 날짜의 월 추가
   }
   //만약 달 2개가 겹친다면 두 달을 모두 표시
   $uniqueMonths = array_unique($weekMonths);
 }
+
+ //var_dump($attendance_count); // 오늘 출석 여부 확인
+ //var_dump($today);
 
 ?>
 

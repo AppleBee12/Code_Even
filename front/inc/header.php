@@ -190,6 +190,7 @@ if (isset($_GET['code'])) {
     case 'mypage_qna_question.php':
     case 'mypage_qna_question_details.php':
     case 'mypage_class_qna_question.php':
+    case 'mypage_class_qna_question_details.php':
     case 'mypage_reivew.php':
     case 'mypage_review_write.php':
     case 'mypage_write_comment.php':
@@ -265,6 +266,8 @@ if (isset($_GET['code'])) {
     case 'mypage_qna_question.php':
     case 'mypage_qna_question_details.php':
     case 'mypage_class_qna_question.php':
+    case 'mypage_class_qna_question_details.php':
+    case 'mypage_write_comment.php':  
     case 'mypage_reivew.php':
     case 'mypage_review_write.php':
       echo '<link rel="stylesheet" href="http://' . $_SERVER['HTTP_HOST'] . '/code_even/front/css/mypage_qna_review.css">';
