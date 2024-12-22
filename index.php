@@ -146,11 +146,11 @@ if ($tc_result && $tc_result->num_rows > 0) {
           <a href="#">로그인, </a>
           <a href="front/signup/signup.php">회원가입, </a>
           <a href="front/signup/tc_applyform.php">강사등록, </a>
-          <a href="front/mypage/mypage_coupons.php">보유쿠폰 </a>
+          <a href="front/mypage/mypage_coupons.php">보유쿠폰, </a>
           <a href="front/mypage/mypage_info_edit.php">기본정보수정 </a>
         </span><br>
         <span><b>최은화 : </b>
-          <a href="front/lecture_list.php">강좌관리</a>
+          <a href="front/lecture_list.php">강좌관리, </a>
           <a href="#">강의/퀴즈시험</a>
         </span><br>
         <span><b>홍은진 : </b>

@@ -13,9 +13,9 @@ $result = $mysqli->query($sql);
 $dataArr = [];
 while ($data = $result->fetch_object()) {
   $dataArr[] = $data;
-  echo "<pre>";
-  print_r($dataArr);
-  echo "</pre>";
+  // echo "<pre>";
+  // print_r($dataArr);
+  // echo "</pre>";
 }
 ?>
 <div class="tab-content" id="nav-tabContent"><!--탭 메뉴 내용 시작-->
