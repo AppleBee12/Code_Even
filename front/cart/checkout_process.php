@@ -23,14 +23,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     exit;
   }
 
+  // 대표 강좌 제목 설정
+  $lecTitle = $cartItems[0]['lectureTitle']; // 첫 번째 강좌의 제목 사용
+
   $mysqli->begin_transaction(); // 트랜잭션 시작
 
   try {
     // orders 테이블에 데이터 삽입
-    $orderSql = "INSERT INTO orders (uid, total_amount, discount_amount, final_amount, pay_method, pay_status, receiver, receiver_phone, zipcode, addr_line1, addr_line2, addr_line3) 
-                 VALUES (?, ?, ?, ?, ?, 0, ?, ?, ?, ?, ?, ?);";
+    $orderSql = "INSERT INTO orders (uid, total_amount, discount_amount, final_amount, order_title, pay_method, pay_status, receiver, receiver_phone, zipcode, addr_line1, addr_line2, addr_line3) 
+                 VALUES (?, ?, ?, ?, ?, ?, 0, ?, ?, ?, ?, ?, ?);";
     $stmt = $mysqli->prepare($orderSql);
-    $stmt->bind_param("iiissssssss", $uid, $totalAmount, $discountAmount, $finalAmount, $payMethod, $receiver, $receiverPhone, $zipcode, $addrLine1, $addrLine2, $addrLine3);
+    $stmt->bind_param("iiisssssssss", $uid, $totalAmount, $discountAmount, $finalAmount, $lecTitle, $payMethod, $receiver, $receiverPhone, $zipcode, $addrLine1, $addrLine2, $addrLine3);
     $stmt->execute();
     $orderId = $stmt->insert_id; // 생성된 주문 ID 가져오기
 
@@ -57,7 +60,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 0
             );
         ";
-$mysqli->query($detailSql);
+      $mysqli->query($detailSql);
 
       // class_data 데이터 삽입
       $classSql = "INSERT INTO class_data (uid, leid) VALUES (?, ?);";
