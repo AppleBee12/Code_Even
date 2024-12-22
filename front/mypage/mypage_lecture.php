@@ -227,11 +227,7 @@ foreach ($classArr as $class) {
         </div><!-- 강의목록 끝 -->
       <?php
       endforeach;
-      //}
-      //};
       ?>
-
-
     </div>
   </div>
 </div>
@@ -251,7 +247,12 @@ foreach ($classArr as $class) {
 
 </div>
 <!--탭 메뉴 내용 끝-->
-
+<!-- header에서 시작된 div 끝 들!!! -->
+</div>
+</div>
+</section>
+</div>
+</div>
 
 <script>
   // 도넛 차트를 업데이트하는 함수
