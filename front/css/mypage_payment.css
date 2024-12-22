@@ -168,7 +168,8 @@
     select{
       width: 500px;
     }
-  } 
+  }
+
 } 
 
 .checkout_info_wrap{
@@ -176,6 +177,10 @@
   border: 1px solid var(--bk200);
   border-radius: 10px;
   padding: 32px;
+  input::placeholder{
+    color: var(--bk400);
+    font-size: 14px;
+  }
   .dinfo_body > *{
     margin-bottom: 10px;
   }
@@ -279,4 +284,11 @@
 :not(.btn-check)+.btn_ok_red.btn:active {
   background-color: var(--red950);
   border-color: var(--red950);
+}
+
+/* 공통 input */
+.form-control:focus {
+  border-color: var(--red500);
+  outline: 0;
+  box-shadow: 0 0 .25rem .1rem var(--red700_aph15)
 }
