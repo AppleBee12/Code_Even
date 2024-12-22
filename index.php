@@ -2,6 +2,39 @@
 include_once($_SERVER['DOCUMENT_ROOT'] . '/CODE_EVEN/front/inc/header.php');
 $main_js = "<script src=\"http://" . $_SERVER['HTTP_HOST'] . "/code_even/front/js/main.js\"></script>";
 
+// set cookie 출석체크 입력
+
+// 이번 주 데이터 표시 (월~일요일 을 한주로 표시)
+$today = date('Y-m-d');
+$startOfWeek = date('Y-m-d', strtotime('monday this week'));
+$endOfWeek = date('Y-m-d', strtotime('sunday this week'));
+// 이번 주의 월요일부터 일요일까지 날짜 배열 생성
+$weekDates = [];
+for ($i = 0; $i < 7; $i++) {
+  $weekDates[] = date('Y-m-d', strtotime("$startOfWeek +$i day"));
+}
+
+// 출석 인원 조회
+$attendance_sql = "SELECT COUNT(*) FROM attendance_data WHERE check_date = ?";
+$stmt = $mysqli->prepare($attendance_sql);
+$stmt->bind_param("s", $today);
+$stmt->execute();
+$stmt->bind_result($attendance_count);
+$stmt->fetch();
+$stmt->close();
+
+
+// json_encode로 배열을 json으로 변환해서 javascript로 넘길 준비!
+// $latestMonthNamesJson = json_encode($latestMonthNames);
+// $latestCountsJson = json_encode($latestCounts);
+// // 출력 결과
+// echo json_encode([
+//   'date' => $today,
+//   'visitors' => $visitor_count ?? 0,
+//   'attendance' => $attendance_count ?? 0
+// ]);
+
+
 /* lecture_section 시작 */
 
 $leid = $_GET['leid'] ?? null;

@@ -1,35 +1,21 @@
 document.addEventListener("DOMContentLoaded", function () {
 
-
-//오늘 날짜 중 달 데이터만 추출하기 .this-month에 넣어줌
-
-   let now = new Date(); 
-   let month = now.getMonth() + 1; // 월 데이터는 0부터 시작
-   let formattedMonth = month + "월"; // 월 추가해서 문자열 전환시킴
-
-   for (let el of document.querySelectorAll('.this-month')) {
-    el.textContent = formattedMonth;
-}
-
-
-
-
   // main index 차트
+  // 최근 6개월 수익률
+  const chartData = document.getElementById('chartData');
+  const latestMonthNames = JSON.parse(chartData.dataset.monthNames);
+  const latestCounts = JSON.parse(chartData.dataset.counts);
 
+  // console.log(latestMonthNames);
+  // console.log(latestCounts);
 
     const barCtx = document.getElementById('current_six_returns');
     const cateDatas = [250, 390, 580, 610, 692, 712]
-    let labels = []
+    let labels = latestMonthNames
   
-    for (let i = 5; i >= 0; i--){
-      let calMonth = month - i;
-      if (calMonth <= 0){
-        calMonth += 12;
-      }
-      labels.push(`${calMonth}월`);
-    }
-    //console.log(labels); array 0:6월 1:7월, 2:8월 ....
+    //console.log(labels); //array 0:6월 1:7월, 2:8월 ....
   
+
     const barchart = new Chart(barCtx, {
       type: 'bar',
       data: {
@@ -51,8 +37,8 @@ document.addEventListener("DOMContentLoaded", function () {
       }
     });
 
-
-
+  console.log(latestCounts)
+  // 신규가입자 현황
     const lineCtx = document.getElementById('current_six_news').getContext('2d');
     const lineChart = new Chart(lineCtx, {
       type: 'line',
