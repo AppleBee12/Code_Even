@@ -10,8 +10,10 @@ if (!isset($_SESSION['UID'])) {
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $cartData = json_decode($_POST['data'], true); // POST로 전달된 cartData
     $totalAmount = (float)$_POST['total']; // POST로 전달된 totalAmount
+    var_dump($cartData);
+    var_dump($totalAmount);
 } else {
-    echo "<script>alert('잘못된 접근입니다.'); location.href='/code_even/front/cart.php';</script>";
+    echo "<script>alert('잘못된 접근입니다.'); location.href='/code_even/front/cart/cart.php';</script>";
     exit;
 }
 

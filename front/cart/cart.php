@@ -8,7 +8,7 @@
       $uid = '';
       $userid =  '';
   }
-  
+  var_dump($_SESSION);
   // 카트 조회
   $cart_sql = "SELECT 
       c.*, 
@@ -94,7 +94,7 @@
                 <div class="item_check">
                   <input type="checkbox" class="item-check form-check-input">
                 </div>
-                <a href="" class="item_lnfo d-flex flex-fill">
+                <a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/front/lecture_view.php?leid=<?= $cart->leid; ?>" class="item_lnfo d-flex flex-fill">
                   <img src="<?= $cart->image;?>" alt="강좌 이미지" class="item_img">
                   <div class="item_txt d-flex flex-column justify-content-between">
                     <p class="lec_title"><?= $cart->title;?></p>
@@ -129,7 +129,7 @@
           <ul class="list-group mb-3 payment_sum">
             <li class="list-group-item d-flex justify-content-between lh-sm">
               <div>
-                <h6 class="my-0">총 결제 금액</h6>
+                <p class="my-0">강좌 금액</p>
               </div>
               <p class="total_price">
                 <span class="number">0</span>원
@@ -137,7 +137,15 @@
             </li>
             <li class="list-group-item d-flex justify-content-between lh-sm">
               <div>
-                <h6 class="my-0">선택 상품 수</h6>
+                <p class="my-0">교재 금액</p>
+              </div>
+              <p class="total_price">
+                <span class="number">0</span>원
+              </p>
+            </li>
+            <li class="list-group-item d-flex justify-content-between lh-sm">
+              <div>
+                <p class="my-0">선택 강좌 수</p>
               </div>
               <span class="text-muted">총 3건</span>
             </li>
@@ -282,7 +290,7 @@ $('.btn_item_del').click(function () {
 
         // Ajax 요청
         $.ajax({
-            url: '/code_even/front/cart_delete.php', // 삭제 처리할 PHP 파일 경로
+            url: '/code_even/front/cart/cart_delete.php', // 삭제 처리할 PHP 파일 경로
             type: 'POST',
             data: { cartid: cartId },
             dataType: 'json',
@@ -318,7 +326,7 @@ $('.btn_item_del').click(function () {
 
         // 폼 생성
         const form = $('<form>', {
-            action: '/code_even/front/checkout.php', // 데이터 전송 대상
+            action: '/code_even/front/cart/checkout.php', // 데이터 전송 대상
             method: 'POST'
         });
 

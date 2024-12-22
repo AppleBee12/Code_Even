@@ -63,54 +63,59 @@ if (isset($_SESSION['UID'])) {
         <?php } else { ?>
         <!-- 찜한 강좌 있을 경우-->
         <?php foreach ($wish_lecture_sql as $item) { ?>
-            <div class="lecture_box col-4 mb-3">
-              <a href="lecture_view.php?leid=<?= $item->leid; ?>">
-                <div class="image_box mb-2">
-                  <img src="<?= $item->image; ?>" alt="강좌 이미지" />
-                </div>
-                <div class="d-flex justify-content-between">
-                  <!-- 상 시작-->
-                  <div>
-                    <?php if ($item->isbest == 1) { ?>
-                      <span class="badge badge-outline">BEST</span>
-                    <?php } ?>
-                    <?php if ($item->isnew == 1) { ?>
-                      <span class="badge badge-outline">NEW</span>
-                    <?php } ?>
-                    <?php
-                    if ($item->course_type === 'recipe') { ?>
-                      <span class="badge text-bg-danger">레시피</span>
-                    <?php } elseif ($item->course_type !== 'general') { ?>
-                      <span class="badge text-bg-danger"><?= htmlspecialchars($item->course_type); ?></span>
-                    <?php } ?>
+            <div class="col-4 mb-3">
+              <div class="lecture_box">
+                <a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/front/lecture_view.php?leid=<?= $item->leid; ?>">
+                  <div class="image_box">
+                    <img src="<?= $item->image; ?>" alt="강좌 이미지" />
                   </div>
-                  <div class="d-flex gap-2">
-                    <i class="bi bi-star-fill"></i>
-                    <span class="custom_tt">5.0</span>
+                  <div class="lecture_info">
+                    <div class="d-flex justify-content-between">
+                      <!-- 상 시작-->
+                      <div>
+                        <?php if ($item->isbest == 1) { ?>
+                          <span class="badge badge-outline">BEST</span>
+                        <?php } ?>
+                        <?php if ($item->isnew == 1) { ?>
+                          <span class="badge badge-outline">NEW</span>
+                        <?php } ?>
+                        <?php
+                        if ($item->course_type === 'recipe') { ?>
+                          <span class="badge text-bg-danger">레시피</span>
+                        <?php } elseif ($item->course_type !== 'general') { ?>
+                          <span class="badge text-bg-danger"><?= htmlspecialchars($item->course_type); ?></span>
+                        <?php } ?>
+                      </div>
+                      <div class="d-flex gap-2">
+                        <i class="bi bi-star-fill"></i>
+                        <span class="custom_tt">5.0</span>
+                      </div>
+                    </div>
+                    <!-- 중 시작 -->
+                    <div>
+                      <p class="custom_tt"><?= $item->title; ?></p>
+                    </div>
+                    <div>
+                      <p class="tc_name"><?= $item->name; ?></p>
+                    </div>
+                  </a>
+                  <!-- 하 시작 -->
+                  <div class="d-flex justify-content-between">
+                    <div>
+                      <b><?= number_format($item->price); ?></b>원
+                    </div>
+                    <div class="icon-container">
+                      <!-- 빈 하트 -->
+                      <i class="bi bi-heart heart-icon <?= in_array($item->leid, $wishlist) ? 'd-none' : ''; ?>" data-leid="<?= $item->leid; ?>"></i>
+                      <!-- 채워진 하트 -->
+                      <i class="bi bi-heart-fill heart-icon-filled <?= in_array($item->leid, $wishlist) ? '' : 'd-none'; ?>" data-leid="<?= $item->leid; ?>"></i>
+                      <i class="bi bi-cart-plus"></i>
+                    </div>
                   </div>
-                </div>
-                <!-- 중 시작 -->
-                <div>
-                  <p class="custom_tt"><?= $item->title; ?></p>
-                </div>
-                <div>
-                  <p class="tc_name"><?= $item->name; ?></p>
-                </div>
-              </a>
-              <!-- 하 시작 -->
-              <div class="d-flex justify-content-between">
-                <div>
-                  <b><?= number_format($item->price); ?></b>원
-                </div>
-                <div class="icon-container">
-                  <!-- 빈 하트 -->
-                  <i class="bi bi-heart heart-icon <?= in_array($item->leid, $wishlist) ? 'd-none' : ''; ?>" data-leid="<?= $item->leid; ?>"></i>
-                  <!-- 채워진 하트 -->
-                  <i class="bi bi-heart-fill heart-icon-filled <?= in_array($item->leid, $wishlist) ? '' : 'd-none'; ?>" data-leid="<?= $item->leid; ?>"></i>
-                  <i class="bi bi-cart-plus"></i>
+                  <!-- 하 끝 -->
                 </div>
               </div>
-              <!-- 하 끝 -->
+              <!-- //lecture_box -->          
             </div>
             <?php
           }

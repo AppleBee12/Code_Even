@@ -265,7 +265,7 @@
         if ($block_num > 1) { 
       ?>
       <li class="page-item">
-        <a class="page-link" href="lectuer_sales.php?page=<?= $previous; ?>" aria-label="Previous">
+        <a class="page-link" href="lecture_sales.php?page=<?= $previous; ?>" aria-label="Previous">
           <i class="bi bi-chevron-left"></i>
         </a>
       </li>
@@ -276,14 +276,14 @@
         for ($i = $block_start; $i <= $block_end; $i++) {
           $active = ($page == $i) ? 'active' : '';
       ?>
-      <li class="page-item <?= $active; ?>"><a class="page-link" href="lectuer_sales.php?page=<?= $i; ?>"><?= $i; ?></a></li>
+      <li class="page-item <?= $active; ?>"><a class="page-link" href="lecture_sales.php?page=<?= $i; ?>"><?= $i; ?></a></li>
       <?php
         }
         $next = $block_end + 1;
         if($total_block > $block_num){
       ?>
       <li class="page-item">
-        <a class="page-link" href="lectuer_sales.php?page=<?= $next; ?>" aria-label="Next">
+        <a class="page-link" href="lecture_sales.php?page=<?= $next; ?>" aria-label="Next">
           <i class="bi bi-chevron-right"></i>
         </a>
       </li>
