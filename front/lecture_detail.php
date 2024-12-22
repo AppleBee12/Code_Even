@@ -352,33 +352,78 @@ $detail_result = $mysqli->query($detail_query);
       return questionHtml;
     }
 
+    let lastVideoUrl = ''; // 마지막 시청한 동영상 URL 저장 변수
 
-    // 퀴즈/시험 제출 버튼 이벤트
-    // 퀴즈/시험 제출 버튼 이벤트
+    // 강의 제목 클릭 시 URL 저장
+    $(".lecture-title").on("click", function () {
+      const $lectureItem = $(this).closest(".lecture-item");
+      lastVideoUrl = $lectureItem.data("video-url"); // 마지막 시청 URL 저장
+
+      $("#lectureTitle").text($lectureItem.data("full-title"));
+      $("#mainVideo").attr("src", convertToEmbedUrl(lastVideoUrl));
+    });
+
+    // 퀴즈/시험 버튼 클릭 시
+    $(document).on('click', '.quiz-btn, .exam-btn', function () {
+      const $button = $(this); // 클릭된 버튼 참조
+      const type = $button.data('type'); // quiz 또는 exam
+      const exid = $button.data('id'); // 퀴즈/시험 ID
+
+      $.ajax({
+        url: "fetch_quiz_exam.php",
+        method: "POST",
+        data: { type: type, id: exid },
+        dataType: "json",
+        success: function (response) {
+          if (response.success) {
+            renderContent(response.data, type, exid);
+          } else {
+            alert("데이터를 불러오는 데 실패했습니다.");
+          }
+        },
+        error: function () {
+          alert("서버 요청 중 오류가 발생했습니다.");
+        }
+      });
+    });
+
+    // 마지막 시청 동영상으로 돌아가는 함수
+    function showLastVideo() {
+      if (lastVideoUrl) {
+        $("#mainContent").html(`
+      <div id="defaultContent" class="h-100 d-flex">
+        <iframe id="mainVideo" src="${convertToEmbedUrl(lastVideoUrl)}"
+          style="flex-grow: 1; height: 100%; background-color: black; border: none;"
+          allowfullscreen>
+        </iframe>
+      </div>
+    `);
+        $("#lectureTitle").text("마지막 시청 동영상");
+      }
+    }
+
+    // 퀴즈/시험 제출 버튼 클릭 시
     $(document).on('click', '#submitQuizExam', function (e) {
       e.preventDefault();
+
+      const $submitButton = $(this); // 제출 버튼 참조
+      $submitButton.prop('disabled', true).text('제출 중...'); // 제출 버튼 비활성화
 
       const form = $(this).closest('form');
       const type = form.find('input[name="type"]').val();
       const id = form.find('input[name="id"]').val();
 
-      // 모든 답변 수집
       const answers = {};
-      form.find('input[type="radio"]:checked').each(function () {
-        const questionId = $(this).attr('data-question-id'); // 문제 ID 가져오기
-        if (questionId) {
-          answers[questionId] = $(this).val();
-        }
+      form.find('input[type="radio"]:checked').each(function (index) {
+        answers[`answer_${index + 1}`] = $(this).val();
       });
-
-      console.log('🔍 데이터 확인:', { type, id, answers });
 
       if (!type || !id || Object.keys(answers).length === 0) {
         alert('⚠️ 모든 필드를 채워주세요.');
+        $submitButton.prop('disabled', false).text('제출'); // 실패 시 버튼 활성화
         return;
       }
 
-      // 서버로 전송
       $.ajax({
         url: 'save_score.php',
         method: 'POST',
@@ -386,29 +431,44 @@ $detail_result = $mysqli->query($detail_query);
         data: JSON.stringify({
           type: type,
           id: id,
-          answers: answers // 모든 답변을 객체로 전송
+          answers: answers
         }),
         dataType: 'json',
         success: function (response) {
-          console.log('✅ 서버 응답:', response);
+          if (response.success) {
+            alert(response.message || '점수가 성공적으로 저장되었습니다.');
 
-          if (response && typeof response === 'object') {
-            if (response.success) {
-              alert(response.message || '점수가 성공적으로 저장되었습니다.');
-            } else {
-              alert(response.message || '점수 저장에 실패했습니다.');
-            }
+            // 사이드바 퀴즈/시험 버튼 비활성화
+            $(`.quiz-btn[data-id="${id}"], .exam-btn[data-id="${id}"]`)
+              .prop('disabled', true)
+              .addClass('disabled')
+              .text('완료');
+
+            // 원래 동영상 화면으로 복원
+            showLastVideo();
           } else {
-            alert('⚠️ 서버에서 올바른 응답을 받지 못했습니다.');
+            alert(response.message || '점수 저장에 실패했습니다.');
+            $submitButton.prop('disabled', false).text('제출'); // 실패 시 버튼 활성화
           }
         },
         error: function (xhr, status, error) {
           console.error('❌ AJAX 오류:', status, error);
-          console.error('❌ 서버 응답:', xhr.responseText);
           alert('⚠️ 서버 요청 중 오류가 발생했습니다.');
+          $submitButton.prop('disabled', false).text('제출'); // 실패 시 버튼 활성화
         }
       });
     });
+
+    // 유튜브 URL -> 임베드 URL로 변환하는 함수
+    function convertToEmbedUrl(videoUrl) {
+      let videoId = "";
+      if (videoUrl.includes("youtu.be")) {
+        videoId = videoUrl.split("youtu.be/")[1];
+      } else if (videoUrl.includes("youtube.com/watch?v=")) {
+        videoId = videoUrl.split("v=")[1].split("&")[0];
+      }
+      return `https://www.youtube.com/embed/${videoId}?autoplay=1`;
+    }
 
 
 
