@@ -2,40 +2,94 @@
 session_start();
 include_once($_SERVER['DOCUMENT_ROOT'] . '/code_even/admin/inc/dbcon.php');
 
-$uid = $_SESSION['UID'];
-$userid = $_SESSION['AUID'];
-$finalAmount = (float)$_POST['finalAmount'];
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+  $uid = $_SESSION['UID'];
+  
+  // 데이터 유효성 검증
+  $totalAmount = isset($_POST['total_amount']) ? intval($_POST['total_amount']) : 0;
+  $discountAmount = isset($_POST['discount_amount']) ? intval($_POST['discount_amount']) : 0;
+  $finalAmount = isset($_POST['final_amount']) ? intval($_POST['final_amount']) : 0;
+  $payMethod = $_POST['selected_payment'] ?? null;
+  $receiver = $_POST['receiver_name'] ?? null;
+  $receiverPhone = $_POST['receiver_contact'] ?? null;
+  $zipcode = $_POST['post_code'] ?? null;
+  $addrLine1 = $_POST['addr_line1'] ?? null;
+  $addrLine2 = $_POST['addr_line2'] ?? null;
+  $addrLine3 = $_POST['addr_line3'] ?? null;
+  $cartItems = isset($_POST['cart_items']) ? json_decode($_POST['cart_items'], true) : [];
 
-// cart 데이터 디코딩
-$cartData = json_decode($_POST['cart'], true);
-if (!$cartData) {
-    echo "<script>alert('장바구니 데이터가 유효하지 않습니다.'); history.back();</script>";
+  if (!$totalAmount || !$finalAmount || empty($cartItems)) {
+    echo "<script>alert('잘못된 요청입니다.'); window.history.back();</script>";
     exit;
-}
+  }
 
-// orders 테이블 삽입
-$order_sql = "INSERT INTO orders (uid, final_amount, order_date) VALUES ($uid, $finalAmount, NOW())";
-if ($mysqli->query($order_sql)) {
-    $order_id = $mysqli->insert_id; // 마지막으로 삽입된 주문 ID
+  $mysqli->begin_transaction(); // 트랜잭션 시작
 
-    // order_details 테이블 삽입
-    foreach ($cartData as $item) {
-        $leid = $item['leid'];
-        $boid = !empty($item['boid']) ? $item['boid'] : 'NULL';
-        $price = $item['lecture_price'];
+  try {
+    // orders 테이블에 데이터 삽입
+    $orderSql = "INSERT INTO orders (uid, total_amount, discount_amount, final_amount, pay_method, pay_status, receiver, receiver_phone, zipcode, addr_line1, addr_line2, addr_line3) 
+                 VALUES (?, ?, ?, ?, ?, 0, ?, ?, ?, ?, ?, ?);";
+    $stmt = $mysqli->prepare($orderSql);
+    $stmt->bind_param("iiissssssss", $uid, $totalAmount, $discountAmount, $finalAmount, $payMethod, $receiver, $receiverPhone, $zipcode, $addrLine1, $addrLine2, $addrLine3);
+    $stmt->execute();
+    $orderId = $stmt->insert_id; // 생성된 주문 ID 가져오기
 
-        $detail_sql = "INSERT INTO order_details (odid, product_id, tc_uid, price) VALUES ($order_id, $leid, $boid, $price)";
-        $mysqli->query($detail_sql);
+    // order_details 및 class_data 테이블에 데이터 삽입
+    foreach ($cartItems as $item) {
+      $leid = $item['leid']; 
+      $lecTitle = $item['lectureTitle'];
+      $lecPrice = intval($item['lecturePrice']);
+      $boid = $item['book']['boid'] ?? null; // 교재 ID (없을 수 있음)
+      $boTitle = $item['book']['name'] ?? null; // 교재명
+      $boPrice = intval($item['book']['price'] ?? 0); // 교재 가격 (없을 경우 0)
 
-        // class_data 테이블 삽입
-        $class_data_sql = "INSERT INTO class_data (uid, leid) VALUES ($uid, $leid)";
-        $mysqli->query($class_data_sql);
+      // order_details 데이터 삽입
+      $detailSql = "INSERT INTO 
+      order_details (odid, leid, lec_title, lec_price, boid, bo_title, bo_price, pay_status)
+            VALUES (
+                $orderId,
+                $leid,
+                '" . $mysqli->real_escape_string($lecTitle) . "',
+                $lecPrice,
+                " . ($boid !== null ? $boid : "NULL") . ",
+                '" . ($boTitle !== null ? $mysqli->real_escape_string($boTitle) : "") . "',
+                $boPrice,
+                0
+            );
+        ";
+$mysqli->query($detailSql);
+
+      // class_data 데이터 삽입
+      $classSql = "INSERT INTO class_data (uid, leid) VALUES (?, ?);";
+      $stmt = $mysqli->prepare($classSql);
+      $stmt->bind_param("ii", $uid, $leid);
+      $stmt->execute();
     }
 
-    echo "<script>alert('결제가 완료되었습니다. 나의 수업 페이지로 이동합니다.');
-    location.href='/CODE_EVEN/front/mypage/mypage_lecture.php';
+    $mysqli->commit(); // 트랜잭션 커밋
+
+    // 결제 성공 메시지 및 리디렉션
+    echo "<script>
+    alert('결제가 완료되었습니다! 나의 수업 페이지로 이동합니다.');
+    window.location.href = 'http://" . $_SERVER['HTTP_HOST'] . "/code_even/front/mypage/mypage_lecture.php';
     </script>";
+    exit;
+
+  } catch (Exception $e) {
+    $mysqli->rollback(); // 트랜잭션 롤백
+    // 상세 오류 메시지 출력
+    echo "<script>
+      alert('결제 처리 중 오류가 발생했습니다: " . addslashes($e->getMessage()) . "');
+      window.history.back();
+    </script>";
+    exit;
+  } finally {
+    if (isset($stmt)) {
+      $stmt->close();
+    }
+    $mysqli->close();
+  }
 } else {
-    echo "<script>alert('결제 처리 중 오류가 발생했습니다. 관리자에게 문의하세요.'); history.back();</script>";
+  echo "<script>alert('잘못된 요청입니다.'); window.history.back();</script>";
+  exit;
 }
-?>
