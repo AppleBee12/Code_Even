@@ -2,6 +2,15 @@
 $title = '마이페이지-1:1문의하기';
 include_once($_SERVER['DOCUMENT_ROOT'] . '/CODE_EVEN/front/inc/mypage_header.php');
 
+$sql = "SELECT class_data.*, lecture.* 
+        FROM class_data 
+        JOIN lecture ON class_data.leid = lecture.leid 
+        WHERE class_data.uid = '" . (isset($_SESSION['UID']) ? $_SESSION['UID'] : '') . "'";
+$result = $mysqli->query($sql);
+$dataArr = [];
+while ($data = $result->fetch_object()) {
+    $dataArr[] = $data;
+}
 ?>
 <div class="tab-content" id="nav-tabContent"><!--탭 메뉴 내용 시작-->
   <div class="tab-pane fade show active" id="nav-myLecTab1" role="tabpanel" aria-labelledby="nav-myLecTab1-tab"><!-- 탭메뉴1 -->
@@ -23,8 +32,7 @@ include_once($_SERVER['DOCUMENT_ROOT'] . '/CODE_EVEN/front/inc/mypage_header.php
           </div>
         </div>
       </div>
-      <form action="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/front/mypage/mypage_qna_question_ok.php" method="POST" enctype="multipart/form-data">
-        <input type="hidden" name="uid" value="<?= isset($_SESSION['UID']) ? $_SESSION['UID'] : ''; ?>">
+      <form action="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/front/mypage/mypage_class_qna_question_ok.php" method="POST" enctype="multipart/form-data">
         <div class="body">
           <table class="table details_table">
             <colgroup>
@@ -41,29 +49,29 @@ include_once($_SERVER['DOCUMENT_ROOT'] . '/CODE_EVEN/front/inc/mypage_header.php
               <tr class="none">
                 <th scope="row">강좌명</th>
                 <td>
-                  <select class="form-select w-50" name="category" required>
-                    <!-- <option value="">분류 선택</option>
-                    <option value="1">결제/환불</option>
-                    <option value="2">강의</option>
-                    <option value="3">쿠폰</option>
-                    <option value="4">가입/탈퇴</option>
-                    <option value="5">기타</option>
-                    <option value="6">수료</option>
-                    <option value="7">정산</option>
-                    <option value="8">강사</option> -->
+                  <select class="form-select w-50" name="cdid" required>
+                  <?php 
+                    foreach($dataArr as $data){
+                  ?>
+                    <option value="<?= htmlspecialchars($data->cdid) ?>">
+                    [<?= htmlspecialchars($data->name) ?>] <?= htmlspecialchars($data->title) ?>
+                    </option>
+                  <?php
+                    }
+                  ?>
                   </select>
                 </td>
               </tr>
               <tr class="none">
                 <th scope="row">제목</th>
                 <td>
-                  <input type="text" name="title" class="form-control w-75" id="title" placeholder="제목을 입력해주세요." required>
+                  <input type="text" name="qtitle" class="form-control w-75" id="title" placeholder="제목을 입력해주세요." required>
                 </td>
               </tr>
               <tr class="none">
                 <th scope="row">내용</th>
                 <td>
-                  <textarea name="content" class="form-control" placeholder="문의 내용을 입력해주세요."></textarea>
+                  <textarea name="qcontent" class="form-control" placeholder="문의 내용을 입력해주세요."></textarea>
                 </td>
               </tr>
             </tbody>
