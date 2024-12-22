@@ -9,7 +9,8 @@ $classQna_sql = "SELECT student_qna.*, class_data.*, lecture.*, user.*, teacher_
         JOIN class_data ON student_qna.cdid = class_data.cdid
         JOIN lecture ON class_data.leid = lecture.leid
         JOIN user ON class_data.uid = user.uid 
-        WHERE user.uid = '" . (isset($_SESSION['UID']) ? $_SESSION['UID'] : '') . "'";
+        WHERE user.uid = '" . (isset($_SESSION['UID']) ? $_SESSION['UID'] : '') . "' 
+        ORDER BY student_qna.sqid DESC";
 
 $result = $mysqli->query($classQna_sql);
 
@@ -25,7 +26,8 @@ $question_sql = "SELECT admin_question.*, user.uid, admin_answer.aaid
                 FROM admin_question 
                 JOIN user ON admin_question.uid = user.uid 
                 LEFT JOIN admin_answer ON admin_question.aqid = admin_answer.aqid 
-                WHERE user.userid = '" . (isset($_SESSION['AUID']) ? $_SESSION['AUID'] : '') . "'";
+                WHERE user.userid = '" . (isset($_SESSION['AUID']) ? $_SESSION['AUID'] : '') . "' 
+                ORDER BY admin_question.aqid DESC";
 $question_result = $mysqli->query($question_sql);
 
 $categoryNames = [
@@ -61,7 +63,7 @@ while ($qdata = $question_result->fetch_object()) {
     <div class="list_content">
       <form action="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/front/mypage/mypage_class_qna_question.php">
         <div class="d-flex justify-content-between align-items-center">
-          <p>총 건</p>
+          <p>총 <?= count($dataArr); ?>건</p>
           <button type="submit">1:1 문의하기</button>
         </div>
         <table class="table">
@@ -81,7 +83,7 @@ while ($qdata = $question_result->fetch_object()) {
             <tr>
               <th><?= $data-> regdate; ?></th>
               <td><?= $data-> title; ?></td>
-              <td><a href="" class="underline"><?= $data-> qtitle; ?></a></td>
+              <td><a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/front/mypage/mypage_class_qna_question_details.php?sqid=<?= $data->sqid; ?>" class="underline"><?= $data-> qtitle; ?></a></td>
               <td><?= $data->asid ? "답변완료" : "답변대기"; ?></td>
               <td><a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/front/mypage/mypage_class_qna_delete.php?sqid=<?= $data->sqid; ?>">X</a></td>
             </tr>
