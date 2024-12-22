@@ -13,6 +13,8 @@ $sql = "
         l.image AS lecture_image, 
         ld.id AS detail_id, 
         ld.title AS detail_title, 
+        ld.quiz_id AS quiz_id, 
+        ld.test_id AS test_id, 
         ld.video_order, -- video_order 추가
         ld.video_url,
         ss.quiz_score, 
@@ -129,20 +131,36 @@ foreach ($classArr as $class) {
               <!-- 그래프 영역 -->
               <div class="my_lec_graph_wrapper d-flex">
                 <div class="my_lec_graph d-flex flex-column align-items-center">
-                  <div class="donut-chart" style="--percentage: <?= isset($classes[0]->quiz_score) ? $classes[0]->quiz_score : 0; ?>%;">
-                    <div class="percentage-label"><?= isset($classes[0]->quiz_score) ? $classes[0]->quiz_score : 0; ?>%</div>
+                  <div class="donut-chart" style="--percentage: <?= $completionRate = $totalLectures > 0 ? round(($completedLectures / $totalLectures) * 100) : 0; ?>%;">
+                    <div class="percentage-label"><?= $completionRate = $totalLectures > 0 ? round(($completedLectures / $totalLectures) * 100) : 0; ?>%</div>
                   </div>
                   <p>강의</p>
                 </div>
                 <div class="my_lec_graph d-flex flex-column align-items-center">
-                  <div class="donut-chart" style="--percentage: <?= isset($classes[0]->quiz_score) ? $classes[0]->quiz_score : 0; ?>%;">
-                    <div class="percentage-label"><?= isset($classes[0]->quiz_score) ? $classes[0]->quiz_score : 0; ?>%</div>
+                  <div class="donut-chart" style="--percentage: <?= $completionRate = $totalLectures > 0 ? round(($completedLectures / $totalLectures) * 100) : 0; ?>%;">
+                    <div class="percentage-label"><?= $completionRate = $totalLectures > 0 ? round(($completedLectures / $totalLectures) * 100) : 0; ?>%</div>
                   </div>
                   <p>퀴즈</p>
                 </div>
                 <div class="my_lec_graph d-flex flex-column align-items-center">
-                  <div class="donut-chart" style="--percentage: <?= isset($classes[0]->test_score) ? $classes[0]->test_score : 0; ?>%;">
-                    <div class="percentage-label"><?= isset($classes[0]->test_score) ? $classes[0]->test_score : 0; ?>%</div>
+                  <?php
+                  $totalTests = 0; // 전체 시험 개수
+                  $completedTests = 0; // 완료된 시험 개수
+
+                  foreach ($classes as $class) {
+                    if (isset($class->test_id)) {
+                      $totalTests++; // 시험이 있으면 전체 시험 수 증가
+                    }
+                    if (isset($class->test_score) && $class->test_score > 0) {
+                      $completedTests++; // 시험 점수가 있으면 완료된 시험 수 증가
+                    }
+                  }
+
+                  // 시험 진행도 백분율 계산
+                  $testCompletionRate = $totalTests > 0 ? round(($completedTests / $totalTests) * 100) : 0;
+                  ?>
+                  <div class="donut-chart" style="--percentage: <?= $testCompletionRate; ?>%;">
+                    <div class="percentage-label"><?= $testCompletionRate; ?>%</div>
                   </div>
                   <p>시험</p>
                 </div>
