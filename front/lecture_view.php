@@ -2,7 +2,6 @@
 
 include_once($_SERVER['DOCUMENT_ROOT'] . '/code_even/front/inc/header.php');
 
-
 /* lecture, book Start */
 $leid = isset($_GET['leid']) ? (int) $_GET['leid'] : 0;
 
@@ -120,6 +119,26 @@ if ($lecture_detail_result && $lecture_detail_result->num_rows > 0) {
 // 총 시간을 시:분:초로 변환
 $totalTimeFormatted = secondsToHMS($totalSeconds);
 
+/* 강좌 찜하기 Start */
+
+if (isset($_SESSION['UID'])) {
+  $uid = (int)$_SESSION['UID'];
+  $wishlist_sql = "SELECT leid FROM wishlist WHERE uid = $uid";
+  $wishlist_result = $mysqli->query($wishlist_sql);
+  $wishlist = [];
+
+  if ($wishlist_result && $wishlist_result->num_rows > 0) {
+      while ($row = $wishlist_result->fetch_assoc()) {
+          $wishlist[] = (int)$row['leid'];
+      }
+  }
+} else {
+  $wishlist = [];
+}
+
+/* 강좌 찜하기 End */
+
+
 /* lecture, book End */
 
 
@@ -214,8 +233,12 @@ while ($review = $review_result->fetch_object()) {
           <!-- 찜하기 버튼 -->
           <div class="col-6">
             <button type="button" class="btn btn-outline-light w-100 d-flex align-items-center justify-content-center gap-2 btn-like">
-              <i class="bi bi-heart"></i>
-              <span>찜하기</span>
+              <i class="bi bi-heart heart-icon <?= in_array($leid, $wishlist) ? 'd-none' : ''; ?>" data-leid="<?= $leid; ?>"></i>
+              <!-- 채워진 하트 -->
+              <i class="bi bi-heart-fill heart-icon-filled <?= in_array($leid, $wishlist) ? '' : 'd-none'; ?>" data-leid="<?= $leid; ?>"></i>
+              <span>
+                <?= in_array($leid, $wishlist) ? '찜한 강좌' : '찜하기'; ?>
+              </span>
             </button>
           </div>
           <!-- 공유하기 버튼 -->
@@ -357,35 +380,70 @@ while ($review = $review_result->fetch_object()) {
   </div>
 </div>
 <script>
+/* ---- 찜하기 스크립트 시작 --- */
+  // btn-like 버튼 클릭 이벤트
+  $('.btn-like').on('click', function (event) {
+    event.preventDefault(); // 기본 동작 방지
+    const $button = $(this);
+    const $heartIcon = $button.find('.heart-icon');
+    const $heartIconFilled = $button.find('.heart-icon-filled');
+    const $buttonText = $button.find('span'); // 버튼 내 텍스트 요소 선택
+    const lectureId = $heartIcon.data('leid'); // 강좌 ID 가져오기
 
-  // 찜하기 버튼 클릭 이벤트
-  $('.btn-like').on('click', function () {
-      const lectureId = <?= $leid; ?>; // 현재 강좌 ID
-      let data = { lecture_id: lectureId };
+    // 현재 상태에 따라 처리
+    if ($heartIcon.hasClass('d-none')) {
+        // 채워진 하트를 클릭한 경우 (찜 제거)
+        handleWishlist('remove', lectureId, function (success, message) {
+            if (success) {
+                alert(message);
+                $heartIcon.removeClass('d-none');
+                $heartIconFilled.addClass('d-none');
+                $buttonText.text('찜하기');
+            } else {
+                alert('오류가 발생했습니다. 다시 시도해주세요.');
+            }
+        });
+    } else {
+        // 빈 하트를 클릭한 경우 (찜 추가)
+        handleWishlist('add', lectureId, function (success, message) {
+            if (success) {
+                alert(message);
+                $heartIcon.addClass('d-none');
+                $heartIconFilled.removeClass('d-none');
+                $buttonText.text('찜한 강좌'); 
+            } else {
+                alert('오류가 발생했습니다. 다시 시도해주세요.');
+            }
+        });
+    }
+  });
 
-      console.log(data);
+  // 공통 찜하기 처리 함수
+  function handleWishlist(action, lectureId, callback) {
       $.ajax({
           type: 'POST',
-          url: 'wishlist_handler.php',
-          data: data,
+          url: '/code_even/front/wishlist_handler.php', // 공통 처리 PHP
+          data: { action: action, lecture_id: lectureId },
           dataType: 'json',
           success: function (response) {
               if (response.status === 'success') {
-                  alert(response.message);
+                  callback(true, response.message);
               } else if (response.status === 'not_logged_in') {
-                  // 로그인 모달 창 열기
-                  $('#exampleModaltest').modal('show');
+                  alert('로그인이 필요합니다.');
+                  $('#exampleModaltest').modal('show'); // 로그인 모달 열기
               } else {
-                  alert(response.message);
+                  callback(false, response.message);
               }
           },
           error: function () {
-              alert('찜하기 요청 중 오류가 발생했습니다.');
+              alert('처리 중 오류가 발생했습니다.');
+              callback(false, 'Ajax 요청 실패');
           }
       });
-  });
+  }
+/* ---- 찜하기 스크립트 끝 --- */
 
-
+/* ---- 장바구니 추가 스크립트 시작 --- */
   // 장바구니 추가 이벤트
   $('#cartform').submit(function(e) {
       e.preventDefault();
@@ -414,7 +472,7 @@ while ($review = $review_result->fetch_object()) {
       $.ajax({
           async: false,
           type: 'POST',
-          url: 'cart_insert.php',
+          url: 'cart/cart_insert.php',
           data: data,
           dataType: 'json',
           error: function(e) {
@@ -431,6 +489,7 @@ while ($review = $review_result->fetch_object()) {
           }
       });
   });
+/* ---- 장바구니 추가 스크립트 끝 --- */
 
 </script>
 

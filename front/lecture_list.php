@@ -1,6 +1,24 @@
 <?php
-
 include_once($_SERVER['DOCUMENT_ROOT'] . '/code_even/front/inc/header.php');
+$mypage_main_js = "<script src=\"http://" . $_SERVER['HTTP_HOST'] . "/code_even/front/js/wishlist.js\"></script>";
+
+if (isset($_SESSION['UID'])) {
+  $uid = (int)$_SESSION['UID']; // 로그인한 사용자의 UID
+} else {
+  $uid = 'NULL'; // 로그인하지 않은 경우 UID는 NULL
+}
+
+// 찜한 강좌 목록 가져오기
+$wishlist = [];
+if ($uid > 0) {
+    $wishlist_sql = "SELECT leid FROM wishlist WHERE uid = $uid";
+    $wishlist_result = $mysqli->query($wishlist_sql);
+    if ($wishlist_result && $wishlist_result->num_rows > 0) {
+        while ($row = $wishlist_result->fetch_object()) {
+            $wishlist[] = $row->leid;
+        }
+    }
+}
 
 // 검색어 가져오기
 $search = isset($_GET['search']) ? trim($_GET['search']) : null;
@@ -248,7 +266,7 @@ if ($result && $result->num_rows > 0) {
           <p class="text-center mt-5">&#128064;</p>
           <p class="text-center my-5"> 원하시는 강좌를 찾을 수 없습니다. 방금 검색한 강좌의 첫 번째 강사가 되어보세요!</p>
           <div class="tc_borderline text-center">
-          <a href="http://<?= $_SERVER['HTTP_HOST'] ?>/code_even/front/signup/tc_applyform.php">강사 신청하러 가기
+          <a href="http://<?= $_SERVER['HTTP_HOST'] ?>/code_even/front/signup/tc_applyform.php">강사 신청하러 가기 <i class="bi bi-box-arrow-up-right"></i>
           </a>
         </div>
         </div>
@@ -295,8 +313,10 @@ if ($result && $result->num_rows > 0) {
                   <b><?= number_format($item->price); ?></b>원
                 </div>
                 <div class="icon-container">
-                  <i class="bi bi-heart heart-icon" id="heart-icon"></i>
-                  <i class="bi bi-heart-fill heart-icon-filled d-none" id="heart-icon-filled"></i>
+                  <!-- 빈 하트 -->
+                  <i class="bi bi-heart heart-icon <?= in_array($item->leid, $wishlist) ? 'd-none' : ''; ?>" data-leid="<?= $item->leid; ?>"></i>
+                  <!-- 채워진 하트 -->
+                  <i class="bi bi-heart-fill heart-icon-filled <?= in_array($item->leid, $wishlist) ? '' : 'd-none'; ?>" data-leid="<?= $item->leid; ?>"></i>
                   <i class="bi bi-cart-plus"></i>
                 </div>
               </div>
@@ -351,23 +371,6 @@ if ($result && $result->num_rows > 0) {
     </div>
   </div>
 </div>
-
-<script>
-
-  $(document).ready(function () {
-    // 부모 요소를 통해 이벤트 위임
-    $(document).on("click", ".heart-icon", function () {
-      $(this).addClass("d-none"); // 빈 하트 숨기기
-      $(this).siblings(".heart-icon-filled").removeClass("d-none"); // 채워진 하트 보이기
-    });
-
-    $(document).on("click", ".heart-icon-filled", function () {
-      $(this).addClass("d-none"); // 채워진 하트 숨기기
-      $(this).siblings(".heart-icon").removeClass("d-none"); // 빈 하트 보이기
-    });
-  });
-
-</script>
 
 <?php
 
