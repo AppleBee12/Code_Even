@@ -119,6 +119,8 @@ if ($lecture_detail_result && $lecture_detail_result->num_rows > 0) {
 // 총 시간을 시:분:초로 변환
 $totalTimeFormatted = secondsToHMS($totalSeconds);
 
+/* lecture, book End */
+
 /* 강좌 찜하기 Start */
 
 if (isset($_SESSION['UID'])) {
@@ -138,8 +140,20 @@ if (isset($_SESSION['UID'])) {
 
 /* 강좌 찜하기 End */
 
+/* teacher Start */
+$tc_sql = "SELECT t.tc_intro, t.tc_thumbnail, t.tc_url
+    FROM lecture l
+    JOIN teachers t 
+    ON l.lecid = t.uid
+    WHERE l.leid = $leid
+";
 
-/* lecture, book End */
+$tc_result = $mysqli->query($tc_sql);
+$tc_data = $tc_result->fetch_object();
+
+
+/* teacher End */
+
 
 
 /* Review Start */
@@ -297,7 +311,10 @@ while ($review = $review_result->fetch_object()) {
     <!-- 은진 -->
     <section id="section-teacher">
       <h2 class="mb-5">강사 소개</h2>
-      <p>강사에 대한 소개 내용을 여기에 넣습니다.</p>
+      <div class="d-flex mb-4">
+        <img src="<?= $tc_data->tc_thumbnail; ?>" class="tc_thumb" alt="강사이미지">
+      </div>
+      <p><?= $tc_data->tc_intro; ?></p>
     </section>
     <!-- // 은진 -->
     <!-- 은화 -->
