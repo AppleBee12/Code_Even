@@ -33,15 +33,15 @@ section.mypage_header .row{
 .profile_detail{ 
   line-height: 25px;  
 }
-.profile_detail>div .headt6,
-  .profile_detail>div {
-  margin-left:5px;
-  display: flex;
-  flex-direction: column;
-  align-items: baseline;
-  }
+.profile_detail>div {
+margin-left:5px;
+display: flex;
+flex-direction: column;
+align-items: baseline;
+}
 
 .profile_detail span{
+  margin-right: 5px;
   font-weight: 700;
 }
 

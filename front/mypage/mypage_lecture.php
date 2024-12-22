@@ -1,8 +1,10 @@
 <?php
 $title = '마이페이지-강좌보기';
 include_once($_SERVER['DOCUMENT_ROOT'] . '/CODE_EVEN/front/inc/mypage_header.php');
-$mypage_main_js = "<script src=\"http://" . $_SERVER['HTTP_HOST'] . "/code_even/front/js/mypage_cmain.js\"></script>";
+$mypage_main_js = "<script src=\"http://" . $_SERVER['HTTP_HOST'] . "/code_even/front/js/mypage_main.js\"></script>";
 
+
+//강좌데이터
 $sql = "SELECT class_data.*, user.*, lecture.*, stuscores.* 
         FROM class_data 
         JOIN user ON class_data.uid = user.uid 
