@@ -1,18 +1,61 @@
 <?php
-
 include_once($_SERVER['DOCUMENT_ROOT'] . '/CODE_EVEN/admin/inc/dbcon.php');
 
-// 강좌 ID 임시 설정
-$lecture_id = 57;
+// URL 파라미터에서 detail_id 가져오기
+$detail_id = isset($_GET['detail_id']) ? intval($_GET['detail_id']) : 0;
 
-// 강좌명 가져오기
-$lecture_query = "SELECT title FROM lecture WHERE leid = $lecture_id";
+if ($detail_id === 0) {
+  echo "유효하지 않은 강의 ID입니다.";
+  exit;
+}
+
+// Step 1: detail_id로 lecture_id 조회
+$lecture_id_query = "
+    SELECT lecture_id 
+    FROM lecture_detail 
+    WHERE id = $detail_id
+";
+
+$lecture_id_result = $mysqli->query($lecture_id_query);
+
+if (!$lecture_id_result || $lecture_id_result->num_rows === 0) {
+  echo "해당 강의 정보를 찾을 수 없습니다.";
+  exit;
+}
+
+$lecture_id_row = $lecture_id_result->fetch_object();
+$lecture_id = intval($lecture_id_row->lecture_id); // 안전하게 정수로 변환
+
+// Step 2: lecture_id로 강좌 정보 조회
+$lecture_query = "
+    SELECT title, name, date
+    FROM lecture 
+    WHERE leid = $lecture_id
+";
+
 $lecture_result = $mysqli->query($lecture_query);
 $lecture_title = "강좌명 없음";
+$lecture_teacher = "강사명 없음";
+$lecture_date = "날짜 정보 없음";
 
 if ($lecture_result && $lecture_row = $lecture_result->fetch_object()) {
   $lecture_title = $lecture_row->title;
+  $lecture_teacher = $lecture_row->name;
+  $lecture_date = $lecture_row->date;
 }
+
+// Step 3: detail_id로 강의 세부 정보 조회
+$detail_query = "
+    SELECT 
+        title AS lecture_detail_title,
+        video_url,
+        quiz_id,
+        test_id
+    FROM lecture_detail 
+    WHERE id = $detail_id
+";
+
+
 
 /* 유튜브 API 및 강의 동영상 */
 function getYouTubeVideoDuration($video_url, $api_key)
