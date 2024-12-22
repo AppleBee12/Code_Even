@@ -16,7 +16,7 @@ $result = $mysqli->query($sql);
 $classArr = [];
 while ($class_data = $result->fetch_object()) {
   $classArr[] = $class_data; // 각 행을 배열에 추가
-  // print_r($classArr);
+  //print_r($classArr);
 }
 
 
@@ -75,7 +75,7 @@ while ($class_data = $result->fetch_object()) {
         if ($currentLectureId !== $class->leid) {
           // 이전 강좌의 강의 목록 출력 완료
           if ($currentLectureId !== null) {
-            //echo "</div></div>"; // 강좌 닫기
+            // 강좌 닫기
           }
 
           // 새로운 강좌 시작
@@ -96,7 +96,7 @@ while ($class_data = $result->fetch_object()) {
                   <ul class="d-flex flex-column gap-2">
                     <li class="d-flex gap-5">
                       <p class="my_lec_title">강좌기간</p>
-                      <p><?= isset($class->lecture_date) ? htmlspecialchars($class->lecture_date) : '기간 정보 없음'; ?></p>
+                      <p><?= isset($class->regdate) ? htmlspecialchars($class->regdate) : '기간 정보 없음'; ?></p>
                     </li>
                     <li class="d-flex gap-5 align-items-center">
                       <p class="my_lec_title">진도율</p>
@@ -136,8 +136,8 @@ while ($class_data = $result->fetch_object()) {
                 <!-- 그래프 영역 -->
                 <div class="my_lec_graph_wrapper d-flex">
                   <div class="my_lec_graph d-flex flex-column align-items-center">
-                    <div class="donut-chart" style="--percentage: <?= isset($class->progress_rate) ? $class->progress_rate : 0; ?>%;">
-                      <div class="percentage-label"><?= isset($class->progress_rate) ? $class->progress_rate : 0; ?>%</div>
+                    <div class="donut-chart" style="--percentage: <?= isset($class->quiz_score) ? $class->quiz_score : 0; ?>%;">
+                      <div class="percentage-label"><?= isset($class->quiz_score) ? $class->quiz_score : 0; ?>%</div>
                     </div>
                     <p>강의</p>
                   </div>
@@ -156,166 +156,60 @@ while ($class_data = $result->fetch_object()) {
                 </div>
               </div>
               <hr>
-
-              <div class="d-flex flex-column">
-                <!-- 세부 강의 1강2강3강 목록 시작 -->
-                <div class="d-flex gap-3 lecture_title">
-                  <p><?= isset($class->video_order) ? htmlspecialchars($class->video_order) : 'N/A'; ?>강</p>
-                  <p class="lecture_title"><?= isset($class->detail_title) ? htmlspecialchars($class->detail_title) : '강의 제목 없음'; ?></p>
-                </div>
-                <!-- 각 강좌별 점수 데이터 -->
-                <div class="lecture_one d-flex justify-content-between align-items-center mb-2">
-                  <div class="score_wrapper d-flex gap-3">
-                    <div class="d-flex gap-2">
-                      <p class="weight">퀴즈 점수</p>
-                      <p><span><?= isset($class->quiz_score) ? $class->quiz_score : '0'; ?></span>점</p>
-                    </div>
-                    <div class="d-flex gap-2">
-                      <p class="weight">시험 점수</p>
-                      <p><span><?= isset($class->test_score) ? $class->test_score : '0'; ?></span>점</p>
-                    </div>
-                    <div class="d-flex gap-2">
-                      <p class="weight">진행 여부</p>
-                      <p><span><?= isset($class->test) ? $class->test : '0'; ?></span>점</p>
+              <!-- 세부 강의 1강2강3강 목록 시작 -->
+              <div class="d-flex justify-content-between align-items-center">
+                
+                <div class="d-flex justify-content-between align-items-center w-100"> <!--한 강의 내용 -->
+                  <div class="d-flex align-items-center gap-3 lecture_title">
+                    <p><?= isset($class->video_order) ? htmlspecialchars($class->video_order) : 'N/A'; ?>강</p>
+                    <p><?= isset($class->detail_title) ? htmlspecialchars($class->detail_title) : '강의 제목 없음'; ?></p>
+                  </div>
+                  <!-- 각 강좌별 점수 데이터 -->
+                  <div class="lecture_one d-flex justify-content-between align-items-center">
+                    <div class="score_wrapper d-flex align-items-center gap-4">
+                      <div class="d-flex gap-2">
+                        <p class="weight">퀴즈 점수</p>
+                        <p><span><?= isset($class->quiz_score) ? $class->quiz_score : '0'; ?></span>점</p>
+                      </div>
+                      <div class="d-flex gap-2">
+                        <p class="weight">시험 점수</p>
+                        <p><span><?= isset($class->test_score) ? $class->test_score : '0'; ?></span>점</p>
+                      </div>
+                      <div class="d-flex gap-2 align-items-center">
+                        <p class="weight">진행 여부</p>
+                        <?= isset($class->quiz_score)
+                          ? '<button class="btn btn-outline-success btn-sm" onclick="window.location.href=\'http://' . $_SERVER['HTTP_HOST'] . '/code_even/front/lecture_detail.php?detail_id=' . (isset($class->detail_id) ? $class->detail_id : 0) . '\'">수강완료</button>'
+                          : '<button class="btn btn-outline-secondary btn-sm" onclick="window.location.href=\'http://' . $_SERVER['HTTP_HOST'] . '/code_even/front/lecture_detail.php?detail_id=' . (isset($class->detail_id) ? $class->detail_id : 0) . '\'">미수강</button>'; ?>
+                      </div>
                     </div>
                   </div>
                   <div>
                     <a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/front/lecture_detail.php?detail_id=<?= isset($class->detail_id) ? $class->detail_id : 0; ?>" class="btn btn-secondary">강의보러가기</a>
                   </div>
-                </div> <!-- 각 강좌별 점수 데이터 끝-->
+                </div><!--한 강의 내용 끝-->
               </div><!-- 세부 강의 1강2강3강 목록 끝 -->
             </div><!-- 강좌 디테일 끝 -->
           </div><!-- 강의목록 끝 -->
       <?php
-          if ($currentLectureId !== null) {
-            //echo "강의가 없습니다"; // 강좌 닫기
-          }
+
         }
       };
       ?>
 
 
-    </div><!-- 강의목록 끝 -->
+    </div>
   </div>
 </div>
 <!-- 탭메뉴1의 내용 끝-->
 <!-- 탭메뉴2의 내용-->
 <div class="tab-pane fade" id="nav-myLecTab2" role="tabpanel" aria-labelledby="nav-myLecTab2-tab">
   <div class="my_lecture_wrapper">
-
-    <!-- 강의목록 시작 -->
-    <?php
-    $currentLectureId = null;
-    foreach ($classArr as $class) {
-      if ($currentLectureId !== $class->leid) {
-        // 이전 강좌의 강의 목록 출력 완료
-        if ($currentLectureId !== null) {
-          //echo "</div></div>"; // 강좌 닫기
-        }
-
-        // 새로운 강좌 시작
-        $currentLectureId = $class->leid;
-    ?>
-        <div class="my_lecture mb-4">
-          <div class="my_lec_top d-flex">
-            <img src="<?= isset($class->lecture_image) ? htmlspecialchars($class->lecture_image) : 'default.jpg'; ?>" alt="강좌 이미지">
-            <div class="d-flex flex-column justify-content-evenly">
-              <p class="headt5"><?= isset($class->lecture_title) ? htmlspecialchars($class->lecture_title) : '강좌 제목 없음'; ?></p>
-              <p><b><?= isset($class->lecture_teacher) ? htmlspecialchars($class->lecture_teacher) : '강사명 없음'; ?></b> | <span>레시피강좌</span></p>
-            </div>
-          </div>
-          <!-- 강좌 디테일 시작 -->
-          <div class="my_lec_desc">
-            <div class="d-flex justify-content-between">
-              <div class="my_lec_txt">
-                <ul class="d-flex flex-column gap-2">
-                  <li class="d-flex gap-5">
-                    <p class="my_lec_title">강좌기간</p>
-                    <p><?= isset($class->lecture_date) ? htmlspecialchars($class->lecture_date) : '기간 정보 없음'; ?></p>
-                  </li>
-                  <li class="d-flex gap-5 align-items-center">
-                    <p class="my_lec_title">진도율</p>
-                    <div class="progress" role="progressbar" aria-valuenow="<?= isset($class->progress_rate) ? $class->progress_rate : 0; ?>" aria-valuemin="0" aria-valuemax="100">
-                      <div class="progress-bar progress-bar-striped bg-danger progress-bar-animated" style="width: <?= isset($class->progress_rate) ? $class->progress_rate : 0; ?>%">
-                        <?= isset($class->progress_rate) ? $class->progress_rate : 0; ?>%
-                      </div>
-                    </div>
-                  </li>
-                  <li class="d-flex gap-5">
-                    <p class="my_lec_title">평균 점수</p>
-                    <p><?= isset($class->test_score) ? $class->test_score : '0'; ?>점</p>
-                  </li>
-                </ul>
-                <div class="mt-3">
-                  <button type="button" class="btn btn-outline-dark btn-sm">이수 기준</button>
-                  <button type="button" class="btn btn-outline-dark btn-sm printButton">수료증</button>
-                </div>
-              </div>
-
-              <!-- 그래프 영역 -->
-              <div class="my_lec_graph_wrapper d-flex">
-                <div class="my_lec_graph d-flex flex-column align-items-center">
-                  <div class="donut-chart" style="--percentage: <?= isset($class->progress_rate) ? $class->progress_rate : 0; ?>%;">
-                    <div class="percentage-label"><?= isset($class->progress_rate) ? $class->progress_rate : 0; ?>%</div>
-                  </div>
-                  <p>강의</p>
-                </div>
-                <div class="my_lec_graph d-flex flex-column align-items-center">
-                  <div class="donut-chart" style="--percentage: <?= isset($class->quiz_score) ? $class->quiz_score : 0; ?>%;">
-                    <div class="percentage-label"><?= isset($class->quiz_score) ? $class->quiz_score : 0; ?>%</div>
-                  </div>
-                  <p>퀴즈</p>
-                </div>
-                <div class="my_lec_graph d-flex flex-column align-items-center">
-                  <div class="donut-chart" style="--percentage: <?= isset($class->test_score) ? $class->test_score : 0; ?>%;">
-                    <div class="percentage-label"><?= isset($class->test_score) ? $class->test_score : 0; ?>%</div>
-                  </div>
-                  <p>시험</p>
-                </div>
-              </div>
-              <hr>
-              <!-- 세부 강의 1강2강3강 목록 시작 -->
-              <div class="d-flex flex-column">
-
-                <div class="lecture_one d-flex justify-content-between align-items-center mb-2">
-                  <div class="d-flex gap-3 lecture_title">
-                    <p><?= isset($class->video_order) ? htmlspecialchars($class->video_order) : 'N/A'; ?>강</p>
-                    <p class="lecture_title"><?= isset($class->detail_title) ? htmlspecialchars($class->detail_title) : '강의 제목 없음'; ?></p>
-                  </div>
-                  <div class="score_wrapper d-flex gap-3">
-                    <div class="d-flex gap-2">
-                      <p class="weight">퀴즈 점수</p>
-                      <p><span><?= isset($class->quiz_score) ? $class->quiz_score : '0'; ?></span>점</p>
-                    </div>
-                    <div class="d-flex gap-2">
-                      <p class="weight">시험 점수</p>
-                      <p><span><?= isset($class->test_score) ? $class->test_score : '0'; ?></span>점</p>
-                    </div>
-                    <div class="d-flex gap-2">
-                      <p class="weight">진행 여부</p>
-                      <p><span><?= isset($class->test) ? $class->test : '0'; ?></span>점</p>
-                    </div>
-                  </div>
-                  <div>
-                    <a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/front/lecture_detail.php?detail_id=<?= isset($class->detail_id) ? $class->detail_id : 0; ?>" class="btn btn-secondary">강의보러가기</a>
-                  </div>
-                </div>
-
-
-              </div><!-- 세부 강의 1강2강3강 목록 끝 -->
-            </div>
-
-          </div><!-- 강좌 디테일 끝 -->
-        </div><!-- 강의목록 끝 -->
     <?php
         if ($currentLectureId !== null) {
-          echo "강의가 없습니다"; // echo "</div></div>"; // 강좌 닫기
+          echo "<div class='m-5'>'종료 강좌'가 없습니다</div>"; 
         }
-      }
-    };
     ?>
-
-  </div>
+  </div><!-- 강의목록 끝 -->
 </div>
 <!-- 탭메뉴2의 내용 끝-->
 

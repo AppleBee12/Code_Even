@@ -88,9 +88,7 @@
   margin-left: 30px;
 }
 
-.lecture_one .lecture_title{
-  width: 350px;
-}
+
 
 .lecture_one .weight{
   font-weight: 700;
@@ -115,5 +113,6 @@
   white-space: nowrap; /* 줄바꿈 방지 */
   overflow: hidden; /* 넘치는 텍스트 숨김 */
   text-overflow: ellipsis; /* 말줄임표(...) 표시 */
-  max-width: 250px; /* 최대 너비 설정 (적절히 조절) */
+  width: 350px;
+  max-width: 350px; /* 최대 너비 설정 (적절히 조절) */
 }
