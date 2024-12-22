@@ -110,7 +110,8 @@
         <tr>
           <th scope="row">소개글 <b>*</b></th>
           <td colspan="3">
-          <div id="summernote"><?= $data->tc_intro;?></div>
+          <!-- <div id="summernote"><?= $data->tc_intro;?></div> -->
+          <textarea class="form-control tc_intro" id="exampleFormControlTextarea1" name="tc_intro" rows="5"><?= $data->tc_intro;?></textarea>
           </td>
         </tr>
         <tr>
