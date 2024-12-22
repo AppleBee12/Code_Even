@@ -10,6 +10,7 @@ $sql = "
         l.title AS lecture_title, 
         l.name AS lecture_teacher, 
         l.date AS lecture_date, 
+        l.period AS lecture_period, 
         l.image AS lecture_image, 
         ld.id AS detail_id, 
         ld.title AS detail_title, 
@@ -77,9 +78,29 @@ foreach ($classArr as $class) {
               <div class="my_lec_txt">
                 <ul class="d-flex flex-column gap-2">
                   <li class="d-flex gap-5">
-                    <p class="my_lec_title">강좌기간</p>
+                    <p class="my_lec_title">강의 시작일</p>
                     <p><?= isset($classes[0]->regdate) ? htmlspecialchars($classes[0]->regdate) : '기간 정보 없음'; ?></p>
                   </li>
+                  <?php
+                  $lectureStartDate = isset($classes[0]->regdate) ? $classes[0]->regdate : null; // 강의 시작일
+                  $lecturePeriod = isset($classes[0]->lecture_period) ? $classes[0]->lecture_period : 0; // 수료 기간
+
+                  if ($lectureStartDate) {
+                    $startDate = new DateTime($lectureStartDate); // 시작일 생성
+                    $endDate = $startDate->modify("+$lecturePeriod days"); // 수료 기간 추가
+                    $formattedEndDate = $endDate->format('Y-m-d'); // 만료일 포맷
+                  } else {
+                    $formattedEndDate = '날짜 정보 없음'; // 시작일이 없을 경우
+                  }
+                  ?>
+                  <li class="d-flex gap-5">
+                    <p class="my_lec_title">수료기간</p>
+                    <p>
+                      <?= $lecturePeriod ?> 일
+                      <span class="ms-3">(만료일: <?= $formattedEndDate; ?>) </span>
+                    </p>
+                  </li>
+
                   <li class="d-flex gap-5 align-items-center">
                     <p class="my_lec_title">진도율</p>
                     <?php
