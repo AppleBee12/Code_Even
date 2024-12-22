@@ -175,9 +175,7 @@ $data_expired = $result_expired->fetch_all(MYSQLI_ASSOC);
 <!--제목 끝-->
 <div class="container p-0">
   <div class="tab-content" id="nav-tabContent"><!--탭 메뉴 내용 시작-->
-    <div class="tab-pane fade show active" id="nav-myLecTab1" role="tabpanel" aria-labelledby="nav-myLecTab1-tab"><!-- 탭메뉴1 -->
-      <div class=""><!-- 탭메뉴1내용 -->
-        <div class="row  mb-5 justify-content-center d-flex">
+    <div class="tab-pane fade show active mb-5" id="nav-myLecTab1" role="tabpanel" aria-labelledby="nav-myLecTab1-tab"><!-- 탭메뉴1 -->
         <?php if (!empty($data_available)) : ?>
             <?php foreach ($data_available as $coupon) : ?>
               <div class="col-12 mb-3">
@@ -204,15 +202,12 @@ $data_expired = $result_expired->fetch_all(MYSQLI_ASSOC);
                 <p>사용 가능한 쿠폰이 없습니다.</p>
             </div>
         <?php endif; ?>
-        </div>
-      </div>
     </div>
   </div>
 
   <div class="tab-content" id="nav-tabContent">
-    <div class="tab-pane fade show " id="nav-myLecTab2" role="tabpane2" aria-labelledby="nav-myLecTab2-tab"><!-- 탭메뉴1 -->
-      <div class=""><!-- 탭메뉴1내용 -->
-        <div class="col-12 mb-3">
+    <div class="tab-pane fade show mb-5" id="nav-myLecTab2" role="tabpane2" aria-labelledby="nav-myLecTab2-tab"><!-- 탭메뉴1 -->
+      <!-- 탭메뉴1내용 -->
           <div class="card col-6">
             <div class="row g-0 align-items-center">
               <div class="col-md-7 c-img">
@@ -232,8 +227,6 @@ $data_expired = $result_expired->fetch_all(MYSQLI_ASSOC);
                 </div>
               </div>
             </div>
-          </div>
-        </div>
       </div>
     </div>
 
