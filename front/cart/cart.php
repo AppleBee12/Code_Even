@@ -15,7 +15,7 @@ $cart_sql = "SELECT
     l.leid, 
     l.image, 
     l.title, 
-    l.name, 
+    l.name,
     l.price AS lecture_price, 
     b.book AS book_name, 
     b.price AS book_price,
@@ -60,7 +60,7 @@ while ($cart_data = $cart_result->fetch_object()) {
           <ul class="cart_list">
             <?php if (!empty($cartArr)) {
                 foreach ($cartArr as $cart) { ?>
-            <li data-cart-id="<?= $cart->cartid; ?>"> 
+            <li data-cart-id="<?= $cart->cartid; ?>" data-leid="<?= $cart->leid; ?>"> 
               <div class="d-flex align-items-center">
                 <div class="item_check">
                   <input type="checkbox" class="item-check form-check-input" checked>
@@ -79,7 +79,7 @@ while ($cart_data = $cart_result->fetch_object()) {
               </div>
             </li>
             <?php if (!empty($cart->boid)) { ?>
-            <li class="d-flex align-items-center book_list" data-cart-id="<?= $cart->cartid; ?>">
+            <li class="d-flex align-items-center book_list" data-cart-id="<?= $cart->cartid; ?>" data-boid="<?= $cart->boid; ?>">
               <span class="badge_custom book_badge">교재포함강좌</span>
               <div class="book_desc d-flex flex-column">
                 <p class="book_title"><?= $cart->book_name;?></p>
@@ -278,6 +278,7 @@ while ($cart_data = $cart_result->fetch_object()) {
           const isChecked = $(this).find('.item-check').is(':checked');
           if (isChecked) {
               const cartId = $(this).data('cart-id');
+              const leid = $(this).data('leid');
               const lecturePrice = $(this).find('.item_price .number').data('price') || 0;
               const lectureTitle = $(this).find('.lec_title').text();
               const lectureInstructor = $(this).find('.lec_tc').text();
@@ -286,6 +287,7 @@ while ($cart_data = $cart_result->fetch_object()) {
               // 기본 강좌 데이터 저장
               const cartItem = {
                   cartId: cartId,
+                  leid : leid,
                   lecturePrice: lecturePrice,
                   lectureTitle: lectureTitle,
                   lectureInstructor: lectureInstructor,
@@ -296,11 +298,13 @@ while ($cart_data = $cart_result->fetch_object()) {
               // 강좌에 포함된 교재 정보 추가
               const bookElement = $(`.book_list[data-cart-id="${cartId}"]`);
               if (bookElement.length > 0) {
+                  const boid = bookElement.data('boid');
                   const bookName = bookElement.find('.book_title').text();
                   const bookPrice = bookElement.find('.book_price .number').data('price') || 0;
                   const bookWriter = bookElement.find('.book_info').text();
 
                   cartItem.book = {
+                      boid : boid,
                       name: bookName,
                       price: bookPrice,
                       writer: bookWriter
