@@ -298,7 +298,7 @@ $detail_result = $mysqli->query($detail_query);
         questionHtml += options.map((option, i) => `
       <li class="mb-2">
         <label>
-          <input type="radio" name="answer" value="${i + 1}"> ${option.trim()}
+          <input type="radio" name="answer_${number}" value="${i + 1}"> ${option.trim()}
         </label>
       </li>`).join('');
       } else {
@@ -309,6 +309,8 @@ $detail_result = $mysqli->query($detail_query);
       return questionHtml;
     }
 
+
+    // 퀴즈/시험 제출 버튼 이벤트
     // 퀴즈/시험 제출 버튼 이벤트
     $(document).on('click', '#submitQuizExam', function (e) {
       e.preventDefault();
@@ -316,22 +318,37 @@ $detail_result = $mysqli->query($detail_query);
       const form = $(this).closest('form');
       const type = form.find('input[name="type"]').val();
       const id = form.find('input[name="id"]').val();
-      const answer = form.find('input[name="answer"]:checked').val();
 
-      if (!type || !id || !answer) {
+      // 모든 답변 수집
+      const answers = {};
+      form.find('input[type="radio"]:checked').each(function () {
+        const questionId = $(this).attr('data-question-id'); // 문제 ID 가져오기
+        if (questionId) {
+          answers[questionId] = $(this).val();
+        }
+      });
+
+      console.log('🔍 데이터 확인:', { type, id, answers });
+
+      if (!type || !id || Object.keys(answers).length === 0) {
         alert('⚠️ 모든 필드를 채워주세요.');
         return;
       }
 
+      // 서버로 전송
       $.ajax({
         url: 'save_score.php',
         method: 'POST',
-        data: {
+        contentType: 'application/json',
+        data: JSON.stringify({
           type: type,
           id: id,
-          answer: answer
-        },
+          answers: answers // 모든 답변을 객체로 전송
+        }),
+        dataType: 'json',
         success: function (response) {
+          console.log('✅ 서버 응답:', response);
+
           if (response && typeof response === 'object') {
             if (response.success) {
               alert(response.message || '점수가 성공적으로 저장되었습니다.');
@@ -339,11 +356,13 @@ $detail_result = $mysqli->query($detail_query);
               alert(response.message || '점수 저장에 실패했습니다.');
             }
           } else {
-            alert('서버에서 올바른 응답을 받지 못했습니다.');
+            alert('⚠️ 서버에서 올바른 응답을 받지 못했습니다.');
           }
         },
-        error: function () {
-          alert('서버 요청 중 오류가 발생했습니다.');
+        error: function (xhr, status, error) {
+          console.error('❌ AJAX 오류:', status, error);
+          console.error('❌ 서버 응답:', xhr.responseText);
+          alert('⚠️ 서버 요청 중 오류가 발생했습니다.');
         }
       });
     });
