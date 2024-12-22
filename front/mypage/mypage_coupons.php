@@ -33,23 +33,50 @@ $total_block = ceil($total_page / $block_ct);
 if ($block_end > $total_page) {
   $block_end = $total_page;
 }
+$sql_available = "
+SELECT 
+    c.coupon_name, 
+    c.coupon_image, 
+    c.max_value, 
+    c.use_min_price, 
+    uc.use_max_date, 
+    uc.status 
+FROM 
+    user_coupons uc
+JOIN 
+    coupons c ON uc.couponid = c.cpid 
+WHERE 
+    uc.userid = ? AND uc.status = 1
+ORDER BY 
+    uc.couponid DESC";
+$stmt_available = $mysqli->prepare($sql_available);
+$stmt_available->bind_param('s', $userid);
+$stmt_available->execute();
+$result_available = $stmt_available->get_result();
+$data_available = $result_available->fetch_all(MYSQLI_ASSOC);
 
-$sql = "SELECT coupons.* 
-        FROM coupons 
-        $where_clause 
-        ORDER BY coupons.cpid DESC 
-        LIMIT $start_num, $list";
-$result = $mysqli->query($sql);
-
-
-// $sql = "SELECT * FROM coupons WHERE 1=1 $search_where ORDER BY cpid DESC LIMIT $start_num, $list"; //products 테이블에서 모든 데이터를 조회
-
-// $result = $mysqli->query($sql); //쿼리 실행 결과
-
-while ($data = $result->fetch_object()) {
-  $dataArr[] = $data;
-}
-
+// 사용 완료 또는 기간 만료 쿠폰 조회
+$sql_expired = "
+SELECT 
+    c.coupon_name, 
+    c.coupon_image, 
+    c.max_value, 
+    c.use_min_price, 
+    uc.use_max_date, 
+    uc.status 
+FROM 
+    user_coupons uc
+JOIN 
+    coupons c ON uc.couponid = c.cpid 
+WHERE 
+    uc.userid = ? AND uc.status = 0
+ORDER BY 
+    uc.couponid DESC";
+$stmt_expired = $mysqli->prepare($sql_expired);
+$stmt_expired->bind_param('s', $userid);
+$stmt_expired->execute();
+$result_expired = $stmt_expired->get_result();
+$data_expired = $result_expired->fetch_all(MYSQLI_ASSOC);
 
 ?>
 <style>
@@ -60,9 +87,9 @@ while ($data = $result->fetch_object()) {
 
   .card {
     /* width: 46%; */
-    height: 210px;
+    height: 230px;
     .c-img img{
-      height: 210px;
+      /* height: 210px; */
       /* width: 366px; */
     }
   }
@@ -72,6 +99,9 @@ while ($data = $result->fetch_object()) {
   }
   .text-bd-secondary{
     color: var(--bk700);
+  }
+  .card-title{
+    font-size:19px;
   }
   
 </style>
@@ -148,80 +178,60 @@ while ($data = $result->fetch_object()) {
     <div class="tab-pane fade show active" id="nav-myLecTab1" role="tabpanel" aria-labelledby="nav-myLecTab1-tab"><!-- 탭메뉴1 -->
       <div class=""><!-- 탭메뉴1내용 -->
         <div class="row  mb-5 justify-content-center d-flex">
-          <?php
-          if (isset($dataArr)) {
-          foreach ($dataArr as $item) {
-            ?>
-          <div class="col-6">
-            <div class="card mb-4">
-              <div class="row g-0">
-                <div class="col-md-7 c-img">
-                  <img src="<?= $item->coupon_image; ?>" class="img-fluid rounded-start" alt="Coupon Image">
-                  </div>
-                  <div class="col-md-5">
-                    <div class="card-body">
-                      <?php
-                      if ($item->status == 1) {
-                        echo '<span class="badge text-bg-secondary mb-3">활성화</span>';
-                      } else {
-                        echo '<span class="badge text-bd-secondary mb-3">비활성화</span>';
-                      }
-                      ?>
-                      <h5>
-                        <div class="card-title"><?= $item->coupon_name; ?></div>
-                      </h5>
-                      <p class="card-text bd">사용기한 : 
-                      <?php 
-                        if($item->use_max_date === 'unlimited'){
-                          echo "무제한";
-                        }else{
-                          echo htmlspecialchars($item->use_max_date);
-                        }
-                      ?>  
-                      </p>
-                      <p class="card-text bd">할인금액 : <?= $item->max_value; ?>원</p>
-                      <p class="card-text bd"> 최소 사용금액 : <?= $item->use_min_price; ?>원</p>
-                      
+        <?php if (!empty($data_available)) : ?>
+            <?php foreach ($data_available as $coupon) : ?>
+              <div class="col-12 mb-3">
+                <div class="card col-6">
+                  <div class="row g-0 align-items-center">
+                    <div class="col-md-7">
+                      <img src="<?= htmlspecialchars($coupon['coupon_image']) ?>" class="img-fluid rounded-start" alt="Coupon Image">
+                    </div>
+                    <div class="col-md-5">
+                      <div class="card-body">
+                      <span class="badge bg-success mb-3">사용 가능</span>
+                      <h5 class="card-title"><?= htmlspecialchars($coupon['coupon_name']) ?></h5>
+                      <p class="card-text mb-1">사용 기한: <?=substr(htmlspecialchars($coupon['use_max_date']), 0, 10);?></p>
+                        <p class="card-text mb-1">최대 할인 금액: <?= number_format($coupon['max_value']) ?>원</p>
+                        <p class="card-text mb-1">최소 사용 금액: <?= number_format($coupon['use_min_price']) ?>원</p>
+                      </div>
                     </div>
                   </div>
                 </div>
               </div>
+            <?php endforeach; ?>
+        <?php else : ?>
+            <div class="col-12">
+                <p>사용 가능한 쿠폰이 없습니다.</p>
             </div>
-          <?php
-            }
-          }
-          ?>
+        <?php endif; ?>
         </div>
       </div>
     </div>
   </div>
 
   <div class="tab-content" id="nav-tabContent">
-      <div class="tab-pane fade show " id="nav-myLecTab2" role="tabpane2" aria-labelledby="nav-myLecTab2-tab"><!-- 탭메뉴1 -->
-        <div class=""><!-- 탭메뉴1내용 -->
-          <div class="row  mb-5 justify-content-center d-flex">
-            <div class="col-6">
-              <div class="card mb-4">
-                <div class="row g-0">
-                  <div class="col-md-7 c-img">
-                    <img src="<?= $item->coupon_image; ?>" class="img-fluid rounded-start" alt="Coupon Image">
-                    </div>
-                    <div class="col-md-5">
-                      <div class="card-body">
-                      <span class="badge text-bd-secondary mb-3">비활성화</span>
-                        <h5>
-                          <div class="card-title">리뷰쿠폰</div>
-                        </h5>
-                        <p class="card-text bd">사용기한 : 2024-12-31
-                        </p>
-                        <p class="card-text bd">할인금액 : <?= $item->max_value; ?>원</p>
-                        <p class="card-text bd"> 최소 사용금액 : <?= $item->use_min_price; ?>원</p>
-                        
-                      </div>
-                    </div>
+    <div class="tab-pane fade show " id="nav-myLecTab2" role="tabpane2" aria-labelledby="nav-myLecTab2-tab"><!-- 탭메뉴1 -->
+      <div class=""><!-- 탭메뉴1내용 -->
+        <div class="col-12 mb-3">
+          <div class="card col-6">
+            <div class="row g-0 align-items-center">
+              <div class="col-md-7 c-img">
+                <img src="../../admin/upload/coupons/coupons1.png" class="img-fluid rounded-start" alt="Coupon Image">
+                </div>
+                <div class="col-md-5">
+                  <div class="card-body">
+                  <span class="badge text-bd-secondary mb-3">사용불가능</span>
+                    <h5>
+                      <div class="card-title">환승회원쿠폰</div>
+                    </h5>
+                    <p class="card-text bd">사용기한 : 2024-12-21
+                    </p>
+                    <p class="card-text bd">할인금액 : 20,000원</p>
+                    <p class="card-text bd"> 최소 사용금액 : 10,000원</p>
                   </div>
                 </div>
               </div>
+            </div>
           </div>
         </div>
       </div>
