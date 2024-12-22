@@ -111,8 +111,24 @@ while ($class_data = $result->fetch_object()) {
                       <p><?= isset($class->test_score) ? $class->test_score : '0'; ?>점</p>
                     </li>
                   </ul>
-                  <div class="mt-3">
-                    <button type="button" class="btn btn-outline-dark btn-sm">이수 기준</button>
+                  <div class="my_lec_btn d-flex mt-3 gap-2">
+                    <button type="button" class="btn btn-outline-dark btn-sm" data-bs-toggle="modal" data-bs-target="#howToGetCertificate">
+                      수료기준
+                    </button>
+                    <!-- Modal -->
+                    <div class="modal fade" id="howToGetCertificate" tabindex="-1" aria-labelledby="howToGetCertificateLabel" aria-hidden="true">
+                      <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <h1 class="modal-title fs-5" id="howToGetCertificateLabel">수료기준</h1>
+                          </div>
+                          <div class="modal-body">
+                            <p>강좌 진도율: 총 <span>80%</span> 이상</p>
+                            <p>평균 점수: 총 <span>80점</span> 이상</p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
                     <button type="button" class="btn btn-outline-dark btn-sm printButton">수료증</button>
                   </div>
                 </div>
@@ -143,31 +159,31 @@ while ($class_data = $result->fetch_object()) {
 
               <div class="d-flex flex-column">
                 <!-- 세부 강의 1강2강3강 목록 시작 -->
-                  <div class="d-flex gap-3 lecture_title">
-                    <p><?= isset($class->video_order) ? htmlspecialchars($class->video_order) : 'N/A'; ?>강</p>
-                    <p class="lecture_title"><?= isset($class->detail_title) ? htmlspecialchars($class->detail_title) : '강의 제목 없음'; ?></p>
+                <div class="d-flex gap-3 lecture_title">
+                  <p><?= isset($class->video_order) ? htmlspecialchars($class->video_order) : 'N/A'; ?>강</p>
+                  <p class="lecture_title"><?= isset($class->detail_title) ? htmlspecialchars($class->detail_title) : '강의 제목 없음'; ?></p>
+                </div>
+                <!-- 각 강좌별 점수 데이터 -->
+                <div class="lecture_one d-flex justify-content-between align-items-center mb-2">
+                  <div class="score_wrapper d-flex gap-3">
+                    <div class="d-flex gap-2">
+                      <p class="weight">퀴즈 점수</p>
+                      <p><span><?= isset($class->quiz_score) ? $class->quiz_score : '0'; ?></span>점</p>
+                    </div>
+                    <div class="d-flex gap-2">
+                      <p class="weight">시험 점수</p>
+                      <p><span><?= isset($class->test_score) ? $class->test_score : '0'; ?></span>점</p>
+                    </div>
+                    <div class="d-flex gap-2">
+                      <p class="weight">진행 여부</p>
+                      <p><span><?= isset($class->test) ? $class->test : '0'; ?></span>점</p>
+                    </div>
                   </div>
-                  <!-- 각 강좌별 점수 데이터 -->
-                  <div class="lecture_one d-flex justify-content-between align-items-center mb-2">
-                    <div class="score_wrapper d-flex gap-3">
-                      <div class="d-flex gap-2">
-                        <p class="weight">퀴즈 점수</p>
-                        <p><span><?= isset($class->quiz_score) ? $class->quiz_score : '0'; ?></span>점</p>
-                      </div>
-                      <div class="d-flex gap-2">
-                        <p class="weight">시험 점수</p>
-                        <p><span><?= isset($class->test_score) ? $class->test_score : '0'; ?></span>점</p>
-                      </div>
-                      <div class="d-flex gap-2">
-                        <p class="weight">진행 여부</p>
-                        <p><span><?= isset($class->test) ? $class->test : '0'; ?></span>점</p>
-                      </div>
-                    </div>
-                    <div>
-                      <a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/front/lecture_detail.php?detail_id=<?= isset($class->detail_id) ? $class->detail_id : 0; ?>" class="btn btn-secondary">강의보러가기</a>
-                    </div>
-                  </div> <!-- 각 강좌별 점수 데이터 끝-->
-                </div><!-- 세부 강의 1강2강3강 목록 끝 -->
+                  <div>
+                    <a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/front/lecture_detail.php?detail_id=<?= isset($class->detail_id) ? $class->detail_id : 0; ?>" class="btn btn-secondary">강의보러가기</a>
+                  </div>
+                </div> <!-- 각 강좌별 점수 데이터 끝-->
+              </div><!-- 세부 강의 1강2강3강 목록 끝 -->
             </div><!-- 강좌 디테일 끝 -->
           </div><!-- 강의목록 끝 -->
       <?php
