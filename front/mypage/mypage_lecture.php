@@ -4,20 +4,20 @@ include_once($_SERVER['DOCUMENT_ROOT'] . '/CODE_EVEN/front/inc/mypage_header.php
 $mypage_main_js = "<script src=\"http://" . $_SERVER['HTTP_HOST'] . "/code_even/front/js/mypage_main.js\"></script>";
 
 
-//강좌데이터
-$sql = "SELECT class_data.*, user.*, lecture.*, stuscores.* 
-        FROM class_data 
-        JOIN user ON class_data.uid = user.uid 
-        JOIN lecture ON class_data.leid = lecture.leid 
-        LEFT JOIN stuscores ON user.uid = stuscores.stu_id 
-        WHERE class_data.uid = '" . (isset($_SESSION['UID']) ? $_SESSION['UID'] : '') . "'";
+// //강좌데이터
+// $sql = "SELECT class_data.*, user.*, lecture.*, stuscores.* 
+//         FROM class_data 
+//         JOIN user ON class_data.uid = user.uid 
+//         JOIN lecture ON class_data.leid = lecture.leid 
+//         LEFT JOIN stuscores ON user.uid = stuscores.stu_id 
+//         WHERE class_data.uid = '" . (isset($_SESSION['UID']) ? $_SESSION['UID'] : '') . "'";
 
-$result = $mysqli->query($sql);
-$classArr = [];
-while ($class_data = $result->fetch_object()) {
-  $classArr[] = $class_data; // 각 행을 배열에 추가
-  //print_r($classArr);
-}
+// $result = $mysqli->query($sql);
+// $classArr = [];
+// while ($class_data = $result->fetch_object()) {
+//   $classArr[] = $class_data; // 각 행을 배열에 추가
+//   //print_r($classArr);
+// }
 
 
 $sql = "
@@ -39,15 +39,20 @@ $sql = "
     LEFT JOIN lecture_detail ld ON l.leid = ld.lecture_id
     LEFT JOIN stuscores ss ON cd.uid = ss.stu_id AND cd.leid = ss.leid AND ld.id = ss.detail_id
     WHERE cd.uid = '" . (isset($_SESSION['UID']) ? $_SESSION['UID'] : '') . "'
-    ORDER BY cd.leid, ld.video_order ASC
+    ORDER BY cd.cdid ASC, ld.video_order ASC
 ";
 
 $result = $mysqli->query($sql);
+
 $classArr = [];
 while ($class_data = $result->fetch_object()) {
   $classArr[] = $class_data;
 }
 
+$groupedClasses = [];
+foreach ($classArr as $class) {
+  $groupedClasses[$class->leid][] = $class;
+}
 
 
 
@@ -70,16 +75,18 @@ while ($class_data = $result->fetch_object()) {
       <!-- 강의목록 시작 -->
 
       <?php
-      $currentLectureId = null;
-      foreach ($classArr as $class) {
-        if ($currentLectureId !== $class->leid) {
-          // 이전 강좌의 강의 목록 출력 완료
-          if ($currentLectureId !== null) {
-            // 강좌 닫기
-          }
+      // $currentLectureId = null;
+      // foreach ($classArr as $class) {
+      //   if ($currentLectureId !== $class->leid) {
+      //     // 이전 강좌의 강의 목록 출력 완료
+      //     if ($currentLectureId !== null) {
+      //       // 강좌 닫기
+      //     }
 
-          // 새로운 강좌 시작
-          $currentLectureId = $class->leid;
+      //     // 새로운 강좌 시작
+      //     $currentLectureId = $class->leid;
+
+        foreach ($groupedClasses as $lectureId => $classes): 
       ?>
           <div class="my_lecture mb-4">
             <div class="my_lec_top d-flex">
@@ -157,43 +164,46 @@ while ($class_data = $result->fetch_object()) {
               </div>
               <hr>
               <!-- 세부 강의 1강2강3강 목록 시작 -->
-              <div class="d-flex justify-content-between align-items-center">
-                
-                <div class="d-flex justify-content-between align-items-center w-100"> <!--한 강의 내용 -->
-                  <div class="d-flex align-items-center gap-3 lecture_title">
-                    <p><?= isset($class->video_order) ? htmlspecialchars($class->video_order) : 'N/A'; ?>강</p>
-                    <p><?= isset($class->detail_title) ? htmlspecialchars($class->detail_title) : '강의 제목 없음'; ?></p>
-                  </div>
-                  <!-- 각 강좌별 점수 데이터 -->
-                  <div class="lecture_one d-flex justify-content-between align-items-center">
-                    <div class="score_wrapper d-flex align-items-center gap-4">
-                      <div class="d-flex gap-2">
-                        <p class="weight">퀴즈 점수</p>
-                        <p><span><?= isset($class->quiz_score) ? $class->quiz_score : '0'; ?></span>점</p>
-                      </div>
-                      <div class="d-flex gap-2">
-                        <p class="weight">시험 점수</p>
-                        <p><span><?= isset($class->test_score) ? $class->test_score : '0'; ?></span>점</p>
-                      </div>
-                      <div class="d-flex gap-2 align-items-center">
-                        <p class="weight">진행 여부</p>
-                        <?= isset($class->quiz_score)
-                          ? '<button class="btn btn-outline-success btn-sm" onclick="window.location.href=\'http://' . $_SERVER['HTTP_HOST'] . '/code_even/front/lecture_detail.php?detail_id=' . (isset($class->detail_id) ? $class->detail_id : 0) . '\'">수강완료</button>'
-                          : '<button class="btn btn-outline-secondary btn-sm" onclick="window.location.href=\'http://' . $_SERVER['HTTP_HOST'] . '/code_even/front/lecture_detail.php?detail_id=' . (isset($class->detail_id) ? $class->detail_id : 0) . '\'">미수강</button>'; ?>
+              <div class="d-flex flex-column justify-content-between align-items-center">
+                <?php foreach ($classes as $class): ?>
+                  <div class="d-flex justify-content-between align-items-center w-100 mb-3"> <!--한 강의 내용 -->
+
+                    <div class="d-flex align-items-center gap-3 lecture_title">
+                      <p><?= isset($class->video_order) ? htmlspecialchars($class->video_order) : 'N/A'; ?>강</p>
+                      <p><?= isset($class->detail_title) ? htmlspecialchars($class->detail_title) : '강의 제목 없음'; ?></p>
+                    </div>
+
+                    <!-- 각 강좌별 점수 데이터 -->
+                    <div class="lecture_one d-flex justify-content-between align-items-center">
+                      <div class="score_wrapper d-flex align-items-center gap-4">
+                        <div class="d-flex gap-2">
+                          <p class="weight">퀴즈 점수</p>
+                          <p><span><?= isset($class->quiz_score) ? $class->quiz_score : '0'; ?></span>점</p>
+                        </div>
+                        <div class="d-flex gap-2">
+                          <p class="weight">시험 점수</p>
+                          <p><span><?= isset($class->test_score) ? $class->test_score : '0'; ?></span>점</p>
+                        </div>
+                        <div class="d-flex gap-2 align-items-center">
+                          <p class="weight">진행 여부</p>
+                          <?= isset($class->quiz_score)
+                            ? '<button class="btn btn-outline-success btn-sm" onclick="window.location.href=\'http://' . $_SERVER['HTTP_HOST'] . '/code_even/front/lecture_detail.php?detail_id=' . (isset($class->detail_id) ? $class->detail_id : 0) . '\'">수강완료</button>'
+                            : '<button class="btn btn-outline-secondary btn-sm" onclick="window.location.href=\'http://' . $_SERVER['HTTP_HOST'] . '/code_even/front/lecture_detail.php?detail_id=' . (isset($class->detail_id) ? $class->detail_id : 0) . '\'">미수강</button>'; ?>
+                        </div>
                       </div>
                     </div>
-                  </div>
-                  <div>
-                    <a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/front/lecture_detail.php?detail_id=<?= isset($class->detail_id) ? $class->detail_id : 0; ?>" class="btn btn-secondary">강의보러가기</a>
-                  </div>
-                </div><!--한 강의 내용 끝-->
+                    <div class="goto_lec_btn">
+                      <button href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/front/lecture_detail.php?detail_id=<?= isset($class->detail_id) ? $class->detail_id : 0; ?>" class="btn btn-secondary">강의보러가기</button>
+                    </div>
+                  </div><!--한 강의 내용 끝-->
+                <?php endforeach; ?>
               </div><!-- 세부 강의 1강2강3강 목록 끝 -->
             </div><!-- 강좌 디테일 끝 -->
           </div><!-- 강의목록 끝 -->
       <?php
-
-        }
-      };
+         endforeach; 
+        //}
+      //};
       ?>
 
 
@@ -205,9 +215,9 @@ while ($class_data = $result->fetch_object()) {
 <div class="tab-pane fade" id="nav-myLecTab2" role="tabpanel" aria-labelledby="nav-myLecTab2-tab">
   <div class="my_lecture_wrapper">
     <?php
-        if ($currentLectureId !== null) {
-          echo "<div class='m-5'>'종료 강좌'가 없습니다</div>"; 
-        }
+    if ($currentLectureId !== null) {
+      echo "<div class='m-5'>'종료 강좌'가 없습니다</div>";
+    }
     ?>
   </div><!-- 강의목록 끝 -->
 </div>
