@@ -33,7 +33,7 @@
 }
 
 /* 상품 테이블 */
-.cart_list {
+.cart_list, .checkout_list {
   width: 100%;
   border-top: 1px solid var(--bk200);
   border-bottom: 1px solid var(--bk200);
@@ -106,12 +106,15 @@
 
   .book_list {
     padding: 10px;
-  }
 
-  .book_title {
+  }
+  .book_desc{
+    width: 475px;
     margin-left: 70px;
-    width: 450px;
+  }
+  .book_title {
     font-weight: 600;
+    font-size: 15px;
   }
 
   .book_info {
@@ -138,13 +141,97 @@
   }
 
   .book_price {
-    margin-left: 26px;
     width: 145px;
     height: 100%;
     text-align: center;
     /* border-right: 1px solid var(--bk200);
     border-left: 1px solid var(--bk200); */
   }
+}
+
+/* checkout 상품 테이블 별도 스타일 */
+.checkout_list{
+  .item_price{
+    border-right: 0;
+  }
+  .book_desc{
+    margin-left: 36px;
+    width: 545px;
+  }
+  .book_price {
+    width: 130px;
+    margin-left: 13px;
+  }
+  .coupon_select{
+    padding: 10px;
+    border-top: 1px solid var(--bk200);
+    select{
+      width: 500px;
+    }
+  } 
+} 
+
+.checkout_info_wrap{
+  font-size: 15px;
+  border: 1px solid var(--bk200);
+  border-radius: 10px;
+  padding: 32px;
+  .dinfo_body > *{
+    margin-bottom: 10px;
+  }
+  .delivery_info{
+    margin-bottom: 20px;
+  }
+  .dinfo_body, .payment_method {
+    border-bottom: 1px solid var(--bk200);
+  }
+  .dinfo_body label{
+    width: 100px;
+  }
+  #sample6_extraAddress{
+    margin-bottom: 20px;
+  }
+  .post_search_btn{
+    font-size: 14px;
+    color: var(--bk900);
+    margin-left: 10px;
+  }
+  .payment_method{
+    > *{
+      margin-bottom: 10px;
+    }
+    > div:last-child{
+      margin-bottom: 20px;
+    }
+    .form-check-input{
+     width: 1em; 
+     height: 1em;
+    }
+
+  }
+  .payment_cal{
+    padding: 20px 0;
+    border-bottom: 1px solid var(--bk200);
+    .total_price_tt, .coupon_price_tt{
+      color: var(--bk700);
+    }
+    div p:last-child{
+      font-size: 16px;
+      font-weight: 700;
+    }
+    .coupon_price{
+      color: var(--red950);
+    }
+  }
+  .payment_summary{
+    font-size: 18px;
+    font-weight: 800;
+    padding: 20px 0;
+  }
+}
+.checkout_info_headtt{
+  font-size: 16px;
+  font-weight: 700;
 }
 
 .btn-outline-secondary {
