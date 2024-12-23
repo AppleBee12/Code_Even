@@ -229,7 +229,7 @@ while ($data = $result->fetch_object()) {
 
   /* == 인쇄 버튼 == */
   function printPage() {
-    const fileUrl = "../../images/certificate of completion.pdf";
+    const fileUrl = "../../images/certificate_of_completion.pdf";
 
     // PDF를 iframe으로 페이지에 삽입
     const iframe = document.createElement("iframe");
