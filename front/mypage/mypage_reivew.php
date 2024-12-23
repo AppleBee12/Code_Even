@@ -51,7 +51,7 @@ while ($data = $result->fetch_object()) {
                 <?= mb_strlen($data->title) > 20 ? mb_substr($data->title, 0, 20) . '...' : $data->title; ?>
               </td>
               <td>
-                <a href="" class="underline">
+                <a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/front/mypage/mypage_review_details.php?rvid=<?= $data->rvid; ?>" class="underline">
                 <?= mb_strlen($data->rtitle) > 30 ? mb_substr($data->rtitle, 0, 30) . '...' : $data->rtitle; ?>
                 </a>
               </td>
