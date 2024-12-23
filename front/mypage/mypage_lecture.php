@@ -252,9 +252,9 @@ foreach ($classArr as $class) {
 <div class="tab-pane fade" id="nav-myLecTab2" role="tabpanel" aria-labelledby="nav-myLecTab2-tab">
   <div class="my_lecture_wrapper">
     <?php
-    if ($currentLectureId !== null) {
+
       echo "<div class='m-5'>'종료 강좌'가 없습니다</div>";
-    }
+
     ?>
   </div><!-- 강의목록 끝 -->
 </div>
