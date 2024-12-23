@@ -1,6 +1,9 @@
 section{
   margin-top: 0;
 }
+section.mypage_basic{
+  padding-bottom: 100px;
+}
 
 .lecture_box{
   border: 1px solid var(--bk200);
