@@ -41,7 +41,7 @@ $stmt->close();
         <input type="hidden" name="total_amount" value="<?= $totalPrice; ?>" id="total_price">
         <input type="hidden" name="discount_amount" value="0" id="discount_amount">
         <input type="hidden" name="final_amount" value="<?= $totalPrice; ?>" id="final_amount">
-        <input type="hidden" name="selected_payment" value="0" id="selected_payment">
+        <input type="hidden" name="selected_payment" value="" id="selected_payment">
         <input type="hidden" name="receiver_name" value="" id="receiver_name">
         <input type="hidden" name="receiver_contact" value="" id="receiver_contact">
         <input type="hidden" name="post_code" value="" id="post_code">
@@ -132,16 +132,16 @@ $stmt->close();
           <div class="payment_method">
             <h3 class="checkout_info_headtt">결제수단</h3>
             <div class="form-check form-check-inline">
-              <input class="form-check-input" type="radio" name="pay_method" id="pay_method1" value="0" checked>
-              <label class="form-check-label" for="user_status">카드결제</label>
+              <input class="form-check-input" type="radio" name="pay_method" id="pay_method1" value="1" checked>
+              <label class="form-check-label" for="pay_method1">신용카드</label>
             </div>
             <div class="form-check form-check-inline">
-              <input class="form-check-input" type="radio" name="pay_method" id="pay_method2" value="-1"> 
-              <label class="form-check-label" for="user_status">무통장입금</label>
+              <input class="form-check-input" type="radio" name="pay_method" id="pay_method2" value="3"> 
+              <label class="form-check-label" for="pay_method2">무통장입금</label>
             </div>
             <div class="form-check form-check-inline">
-              <input class="form-check-input" type="radio" name="pay_method" id="pay_method3" value="1"> 
-              <label class="form-check-label" for="user_status">실시간계좌이체</label>
+              <input class="form-check-input" type="radio" name="pay_method" id="pay_method3" value="5"> 
+              <label class="form-check-label" for="pay_method3">실시간계좌이체</label>
             </div>
           </div>
           <div class="payment_cal">
