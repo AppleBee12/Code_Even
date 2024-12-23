@@ -38,8 +38,10 @@ if ($result) {
   echo
   "<script>
         if (confirm('댓글을 등록하시겠습니까?')){
-        alert('등록이 완료되었습니다.');
-        location.href='counsel.php';
+        
+          alert('등록이 완료되었습니다.');
+          location.href='" . ($board_type === 'C' ? 'counsel.php' : ($board_type === 'B' ? 'blog.php' : 'teamproject.php')) . "';
+        
       }else{
         alert('취소되었습니다.');
         history.back();
@@ -53,7 +55,7 @@ if ($result) {
     </script>";
 }
 
-$result->close();
+//$result->close();
 
 
 ?>
