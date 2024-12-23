@@ -231,13 +231,13 @@ while ($review = $review_result->fetch_object()) {
         ?>
         <div class="row gx-2 align-items-center mt-3">
           <!-- 장바구니 버튼 -->
-          <div class="col-2">
+          <div class="col-12">
             <button type="submit" class="btn btn-light w-100">
-              <i class="bi bi-cart"></i>
+              <i class="bi bi-cart"> 장바구니에 담기</i>
             </button>
           </div>
           <!-- 바로 결제하기 버튼 -->
-          <div class="col-10">
+          <div class="col-10 visually-hidden">
             <button type="button" class="btn btn-outline-light w-100">
               바로 결제하기
             </button>
