@@ -169,7 +169,7 @@ thead,
               ?>
               <span>쿠폰 이미지를 등록해주세요.</span>
               <div class="coupon_image">
-                <img id="thumbnail_preview" src="<?= $image_src; ?>" alt="">
+                <img id="thumbnail_preview" src="" alt="">
               </div>
             </div>
             <input type="file" multiple accept="image/*" class="form-control w-50" name="coupon_image" id="coupon_image" value="file" required>
