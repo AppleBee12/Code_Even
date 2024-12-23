@@ -38,7 +38,7 @@ $data = $result->fetch_object();
               if ($i < $data->rating) {
                 echo '<i class="bi bi-star-fill"></i>';
               } else {
-                echo '';
+                echo '<i class="bi bi-star-fill empty"></i>';
               }
             }
           ?>
