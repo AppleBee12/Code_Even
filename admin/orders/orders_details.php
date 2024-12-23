@@ -9,11 +9,9 @@
     u.userid AS user_id, 
     u.username AS user_name, 
     od.oddtid AS oddtid,
-    od.product_type AS product_type,
-    od.product_title AS product_title,
-    od.cnt AS cnt,
+    od.lec_title AS lec_title,
     od.pay_status AS order_detail_status,
-    od.price AS price,
+    od.lec_price AS lec_price,
     r.re_amount AS refund_price
   FROM  
     orders o
@@ -63,9 +61,7 @@
         <tr>
             <th scope="col">번호</th>
             <th scope="col">항목번호</th>
-            <th scope="col">구분</th>
             <th scope="col">강의명/교재명</th>
-            <th scope="col">수량</th>
             <th scope="col">청구금액</th>
             <th scope="col">할인액</th>
             <th scope="col">환불액</th>
@@ -78,7 +74,7 @@
       $index = 1;
       foreach ($dataArr as $data) {
           // 구분 값 변환
-          $type = ($data->product_type == 1) ? "강좌" : "교재";
+          // $type = ($data->product_type == 1) ? "강좌" : "교재";
 
           // 상태 값 변환
           if ($data->order_detail_status == 0) {
@@ -96,10 +92,8 @@
           <tr>
               <th scope='row'>{$index}</th>
               <td>{$data->oddtid}</td>
-              <td>{$type}</td>
-              <td>{$data->product_title}</td>
-              <td>{$data->cnt}</td>
-              <td>" . number_format($data->price) . "</td>
+              <td>{$data->lec_title}</td>
+              <td>" . number_format($data->lec_price) . "</td>
               <td>" . number_format($data->discount_amount) . "</td>
               <td>". number_format($data->refund_price) . "</td>
               <td>" . number_format($data->final_amount) . "</td>
