@@ -366,12 +366,12 @@ while ($review = $review_result->fetch_object()) {
             <i class="bi bi-star-fill"></i>
             <i class="bi bi-star-fill"></i>
           </div>
-          <p>100개의 수강평</p>
+          <p><?= count($reviewArr);?>개의 수강평</p>
         </div>
         <div class="review_box">
           <div class="review_item">
             <div class="writer">
-              <p>홍길동</p>
+              <p>이븐학생</p>
               <span class="date">2024년 11월 30일</span>
               <div class="star_score">
                 <i class="bi bi-star-fill"></i>
@@ -382,11 +382,17 @@ while ($review = $review_result->fetch_object()) {
               </div>
             </div>
             <div class="title">
-              <p class="class_title">강의명</p>
-              <p>제목</p>
+              <p class="class_title">제대로 파는 HTML CSS</p>
+              <p>HTML 기초부터 활용까지 완벽하게 배우는 강의 후기</p>
             </div>
             <div class="content">
-              <p>내용</p>
+              <p>이 강의는 HTML에 대한 환경 설정부터 기초 개념, 활용법까지 모두 배울 수 있어 매우 유익했습니다.
+
+              HTML의 기본적인 구조와 태그 사용법을 확실히 이해할 수 있었고, 실전에서 어떻게 적용하는지에 대한 실용적인 팁도 배웠습니다.
+
+              또한, 효과적인 공부 방법까지 소개해 주셔서 HTML을 더 잘 활용할 수 있는 자신감을 얻었습니다.
+
+              이 강의를 통해 HTML에 대한 전반적인 이해를 높일 수 있었고, 웹 개발의 첫 단추를 잘 꿰어갈 수 있게 되었습니다.</p>
             </div>
           </div>
           <button>더보기</button>
