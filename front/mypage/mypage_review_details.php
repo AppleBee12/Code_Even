@@ -26,7 +26,7 @@ $data = $result->fetch_object();
         <p class="category">
           <?= $data->title;?>
         </p>
-        <h2 class="headt4"><?=$data->title;?></h2>
+        <h2 class="headt4"><?=$data->rtitle;?></h2>
         <div class="writer">
           <span>작성자: <?=$data->username;?></span>
           <span>|</span>
