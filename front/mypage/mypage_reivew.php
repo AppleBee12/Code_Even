@@ -66,7 +66,7 @@ while ($data = $result->fetch_object()) {
                 }
               ?>
               </td>
-              <td><a href="">X</a></td>
+              <td><a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/front/mypage/mypage_review_delete.php?rvid=<?= $data->rvid; ?>">X</a></td>
             </tr>
             <?php
              }
