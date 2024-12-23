@@ -2,6 +2,7 @@
 include_once($_SERVER['DOCUMENT_ROOT'] . '/CODE_EVEN/admin/inc/dbcon.php');
 include_once($_SERVER['DOCUMENT_ROOT'] . '/CODE_EVEN/admin/inc/page_summernote_delete.php');
 
+if (isset($_GET['fqid']) && isset($_GET['confirm']) && $_GET['confirm'] == "true") {
 $table_id = $_GET['fqid'];
 
 // FAQ 삭제를 위한 타겟 정보 가져오기
@@ -23,7 +24,6 @@ if ($target_result) {
         $redirect_url = ($target === 'teacher') ? 'teacher_faq.php' : (($target === 'student') ? 'student_faq.php' : 'index.php');
         echo
           "<script>
-            confirm('글을 삭제하시겠습니까?');
             alert('삭제가 완료되었습니다.');
             location.href = '$redirect_url';
           </script>";
@@ -34,11 +34,22 @@ if ($target_result) {
             history.back();
           </script>";
     }
+  } else {
+      echo
+        "<script>
+          alert('타겟 정보를 가져오지 못했습니다.');
+          history.back();
+        </script>";
+  }
 } else {
-    echo
-      "<script>
-        alert('타겟 정보를 가져오지 못했습니다.');
-        history.back();
-      </script>";
+  echo 
+  "<script>
+      if (confirm('글을 삭제하시겠습니까?')) {
+          location.href = '?fqid=" . $_GET['fqid'] . "&confirm=true';
+      } else {
+          alert('삭제가 취소되었습니다.');
+          location.href = 'notice.php';
+      }
+  </script>";
 }
 ?>
