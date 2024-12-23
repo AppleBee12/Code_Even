@@ -689,11 +689,9 @@ header {
 /* 푸터 footer */
 
 /* footer */
-footer{
-  background-color: var(--bk1200);
-}
+
 .all_p{
-  padding: 80px 0 50px 0;
+  padding: 120px 0 70px 0;
 }
 .footer-logo img{
   width: 263px;
