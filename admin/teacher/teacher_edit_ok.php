@@ -16,7 +16,7 @@
     $isnew = $_POST['isnew'] ?? 0;
     $isrecom = $_POST['isrecom'] ?? 0;
     $tc_main_intro = $_POST['tc_main_intro'] ?? '';
-    $tc_intro = rawurldecode($_POST['tc_intro']);
+    $tc_intro = $_POST['tc_intro'] ?? '';
 
     /* ---------------- 이미지 업로드 함수 호출 로직 시작 --------------------- */
     // 상위 디렉토리 이름 가져오기 (예: 'teacher')

@@ -51,7 +51,7 @@ while ($data = $result->fetch_object()) {
                 <?= mb_strlen($data->title) > 20 ? mb_substr($data->title, 0, 20) . '...' : $data->title; ?>
               </td>
               <td>
-                <a href="" class="underline">
+                <a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/front/mypage/mypage_review_details.php?rvid=<?= $data->rvid; ?>" class="underline">
                 <?= mb_strlen($data->rtitle) > 30 ? mb_substr($data->rtitle, 0, 30) . '...' : $data->rtitle; ?>
                 </a>
               </td>
@@ -61,12 +61,12 @@ while ($data = $result->fetch_object()) {
                   if ($i < $data->rating) {
                     echo '<i class="bi bi-star-fill"></i>';
                   } else {
-                    echo '';
+                    echo '<i class="bi bi-star-fill empty"></i>';
                   }
                 }
               ?>
               </td>
-              <td><a href="">X</a></td>
+              <td><a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/front/mypage/mypage_review_delete.php?rvid=<?= $data->rvid; ?>">X</a></td>
             </tr>
             <?php
              }

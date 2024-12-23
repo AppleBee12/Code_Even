@@ -7,6 +7,9 @@
 tbody .form-control, tbody .form-select{
   width: 480px;
 }
+tbody .form-control.tc_intro{
+  width: 1168px;
+}
 
 tbody td input.address_num{
   width: 360px;
