@@ -130,8 +130,6 @@ $postcomment->bind_param("i", $current_uid);
     <!--제목 끝-->
     <div class="list_content">
         <div class="d-flex justify-content-between align-items-center">
-          <p>총 <?= count($qdataArr); ?>건</p>
-          <button type="submit">1:1 문의하기</button>
         </div>
         <table class="table">
           <thead>
@@ -164,7 +162,7 @@ $postcomment->bind_param("i", $current_uid);
                       $boardType = '팀 프로젝트';
                       break;
                   }
-            ?>
+              ?>
                   <tr>
                     <th><?= $counter; ?></th>
                     <td><?= $boardType; ?></td>
@@ -204,5 +202,6 @@ $postcomment->bind_param("i", $current_uid);
 </div>
 </div>
 </div>
+
 <?php include_once($_SERVER['DOCUMENT_ROOT'] . '/CODE_EVEN/front/inc/footer.php');
 ?>
