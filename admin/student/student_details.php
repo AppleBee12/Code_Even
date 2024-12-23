@@ -152,15 +152,13 @@ while ($row = $result->fetch_object()) {
           ?>
           <?= $end_date ?> 
         </td>
-        <td><?=$row->score;?></td>
-        <td><?=$row->score;?></td>
-        <td><?=$row->progress_rate ? $row->progress_rate . '%' : '0%';?></td>
+        <td><?=$row->quiz_score;?></td>
+        <td><?=$row->quiz_score;?></td>
+        <td><?=$row->progress_rate ? $row->view . '%' : '80%';?></td>
         <td>
-        <?php if ($row->progress_rate >= 80): ?>
           <button class="printButton">
             <span class="badge text-bg-dark">이수증</span>
           </button>
-          <?php endif; ?>
         </td>
       </tr>
       <?php
