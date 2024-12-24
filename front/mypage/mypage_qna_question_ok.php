@@ -1,6 +1,6 @@
 <?php
 $title = '마이페이지-1:1문의하기';
-include_once($_SERVER['DOCUMENT_ROOT'] . '/CODE_EVEN/admin/inc/dbcon.php');
+include_once($_SERVER['DOCUMENT_ROOT'] . '/code_even/admin/inc/dbcon.php');
 
 $uid = $_POST['uid'];
 $category = $_POST['category'];

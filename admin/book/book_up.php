@@ -2,7 +2,7 @@
 
 $title = "교재 등록";
 
-include_once($_SERVER['DOCUMENT_ROOT'] . '/CODE_EVEN/admin/inc/header.php');
+include_once($_SERVER['DOCUMENT_ROOT'] . '/code_even/admin/inc/header.php');
 
 // 현재 로그인된 사용자 세션 값 가져오기
 $session_userid = $_SESSION['AUID'] ?? null; // 세션의 AUID는 user 테이블의 userid와 매칭
@@ -14,7 +14,7 @@ if (!isset($_SESSION['AUID']) || !isset($_SESSION['AUNAME'])) {
   print_r($_SESSION);
   echo "</pre>";
   echo "<script>alert('로그인 정보가 없습니다. 다시 로그인해 주세요.');</script>";
-  echo "<script>location.href='/CODE_EVEN/admin/login.php';</script>";
+  echo "<script>location.href='/code_even/admin/login.php';</script>";
   exit;
 }
 
@@ -28,7 +28,7 @@ if ($stmt_user = $mysqli->prepare($sql_user)) {
   $stmt_user->close();
 } else {
   echo "<script>alert('사용자 정보를 가져오는 데 실패했습니다. 관리자에게 문의하세요.');</script>";
-  echo "<script>location.href='/CODE_EVEN/admin/login.php';</script>";
+  echo "<script>location.href='/code_even/admin/login.php';</script>";
   exit;
 }
 

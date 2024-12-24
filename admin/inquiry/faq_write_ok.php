@@ -1,8 +1,8 @@
 <?php
 // ** 세션 시작 함수 **
 session_start();
-include_once($_SERVER['DOCUMENT_ROOT'] . '/CODE_EVEN/admin/inc/dbcon.php');
-include_once($_SERVER['DOCUMENT_ROOT'] . '/CODE_EVEN/admin/inc/page_summernote_insert.php');
+include_once($_SERVER['DOCUMENT_ROOT'] . '/code_even/admin/inc/dbcon.php');
+include_once($_SERVER['DOCUMENT_ROOT'] . '/code_even/admin/inc/page_summernote_insert.php');
 
 $category = $_POST['category'];
 $username = $_POST['username'];

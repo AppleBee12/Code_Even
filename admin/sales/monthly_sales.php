@@ -4,7 +4,7 @@
   $chart_js = "<script src=\"https://cdn.jsdelivr.net/npm/chart.js\"></script>";
   //$jqueryui_js = "<script src=\"https://code.jquery.com/ui/1.14.1/jquery-ui.js\"></script>";
 
-  include_once($_SERVER['DOCUMENT_ROOT'] . '/CODE_EVEN/admin/inc/header.php');
+  include_once($_SERVER['DOCUMENT_ROOT'] . '/code_even/admin/inc/header.php');
 
   $logged_in_user_level = $_SESSION['AULEVEL']; // 세션에서 사용자 레벨 가져오기
   $logged_in_user_uid = $_SESSION['UID']; // 세션에서 사용자 UID 가져오기
@@ -217,5 +217,5 @@ $(document).ready(function(){
 
 
 <?php
-include_once($_SERVER['DOCUMENT_ROOT'] . '/CODE_EVEN/admin/inc/footer.php');
+include_once($_SERVER['DOCUMENT_ROOT'] . '/code_even/admin/inc/footer.php');
 ?>

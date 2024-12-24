@@ -1,6 +1,6 @@
 <?php
 $title = "수강생 질문";
-include_once($_SERVER['DOCUMENT_ROOT'] . '/CODE_EVEN/admin/inc/dbcon.php');
+include_once($_SERVER['DOCUMENT_ROOT'] . '/code_even/admin/inc/dbcon.php');
 
 // JavaScript에서 확인을 받은 경우에만 sqid를 받아와서 삭제를 실행
 if (isset($_GET['sqid']) && isset($_GET['confirm']) && $_GET['confirm'] == "true") {

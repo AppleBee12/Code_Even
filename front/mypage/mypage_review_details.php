@@ -1,6 +1,6 @@
 <?php
 $title = '마이페이지-후기글보기';
-include_once($_SERVER['DOCUMENT_ROOT'] . '/CODE_EVEN/front/inc/mypage_header.php');
+include_once($_SERVER['DOCUMENT_ROOT'] . '/code_even/front/inc/mypage_header.php');
 
 $rvid = $_GET['rvid'];
 $sql = "SELECT review.*, class_data.*, lecture.*, user.* 
@@ -64,5 +64,5 @@ $data = $result->fetch_object();
 </div>
 </div>
 </div>
-<?php include_once($_SERVER['DOCUMENT_ROOT'] . '/CODE_EVEN/front/inc/footer.php');
+<?php include_once($_SERVER['DOCUMENT_ROOT'] . '/code_even/front/inc/footer.php');
 ?>

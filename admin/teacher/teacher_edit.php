@@ -35,7 +35,7 @@
     <div class="upload mt-5 mb-3">
       <?php 
         $thumbnail_path = !empty($data->tc_thumbnail) ? $_SERVER['DOCUMENT_ROOT'] . $data->tc_thumbnail : '';
-        $image_src = (!empty($data->tc_thumbnail) && file_exists($thumbnail_path)) ? $data->tc_thumbnail : '/CODE_EVEN/admin/upload/teacher/tc_dummy.png';
+        $image_src = (!empty($data->tc_thumbnail) && file_exists($thumbnail_path)) ? $data->tc_thumbnail : '/code_even/admin/upload/teacher/tc_dummy.png';
       ?>
       <img id="thumbnail_preview" src="<?= $image_src; ?>" class="rounded_circle" width = 100 height = 100 alt="프로필 이미지">
       <div class="round">

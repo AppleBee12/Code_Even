@@ -1,5 +1,5 @@
 <?php
-include_once($_SERVER['DOCUMENT_ROOT'] . '/CODE_EVEN/admin/inc/dbcon.php');
+include_once($_SERVER['DOCUMENT_ROOT'] . '/code_even/admin/inc/dbcon.php');
 
 // URL 파라미터에서 detail_id 가져오기
 $detail_id = isset($_GET['detail_id']) ? intval($_GET['detail_id']) : 0;

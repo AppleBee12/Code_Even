@@ -1,7 +1,7 @@
 <?php
 
 session_start();
-include_once($_SERVER['DOCUMENT_ROOT'] . '/CODE_EVEN/admin/inc/dbcon.php');
+include_once($_SERVER['DOCUMENT_ROOT'] . '/code_even/admin/inc/dbcon.php');
 
 // 학생 ID 확인
 if (!isset($_SESSION['UID'])) {

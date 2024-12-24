@@ -1,6 +1,6 @@
 <?php
 $title = "이메일 발송";
-include_once($_SERVER['DOCUMENT_ROOT'] . '/CODE_EVEN/admin/inc/dbcon.php');
+include_once($_SERVER['DOCUMENT_ROOT'] . '/code_even/admin/inc/dbcon.php');
 
 $uid = $_POST['uid'];
 $title = $_POST['title'];

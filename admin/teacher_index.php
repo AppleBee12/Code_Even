@@ -4,7 +4,7 @@ $chart_js = "<script src=\"https://cdn.jsdelivr.net/npm/chart.js\"></script>";
 $host = $_SERVER['HTTP_HOST'];
 $t_main_js = "<script src=\"http://$host/code_even/admin/js/t_main.js\"></script>";
 
-include_once($_SERVER['DOCUMENT_ROOT'] . '/CODE_EVEN/admin/inc/header.php');
+include_once($_SERVER['DOCUMENT_ROOT'] . '/code_even/admin/inc/header.php');
 
 if (!isset($_SESSION['AUID'])) {
   echo "<script>
@@ -114,5 +114,5 @@ if (!isset($_SESSION['AUID'])) {
 $host = $_SERVER['HTTP_HOST'];
 
 
-include_once($_SERVER['DOCUMENT_ROOT'] . '/CODE_EVEN/admin/inc/footer.php');
+include_once($_SERVER['DOCUMENT_ROOT'] . '/code_even/admin/inc/footer.php');
 ?>

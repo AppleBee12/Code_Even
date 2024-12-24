@@ -2,7 +2,7 @@
 
 error_reporting( E_ALL );
 ini_set( "display_errors", 1 );
-include_once($_SERVER['DOCUMENT_ROOT'] . '/CODE_EVEN/admin/inc/dbcon.php');
+include_once($_SERVER['DOCUMENT_ROOT'] . '/code_even/admin/inc/dbcon.php');
 
 $name = $_POST['name'];
 // $pcode = $_POST['pcode']??'';

@@ -1,8 +1,8 @@
 <?php
 $hostname = 'localhost';
-$username = 'hportfolio';
-$password = 'sksl1209!';
-$dbname = 'hportfolio';
+$username = 'code_even';
+$password = '12345';
+$dbname = 'code_even';
 
 $mysqli = new mysqli($hostname, $username, $password, $dbname);
 if($mysqli->connect_errno){

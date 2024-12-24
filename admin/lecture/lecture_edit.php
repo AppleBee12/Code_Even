@@ -2,7 +2,7 @@
 
 $title = "강좌 수정";
 
-include_once($_SERVER['DOCUMENT_ROOT'] . '/CODE_EVEN/admin/inc/header.php');
+include_once($_SERVER['DOCUMENT_ROOT'] . '/code_even/admin/inc/header.php');
 
 // 강좌 ID 가져오기
 $leid = isset($_GET['id']) ? intval($_GET['id']) : null;
@@ -555,5 +555,5 @@ $(this).find('h5').text(`${index + 1}강`);
 </script>
 
 <?php
-include_once($_SERVER['DOCUMENT_ROOT'] . '/CODE_EVEN/admin/inc/footer.php');
+include_once($_SERVER['DOCUMENT_ROOT'] . '/code_even/admin/inc/footer.php');
 ?>

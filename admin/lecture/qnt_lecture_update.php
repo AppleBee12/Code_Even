@@ -1,6 +1,6 @@
 <?php
 
-  include_once($_SERVER['DOCUMENT_ROOT'] . '/CODE_EVEN/admin/inc/dbcon.php'); // DB 연결
+  include_once($_SERVER['DOCUMENT_ROOT'] . '/code_even/admin/inc/dbcon.php'); // DB 연결
 
     // POST 요청인지 확인
   if ($_SERVER['REQUEST_METHOD'] === 'POST') {

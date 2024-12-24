@@ -3,7 +3,7 @@ $host = $_SERVER['HTTP_HOST'];
 $address_js = "<script src=\"//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js\"></script>";
 $store_js = "<script src=\"http://$host/code_even/admin/js/store.js\"></script>";
 $title = "상점 관리";
-include_once($_SERVER['DOCUMENT_ROOT'] . '/CODE_EVEN/admin/inc/header.php');
+include_once($_SERVER['DOCUMENT_ROOT'] . '/code_even/admin/inc/header.php');
 
 
 
@@ -247,5 +247,5 @@ $cidata = $result->fetch_object();
   }
 </script>
 <?php
-include_once($_SERVER['DOCUMENT_ROOT'] . '/CODE_EVEN/admin/inc/footer.php');
+include_once($_SERVER['DOCUMENT_ROOT'] . '/code_even/admin/inc/footer.php');
 ?>

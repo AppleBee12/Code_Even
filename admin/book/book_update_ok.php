@@ -99,7 +99,7 @@ if ($imagePath) {
 if (!$mysqli->query($sql)) {
   die("쿼리 오류: " . $mysqli->error);
 } else {
-  echo "<script>alert('교재가 성공적으로 수정되었습니다.'); location.href='/CODE_EVEN/admin/book/book_list.php';</script>";
+  echo "<script>alert('교재가 성공적으로 수정되었습니다.'); location.href='/code_even/admin/book/book_list.php';</script>";
 }
 
 $mysqli->close();

@@ -1,6 +1,6 @@
 <?php
   $title = "교재매출통계";
-  include_once($_SERVER['DOCUMENT_ROOT'] . '/CODE_EVEN/admin/inc/header.php');
+  include_once($_SERVER['DOCUMENT_ROOT'] . '/code_even/admin/inc/header.php');
   /*
   echo '<pre>';
   print_r($_SESSION); // 세션 데이터 출력
@@ -287,5 +287,5 @@
 </script>
 
 <?php
-include_once($_SERVER['DOCUMENT_ROOT'] . '/CODE_EVEN/admin/inc/footer.php');
+include_once($_SERVER['DOCUMENT_ROOT'] . '/code_even/admin/inc/footer.php');
 ?>

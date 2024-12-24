@@ -68,7 +68,7 @@ CREATE TABLE `admin_question` (
   `category` int(11) NOT NULL COMMENT '주제분류',
   `qtitle` varchar(255) NOT NULL COMMENT '질문제목',
   `qcontent` text NOT NULL COMMENT '질문내용',
-  `regdate` date NOT NULL DEFAULT current_timestamp() COMMENT '등록일'
+  `regdate` datetime NOT NULL DEFAULT current_timestamp() COMMENT '등록일'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='1:1 문의 (사용자질문)';
 
 --
@@ -982,7 +982,7 @@ CREATE TABLE `notice` (
   `title` varchar(255) NOT NULL COMMENT '제목',
   `content` text NOT NULL COMMENT '내용',
   `view` int(11) NOT NULL COMMENT '조회수',
-  `regdate` date NOT NULL DEFAULT current_timestamp() COMMENT '등록일',
+  `regdate` datetime NOT NULL DEFAULT current_timestamp() COMMENT '등록일',
   `fix` tinyint(4) DEFAULT 0 COMMENT '상단고정 (고정=1)'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -1883,7 +1883,7 @@ CREATE TABLE `user` (
   `addr_line1` varchar(100) DEFAULT NULL COMMENT '주소',
   `addr_line2` varchar(100) DEFAULT NULL COMMENT '상세주소',
   `addr_line3` varchar(100) DEFAULT NULL COMMENT '참고항목',
-  `signup_date` date NOT NULL DEFAULT current_timestamp() COMMENT '가입일',
+  `signup_date` datetime NOT NULL DEFAULT current_timestamp() COMMENT '가입일',
   `last_date` datetime NOT NULL DEFAULT current_timestamp() COMMENT '마지막접속일시',
   `user_level` int(11) NOT NULL DEFAULT 1 COMMENT '회원구분(1일반,10강사,100관리자)',
   `user_status` tinyint(4) NOT NULL DEFAULT 0 COMMENT '회원상태(0정상,-1정지,1탈퇴)'
