@@ -50,7 +50,7 @@
           <ul class="menu_sublist">
             <li><a href="http://<?=$_SERVER['HTTP_HOST']?>/code_even/front/lecture_list.php">장바구니</a></li>
             <li><a href="http://<?=$_SERVER['HTTP_HOST']?>/code_even/front/mypage/mypage_wishlist.php">찜한 상품</a></li>
-            <li></a>결제 내역</li>
+            <li>결제 내역</li>
           </ul>
         </div>
         <div class="menu_list">

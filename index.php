@@ -96,12 +96,7 @@ if ($tc_result && $tc_result->num_rows > 0) {
 /* teacher_section 끝 */
 
 ?>
-<style>
-.cookie_underline a:hover{
-  text-decoration : underline;
-  font-weight: 600;
-}
-</style>
+
 
 <!-- 쿠키 모달 창 -->
 <div id="cookieModal" class="cookie-modal ">
@@ -118,7 +113,8 @@ if ($tc_result && $tc_result->num_rows > 0) {
         <div class="link3">
           <span><b>기획자료 :</b> <a href="https://www.figma.com/deck/MQfJi66QGjjvn4nzpNfIQz/code_even_LMS%EA%B5%AC%ED%98%84%EB%B0%9C%ED%91%9C-%EC%B5%9C%EC%A2%85?node-id=1-466&node-type=slide&viewport=-123%2C-137%2C0.7&t=QMdQYEzDrnraOO0y-1&scaling=min-zoom&content-scaling=fixed&page-id=0%3A1" target="_blank">figma</a>
             <b> 코드 :</b> <a href="https://github.com/AppleBee12/code_even.git" target="_blank">github</a>
-            <b> 관리자 페이지 :</b> <a href="http://localhost/code_even/admin/index.php" target="_blank">Admin Page</a></p>
+            <b> 관리자 페이지 :</b> <a href="http://localhost/code_even/admin/index.php" target="_blank">Admin Page</a>
+          </span>
         </div>
       </div>
       <hr>
@@ -179,6 +175,7 @@ if ($tc_result && $tc_result->num_rows > 0) {
     </button>
   </div>
 </div>
+<!-- 쿠키 모달 창 끝-->
 
 <section class="sec01">
   <div>
@@ -188,7 +185,7 @@ if ($tc_result && $tc_result->num_rows > 0) {
           <div class="sec01_banner sec01_banner01">
             <div class="sec01_textwrapper">
               <p class="headt5">EVENT</p>
-              <p class="headt3">비슷한 부분을 자꾸 잊는다면?</p>
+              <h3 class="headt3">비슷한 부분을 자꾸 잊는다면?</h3>
               <p class="headt3">코드이븐 레시피 강좌를 만날 때!</p>
             </div>
             <img src="front/images/sec01_banner01.png" alt="">
@@ -198,7 +195,7 @@ if ($tc_result && $tc_result->num_rows > 0) {
           <div class="sec01_banner sec01_banner02">
             <div class="sec01_textwrapper">
               <p class="headt5">2024.12.01 - 12.31</p>
-              <p class="headt3">크리스마스 특별 50% 쿠폰 증정!</p>
+              <h3 class="headt3">크리스마스 특별 50% 쿠폰 증정!</h3>
               <p class="headt3">추운 날 따뜻한 쿠폰 받아가세요</p>
             </div>
             <img src="front/images/sec01_banner02.png" alt="">
@@ -208,7 +205,7 @@ if ($tc_result && $tc_result->num_rows > 0) {
           <div class="sec01_banner sec01_banner03">
             <div class="sec01_textwrapper">
               <p class="headt5">OPEN</p>
-              <p class="headt3">HTML의 정석</p>
+              <h3 class="headt3">HTML의 정석</h3>
               <p class="headt3">개발자를 위한 HTML강의</p>
             </div>
             <img src="front/images/sec01_banner03.png" alt="">
@@ -218,7 +215,7 @@ if ($tc_result && $tc_result->num_rows > 0) {
           <div class="sec01_banner sec01_banner04">
             <div class="sec01_textwrapper">
               <p class="headt5">BEST</p>
-              <p class="headt3">이달의 베스트 선생님</p>
+              <h3 class="headt3">이달의 베스트 선생님</h3>
               <p class="headt3">웹코딩의 절대강자 김동주</p>
             </div>
             <img src="front/images/sec01_banner04.png" alt="">
@@ -242,7 +239,7 @@ if ($tc_result && $tc_result->num_rows > 0) {
     <li>
       <div>
         <a href="http://<?=$_SERVER['HTTP_HOST']?>/code_even/front/lecture_list.php?category=B0001"><img src="front/images/frontend.png" alt="프론트엔드">
-          <div class="headt5 mb-2">프론트엔드</div>
+          <h5 class="headt5 mb-2">프론트엔드</h5>
           <div>프론트엔드 개발자를 위한, <br> 실전 웹 성능 최적화 <br>(feat. React)</div>
         </a>
       </div>
@@ -250,7 +247,7 @@ if ($tc_result && $tc_result->num_rows > 0) {
     <li>
       <div>
         <a href="http://<?=$_SERVER['HTTP_HOST']?>/code_even/front/lecture_list.php?category=B0002"><img src="front/images/backend.png" alt="백엔드">
-          <div class="headt5 mb-2">백엔드</div>
+          <h5 class="headt5 mb-2">백엔드</h5>
           <div>탄탄한 백엔드 NestJS,  <br>기초부터 심화까지</div>
         </a>
       </div>
@@ -258,7 +255,7 @@ if ($tc_result && $tc_result->num_rows > 0) {
     <li>
       <div>
         <a href="http://<?=$_SERVER['HTTP_HOST']?>/code_even/front/lecture_list.php?category=B0003"><img src="front/images/cloud.png" alt="클라우드/DB">
-          <div class="headt5 mb-2">클라우드/DB</div>
+          <h5 class="headt5 mb-2">클라우드/DB</h5>
           <div>스스로 구축하는 <br>AWS 클라우드 <br>  인프라 </div>
         </a>
       </div>
@@ -266,7 +263,7 @@ if ($tc_result && $tc_result->num_rows > 0) {
     <li>
       <div>
         <a href="http://<?=$_SERVER['HTTP_HOST']?>/code_even/front/lecture_list.php?category=B0004"><img src="front/images/database.png" alt="데이터베이스">
-          <div class="headt5 mb-2">데이터베이스</div>
+          <h5 class="headt5 mb-2">데이터베이스</h5>
           <div>초보자를 위한 쉬운 파이썬 <br> 기초와 데이터 분석</div>
         </a>
       </div>
@@ -274,7 +271,7 @@ if ($tc_result && $tc_result->num_rows > 0) {
     <li>
       <div>
         <a href="http://<?=$_SERVER['HTTP_HOST']?>/code_even/front/lecture_list.php?category=B0005"><img src="front/images/network.png" alt="네트워크 관리">
-          <div class="headt5 mb-2">네트워크 관리</div>
+          <h5 class="headt5 mb-2">네트워크 관리</h5>
           <div>실습으로 배우는  <br> 핵심 네트워크 기술</div>
         </a>
       </div>
@@ -282,7 +279,7 @@ if ($tc_result && $tc_result->num_rows > 0) {
     <li>
       <div>
         <a href="http://<?=$_SERVER['HTTP_HOST']?>/code_even/front/lecture_list.php?category=B0001"><img src="front/images/security.png" alt="보안">
-          <div class="headt5 mb-2">보안</div>
+          <h5 class="headt5 mb-2">보안</h5>
           <div>기초부터 따라하는  <br> 디지털포렌식</div>
         </a>
       </div>
@@ -302,7 +299,7 @@ if ($tc_result && $tc_result->num_rows > 0) {
           <!-- 링크 전체를 감싸도록 설정 -->
           <a href="http://<?=$_SERVER['HTTP_HOST']?>/code_even/front/lecture_view.php?leid=<?= $item->leid; ?>" class="d-block">
             <div class="image_box mb-2">
-              <img src="<?= htmlspecialchars($item->image); ?>" alt="강좌 이미지" class="img-fluid" />
+              <img src="<?= htmlspecialchars($item->image); ?>" alt="강좌 이미지" class="img-fluid" >
             </div>
             <div class="d-flex justify-content-between">
               <div>
@@ -336,8 +333,8 @@ if ($tc_result && $tc_result->num_rows > 0) {
               <b><?= number_format($item->price); ?></b>원
             </div>       
             <div class="icon-container">
-              <i class="bi bi-heart heart-icon" id="heart-icon"></i>
-              <i class="bi bi-heart-fill heart-icon-filled d-none" id="heart-icon-filled"></i>
+              <i class="bi bi-heart heart-icon"></i>
+              <i class="bi bi-heart-fill heart-icon-filled d-none"></i>
               <i class="bi bi-cart-plus"></i>
             </div>
           </div>
@@ -363,7 +360,7 @@ if ($tc_result && $tc_result->num_rows > 0) {
           <!-- 링크를 강좌 정보까지 감싸기 -->
           <a href="http://<?=$_SERVER['HTTP_HOST']?>/code_even/front/lecture_view.php?leid=<?= urlencode($item->leid); ?>" class="d-block text-decoration-none">
             <div class="image_box mb-2">
-              <img src="<?= htmlspecialchars($item->image); ?>" alt="강좌 이미지" class="img-fluid" />
+              <img src="<?= htmlspecialchars($item->image); ?>" alt="강좌 이미지" class="img-fluid" >
             </div>
             <div class="d-flex justify-content-between">
               <div>
@@ -402,8 +399,8 @@ if ($tc_result && $tc_result->num_rows > 0) {
               <b><?= number_format($item->price); ?></b>원
             </div>
             <div class="icon-container">
-              <i class="bi bi-heart heart-icon" id="heart-icon"></i>
-              <i class="bi bi-heart-fill heart-icon-filled d-none" id="heart-icon-filled"></i>
+              <i class="bi bi-heart heart-icon"></i>
+              <i class="bi bi-heart-fill heart-icon-filled d-none"></i>
               <i class="bi bi-cart-plus"></i>
             </div>
           </div>
@@ -569,7 +566,7 @@ if ($tc_result && $tc_result->num_rows > 0) {
     <div class=" d-flex justify-content-between sec_height align-items-center row">
       <div class="col-6">
         <div class="">
-          <div class="headt3">현직자 리드멘토가 되어주세요!</div>
+          <h3 class="headt3">현직자 리드멘토가 되어주세요!</h3>
           <div class="headt5">여러분들만의 지식과 배움을 공유하고 <br>
           코드이븐의 꿈나무들에게 미래를 응원해주세요!</div>
         </div>  
@@ -597,7 +594,7 @@ if ($tc_result && $tc_result->num_rows > 0) {
           <!-- 강좌 정보 부분을 감싸는 링크 -->
           <a href="http://<?=$_SERVER['HTTP_HOST']?>/code_even/front/lecture_view.php?leid=<?= urlencode($item->leid); ?>" class="d-block text-decoration-none">
             <div class="image_box mb-2">
-              <img src="<?= htmlspecialchars($item->image); ?>" alt="강좌 이미지" class="img-fluid" />
+              <img src="<?= htmlspecialchars($item->image); ?>" alt="강좌 이미지" class="img-fluid" >
             </div>
             <div class="d-flex justify-content-between">
               <div>
@@ -637,8 +634,8 @@ if ($tc_result && $tc_result->num_rows > 0) {
               <b><?= number_format($item->price); ?></b>원
             </div>       
             <div class="icon-container">
-              <i class="bi bi-heart heart-icon" id="heart-icon"></i>
-              <i class="bi bi-heart-fill heart-icon-filled d-none" id="heart-icon-filled"></i>
+              <i class="bi bi-heart heart-icon"></i>
+              <i class="bi bi-heart-fill heart-icon-filled d-none" ></i>
               <i class="bi bi-cart-plus"></i>
             </div>
           </div>
