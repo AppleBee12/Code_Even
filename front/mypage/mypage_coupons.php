@@ -33,22 +33,33 @@ $total_block = ceil($total_page / $block_ct);
 if ($block_end > $total_page) {
   $block_end = $total_page;
 }
+$sql_count_available = "
+SELECT COUNT(*) AS available_count 
+FROM user_coupons uc
+JOIN coupons c ON uc.couponid = c.cpid 
+WHERE uc.userid = ? AND uc.status = 1 AND uc.use_max_date >= CURDATE()";
+$stmt_count_available = $mysqli->prepare($sql_count_available);
+$stmt_count_available->bind_param('s', $userid);
+$stmt_count_available->execute();
+$result_count_available = $stmt_count_available->get_result();
+$row_count = $result_count_available->fetch_assoc();
+$available_count = $row_count['available_count'];
 $sql_available = "
 SELECT 
-    c.coupon_name, 
-    c.coupon_image, 
-    c.max_value, 
-    c.use_min_price, 
-    uc.use_max_date, 
-    uc.status 
+  c.coupon_name, 
+  c.coupon_image, 
+  c.max_value, 
+  c.use_min_price, 
+  uc.use_max_date, 
+  uc.status 
 FROM 
-    user_coupons uc
+  user_coupons uc
 JOIN 
-    coupons c ON uc.couponid = c.cpid 
+  coupons c ON uc.couponid = c.cpid 
 WHERE 
-    uc.userid = ? AND uc.status = 1
+  uc.userid = ? AND uc.status = 1
 ORDER BY 
-    uc.couponid DESC";
+  uc.couponid DESC";
 $stmt_available = $mysqli->prepare($sql_available);
 $stmt_available->bind_param('s', $userid);
 $stmt_available->execute();
@@ -110,7 +121,7 @@ $data_expired = $result_expired->fetch_all(MYSQLI_ASSOC);
   <!--탭 메뉴 시작-->
   <nav>
     <div class=" nav nav-underline headt6" id="nav-tab" role="tablist">
-      <button class="mypage_tap nav-link active" id="nav-myLecTab1-tab" data-bs-toggle="tab" data-bs-target="#nav-myLecTab1"  role="tab" aria-controls="nav-myLecTab1" aria-selected="true">사용 가능한 쿠폰 (1)</button>
+      <button class="mypage_tap nav-link active" id="nav-myLecTab1-tab" data-bs-toggle="tab" data-bs-target="#nav-myLecTab1"  role="tab" aria-controls="nav-myLecTab1" aria-selected="true">사용 가능한 쿠폰 (<?php echo $available_count; ?>)</button>
       <button class="mypage_tap nav-link" id="nav-myLecTab2-tab" data-bs-toggle="tab" data-bs-target="#nav-myLecTab2"  role="tab" aria-controls="nav-myLecTab2" aria-selected="false">사용완료·기간만료 (1)</button>
     </div>
   </nav>

@@ -443,6 +443,7 @@ header {
   background: #FFEB3B;
   a{
     color: #3E2723;
+    display: block;
   }
 }
 .yellowbtn:hover{
@@ -458,6 +459,9 @@ header {
 
 .modal-body .kakao_loginbtn:hover{
   color: var(--bk1200);
+}
+.yellowbtn:active{
+  background: #FFEB3B !important;
 }
 /* 로그인 끝 */
 
