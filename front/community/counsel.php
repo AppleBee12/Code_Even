@@ -74,16 +74,16 @@ while ($data = $result->fetch_object()) {
           “<?= htmlspecialchars($keywords); ?>” 관련 <?= $title ?> 검색 결과가 총 <em><?= count($dataArr); ?></em>건 있습니다.
         <?php endif; ?>
       </p>
-      
-      <button class="btn btn-danger mb-4 col-1">
+
+  
         <?php if (isset($_SESSION['UID'])): ?>
-          <a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/front/community/counsel_write.php"><i class="bi bi-pencil-fill"></i> 글쓰기
+          <a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/front/community/counsel_write.php" class="btn btn-danger mb-4 col-1"><i class="bi bi-pencil-fill"></i> 글쓰기
           </a>
         <?php else: ?>
           <!-- 사용자가 로그인하지 않은 경우 -->
-          <a href="#" data-bs-toggle="modal" data-bs-target="#exampleModaltest" data-bs-whatever="@mdo"><i class="bi bi-pencil-fill"></i> 글쓰기</a>
+          <a href="#" data-bs-toggle="modal" data-bs-target="#exampleModaltest" data-bs-whatever="@mdo" class="btn btn-danger mb-4 col-1"><i class="bi bi-pencil-fill"></i> 글쓰기</a>
         <?php endif; ?>
-      </button>
+   
     </div>
     <ul class="d-flex flex-column justify-content-center">
       <?php
@@ -127,7 +127,7 @@ while ($data = $result->fetch_object()) {
 
 
     <!-- //Pagination -->
-    <div class="list_pagination" aria-label="Page navigation example">
+    <div class="list_pagination" aria-label="Page_navigation">
       <ul class="pagination d-flex justify-content-center">
         <?php
         $previous = $block_start - $block_ct;

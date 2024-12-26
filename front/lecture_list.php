@@ -335,7 +335,7 @@ if ($result && $result->num_rows > 0) {
   <div class="row">
     <div class="col-3"></div>
     <!-- Pagination -->
-    <div class="list_pagination col-9" aria-label="Page navigation example">
+    <div class="list_pagination col-9" aria-label="Page_navigation">
       <ul class="pagination d-flex justify-content-center">
         <?php
         $previous = $block_start - $block_ct;

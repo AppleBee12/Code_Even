@@ -241,7 +241,7 @@ $data_expired = $result_expired->fetch_all(MYSQLI_ASSOC);
       </div>
     </div>
 
-  <div class="list_pagination" aria-label="Page navigation example">
+  <div class="list_pagination" aria-label="Page_navigation">
     <ul class="pagination d-flex justify-content-center">
       <?php
         $previous = $block_start - $block_ct;
