@@ -47,7 +47,11 @@
 .sec01 .container p{
   padding-left: 30px;
 }
+/* section02 */
+.sec02 h3{
+  display:none;
 
+}
 
 
 /* section04 */
