@@ -145,7 +145,7 @@ foreach ($classArr as $class) {
                     <div class="modal-dialog modal-dialog-centered">
                       <div class="modal-content">
                         <div class="modal-header">
-                          <h1 class="modal-title fs-5" id="howToGetCertificateLabel">수료기준</h1>
+                          <p class="modal-title fs-5" id="howToGetCertificateLabel">수료기준</p>
                         </div>
                         <div class="modal-body">
                           <p>강좌 진도율: 총 <span>80%</span> 이상</p>
@@ -246,29 +246,29 @@ foreach ($classArr as $class) {
       ?>
     </div>
   </div>
-</div>
-<!-- 탭메뉴1의 내용 끝-->
-<!-- 탭메뉴2의 내용-->
-<div class="tab-pane fade" id="nav-myLecTab2" role="tabpanel" aria-labelledby="nav-myLecTab2-tab">
-  <div class="my_lecture_wrapper">
-    <?php
 
-      echo "<div class='m-5'>'종료 강좌'가 없습니다</div>";
+  <!-- 탭메뉴1의 내용 끝-->
+  <!-- 탭메뉴2의 내용-->
+  <div class="tab-pane fade" id="nav-myLecTab2" role="tabpanel" aria-labelledby="nav-myLecTab2-tab">
+    <div class="my_lecture_wrapper">
+      <?php
 
-    ?>
-  </div><!-- 강의목록 끝 -->
-</div>
+        echo "<div class='m-5'>'종료 강좌'가 없습니다</div>";
+
+      ?>
+    </div><!-- 강의목록 끝 -->
+  </div>
 <!-- 탭메뉴2의 내용 끝-->
 
-
-</div>
 <!--탭 메뉴 내용 끝-->
+</div>
 <!-- header에서 시작된 div 끝 들!!! -->
 </div>
 </div>
-</section>
 </div>
 </div>
+</div>
+
 
 <script>
   // 도넛 차트를 업데이트하는 함수

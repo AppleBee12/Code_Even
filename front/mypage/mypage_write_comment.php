@@ -198,10 +198,11 @@ $postcomment->bind_param("i", $current_uid);
 
 
 </div><!--여기부터는 마이페이지 헤더의 닫는 태그-->
-</section>
 </div>
 </div>
 </div>
+</div>
+
 
 <?php include_once($_SERVER['DOCUMENT_ROOT'] . '/code_even/front/inc/footer.php');
 ?>
