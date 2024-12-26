@@ -127,7 +127,7 @@ while ($data = $result->fetch_object()) {
 
 
     <!-- //Pagination -->
-    <div class="list_pagination" aria-label="Page_navigation">
+    <div class="list_pagination">
       <ul class="pagination d-flex justify-content-center">
         <?php
         $previous = $block_start - $block_ct;
