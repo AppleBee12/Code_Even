@@ -434,6 +434,7 @@ header {
   background: #FFEB3B;
   a{
     color: #3E2723;
+    display: block;
   }
 }
 .yellowbtn:hover{
@@ -441,6 +442,9 @@ header {
   a{
     color: #3E2723;
   }
+}
+.yellowbtn:active{
+  background: #FFEB3B !important;
 }
 /* 로그인 끝 */
 

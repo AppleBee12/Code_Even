@@ -563,7 +563,7 @@ if (isset($_GET['code'])) {
             <div class="modal-footer m_f d-flex justify-content-center">
               <div class="d-flex row gap-1">
                 <button class="btn loginbtn redbtn">로그인</button>
-                <button class="btn kakao_loginbtn yellowbtn">
+                <button class="btn kakao_loginbtn yellowbtn "  title="카카오로 간편로그인 하러가기">
                   <a href="https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=dc8b785f75c0ed7ecca5dad87f2b18ff&redirect_uri=http://localhost/code_even/"
                     class="kakao m-0 ">
                     <img src="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/front/images/kakao_icon.png" alt="">
