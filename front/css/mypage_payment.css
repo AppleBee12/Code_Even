@@ -1,6 +1,4 @@
 /* 장바구니 page*/
-
-
 .container_wrap {
   padding-top: 80px;
   padding-bottom: 100px;
@@ -10,8 +8,6 @@
   font-weight: 700;
   margin-bottom: 50px;
 }
-
-
 
 .form-check-input {
   width: 18px;
@@ -25,7 +21,6 @@
 .check_total label span {
   vertical-align: middle;
   margin-right: 3px;
-
 }
 
 .check_cnt {
@@ -33,208 +28,243 @@
 }
 
 /* 상품 테이블 */
-.cart_list, .checkout_list {
+.cart_list,
+.checkout_list {
   width: 100%;
   border-top: 1px solid var(--bk200);
   border-bottom: 1px solid var(--bk200);
-
-  li {
-    border-bottom: 1px solid var(--bk200);
-  }
-
-  li:last-child {
-    border-bottom: none;
-  }
-
-  .item_lnfo {
-    padding: 15px 0;
-  }
-
-  .item_check {
-    margin-right: 15px;
-  }
-
-  .item_img {
-    width: 150px;
-    height: 96px;
-    object-fit: cover;
-    border-radius: 5px;
-  }
-
-
-  .item_txt {
-    padding: 5px 10px;
-
-    .lec_title {
-      width: 450px;
-      font-size: 17px;
-      font-weight: 600;
-    }
-
-    .lec_tc {
-      font-size: 14px;
-      color: var(--bk700);
-    }
-  }
-
-  .item_price {
-    border-right: 1px solid var(--bk200);
-    border-left: 1px solid var(--bk200);
-    width: 145px;
-    padding: 54px 10px;
-    height: 100%;
-    white-space: nowrap;
-  }
-
-  .item_price p,
-  .book_price {
-    font-weight: 800;
-    font-size: 18px;
-  }
-
-  .btn_item_del {
-    color: var(--bk300);
-  }
-
-  .btn_item_del:hover {
-    color: var(--bk900);
-  }
-
-  :not(.btn-check)+.btn:active {
-    border-color: var(--bk0);
-  }
-
-  .book_list {
-    padding: 10px;
-
-  }
-  .book_desc{
-    width: 475px;
-    margin-left: 70px;
-  }
-  .book_title {
-    font-weight: 600;
-    font-size: 15px;
-  }
-
-  .book_info {
-    font-size: 14px;
-    color: var(--bk500);
-    vertical-align: sup;
-  }
-
-  .book_badge {
-    margin-left: 22px;
-  }
-
-  .badge_custom {
-    display: inline-block;
-    padding: 8px;
-    border: 1px solid var(--bk300);
-    font-size: 14px;
-    line-height: 1;
-    color: var(--bk700);
-    text-align: center;
-    white-space: nowrap;
-    vertical-align: baseline;
-    border-radius: 5px;
-  }
-
-  .book_price {
-    width: 145px;
-    height: 100%;
-    text-align: center;
-    /* border-right: 1px solid var(--bk200);
-    border-left: 1px solid var(--bk200); */
-  }
 }
 
-/* checkout 상품 테이블 별도 스타일 */
-.checkout_list{
-  .item_price{
-    border-right: 0;
-  }
-  .book_desc{
-    margin-left: 36px;
-    width: 545px;
-  }
-  .book_price {
-    width: 130px;
-    margin-left: 13px;
-  }
-  .coupon_select{
-    padding: 10px;
-    border-top: 1px solid var(--bk200);
-    select{
-      width: 500px;
-    }
-  }
+.cart_list li,
+.checkout_list li {
+  border-bottom: 1px solid var(--bk200);
+}
 
-} 
+.cart_list li:last-child,
+.checkout_list li:last-child {
+  border-bottom: none;
+}
 
-.checkout_info_wrap{
+.cart_list .item_lnfo,
+.checkout_list .item_lnfo {
+  padding: 15px 0;
+}
+
+.cart_list .item_check,
+.checkout_list .item_check {
+  margin-right: 15px;
+}
+
+.cart_list .item_img,
+.checkout_list .item_img {
+  width: 150px;
+  height: 96px;
+  object-fit: cover;
+  border-radius: 5px;
+}
+
+.cart_list .item_txt,
+.checkout_list .item_txt {
+  padding: 5px 10px;
+}
+
+.cart_list .item_txt .lec_title,
+.checkout_list .item_txt .lec_title {
+  width: 450px;
+  font-size: 17px;
+  font-weight: 600;
+}
+
+.cart_list .item_txt .lec_tc,
+.checkout_list .item_txt .lec_tc {
+  font-size: 14px;
+  color: var(--bk700);
+}
+
+.cart_list .item_price,
+.checkout_list .item_price {
+  border-right: 1px solid var(--bk200);
+  border-left: 1px solid var(--bk200);
+  width: 145px;
+  padding: 54px 10px;
+  height: 100%;
+  white-space: nowrap;
+}
+
+.cart_list .item_price p,
+.cart_list .book_price,
+.checkout_list .item_price p,
+.checkout_list .book_price {
+  font-weight: 800;
+  font-size: 18px;
+}
+
+.cart_list .btn_item_del,
+.checkout_list .btn_item_del {
+  color: var(--bk300);
+}
+
+.cart_list .btn_item_del:hover,
+.checkout_list .btn_item_del:hover {
+  color: var(--bk900);
+}
+
+.cart_list :not(.btn-check) + .btn:active,
+.checkout_list :not(.btn-check) + .btn:active {
+  border-color: var(--bk0);
+}
+
+.cart_list .book_list,
+.checkout_list .book_list {
+  padding: 10px;
+}
+
+.cart_list .book_desc,
+.checkout_list .book_desc {
+  width: 475px;
+  margin-left: 70px;
+}
+
+.cart_list .book_title,
+.checkout_list .book_title {
+  font-weight: 600;
+  font-size: 15px;
+}
+
+.cart_list .book_info,
+.checkout_list .book_info {
+  font-size: 14px;
+  color: var(--bk500);
+  vertical-align: sup;
+}
+
+.cart_list .book_badge,
+.checkout_list .book_badge {
+  margin-left: 22px;
+}
+
+.cart_list .badge_custom,
+.checkout_list .badge_custom {
+  display: inline-block;
+  padding: 8px;
+  border: 1px solid var(--bk300);
+  font-size: 14px;
+  line-height: 1;
+  color: var(--bk700);
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: baseline;
+  border-radius: 5px;
+}
+
+.cart_list .book_price,
+.checkout_list .book_price {
+  width: 145px;
+  height: 100%;
+  text-align: center;
+}
+
+.checkout_list .item_price {
+  border-right: 0;
+}
+
+.checkout_list .book_desc {
+  margin-left: 36px;
+  width: 545px;
+}
+
+.checkout_list .book_price {
+  width: 130px;
+  margin-left: 13px;
+}
+
+.checkout_list .coupon_select {
+  padding: 10px;
+  border-top: 1px solid var(--bk200);
+}
+
+.checkout_list .coupon_select select {
+  width: 500px;
+}
+
+.checkout_info_wrap {
   font-size: 15px;
   border: 1px solid var(--bk200);
   border-radius: 10px;
   padding: 32px;
-  input::placeholder{
-    color: var(--bk400);
-    font-size: 14px;
-  }
-  .dinfo_body > *{
-    margin-bottom: 10px;
-  }
-  .delivery_info{
-    margin-bottom: 20px;
-  }
-  .dinfo_body, .payment_method {
-    border-bottom: 1px solid var(--bk200);
-  }
-  .dinfo_body label{
-    width: 100px;
-  }
-  #sample6_extraAddress{
-    margin-bottom: 20px;
-  }
-  .post_search_btn{
-    font-size: 14px;
-    color: var(--bk900);
-    margin-left: 10px;
-  }
-  .payment_method{
-    > *{
-      margin-bottom: 10px;
-    }
-    > div:last-child{
-      margin-bottom: 20px;
-    }
-    .form-check-input{
-     width: 1em; 
-     height: 1em;
-    }
-
-  }
-  .payment_cal{
-    padding: 20px 0;
-    border-bottom: 1px solid var(--bk200);
-    .total_price_tt, .coupon_price_tt{
-      color: var(--bk700);
-    }
-    div p:last-child{
-      font-size: 16px;
-      font-weight: 700;
-    }
-    .coupon_price{
-      color: var(--red950);
-    }
-  }
-  .payment_summary{
-    font-size: 18px;
-    font-weight: 800;
-    padding: 20px 0;
-  }
 }
-.checkout_info_headtt{
+
+.checkout_info_wrap input::placeholder {
+  color: var(--bk400);
+  font-size: 14px;
+}
+
+.checkout_info_wrap .dinfo_body > * {
+  margin-bottom: 10px;
+}
+
+.checkout_info_wrap .delivery_info {
+  margin-bottom: 20px;
+}
+
+.checkout_info_wrap .dinfo_body,
+.checkout_info_wrap .payment_method {
+  border-bottom: 1px solid var(--bk200);
+}
+
+.checkout_info_wrap .dinfo_body label {
+  width: 100px;
+}
+
+.checkout_info_wrap #sample6_extraAddress {
+  margin-bottom: 20px;
+}
+
+.checkout_info_wrap .post_search_btn {
+  font-size: 14px;
+  color: var(--bk900);
+  margin-left: 10px;
+}
+
+.checkout_info_wrap .payment_method > * {
+  margin-bottom: 10px;
+}
+
+.checkout_info_wrap .payment_method > div:last-child {
+  margin-bottom: 20px;
+}
+
+.checkout_info_wrap .payment_method .form-check-input {
+  width: 1em;
+  height: 1em;
+}
+
+.checkout_info_wrap .payment_cal {
+  padding: 20px 0;
+  border-bottom: 1px solid var(--bk200);
+}
+
+.checkout_info_wrap .payment_cal .total_price_tt,
+.checkout_info_wrap .payment_cal .coupon_price_tt {
+  color: var(--bk700);
+}
+
+.checkout_info_wrap .payment_cal div p:last-child {
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.checkout_info_wrap .payment_cal .coupon_price {
+  color: var(--red950);
+}
+
+.checkout_info_wrap .payment_summary {
+  font-size: 18px;
+  font-weight: 800;
+  padding: 20px 0;
+}
+
+.checkout_info_headtt {
   font-size: 16px;
   font-weight: 700;
 }
@@ -242,7 +272,6 @@
 .btn-outline-secondary {
   font-size: 14px;
 }
-
 
 /* 결제 정보 */
 .payment_sum {
@@ -281,7 +310,7 @@
   border-color: var(--red900);
 }
 
-:not(.btn-check)+.btn_ok_red.btn:active {
+:not(.btn-check) + .btn_ok_red.btn:active {
   background-color: var(--red950);
   border-color: var(--red950);
 }
@@ -290,5 +319,5 @@
 .form-control:focus {
   border-color: var(--red500);
   outline: 0;
-  box-shadow: 0 0 .25rem .1rem var(--red700_aph15)
+  box-shadow: 0 0 .25rem .1rem var(--red700_aph15);
 }

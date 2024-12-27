@@ -1,36 +1,36 @@
-.btn-bd{
-    border: 1px solid var(--bk300);
+.btn-bd {
+  border: 1px solid var(--bk300);
 }
 
-.content_bar{
- margin-top: 50px;
- margin-bottom: 25px;
+.content_bar {
+  margin-top: 50px;
+  margin-bottom: 25px;
 }
 
 /* Form 컨트롤 */
-
-tbody .form-control, tbody .form-select{
-    width: 480px;
-  }
+tbody .form-control,
+tbody .form-select {
+  width: 480px;
+}
 
 .info_table {
   border-color: var(--bk0);
 }
 
-.table>:not(caption)>*>* {
+.table > :not(caption) > * > * {
   padding: 1rem .5rem;
 }
 
-.date_lable{
+.date_lable {
   font-size: 14px;
   width: 50px;
   font-weight: 700;
 }
 
-.date_form{
+.date_form {
   margin-bottom: 15px;
 }
 
-.odid_name{
+.odid_name {
   padding-left: 28px;
 }
