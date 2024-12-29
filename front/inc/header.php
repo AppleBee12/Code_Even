@@ -180,7 +180,7 @@ if (isset($_GET['code'])) {
       break;
   }
 
-  switch ($page) { //mypage_header.css, 마이페이지가 추가되면 이 아래에 php이름을 추가하세요
+  switch ($page) { //mypage_common.css, 마이페이지가 추가되면 이 아래에 php이름을 추가하세요
     case 'mypage_header.php':
     case 'mypage_lecture.php':
     case 'mypage_coupons.php':
@@ -197,7 +197,7 @@ if (isset($_GET['code'])) {
     case 'mypage_write_comment.php':
     case 'mypage_wishlist.php':
     case 'mypage_copy.php':
-      echo '<link rel="stylesheet" href="http://' . $_SERVER['HTTP_HOST'] . '/code_even/front/css/mypage_header.css">';
+      echo '<link rel="stylesheet" href="http://' . $_SERVER['HTTP_HOST'] . '/code_even/front/css/mypage_common.css">';
       break;
   }
   switch ($page) { //mypage_lecture.css

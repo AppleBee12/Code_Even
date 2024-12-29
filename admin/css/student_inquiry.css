@@ -1,18 +1,26 @@
 .details_table tr {
   vertical-align: middle;
-  td, th {
-    padding: 25px 0;
-    box-sizing: border-box;
-  }
-  td span {vertical-align: text-top; margin-left: 10px;}
-  td textarea {height: 200px;}
 }
+
+.details_table tr td,
+.details_table tr th {
+  padding: 25px 0;
+  box-sizing: border-box;
+}
+
+.details_table tr td span {
+  vertical-align: text-top;
+  margin-left: 10px;
+}
+
+.details_table tr td textarea {
+  height: 200px;
+}
+
 
 .bi-pin-angle-fill {color: var(--red950); font-size: 20px;}
 
-.content_bar {
-  margin-bottom: 25px;
-}
+.content_bar {margin-bottom: 25px;}
 
 .printButton {
   position: relative;
@@ -21,29 +29,27 @@
   background: none;
   border: none;
   vertical-align: text-top;
-
-  span {
-    position: absolute;
-    top: 0;
-    left: 0;
-  }
 }
 
-.underline {
-  text-decoration: underline;
+.printButton span {
+  position: absolute;
+  top: 0;
+  left: 0;
 }
 
-.none {
-  border: none;
 
-  thead,
-  tbody,
-  tr,
-  th,
-  td {
-    border-style: none;
-  }
+.underline {text-decoration: underline;}
+
+.none {border: none;}
+
+.none thead,
+.none tbody,
+.none tr,
+.none th,
+.none td {
+  border-style: none;
 }
+
 
 .custom-hr {
   border: 0;
@@ -58,42 +64,61 @@
   height: 10px; /* 원하는 높이로 조절 */
 }
 
-.card-header {background: none !important; height: 56px; display: flex;
+.card-header {
+  background: none !important;
+  height: 56px;
+  display: flex;
   align-items: center;
-  p {margin-bottom: 0 !important;}
 }
+
+.card-header p {margin-bottom: 0 !important;}
 
 #propfile_thumbnail {width: 24px; height: 24px; margin-right: 10px; border-radius: 20px;}
 
 .card-header p {line-height: 17px;}
 
 /* 페이지네이션 */
-.list_pagination{
+.list_pagination {
   background: none;
   margin-top: 20px;
-  .page-link {
-    color: var(--bk700);
-    margin: 0 10px;
-  }
-  .active>.page-link, .page-link.active {
-    color: var(--bk0);
-    background-color: var(--bk700);
-    border-color: var(--bk700);
-  }
-  .page-link:focus {
-    box-shadow: 0 0 0 .25rem var(--red700_aph25);
-}
-  
 }
 
-.description {
-  gap: 80px; background: #fff; padding: 40px 60px;
-  box-shadow: 0 3px 50px 0 rgba(0,0,0,.08);
-  border-radius: 20px; margin-bottom: 80px;
-  ul { margin-bottom: 0px !important; padding-left: 1rem !important;
-    li {list-style: inside; line-height: 28px;}
-  }
+.list_pagination .page-link {
+  color: var(--bk700);
+  margin: 0 10px;
 }
+
+.list_pagination .active > .page-link,
+.list_pagination .page-link.active {
+  color: var(--bk0);
+  background-color: var(--bk700);
+  border-color: var(--bk700);
+}
+
+.list_pagination .page-link:focus {
+  box-shadow: 0 0 0 .25rem var(--red700_aph25);
+}
+
+
+.description {
+  gap: 80px;
+  background: #fff;
+  padding: 40px 60px;
+  box-shadow: 0 3px 50px 0 rgba(0, 0, 0, .08);
+  border-radius: 20px;
+  margin-bottom: 80px;
+}
+
+.description ul {
+  margin-bottom: 0px !important;
+  padding-left: 1rem !important;
+}
+
+.description ul li {
+  list-style: inside;
+  line-height: 28px;
+}
+
 
 .bi-chat-right-dots {font-size: 80px; color: var(--bk200); line-height: 80px;}
 .bi-chat-right-dots::before {vertical-align: sub;}
@@ -104,8 +129,13 @@
 
 .bi-star-fill {color: var(--primary); margin: 0px 1px;}
 
-.card {width: 1075px !important; height: auto;
-  p { margin-bottom: 0px !important;}
+.card {
+  width: 1075px !important;
+  height: auto;
+}
+
+.card p {
+  margin-bottom: 0px !important;
 }
 
 input[readonly] {background-color: #e9ecef; border: 1px solid #dee2e6; color: #666; cursor: not-allowed;}
@@ -116,16 +146,22 @@ input[readonly] {background-color: #e9ecef; border: 1px solid #dee2e6; color: #6
 
 .list_table .badge {vertical-align: text-top;}
 
-.write_form {
-  .note-editor {
-    width: 1075px;
-    .note-editing-area {height: 300px;}
-  }
+.write_form .note-editor {
+  width: 1075px;
 }
 
-form#WnEform .note-editor{
+.write_form .note-editor .note-editing-area {
+  height: 300px;
+}
+
+form#WnEform .note-editor {
   width: 1075px;
-  .note-editing-area {height: 500px;
-    .note-editable {height: 100% !important;}
-  }
+}
+
+form#WnEform .note-editor .note-editing-area {
+  height: 500px;
+}
+
+form#WnEform .note-editor .note-editing-area .note-editable {
+  height: 100% !important;
 }

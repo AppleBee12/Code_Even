@@ -4,32 +4,32 @@ include_once($_SERVER['DOCUMENT_ROOT'] . '/code_even/front/inc/mypage_header.php
 $mypage_main_js = "<script src=\"http://" . $_SERVER['HTTP_HOST'] . "/code_even/front/js/mypage_main.js\"></script>";
 
 
-$sql = "
-    SELECT 
-        cd.*, 
-        l.title AS lecture_title, 
-        l.name AS lecture_teacher, 
-        l.date AS lecture_date, 
-        l.period AS lecture_period, 
-        l.image AS lecture_image, 
-        ld.id AS detail_id, 
-        ld.title AS detail_title, 
-        ld.quiz_id AS quiz_id, 
-        ld.test_id AS test_id, 
-        ld.video_order, -- video_order 추가
-        ld.video_url,
-        ss.quiz_score, 
-        ss.test_score, 
-        ss.test
-    FROM class_data cd
-    JOIN lecture l ON cd.leid = l.leid
-    LEFT JOIN lecture_detail ld ON l.leid = ld.lecture_id
-    LEFT JOIN stuscores ss ON cd.uid = ss.stu_id AND cd.leid = ss.leid AND ld.id = ss.detail_id
-    WHERE cd.uid = '" . (isset($_SESSION['UID']) ? $_SESSION['UID'] : '') . "'
-    ORDER BY cd.cdid ASC, ld.video_order ASC
-";
+$mylec_lecture_sql = "
+                      SELECT 
+                          cd.*, 
+                          l.title AS lecture_title, 
+                          l.name AS lecture_teacher, 
+                          l.date AS lecture_date, 
+                          l.period AS lecture_period, 
+                          l.image AS lecture_image, 
+                          ld.id AS detail_id, 
+                          ld.title AS detail_title, 
+                          ld.quiz_id AS quiz_id, 
+                          ld.test_id AS test_id, 
+                          ld.video_order, -- video_order 추가
+                          ld.video_url,
+                          ss.quiz_score, 
+                          ss.test_score, 
+                          ss.test
+                      FROM class_data cd
+                      JOIN lecture l ON cd.leid = l.leid
+                      LEFT JOIN lecture_detail ld ON l.leid = ld.lecture_id
+                      LEFT JOIN stuscores ss ON cd.uid = ss.stu_id AND cd.leid = ss.leid AND ld.id = ss.detail_id
+                      WHERE cd.uid = '" . (isset($_SESSION['UID']) ? $_SESSION['UID'] : '') . "'
+                      ORDER BY cd.cdid ASC, ld.video_order ASC
+                     ";
 
-$result = $mysqli->query($sql);
+$result = $mysqli->query($mylec_lecture_sql);
 
 $classArr = [];
 while ($class_data = $result->fetch_object()) {
@@ -61,6 +61,16 @@ foreach ($classArr as $class) {
     <div class="my_lecture_wrapper">
       <!-- 강의목록 시작 -->
 
+      <?php if (empty($groupedClasses)) {?>
+        <div>
+          <p class="text-center mt-5">&#128064;</p>
+          <p class="text-center my-5">수료중인 강좌가 없습니다. 원하는 강좌를 찾아보세요!</p>
+          <div class="text-center">
+          <a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/front/lecture_list.php" class="empty_link">강좌 보러가기</i>
+          </a>
+        </div>
+        </div>
+        <?php } else { ?>
       <?php
       foreach ($groupedClasses as $lectureId => $classes):
         ?>
@@ -243,6 +253,7 @@ foreach ($classArr as $class) {
         </div><!-- 강의목록 끝 -->
         <?php
       endforeach;
+       }
       ?>
     </div>
   </div>
