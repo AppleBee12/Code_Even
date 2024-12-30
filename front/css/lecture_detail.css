@@ -73,11 +73,6 @@ hr {
   padding: 20px 20px;
 }
 
-.lecture-list {
-  max-height: 70vh;
-  overflow-y: auto;
-}
-
 .lecture-item {
   background-color: var(--bk900);
   color: var(--bk200);
@@ -161,5 +156,19 @@ h3, h5 {
   border: 1px solid var(--bk950);
   transition: background-color 0.3s, color 0.3s;
 }
+
+/* 페이지 로딩 전 모달 숨김 */
+#customModal {
+  display: none; /* 초기에는 숨김 */
+  opacity: 0; /* 완전히 투명하게 */
+  transition: opacity 0.3s ease-in-out; /* 부드러운 전환 효과 */
+}
+
+/* JavaScript로 모달을 보이게 할 때 스타일 */
+#customModal.show {
+  display: block !important;
+  opacity: 1;
+}
+
 
 
