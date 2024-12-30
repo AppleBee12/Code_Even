@@ -97,24 +97,23 @@ if (isset($_SESSION['UID'])) {
                     <div>
                       <p class="tc_name"><?= $item->name; ?></p>
                     </div>
+                  </a>
+                  <!-- 하 시작 -->
+                  <div class="d-flex justify-content-between">
+                    <div>
+                      <b><?= number_format($item->price); ?></b>원
+                    </div>
+                    <div class="icon-container">
+                      <!-- 빈 하트 -->
+                      <i class="bi bi-heart heart-icon <?= in_array($item->leid, $wishlist) ? 'd-none' : ''; ?>" data-leid="<?= $item->leid; ?>"></i>
+                      <!-- 채워진 하트 -->
+                      <i class="bi bi-heart-fill heart-icon-filled <?= in_array($item->leid, $wishlist) ? '' : 'd-none'; ?>" data-leid="<?= $item->leid; ?>"></i>
+                      <i class="bi bi-cart-plus"></i>
+                    </div>
                   </div>
-                </a>
-                <!-- 하 시작 -->
-                <div class="d-flex justify-content-between">
-                  <div>
-                    <b><?= number_format($item->price); ?></b>원
-                  </div>
-                  <div class="icon-container">
-                    <!-- 빈 하트 -->
-                    <i class="bi bi-heart heart-icon <?= in_array($item->leid, $wishlist) ? 'd-none' : ''; ?>" data-leid="<?= $item->leid; ?>"></i>
-                    <!-- 채워진 하트 -->
-                    <i class="bi bi-heart-fill heart-icon-filled <?= in_array($item->leid, $wishlist) ? '' : 'd-none'; ?>" data-leid="<?= $item->leid; ?>"></i>
-                    <i class="bi bi-cart-plus"></i>
-                  </div>
+                  <!-- 하 끝 -->
                 </div>
-                <!-- 하 끝 -->
               </div>
-            </div>
               <!-- //lecture_box -->          
             </div>
             <?php
@@ -126,6 +125,7 @@ if (isset($_SESSION['UID'])) {
       
     </div>
   </div>
+
   <!--제목 끝-->
 </div>
 
