@@ -2,12 +2,13 @@
 [![Forks][forks-shield]][forks-url]
 [![Stargazers][stars-shield]][stars-url]
 [![Issues][issues-shield]][issues-url]
+
 <div align=center>
   <a href="https://github.com/AppleBee12/code_even">
     <img src="admin/images/sb_logo.png" alt="Logo" width="200" height="150">
     <p><img src="admin/images/txt_logo.png" alt="Logo" width="309" height="46"></p>
   </a>
-  
+
 
 <h1 align=center>"Code Even" Amazing ReadMe!</h1>
 <p>안녕하세요 코드이븐에 오신 여러분 환영합니다!</p>
@@ -16,18 +17,15 @@
 <a href="https://www.figma.com/design/VH49EasHjN4QLjkcdUEO9n/code_even?node-id=0-1&t=n8MCpj3Oq7MdNSB3-1"><strong>Explore the figma »</strong></a>
 </div>
 
+### 일정
 
-### 일정 
-
-- [x] 3차 백엔드(관리자페이지, 강사페이지) : 기획 2024.10.09(수) ~ 10.23(수) *2주
-- [x] 3차 백엔드(관리자페이지, 강사페이지) : 디자인 2024.10.24(목) ~ 11.06(수) *2주
-- [x] 3차 백엔드(관리자페이지, 강사페이지) : 구현 2024.11.07(목) ~ 11.25(월) *2주
-- [x] 4차 프론트엔드(메인-수강생페이지) : 기획/디자인 2024.11.26(화) ~ 12.09(월) *2주
-- [ ] 4차 프론트엔드(메인-수강생페이지) : 구현 2024.12.10(화) ~ 12.20(금) *1주+5일
-- [ ] 리허설 : 2024.12.20(금) 
-- [ ] 최종 구현 발표 : 2024.12.23(월) 14:30🕝
-
-
+- [x] 3차 백엔드(관리자페이지, 강사페이지) : 기획 2024.10.09(수) ~ 10.23(수) \*2주
+- [x] 3차 백엔드(관리자페이지, 강사페이지) : 디자인 2024.10.24(목) ~ 11.06(수) \*2주
+- [x] 3차 백엔드(관리자페이지, 강사페이지) : 구현 2024.11.07(목) ~ 11.25(월) \*2주
+- [x] 4차 프론트엔드(메인-수강생페이지) : 기획/디자인 2024.11.26(화) ~ 12.09(월) \*2주
+- [x] 4차 프론트엔드(메인-수강생페이지) : 구현 2024.12.10(화) ~ 12.20(금) \*1주+5일
+- [x] 리허설 : 2024.12.20(금)
+- [x] 최종 구현 발표 : 2024.12.23(월) 14:30🕝
 
 ### IA 구조도
 
@@ -42,25 +40,23 @@ http://localhost/code_even/admin/index.php
 http://localhost/code_even/index.php
 ![image](https://github.com/user-attachments/assets/7ceaac9d-edf8-4130-b81e-d879daa90b71)
 
-
-
-
 ### Built With
 
 HTML/CSS, javascript, php, [![Bootstrap][Bootstrap.com]][Bootstrap-url]
 
-
-
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 ## 1. VS Code(Visual Studio Code) 익스텐션 가이드
+
 프로젝트의 효율적인 진행을 위해 VSC 익스텐션 설치하기:
-* **ERD Editor**: 모든 팀원의 ERD 테이블을 확인해 볼 수 있습니다.
-![image](https://github.com/user-attachments/assets/5eb6372b-341f-404f-b2ba-18536ada6fdf)
+
+- **ERD Editor**: 모든 팀원의 ERD 테이블을 확인해 볼 수 있습니다.
+  ![image](https://github.com/user-attachments/assets/5eb6372b-341f-404f-b2ba-18536ada6fdf)
 
 **ERD Editor 사용하기**
 
 ![image](https://github.com/user-attachments/assets/d649e463-9e97-4cde-b1b8-367ded73b735)
+
 - key값은 alt+k를 누르면 primary-key로 열쇠모양이 생깁니다.
 - 본인 파트에는 알아보기 쉽게 색상을 넣어주세요! 테이블위에 마우스 우클릭>컬러탭에서 설정
 - (채림:옐로우, 유나:오렌지, 은진:그린, 은화:블루, 수진:퍼플)
@@ -75,72 +71,63 @@ HTML/CSS, javascript, php, [![Bootstrap][Bootstrap.com]][Bootstrap-url]
 5. 액셀을 거치지 않고 그냥은 붙여넣기 되지 않아요~!
 
 ![image](https://github.com/user-attachments/assets/5478f983-5dbc-4d90-abfb-01c82344516d)
- 색상등록, primary-key설정이 끝난 최종 테이블 모습!!
- 
+색상등록, primary-key설정이 끝난 최종 테이블 모습!!
 
+- **Gitmoji**: Commit창에서 깃모지를 바로 눌러 사용할 수 있습니다.<br>
+  ![image](https://github.com/user-attachments/assets/7ba5fd2d-048f-4bfa-9d5a-1df11f69d41e)
 
-* **Gitmoji**: Commit창에서 깃모지를 바로 눌러 사용할 수 있습니다.<br>
-![image](https://github.com/user-attachments/assets/7ba5fd2d-048f-4bfa-9d5a-1df11f69d41e)
+- **Night Owl**: 어두운 테마로 더 어둡고 글씨를 선명하게 보이게 합니다.
+- **Material Icon Theme**: 폴더와 각 파일을 보기좋게 표시합니다.<br>
+  ![image](https://github.com/user-attachments/assets/1f5ef684-e1db-46c6-a716-dd5366029b57)
+- **ESLint**: 코드 작성 규칙에 위배되는 행동에 빨간색 밑줄이 나오게 됩니다.
+- **Prettier**: 내가 작성한 코드를 보기 좋게, 또 일관성 있게 포맷팅을 해줍니다.
+- **Auto Close Tag**: 자동으로 대응/매칭되는 태그를 닫아줍니다
+- **Auto Rename Tag**:자동으로 대응/매칭되는 태그명을 변경해줍니다.
+- **htmlagwrap**: 내용을 감싸는 태그를 생성할 수 있습니다. (Win: 내용 선택 후 alt + w /Mac: 내용 선택 후 Option + W)
+- **Live Server**: HTML 파일을 브라우저에서 실시간으로 미리 볼 수 있습니다.
 
-* **Night Owl**: 어두운 테마로 더 어둡고 글씨를 선명하게 보이게 합니다.
-* **Material Icon Theme**: 폴더와 각 파일을 보기좋게 표시합니다.<br>
-![image](https://github.com/user-attachments/assets/1f5ef684-e1db-46c6-a716-dd5366029b57)
-* **ESLint**: 코드 작성 규칙에 위배되는 행동에 빨간색 밑줄이 나오게 됩니다.
-* **Prettier**: 내가 작성한 코드를 보기 좋게, 또 일관성 있게 포맷팅을 해줍니다.
-* **Auto Close Tag**: 자동으로 대응/매칭되는 태그를 닫아줍니다
-* **Auto Rename Tag**:자동으로 대응/매칭되는 태그명을 변경해줍니다.
-* **htmlagwrap**: 내용을 감싸는 태그를 생성할 수 있습니다. (Win: 내용 선택 후 alt + w /Mac: 내용 선택 후 Option + W)
-* **Live Server**: HTML 파일을 브라우저에서 실시간으로 미리 볼 수 있습니다.
-
-
-* 설치 방법<br>
-VSCode 상단 메뉴에서 Extensions 아이콘 클릭<br>
-위 목록의 이름을 검색하여 설치
+- 설치 방법<br>
+  VSCode 상단 메뉴에서 Extensions 아이콘 클릭<br>
+  위 목록의 이름을 검색하여 설치
 
 ## 2. HTML, CSS, JavaScript 코딩 스타일 가이드
+
 일관된 코딩 스타일을 유지하기 위해 다음 규칙을 따라주세요:
 
-* HTML: 들여쓰기는 2칸 또는 4칸, 태그는 소문자 사용 (구분 필요시 "_"언더바 사용)
-* CSS: 들여쓰기는 2칸, 색상 코드는 var에서 사용하기
-* JavaScript: 들여쓰기는 2칸, 변수 선언은 const와 let 사용
-
+- HTML: 들여쓰기는 2칸 또는 4칸, 태그는 소문자 사용 (구분 필요시 "\_"언더바 사용)
+- CSS: 들여쓰기는 2칸, 색상 코드는 var에서 사용하기
+- JavaScript: 들여쓰기는 2칸, 변수 선언은 const와 let 사용
 
 예시<br>
 html
-> `<!-- HTML -->`<br>
-> `<div>`<br>
-> `  <p class="desc_hello">Hello World</p>`<br>
-> `</div>`<br>
+
+> `<!-- HTML -->`<br> > `<div>`<br> > `  <p class="desc_hello">Hello World</p>`<br> > `</div>`<br>
 
 css
-> `/* CSS */`<br>
-> `body {`<br>
-> `  background-color: var(white);`<br>
-> `}`<br>
+
+> `/* CSS */`<br> > `body {`<br> > `  background-color: var(white);`<br> > `}`<br>
 
 javascript
-> `// JavaScript`<br>
-> `const greeting = "Hello World";`<br>
-> `  console.log(greeting);`
 
+> `// JavaScript`<br> > `const greeting = "Hello World";`<br> > `  console.log(greeting);`
 
 ## 3. Git 관리, 깃모지 및 커밋 가이드
-* Git 브랜치 전략
-각 조원 이름 별 폴더 브랜치를 생성하여 작업 후 master 브랜치로 병합 합니다.(병합하기 전 SOURCE CONTROL에서 SYNC 싱크를 꼭 확인해주세요)<br>
 
-* 깃모지(Gitmoji) 사용법
-커밋 메시지에 이모지를 사용해 변경 사항을 직관적으로 표시합니다.<br>
-✨ feat: 새로운 기능 추가<br>
-🐛 fix: 버그 발견/수정<br>
-🚑 hotfix: 긴급 버그 수정 중<br> 
-📝 docs: 문서 추가 편집<br>
-💄 style: 스타일만 변경(자체적인 수정은 없음, 세미콜론 누락 등에 사용)<br>
-♻️ refactor: 코드 구조 변경(결과의 변경은 없음, 코드 구조만 재조정, 가독성을 높이고 유지 보수를 편리하게 하기 위해 사용)<br>
-✅ test: 테스트와 관련된 모든 것<br>
-🔨 chore: 자잘한 수정이나 빌드 업데이트<br>
-🚚 rename: 리소스 이동/이름의 변경<br>
-🔥 remove: 폴더 및 파일 삭제
+- Git 브랜치 전략
+  각 조원 이름 별 폴더 브랜치를 생성하여 작업 후 master 브랜치로 병합 합니다.(병합하기 전 SOURCE CONTROL에서 SYNC 싱크를 꼭 확인해주세요)<br>
 
+- 깃모지(Gitmoji) 사용법
+  커밋 메시지에 이모지를 사용해 변경 사항을 직관적으로 표시합니다.<br>
+  ✨ feat: 새로운 기능 추가<br>
+  🐛 fix: 버그 발견/수정<br>
+  🚑 hotfix: 긴급 버그 수정 중<br>
+  📝 docs: 문서 추가 편집<br>
+  💄 style: 스타일만 변경(자체적인 수정은 없음, 세미콜론 누락 등에 사용)<br>
+  ♻️ refactor: 코드 구조 변경(결과의 변경은 없음, 코드 구조만 재조정, 가독성을 높이고 유지 보수를 편리하게 하기 위해 사용)<br>
+  ✅ test: 테스트와 관련된 모든 것<br>
+  🔨 chore: 자잘한 수정이나 빌드 업데이트<br>
+  🚚 rename: 리소스 이동/이름의 변경<br>
+  🔥 remove: 폴더 및 파일 삭제
 
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
@@ -172,5 +159,4 @@ javascript
 [Bootstrap.com]: https://img.shields.io/badge/Bootstrap-563D7C?style=for-the-badge&logo=bootstrap&logoColor=white
 [Bootstrap-url]: https://getbootstrap.com
 [JQuery.com]: https://img.shields.io/badge/jQuery-0769AD?style=for-the-badge&logo=jquery&logoColor=white
-[JQuery-url]: https://jquery.com 
-
+[JQuery-url]: https://jquery.com

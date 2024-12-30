@@ -86,7 +86,7 @@ if ($block_end > $total_page) {
     </tbody>
   </table>
   <!-- Pagination -->
-  <div class="list_pagination" aria-label="Page navigation example">
+  <div class="list_pagination" aria-label="Page_navigation">
         <ul class="pagination d-flex justify-content-center">
               <li class="page-item">
                   <a class="page-link">1</a>

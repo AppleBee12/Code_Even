@@ -83,8 +83,8 @@ if (isset($_SESSION['UID'])) {
 ?>
 
 <div class="white"> <!-- 이 끝은 각자php안에! -->
-  <div class="container">
-    <section class="mypage_header">
+  <div class="container"><!-- 이 끝은 각자php안에! -->
+    <div class="mypage_header">
       <div class="row pt-3 pb-3 d-flex">
         <div class="my_header_profile col-3">
           <div class="row d-flex align-self-center my_border">
@@ -134,13 +134,13 @@ if (isset($_SESSION['UID'])) {
           </div>
         </div>
       </div>
-    </section>
-    <section class="mypage_basic"> <!-- 이 끝은 각자php안에! -->
+    </div>
+    <div class="mypage_basic"> <!-- 이 끝은 각자php안에! -->
       <div class="row"> <!-- 이 끝은 각자php안에! -->
         <div class="col-2">
           <nav class="mypage_nav">
             <ul>
-              <li class="mynav_title"><i class="fa-solid fa-school"></i>나의 수업</li>
+              <li class="mynav_title"><h3><i class="fa-solid fa-school"></i>나의 수업</h3></li>
               <li><a href="http://<?= $_SERVER['HTTP_HOST'] ?>/code_even/front/mypage/mypage_lecture.php"><i class="fa-solid fa-chalkboard-user"></i>진행 / 종료 강좌</a></li>
               <li><a href="http://<?= $_SERVER['HTTP_HOST'] ?>/code_even/front/mypage/mypage_qna.php"><i class="bi bi-question-circle"></i>내 문의글</a></li>
               <li><a href="http://<?= $_SERVER['HTTP_HOST'] ?>/code_even/front/mypage/mypage_write_comment.php"><i class="bi bi-pencil"></i>내가 쓴 글 / 댓글</a></li>
@@ -149,8 +149,8 @@ if (isset($_SESSION['UID'])) {
               <li><a href=""><i class="bi bi-receipt"></i>결제 내역</a></li>
               <li><a href="http://<?= $_SERVER['HTTP_HOST'] ?>/code_even/front/cart/cart.php"><i class="bi bi-cart-check"></i>장바구니</a></li>
               <li><a href="http://<?= $_SERVER['HTTP_HOST'] ?>/code_even/front/mypage/mypage_wishlist.php"><i class="bi bi-heart"></i>찜한 강좌</a></li>
-              <li><a href="http://<?= $_SERVER['HTTP_HOST'] ?>/code_even/front/mypage/mypage_coupons.php"><i class="bi bi-ticket-perforated"></i></i>보유 쿠폰</a></li>
-              <li class="mynav_title"><i class="bi bi-gear-fill"></i></i>설정</li>
+              <li><a href="http://<?= $_SERVER['HTTP_HOST'] ?>/code_even/front/mypage/mypage_coupons.php"><i class="bi bi-ticket-perforated"></i>보유 쿠폰</a></li>
+              <li class="mynav_title"><i class="bi bi-gear-fill"></i>설정</li>
               <li><a href="http://<?= $_SERVER['HTTP_HOST'] ?>/code_even/front/mypage/mypage_info_edit.php"><i class="bi bi-person-lines-fill"></i>기본 정보 설정</a></li>
             </ul>
           </nav>

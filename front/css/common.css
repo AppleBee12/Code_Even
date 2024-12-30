@@ -398,6 +398,14 @@ header {
   height: 50px;
 }
 
+
+/* 포폴안내 모달창 */
+.cookie_underline a:hover{
+  text-decoration : underline;
+  font-weight: 600;
+}
+
+
 /* 모달 헤더푸터 */
 .m_h, .m_f{ 
   border: none;
@@ -419,10 +427,11 @@ header {
 
 .redbtn, .yellowbtn{
   border: none;
-  color: white;
+  color: var(--bk0);
   width: 360px;
   margin: 0 auto; 
 }
+
 .redbtn{
   background: var(--red800);
 }
@@ -434,6 +443,7 @@ header {
   background: #FFEB3B;
   a{
     color: #3E2723;
+    display: block;
   }
 }
 .yellowbtn:hover{
@@ -441,6 +451,17 @@ header {
   a{
     color: #3E2723;
   }
+}
+
+.modal-body .kakao_loginbtn{
+  color: var(--bk1000);
+}
+
+.modal-body .kakao_loginbtn:hover{
+  color: var(--bk1200);
+}
+.yellowbtn:active{
+  background: #FFEB3B !important;
 }
 /* 로그인 끝 */
 

@@ -1,6 +1,6 @@
 /*---- top헤더 mypage_header ----*/
 
-section.mypage_header .row{
+.container div.mypage_header .row{
   margin-right: 0;
   margin-left: 0;
 }
@@ -125,6 +125,10 @@ align-items: baseline;
 }  
 .mypage_nav i{
   padding-right: 12px;
+}
+.mypage_nav h3{
+  font-size: 16px;
+  display: inline-block;
 }
 
 .mypage_nav a{

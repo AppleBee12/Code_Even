@@ -1883,7 +1883,7 @@ CREATE TABLE `user` (
   `addr_line1` varchar(100) DEFAULT NULL COMMENT '주소',
   `addr_line2` varchar(100) DEFAULT NULL COMMENT '상세주소',
   `addr_line3` varchar(100) DEFAULT NULL COMMENT '참고항목',
-  `signup_date` date NOT NULL DEFAULT current_timestamp() COMMENT '가입일',
+  `signup_date` datetime NOT NULL DEFAULT current_timestamp() COMMENT '가입일',
   `last_date` datetime NOT NULL DEFAULT current_timestamp() COMMENT '마지막접속일시',
   `user_level` int(11) NOT NULL DEFAULT 1 COMMENT '회원구분(1일반,10강사,100관리자)',
   `user_status` tinyint(4) NOT NULL DEFAULT 0 COMMENT '회원상태(0정상,-1정지,1탈퇴)'

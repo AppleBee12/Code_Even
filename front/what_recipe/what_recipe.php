@@ -9,7 +9,7 @@ $what_recipe_js = "<script src=\"http://" . $_SERVER['HTTP_HOST'] . "/code_even/
     <div class="container">
       <div>
         <div class>
-          <p class="headt3">오직 코드이븐에서만</p>
+          <h3 class="headt3">오직 코드이븐에서만</h3>
           <p class="headt3 b">현업자 사이 입소문난 그 코스!</p>
         </div>
         <p class="headt1">레시피</p>
@@ -21,6 +21,7 @@ $what_recipe_js = "<script src=\"http://" . $_SERVER['HTTP_HOST'] . "/code_even/
     </div>
   </section>
   <section class="sec02">
+    <h3>분명 지난번에 적용해본 코드인데 기억이 안난다면 코드이븐의 레시피강좌!</h3>
     <div class="container">
       <img src="../images/what_recipe_sec02student.png" alt="">
     </div>
@@ -30,7 +31,7 @@ $what_recipe_js = "<script src=\"http://" . $_SERVER['HTTP_HOST'] . "/code_even/
     <div class="container">
       <div class="title_wrapper">
         <p class="headt4">바로 바로 생각이 안난다구요?</p>
-        <p class="headt3">한번 결제한 강의는 평생 무제한 수강!</p>
+        <h3 class="headt3">한번 결제한 강의는 평생 무제한 수강!</h3>
       </div>
       <div>
         <img src="../images/what_recipe_sec03cook.png" alt="">
@@ -42,7 +43,7 @@ $what_recipe_js = "<script src=\"http://" . $_SERVER['HTTP_HOST'] . "/code_even/
       <div class="d-flex flex-column justify-content-center align-items-center">
         <p class=" eng">recipe 01</p>
         <div>
-          <p>이해에 필요한 필수 개념부터</p>
+          <h3>이해에 필요한 필수 개념부터</h3>
           <p>필요한 언어 설명까지</p>
         </div>
         <img src="../images/what_recipe_sec04_icon01.png" alt="">
@@ -71,7 +72,7 @@ $what_recipe_js = "<script src=\"http://" . $_SERVER['HTTP_HOST'] . "/code_even/
   <section class="sec05 white">
     <div class="container">
       <div class="title_wrapper">
-        <p class="headt4">한시가 급한 프로젝트, 찾을 시간도 아깝다면?</p>
+        <h3 class="headt4">한시가 급한 프로젝트, 찾을 시간도 아깝다면?</h3>
         <p class="headt3">코드이븐의 RECIPE 레시피 강좌 !</p>
       </div>
       <div>
@@ -83,7 +84,7 @@ $what_recipe_js = "<script src=\"http://" . $_SERVER['HTTP_HOST'] . "/code_even/
     <div class="container">
       <div class="title_wrapper">
         <p class="headt4">RECIPE 강좌를 듣고 나면</p>
-        <p class="headt3">기초부터 자연스럽게 이해하게 됩니다.</p>
+        <h3 class="headt3">기초부터 자연스럽게 이해하게 됩니다.</h3>
       </div>
       <div>
         <img src="../images/what_recipe_sec06_recipe_ex.png" alt="">
@@ -94,7 +95,7 @@ $what_recipe_js = "<script src=\"http://" . $_SERVER['HTTP_HOST'] . "/code_even/
     <div class="container">
       <div class="title_wrapper">
         <p class="headt4">어떤 개념이 필요한지 어떤 언어를 사용하는지</p>
-        <p class="headt3">딱 한번만 들어보면 압니다</p>
+        <h3 class="headt3">딱 한번만 들어보면 압니다</h3>
         <p class="headt3">레시피 강좌의 마법으로 초대할게요 !</p>
       </div>
       <div class="swiper sec07_swiper">

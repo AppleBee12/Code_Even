@@ -182,7 +182,7 @@ if ($stmt) {
   </form>
 </div>
 </div><!--여기부터는 마이페이지 헤더의 닫는 태그-->
-</section>
+</div>
 </div>
 </div>
 </div>

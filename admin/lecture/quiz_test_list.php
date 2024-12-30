@@ -160,7 +160,7 @@ if (!empty($dataArr)) {
   </form>
 
   <!-- Pagination -->
-  <div class="list_pagination" aria-label="Page navigation example">
+  <div class="list_pagination" aria-label="Page_navigation">
     <ul class="pagination d-flex justify-content-center">
       <?php
       // 이전 블록 링크

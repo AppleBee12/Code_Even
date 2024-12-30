@@ -148,7 +148,7 @@ if (isset($_GET['code'])) {
 
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
 
 <head>
   <meta charset="UTF-8">
@@ -163,10 +163,10 @@ if (isset($_GET['code'])) {
     integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/summernote@0.8.20/dist/summernote-lite.min.css"
     integrity="sha256-IKhQVXDfwbVELwiR0ke6dX+pJt0RSmWky3WB2pNx9Hg=" crossorigin="anonymous">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
     integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
-    crossorigin="anonymous" referrerpolicy="no-referrer" />
+    crossorigin="anonymous" referrerpolicy="no-referrer">
   <link rel="stylesheet" href="http://<?= $_SERVER['HTTP_HOST'] ?>/code_even/front/css/common.css">
   
 
@@ -180,7 +180,7 @@ if (isset($_GET['code'])) {
       break;
   }
 
-  switch ($page) { //mypage_header.css, 마이페이지가 추가되면 이 아래에 php이름을 추가하세요
+  switch ($page) { //mypage_common.css, 마이페이지가 추가되면 이 아래에 php이름을 추가하세요
     case 'mypage_header.php':
     case 'mypage_lecture.php':
     case 'mypage_coupons.php':
@@ -197,7 +197,7 @@ if (isset($_GET['code'])) {
     case 'mypage_write_comment.php':
     case 'mypage_wishlist.php':
     case 'mypage_copy.php':
-      echo '<link rel="stylesheet" href="http://' . $_SERVER['HTTP_HOST'] . '/code_even/front/css/mypage_header.css">';
+      echo '<link rel="stylesheet" href="http://' . $_SERVER['HTTP_HOST'] . '/code_even/front/css/mypage_common.css">';
       break;
   }
   switch ($page) { //mypage_lecture.css
@@ -420,7 +420,7 @@ if (isset($_GET['code'])) {
 
         <!-- 검색창 -->
         <div class="header_search">
-          <form action="http://<?= $_SERVER['HTTP_HOST'] ?>/code_even/front/lecture_list.php" method="get"  class="d-flex align-items-center header_search_inner" method="get">
+          <form action="http://<?= $_SERVER['HTTP_HOST'] ?>/code_even/front/lecture_list.php" method="get"  class="d-flex align-items-center header_search_inner">
             <button type="submit" class="search_btn d-flex align-items-center">
               <i class="bi bi-search"></i>
             </button>
@@ -428,7 +428,7 @@ if (isset($_GET['code'])) {
             <input type="search" id="searchInput" name="search" class="form-control" 
             placeholder="무엇을 배우고 싶으신가요?" 
             value="<?= htmlspecialchars($search ?? '') ?>" 
-            autocomplete="off" />
+            autocomplete="off">
             <button type="button" id="clearSearch"
               class="btn btn-clear d-flex align-items-center justify-content-center">
               <i class="bi bi-x-circle-fill"></i>
@@ -546,7 +546,7 @@ if (isset($_GET['code'])) {
               <h1 class="login_logo logo text-center"><a
                   href="http://<?= $_SERVER['HTTP_HOST'] ?>/code_even/index.php">CODE EVEN</a></h1>
             </div>
-            <h1 class="modal-title headt4 mt-3 d-flex justify-content-center" id="exampleModalLabel login">로그인</h1>
+            <h1 class="modal-title headt4 mt-3 d-flex justify-content-center" id="exampleModalLabel">로그인</h1>
           </div>
         </div>
         <div class="modal-body">
@@ -563,13 +563,12 @@ if (isset($_GET['code'])) {
             <div class="modal-footer m_f d-flex justify-content-center">
               <div class="d-flex row gap-1">
                 <button class="btn loginbtn redbtn">로그인</button>
-                <button class="btn kakao_loginbtn yellowbtn">
-                  <a href="https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=dc8b785f75c0ed7ecca5dad87f2b18ff&redirect_uri=http://localhost/code_even/"
-                    class="kakao m-0 ">
+                <a href="https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=dc8b785f75c0ed7ecca5dad87f2b18ff&redirect_uri=http://localhost/code_even/" class="btn kakao_loginbtn yellowbtn">
+                  
                     <img src="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/front/images/kakao_icon.png" alt="">
                     카카오 로그인
-                  </a>
-                </button>
+                  
+                </a>
               </div>
 
               <div class="mt-3 d-flex justify-content-center gap-3 mb-5">
