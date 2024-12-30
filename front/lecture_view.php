@@ -221,7 +221,7 @@ while ($review = $review_result->fetch_object()) {
                       data-price="<?= $lecture->book_price; ?>" 
                       >
                       <label class="form-check-label" for="book_<?= $lecture->boid; ?>">
-                          <p>교재 함께 구매</p>
+                          <span>교재 함께 구매</span>
                       </label>
                   </div>
               </div>
@@ -289,7 +289,6 @@ while ($review = $review_result->fetch_object()) {
 
     <!-- 언더라인 추가 -->
     <div class="tab-underline"></div>
-  </div>
 
   <!-- 섹션 콘텐츠 -->
   <div class="container mt-5">
