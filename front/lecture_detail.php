@@ -56,35 +56,66 @@ $detail_query = "
 ";
 
 
+$lecture_detail_title = "강의명 없음";
+$lecture_video_url = "";
+
+$detail_result = $mysqli->query($detail_query);
+
+if ($detail_result && $detail_row = $detail_result->fetch_object()) {
+  $lecture_detail_title = htmlspecialchars($detail_row->lecture_detail_title ?? "강의명 없음");
+  $lecture_video_url = htmlspecialchars($detail_row->video_url ?? "");
+}
+
+// 유튜브 URL 임베드 ID 추출
+function getYouTubeEmbedUrl($video_url)
+{
+  parse_str(parse_url($video_url, PHP_URL_QUERY), $query_params);
+  return $query_params['v'] ?? basename(parse_url($video_url, PHP_URL_PATH));
+}
+
 
 /* 유튜브 API 및 강의 동영상 */
 function getYouTubeVideoDuration($video_url, $api_key)
 {
   parse_str(parse_url($video_url, PHP_URL_QUERY), $query_params);
-  if (isset($query_params['v'])) {
-    $video_id = $query_params['v'];
-  } else {
-    $video_id = basename(parse_url($video_url, PHP_URL_PATH));
-  }
+  $video_id = $query_params['v'] ?? basename(parse_url($video_url, PHP_URL_PATH));
 
   $api_url = "https://www.googleapis.com/youtube/v3/videos?id={$video_id}&part=contentDetails&key={$api_key}";
 
-  $response = file_get_contents($api_url);
-  if ($response) {
-    $data = json_decode($response, true);
-    if (!empty($data['items'][0]['contentDetails']['duration'])) {
-      $duration = $data['items'][0]['contentDetails']['duration'];
-      return formatYouTubeDuration($duration);
-    }
+  $ch = curl_init();
+  curl_setopt($ch, CURLOPT_URL, $api_url);
+  curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+  curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+  curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
+  curl_setopt($ch, CURLOPT_TIMEOUT, 10);
+  curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
+  curl_setopt($ch, CURLOPT_USERAGENT, 'Mozilla/5.0');
+
+  $response = curl_exec($ch);
+
+  if (curl_errno($ch)) {
+    error_log('cURL Error: ' . curl_error($ch));
+    curl_close($ch);
+    return "시간 없음";
   }
+
+  curl_close($ch);
+
+  $data = json_decode($response, true);
+  if (!empty($data['items'][0]['contentDetails']['duration'])) {
+    return formatYouTubeDuration($data['items'][0]['contentDetails']['duration']);
+  }
+
   return "시간 없음";
 }
 
+// ISO 8601 포맷 시간을 사람이 읽을 수 있는 형식으로 변환
 function formatYouTubeDuration($duration)
 {
   $interval = new DateInterval($duration);
   return $interval->format('%H:%I:%S');
 }
+
 
 // YouTube API 키
 $api_key = "AIzaSyC4aAKg0v67EziZJWlShXRlqsg7zKCPUVg";
@@ -136,12 +167,15 @@ $detail_result = $mysqli->query($detail_query);
       <div class="col-md-9 d-flex flex-column main-content">
         <div class="main-header d-flex gap-3 align-items-center">
           <div class="back-icon" onclick="goBack()">&larr;</div>
-          <h6 id="lectureTitle" class="subtitle1"></h6>
+          <h6 id="lectureTitle" class="subtitle1"><?= $lecture_detail_title; ?></h6>
         </div>
         <div id="mainContent" class="flex-grow-1">
           <div id="defaultContent" class="h-100 d-flex">
-            <iframe id="mainVideo" src="" style="flex-grow: 1; height: 100%; background-color: black; border: none;"
-              allowfullscreen></iframe>
+            <iframe id="mainVideo"
+              src="<?= !empty($lecture_video_url) ? 'https://www.youtube.com/embed/' . getYouTubeEmbedUrl($lecture_video_url) : ''; ?>"
+              style="flex-grow: 1; height: 100%; background-color: black; border: none;"
+              allowfullscreen>
+            </iframe>
           </div>
         </div>
       </div>
@@ -178,6 +212,9 @@ $detail_result = $mysqli->query($detail_query);
             <p>등록된 강의가 없습니다.</p>
           <?php endif; ?>
         </div>
+        <a href="inquiry.html" class="inquiry-link">
+          <i class="fas fa-envelope"></i> 1:1 문의하러 가기
+        </a>
       </div>
     </div>
   </div>
@@ -193,6 +230,27 @@ $detail_result = $mysqli->query($detail_query);
     $(document).ready(function () {
       var myModal = new bootstrap.Modal(document.getElementById('customModal'));
       myModal.show();
+    });
+
+
+    document.addEventListener("DOMContentLoaded", function () {
+      const lectureTitle = document.getElementById('lectureTitle');
+      const mainVideo = document.getElementById('mainVideo');
+
+      if (lectureTitle && mainVideo) {
+        const lectureDetailTitle = "<?= $lecture_detail_title; ?>";
+        const lectureVideoUrl = "<?= $lecture_video_url; ?>";
+
+        lectureTitle.textContent = lectureDetailTitle;
+
+        if (lectureVideoUrl) {
+          const videoId = lectureVideoUrl.includes("youtu.be")
+            ? lectureVideoUrl.split("youtu.be/")[1]
+            : lectureVideoUrl.split("v=")[1]?.split("&")[0];
+
+          mainVideo.src = `https://www.youtube.com/embed/${videoId}`;
+        }
+      }
     });
 
 

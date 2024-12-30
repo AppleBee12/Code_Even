@@ -1,8 +1,8 @@
 <?php
 $hostname = 'localhost';
-$username = 'ehosting';
-$password = 'dmsghk0136!';
-$dbname = 'ehosting';
+$username = 'jochaaam';
+$password = 'chaerim12#';
+$dbname = 'jochaaam';
 
 $mysqli = new mysqli($hostname, $username, $password, $dbname);
 if ($mysqli->connect_errno) {

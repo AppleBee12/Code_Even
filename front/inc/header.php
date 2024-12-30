@@ -141,7 +141,62 @@ if (isset($_GET['code'])) {
   // 장바구니 개수 계산
   $cart_count = sizeof($cartArr);
 
-
+  $sql_count_available = "
+  SELECT COUNT(*) AS available_count 
+  FROM user_coupons uc
+  JOIN coupons c ON uc.couponid = c.cpid 
+  WHERE uc.userid = ? AND uc.status = 1 AND uc.use_max_date >= CURDATE()";
+  $stmt_count_available = $mysqli->prepare($sql_count_available);
+  $stmt_count_available->bind_param('s', $userid);
+  $stmt_count_available->execute();
+  $result_count_available = $stmt_count_available->get_result();
+  $row_count = $result_count_available->fetch_assoc();
+  $available_count = $row_count['available_count'];
+  $sql_available = "
+  SELECT 
+    c.coupon_name, 
+    c.coupon_image, 
+    c.max_value, 
+    c.use_min_price, 
+    uc.use_max_date, 
+    uc.status 
+  FROM 
+    user_coupons uc
+  JOIN 
+    coupons c ON uc.couponid = c.cpid 
+  WHERE 
+    uc.userid = ? AND uc.status = 1
+  ORDER BY 
+    uc.couponid DESC";
+  $stmt_available = $mysqli->prepare($sql_available);
+  $stmt_available->bind_param('s', $userid);
+  $stmt_available->execute();
+  $result_available = $stmt_available->get_result();
+  $data_available = $result_available->fetch_all(MYSQLI_ASSOC);
+  
+  // 사용 완료 또는 기간 만료 쿠폰 조회
+  $sql_expired = "
+  SELECT 
+      c.coupon_name, 
+      c.coupon_image, 
+      c.max_value, 
+      c.use_min_price, 
+      uc.use_max_date, 
+      uc.status 
+  FROM 
+      user_coupons uc
+  JOIN 
+      coupons c ON uc.couponid = c.cpid 
+  WHERE 
+      uc.userid = ? AND uc.status = 0
+  ORDER BY 
+      uc.couponid DESC";
+  $stmt_expired = $mysqli->prepare($sql_expired);
+  $stmt_expired->bind_param('s', $userid);
+  $stmt_expired->execute();
+  $result_expired = $stmt_expired->get_result();
+  $data_expired = $result_expired->fetch_all(MYSQLI_ASSOC);
+  
 ?>
 
 
@@ -506,8 +561,10 @@ if (isset($_GET['code'])) {
                     </div>
                   </a>
                   <div class="profile_btn d-flex gap-2">
-                    <a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/front/mypage/mypage_coupons.php">쿠폰 <span
-                        class="ms-1">1</span></a>
+                    <div class="d-flex">
+                    <a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/front/mypage/mypage_coupons.php">쿠폰 <span><?php echo $available_count; ?></span>
+                  </a>
+                        </div>
                     <a href="http://<?= $_SERVER['HTTP_HOST'] ?>/code_even/front/mypage/mypage_lecture.php">수강중인강좌 <span
                         class="ms-1">2</span></a>
                   </div>

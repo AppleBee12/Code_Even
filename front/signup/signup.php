@@ -48,7 +48,7 @@ include_once($_SERVER['DOCUMENT_ROOT'].'/code_even/admin/inc/dbcon.php');
           </div>
           
           <div class="wrappers d-flex">
-            <label for="password" class="form-label align-self-center">비밀번호 <b>*</b></label>
+            <label for="userpw" class="form-label align-self-center">비밀번호 <b>*</b></label>
             <div class="width_ch">
               <input type="password" id="userpw" class="form-control" placeholder="5~10자 이하로 입력하세요" name="userpw" required>
               <div id="passwordError" class="text-danger mt-2" style="display: none;">
@@ -70,14 +70,14 @@ include_once($_SERVER['DOCUMENT_ROOT'].'/code_even/admin/inc/dbcon.php');
           <div class="wrappers d-flex">
             <label for="useremail" class="form-label align-self-center">이메일 <b>*</b></label>
             <div class="width_ch">
-              <input type="email" id="useremail" class="form-control" aria-describedby="passwordHelpBlock" placeholder="code@even.com" name="useremail" required>
+              <input type="email" id="useremail" class="form-control" placeholder="code@even.com" name="useremail" required>
             </div>
           </div>
 
           <div class="padding_ch">
             <div class="form-check mt-4 mb-2">
               <input class="form-check-input" type="checkbox" value="" id="agree">
-              <label class="form-check-label" for="flexCheckDefault" checked >
+              <label class="form-check-label"  >
                 [필수] 개인정보 수집  및 이용에 동의합니다.
               </label>
             </div>

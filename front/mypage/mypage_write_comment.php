@@ -203,6 +203,5 @@ $postcomment->bind_param("i", $current_uid);
 </div>
 </div>
 
-
 <?php include_once($_SERVER['DOCUMENT_ROOT'] . '/code_even/front/inc/footer.php');
 ?>
