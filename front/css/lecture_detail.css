@@ -99,6 +99,11 @@ hr {
   color: var(--bk200);
 }
 
+.lecture-list{
+  min-height: 80vh;
+  overflow-y: auto;
+}
+
 .inquiry-link {
   position: absolute;
   left: 20px;
@@ -155,19 +160,6 @@ h3, h5 {
   color: var(--bk200);
   border: 1px solid var(--bk950);
   transition: background-color 0.3s, color 0.3s;
-}
-
-/* 페이지 로딩 전 모달 숨김 */
-#customModal {
-  display: none; /* 초기에는 숨김 */
-  opacity: 0; /* 완전히 투명하게 */
-  transition: opacity 0.3s ease-in-out; /* 부드러운 전환 효과 */
-}
-
-/* JavaScript로 모달을 보이게 할 때 스타일 */
-#customModal.show {
-  display: block !important;
-  opacity: 1;
 }
 
 

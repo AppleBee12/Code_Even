@@ -124,8 +124,6 @@ $api_key = "AIzaSyC4aAKg0v67EziZJWlShXRlqsg7zKCPUVg";
 $detail_query = "SELECT * FROM lecture_detail WHERE lecture_id = $lecture_id";
 $detail_result = $mysqli->query($detail_query);
 
-$showModal = true; // 팝업을 항상 보여주도록 설정
-
 ?>
 
 <!DOCTYPE html>
@@ -214,6 +212,9 @@ $showModal = true; // 팝업을 항상 보여주도록 설정
             <p>등록된 강의가 없습니다.</p>
           <?php endif; ?>
         </div>
+        <a href="inquiry.html" class="inquiry-link">
+          <i class="fas fa-envelope"></i> 1:1 문의하러 가기
+        </a>
       </div>
     </div>
   </div>
@@ -227,12 +228,10 @@ $showModal = true; // 팝업을 항상 보여주도록 설정
     }
 
     $(document).ready(function () {
-      <?php if ($showModal): ?>
-        setTimeout(function () {
-          $('#customModal').modal('show');
-        }, 100); // 100ms 지연 후 표시
-      <?php endif; ?>
+      var myModal = new bootstrap.Modal(document.getElementById('customModal'));
+      myModal.show();
     });
+
 
     document.addEventListener("DOMContentLoaded", function () {
       const lectureTitle = document.getElementById('lectureTitle');
