@@ -56,8 +56,7 @@ if (isset($_SESSION['UID'])) {
           <p class="text-center mt-5">&#128064;</p>
           <p class="text-center my-5">찜한 강좌가 없습니다. 원하는 강좌를 찾아보세요!</p>
           <div class="text-center">
-          <a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/front/lecture_list.php" class="empty_link">강좌 보러가기</i>
-          </a>
+          <a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/front/lecture_list.php" class="empty_link">강좌 보러가기</a>
         </div>
         </div>
         <?php } else { ?>
@@ -67,7 +66,7 @@ if (isset($_SESSION['UID'])) {
               <div class="lecture_box">
                 <a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/front/lecture_view.php?leid=<?= $item->leid; ?>">
                   <div class="image_box">
-                    <img src="<?= $item->image; ?>" alt="강좌 이미지" />
+                    <img src="<?= $item->image; ?>" alt="강좌 이미지">
                   </div>
                   <div class="lecture_info">
                     <div class="d-flex justify-content-between">
@@ -98,23 +97,24 @@ if (isset($_SESSION['UID'])) {
                     <div>
                       <p class="tc_name"><?= $item->name; ?></p>
                     </div>
-                  </a>
-                  <!-- 하 시작 -->
-                  <div class="d-flex justify-content-between">
-                    <div>
-                      <b><?= number_format($item->price); ?></b>원
-                    </div>
-                    <div class="icon-container">
-                      <!-- 빈 하트 -->
-                      <i class="bi bi-heart heart-icon <?= in_array($item->leid, $wishlist) ? 'd-none' : ''; ?>" data-leid="<?= $item->leid; ?>"></i>
-                      <!-- 채워진 하트 -->
-                      <i class="bi bi-heart-fill heart-icon-filled <?= in_array($item->leid, $wishlist) ? '' : 'd-none'; ?>" data-leid="<?= $item->leid; ?>"></i>
-                      <i class="bi bi-cart-plus"></i>
-                    </div>
                   </div>
-                  <!-- 하 끝 -->
+                </a>
+                <!-- 하 시작 -->
+                <div class="d-flex justify-content-between">
+                  <div>
+                    <b><?= number_format($item->price); ?></b>원
+                  </div>
+                  <div class="icon-container">
+                    <!-- 빈 하트 -->
+                    <i class="bi bi-heart heart-icon <?= in_array($item->leid, $wishlist) ? 'd-none' : ''; ?>" data-leid="<?= $item->leid; ?>"></i>
+                    <!-- 채워진 하트 -->
+                    <i class="bi bi-heart-fill heart-icon-filled <?= in_array($item->leid, $wishlist) ? '' : 'd-none'; ?>" data-leid="<?= $item->leid; ?>"></i>
+                    <i class="bi bi-cart-plus"></i>
+                  </div>
                 </div>
+                <!-- 하 끝 -->
               </div>
+            </div>
               <!-- //lecture_box -->          
             </div>
             <?php
@@ -126,7 +126,6 @@ if (isset($_SESSION['UID'])) {
       
     </div>
   </div>
-
   <!--제목 끝-->
 </div>
 
