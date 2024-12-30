@@ -253,16 +253,18 @@ if ($result && $result->num_rows > 0) {
             보안
           </button>
         </li>
-        <div id="collapseSecurity" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
-          <ul class="accordion-body eng">
-            <li>
-              <a href="lecture_list.php?category=C0027">CPPG</a>
-            </li>
-            <li>
-              <a href="lecture_list.php?category=C0028">Security</a>
-            </li>
-          </ul>
-        </div>
+        <li>
+          <div id="collapseSecurity" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+            <ul class="accordion-body eng">
+              <li>
+                <a href="lecture_list.php?category=C0027">CPPG</a>
+              </li>
+              <li>
+                <a href="lecture_list.php?category=C0028">Security</a>
+              </li>
+            </ul>
+          </div>
+        </li>
       </ul>
     </div>
     <!-- 강좌 리스트 출력 시작-->
