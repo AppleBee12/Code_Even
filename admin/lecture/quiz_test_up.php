@@ -20,7 +20,7 @@ if ($result_user && $result_user->num_rows > 0) {
   }
 } else {
   echo "<script>alert('사용자 정보를 가져오는 데 실패했습니다. 관리자에게 문의하세요.');</script>";
-  echo "<script>location.href='/code_even/admin/lecture/lecture_list.php';</script>";
+  // echo "<script>location.href='/code_even/admin/lecture/lecture_list.php';</script>";
   exit;
 }
 
