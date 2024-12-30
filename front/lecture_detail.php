@@ -56,6 +56,23 @@ $detail_query = "
 ";
 
 
+$lecture_detail_title = "강의명 없음";
+$lecture_video_url = "";
+
+$detail_result = $mysqli->query($detail_query);
+
+if ($detail_result && $detail_row = $detail_result->fetch_object()) {
+  $lecture_detail_title = htmlspecialchars($detail_row->lecture_detail_title ?? "강의명 없음");
+  $lecture_video_url = htmlspecialchars($detail_row->video_url ?? "");
+}
+
+// 유튜브 URL 임베드 ID 추출
+function getYouTubeEmbedUrl($video_url)
+{
+  parse_str(parse_url($video_url, PHP_URL_QUERY), $query_params);
+  return $query_params['v'] ?? basename(parse_url($video_url, PHP_URL_PATH));
+}
+
 
 /* 유튜브 API 및 강의 동영상 */
 function getYouTubeVideoDuration($video_url, $api_key)
@@ -154,8 +171,11 @@ $detail_result = $mysqli->query($detail_query);
         </div>
         <div id="mainContent" class="flex-grow-1">
           <div id="defaultContent" class="h-100 d-flex">
-            <iframe id="mainVideo" src="<?= !empty($lecture_video_url) ? 'https://www.youtube.com/embed/' . (parse_url($lecture_video_url, PHP_URL_QUERY) ? parse_str(parse_url($lecture_video_url, PHP_URL_QUERY), $params) ? $params['v'] : '' : basename(parse_url($lecture_video_url, PHP_URL_PATH))) : ''; ?>" style="flex-grow: 1; height: 100%; background-color: black; border: none;"
-              allowfullscreen></iframe>
+            <iframe id="mainVideo"
+              src="<?= !empty($lecture_video_url) ? 'https://www.youtube.com/embed/' . getYouTubeEmbedUrl($lecture_video_url) : ''; ?>"
+              style="flex-grow: 1; height: 100%; background-color: black; border: none;"
+              allowfullscreen>
+            </iframe>
           </div>
         </div>
       </div>
@@ -163,33 +183,33 @@ $detail_result = $mysqli->query($detail_query);
         <h6 class="mb-4 subtitle1">강좌명: <?= htmlspecialchars($lecture_title); ?></h6>
         <div class="lecture-list">
           <?php if ($detail_result && $detail_result->num_rows > 0): ?>
-            <?php while ($row = $detail_result->fetch_object()): ?>
-              <?php
-              $play_time = "시간 없음";
-              if (!empty($row->video_url)) {
-                $play_time = getYouTubeVideoDuration($row->video_url, $api_key);
-              }
-              ?>
-              <div class="lecture-item mb-3" data-video-url="<?= htmlspecialchars($row->video_url); ?>"
-                data-full-title="<?= htmlspecialchars($row->title); ?>">
-                <div class="lecture-actions d-flex justify-content-between align-items-center">
-                  <span class="lecture-title"><?= htmlspecialchars($row->video_order); ?>강.
-                    <?= htmlspecialchars(mb_strimwidth($row->title, 0, 40, "...", "UTF-8")); ?>
-                  </span>
-                </div>
-                <div class="lecture-time mt-2 d-flex justify-content-between">
-                  <span><i class="fas fa-clock"></i> <?= htmlspecialchars($play_time); ?></span>
-                  <div>
-                    <button class="btn btn-sm btn-secondary quiz-btn" data-type="quiz"
-                      data-id="<?= $row->quiz_id; ?>">퀴즈</button>
-                    <button class="btn btn-sm btn-secondary exam-btn" data-type="exam"
-                      data-id="<?= $row->test_id; ?>">시험</button>
-                  </div>
-                </div>
-              </div>
-            <?php endwhile; ?>
+                  <?php while ($row = $detail_result->fetch_object()): ?>
+                          <?php
+                          $play_time = "시간 없음";
+                          if (!empty($row->video_url)) {
+                            $play_time = getYouTubeVideoDuration($row->video_url, $api_key);
+                          }
+                          ?>
+                          <div class="lecture-item mb-3" data-video-url="<?= htmlspecialchars($row->video_url); ?>"
+                            data-full-title="<?= htmlspecialchars($row->title); ?>">
+                            <div class="lecture-actions d-flex justify-content-between align-items-center">
+                              <span class="lecture-title"><?= htmlspecialchars($row->video_order); ?>강.
+                                <?= htmlspecialchars(mb_strimwidth($row->title, 0, 40, "...", "UTF-8")); ?>
+                              </span>
+                            </div>
+                            <div class="lecture-time mt-2 d-flex justify-content-between">
+                              <span><i class="fas fa-clock"></i> <?= htmlspecialchars($play_time); ?></span>
+                              <div>
+                                <button class="btn btn-sm btn-secondary quiz-btn" data-type="quiz"
+                                  data-id="<?= $row->quiz_id; ?>">퀴즈</button>
+                                <button class="btn btn-sm btn-secondary exam-btn" data-type="exam"
+                                  data-id="<?= $row->test_id; ?>">시험</button>
+                              </div>
+                            </div>
+                          </div>
+                  <?php endwhile; ?>
           <?php else: ?>
-                    <p>등록된 강의가 없습니다.</p>
+                          <p>등록된 강의가 없습니다.</p>
           <?php endif; ?>
         </div>
       </div>
@@ -207,6 +227,27 @@ $detail_result = $mysqli->query($detail_query);
     $(document).ready(function () {
       var myModal = new bootstrap.Modal(document.getElementById('customModal'));
       myModal.show();
+    });
+
+
+    document.addEventListener("DOMContentLoaded", function () {
+      const lectureTitle = document.getElementById('lectureTitle');
+      const mainVideo = document.getElementById('mainVideo');
+
+      if (lectureTitle && mainVideo) {
+        const lectureDetailTitle = "<?= $lecture_detail_title; ?>";
+        const lectureVideoUrl = "<?= $lecture_video_url; ?>";
+
+        lectureTitle.textContent = lectureDetailTitle;
+
+        if (lectureVideoUrl) {
+          const videoId = lectureVideoUrl.includes("youtu.be")
+            ? lectureVideoUrl.split("youtu.be/")[1]
+            : lectureVideoUrl.split("v=")[1]?.split("&")[0];
+
+          mainVideo.src = `https://www.youtube.com/embed/${videoId}`;
+        }
+      }
     });
 
 
