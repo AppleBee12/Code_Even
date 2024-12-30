@@ -124,6 +124,8 @@ $api_key = "AIzaSyC4aAKg0v67EziZJWlShXRlqsg7zKCPUVg";
 $detail_query = "SELECT * FROM lecture_detail WHERE lecture_id = $lecture_id";
 $detail_result = $mysqli->query($detail_query);
 
+$showModal = true; // 팝업을 항상 보여주도록 설정
+
 ?>
 
 <!DOCTYPE html>
