@@ -183,33 +183,33 @@ $detail_result = $mysqli->query($detail_query);
         <h6 class="mb-4 subtitle1">강좌명: <?= htmlspecialchars($lecture_title); ?></h6>
         <div class="lecture-list">
           <?php if ($detail_result && $detail_result->num_rows > 0): ?>
-                  <?php while ($row = $detail_result->fetch_object()): ?>
-                          <?php
-                          $play_time = "시간 없음";
-                          if (!empty($row->video_url)) {
-                            $play_time = getYouTubeVideoDuration($row->video_url, $api_key);
-                          }
-                          ?>
-                          <div class="lecture-item mb-3" data-video-url="<?= htmlspecialchars($row->video_url); ?>"
-                            data-full-title="<?= htmlspecialchars($row->title); ?>">
-                            <div class="lecture-actions d-flex justify-content-between align-items-center">
-                              <span class="lecture-title"><?= htmlspecialchars($row->video_order); ?>강.
-                                <?= htmlspecialchars(mb_strimwidth($row->title, 0, 40, "...", "UTF-8")); ?>
-                              </span>
-                            </div>
-                            <div class="lecture-time mt-2 d-flex justify-content-between">
-                              <span><i class="fas fa-clock"></i> <?= htmlspecialchars($play_time); ?></span>
-                              <div>
-                                <button class="btn btn-sm btn-secondary quiz-btn" data-type="quiz"
-                                  data-id="<?= $row->quiz_id; ?>">퀴즈</button>
-                                <button class="btn btn-sm btn-secondary exam-btn" data-type="exam"
-                                  data-id="<?= $row->test_id; ?>">시험</button>
-                              </div>
-                            </div>
-                          </div>
-                  <?php endwhile; ?>
+            <?php while ($row = $detail_result->fetch_object()): ?>
+              <?php
+              $play_time = "시간 없음";
+              if (!empty($row->video_url)) {
+                $play_time = getYouTubeVideoDuration($row->video_url, $api_key);
+              }
+              ?>
+              <div class="lecture-item mb-3" data-video-url="<?= htmlspecialchars($row->video_url); ?>"
+                data-full-title="<?= htmlspecialchars($row->title); ?>">
+                <div class="lecture-actions d-flex justify-content-between align-items-center">
+                  <span class="lecture-title"><?= htmlspecialchars($row->video_order); ?>강.
+                    <?= htmlspecialchars(mb_strimwidth($row->title, 0, 40, "...", "UTF-8")); ?>
+                  </span>
+                </div>
+                <div class="lecture-time mt-2 d-flex justify-content-between">
+                  <span><i class="fas fa-clock"></i> <?= htmlspecialchars($play_time); ?></span>
+                  <div>
+                    <button class="btn btn-sm btn-secondary quiz-btn" data-type="quiz"
+                      data-id="<?= $row->quiz_id; ?>">퀴즈</button>
+                    <button class="btn btn-sm btn-secondary exam-btn" data-type="exam"
+                      data-id="<?= $row->test_id; ?>">시험</button>
+                  </div>
+                </div>
+              </div>
+            <?php endwhile; ?>
           <?php else: ?>
-                          <p>등록된 강의가 없습니다.</p>
+            <p>등록된 강의가 없습니다.</p>
           <?php endif; ?>
         </div>
       </div>
@@ -225,9 +225,15 @@ $detail_result = $mysqli->query($detail_query);
     }
 
     $(document).ready(function () {
-      var myModal = new bootstrap.Modal(document.getElementById('customModal'));
-      myModal.show();
+      // 모달 객체 생성
+      var $myModal = $('#customModal');
+
+      // 페이지 로드 후 100ms 지연 후 모달 표시
+      setTimeout(function () {
+        $myModal.modal('show');
+      }, 100); // 약간의 지연을 줘서 깜빡임 방지
     });
+
 
 
     document.addEventListener("DOMContentLoaded", function () {
