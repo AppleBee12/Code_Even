@@ -181,7 +181,7 @@ while ($review = $review_result->fetch_object()) {
       <img src="<?= $lecture->image; ?>" alt="강좌 이미지">
     </div>
     <div class="con_border col-3 p-4">
-      <form action="" method="post" id="cartform">
+      <form method="post" id="cartform">
         <h4 class="mb-2 lecture_tt"><?= $lecture->title; ?></h4>
         <p class="fs-5 fw-bold"><?= number_format($lecture->price); ?> 원</p>
         <hr>
