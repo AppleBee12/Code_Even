@@ -79,8 +79,6 @@ if ($result && $result->num_rows > 0) {
 }
 
 ?>
-
-</head>
 <div class="container title_wrap">
   <!-- 상단에 모든 강좌 링크 -->
   <p class="headt3">
@@ -94,167 +92,89 @@ if ($result && $result->num_rows > 0) {
       <div class="acc_title">
         <p>웹 개발</p>
       </div>
-      <ul class="accordion-item">
-        <li class="accordion-header">
-          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-            data-bs-target="#collapseFrontend" aria-expanded="true" aria-controls="collapseFrontend">
-            프론트엔드
-          </button>
+      <ul class="accordion">
+        <!-- 프론트엔드 -->
+        <li class="accordion-item">
+          <h2 class="accordion-header">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+              data-bs-target="#collapseFrontend" aria-expanded="true" aria-controls="collapseFrontend">
+              프론트엔드
+            </button>
+          </h2>
+          <div id="collapseFrontend" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+            <div class="accordion-body">
+              <ul class="eng">
+                <li><a href="lecture_list.php?category=C0001">HTML / CSS</a></li>
+                <li><a href="lecture_list.php?category=C0002">Javascript</a></li>
+                <li><a href="lecture_list.php?category=C0003">jQuery</a></li>
+                <li><a href="lecture_list.php?category=C0004">React</a></li>
+                <li><a href="lecture_list.php?category=C0005">Angular</a></li>
+                <li><a href="lecture_list.php?category=C0006">Vue.js</a></li>
+                <li><a href="lecture_list.php?category=C0007">TypeScript</a></li>
+              </ul>
+            </div>
+          </div>
         </li>
-        <div id="collapseFrontend" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
-          <ul class="accordion-body eng">
-            <li>
-              <a href="lecture_list.php?category=C0001">HTML / CSS</a>
-            </li>
-            <li>
-              <a href="lecture_list.php?category=C0002">Javascript</a>
-            </li>
-            <li>
-              <a href="lecture_list.php?category=C0003">jQuery</a>
-            </li>
-            <li>
-              <a href="lecture_list.php?category=C0004">React</a>
-            </li>
-            <li>
-              <a href="lecture_list.php?category=C0005">Angular</a>
-            </li>
-            <li>
-              <a href="lecture_list.php?category=C0006">Vue.js</a>
-            </li>
-            <li>
-              <a href="lecture_list.php?category=C0007">TypeScript</a>
-            </li>
-          </ul>
-        </div>
-      </ul>
-      <ul class="accordion-item">
-        <li class="accordion-header">
-          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-            data-bs-target="#collapseBackend" aria-expanded="false" aria-controls="collapseBackend">
-            백엔드
-          </button>
+
+        <!-- 백엔드 -->
+        <li class="accordion-item">
+          <h2 class="accordion-header">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+              data-bs-target="#collapseBackend" aria-expanded="false" aria-controls="collapseBackend">
+              백엔드
+            </button>
+          </h2>
+          <div id="collapseBackend" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+            <div class="accordion-body">
+              <ul class="eng">
+                <li><a href="lecture_list.php?category=C0008">Java</a></li>
+                <li><a href="lecture_list.php?category=C0009">PHP</a></li>
+                <li><a href="lecture_list.php?category=C0010">Next.js</a></li>
+                <li><a href="lecture_list.php?category=C0011">Node.js</a></li>
+              </ul>
+            </div>
+          </div>
         </li>
-        <div id="collapseBackend" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
-          <ul class="accordion-body eng">
-            <li>
-              <a href="lecture_list.php?category=C0008">Java</a>
-            </li>
-            <li>
-              <a href="lecture_list.php?category=C0009">PHP</a>
-            </li>
-            <li>
-              <a href="lecture_list.php?category=C0010">Next.js</a>
-            </li>
-            <li>
-              <a href="lecture_list.php?category=C0011">Node.js</a>
-            </li>
-          </ul>
-        </div>
-      </ul>
-      <div class="acc_title">
-        <p>클라우드 / DB</p>
-      </div>
-      <ul class="accordion-item">
-        <li class="accordion-header">
-          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-            data-bs-target="#collapseCloud" aria-expanded="true" aria-controls="collapseCloud">
-            클라우드 컴퓨팅
-          </button>
+
+        <!-- 클라우드 / DB -->
+        <li class="accordion-item">
+          <h2 class="accordion-header">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+              data-bs-target="#collapseCloud" aria-expanded="true" aria-controls="collapseCloud">
+              클라우드 컴퓨팅
+            </button>
+          </h2>
+          <div id="collapseCloud" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+            <div class="accordion-body">
+              <ul class="eng">
+                <li><a href="lecture_list.php?category=C0012">AWS</a></li>
+                <li><a href="lecture_list.php?category=C0013">Azure</a></li>
+                <li><a href="lecture_list.php?category=C0014">Google Cloud Platform</a></li>
+                <li><a href="lecture_list.php?category=C0015">DevOps</a></li>
+                <li><a href="lecture_list.php?category=C0016">Kubernetes</a></li>
+              </ul>
+            </div>
+          </div>
         </li>
-        <div id="collapseCloud" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
-          <ul class="accordion-body eng">
-            <li>
-              <a href="lecture_list.php?category=C0012">AWS</a>
-            </li>
-            <li>
-              <a href="lecture_list.php?category=C0013">Azure</a>
-            </li>
-            <li>
-              <a href="lecture_list.php?category=C0014">Google Cloud Platform</a>
-            </li>
-            <li>
-              <a href="lecture_list.php?category=C0015">DevOps</a>
-            </li>
-            <li>
-              <a href="lecture_list.php?category=C0016">Kubernetes</a>
-            </li>
-          </ul>
-        </div>
-      </ul>
-      <ul class="accordion-item">
-        <li class="accordion-header">
-          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-            data-bs-target="#collapseDatabase" aria-expanded="false" aria-controls="collapseDatabase">
-            데이터베이스
-          </button>
+
+        <!-- 데이터베이스 -->
+        <li class="accordion-item">
+          <h2 class="accordion-header">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+              data-bs-target="#collapseDatabase" aria-expanded="false" aria-controls="collapseDatabase">
+              데이터베이스
+            </button>
+          </h2>
+          <div id="collapseDatabase" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+            <div class="accordion-body">
+              <ul class="eng">
+                <li><a href="lecture_list.php?category=C0017">SQL</a></li>
+                <li><a href="lecture_list.php?category=C0018">MySQL</a></li>
+                <li><a href="lecture_list.php?category=C0019">PostgreSQL</a></li>
+              </ul>
+            </div>
+          </div>
         </li>
-        <div id="collapseDatabase" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
-          <ul class="accordion-body eng">
-            <li>
-              <a href="lecture_list.php?category=C0017">SQL</a>
-            </li>
-            <li>
-              <a href="lecture_list.php?category=C0018">MySQL</a>
-            </li>
-            <li>
-              <a href="lecture_list.php?category=C0019">PostgreSQL</a>
-            </li>
-            <li>
-              <a href="lecture_list.php?category=C0020">Oracle</a>
-            </li>
-            <li>
-              <a href="lecture_list.php?category=C0021">NoSQL</a>
-            </li>
-            <li>
-              <a href="lecture_list.php?category=C0022">MongoDB</a>
-            </li>
-            <li>
-              <a href="lecture_list.php?category=C0023">Cassandra</a>
-            </li>
-            <li>
-              <a href="lecture_list.php?category=C0024">Couchbase</a>
-            </li>
-          </ul>
-        </div>
-      </ul>
-      <div class="acc_title">
-        <p>보안 / 네트워크</p>
-      </div>
-      <ul class="accordion-item">
-        <li class="accordion-header">
-          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-            data-bs-target="#collapseNetwork" aria-expanded="true" aria-controls="collapseNetwork">
-            네트워크 관리
-          </button>
-        </li>
-        <div id="collapseNetwork" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
-          <ul class="accordion-body eng">
-            <li>
-              <a href="lecture_list.php?category=C0025">TCP / IP</a>
-            </li>
-            <li>
-              <a href="lecture_list.php?category=C0026">C / C++</a>
-            </li>
-          </ul>
-        </div>
-      </ul>
-      <ul class="accordion-item">
-        <li class="accordion-header">
-          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-            data-bs-target="#collapseSecurity" aria-expanded="false" aria-controls="collapseSecurity">
-            보안
-          </button>
-        </li>
-        <div id="collapseSecurity" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
-          <ul class="accordion-body eng">
-            <li>
-              <a href="lecture_list.php?category=C0027">CPPG</a>
-            </li>
-            <li>
-              <a href="lecture_list.php?category=C0028">Security</a>
-            </li>
-          </ul>
-        </div>
       </ul>
     </div>
     <!-- 강좌 리스트 출력 시작-->
@@ -276,7 +196,7 @@ if ($result && $result->num_rows > 0) {
             <div class="lecture_box col-4 mb-3">
               <a href="lecture_view.php?leid=<?= $item->leid; ?>">
                 <div class="image_box mb-2">
-                  <img src="<?= $item->image; ?>" alt="강좌 이미지" />
+                  <img src="<?= $item->image; ?>" alt="강좌 이미지">
                 </div>
                 <div class="d-flex justify-content-between">
                   <!-- 상 시작-->
@@ -335,7 +255,7 @@ if ($result && $result->num_rows > 0) {
   <div class="row">
     <div class="col-3"></div>
     <!-- Pagination -->
-    <div class="list_pagination col-9" aria-label="Page_navigation">
+    <div class="list_pagination col-9" aria-label="Page navigation">
       <ul class="pagination d-flex justify-content-center">
         <?php
         $previous = $block_start - $block_ct;
