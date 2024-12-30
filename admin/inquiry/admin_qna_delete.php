@@ -1,5 +1,5 @@
 <?php
-include_once($_SERVER['DOCUMENT_ROOT'] . '/CODE_EVEN/admin/inc/dbcon.php');
+include_once($_SERVER['DOCUMENT_ROOT'] . '/code_even/admin/inc/dbcon.php');
 
 if (isset($_GET['aqid']) && isset($_GET['confirm']) && $_GET['confirm'] == "true") {
 $aqid = $_GET['aqid'];

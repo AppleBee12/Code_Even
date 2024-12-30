@@ -1,6 +1,6 @@
 <?php
 $title = '레시피 강좌란?';
-include_once($_SERVER['DOCUMENT_ROOT'] . '/CODE_EVEN/front/inc/header.php');
+include_once($_SERVER['DOCUMENT_ROOT'] . '/code_even/front/inc/header.php');
 $what_recipe_js = "<script src=\"http://" . $_SERVER['HTTP_HOST'] . "/code_even/front/js/what_recipe.js\"></script>";
 
 ?>
@@ -143,5 +143,5 @@ $what_recipe_js = "<script src=\"http://" . $_SERVER['HTTP_HOST'] . "/code_even/
   </section>
 </div>
 
-<?php include_once($_SERVER['DOCUMENT_ROOT'] . '/CODE_EVEN/front/inc/footer.php');
+<?php include_once($_SERVER['DOCUMENT_ROOT'] . '/code_even/front/inc/footer.php');
 ?>

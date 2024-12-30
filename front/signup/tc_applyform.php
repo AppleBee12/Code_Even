@@ -1,5 +1,5 @@
 <?php
-include_once($_SERVER['DOCUMENT_ROOT'] . '/CODE_EVEN/admin/inc/dbcon.php');
+include_once($_SERVER['DOCUMENT_ROOT'] . '/code_even/admin/inc/dbcon.php');
 include_once($_SERVER['DOCUMENT_ROOT'] . '/code_even/front/inc/header.php');
 
 // 로그인 여부 확인
@@ -201,5 +201,5 @@ $(document).ready(function(){
 </script>
 
 
-<?php include_once($_SERVER['DOCUMENT_ROOT'] . '/CODE_EVEN/front/inc/footer.php');
+<?php include_once($_SERVER['DOCUMENT_ROOT'] . '/code_even/front/inc/footer.php');
 ?>

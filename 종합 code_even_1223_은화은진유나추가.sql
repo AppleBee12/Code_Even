@@ -68,7 +68,7 @@ CREATE TABLE `admin_question` (
   `category` int(11) NOT NULL COMMENT '주제분류',
   `qtitle` varchar(255) NOT NULL COMMENT '질문제목',
   `qcontent` text NOT NULL COMMENT '질문내용',
-  `regdate` date NOT NULL DEFAULT current_timestamp() COMMENT '등록일'
+  `regdate` datetime NOT NULL DEFAULT current_timestamp() COMMENT '등록일'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='1:1 문의 (사용자질문)';
 
 --
@@ -982,7 +982,7 @@ CREATE TABLE `notice` (
   `title` varchar(255) NOT NULL COMMENT '제목',
   `content` text NOT NULL COMMENT '내용',
   `view` int(11) NOT NULL COMMENT '조회수',
-  `regdate` date NOT NULL DEFAULT current_timestamp() COMMENT '등록일',
+  `regdate` datetime NOT NULL DEFAULT current_timestamp() COMMENT '등록일',
   `fix` tinyint(4) DEFAULT 0 COMMENT '상단고정 (고정=1)'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 

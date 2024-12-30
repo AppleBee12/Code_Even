@@ -23,7 +23,7 @@ while ($cate_data = $category_result->fetch_object()) {
 
 // 썸네일
 $thumbnail_path = !empty($tc->tc_thumbnail) ? $_SERVER['DOCUMENT_ROOT'] . $tc->tc_thumbnail : '';
-$image_src = (!empty($tc->tc_thumbnail) && file_exists($thumbnail_path)) ? $tc->tc_thumbnail : '/CODE_EVEN/admin/images/adminprofile.png';
+$image_src = (!empty($tc->tc_thumbnail) && file_exists($thumbnail_path)) ? $tc->tc_thumbnail : '/code_even/admin/images/adminprofile.png';
 ?>
 
 <div class="container">

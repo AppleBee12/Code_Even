@@ -4,7 +4,7 @@ $chart_js = "<script src=\"https://cdn.jsdelivr.net/npm/chart.js\"></script>";
 $host = $_SERVER['HTTP_HOST'];
 $main_js = "<script src=\"http://$host/code_even/admin/js/main.js\"></script>";
 
-include_once($_SERVER['DOCUMENT_ROOT'] . '/CODE_EVEN/admin/inc/header.php');
+include_once($_SERVER['DOCUMENT_ROOT'] . '/code_even/admin/inc/header.php');
 
 //set cookie 6개월 방문자 수 계산
 
@@ -207,9 +207,9 @@ $latestCountsJson = json_encode($latestCounts);
         <span><b>제작기간</b> : 2024.10.23 - 2024.11.25 </span><br>
         <span><b>개발환경</b> : HTML/CSS, Javascript, PHP</span><br>
         <div class="link3">
-          <span><b>기획자료 :</b> <a href="https://www.figma.com/deck/MQfJi66QGjjvn4nzpNfIQz/CODE_EVEN_LMS%EA%B5%AC%ED%98%84%EB%B0%9C%ED%91%9C-%EC%B5%9C%EC%A2%85?node-id=1-466&node-type=slide&viewport=-123%2C-137%2C0.7&t=QMdQYEzDrnraOO0y-1&scaling=min-zoom&content-scaling=fixed&page-id=0%3A1" target="_blank">figma </a>
-            <b> 코드 :</b> <a href="https://github.com/AppleBee12/Code_Even.git" target="_blank">github </a>
-            <b> 프론트 페이지 :</b> <a href="http://localhost/Code_Even/" target="_blank">Front Page</a></p>
+          <span><b>기획자료 :</b> <a href="https://www.figma.com/deck/MQfJi66QGjjvn4nzpNfIQz/code_even_LMS%EA%B5%AC%ED%98%84%EB%B0%9C%ED%91%9C-%EC%B5%9C%EC%A2%85?node-id=1-466&node-type=slide&viewport=-123%2C-137%2C0.7&t=QMdQYEzDrnraOO0y-1&scaling=min-zoom&content-scaling=fixed&page-id=0%3A1" target="_blank">figma </a>
+            <b> 코드 :</b> <a href="https://github.com/AppleBee12/code_even.git" target="_blank">github </a>
+            <b> 프론트 페이지 :</b> <a href="http://localhost/code_even/" target="_blank">Front Page</a></p>
         </div>
       </div>
       <hr>
@@ -322,5 +322,5 @@ $latestCountsJson = json_encode($latestCounts);
 <?php
 $host = $_SERVER['HTTP_HOST'];
 
-include_once($_SERVER['DOCUMENT_ROOT'] . '/CODE_EVEN/admin/inc/footer.php');
+include_once($_SERVER['DOCUMENT_ROOT'] . '/code_even/admin/inc/footer.php');
 ?>

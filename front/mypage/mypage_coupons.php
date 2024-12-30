@@ -1,9 +1,9 @@
 <link rel="stylesheet" href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/css/common.css">
 
 <?php
-include_once($_SERVER['DOCUMENT_ROOT'] . '/CODE_EVEN/admin/inc/dbcon.php');
+include_once($_SERVER['DOCUMENT_ROOT'] . '/code_even/admin/inc/dbcon.php');
 $title = '마이페이지-보유쿠폰';
-include_once($_SERVER['DOCUMENT_ROOT'] . '/CODE_EVEN/front/inc/mypage_header.php');
+include_once($_SERVER['DOCUMENT_ROOT'] . '/code_even/front/inc/mypage_header.php');
 
 
 // 게시글 개수 구하기
@@ -274,5 +274,5 @@ $data_expired = $result_expired->fetch_all(MYSQLI_ASSOC);
 </div>
 </div>
 </div>
-<?php include_once($_SERVER['DOCUMENT_ROOT'] . '/CODE_EVEN/front/inc/footer.php');
+<?php include_once($_SERVER['DOCUMENT_ROOT'] . '/code_even/front/inc/footer.php');
 ?>

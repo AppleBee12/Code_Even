@@ -1,6 +1,6 @@
 <?php
 $title = '마이페이지-강의후기보기';
-include_once($_SERVER['DOCUMENT_ROOT'] . '/CODE_EVEN/front/inc/mypage_header.php');
+include_once($_SERVER['DOCUMENT_ROOT'] . '/code_even/front/inc/mypage_header.php');
 
 $sql = "SELECT review.*, class_data.*, lecture.*, user.* 
         FROM review 
@@ -84,5 +84,5 @@ while ($data = $result->fetch_object()) {
 </div>
 </div>
 </div>
-<?php include_once($_SERVER['DOCUMENT_ROOT'] . '/CODE_EVEN/front/inc/footer.php');
+<?php include_once($_SERVER['DOCUMENT_ROOT'] . '/code_even/front/inc/footer.php');
 ?>

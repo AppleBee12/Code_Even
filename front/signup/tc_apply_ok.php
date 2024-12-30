@@ -1,12 +1,12 @@
 <?php
 session_start();
-include_once($_SERVER['DOCUMENT_ROOT'].'/CODE_EVEN/admin/inc/dbcon.php');
+include_once($_SERVER['DOCUMENT_ROOT'].'/code_even/admin/inc/dbcon.php');
 
 // 로그인 여부 확인
 if (!isset($_SESSION['AUID'])) {
     echo "<script>
         alert('로그인이 필요합니다.');
-        location.href='/CODE_EVEN/admin/login/login.php';
+        location.href='/code_even/admin/login/login.php';
     </script>";
     exit;
 }

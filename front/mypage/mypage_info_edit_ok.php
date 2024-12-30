@@ -1,6 +1,6 @@
 <?php
-include_once($_SERVER['DOCUMENT_ROOT'] . '/CODE_EVEN/front/inc/mypage_header.php');
-include_once($_SERVER['DOCUMENT_ROOT'] . '/CODE_EVEN/admin/inc/dbcon.php');
+include_once($_SERVER['DOCUMENT_ROOT'] . '/code_even/front/inc/mypage_header.php');
+include_once($_SERVER['DOCUMENT_ROOT'] . '/code_even/admin/inc/dbcon.php');
 
 // 세션에서 사용자 ID 가져오기
 if (isset($_SESSION['AUID'])) {

@@ -1,6 +1,6 @@
 <?php
 
-include_once($_SERVER['DOCUMENT_ROOT'] . '/CODE_EVEN/admin/inc/dbcon.php'); // DB 연결
+include_once($_SERVER['DOCUMENT_ROOT'] . '/code_even/admin/inc/dbcon.php'); // DB 연결
 
 header('Content-Type: application/json'); // JSON 응답 헤더 설정
 

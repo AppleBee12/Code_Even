@@ -1,6 +1,6 @@
 <?php
 
-  include_once($_SERVER['DOCUMENT_ROOT'] . '/CODE_EVEN/admin/inc/dbcon.php');
+  include_once($_SERVER['DOCUMENT_ROOT'] . '/code_even/admin/inc/dbcon.php');
 
   // 전달받은 데이터 배열 초기화
   $isbest = $_POST['isbest'] ?? [];   // '베스트' 값

@@ -3,7 +3,7 @@
 [![Stargazers][stars-shield]][stars-url]
 [![Issues][issues-shield]][issues-url]
 <div align=center>
-  <a href="https://github.com/AppleBee12/Code_Even">
+  <a href="https://github.com/AppleBee12/code_even">
     <img src="admin/images/sb_logo.png" alt="Logo" width="200" height="150">
     <p><img src="admin/images/txt_logo.png" alt="Logo" width="309" height="46"></p>
   </a>
@@ -13,7 +13,7 @@
 <p>안녕하세요 코드이븐에 오신 여러분 환영합니다!</p>
 <p>이건 여러분과 함께 만들어가고 완성할 Amazing하고 아주 Fantastic한 ReadMe입니다</p>
 
-<a href="https://www.figma.com/design/VH49EasHjN4QLjkcdUEO9n/CODE_EVEN?node-id=0-1&t=n8MCpj3Oq7MdNSB3-1"><strong>Explore the figma »</strong></a>
+<a href="https://www.figma.com/design/VH49EasHjN4QLjkcdUEO9n/code_even?node-id=0-1&t=n8MCpj3Oq7MdNSB3-1"><strong>Explore the figma »</strong></a>
 </div>
 
 
@@ -144,16 +144,16 @@ javascript
 
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
-[contributors-shield]: https://img.shields.io/github/contributors/AppleBee12/Code_Even.svg?style=for-the-badge
-[contributors-url]: https://github.com/AppleBee12/Code_Even/graphs/contributors
-[forks-shield]: https://img.shields.io/github/forks/AppleBee12/Code_Even.svg?style=for-the-badge
-[forks-url]: https://github.comAppleBee12/Code_Even/network/members
-[stars-shield]: https://img.shields.io/github/stars/AppleBee12/Code_Even.svg?style=for-the-badge
-[stars-url]: https://github.com/AppleBee12/Code_Even/stargazers
-[issues-shield]: https://img.shields.io/github/issues/AppleBee12/Code_Even.svg?style=for-the-badge
-[issues-url]: https://github.com/AppleBee12/Code_Even/issues
-[license-shield]: https://img.shields.io/github/license/AppleBee12/Code_Even.svg?style=for-the-badge
-[license-url]: https://github.com/AppleBee12/Code_Even/blob/master/LICENSE.txt
+[contributors-shield]: https://img.shields.io/github/contributors/AppleBee12/code_even.svg?style=for-the-badge
+[contributors-url]: https://github.com/AppleBee12/code_even/graphs/contributors
+[forks-shield]: https://img.shields.io/github/forks/AppleBee12/code_even.svg?style=for-the-badge
+[forks-url]: https://github.comAppleBee12/code_even/network/members
+[stars-shield]: https://img.shields.io/github/stars/AppleBee12/code_even.svg?style=for-the-badge
+[stars-url]: https://github.com/AppleBee12/code_even/stargazers
+[issues-shield]: https://img.shields.io/github/issues/AppleBee12/code_even.svg?style=for-the-badge
+[issues-url]: https://github.com/AppleBee12/code_even/issues
+[license-shield]: https://img.shields.io/github/license/AppleBee12/code_even.svg?style=for-the-badge
+[license-url]: https://github.com/AppleBee12/code_even/blob/master/LICENSE.txt
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
 [linkedin-url]: https://linkedin.com/in/AppleBee12
 [product-screenshot]: images/screenshot.png

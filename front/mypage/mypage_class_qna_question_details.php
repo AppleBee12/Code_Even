@@ -1,6 +1,6 @@
 <?php
 $title = '마이페이지-문의글보기';
-include_once($_SERVER['DOCUMENT_ROOT'] . '/CODE_EVEN/front/inc/mypage_header.php');
+include_once($_SERVER['DOCUMENT_ROOT'] . '/code_even/front/inc/mypage_header.php');
 
 $sqid = $_GET['sqid'];
 $sql = "SELECT student_qna.*, teacher_qna.*, class_data.*, lecture.*, user.* 
@@ -69,5 +69,5 @@ $data = $result->fetch_object();
 </div>
 </div>
 </div>
-<?php include_once($_SERVER['DOCUMENT_ROOT'] . '/CODE_EVEN/front/inc/footer.php');
+<?php include_once($_SERVER['DOCUMENT_ROOT'] . '/code_even/front/inc/footer.php');
 ?>

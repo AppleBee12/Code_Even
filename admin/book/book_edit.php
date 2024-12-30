@@ -2,7 +2,7 @@
 
 $title = "교재 수정";
 
-include_once($_SERVER['DOCUMENT_ROOT'] . '/CODE_EVEN/admin/inc/header.php');
+include_once($_SERVER['DOCUMENT_ROOT'] . '/code_even/admin/inc/header.php');
 
 // 현재 로그인된 사용자 세션 값 가져오기
 $session_userid = $_SESSION['AUID'] ?? null;
@@ -11,7 +11,7 @@ $session_username = $_SESSION['AUNAME'] ?? null;
 // 세션 값 검증
 if (!isset($_SESSION['AUID']) || !isset($_SESSION['AUNAME'])) {
   echo "<script>alert('로그인 정보가 없습니다. 다시 로그인해 주세요.');</script>";
-  echo "<script>location.href='/CODE_EVEN/admin/login.php';</script>";
+  echo "<script>location.href='/code_even/admin/login.php';</script>";
   exit;
 }
 
@@ -20,7 +20,7 @@ $book_id = isset($_GET['id']) ? intval($_GET['id']) : 0;
 
 if ($book_id <= 0) {
   echo "<script>alert('잘못된 요청입니다.');</script>";
-  echo "<script>location.href='/CODE_EVEN/admin/book_list.php';</script>";
+  echo "<script>location.href='/code_even/admin/book_list.php';</script>";
   exit;
 }
 
@@ -31,7 +31,7 @@ $book_data = $result_book->fetch_object();
 
 if (!$book_data) {
   echo "<script>alert('교재 정보를 찾을 수 없습니다.');</script>";
-  echo "<script>location.href='/CODE_EVEN/admin/book_list.php';</script>";
+  echo "<script>location.href='/code_even/admin/book_list.php';</script>";
   exit;
 }
 
@@ -178,7 +178,7 @@ while ($cates = $result_cate->fetch_object()) {
     </table>
     <div class="d-flex justify-content-end gap-2 mt-4 mb-5">
       <button type="submit" class="btn btn-secondary" name="action">수정</button>
-      <button type="button" class="btn btn-danger" onclick="window.location.href='/CODE_EVEN/admin/book/book_list.php'">취소</button>
+      <button type="button" class="btn btn-danger" onclick="window.location.href='/code_even/admin/book/book_list.php'">취소</button>
     </div>
   </form>
 </div>

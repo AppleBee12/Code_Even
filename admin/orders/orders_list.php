@@ -1,6 +1,6 @@
 <?php
   $title = "주문결제목록";
-  include_once($_SERVER['DOCUMENT_ROOT'] . '/CODE_EVEN/admin/inc/header.php');
+  include_once($_SERVER['DOCUMENT_ROOT'] . '/code_even/admin/inc/header.php');
 
   // 게시글 키워드 검색
   $keywords = isset($_GET['keywords']) ? $mysqli->real_escape_string($_GET['keywords']) : '';
@@ -227,5 +227,5 @@
 </script>
 
 <?php
-include_once($_SERVER['DOCUMENT_ROOT'] . '/CODE_EVEN/admin/inc/footer.php');
+include_once($_SERVER['DOCUMENT_ROOT'] . '/code_even/admin/inc/footer.php');
 ?>

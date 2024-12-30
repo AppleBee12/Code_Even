@@ -1,6 +1,6 @@
 <?php
-include_once($_SERVER['DOCUMENT_ROOT'] . '/CODE_EVEN/admin/inc/dbcon.php');
-include_once($_SERVER['DOCUMENT_ROOT'] . '/CODE_EVEN/admin/inc/page_summernote_delete.php');
+include_once($_SERVER['DOCUMENT_ROOT'] . '/code_even/admin/inc/dbcon.php');
+include_once($_SERVER['DOCUMENT_ROOT'] . '/code_even/admin/inc/page_summernote_delete.php');
 
 if (isset($_GET['fqid']) && isset($_GET['confirm']) && $_GET['confirm'] == "true") {
 $table_id = $_GET['fqid'];

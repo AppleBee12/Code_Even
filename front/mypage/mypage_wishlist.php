@@ -1,6 +1,6 @@
 <?php
 $title = '마이페이지-찜한 강좌';
-include_once($_SERVER['DOCUMENT_ROOT'] . '/CODE_EVEN/front/inc/mypage_header.php');
+include_once($_SERVER['DOCUMENT_ROOT'] . '/code_even/front/inc/mypage_header.php');
 $mypage_main_js = "<script src=\"http://" . $_SERVER['HTTP_HOST'] . "/code_even/front/js/wishlist.js\"></script>";
 
 if (isset($_SESSION['UID'])) {
@@ -136,5 +136,5 @@ if (isset($_SESSION['UID'])) {
 </div>
 </div>
 </div>
-<?php include_once($_SERVER['DOCUMENT_ROOT'] . '/CODE_EVEN/front/inc/footer.php');
+<?php include_once($_SERVER['DOCUMENT_ROOT'] . '/code_even/front/inc/footer.php');
 ?>

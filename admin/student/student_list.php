@@ -376,7 +376,7 @@ while ($data = $result->fetch_object()) {
         console.log(data);
         confirm('해당 수강생에게 이메일을 보내시겠습니까?');
         alert('발송이 완료되었습니다.')
-        location.href='/CODE_EVEN/admin/student/student_list.php';
+        location.href='/code_even/admin/student/student_list.php';
       })
       .catch(error => {
         console.error('Error:', error);

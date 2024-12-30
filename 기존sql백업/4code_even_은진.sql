@@ -206,9 +206,9 @@ CREATE TABLE `teachers` (
 --
 
 INSERT INTO `teachers` (`tcid`, `uid`, `cgid`, `tc_userid`, `tc_name`, `tc_userphone`, `tc_email`, `tc_cate`, `tc_url`, `tc_thumbnail`, `tc_intro`, `tc_bank`, `tc_account`, `tc_ok`, `isrecom`, `isnew`) VALUES
-(1, 2, 1, 'teacher1', '이코딩', '0', 'teacher1111@gmail.com', '1', '', '/CODE_EVEN/admin/upload/tc_thumb/20241117230347634682.jpg', '안녕하세요, 코딩짱 이코딩 강사입니다.', '신한', '2147483647', 0, 0, 0),
-(2, 3, 1, 'ezweb', '김동주', '0', 'abc@abc.com', '1', '', '/CODE_EVEN/admin/upload/tc_thumb/20241117230149196326.jpg', '안녕하세요, 김동주 강사입니다.', '신한', '2147483647', 1, 0, 1),
-(3, 4, 1, 'tc1', '홍이름', '010-5645-6283', 'abc@abc.com', '1', '', '/CODE_EVEN/admin/upload/tc_thumb/20241117225035107300.jpg', '안녕하세요. 졸림핑이네요.', '', '110222333333', 1, 1, 1);
+(1, 2, 1, 'teacher1', '이코딩', '0', 'teacher1111@gmail.com', '1', '', '/code_even/admin/upload/tc_thumb/20241117230347634682.jpg', '안녕하세요, 코딩짱 이코딩 강사입니다.', '신한', '2147483647', 0, 0, 0),
+(2, 3, 1, 'ezweb', '김동주', '0', 'abc@abc.com', '1', '', '/code_even/admin/upload/tc_thumb/20241117230149196326.jpg', '안녕하세요, 김동주 강사입니다.', '신한', '2147483647', 1, 0, 1),
+(3, 4, 1, 'tc1', '홍이름', '010-5645-6283', 'abc@abc.com', '1', '', '/code_even/admin/upload/tc_thumb/20241117225035107300.jpg', '안녕하세요. 졸림핑이네요.', '', '110222333333', 1, 1, 1);
 
 
 --

@@ -167,7 +167,7 @@ if ($result) {
 
   echo "<script>
         alert('강좌가 등록되었습니다.');
-        window.location.href = '/CODE_EVEN/admin/lecture/lecture_list.php';
+        window.location.href = '/code_even/admin/lecture/lecture_list.php';
     </script>";
   exit;
 } else {

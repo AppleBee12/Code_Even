@@ -1,6 +1,6 @@
 <?php
 $title = '마이페이지-내가 쓴 글';
-include_once($_SERVER['DOCUMENT_ROOT'] . '/CODE_EVEN/front/inc/mypage_header.php');
+include_once($_SERVER['DOCUMENT_ROOT'] . '/code_even/front/inc/mypage_header.php');
 
 
 //print_r($_SESSION['UID']);
@@ -203,5 +203,5 @@ $postcomment->bind_param("i", $current_uid);
 </div>
 </div>
 
-<?php include_once($_SERVER['DOCUMENT_ROOT'] . '/CODE_EVEN/front/inc/footer.php');
+<?php include_once($_SERVER['DOCUMENT_ROOT'] . '/code_even/front/inc/footer.php');
 ?>

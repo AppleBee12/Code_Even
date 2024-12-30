@@ -44,7 +44,7 @@ include_once($_SERVER['DOCUMENT_ROOT'] . '/code_even/admin/inc/header.php');
               <td rowspan="3" class="thumb_parent">
                 <?php 
                   $thumbnail_path = !empty($row['thumbnails']) ? 'http://' . $_SERVER['HTTP_HOST'] . $row['thumbnails'] : '';
-                  $image_src = (!empty($row['thumbnails']) && file_exists($thumbnail_path)) ? $row['thumbnails'] : '/CODE_EVEN/admin/upload/teacher/tc_dummy.png';
+                  $image_src = (!empty($row['thumbnails']) && file_exists($thumbnail_path)) ? $row['thumbnails'] : '/code_even/admin/upload/teacher/tc_dummy.png';
                 ?>
                 <img id="thumbnail_preview" src="<?= $thumbnail_path; ?>" class="angled_square thumb_child" width = 200 height = 200 alt="프로필 이미지">
               </td>

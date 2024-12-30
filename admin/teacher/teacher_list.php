@@ -1,6 +1,6 @@
 <?php
   $title = "강사 목록";
-  include_once($_SERVER['DOCUMENT_ROOT'] . '/CODE_EVEN/admin/inc/header.php');
+  include_once($_SERVER['DOCUMENT_ROOT'] . '/code_even/admin/inc/header.php');
 
   // 'code'가 'A'로 시작하는 category 데이터를 가져오기
   $category_sql = "SELECT * FROM category WHERE code LIKE 'A%' ORDER BY cgid ASC";
@@ -149,7 +149,7 @@
           <td>
             <?php 
               $thumbnail_path = !empty($item->tc_thumbnail) ? $_SERVER['DOCUMENT_ROOT'] . $item->tc_thumbnail : '';
-              $image_src = (!empty($item->tc_thumbnail) && file_exists($thumbnail_path)) ? $item->tc_thumbnail : '/CODE_EVEN/admin/upload/teacher/tc_dummy.png';
+              $image_src = (!empty($item->tc_thumbnail) && file_exists($thumbnail_path)) ? $item->tc_thumbnail : '/code_even/admin/upload/teacher/tc_dummy.png';
             ?>
             <img src="<?= $image_src; ?>" class="rounded_circle" width="35" height="35" alt="프로필 이미지">
           </td>
@@ -307,5 +307,5 @@
 </script>
 
 <?php
-include_once($_SERVER['DOCUMENT_ROOT'] . '/CODE_EVEN/admin/inc/footer.php');
+include_once($_SERVER['DOCUMENT_ROOT'] . '/code_even/admin/inc/footer.php');
 ?>

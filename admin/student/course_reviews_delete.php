@@ -1,6 +1,6 @@
 <?php
 $title = "수강 후기";
-include_once($_SERVER['DOCUMENT_ROOT'] . '/CODE_EVEN/admin/inc/dbcon.php');
+include_once($_SERVER['DOCUMENT_ROOT'] . '/code_even/admin/inc/dbcon.php');
 
 if (isset($_GET['rvid']) && isset($_GET['confirm']) && $_GET['confirm'] == "true") {
   $rvid = $_GET['rvid'];

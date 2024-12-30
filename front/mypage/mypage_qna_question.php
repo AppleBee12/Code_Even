@@ -1,6 +1,6 @@
 <?php
 $title = '마이페이지-1:1문의하기';
-include_once($_SERVER['DOCUMENT_ROOT'] . '/CODE_EVEN/front/inc/mypage_header.php');
+include_once($_SERVER['DOCUMENT_ROOT'] . '/code_even/front/inc/mypage_header.php');
 
 $question_sql = "SELECT admin_question.*, user.* 
                 FROM admin_question 
@@ -99,5 +99,5 @@ $qdata = $question_result->fetch_object();
 </div>
 </div>
 </div>
-<?php include_once($_SERVER['DOCUMENT_ROOT'] . '/CODE_EVEN/front/inc/footer.php');
+<?php include_once($_SERVER['DOCUMENT_ROOT'] . '/code_even/front/inc/footer.php');
 ?>

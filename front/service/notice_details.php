@@ -1,5 +1,5 @@
 <?php
-include_once($_SERVER['DOCUMENT_ROOT'] . '/CODE_EVEN/front/inc/header.php');
+include_once($_SERVER['DOCUMENT_ROOT'] . '/code_even/front/inc/header.php');
 
 $ntid = $_GET['ntid'];
 
@@ -44,5 +44,5 @@ $data = $result->fetch_object();
 </div>
 
 <?php 
-include_once($_SERVER['DOCUMENT_ROOT'] . '/CODE_EVEN/front/inc/footer.php');
+include_once($_SERVER['DOCUMENT_ROOT'] . '/code_even/front/inc/footer.php');
 ?>

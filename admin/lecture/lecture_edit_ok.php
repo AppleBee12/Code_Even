@@ -203,7 +203,7 @@ foreach ($new_names as $i => $name) {
 
 echo "<script>
     alert('강좌가 성공적으로 수정되었습니다.');
-    window.location.href = '/CODE_EVEN/admin/lecture/lecture_list.php';
+    window.location.href = '/code_even/admin/lecture/lecture_list.php';
 </script>";
 
 $mysqli->close();

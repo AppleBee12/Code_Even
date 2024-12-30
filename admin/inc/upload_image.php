@@ -1,6 +1,6 @@
 <?php
 session_start();
-include_once($_SERVER['DOCUMENT_ROOT'] . '/CODE_EVEN/admin/inc/dbcon.php');
+include_once($_SERVER['DOCUMENT_ROOT'] . '/code_even/admin/inc/dbcon.php');
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   $uploadDir = $_SERVER['DOCUMENT_ROOT'] . '/code_even/admin/upload/summernote/'; // 이미지 저장 경로

@@ -73,7 +73,7 @@ $result = $mysqli->query($sql);
 
 // 결과 확인
 if ($result) {
-  echo "<script>alert('교재가 성공적으로 등록되었습니다.'); location.href='/CODE_EVEN/admin/book/book_list.php';</script>";
+  echo "<script>alert('교재가 성공적으로 등록되었습니다.'); location.href='/code_even/admin/book/book_list.php';</script>";
 } else {
   echo "<script>alert('등록에 실패했습니다. 다시 시도해주세요. SQL Error: " . $mysqli->error . "');</script>";
 }

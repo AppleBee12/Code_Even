@@ -1,6 +1,6 @@
 <?php
 $title = '고민상담';
-include_once($_SERVER['DOCUMENT_ROOT'] . '/CODE_EVEN/front/inc/header.php');
+include_once($_SERVER['DOCUMENT_ROOT'] . '/code_even/front/inc/header.php');
 
 // URL에서 post_id 가져오기
 $post_id = $_GET['post_id'] ?? null;
@@ -141,5 +141,5 @@ if ($post_id) {
     });
   </script>
 
-  <?php include_once($_SERVER['DOCUMENT_ROOT'] . '/CODE_EVEN/front/inc/footer.php');
+  <?php include_once($_SERVER['DOCUMENT_ROOT'] . '/code_even/front/inc/footer.php');
   ?>

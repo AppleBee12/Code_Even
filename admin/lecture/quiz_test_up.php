@@ -1,5 +1,5 @@
 <?php
-include_once($_SERVER['DOCUMENT_ROOT'] . '/CODE_EVEN/admin/inc/header.php');
+include_once($_SERVER['DOCUMENT_ROOT'] . '/code_even/admin/inc/header.php');
 
 // DB에서 카테고리 데이터 가져오기
 $sql_cate = "SELECT * FROM category ORDER BY step, pcode";
