@@ -225,16 +225,12 @@ $detail_result = $mysqli->query($detail_query);
     }
 
     $(document).ready(function () {
-      // 모달 객체 생성
-      var $myModal = $('#customModal');
-
-      // 페이지 로드 후 100ms 지연 후 모달 표시
-      setTimeout(function () {
-        $myModal.modal('show');
-      }, 100); // 약간의 지연을 줘서 깜빡임 방지
+      <?php if ($showModal): ?>
+        setTimeout(function () {
+          $('#customModal').modal('show');
+        }, 100); // 100ms 지연 후 표시
+      <?php endif; ?>
     });
-
-
 
     document.addEventListener("DOMContentLoaded", function () {
       const lectureTitle = document.getElementById('lectureTitle');
