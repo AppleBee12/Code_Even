@@ -61,30 +61,44 @@ $detail_query = "
 function getYouTubeVideoDuration($video_url, $api_key)
 {
   parse_str(parse_url($video_url, PHP_URL_QUERY), $query_params);
-  if (isset($query_params['v'])) {
-    $video_id = $query_params['v'];
-  } else {
-    $video_id = basename(parse_url($video_url, PHP_URL_PATH));
-  }
+  $video_id = $query_params['v'] ?? basename(parse_url($video_url, PHP_URL_PATH));
 
   $api_url = "https://www.googleapis.com/youtube/v3/videos?id={$video_id}&part=contentDetails&key={$api_key}";
 
-  $response = file_get_contents($api_url);
-  if ($response) {
-    $data = json_decode($response, true);
-    if (!empty($data['items'][0]['contentDetails']['duration'])) {
-      $duration = $data['items'][0]['contentDetails']['duration'];
-      return formatYouTubeDuration($duration);
-    }
+  $ch = curl_init();
+  curl_setopt($ch, CURLOPT_URL, $api_url);
+  curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+  curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+  curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
+  curl_setopt($ch, CURLOPT_TIMEOUT, 10);
+  curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
+  curl_setopt($ch, CURLOPT_USERAGENT, 'Mozilla/5.0');
+
+  $response = curl_exec($ch);
+
+  if (curl_errno($ch)) {
+    error_log('cURL Error: ' . curl_error($ch));
+    curl_close($ch);
+    return "시간 없음";
   }
+
+  curl_close($ch);
+
+  $data = json_decode($response, true);
+  if (!empty($data['items'][0]['contentDetails']['duration'])) {
+    return formatYouTubeDuration($data['items'][0]['contentDetails']['duration']);
+  }
+
   return "시간 없음";
 }
 
+// ISO 8601 포맷 시간을 사람이 읽을 수 있는 형식으로 변환
 function formatYouTubeDuration($duration)
 {
   $interval = new DateInterval($duration);
   return $interval->format('%H:%I:%S');
 }
+
 
 // YouTube API 키
 $api_key = "AIzaSyC4aAKg0v67EziZJWlShXRlqsg7zKCPUVg";
@@ -136,11 +150,11 @@ $detail_result = $mysqli->query($detail_query);
       <div class="col-md-9 d-flex flex-column main-content">
         <div class="main-header d-flex gap-3 align-items-center">
           <div class="back-icon" onclick="goBack()">&larr;</div>
-          <h6 id="lectureTitle" class="subtitle1"></h6>
+          <h6 id="lectureTitle" class="subtitle1"><?= $lecture_detail_title; ?></h6>
         </div>
         <div id="mainContent" class="flex-grow-1">
           <div id="defaultContent" class="h-100 d-flex">
-            <iframe id="mainVideo" src="" style="flex-grow: 1; height: 100%; background-color: black; border: none;"
+            <iframe id="mainVideo" src="<?= !empty($lecture_video_url) ? 'https://www.youtube.com/embed/' . (parse_url($lecture_video_url, PHP_URL_QUERY) ? parse_str(parse_url($lecture_video_url, PHP_URL_QUERY), $params) ? $params['v'] : '' : basename(parse_url($lecture_video_url, PHP_URL_PATH))) : ''; ?>" style="flex-grow: 1; height: 100%; background-color: black; border: none;"
               allowfullscreen></iframe>
           </div>
         </div>
@@ -175,7 +189,7 @@ $detail_result = $mysqli->query($detail_query);
               </div>
             <?php endwhile; ?>
           <?php else: ?>
-            <p>등록된 강의가 없습니다.</p>
+                    <p>등록된 강의가 없습니다.</p>
           <?php endif; ?>
         </div>
       </div>
