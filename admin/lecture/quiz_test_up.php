@@ -1,6 +1,39 @@
 <?php
 include_once($_SERVER['DOCUMENT_ROOT'] . '/code_even/admin/inc/header.php');
 
+// 현재 로그인된 사용자 세션 값 가져오기
+$session_userid = $_SESSION['AUID'] ?? null; // 세션의 AUID는 user 테이블의 userid와 매칭
+$session_username = $_SESSION['AUNAME'] ?? null; // 세션의 AUNAME은 user 테이블의 username과 매칭
+
+// 세션 값 검증
+if (!isset($_SESSION['AUID']) || !isset($_SESSION['AUNAME'])) {
+  echo "<script>alert('로그인 정보가 없습니다. 다시 로그인해 주세요.'); location.href='/code_even/admin/login.php';</script>";
+  exit;
+}
+
+// 사용자 정보 가져오기
+$session_userid_safe = $mysqli->real_escape_string($session_userid);
+$sql_user = "SELECT uid, user_level, username FROM user WHERE userid = '$session_userid_safe'";
+$result_user = $mysqli->query($sql_user);
+
+if ($result_user && $result_user->num_rows > 0) {
+  $user_data = $result_user->fetch_object();
+  $uid = $user_data->uid;
+  $username = $user_data->username;
+  $user_level = $user_data->user_level;
+
+  // user_level이 10인지 확인
+  if ($user_level != 10) {
+    echo "<script>alert('이 페이지에 접근할 권한이 없습니다.');</script>";
+    echo "<script>location.href='/code_even/admin/lecture/lecture_list.php';</script>";
+    exit;
+  }
+} else {
+  echo "<script>alert('사용자 정보를 가져오는 데 실패했습니다. 관리자에게 문의하세요.');</script>";
+  echo "<script>location.href='/code_even/admin/lecture/lecture_list.php';</script>";
+  exit;
+}
+
 // DB에서 카테고리 데이터 가져오기
 $sql_cate = "SELECT * FROM category ORDER BY step, pcode";
 $result_cate = $mysqli->query($sql_cate);

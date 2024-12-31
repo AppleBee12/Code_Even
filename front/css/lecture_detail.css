@@ -73,11 +73,6 @@ hr {
   padding: 20px 20px;
 }
 
-.lecture-list {
-  max-height: 70vh;
-  overflow-y: auto;
-}
-
 .lecture-item {
   background-color: var(--bk900);
   color: var(--bk200);
@@ -102,6 +97,11 @@ hr {
 .lecture-time i {
   margin-right: 5px;
   color: var(--bk200);
+}
+
+.lecture-list{
+  max-height: 80vh;
+  overflow-y: auto;
 }
 
 .inquiry-link {
@@ -161,5 +161,6 @@ h3, h5 {
   border: 1px solid var(--bk950);
   transition: background-color 0.3s, color 0.3s;
 }
+
 
 

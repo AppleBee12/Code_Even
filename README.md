@@ -15,7 +15,6 @@
 <p>이건 여러분과 함께 만들어가고 완성할 Amazing하고 아주 Fantastic한 ReadMe입니다</p>
 
 <a href="https://www.figma.com/design/VH49EasHjN4QLjkcdUEO9n/code_even?node-id=0-1&t=n8MCpj3Oq7MdNSB3-1"><strong>Explore the figma »</strong></a>
-
 </div>
 
 ### 일정
@@ -132,7 +131,6 @@ javascript
 
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
-
 [contributors-shield]: https://img.shields.io/github/contributors/AppleBee12/code_even.svg?style=for-the-badge
 [contributors-url]: https://github.com/AppleBee12/code_even/graphs/contributors
 [forks-shield]: https://img.shields.io/github/forks/AppleBee12/code_even.svg?style=for-the-badge

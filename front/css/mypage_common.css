@@ -196,4 +196,9 @@ div.white .empty_link:hover{
   background-color: var(--bk50);
 }
 
+.row.w-100{
+  padding-bottom: 80px;
+}
+
+
 

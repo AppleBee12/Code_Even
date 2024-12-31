@@ -21,6 +21,15 @@ section.mypage_basic {
 }
 
 .lecture_box .lecture_info {
-  padding: 15px;
+  padding: 15px 15px 5px;
   box-sizing: border-box;
+}
+
+.lecture_box .lecture_info .custom_tt{
+  color: var(--bk1000);
+  margin: 2px 0;
+}
+
+.lecture_box .lecture_price{
+  padding: 0 15px 15px;
 }
