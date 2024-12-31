@@ -22,6 +22,7 @@ if (isset($_POST['userid'])) {
     $data = $result->fetch_assoc();
     if ($data['cnt'] > 0) {
         $result_data = array('result' => 'error'); // 중복된 닉네임
+        return false;
     } else {
         $result_data = array('result' => 'ok'); // 사용할 수 있는 닉네임
     }
