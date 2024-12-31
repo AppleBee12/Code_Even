@@ -61,7 +61,7 @@ $stmt->close();
           ?>
             <li class="checkout_item" data-leid="<?= $item['leid']; ?>">
               <div class="d-flex align-items-center">
-                <div href="" class="item_lnfo d-flex flex-fill">
+                <div class="item_lnfo d-flex flex-fill">
                   <img src="<?= $item['image']; ?>" alt="강좌 이미지" class="item_img">
                   <div class="item_txt d-flex flex-column justify-content-between">
                     <p class="lec_title"><?= $item['lectureTitle']; ?></p>
@@ -113,20 +113,20 @@ $stmt->close();
             <div class="dinfo_body" id="dinfo_body">
                 <div class="d-flex align-items-center">
                     <label for="name">수령자명</label>
-                    <input type="text" class="form-control" name="name">
+                    <input type="text" class="form-control" name="name" id="name">
                 </div>
                 <div class="d-flex align-items-center">
                     <label for="contact">연락처</label>
-                    <input type="text" class="form-control" name="contact">
+                    <input type="text" class="form-control" name="contact" id="contact">
                 </div>
-                <label for="post_code">수령주소</label>
+                <span>수령주소</span>
                 <div class="d-flex align-items-center">
-                    <input type="text" class="form-control w_sm" id="sample6_postcode" name="post_code" placeholder="우편번호" value="">
+                    <input type="text" class="form-control w_sm" id="sample6_postcode" name="post_code" placeholder="우편번호" aria-label="우편번호" value="" >
                     <input type="button" class="post_search_btn" onclick="sample6_execDaumPostcode()" value="우편번호 찾기"><br>
                 </div>
-                <input type="text" id="sample6_address" class="form-control" name="addr_line1" placeholder="주소" value="">
-                <input type="text" id="sample6_detailAddress" class="form-control" name="addr_line2" placeholder="상세주소" value="">
-                <input type="text" id="sample6_extraAddress" class="form-control" name="addr_line3" placeholder="참고항목(동이름)" value="">
+                <input type="text" id="sample6_address" class="form-control" name="addr_line1" placeholder="주소" aria-label="주소" value="">
+                <input type="text" id="sample6_detailAddress" class="form-control" name="addr_line2" placeholder="상세주소" aria-label="상세주소" value="">
+                <input type="text" id="sample6_extraAddress" class="form-control" name="addr_line3" placeholder="참고항목(동이름)" aria-label="참고항목" value="">
                 </div>
           </div>
           <div class="payment_method">
