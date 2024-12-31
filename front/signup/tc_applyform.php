@@ -10,7 +10,7 @@ if (isset($_SESSION['AUID'])) {
 } else {
     echo "<script>
         alert('로그인이 필요합니다.');
-        history.back();
+        location.href='/code_even/';
       </script>";
     exit;
 }
@@ -165,7 +165,7 @@ if ($category_result && $category_result->num_rows > 0) {
           <input type="text" class="form-control" id="tc_url" name="tc_url" value="" placeholder="https://"> 
         </div>
           <p class="p_c">* 활동 중인 SNS, 대표 사이트를 첨부해주세요</p>
-        <div class="mb-3 mt-5 d-flex gap-2">
+        <div class="mb-3 mt-5 d-flex gap-4">
           <label for="categories" class="form-label">희망분야 <b>*</b></label><br>
             <div>
               <?php if (isset($categories)) {
