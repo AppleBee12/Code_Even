@@ -77,8 +77,6 @@ while ($data = $result->fetch_object()) {
     </div>
   </div>
 </div>
-
-
 </div><!--여기부터는 마이페이지 헤더의 닫는 태그-->
 </div>
 </div>
