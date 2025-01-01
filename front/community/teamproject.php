@@ -124,7 +124,7 @@ while ($data = $result->fetch_object()) {
                       $imageTags = [];
                       foreach ($devEnvArray as $env) {
                         $env = trim($env); // 공백 제거
-                        $imageTags[] = "<img class='icon' src='../images/icons/{$env}.png' alt='{$env}' />";
+                        $imageTags[] = "<img class='icon' src='../images/icons/{$env}.png' alt='{$env}' >";
                       }
                       echo implode(' ', $imageTags);
                       //android angular AWS CSS3 docker figma firebase git googlecloud HTML5
