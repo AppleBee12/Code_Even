@@ -73,15 +73,14 @@ while ($data = $result->fetch_object()) {
         <?php endif; ?>
       </p>
 
-      <button class="btn btn-danger mb-4 col-1">
-        <?php if (isset($_SESSION['UID'])): ?>
-          <a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/front/community/teamproject_write.php"><i class="bi bi-pencil-fill"></i> 글쓰기
-          </a>
-        <?php else: ?>
-          <!-- 사용자가 로그인하지 않은 경우 -->
-          <a href="#" data-bs-toggle="modal" data-bs-target="#exampleModaltest" data-bs-whatever="@mdo"><i class="bi bi-pencil-fill"></i> 글쓰기</a>
-        <?php endif; ?>
-      </button>
+      <?php if (isset($_SESSION['UID'])): ?>
+        <a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/front/community/counsel_write.php" class="btn btn-danger mb-4 col-1"><i class="bi bi-pencil-fill"></i> 글쓰기
+        </a>
+      <?php else: ?>
+        <!-- 사용자가 로그인하지 않은 경우 -->
+        <a href="#" data-bs-toggle="modal" data-bs-target="#exampleModaltest" data-bs-whatever="@mdo" class="btn btn-danger mb-4 col-1"><i class="bi bi-pencil-fill"></i> 글쓰기</a>
+      <?php endif; ?>
+
     </div>
     <ul class="d-flex flex-column justify-content-center">
       <?php
@@ -144,18 +143,18 @@ while ($data = $result->fetch_object()) {
                   <p class="d-flex justify-content-between"><span>예상 기간</span> <span><?= $teamprj->durations ?></span></p>
                   <p class="d-flex justify-content-between"><span>작성자</span> <span><?= $teamprj->usernick ?></span></p>
                   <div class="d-flex justify-content-between mt-2">
-                    <p>
+                    
                       <?= $teamprj->status == '모집중' ?
-                        '<button class="btn btn-danger">모집 중</button>'
-                        : '<button class="btn btn-secondary">모집 완료</button>' ?>
-                    </p>
+                        '<div class="btn btn-danger">모집 중</div>'
+                        : '<div class="btn btn-secondary">모집 완료</div>' ?>
+                    
                     <?php
                     $host = $_SERVER['HTTP_HOST'];
                     $share_link = "'http://' . $host . '/code_even/front/community/teamproject_detail.php?post_id=' . $teamprj->post_id;" ?>
-                    <button class="btn btn-outline-secondary">
+                    <div class="btn btn-outline-secondary">
                       <!-- onclick="copyLink(e)" -->
                       살펴보기
-                    </button>
+                    </div>
                   </div>
                 </div>
               </a>
@@ -170,7 +169,7 @@ while ($data = $result->fetch_object()) {
     </ul>
 
     <!-- //Pagination -->
-    <div class="list_pagination mt-5" aria-label="Page navigation">
+    <div class="list_pagination mt-5">
       <ul class="pagination d-flex justify-content-center">
         <?php
         $previous = $block_start - $block_ct;
