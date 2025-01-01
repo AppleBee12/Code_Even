@@ -127,7 +127,7 @@ while ($data = $result->fetch_object()) {
 
 
     <!-- //Pagination -->
-    <div class="list_pagination">
+    <div class="list_pagination mt-5">
       <ul class="pagination d-flex justify-content-center">
         <?php
         $previous = $block_start - $block_ct;
