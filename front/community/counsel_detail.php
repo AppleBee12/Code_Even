@@ -170,14 +170,14 @@ if (!isset($_SESSION[$hit]) || $_SESSION[$hit] < strtotime('today')) {
 
         if ($logged_in_uid == $row['uid']) {
         ?>
-          <button class="btn btn-outline-secondary" onClick="window.location.href='http://<?= $_SERVER['HTTP_HOST'] ?>/code_even/front/community/counsel_edit.php?post_id=<?= $post_id ?>'">수정</button>
-          <button type="button" class="btn btn-danger" onClick="window.location.href='http://<?= $_SERVER['HTTP_HOST'] ?>/code_even/front/community/counsel_delete.php?post_id=<?= $post_id ?>'">삭제</button>
+        <a href="http://<?= $_SERVER['HTTP_HOST'] ?>/code_even/front/community/counsel_edit.php?post_id=<?= $post_id ?>" class="btn btn-outline-secondary">수정</a>
+        <a href="http://<?= $_SERVER['HTTP_HOST'] ?>/code_even/front/community/counsel_delete.php?post_id=<?= $post_id ?>" class="btn btn-danger">삭제</a>
+    
         <?php
         }
         $stmt->close();
         ?>
-
-        <button class="btn btn-secondary button"><a href="http://<?= $_SERVER['HTTP_HOST'] ?>/code_even/front/community/counsel.php"><i class="bi bi-box-arrow-up-left"> </i> 목록으로 돌아가기</a></button>
+        <a href="http://<?= $_SERVER['HTTP_HOST'] ?>/code_even/front/community/counsel.php" class="btn btn-secondary button"><i class="bi bi-box-arrow-up-left"> </i> 목록으로 돌아가기</a>
       </div>
     </div>
   </div>
