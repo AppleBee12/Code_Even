@@ -195,6 +195,17 @@ table.table th{
   padding: 10px;
 }
 
+.under_line{
+  text-decoration: underline;
+  color: var(--red1000);
+}
+.under_line:hover{
+  color: var(--red800);
+}
+
+
+
+
 /* 댓글 끝 */
 
 /*  고민상담 글쓰기 counsel_write 시작 */
