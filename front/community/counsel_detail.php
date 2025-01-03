@@ -236,7 +236,7 @@ if (!isset($_SESSION[$hit]) || $_SESSION[$hit] < strtotime('today')) {
       <?php else: ?>
         <!-- 사용자가 로그인하지 않은 경우 -->
         <div>
-            <div href="#" data-bs-toggle="modal" data-bs-target="#exampleModaltest" data-bs-whatever="@mdo">
+            <div data-bs-toggle="modal" data-bs-target="#exampleModaltest" data-bs-whatever="@mdo">
               <p>댓글</p>
               <div class="submit_comments mt-2">
                 <p id="notLoginContents"><span class="under_line">로그인</span> 후에 댓글을 남길 수 있습니다!</p>
