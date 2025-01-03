@@ -114,7 +114,7 @@ if (!isset($_SESSION[$hit]) || $_SESSION[$hit] < strtotime('today')) {
                     $imageTags = [];
                     foreach ($devEnvArray as $env) {
                       $env = trim($env); // 공백 제거
-                      $imageTags[] = "<img class='icon' src='../images/icons/{$env}.png' alt='{$env}' />";
+                      $imageTags[] = "<img class='icon' src='../images/icons/{$env}.png' alt='{$env}'>";
                     }
                     echo implode(' ', $imageTags);
                     //android angular AWS CSS3 docker figma firebase git googlecloud HTML5
@@ -258,14 +258,15 @@ if (!isset($_SESSION[$hit]) || $_SESSION[$hit] < strtotime('today')) {
 
           if ($logged_in_uid == $row['uid']) {
           ?>
-            <button class="btn btn-outline-secondary" onClick="window.location.href='http://<?= $_SERVER['HTTP_HOST'] ?>/code_even/front/community/teamproject_edit.php?post_id=<?= $post_id ?>'">수정</button>
-            <button type="button" class="btn btn-danger" onClick="window.location.href='http://<?= $_SERVER['HTTP_HOST'] ?>/code_even/front/community/teamproject_delete.php?post_id=<?= $post_id ?>'">삭제</button>
+          <a href="http://<?= $_SERVER['HTTP_HOST'] ?>/code_even/front/community/teamproject_edit.php?post_id=<?= $post_id ?>"  class="btn btn-outline-secondary">수정</a>
+          <a href="http://<?= $_SERVER['HTTP_HOST'] ?>/code_even/front/community/teamproject_delete.php?post_id=<?= $post_id ?>" class="btn btn-danger">삭제</a>
+
           <?php
           }
           $stmt->close();
           ?>
 
-          <button class="btn btn-secondary button"><a href="http://<?= $_SERVER['HTTP_HOST'] ?>/code_even/front/community/teamproject.php"><i class="bi bi-box-arrow-up-left"> </i> 목록으로 돌아가기</a></button>
+          <a href="http://<?= $_SERVER['HTTP_HOST'] ?>/code_even/front/community/teamproject.php" class="btn btn-secondary button"><i class="bi bi-box-arrow-up-left"> </i> 목록으로 돌아가기</a>
         </div>
       </div>
     </div>
@@ -324,20 +325,18 @@ if (!isset($_SESSION[$hit]) || $_SESSION[$hit] < strtotime('today')) {
         <?php else: ?>
           <!-- 사용자가 로그인하지 않은 경우 -->
           <div>
-            <a href="#" data-bs-toggle="modal" data-bs-target="#exampleModaltest" data-bs-whatever="@mdo">
+            <div href="#" data-bs-toggle="modal" data-bs-target="#exampleModaltest" data-bs-whatever="@mdo">
               <p>댓글</p>
-              <div class="submit_comments">
-                <div>
-                  <label for="contents"></label>
-                  <p id="notLoginContents">로그인 후에 댓글을 남길 수 있습니다!</p>
-                </div>
+              <div class="submit_comments mt-2">
+                <p id="notLoginContents"><span class="under_line">로그인</span> 후에 댓글을 남길 수 있습니다!</p>
               </div>
-            </a>
+            </div>
           </div>
         <?php endif; ?>
       </div>
     </div>
   </div>
+</div>
 
 
 
