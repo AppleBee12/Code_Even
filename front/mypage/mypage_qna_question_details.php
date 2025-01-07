@@ -14,7 +14,7 @@ $qdata = $question_result->fetch_object();
 
 ?>
 <div class="tab-content" id="nav-tabContent"><!--탭 메뉴 내용 시작-->
-  <div class="tab-pane fade show active" id="nav-myLecTab1" role="tabpanel" aria-labelledby="nav-myLecTab1-tab"><!-- 탭메뉴1 -->
+  <div class="tab-pane fade show active" id="nav-myLecTab1" role="tabpanel"><!-- 탭메뉴1 -->
     <!--제목 시작-->
     <div class="mypage_title_wrapper">
       <p class="mypage_title headt5">나의 문의 상세</p>
