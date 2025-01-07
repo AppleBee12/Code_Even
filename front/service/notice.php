@@ -63,7 +63,7 @@ while ($data = $notice_result->fetch_object()) {
         </div>
         <div class="search">
           <form action="#" class="d-flex align-items-center">
-            <button type="submit"><i class="bi bi-search"></i></button type="submit">
+            <button type="submit"><i class="bi bi-search"></i></button>
             <input type="text" class="form-control" placeholder="검색어를 입력해주세요" name="keywords"
             value="<?= htmlspecialchars($keywords); ?>">
           </form>
