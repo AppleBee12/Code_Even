@@ -494,7 +494,10 @@ if (isset($_GET['code'])) {
         <!-- 아이콘 퀵메뉴 -->
         <div class="header_icon d-flex gap-3">
           <div class="mini_cart">
-            <a href="" id="cartIcon"><i class="bi bi-cart"></i></a>
+            <a href="" id="cartIcon">
+              <i class="bi bi-cart"></i>
+              <span class="cart_cnt d-flex align-items-center justify-content-center"><?= $cart_count; ?></span>
+            </a>
             <div id="miniCartContent" class="cart_dropdown">
               <div class="mncart_header">
                 <h4>장바구니<span id="cartCount"><?= $cart_count; ?></span></h4>
