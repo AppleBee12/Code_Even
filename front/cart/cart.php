@@ -43,88 +43,100 @@ while ($cart_data = $cart_result->fetch_object()) {
     <main>
       <h2 class="headt5">장바구니</h2>
       <div class="row">
-        <div class="col-md-8">
-          <div class="check_del d-flex align-items-center">
-            <div class="form-check">
-              <div class="check_total d-flex gap-3 align-items-center">
-                <input class="form-check-input checkbox_custom" type="checkbox" id="selectAll" checked>
-                <label class="form-check-label" for="selectAll">
-                  <span>전체 선택</span>
-                  <span class="check_cnt"><?= count($cartArr); ?></span>
-                  <span>/</span>
-                  <span class="total_cnt"><?= count($cartArr); ?></span>
-                </label>
+        <?php if (!empty($cartArr)) { ?>
+          <div class="col-md-8">
+            <!-- 장바구니에 강좌가 있는 경우 -->
+            <div class="check_del d-flex align-items-center">
+              <div class="form-check">
+                <div class="check_total d-flex gap-3 align-items-center">
+                  <input class="form-check-input checkbox_custom" type="checkbox" id="selectAll" checked>
+                  <label class="form-check-label" for="selectAll">
+                    <span>전체 선택</span>
+                    <span class="check_cnt"><?= count($cartArr); ?></span>
+                    <span>/</span>
+                    <span class="total_cnt"><?= count($cartArr); ?></span>
+                  </label>
+                </div>
               </div>
             </div>
+            <ul class="cart_list">
+              <?php foreach ($cartArr as $cart): ?>
+                <li data-cart-id="<?= $cart->cartid; ?>" data-leid="<?= $cart->leid; ?>"> 
+                  <div class="d-flex align-items-center">
+                    <div class="item_check">
+                      <input type="checkbox" class="item-check form-check-input" checked>
+                    </div>
+                    <a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/front/lecture_view.php?leid=<?= $cart->leid; ?>" class="item_lnfo d-flex flex-fill">
+                      <img src="<?= $cart->image;?>" alt="강좌 이미지" class="item_img">
+                      <div class="item_txt d-flex flex-column justify-content-between">
+                        <p class="lec_title"><?= $cart->title;?></p>
+                        <p class="lec_tc"><?= $cart->name;?></p>
+                      </div>     
+                    </a>
+                    <div class="item_price d-flex align-items-center justify-content-center">
+                      <p><span class="number" data-price="<?= $cart->lecture_price;?>"><?= $cart->lecture_price;?></span>원</p>
+                    </div>
+                    <button type="button" class="btn btn_item_del" aria-label="Delete"><i class="bi bi-x-circle-fill"></i></button>
+                  </div>
+                </li>
+                <?php if (!empty($cart->boid)): ?>
+                  <li class="d-flex align-items-center book_list" data-cart-id="<?= $cart->cartid; ?>" data-boid="<?= $cart->boid; ?>">
+                    <span class="badge_custom book_badge">교재포함강좌</span>
+                    <div class="book_desc d-flex flex-column">
+                      <p class="book_title"><?= $cart->book_name;?></p>
+                      <span class="book_info"> <?= $cart->book_writer;?> | <?= $cart->book_company;?></span>
+                    </div>
+                    <p class="book_price"><span class="number" data-price="<?= $cart->book_price;?>"><?= $cart->book_price;?></span>원</p>
+                  </li>
+                <?php endif; ?>
+              <?php endforeach; ?>
+            </ul>
+            <button type="button" class="btn btn-outline-secondary mt-3 selected_del">선택삭제</button>
           </div>
-          <ul class="cart_list">
-            <?php if (!empty($cartArr)) {
-                foreach ($cartArr as $cart) { ?>
-            <li data-cart-id="<?= $cart->cartid; ?>" data-leid="<?= $cart->leid; ?>"> 
-              <div class="d-flex align-items-center">
-                <div class="item_check">
-                  <input type="checkbox" class="item-check form-check-input" checked>
+          <div class="col-md-4">
+            <ul class="list-group mb-3 payment_sum">
+              <li class="list-group-item d-flex justify-content-between lh-sm">
+                <div>
+                  <p class="my-0">강좌 금액</p>
                 </div>
-                <a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/front/lecture_view.php?leid=<?= $cart->leid; ?>" class="item_lnfo d-flex flex-fill">
-                  <img src="<?= $cart->image;?>" alt="강좌 이미지" class="item_img">
-                  <div class="item_txt d-flex flex-column justify-content-between">
-                    <p class="lec_title"><?= $cart->title;?></p>
-                    <p class="lec_tc"><?= $cart->name;?></p>
-                  </div>     
-                </a>
-                <div class="item_price d-flex align-items-center justify-content-center">
-                  <p><span class="number" data-price="<?= $cart->lecture_price;?>"><?= $cart->lecture_price;?></span>원</p>
+                <p class="lec_total_price">
+                  <span class="number">0</span>원
+                </p>
+              </li>
+              <li class="list-group-item d-flex justify-content-between lh-sm">
+                <div>
+                  <p class="my-0">교재 금액</p>
                 </div>
-                <button type="button" class="btn btn_item_del" aria-label="Delete"><i class="bi bi-x-circle-fill"></i></button>
+                <p class="book_total_price">
+                  <span class="number">0</span>원
+                </p>
+              </li>
+              <li class="list-group-item d-flex justify-content-between lh-sm">
+                <div>
+                  <p class="my-0">선택 강좌 수</p>
+                </div>
+                <p>총 <span class="lec_total_cnt">0</span>건</p> 
+              </li>
+              <li class="list-group-item d-flex justify-content-between price_sum">
+                <span>주문 금액</span>
+                <strong id="grandTotal">0</strong>
+              </li>
+            </ul>
+            <button class="w-100 btn btn-primary btn-lg btn_ok_red">주문하기</button>
+          </div>
+          <?php } else { ?>
+            <!-- 장바구니가 비어 있는 경우 -->
+            <div>
+              <p class="text-center mt-5">&#128064;</p>
+              <p class="text-center my-5">장바구니에 담은 강좌가 없습니다. 원하는 강좌를 찾아보세요!</p>
+              <div class="text-center">
+                <a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/front/lecture_list.php" class="go_class go_class_wh">강좌 보러가기</a>
               </div>
-            </li>
-            <?php if (!empty($cart->boid)) { ?>
-            <li class="d-flex align-items-center book_list" data-cart-id="<?= $cart->cartid; ?>" data-boid="<?= $cart->boid; ?>">
-              <span class="badge_custom book_badge">교재포함강좌</span>
-              <div class="book_desc d-flex flex-column">
-                <p class="book_title"><?= $cart->book_name;?></p>
-                <span class="book_info"> <?= $cart->book_writer;?> | <?= $cart->book_company;?></span>
-              </div>
-              <p class="book_price"><span class="number" data-price="<?= $cart->book_price;?>"><?= $cart->book_price;?></span>원</p>
-            </li>
-            <?php } ?>
-            <?php }
-            } ?>
-          </ul>
-          <button type="button" class="btn btn-outline-secondary mt-3 selected_del">선택삭제</button>
-        </div>
+            </div>
+          <?php } ?>
 
-        <div class="col-md-4">
-          <ul class="list-group mb-3 payment_sum">
-            <li class="list-group-item d-flex justify-content-between lh-sm">
-              <div>
-                <p class="my-0">강좌 금액</p>
-              </div>
-              <p class="lec_total_price">
-                <span class="number">0</span>원
-              </p>
-            </li>
-            <li class="list-group-item d-flex justify-content-between lh-sm">
-              <div>
-                <p class="my-0">교재 금액</p>
-              </div>
-              <p class="book_total_price">
-                <span class="number">0</span>원
-              </p>
-            </li>
-            <li class="list-group-item d-flex justify-content-between lh-sm">
-              <div>
-                <p class="my-0">선택 강좌 수</p>
-              </div>
-              <p>총 <span class="lec_total_cnt">0</span>건</p> 
-            </li>
-            <li class="list-group-item d-flex justify-content-between price_sum">
-              <span>주문 금액</span>
-              <strong id="grandTotal">0</strong>
-            </li>
-          </ul>
-          <button class="w-100 btn btn-primary btn-lg btn_ok_red">주문하기</button>
-        </div>
+
+
       </div>
     </main>
   </div>
