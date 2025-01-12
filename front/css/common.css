@@ -641,6 +641,26 @@ header {
   object-fit: cover;
 }
 
+.empty_cart{
+  font-weight: 500;
+}
+
+.go_class{
+  display: inline-block;
+  border: 1px solid var(--bk300);
+  padding: 8px 10px;
+  border-radius: 8px;
+  font-size: 14px;
+  transition: all 0.3s ease;
+}
+.go_class:hover{
+  background-color: var(--bk800);
+}
+.go_class_wh:hover{
+  background-color: var(--bk50);
+}
+
+
 .mncart_footer {
   padding: 15px 20px;
   border-top: 1px solid var(--bk900);
@@ -664,6 +684,7 @@ header {
 .mncart_footer .goto_cart:hover {
   background-color: var(--red900);
 }
+
 
 
 
