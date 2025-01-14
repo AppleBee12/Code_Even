@@ -1,18 +1,19 @@
 $(document).ready(function () {
-  let leid, boid, price; // 전역 변수로 설정
+  let leid, boid, price, bookPrice; // 전역 변수로 설정
 
   // 장바구니 아이콘 클릭 이벤트
   $(document).on('click', '.cart-add-icon', function () {
     leid = $(this).data('leid'); // 강좌 ID
     boid = $(this).data('boid') || null; // 교재 ID
     price = $(this).data('price'); // 강좌 가격
+    bookPrice = $(this).data('book-price') || 0; // 교재 가격
     const hasBook = $(this).data('has-book') === 1; // 교재 여부
 
     if (hasBook) {
       // 교재가 있는 경우 모달 표시
       $('#cartModal').modal('show');
       $('#cartModal .book-title').text($(this).data('book-title'));
-      $('#cartModal .book-price').text($(this).data('book-price') + '원');
+      $('#cartModal .book-price').text(bookPrice.toLocaleString() + '원');
     } else {
       // 교재가 없는 경우 바로 추가
       addToCart(leid, null, price);
@@ -21,22 +22,23 @@ $(document).ready(function () {
 
   // "확인" 버튼 클릭 시 교재 포함하여 장바구니 추가
   $('#yesbookAddToCart').off('click').on('click', function () {
-    addToCart(leid, boid, price);
+    const totalPrice = price + bookPrice; // 강좌 가격 + 교재 가격
+    addToCart(leid, boid, totalPrice);
     $('#cartModal').modal('hide');
   });
 
   // "취소" 버튼 클릭 시 교재 제외하고 장바구니 추가
   $('#nobookAddToCart').off('click').on('click', function () {
-    addToCart(leid, null, price);
+    addToCart(leid, null, price); // 강좌 가격만 전송
     $('#cartModal').modal('hide');
   });
 
   // 장바구니 추가 AJAX 요청
-  function addToCart(leid, boid, price) {
+  function addToCart(leid, boid, totalPrice) {
     $.ajax({
       type: 'POST',
       url: '/code_even/front/cart/cart_insert.php',
-      data: { leid: leid, boid: boid, price: price },
+      data: { leid: leid, boid: boid, price: totalPrice },
       dataType: 'json',
       success: function (response) {
         if (response.result === 'ok') {
