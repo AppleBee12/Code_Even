@@ -103,7 +103,7 @@ if (isset($main_js)) {
   echo $main_js;
 }
 if (isset($chart_js)) {
-  echo $chart_js;
+  echo $chart_js; 
 }
 if (isset($mypage_main_js)) {
   echo $mypage_main_js;
@@ -113,6 +113,9 @@ if (isset($what_recipe_js)) {
 }
 if (isset($service_js)) {
   echo $service_js;
+}
+if (isset($cart_icon_js)) {
+  echo $cart_icon_js;
 }
 if (isset($wishlist_js)) {
   echo $wishlist_js;
