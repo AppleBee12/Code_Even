@@ -203,6 +203,7 @@ footer h2.logo,
 }
 
 header {
+  position: relative;
   .header_grade1 {
     height: 70px;
     position: relative;
@@ -949,4 +950,15 @@ header {
 
 .top-button i {
   font-size: 18px;
+}
+
+/* 장바구니 아이콘 모달 */
+#cartModal .modal-content { 
+  background:var(--bk950);
+}
+#cartModal .modal-header { 
+  border-bottom-color: var(--bk800);
+}
+#cartModal .modal-footer { 
+  border-top-color: var(--bk800);
 }
