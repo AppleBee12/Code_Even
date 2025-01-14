@@ -1,6 +1,8 @@
 <?php
 include_once($_SERVER['DOCUMENT_ROOT'] . '/code_even/front/inc/header.php');
-$mypage_main_js = "<script src=\"http://" . $_SERVER['HTTP_HOST'] . "/code_even/front/js/wishlist.js\"></script>";
+$wishlist_js = "<script src=\"http://" . $_SERVER['HTTP_HOST'] . "/code_even/front/js/wishlist.js\"></script>";
+$cart_icon_js = "<script src=\"http://" . $_SERVER['HTTP_HOST'] . "/code_even/front/js/cart_icon.js\"></script>";
+
 
 if (isset($_SESSION['UID'])) {
   $uid = (int)$_SESSION['UID']; // 로그인한 사용자의 UID
@@ -38,13 +40,14 @@ $conditions = [];
 
 // 검색 조건 추가
 if ($search) {
-    $search = $mysqli->real_escape_string($search); // SQL Injection 방지
-    $conditions[] = "(title LIKE '%$search%' OR name LIKE '%$search%')";
+  $search = $mysqli->real_escape_string($search); // SQL Injection 방지
+  $conditions[] = "(l.title LIKE '%$search%' OR l.name LIKE '%$search%')";
 }
+
 
 // 카테고리 조건 추가
 if ($category_code) {
-    $conditions[] = "(cate1 = '$category_code' OR cate2 = '$category_code' OR cate3 = '$category_code')";
+  $conditions[] = "(l.cate1 = '$category_code' OR l.cate2 = '$category_code' OR l.cate3 = '$category_code')";
 }
 
 // 조건 연결
@@ -52,7 +55,7 @@ $where_clause = count($conditions) > 0 ? "WHERE " . implode(" AND ", $conditions
 
 
 // 전체 강좌 수 가져오기 (카테고리 조건 포함)
-$page_sql = "SELECT COUNT(*) AS cnt FROM lecture $where_clause";
+$page_sql = "SELECT COUNT(*) AS cnt FROM lecture l $where_clause";
 $page_result = $mysqli->query($page_sql);
 $page_data = $page_result->fetch_object();
 $row_num = $page_data->cnt; // 전체 강좌 수
@@ -66,8 +69,18 @@ $block_end = $block_start + $block_ct - 1; // 블록 끝 페이지
 if ($block_end > $total_page)
   $block_end = $total_page; // 블록 끝이 총 페이지를 초과할 경우 조정
 
-// 강좌 리스트 가져오기 (카테고리 조건 및 페이지네이션 포함)
-$sql = "SELECT * FROM lecture $where_clause ORDER BY leid DESC LIMIT $start_num, $list";
+// 강좌 리스트 가져오기 (카테고리 조건 및 페이지네이션 포함, 교재 정보 추가)
+$sql = "SELECT 
+        l.*, 
+        b.book AS book_title, 
+        b.price AS book_price
+    FROM lecture l
+    LEFT JOIN book b ON l.boid = b.boid
+    $where_clause
+    ORDER BY l.leid DESC 
+    LIMIT $start_num, $list
+";
+
 $result = $mysqli->query($sql);
 
 // 결과를 객체 배열에 저장
@@ -79,6 +92,30 @@ if ($result && $result->num_rows > 0) {
 }
 
 ?>
+
+<!-- 장바구니 모달 -->
+<div class="modal fade" id="cartModal" tabindex="-1" aria-labelledby="cartModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="cartModalLabel">교재 선택</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>교재도 함께 구매하시겠습니까?</p>
+                <p><strong class="book-title"></strong></p>
+                <p><strong class="book-price"></strong></p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" id="nobookAddToCart">강좌만 구매</button>
+                <button type="button" class="btn btn-primary" id="yesbookAddToCart">교재와 함께 구매</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
 <div class="container title_wrap">
   <!-- 상단에 모든 강좌 링크 -->
   <p class="headt3">
@@ -327,7 +364,15 @@ if ($result && $result->num_rows > 0) {
                   <i class="bi bi-heart heart-icon <?= in_array($item->leid, $wishlist) ? 'd-none' : ''; ?>" data-leid="<?= $item->leid; ?>"></i>
                   <!-- 채워진 하트 -->
                   <i class="bi bi-heart-fill heart-icon-filled <?= in_array($item->leid, $wishlist) ? '' : 'd-none'; ?>" data-leid="<?= $item->leid; ?>"></i>
-                  <i class="bi bi-cart-plus"></i>
+                  <!-- 장바구니 추가 아이콘 -->
+                  <i class="bi bi-cart-plus cart-add-icon"
+                    data-leid="<?= $item->leid; ?>" 
+                    data-boid="<?= $item->boid ?? null; ?>" 
+                    data-price="<?= $item->price; ?>" 
+                    data-has-book="<?= !empty($item->book_title) ? 1 : 0; ?>"
+                    data-book-title="<?= $item->book_title ?? ''; ?>"
+                    data-book-price="<?= $item->book_price ?? 0; ?>">
+                  </i>
                 </div>
               </div>
               <!-- 하 끝 -->
