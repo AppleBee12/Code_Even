@@ -1,7 +1,7 @@
 <?php
 $title = '마이페이지-찜한 강좌';
 include_once($_SERVER['DOCUMENT_ROOT'] . '/code_even/front/inc/mypage_header.php');
-$mypage_main_js = "<script src=\"http://" . $_SERVER['HTTP_HOST'] . "/code_even/front/js/wishlist.js\"></script>";
+$wishlist_js = "<script src=\"http://" . $_SERVER['HTTP_HOST'] . "/code_even/front/js/wishlist.js\"></script>";
 
 if (isset($_SESSION['UID'])) {
   $uid = (int)$_SESSION['UID']; // 로그인한 사용자의 UID
