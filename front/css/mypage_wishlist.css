@@ -33,3 +33,13 @@ section.mypage_basic {
 .lecture_box .lecture_price{
   padding: 0 15px 15px;
 }
+
+.lecture_box .lecture_price .bi-play-circle{
+  color: var(--bk700);
+  margin-right: 5px;
+}
+
+.lecture_box .lecture_price .ongoing_txt{
+  color: var(--bk700);
+  font-weight: 600;
+}
