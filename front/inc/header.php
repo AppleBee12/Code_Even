@@ -524,8 +524,8 @@ if (isset($_GET['code'])) {
                     </div>
                     <?php if (!empty($cart->boid)): ?>
                       <div class="book_price d-flex justify-content-between align-items-center">
-                        <p> +<span class="number"><?= $cart->book_price; ?></span>원 </p>
                         <span class="badge_custom book_badge">교재포함강좌</span>
+                        <p> +<span class="number"><?= $cart->book_price; ?></span>원 </p>
                       </div>
                     <?php
                       $total += $cart->book_price;
@@ -545,7 +545,13 @@ if (isset($_GET['code'])) {
           <div class="mncart_footer">
             <?php if ($cart_count > 0): ?>
               <!-- 총 결제 금액 및 이동 버튼 -->
-              <p>총 결제 금액: <span class="number"><?= $total ?></span>원</p>
+              <div class="mncart_total d-flex justify-content-between">
+                <p>총 결제 금액: </p>
+                <div class="price">
+                  <span class="number"><?= $total ?></span>
+                  <span>원</span>
+                </div>
+              </div>
               <a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/front/cart/cart.php" class="goto_cart">장바구니로 이동</a>
             <?php endif; ?>
           </div>
