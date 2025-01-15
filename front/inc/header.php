@@ -196,6 +196,17 @@ if (isset($_GET['code'])) {
   $stmt_expired->execute();
   $result_expired = $stmt_expired->get_result();
   $data_expired = $result_expired->fetch_all(MYSQLI_ASSOC);
+
+  // 수강중인 강좌 개수 가져오기
+  $ongoing_count_sql = "SELECT COUNT(*) AS ongoing_count 
+  FROM class_data 
+  WHERE uid = ?";
+  $stmt_ongoing_count = $mysqli->prepare($ongoing_count_sql);
+  $stmt_ongoing_count->bind_param('i', $uid);
+  $stmt_ongoing_count->execute();
+  $result_ongoing_count = $stmt_ongoing_count->get_result();
+  $row_ongoing_count = $result_ongoing_count->fetch_assoc();
+  $ongoing_count = $row_ongoing_count['ongoing_count'] ?? 0;
   
 ?>
 
@@ -588,7 +599,7 @@ if (isset($_GET['code'])) {
                   </a>
                         </div>
                     <a href="http://<?= $_SERVER['HTTP_HOST'] ?>/code_even/front/mypage/mypage_lecture.php">수강중인강좌 <span
-                        class="ms-1">2</span></a>
+                        class="ms-1"><?= $ongoing_count; ?></span></a>
                   </div>
                 </div>
                 <div class="profile_menu_list">
