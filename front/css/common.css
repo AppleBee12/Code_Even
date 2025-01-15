@@ -570,6 +570,8 @@ header .header_search_inner {
 
 .mncart_list {
   padding: 20px 20px 0;
+  max-height: 350px;
+  overflow-y: auto;
 }
 
 .mncart_list .item_tit p {
@@ -588,16 +590,20 @@ header .header_search_inner {
 }
 
 .mncart_list .item_price {
-  padding: 10px 0;
+  padding: 8px 0;
+}
+.mncart_list .item_price p{
+  text-align: right;
 }
 
 .mncart_list .book_price {
   padding-bottom: 10px;
+  margin-top: -5px;
 }
 
 .mncart_list .badge_custom {
   display: inline-block;
-  padding: 8px;
+  padding: 7px;
   border: 1px solid var(--bk300);
   font-size: 12px;
   line-height: 1;
@@ -606,7 +612,6 @@ header .header_search_inner {
   vertical-align: baseline;
   border-radius: 5px;
 }
-
 
 .cart_dropdown ul {
   list-style: none;
@@ -651,10 +656,12 @@ header .header_search_inner {
   background-color: var(--bk50);
 }
 
-
 .mncart_footer {
   padding: 15px 20px;
   border-top: 1px solid var(--bk900);
+}
+.mncart_footer .mncart_total{
+  padding: 0 4px;
 }
 
 
