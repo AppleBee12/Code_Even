@@ -102,13 +102,13 @@ if ($result && $result->num_rows > 0) {
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <p>교재가 포함된 강좌입니다. 함께 구매하시겠습니까?</p>
-                <p>교재명 : <strong class="book-title"></strong></p>
-                <p>교재가격 : <strong class="book-price"></strong></p>
+                <p class="mb-3">교재가 포함된 강좌입니다. 함께 구매하시겠습니까?</p>
+                <p>교재명 : <span class="book-title"></span></p>
+                <p>교재가격 : <span class="book-price"></span></p>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" id="nobookAddToCart">강좌만 담기</button>
-                <button type="button" class="btn btn-primary" id="yesbookAddToCart">교재와 함께 담기</button>
+                <button type="button" class="btn btn-primary btn_ok_red" id="yesbookAddToCart">교재와 함께 담기</button>
             </div>
         </div>
     </div>
