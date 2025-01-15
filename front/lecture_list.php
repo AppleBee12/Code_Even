@@ -5,10 +5,11 @@ $cart_icon_js = "<script src=\"http://" . $_SERVER['HTTP_HOST'] . "/code_even/fr
 
 
 if (isset($_SESSION['UID'])) {
-  $uid = (int)$_SESSION['UID']; // 로그인한 사용자의 UID
+  $uid = (int)$_SESSION['UID'];
 } else {
-  $uid = 'NULL'; // 로그인하지 않은 경우 UID는 NULL
+  $uid = null;
 }
+
 
 // 찜한 강좌 목록 가져오기
 $wishlist = [];
@@ -21,6 +22,25 @@ if ($uid > 0) {
         }
     }
 }
+
+// 장바구니 목록 가져오기
+$cart_list = [];
+
+if ($uid !== null) {
+    // 로그인한 경우 UID로 조회
+    $cart_sql = "SELECT leid FROM cart WHERE uid = $uid";
+} else {
+    // 로그인하지 않은 경우 세션 ID로 조회
+    $cart_sql = "SELECT leid FROM cart WHERE ssid = '$session_id'";
+}
+
+$cart_result = $mysqli->query($cart_sql);
+if ($cart_result && $cart_result->num_rows > 0) {
+    while ($row = $cart_result->fetch_object()) {
+        $cart_list[] = $row->leid;
+    }
+}
+
 
 // 검색어 가져오기
 $search = isset($_GET['search']) ? trim($_GET['search']) : null;
@@ -364,15 +384,17 @@ if ($result && $result->num_rows > 0) {
                   <i class="bi bi-heart heart-icon <?= in_array($item->leid, $wishlist) ? 'd-none' : ''; ?>" data-leid="<?= $item->leid; ?>"></i>
                   <!-- 채워진 하트 -->
                   <i class="bi bi-heart-fill heart-icon-filled <?= in_array($item->leid, $wishlist) ? '' : 'd-none'; ?>" data-leid="<?= $item->leid; ?>"></i>
-                  <!-- 장바구니 추가 아이콘 -->
-                  <i class="bi bi-cart-plus cart-add-icon"
-                    data-leid="<?= $item->leid; ?>" 
-                    data-boid="<?= $item->boid ?? null; ?>" 
-                    data-price="<?= $item->price; ?>" 
-                    data-has-book="<?= !empty($item->book_title) ? 1 : 0; ?>"
-                    data-book-title="<?= $item->book_title ?? ''; ?>"
-                    data-book-price="<?= $item->book_price ?? 0; ?>">
+                  <!-- 빈 장바구니 아이콘 -->
+                  <i class="bi bi-cart-plus cart-add-icon <?= in_array($item->leid, $cart_list) ? 'd-none' : ''; ?>"
+                      data-leid="<?= $item->leid; ?>" 
+                      data-boid="<?= $item->boid ?? null; ?>" 
+                      data-price="<?= $item->price; ?>" 
+                      data-has-book="<?= !empty($item->book_title) ? 1 : 0; ?>"
+                      data-book-title="<?= $item->book_title ?? ''; ?>"
+                      data-book-price="<?= $item->book_price ?? 0; ?>">
                   </i>
+                  <!-- 채워진 장바구니 아이콘 -->
+                  <i class="bi bi-cart-plus-fill cart-filled-icon <?= in_array($item->leid, $cart_list) ? '' : 'd-none'; ?>"></i>
                 </div>
               </div>
               <!-- 하 끝 -->
