@@ -39,6 +39,7 @@ include_once($_SERVER['DOCUMENT_ROOT'] . '/code_even/admin/inc/header.php');
           if ($result && $row = $result->fetch_assoc()) {
             // $row에서 데이터를 가져와서 input 태그에 출력
         ?>
+            <input type="hidden" name="post_id" value="<?= $post_id ?>">
             <tr>
               <th scope="row">
                 <label for="titles">글 제목 <b>*</b></label>
