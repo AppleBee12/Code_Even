@@ -944,6 +944,26 @@ footer h2.logo a {
 #cartModal .modal-header { 
   border-bottom-color: var(--bk800);
 }
+#cartModal .btn-close { 
+  --bs-btn-close-color: var(--bk0);
+  --bs-btn-close-focus-shadow: none;
+}
 #cartModal .modal-footer { 
   border-top-color: var(--bk800);
+}
+
+/* 공통레드버튼 */
+.btn_ok_red {
+  background-color: var(--red800);
+  border-color: var(--red800);
+}
+
+.btn_ok_red:hover {
+  background-color: var(--red900);
+  border-color: var(--red900);
+}
+
+:not(.btn-check) + .btn_ok_red.btn:active {
+  background-color: var(--red950);
+  border-color: var(--red950);
 }
