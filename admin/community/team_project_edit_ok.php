@@ -11,18 +11,18 @@ $contents =$_POST['content'];
 
 $sql = "UPDATE teamproject SET 
                       titles = '$titles',
-                      status = $status,
+                      status = '$status',
                       contents = '$contents'
         WHERE post_id = $post_id";
 
 
 $result = $mysqli->query($sql);
-echo $sql;
+//echo $sql;
 
 if ($result === TRUE) {
   echo "<script>
             alert('수정이 완료되었습니다.');
-            location.href = '/code_even/admin/community/teamproject.php';
+            location.href = '/code_even/admin/community/team_project.php';
          </script>";
   exit;
   } else {
