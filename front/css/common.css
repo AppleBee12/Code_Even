@@ -206,17 +206,17 @@ footer h2.logo a {
   position: relative;
 }
 
-.header_logo {
+header .header_logo {
   position: absolute;
   left: 50%;
   transform: translate(-50%);
 }
 
-.header_join {
+header .header_join {
   width: 300px;
 }
 
-.header_join ul li:not(:last-child):after {
+header .header_join ul li:not(:last-child):after {
   content: "";
   display: inline-block;
   margin: 0 12px;
@@ -225,16 +225,16 @@ footer h2.logo a {
   background: var(--bk500);
 }
 
-.header_join a {
+header .header_join a {
   color: var(--bk500);
 }
 
-.header_grade2 {
+header .header_grade2 {
   height: 80px;
   font-size: 18px;
 }
 
-.header_menu {
+header .header_menu {
   z-index: 10;
 }
 
@@ -319,7 +319,7 @@ footer h2.logo a {
   display: block;
 }
 
-.header_search {
+header .header_search {
   position: absolute;
   left: 50%;
   transform: translateX(-50%);
@@ -332,7 +332,7 @@ footer h2.logo a {
   padding: 5px 20px;
 }
 
-.header_search_inner {
+header .header_search_inner {
   width: 100%;
   position: relative;
 }
