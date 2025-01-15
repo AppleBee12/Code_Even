@@ -107,8 +107,8 @@ if ($result && $result->num_rows > 0) {
                 <p>교재가격 : <strong class="book-price"></strong></p>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" id="nobookAddToCart">강좌만 구매</button>
-                <button type="button" class="btn btn-primary" id="yesbookAddToCart">교재와 함께 구매</button>
+                <button type="button" class="btn btn-secondary" id="nobookAddToCart">강좌만 담기</button>
+                <button type="button" class="btn btn-primary" id="yesbookAddToCart">교재와 함께 담기</button>
             </div>
         </div>
     </div>
