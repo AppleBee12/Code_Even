@@ -17,6 +17,17 @@ if (isset($_SESSION['UID'])) {
       }
   }
 
+  // 수강 중인 강좌 ID 목록 가져오기
+  $class_data_sql = "SELECT leid FROM class_data WHERE uid = $uid";
+  $class_data_result = $mysqli->query($class_data_sql);
+  $ongoing_classes = [];
+
+  if ($class_data_result && $class_data_result->num_rows > 0) {
+      while ($row = $class_data_result->fetch_assoc()) {
+          $ongoing_classes[] = (int)$row['leid'];
+      }
+  }
+
   // 찜한 강좌 가져오기
   $sql = "SELECT 
       l.*
@@ -101,14 +112,21 @@ if (isset($_SESSION['UID'])) {
                 <!-- 하 시작 -->
                 <div class="d-flex justify-content-between lecture_price">
                   <div>
-                    <b><?= number_format($item->price); ?></b>원
+                    <?php if (in_array($item->leid, $ongoing_classes)) { ?>
+                      <i class="bi bi-play-circle"></i>
+                      <b class="ongoing_txt">수강중</b>
+                    <?php } else { ?>
+                      <b><?= number_format($item->price); ?></b>원
+                    <?php } ?>
                   </div>
                   <div class="icon-container">
                     <!-- 빈 하트 -->
                     <i class="bi bi-heart heart-icon <?= in_array($item->leid, $wishlist) ? 'd-none' : ''; ?>" data-leid="<?= $item->leid; ?>"></i>
                     <!-- 채워진 하트 -->
                     <i class="bi bi-heart-fill heart-icon-filled <?= in_array($item->leid, $wishlist) ? '' : 'd-none'; ?>" data-leid="<?= $item->leid; ?>"></i>
-                    <i class="bi bi-cart-plus"></i>
+                    <?php if (!in_array($item->leid, $ongoing_classes)) { ?>
+                      <i class="bi bi-cart-plus"></i>
+                    <?php } ?>
                   </div>
                 </div>
                 <!-- 하 끝 -->
