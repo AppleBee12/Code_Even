@@ -9,7 +9,8 @@ include_once($_SERVER['DOCUMENT_ROOT'] . '/code_even/admin/inc/header.php');
     <h3>글 수정하기</h3>
   </div>
 
-  <form action="/code_even/admin/community/blog_edit_ok.php" method="POST">
+  <form action="/code_even/admin/community/blog_edit_ok.php" method="POST" id="blog_form">
+    <input type="hidden" name="content" id="blog_content">
     <table class="table info_table">
       <tbody>
         <?php
@@ -113,6 +114,12 @@ include_once($_SERVER['DOCUMENT_ROOT'] . '/code_even/admin/inc/header.php');
       history.back(); //formdata가 넘어감, type:button 으로 해결
     }
   }
+
+    // 폼 제출 시 Summernote 내용 hidden으로 넘기기
+    $('#blog_form').on('submit', function() {
+    var blogContent = $('#summernote').summernote('code'); // Summernote 에디터에서 HTML 코드 가져오기
+    $('#blog_content').val(blogContent); // 숨겨진 input에 설정
+  });
 </script>
 <?php
 include_once($_SERVER['DOCUMENT_ROOT'] . '/code_even/admin/inc/footer.php');
@@ -120,6 +127,6 @@ include_once($_SERVER['DOCUMENT_ROOT'] . '/code_even/admin/inc/footer.php');
 <script>
   let target = $('#summernote');
   target.summernote({
-    height: 400,
+    height: 1000,
   });
 </script>
