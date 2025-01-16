@@ -83,11 +83,11 @@ include_once($_SERVER['DOCUMENT_ROOT'] . '/code_even/admin/inc/header.php');
         ?>
       </tbody>
     </table>
+    <div class="d-flex justify-content-end gap-2">
+      <button class="btn btn-outline-danger" onClick="cancle()">취소</button>
+      <button class="btn btn-outline-secondary">수정</button>
+    </div>
   </form>
-  <div class="d-flex justify-content-end gap-2">
-    <a href="javascript:history.back();"><button class="btn btn-outline-danger">취소</button></a>
-    <a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/community/blog_edit_ok.php"><button class="btn btn-outline-secondary">수정</button></a>
-  </div>
 </div>
 
 
@@ -106,6 +106,13 @@ include_once($_SERVER['DOCUMENT_ROOT'] . '/code_even/admin/inc/header.php');
       }
       reader.readAsDataURL(file); 
   });
+
+
+  function cancle() {
+    if (confirm('취소하시겠습니까?')) {
+      history.back(); //formdata가 넘어감, type:button 으로 해결
+    }
+  }
 </script>
 <?php
 include_once($_SERVER['DOCUMENT_ROOT'] . '/code_even/admin/inc/footer.php');
