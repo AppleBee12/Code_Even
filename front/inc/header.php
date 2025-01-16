@@ -262,6 +262,7 @@ if (isset($_GET['code'])) {
     case 'mypage_review_details.php':
     case 'mypage_write_comment.php':
     case 'mypage_wishlist.php':
+    case 'mypage_payment_history.php':
     case 'mypage_copy.php':
       echo '<link rel="stylesheet" href="http://' . $_SERVER['HTTP_HOST'] . '/code_even/front/css/mypage_common.css">';
       break;
@@ -317,7 +318,7 @@ if (isset($_GET['code'])) {
       break;
   }
   switch ($page) { //mypage_payment.css
-    case 'mypage_payment.php':
+    case 'mypage_payment_history.php':
     case 'cart.php':
     case 'checkout.php':
       echo '<link rel="stylesheet" href="http://' . $_SERVER['HTTP_HOST'] . '/code_even/front/css/mypage_payment.css">';
