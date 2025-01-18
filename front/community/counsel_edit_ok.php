@@ -5,6 +5,7 @@ include_once($_SERVER['DOCUMENT_ROOT'] . '/code_even/admin/inc/dbcon.php');
 //print_r($_POST);
 //Array ( [uid] => 3 [contents] =>test [post_id] => 18 [titles] => test [status] => 0 [files] => )
 $uid = $_POST['uid'];
+$post_id = $_POST['post_id'];
 $status = $_POST['status'];
 $titles = $_POST['titles'];
 $likes = $_POST['likes'];
@@ -15,8 +16,9 @@ $hits = $_POST['hits'];
 $contents = $_POST['contents'];
 
 
-$sql = "INSERT INTO counsel (uid, status, titles, contents, likes, comments, hits) 
-        VALUES ('$uid', '$status', '$titles', '$contents', '$likes', '$comments', '$hits')";
+$sql = "UPDATE counsel SET
+        status='$status', titles='$titles', contents='$contents', likes='$likes', comments='$comments', hits='$hits' 
+        WHERE uid='$uid' AND post_id='$post_id'";
 
 
 $result = $mysqli->query($sql);
