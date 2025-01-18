@@ -74,7 +74,7 @@ while ($data = $result->fetch_object()) {
       </p>
 
       <?php if (isset($_SESSION['UID'])): ?>
-        <a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/front/community/counsel_write.php" class="btn btn-danger mb-4 col-1"><i class="bi bi-pencil-fill"></i> 글쓰기
+        <a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/front/community/teamproject_write.php" class="btn btn-danger mb-4 col-1"><i class="bi bi-pencil-fill"></i> 글쓰기
         </a>
       <?php else: ?>
         <!-- 사용자가 로그인하지 않은 경우 -->
