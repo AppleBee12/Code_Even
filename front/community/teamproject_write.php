@@ -83,6 +83,101 @@ $row = $result->fetch_assoc();
               </div>
             </td>
           </tr>
+
+          <tr>
+              <th scope="row">
+              <label for="dev_env">개발 환경 <b>*</b></label>
+              </th>
+              <td>
+                <div class="input-group mb-3">
+                  <input type="text" class="form-control" aria-label="Text input with dropdown button" name="dev_env" id="dev_env">
+                  <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">사용언어를 선택하세요</button>
+                  <ul class="dropdown-menu dropdown-menu-end">
+                    
+                    <li><a class="dropdown-item" href="#">react</a></li>
+                    <li><a class="dropdown-item" href="#">vue</a></li>
+                    <li><a class="dropdown-item" href="#">angular</a></li>                 
+                    <li><a class="dropdown-item" href="#">typescript</a></li>                 
+                    <li><hr class="dropdown-divider"></li>
+                    <li><a class="dropdown-item" href="#">HTML5</a></li>
+                    <li><a class="dropdown-item" href="#">CSS3</a></li>
+                    <li><a class="dropdown-item" href="#">javascript</a></li>
+                    <li><a class="dropdown-item" href="#">j-query</a></li>
+                    <li><hr class="dropdown-divider"></li>
+                    <li><a class="dropdown-item" href="#">android</a></li>
+                    <li><a class="dropdown-item" href="#">ios</a></li>
+                    <li><a class="dropdown-item" href="#">swift</a></li>
+                    <li><hr class="dropdown-divider"></li>
+                    <li><a class="dropdown-item" href="#">wordpress</a></li>
+                    <li><a class="dropdown-item" href="#">docker</a></li>
+                    <li><a class="dropdown-item" href="#">docker</a></li>
+                    <li><a class="dropdown-item" href="#">python</a></li>
+                    <li><a class="dropdown-item" href="#">oracle</a></li>
+                    <li><hr class="dropdown-divider"></li>
+                    <li><a class="dropdown-item" href="#">mongodb</a></li>
+                    <li><a class="dropdown-item" href="#">AWS</a></li>
+                    <li><a class="dropdown-item" href="#">firebase</a></li>
+                    <li><a class="dropdown-item" href="#">git</a></li>
+                    <li><a class="dropdown-item" href="#">googlecloud</a></li>
+                  </ul>
+                </div>
+                <!-- 
+                android angular AWS CSS3 docker figma firebase git googlecloud HTML5
+                ios javascript j-query laravel mongodb oracle python react swift 
+                typescript vue wordpress 
+                -->
+              </td>
+              <th scope="row">
+                <label for="durations">예상 기간 <b>*</b></label>
+              </th>
+              <td class="d-flex gap-3">
+              <div class="form-check d-flex align-items-center radio">
+                <input class="form-check-input" type="radio" name="durations" id="durations" value="단기(1~2개월)" checked>
+                <label class="form-check-label" for="durations">
+                단기(1~2개월)
+                </label>
+              </div>
+              <div class="form-check d-flex align-items-center radio">
+                <input class=" form-check-input" type="radio" name="durations" id="durations" value="중기(3~6개월)">
+                <label class="form-check-label" for="durations">
+                중기(3~6개월)
+                </label>
+              </div>
+              <div class="form-check d-flex align-items-center radio">
+                <input class=" form-check-input" type="radio" name="durations" id="durations" value="장기(6개월이상)">
+                <label class="form-check-label" for="durations">
+                장기(6개월이상)
+                </label>
+              </div>
+            </td>
+            </tr>
+
+            <tr>
+              <th scope="row">
+                <label for="contact_url">지원 방법 <b>*</b></label>
+              </th>
+              <td>
+                <input type="text" id="contact_url" name="contact_url" class="form-control" placeholder="제목을 입력해주세요.">
+              </td>
+              <th scope="row">
+                <label for="selectedRoles">모집 분야 <b>*</b></label>
+              </th>
+              <td>
+                <!-- 모집분야(비트플래그 방식),기획자,디자이너,프론트엔드,백엔드,기타 -->
+                 
+              </td>
+            </tr>
+
+            <tr>
+              <th scope="row">
+                글 내용
+              </th>
+              <td colspan="3">
+                <?= $row['contents'] ?>
+              </td>
+            </tr>
+
+
         </tbody>
       </table>
     </form>
