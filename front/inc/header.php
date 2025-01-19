@@ -337,6 +337,7 @@ if (isset($_GET['code'])) {
       echo '<link rel="stylesheet" href="http://' . $_SERVER['HTTP_HOST'] . '/code_even/front/css/service.css">';
       break;
   }
+
   ?>
 
   <!-- jquery, swiper 제외한 모든 js는 푸터 -->
@@ -344,7 +345,22 @@ if (isset($_GET['code'])) {
     integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="
     crossorigin="anonymous" referrerpolicy="no-referrer"></script>
   <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+<?php
 
+  switch ($page) { //teamproject_write.css
+    case 'teamproject_write.php':
+      echo '<script type="text/javascript" src="http://' . $_SERVER['HTTP_HOST'] . '/code_even/front/js/bootstrap-multiselect.js"></script>';
+      break;
+  }
+
+  switch ($page) { //teamproject_write.css
+    case 'teamproject_write.php':
+      echo '<link rel="stylesheet" href="http://' . $_SERVER['HTTP_HOST'] . '/code_even/front/css/bootstrap-multiselect.css" type="text/css">
+      <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+      ';
+      break;
+  }
+?>
 
 </head>
 
