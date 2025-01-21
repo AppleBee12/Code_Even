@@ -95,8 +95,24 @@ $row = $result->fetch_assoc();
                   <option value="vue">vue</option>
                   <option value="angular">angular</option>
                   <option value="typescript">typescript</option>
+                  <option value="HTML5">HTML5</option>
+                  <option value="CSS3">CSS3</option>
+                  <option value="javascript">javascript</option>
+                  <option value="j-query">j-query</option>
+                  <option value="android">android</option>
+                  <option value="ios">ios</option>
+                  <option value="swift">swift</option>
+                  <option value="wordpress">wordpress</option>
+                  <option value="docker">docker</option>
+                  <option value="python">python</option>
+                  <option value="oracle">oracle</option>
+                  <option value="mongodb">mongodb</option>
+                  <option value="AWS">AWS</option>
+                  <option value="firebase">firebase</option>
+                  <option value="git">git</option>
+                  <option value="googlecloud">googlecloud</option>
                 </select>
-                <p class="select_item">선택: react</p>
+                <p class="select_item">선택: </p>
                  <!-- <select id="dev_env" multiple="multiple" tabindex="-1">
                     <option value="cheese" data-multiselectid="multiselect_jwyrv5g1r1b_0_0">Cheese</option>
                     <option value="tomatoes" data-multiselectid="multiselect_jwyrv5g1r1b_0_1">Tomatoes</option>
@@ -127,26 +143,6 @@ $row = $result->fetch_assoc();
                   </select> -->
                 
                   <!-- <ul class="dropdown-menu dropdown-menu-end">
-                    
-                    <li><a class="dropdown-item" href="#">react</a></li>
-                    <li><a class="dropdown-item" href="#">vue</a></li>
-                    <li><a class="dropdown-item" href="#">angular</a></li>                 
-                    <li><a class="dropdown-item" href="#">typescript</a></li>                 
-                    <li><hr class="dropdown-divider"></li>
-                    <li><a class="dropdown-item" href="#">HTML5</a></li>
-                    <li><a class="dropdown-item" href="#">CSS3</a></li>
-                    <li><a class="dropdown-item" href="#">javascript</a></li>
-                    <li><a class="dropdown-item" href="#">j-query</a></li>
-                    <li><hr class="dropdown-divider"></li>
-                    <li><a class="dropdown-item" href="#">android</a></li>
-                    <li><a class="dropdown-item" href="#">ios</a></li>
-                    <li><a class="dropdown-item" href="#">swift</a></li>
-                    <li><hr class="dropdown-divider"></li>
-                    <li><a class="dropdown-item" href="#">wordpress</a></li>
-                    <li><a class="dropdown-item" href="#">docker</a></li>
-                    <li><a class="dropdown-item" href="#">docker</a></li>
-                    <li><a class="dropdown-item" href="#">python</a></li>
-                    <li><a class="dropdown-item" href="#">oracle</a></li>
                     <li><hr class="dropdown-divider"></li>
                     <li><a class="dropdown-item" href="#">mongodb</a></li>
                     <li><a class="dropdown-item" href="#">AWS</a></li>
@@ -265,21 +261,21 @@ $row = $result->fetch_assoc();
   });
 </script>
 
-<script type="text/javascript">
-    
-  //$('#example-getting-started').multiselect();
-  const devEnv = () => document.querySelector('#dev_env');
-  const devEnvSelectItem = () => document.querySelector('.select_item');
-  devEnv.addEventListener('change', (e)=>{
+<script>    
+  const devEnv = document.querySelector('#dev_env');
+  //$devEnv.multiselect();
+  const devEnvSelectItem = document.querySelector('.select_item');
+  devEnv.addEventListener('change', (e) => {
     const options = e.currentTarget.options
-    const index = options.selectedIndex
-    p.textContent = `선택: ${options[index].textContent}`
-
-    console.log(options);
-    console.log(index);
+    const devEnvList = []
+    for (const option of options){
+      if (option.selected){
+        devEnvList.push(option.textContent)
+      }
+    }
+    // const index = options.selectedIndex
+    devEnvSelectItem.textContent = `선택: ${devEnvList.join(', ')}`
   })
-
-    
 </script>
 
 <?php include_once($_SERVER['DOCUMENT_ROOT'] . '/code_even/front/inc/footer.php');
