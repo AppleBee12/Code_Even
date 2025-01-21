@@ -86,27 +86,37 @@ $row = $result->fetch_assoc();
 
           <tr>
               <th scope="row">
-                <label for="example-getting-started">개발 환경 <b>*</b></label>
+                <label for="dev_env">개발 환경 <b>*</b></label>
               </th>
               <td>
                 
-                <!-- <select id="example-getting-started" multiple="multiple">
-                    <option value="cheese">Cheese</option>
-                    <option value="tomatoes">Tomatoes</option>
-                    <option value="mozarella">Mozzarella</option>
-                    <option value="mushrooms">Mushrooms</option>
-                    <option value="pepperoni">Pepperoni</option>
-                    <option value="onions">Onions</option>
-                </select> -->
-                <select id="example-getting-started" multiple="multiple" tabindex="-1">
-                                    <option value="cheese" data-multiselectid="multiselect_jwyrv5g1r1b_0_0">Cheese</option>
-                                    <option value="tomatoes" data-multiselectid="multiselect_jwyrv5g1r1b_0_1">Tomatoes</option>
-                                    <option value="Mozzarella" data-multiselectid="multiselect_jwyrv5g1r1b_0_2">Mozzarella</option>
-                                    <option value="Mushrooms" data-multiselectid="multiselect_jwyrv5g1r1b_0_3">Mushrooms</option>
-                                    <option value="Pepperoni" data-multiselectid="multiselect_jwyrv5g1r1b_0_4">Pepperoni</option>
-                                    <option value="Onions" data-multiselectid="multiselect_jwyrv5g1r1b_0_5">Onions</option>
-                                </select>
-                <div class="btn-group show"><button type="button" class="multiselect dropdown-toggle custom-select text-center" data-toggle="dropdown" title="None selected" aria-expanded="true"><span class="multiselect-selected-text">None selected</span></button><div class="multiselect-container dropdown-menu show" style="position: absolute; transform: translate3d(0px, 38px, 0px); top: 0px; left: 0px; will-change: transform;" x-placement="bottom-start"><button type="button" class="multiselect-option dropdown-item" title="Cheese"><span class="form-check"><input class="form-check-input" type="checkbox" value="cheese" id="multiselect_jwyrv5g1r1b_0_0"><label class="form-check-label" for="multiselect_jwyrv5g1r1b_0_0">Cheese</label></span></button><button type="button" class="multiselect-option dropdown-item" title="Tomatoes"><span class="form-check"><input class="form-check-input" type="checkbox" value="tomatoes" id="multiselect_jwyrv5g1r1b_0_1"><label class="form-check-label" for="multiselect_jwyrv5g1r1b_0_1">Tomatoes</label></span></button><button type="button" class="multiselect-option dropdown-item" title="Mozzarella"><span class="form-check"><input class="form-check-input" type="checkbox" value="Mozzarella" id="multiselect_jwyrv5g1r1b_0_2"><label class="form-check-label" for="multiselect_jwyrv5g1r1b_0_2">Mozzarella</label></span></button><button type="button" class="multiselect-option dropdown-item" title="Mushrooms"><span class="form-check"><input class="form-check-input" type="checkbox" value="Mushrooms" id="multiselect_jwyrv5g1r1b_0_3"><label class="form-check-label" for="multiselect_jwyrv5g1r1b_0_3">Mushrooms</label></span></button><button type="button" class="multiselect-option dropdown-item" title="Pepperoni"><span class="form-check"><input class="form-check-input" type="checkbox" value="Pepperoni" id="multiselect_jwyrv5g1r1b_0_4"><label class="form-check-label" for="multiselect_jwyrv5g1r1b_0_4">Pepperoni</label></span></button><button type="button" class="multiselect-option dropdown-item" title="Onions"><span class="form-check"><input class="form-check-input" type="checkbox" value="Onions" id="multiselect_jwyrv5g1r1b_0_5"><label class="form-check-label" for="multiselect_jwyrv5g1r1b_0_5">Onions</label></span></button></div></div>
+                <select id="dev_env" name="dev_env" multiple required>
+                  <option value="react">react</option>
+                  <option value="vue">vue</option>
+                  <option value="angular">angular</option>
+                  <option value="typescript">typescript</option>
+                </select>
+                <p class="select_item">선택: react</p>
+                 <!-- <select id="dev_env" multiple="multiple" tabindex="-1">
+                    <option value="cheese" data-multiselectid="multiselect_jwyrv5g1r1b_0_0">Cheese</option>
+                    <option value="tomatoes" data-multiselectid="multiselect_jwyrv5g1r1b_0_1">Tomatoes</option>
+                    <option value="Mozzarella" data-multiselectid="multiselect_jwyrv5g1r1b_0_2">Mozzarella</option>
+                    <option value="Mushrooms" data-multiselectid="multiselect_jwyrv5g1r1b_0_3">Mushrooms</option>
+                    <option value="Pepperoni" data-multiselectid="multiselect_jwyrv5g1r1b_0_4">Pepperoni</option>
+                    <option value="Onions" data-multiselectid="multiselect_jwyrv5g1r1b_0_5">Onions</option>
+                  </select>
+                <div class="btn-group show">
+                  <button type="button" class="multiselect dropdown-toggle custom-select text-center" data-toggle="dropdown" title="None selected" aria-expanded="true">
+                    <span class="multiselect-selected-text">None selected</span>
+                  </button>
+                <div class="multiselect-container dropdown-menu show" style="position: absolute; transform: translate3d(0px, 38px, 0px); top: 0px; left: 0px; will-change: transform;" x-placement="bottom-start">
+                  <button type="button" class="multiselect-option dropdown-item" title="Cheese">
+                    <span class="form-check">
+                      <input class="form-check-input" type="checkbox" value="cheese" id="multiselect_jwyrv5g1r1b_0_0">
+                      <label class="form-check-label" for="multiselect_jwyrv5g1r1b_0_0">Cheese</label>
+                    </span>
+                  </button>
+                  <button type="button" class="multiselect-option dropdown-item" title="Pepperoni"><span class="form-check"><input class="form-check-input" type="checkbox" value="Pepperoni" id="multiselect_jwyrv5g1r1b_0_4"><label class="form-check-label" for="multiselect_jwyrv5g1r1b_0_4">Pepperoni</label></span></button><button type="button" class="multiselect-option dropdown-item" title="Onions"><span class="form-check"><input class="form-check-input" type="checkbox" value="Onions" id="multiselect_jwyrv5g1r1b_0_5"><label class="form-check-label" for="multiselect_jwyrv5g1r1b_0_5">Onions</label></span></button></div></div> -->
                   <!-- <input type="text" class="form-control" aria-label="Text input with dropdown button" name="tags" id="tags" required> -->
                 
                   <!-- <select class="form-select" id="tags" name="dev_env[]" multiple="multiple" size="2" style="width: 100%;" required>
@@ -257,7 +267,18 @@ $row = $result->fetch_assoc();
 
 <script type="text/javascript">
     
-  $('#example-getting-started').multiselect();
+  //$('#example-getting-started').multiselect();
+  const devEnv = () => document.querySelector('#dev_env');
+  const devEnvSelectItem = () => document.querySelector('.select_item');
+  devEnv.addEventListener('change', (e)=>{
+    const options = e.currentTarget.options
+    const index = options.selectedIndex
+    p.textContent = `선택: ${options[index].textContent}`
+
+    console.log(options);
+    console.log(index);
+  })
+
     
 </script>
 
