@@ -88,10 +88,38 @@ $row = $result->fetch_assoc();
               <th scope="row">
                 <label for="dev_env">개발 환경 <b>*</b></label>
               </th>
-              <td>
-                
-                <select id="dev_env" name="dev_env" multiple required>
-                  <option value="react">react</option>
+              <td class="d-flex justify-content-between">
+                <p class="select_item">선택: </p>
+                <div id="dev_env" name="dev_env" class="dropdown">
+                  <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+                    개발 환경을 골라주세요 (최대5개)
+                  </button>
+                  <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                    <li>
+                      <div class="form-check">
+                        <input class="form-check-input" type="checkbox" id="react" value="react">
+                        <label class="form-check-label" for="react">React</label>
+                      </div>
+                    </li>
+                    <li>
+                      <div class="form-check">
+                        <input class="form-check-input" type="checkbox" id="vue" value="vue">
+                        <label class="form-check-label" for="vue">Vue</label>
+                      </div>
+                    </li>
+                    <li>
+                      <div class="form-check">
+                        <input class="form-check-input" type="checkbox" id="angular" value="angular">
+                        <label class="form-check-label" for="angular">angular</label>
+                      </div>
+                    </li>
+                  </ul>
+                </div>  
+
+                <!-- <select id="dev_env" name="dev_env" multiple required>
+                  <option value="react">
+                    react  
+                  </option>
                   <option value="vue">vue</option>
                   <option value="angular">angular</option>
                   <option value="typescript">typescript</option>
@@ -111,28 +139,7 @@ $row = $result->fetch_assoc();
                   <option value="firebase">firebase</option>
                   <option value="git">git</option>
                   <option value="googlecloud">googlecloud</option>
-                </select>
-                <p class="select_item">선택: </p>
-                 <!-- <select id="dev_env" multiple="multiple" tabindex="-1">
-                    <option value="cheese" data-multiselectid="multiselect_jwyrv5g1r1b_0_0">Cheese</option>
-                    <option value="tomatoes" data-multiselectid="multiselect_jwyrv5g1r1b_0_1">Tomatoes</option>
-                    <option value="Mozzarella" data-multiselectid="multiselect_jwyrv5g1r1b_0_2">Mozzarella</option>
-                    <option value="Mushrooms" data-multiselectid="multiselect_jwyrv5g1r1b_0_3">Mushrooms</option>
-                    <option value="Pepperoni" data-multiselectid="multiselect_jwyrv5g1r1b_0_4">Pepperoni</option>
-                    <option value="Onions" data-multiselectid="multiselect_jwyrv5g1r1b_0_5">Onions</option>
-                  </select>
-                <div class="btn-group show">
-                  <button type="button" class="multiselect dropdown-toggle custom-select text-center" data-toggle="dropdown" title="None selected" aria-expanded="true">
-                    <span class="multiselect-selected-text">None selected</span>
-                  </button>
-                <div class="multiselect-container dropdown-menu show" style="position: absolute; transform: translate3d(0px, 38px, 0px); top: 0px; left: 0px; will-change: transform;" x-placement="bottom-start">
-                  <button type="button" class="multiselect-option dropdown-item" title="Cheese">
-                    <span class="form-check">
-                      <input class="form-check-input" type="checkbox" value="cheese" id="multiselect_jwyrv5g1r1b_0_0">
-                      <label class="form-check-label" for="multiselect_jwyrv5g1r1b_0_0">Cheese</label>
-                    </span>
-                  </button>
-                  <button type="button" class="multiselect-option dropdown-item" title="Pepperoni"><span class="form-check"><input class="form-check-input" type="checkbox" value="Pepperoni" id="multiselect_jwyrv5g1r1b_0_4"><label class="form-check-label" for="multiselect_jwyrv5g1r1b_0_4">Pepperoni</label></span></button><button type="button" class="multiselect-option dropdown-item" title="Onions"><span class="form-check"><input class="form-check-input" type="checkbox" value="Onions" id="multiselect_jwyrv5g1r1b_0_5"><label class="form-check-label" for="multiselect_jwyrv5g1r1b_0_5">Onions</label></span></button></div></div> -->
+                </select> -->
                   <!-- <input type="text" class="form-control" aria-label="Text input with dropdown button" name="tags" id="tags" required> -->
                 
                   <!-- <select class="form-select" id="tags" name="dev_env[]" multiple="multiple" size="2" style="width: 100%;" required>
@@ -262,20 +269,32 @@ $row = $result->fetch_assoc();
 </script>
 
 <script>    
-  const devEnv = document.querySelector('#dev_env');
-  //$devEnv.multiselect();
+// 옵션:개발 환경, 다중 선택가능한 드롭다운 옵션
+  // const devEnv = document.querySelector('#dev_env');
   const devEnvSelectItem = document.querySelector('.select_item');
-  devEnv.addEventListener('change', (e) => {
-    const options = e.currentTarget.options
-    const devEnvList = []
-    for (const option of options){
-      if (option.selected){
-        devEnvList.push(option.textContent)
-      }
-    }
-    // const index = options.selectedIndex
-    devEnvSelectItem.textContent = `선택: ${devEnvList.join(', ')}`
-  })
+  const devCheckboxes = document.querySelectorAll('#dev_env .form-check-input')
+
+  devCheckboxes.forEach((devcheckbox) => {
+    devcheckbox.addEventListener('change', () => {
+      const selected = Array.from(devCheckboxes)
+        .filter((input) => input.checked)
+        .map((input) => input.nextElementSibling.textContent.trim());
+      devEnvSelectItem.textContent = `선택: ${selected.join(', ')}`;
+    });
+  });
+
+  // devEnv.addEventListener('change', (e) => {
+  //   const options = e.currentTarget.options
+  //   const devEnvList = []
+  
+  //   for (const option of options){
+  //     if (option.selected){
+  //       devEnvList.push(option.textContent)
+  //     }
+  //   }
+  //   // const index = options.selectedIndex
+  //   devEnvSelectItem.textContent = `선택: ${devEnvList.join(', ')}`
+  // })
 </script>
 
 <?php include_once($_SERVER['DOCUMENT_ROOT'] . '/code_even/front/inc/footer.php');
