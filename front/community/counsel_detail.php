@@ -192,38 +192,35 @@ if (!isset($_SESSION[$hit]) || $_SESSION[$hit] < strtotime('today')) {
     if ($result_comment->num_rows > 0) {
       while ($row_comment = $result_comment->fetch_assoc()) {
     ?>
-        <div class="comment_write col-11">
-          <div class="comment_title d-flex">
-            <img src="../images/profile.png" alt="이븐학생 프로필 사진">
-            <div class="d-flex flex-column justify-content-evenly">
-              <p class="headt6"><?= $row_comment['display_name'] ?></p>
-              <p><?= $row_comment['regdate'] ?></p>
-            </div>
-          </div>
-          <div class="comment_text">
-            <?= $row_comment['contents'] ?>
-          </div>
-          <div class="btn_wrapper">
-            <div class="d-flex justify-content-end gap-2">
-
-              <?php
-              if (isset($_SESSION['UID'])) {
-                $logged_in_uid = $_SESSION['UID'];
-              } else {
-                $logged_in_uid = null;
-              }
-
-              if ($logged_in_uid == $row['uid']) {
-              ?>
-              <a href="http://<?= $_SERVER['HTTP_HOST'] ?>/code_even/front/community/submit_comment_edit.php" class="btn btn-outline-secondary">수정</a>
-              <a href="http://<?= $_SERVER['HTTP_HOST'] ?>/code_even/front/community/submit_comment_delete.php" class="btn btn-danger">삭제</a>
-          
-              <?php
-              }
-              ?>
-            </div>
-          </div>
+    <div class="comment_write col-11">
+      <div class="comment_title d-flex">
+        <img src="../images/profile.png" alt="이븐학생 프로필 사진">
+        <div class="d-flex flex-column justify-content-evenly">
+          <p class="headt6"><?= $row_comment['display_name'] ?></p>
+          <p><?= $row_comment['regdate'] ?></p>
         </div>
+      </div>
+      <div class="comment_text">
+        <?= $row_comment['contents'] ?>
+      </div>
+      <div class="d-flex justify-content-end gap-2">
+        <?php
+          if (isset($_SESSION['UID'])) {
+            $logged_in_uid = $_SESSION['UID'];
+          } else {
+            $logged_in_uid = null;
+          }
+
+          if ($logged_in_uid == $row_comment['uid']) {
+        ?>
+        <a href="http://<?= $_SERVER['HTTP_HOST'] ?>/code_even/front/community/submit_comment_edit.php?commid=<?= $row_comment['commid'] ?>" class="btn btn-outline-secondary">수정</a>
+        <a href="http://<?= $_SERVER['HTTP_HOST'] ?>/code_even/front/community/submit_comment_delete.php?commid=<?= $row_comment['commid'] ?>" class="btn btn-danger">삭제</a>
+    
+        <?php
+        }
+        ?>
+      </div>
+    </div>
     <?php
       }
     } else {
