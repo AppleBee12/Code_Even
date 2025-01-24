@@ -292,6 +292,26 @@ if (!isset($_SESSION[$hit]) || $_SESSION[$hit] < strtotime('today')) {
             <div class="comment_text">
               <?= $row_comment['contents'] ?>
             </div>
+            <div class="btn_wrapper">
+            <div class="d-flex justify-content-end gap-2">
+
+              <?php
+              if (isset($_SESSION['UID'])) {
+                $logged_in_uid = $_SESSION['UID'];
+              } else {
+                $logged_in_uid = null;
+              }
+
+              if ($logged_in_uid == $row['uid']) {
+              ?>
+              <a href="http://<?= $_SERVER['HTTP_HOST'] ?>/code_even/front/community/submit_comment_edit.php" class="btn btn-outline-secondary">수정</a>
+              <a href="http://<?= $_SERVER['HTTP_HOST'] ?>/code_even/front/community/submit_comment_delete.php" class="btn btn-danger">삭제</a>
+          
+              <?php
+              }
+              ?>
+            </div>
+          </div>
           </div>
       <?php
         }
