@@ -82,8 +82,8 @@ while ($data = $result->fetch_object()) {
             <tr>
               <th scope="row"><?= $tp->post_id ?></th>
               <td><?= $tp->usernick ?></td>
-              <td><a href="#" class="d-inline-block text-truncate"><?= strip_tags($tp->titles) ?></a></td>
-              <td><a href="#" class="d-inline-block text-truncate"><?= strip_tags($tp->contents) ?></a></td>
+              <td><a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/community/team_project_edit.php?post_id=<?= $tp->post_id ?>" class="d-inline-block text-truncate"><?= strip_tags($tp->titles) ?></a></td>
+              <td><a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/community/team_project_edit.php?post_id=<?= $tp->post_id ?>" class="d-inline-block text-truncate"><?= strip_tags($tp->contents) ?></a></td>
               <td>
                 <?= $tp->status == '모집중' ?
                   '<span class="badge text-bg-light">모집중</span>'
@@ -113,7 +113,6 @@ while ($data = $result->fetch_object()) {
 
     </table>
     <!-- //table -->
-    <!-- <button type="button" class="btn btn-outline-secondary ms-auto d-block">일괄수정</button> -->
   </form>
 
   <!-- //Pagination -->
