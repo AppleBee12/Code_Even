@@ -10,7 +10,7 @@ if ($result) {
     "<script>
         if (confirm('글을 삭제하시겠습니까?')){
         alert('삭제가 완료되었습니다.');
-        location.href='counsel.php';
+        location.href='blog.php';
       }else{
         alert('취소되었습니다.');
         history.back();
