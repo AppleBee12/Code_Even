@@ -1,8 +1,8 @@
 <?php
 include_once($_SERVER['DOCUMENT_ROOT'] . '/code_even/admin/inc/dbcon.php');
+include_once($_SERVER['DOCUMENT_ROOT'].'/code_even/admin/inc/img_upload_func.php');
 
-
-//print_r($_POST);
+print_r($_POST);
 
 if (!isset($_POST['post_id']) || !is_numeric($_POST['post_id'])) {
     echo "<script>
@@ -17,6 +17,7 @@ $titles = $_POST['titles'];
 $content = rawurldecode($_POST['content']);
 
 //썸네일 처리
+$thumbnailPath = null;
 if (!empty($_FILES['thumbnails']['name'])) {
 
     //상위 디렉토리 이름 가져오기(예: 'blog')
@@ -44,21 +45,21 @@ $sql = "UPDATE blog SET
     $sql .= ", thumbnails = '$thumbnailPath'";
 }
 
-// sql에 WHERE 절 추가, 실행
-$sql .= "WHERE post_id = '$post_id'"; 
+//WHERE 절 추가
+$sql .= " WHERE post_id = '$post_id'"; 
 $result = $mysqli->query($sql);
 
-//echo $sql;
+echo $sql;
 
-if ($result === TRUE) {
-  echo "<script>
-            alert('수정이 완료되었습니다.');
-            location.href = '/code_even/admin/community/blog.php';
-         </script>";
-  exit;
-  } else {
-  echo "Error: " . $sql . "<br>" . $result->error;
-}
+// if ($result === TRUE) {
+//   echo "<script>
+//             alert('수정이 완료되었습니다.');
+//             location.href = '/code_even/admin/community/blog.php';
+//          </script>";
+//   exit;
+//   } else {
+//   echo "Error: " . $sql . "<br>" . $result->error;
+// }
 
 
 ?>  
