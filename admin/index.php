@@ -56,6 +56,9 @@ $latestMonthNames = array_map(
 $latestMonthNamesJson = json_encode($latestMonthNames);
 $latestCountsJson = json_encode($latestCounts);
 
+
+//오늘 날짜를 기준으로한 달 데이터
+$thisMonth = date('m월');
 ?>
 
 
@@ -115,7 +118,9 @@ $latestCountsJson = json_encode($latestCounts);
 <div class="container">
   <div class="top_wrapper d-flex justify-content-between">
     <div>
-      <h3><span class="this-month"></span> 수익</h3>
+      <h3>
+        <span class="this-month"><?= $thisMonth ?></span> 수익
+      </h3>
       <p>7,123,000<span class="top_text"> 원</span></p>
     </div>
     <div>
@@ -144,7 +149,9 @@ $latestCountsJson = json_encode($latestCounts);
       <div class="sellcost_best_table">
         <div class="d-flex justify-content-between">
           <h3>판매 금액 BEST 강좌</h3>
-          <p class="month"><span class="this-month"></span> 현황</p>
+          <p class="month">
+            <span class="this-month"><?= $thisMonth ?></span> 현황
+          </p>
         </div>
         <div class="row g-0 text-center">
           <div class="p-2 col-2 sst">순위</div>
@@ -177,7 +184,9 @@ $latestCountsJson = json_encode($latestCounts);
             data-month-names='<?php echo $latestMonthNamesJson; ?>'
             data-counts='<?php echo $latestCountsJson; ?>'>
             <h3>신규 가입자 현황</h3>
-            <p class="month"><span class="this-month"></span> 현황</p>
+            <p class="month">
+              <span class="this-month"><?= $thisMonth ?></span> 현황
+            </p>
           </div>
           <p>5,412<span class="top_text"> 명</span></p>
           <canvas id="current_six_news" width="400" height="250"></canvas>
@@ -185,7 +194,9 @@ $latestCountsJson = json_encode($latestCounts);
         <div>
           <div class="d-flex justify-content-between">
             <h3>카테고리별 매출 금액</h3>
-            <p class="month"><span class="this-month"></span> 현황</p>
+            <p class="month">
+              <span class="this-month"><?= $thisMonth ?></span> 현황
+            </p>
           </div>
           <p>7,123,000<span class="top_text"> 원</span></p>
           <canvas id="cate_one_return" width="250" height="250"></canvas>
