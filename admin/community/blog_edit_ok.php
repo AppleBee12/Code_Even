@@ -49,17 +49,17 @@ $sql = "UPDATE blog SET
 $sql .= " WHERE post_id = '$post_id'"; 
 $result = $mysqli->query($sql);
 
-echo $sql;
+//echo $sql;
 
-// if ($result === TRUE) {
-//   echo "<script>
-//             alert('수정이 완료되었습니다.');
-//             location.href = '/code_even/admin/community/blog.php';
-//          </script>";
-//   exit;
-//   } else {
-//   echo "Error: " . $sql . "<br>" . $result->error;
-// }
+if ($result === TRUE) {
+  echo "<script>
+            alert('수정이 완료되었습니다.');
+            location.href = '/code_even/admin/community/blog.php';
+         </script>";
+  exit;
+  } else {
+  echo "Error: " . $sql . "<br>" . $result->error;
+}
 
 
 ?>  
