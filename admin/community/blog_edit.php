@@ -9,7 +9,7 @@ include_once($_SERVER['DOCUMENT_ROOT'] . '/code_even/admin/inc/header.php');
     <h3>글 수정하기</h3>
   </div>
 
-  <form action="/code_even/admin/community/blog_edit_ok.php" method="POST" id="blog_form">
+  <form action="/code_even/admin/community/blog_edit_ok.php" method="POST" id="blog_form" enctype="multipart/form-data">
     <input type="hidden" name="content" id="blog_content">
     <table class="table info_table">
       <tbody>
