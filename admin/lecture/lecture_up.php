@@ -25,11 +25,12 @@ if ($result_user && $result_user->num_rows > 0) {
   $user_level = $user_data->user_level;
 
   // user_level이 10인지 확인
-  if ($user_level != 10) {
-    echo "<script>alert('이 페이지에 접근할 권한이 없습니다.');</script>";
-    echo "<script>location.href='/code_even/admin/lecture/lecture_list.php';</script>";
-    exit;
-  }
+  //2024.12 강좌등록도 관리자가 할 수 있도록 회의 함
+  // if ($user_level != 10) {
+  //   echo "<script>alert('이 페이지에 접근할 권한이 없습니다.');</script>";
+  //   echo "<script>location.href='/code_even/admin/lecture/lecture_list.php';</script>";
+  //   exit;
+  // }
 } else {
   echo "<script>alert('사용자 정보를 가져오는 데 실패했습니다. 관리자에게 문의하세요.');</script>";
   echo "<script>location.href='/code_even/admin/lecture/lecture_list.php';</script>";
