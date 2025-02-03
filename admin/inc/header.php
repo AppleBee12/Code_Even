@@ -493,3 +493,32 @@ if ($level == 100) {
       </ul>
     </nav>
     <div class="nav_sibling">
+  
+
+<script>
+document.querySelectorAll('.list-group-item').forEach(item => {
+  item.addEventListener('click', function(event) {
+    // 만약 li 안에 ul이 있다면 (btn-toggle-nav가 있는 경우)
+    const submenu = this.querySelector('.btn-toggle-nav'); 
+    if (submenu) {
+      const button = this.querySelector('button'); // 만약 버튼이 있다면
+      if (button) {
+        button.classList.toggle('collapsed'); // 버튼에서 collapsed 추가/제거
+      
+        //aria-expanded토글
+        const isExpanded = button.getAttribute('aria-expanded') === 'true';
+        button.setAttribute('aria-expanded', isExpanded ? 'false' : 'true');
+        }
+      submenu.classList.toggle('show'); // ul(.btn-toggle-nav)에 show 클래스 추가/제거
+      return;
+    }
+
+    // 현재 li 안에 있는 첫 번째 a 태그의 href 값을 가져옴
+    const link = this.querySelector('a')?.getAttribute('href');
+    if (link) {
+      window.location.href = link;
+    }
+  });
+
+
+</script>
