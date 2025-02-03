@@ -521,4 +521,5 @@ document.querySelectorAll('.list-group-item').forEach(item => {
   });
 
 
+});
 </script>
