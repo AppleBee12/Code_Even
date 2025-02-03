@@ -520,6 +520,18 @@ document.querySelectorAll('.list-group-item').forEach(item => {
     }
   });
 
+  // 버튼 클릭 시 이벤트 버블링 방지 (li의 클릭 이벤트 실행 방지)
+  item.querySelectorAll('button').forEach(button => {
+    button.addEventListener('click', function(event) {
+      event.stopPropagation(); // 클릭 이벤트 전파 방지
+    });
+  });
 
+  // li 내부의 a 태그 클릭 시 이벤트 버블링 방지 (a 직접 클릭 시 중복 이벤트 방지)
+  item.querySelectorAll('a').forEach(aTag => {
+    aTag.addEventListener('click', function(event) {
+      event.stopPropagation();
+    });
+  });
 });
 </script>
