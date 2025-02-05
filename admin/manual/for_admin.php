@@ -7,25 +7,25 @@ include_once($_SERVER['DOCUMENT_ROOT'] . '/code_even/admin/inc/header.php');
 $uid = $_SESSION['UID'];
 
 $mnid = ($level == 100) ? 1 : (($level == 10) ? 20 : null);
-$type = ($level == 100) ? '관리자' : (($level == 10) ? '강사' : null); // 원하는 type
+$type = ($level == 100) ? '관리자' : (($level == 10) ? '강사' : null); 
+// 원하는 type
 
 
-$sql = "
-SELECT *
-FROM 
-    manual AS m
-LEFT JOIN 
-    manual_contents AS mc
-ON 
-    m.mnid = mc.mnnid
-WHERE 
-    m.mnid = $mnid
-    AND mc.type = 'img' -- 이미지 타입만 선택
-GROUP BY 
-    mc.conid
-HAVING 
-    mc.mcid = MIN(mc.mcid) -- mcid가 가장 작은 항목 선택
-";
+$sql = "SELECT *
+        FROM 
+            manual AS m
+        LEFT JOIN 
+            manual_contents AS mc
+        ON 
+            m.mnid = mc.mnnid
+        WHERE 
+            m.mnid = $mnid
+            AND mc.type = 'img' -- 이미지 타입만 선택
+        GROUP BY 
+            mc.conid
+        HAVING 
+            mc.mcid = MIN(mc.mcid) -- mcid가 가장 작은 항목 선택
+        ";
 $result = $mysqli->query($sql);
 
 $rows = []; // 결과를 저장할 배열
@@ -37,21 +37,9 @@ if ($result) {
   }
 }
 
-// echo '<pre>';
-//   print_r($rows); // 출력 결과 확인
-//   echo '</pre>';
-
-// while ($row = $result->fetch_assoc()) {
-//   echo '<pre>';
-//   print_r($row); // 출력 결과 확인
-//   echo '</pre>';
-// }
-
 $menu_admin = ['대시보드', '카테고리 관리', '강좌 관리', '교재 관리', '전체 회원관리', '강사 관리', '수강생 관리', '결제/배송 관리', '쿠폰 관리', '매출/통계 관리', '문의 게시판 관리', '커뮤니티 관리', '상점 관리', '프로필관리'];
 $menu_teacher = ['대시보드', '강좌 관리', '교재 관리', '수강생 관리', '매출통계 관리', '문의 게시판 관리'];
 $menu_items = ($level == 100) ? $menu_admin : $menu_teacher;
-
-// print_r($menu_items)
 
 ?>
 
@@ -59,7 +47,7 @@ $menu_items = ($level == 100) ? $menu_admin : $menu_teacher;
 <div class="container manual-wrap">
   <div class="manual-body">
     <div>
-      <p class="d-flex justify-content-between"><span>관리자님 환영합니다!</span><span>최종 업데이트:2024-11-24</span></p>
+      <p class="d-flex justify-content-between"><span>관리자님 환영합니다!</span><span>최종 업데이트:2025-02-06</span></p>
       <p>이 매뉴얼에서 code even 관리자 사이트에서 사용하는 Dashboard와 각 카테고리에 대한 시스템 관리에 관한 내용을 확인할 수 있습니다.</p>
       <p class="pb-5 border-bottom">아래 목차에서 궁금하신 영역을 클릭하셔서 자세한 설명을 확인하세요.<br />
         추가로 궁금하신 부분은 아래로 문의 주시면 순차적으로 답변드리겠습니다.</p>
