@@ -14,7 +14,7 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
       // Remove the highlight class after 1 second
       setTimeout(() => {
         targetElement.classList.remove('highlighted');
-      }, 1000);
+      }, 3000);
     }
   });
 });
