@@ -86,7 +86,7 @@ include_once($_SERVER['DOCUMENT_ROOT'] . '/code_even/admin/inc/header.php');
       </tbody>
     </table>
     <div class="d-flex justify-content-end gap-2">
-      <button class="btn btn-outline-danger" onClick="cancle()">취소</button>
+      <button type="button" class="btn btn-outline-danger" onClick="cancle()">취소</button>
       <button class="btn btn-outline-secondary">수정</button>
     </div>
   </form>
@@ -94,6 +94,7 @@ include_once($_SERVER['DOCUMENT_ROOT'] . '/code_even/admin/inc/header.php');
 
 
 <script>
+  //섬네일 미리보기
    let thumbnail = $('#thumbnails');
   thumbnail.on('change',(e)=>{
       let file = e.target.files[0];
@@ -109,19 +110,21 @@ include_once($_SERVER['DOCUMENT_ROOT'] . '/code_even/admin/inc/header.php');
       reader.readAsDataURL(file); 
   });
 
-
+  //취소 버튼 클릭시 alert
   function cancle() {
     if (confirm('취소하시겠습니까?')) {
       history.back(); //formdata가 넘어감, type:button 으로 해결
     }
-  }
+  };
+  
 
-    // 폼 제출 시 Summernote 내용 hidden으로 넘기기
-    $('#blog_form').on('submit', function() {
+  // 폼 제출 시 Summernote 내용 hidden으로 넘기기
+  $('#blog_form').on('submit', function() {
     var blogContent = $('#summernote').summernote('code'); // Summernote 에디터에서 HTML 코드 가져오기
     $('#blog_content').val(blogContent); // 숨겨진 input에 설정
   });
 </script>
+
 <?php
 include_once($_SERVER['DOCUMENT_ROOT'] . '/code_even/admin/inc/footer.php');
 ?>
