@@ -2,27 +2,26 @@
 
 .container .top_wrapper {
   width: 1400px;
+}
 
-  div {
-    border: 1px solid var(--bk100);
-    border-radius: 8px;
-    padding: 24px;
-    min-width: 263px;
-  }
+.container .top_wrapper div {
+  border: 1px solid var(--bk100);
+  border-radius: 8px;
+  padding: 24px;
+  min-width: 263px;
+}
 
-  p {
-    font-size: 30px;
-    line-height: 30px;
-    color: var(--bk950);
-    margin-top: 20px;
-  }
+.container .top_wrapper p {
+  font-size: 30px;
+  line-height: 30px;
+  color: var(--bk950);
+  margin-top: 20px;
+}
 
-
-  .top_text {
-    font-size: 20px;
-    line-height: 30px;
-    color: var(--bk600);
-  }
+.container .top_wrapper .top_text {
+  font-size: 20px;
+  line-height: 30px;
+  color: var(--bk600);
 }
 
 
@@ -47,17 +46,18 @@
 
 
 .bott_right {
-  
   height: 632px;
-  .row div{
-    border-top: 1px solid var(--bk100);
-  }
+}
 
-  .month{
-    font-size: 12px;
-  }
-} 
-.bott_right>div:first-child{
+.bott_right .row div {
+  border-top: 1px solid var(--bk100);
+}
+
+.bott_right .month {
+  font-size: 12px;
+}
+
+.bott_right > div:first-child {
   margin-bottom: 20px;
 }
 
@@ -118,8 +118,8 @@
   height: 50px !important;
   width: 57%;
 }
-#exampleModaltest{
 
+#exampleModaltest{
   --bs-modal-width:666px;
 }
 .wrappers h1{
@@ -134,14 +134,16 @@
 
 .modal-header {
   border-bottom: none;
-  .btn-close{
-    margin: 0px;
-    /* margin-left: 185px; */
-  }
 }
+.modal-header .btn-close {
+  margin: 0px;
+  /* margin-left: 185px; */
+}
+
 .modal-footer{
   border-top: none;
 }
+
 .loginbtn{
   background: var(--red800);
   color:  var(--red0);
