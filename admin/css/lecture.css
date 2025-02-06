@@ -79,19 +79,19 @@ td {
   visibility: visible;
 }
 
-.video{
+.video {
   margin-top: 10px;
   height: 48px;
   background-color: var(--bk50);
   border-color: var(--200);
+}
 
-  h5{
-    margin-left: 24px;
-  }
+.video h5 {
+  margin-left: 24px;
+}
 
-  i{
-    margin-right: 24px;
-  }
+.video i {
+  margin-right: 24px;
 }
 
 .quiz-select {
@@ -126,15 +126,14 @@ td {
 height: 38px;
 }
 
-.editImg{
+.editImg {
   display: flex;
   justify-content: center;
+}
 
-  img{
-    width: 300px;
-  }
-} 
-
+.editImg img {
+  width: 300px;
+}
 
 .file-label {
   width: 100%;

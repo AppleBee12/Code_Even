@@ -88,13 +88,12 @@ i{
 }
 
 /* 검색창 */
-
-.lesearch{
+.lesearch {
   background-color: var(--bk700);
+}
 
-  i{
-    color: var(--bk0);
-  }
+.lesearch i {
+  color: var(--bk0);
 }
 
 .lesearch:hover{

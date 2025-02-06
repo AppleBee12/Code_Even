@@ -19,15 +19,14 @@
 .manual_ul{
   flex-wrap: wrap;
   padding-left: 15px; 
+}
   
-  li{
-    margin-bottom: 30px;
-  }
+.manual_ul li{
+  margin-bottom: 30px;
 }
 
 .manual-wrap .manual-item img.manual-img{
   width: 100%;
-
 }
 
 
