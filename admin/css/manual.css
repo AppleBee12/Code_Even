@@ -54,5 +54,5 @@
 
 .highlighted {
   border: 5px solid var(--primary);
-  animation: highlight-border 2s ease-out;
+  animation: highlight-border 2s ease-in-out;
 }
