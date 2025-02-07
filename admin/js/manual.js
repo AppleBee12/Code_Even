@@ -13,10 +13,10 @@ document.addEventListener("DOMContentLoaded", function () {
         // 클래스 highlight 추가
         targetElement.classList.add('highlighted');
 
-        // 2초 뒤 클래스 highlight 제거
-        setTimeout(() => {
+        // 애니메이션 종료 후 클래스 highlight 제거 (이벤트는 한번만 실행토록 설정)
+        targetElement.addEventListener('animationend', () => {
           targetElement.classList.remove('highlighted');
-        }, 2000);
+        }, { once: true });
       }
     });
   });
