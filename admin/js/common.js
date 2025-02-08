@@ -1,22 +1,16 @@
 document.addEventListener("DOMContentLoaded", function () {
 
-  
-    const alertBox = document.querySelector(".alarm .alert");
-    const bellIcon = document.querySelector(".bi-bell");
+  const alertBox = document.querySelector(".alarm .alert");
+  const toggleElements = document.querySelectorAll(".alarm .bi-bell, .alarm .badge, .alarm button.close");
 
-    function showAlert(e) {
-        e.stopPropagation();
-        alertBox.classList.toggle("fade");
-        alertBox.classList.toggle("show");
-    }
 
-    const badge = document.querySelector(".alarm .badge");
-    const closeButton = document.querySelector("button.close");
-  
-    badge.addEventListener("click", showAlert);
-    closeButton.addEventListener("click", showAlert);
-    bellIcon.addEventListener("click", showAlert);
+  function showAlert(e) {
+      e.stopPropagation();
+      alertBox.classList.toggle("fade");
+      alertBox.classList.toggle("show");
+  }
 
+  toggleElements.forEach(element => element.addEventListener("click", showAlert));
 
 
   const path = window.location.pathname.split("/");//왜 빈값이 생길까?
