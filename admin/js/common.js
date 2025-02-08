@@ -2,18 +2,10 @@ document.addEventListener("DOMContentLoaded", function () {
 
   
     const alertBox = document.querySelector(".alarm .alert");
+    const bellIcon = document.querySelector(".bi-bell");
 
-    // 클릭 이벤트 핸들러
-    // function showAlert() {
-    //   if (alertBox.classList.contains("fade")) {
-    //     alertBox.classList.remove("fade");
-    //     alertBox.classList.add("show");
-    //   }else if(alertBox.classList.contains("show")){
-    //     alertBox.classList.remove("show");
-    //     alertBox.classList.add("fade");
-    //   }
-    // }
-    function showAlert() {
+    function showAlert(e) {
+        e.stopPropagation();
         alertBox.classList.toggle("fade");
         alertBox.classList.toggle("show");
     }
@@ -23,6 +15,7 @@ document.addEventListener("DOMContentLoaded", function () {
   
     badge.addEventListener("click", showAlert);
     closeButton.addEventListener("click", showAlert);
+    bellIcon.addEventListener("click", showAlert);
 
 
 
