@@ -292,6 +292,7 @@ if (isset($_GET['code'])) {
     case 'teamproject_write.php':
     case 'teamproject_edit.php':
     case 'blog.php':
+    case 'blog_detail.php':
       echo '<link rel="stylesheet" href="http://' . $_SERVER['HTTP_HOST'] . '/code_even/front/css/community.css">';
       break;
   }
