@@ -229,13 +229,6 @@ if (!isset($_SESSION[$hit]) || $_SESSION[$hit] < strtotime('today')) {
         ?>
         <div href="" class="btn btn-outline-secondary">수정</div>
         <div href="" class="btn btn-danger">삭제</div>
-    <!-- 
-    수정 삭제시 contents 이동 경로    
-    http://
-     $_SERVER['HTTP_HOST']
-     /code_even/front/community/submit_comment_edit.php?commid=
-     $row_comment['commid']
-     -->
         <?php
         }
         ?>
