@@ -202,12 +202,13 @@ if (!isset($_SESSION[$hit]) || $_SESSION[$hit] < strtotime('today')) {
         </div>
       </div>
       <div class="comment_text">
-        <?= $row_comment['contents'] ?>
+        <?= nl2br(htmlspecialchars($row_comment['contents'])); ?>
       </div>
 
       <!-- 숨겨진 댓글 수정 폼 -->
       <!-- 클릭시 comment_text, modify-btn display 숨기고 commtent-modify는 display block -->
-      <form action="" class="commtent-modify" style="display:none;">
+      <form action="" class="commtent-modify" >
+      <!-- style="display:none;"> -->
         <textarea class="form-control edit-contents"><?= htmlspecialchars($row_comment['contents']); ?></textarea>
         <div class="d-flex justify-content-end gap-2 mt-2">
           <button type="button" class="btn btn-secondary save-comment">저장</button>
@@ -227,8 +228,8 @@ if (!isset($_SESSION[$hit]) || $_SESSION[$hit] < strtotime('today')) {
 
           if ($logged_in_uid == $row_comment['uid']) {
         ?>
-        <div href="" class="btn btn-outline-secondary">수정</div>
-        <div href="" class="btn btn-danger">삭제</div>
+        <div class="btn btn-outline-secondary">수정</div>
+        <div class="btn btn-danger">삭제</div>
         <?php
         }
         ?>
