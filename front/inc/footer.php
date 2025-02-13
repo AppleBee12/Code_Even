@@ -105,6 +105,9 @@ if (isset($main_js)) {
 if (isset($chart_js)) {
   echo $chart_js; 
 }
+if (isset($delete_comment_js)) {
+  echo $delete_comment_js; 
+}
 if (isset($community_js)) {
   echo $community_js; 
 }
