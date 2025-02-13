@@ -21,27 +21,29 @@ $(document).ready(function () {
     })
   });
 
-    //댓글 수정 취소시
-    const cancelEdit = document.querySelectorAll(".cancel-edit");
-    cancelEdit.forEach((button) => {
-      button.addEventListener("click", function (e){
-        const commentItem = this.closest(".comment_write");
-        const commentText = commentItem.querySelector(".comment_text");
-        const modifyBtn = commentItem.querySelector(".modify-btn");
-        const commentEditForm = commentItem.querySelector(".comment-edit-form");
-  
-        e.preventDefault;
 
-        //기존 댓글 보이기
-        commentText.classList.remove("d-none");
-        modifyBtn.classList.remove("d-none");
-  
-        //수정폼 보이기
-        commentEditForm.style.display = "none";
 
-      })
-    });
-  
+  //댓글 수정 취소시
+  const cancelEdit = document.querySelectorAll(".cancel-edit");
+  cancelEdit.forEach((button) => {
+    button.addEventListener("click", function (e){
+      const commentItem = this.closest(".comment_write");
+      const commentText = commentItem.querySelector(".comment_text");
+      const modifyBtn = commentItem.querySelector(".modify-btn");
+      const commentEditForm = commentItem.querySelector(".comment-edit-form");
+
+      e.preventDefault;
+
+      //기존 댓글 보이기
+      commentText.classList.remove("d-none");
+      modifyBtn.classList.remove("d-none");
+
+      //수정폼 보이기
+      commentEditForm.style.display = "none";
+
+    })
+  });
+
 
 
 
