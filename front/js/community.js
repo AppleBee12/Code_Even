@@ -9,12 +9,11 @@ $(document).ready(function () {
       const modifyBtn = commentItem.querySelector(".modify-btn");
       const commentEditForm = commentItem.querySelector(".comment-edit-form");
 
-      //기존 댓글 숨기기 =  클릭시 comment_text, modify-btn display 숨기
-      commentText.style.display = "none";
-      modifyBtn.classList.remove("d-flex");
-      modifyBtn.style.display = "none";
+      //기존 댓글 숨기기
+      commentText.classList.add("d-none");
+      modifyBtn.classList.add("d-none");
 
-      //수정폼 보이기 = comment-edit-form는 display block
+      //수정폼 보이기
       commentEditForm.style.display = "block";
 
       //const commidInput = commentItem.querySelector("input[name='commid']");
