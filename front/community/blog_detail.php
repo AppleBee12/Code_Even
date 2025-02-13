@@ -187,6 +187,7 @@ if (!isset($_SESSION[$hit]) || $_SESSION[$hit] < strtotime('today')) {
     if ($result_comment->num_rows > 0) {
       while ($row_comment = $result_comment->fetch_assoc()) {
     ?>
+    <!-- 작성된 댓글 표시-->
     <div class="comment_write col-11">
       <div class="comment_title d-flex">
         <img src="../images/profile.png" alt="이븐학생 프로필 사진">
@@ -196,9 +197,23 @@ if (!isset($_SESSION[$hit]) || $_SESSION[$hit] < strtotime('today')) {
         </div>
       </div>
       <div class="comment_text">
-        <?= $row_comment['contents'] ?>
+        <?= nl2br(htmlspecialchars($row_comment['contents'])); ?>
       </div>
-      <div class="d-flex justify-content-end gap-2">
+
+      <!-- 숨겨진 댓글 수정 폼 -->
+      <!-- 클릭시 comment_text, modify-btn display 숨기고 commtent-modify는 display block -->
+      <form action="" class="commtent-modify" 
+      style="display:none;">
+        <textarea class="form-control edit-contents"><?= htmlspecialchars($row_comment['contents']); ?></textarea>
+        <div class="d-flex justify-content-end gap-2 mt-2">
+          <button type="button" class="btn btn-secondary save-comment">저장</button>
+          <button type="button" class="btn btn-outline-danger cancel-edit">취소</button>
+        </div>
+
+      </form>
+
+
+      <div class="modify-btn d-flex justify-content-end gap-2">
         <?php
           if (isset($_SESSION['UID'])) {
             $logged_in_uid = $_SESSION['UID'];
@@ -208,14 +223,14 @@ if (!isset($_SESSION[$hit]) || $_SESSION[$hit] < strtotime('today')) {
 
           if ($logged_in_uid == $row_comment['uid']) {
         ?>
-        <a href="http://<?= $_SERVER['HTTP_HOST'] ?>/code_even/front/community/submit_comment_edit.php?commid=<?= $row_comment['commid'] ?>" class="btn btn-outline-secondary">수정</a>
-        <a href="http://<?= $_SERVER['HTTP_HOST'] ?>/code_even/front/community/submit_comment_delete.php?commid=<?= $row_comment['commid'] ?>" class="btn btn-danger">삭제</a>
-    
+        <div class="btn btn-outline-secondary">수정</div>
+        <div class="btn btn-danger">삭제</div>
         <?php
         }
         ?>
       </div>
     </div>
+    <!-- 작성된 댓글이 없다면-->
     <?php
       }
     } else {
@@ -223,7 +238,6 @@ if (!isset($_SESSION[$hit]) || $_SESSION[$hit] < strtotime('today')) {
     }
     $p_com->close();
     ?>
-
     <!-- 댓글 쓰기-->
     <div class="submit_comment_wrapper col-11">
       <?php if (isset($_SESSION['UID'])): ?>

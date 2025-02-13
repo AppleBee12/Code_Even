@@ -274,53 +274,65 @@ if (!isset($_SESSION[$hit]) || $_SESSION[$hit] < strtotime('today')) {
 
     <div class="row comment_wrapper">
 
-      <!-- 있는 댓글 출력하기-->
-      <?php
-      $p_com->execute();
-      $result_comment = $p_com->get_result();
+    <!-- 있는 댓글 출력하기-->
+    <?php
+    $p_com->execute();
+    $result_comment = $p_com->get_result();
 
-      if ($result_comment->num_rows > 0) {
-        while ($row_comment = $result_comment->fetch_assoc()) {
-      ?>
-          <div class="comment_write col-11">
-            <div class="comment_title d-flex">
-              <img src="../images/profile.png" alt="이븐학생 프로필 사진">
-              <div class="d-flex flex-column justify-content-evenly">
-                <p class="headt6"><?= $row_comment['display_name'] ?></p>
-                <p><?= $row_comment['regdate'] ?></p>
-              </div>
-            </div>
-            <div class="comment_text">
-              <?= $row_comment['contents'] ?>
-            </div>
-            <div class="btn_wrapper">
-            <div class="d-flex justify-content-end gap-2">
+    if ($result_comment->num_rows > 0) {
+      while ($row_comment = $result_comment->fetch_assoc()) {
+    ?>
+    <!-- 작성된 댓글 표시-->
+    <div class="comment_write col-11">
+      <div class="comment_title d-flex">
+        <img src="../images/profile.png" alt="이븐학생 프로필 사진">
+        <div class="d-flex flex-column justify-content-evenly">
+          <p class="headt6"><?= $row_comment['display_name'] ?></p>
+          <p><?= $row_comment['regdate'] ?></p>
+        </div>
+      </div>
+      <div class="comment_text">
+        <?= nl2br(htmlspecialchars($row_comment['contents'])); ?>
+      </div>
 
-              <?php
-              if (isset($_SESSION['UID'])) {
-                $logged_in_uid = $_SESSION['UID'];
-              } else {
-                $logged_in_uid = null;
-              }
+      <!-- 숨겨진 댓글 수정 폼 -->
+      <!-- 클릭시 comment_text, modify-btn display 숨기고 commtent-modify는 display block -->
+      <form action="" class="commtent-modify" 
+      style="display:none;">
+        <textarea class="form-control edit-contents"><?= htmlspecialchars($row_comment['contents']); ?></textarea>
+        <div class="d-flex justify-content-end gap-2 mt-2">
+          <button type="button" class="btn btn-secondary save-comment">저장</button>
+          <button type="button" class="btn btn-outline-danger cancel-edit">취소</button>
+        </div>
 
-              if ($logged_in_uid == $row_comment['uid']) {
-                ?>
-                <a href="http://<?= $_SERVER['HTTP_HOST'] ?>/code_even/front/community/submit_comment_edit.php?commid=<?= $row_comment['commid'] ?>" class="btn btn-outline-secondary">수정</a>
-                <a href="http://<?= $_SERVER['HTTP_HOST'] ?>/code_even/front/community/submit_comment_delete.php?commid=<?= $row_comment['commid'] ?>" class="btn btn-danger">삭제</a>
-          
-              <?php
-              }
-              ?>
-            </div>
-          </div>
-          </div>
-      <?php
+      </form>
+
+
+      <div class="modify-btn d-flex justify-content-end gap-2">
+        <?php
+          if (isset($_SESSION['UID'])) {
+            $logged_in_uid = $_SESSION['UID'];
+          } else {
+            $logged_in_uid = null;
+          }
+
+          if ($logged_in_uid == $row_comment['uid']) {
+        ?>
+        <div class="btn btn-outline-secondary">수정</div>
+        <div class="btn btn-danger">삭제</div>
+        <?php
         }
-      } else {
-        echo "<p class=\"col-11\">첫 댓글을 남겨보세요!</p>";
+        ?>
+      </div>
+    </div>
+    <!-- 작성된 댓글이 없다면-->
+    <?php
       }
-      $p_com->close();
-      ?>
+    } else {
+      echo "<p class=\"col-11\">첫 댓글을 남겨보세요!</p>";
+    }
+    $p_com->close();
+    ?>
 
       <!-- 댓글 쓰기-->
       <div class="submit_comment_wrapper col-11">
