@@ -105,6 +105,9 @@ if (isset($main_js)) {
 if (isset($chart_js)) {
   echo $chart_js; 
 }
+if (isset($community_js)) {
+  echo $community_js; 
+}
 if (isset($mypage_main_js)) {
   echo $mypage_main_js;
 }
