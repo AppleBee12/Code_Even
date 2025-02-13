@@ -207,7 +207,6 @@ if (!isset($_SESSION[$hit]) || $_SESSION[$hit] < strtotime('today')) {
       </div>
 
       <!-- 숨겨진 댓글 수정 폼 -->
-      <!-- 클릭시 comment_text, modify-btn display 숨기고 comment-edit-form는 display block -->
       <form action="submit_comment_edit.php" method="POST" class="comment-edit-form mt-4" style="display:none;">
         <input type="hidden" name="uid" value="<?= $_SESSION['UID']; ?>">
         <input type="hidden" name="board_type" value="<?= $board_type; ?>">
@@ -235,7 +234,7 @@ if (!isset($_SESSION[$hit]) || $_SESSION[$hit] < strtotime('today')) {
           if ($logged_in_uid == $row_comment['uid']) {
         ?>
         <div class="btn btn-outline-secondary comment-modify">수정</div>
-        <div class="btn btn-danger">삭제</div>
+        <div class="btn btn-danger comment-delete">삭제</div>
         <?php
         }
         ?>
