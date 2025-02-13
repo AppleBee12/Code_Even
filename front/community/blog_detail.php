@@ -1,6 +1,7 @@
 <?php
 $title = '블로그';
 include_once($_SERVER['DOCUMENT_ROOT'] . '/code_even/front/inc/header.php');
+$delete_comment_js = "<script src=\"http://" . $_SERVER['HTTP_HOST'] . "/code_even/front/js/delete_comment.js\"></script>";
 $community_js = "<script src=\"http://" . $_SERVER['HTTP_HOST'] . "/code_even/front/js/community.js\"></script>";
 
 // URL에서 post_id 가져오기
@@ -228,7 +229,7 @@ if (!isset($_SESSION[$hit]) || $_SESSION[$hit] < strtotime('today')) {
           if ($logged_in_uid == $row_comment['uid']) {
         ?>
         <div class="btn btn-outline-secondary comment-modify">수정</div>
-        <div class="btn btn-danger comment-delete">삭제</div>
+        <div class="btn btn-danger" onclick="deleteComment(<?= $row_comment['commid']; ?>, <?= $row_comment['uid']; ?>, '<?= $board_type; ?>', <?= $post_id; ?>)">삭제</div>
         <?php
         }
         ?>
