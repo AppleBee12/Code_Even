@@ -208,8 +208,8 @@ if (!isset($_SESSION[$hit]) || $_SESSION[$hit] < strtotime('today')) {
 
       <!-- 숨겨진 댓글 수정 폼 -->
       <!-- 클릭시 comment_text, modify-btn display 숨기고 comment-modify는 display block -->
-      <form action="" class="comment-modify" >
-      <!-- style="display:none;"> -->
+      <form action="" class="comment-edit-form" 
+      style="display:none;">
         <textarea class="form-control edit-contents"><?= htmlspecialchars($row_comment['contents']); ?></textarea>
         <div class="d-flex justify-content-end gap-2 mt-2">
           <button type="button" class="btn btn-secondary save-comment">저장</button>
@@ -229,7 +229,7 @@ if (!isset($_SESSION[$hit]) || $_SESSION[$hit] < strtotime('today')) {
 
           if ($logged_in_uid == $row_comment['uid']) {
         ?>
-        <div class="btn btn-outline-secondary">수정</div>
+        <div class="btn btn-outline-secondary comment-modify">수정</div>
         <div class="btn btn-danger">삭제</div>
         <?php
         }
