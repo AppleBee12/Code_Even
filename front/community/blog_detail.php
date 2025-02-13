@@ -201,8 +201,8 @@ if (!isset($_SESSION[$hit]) || $_SESSION[$hit] < strtotime('today')) {
       </div>
 
       <!-- 숨겨진 댓글 수정 폼 -->
-      <!-- 클릭시 comment_text, modify-btn display 숨기고 commtent-modify는 display block -->
-      <form action="" class="commtent-modify" 
+      <!-- 클릭시 comment_text, modify-btn display 숨기고 comment-modify는 display block -->
+      <form action="" class="comment-modify" 
       style="display:none;">
         <textarea class="form-control edit-contents"><?= htmlspecialchars($row_comment['contents']); ?></textarea>
         <div class="d-flex justify-content-end gap-2 mt-2">
