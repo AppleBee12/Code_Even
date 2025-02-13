@@ -1,6 +1,7 @@
 <?php
 $title = '고민상담';
 include_once($_SERVER['DOCUMENT_ROOT'] . '/code_even/front/inc/header.php');
+$community_js = "<script src=\"http://" . $_SERVER['HTTP_HOST'] . "/code_even/front/js/community.js\"></script>";
 
 // URL에서 post_id 가져오기
 $post_id = $_GET['post_id'] ?? null;
@@ -284,11 +285,13 @@ if (!isset($_SESSION[$hit]) || $_SESSION[$hit] < strtotime('today')) {
 
 
 <script>
+  //취소버튼 클릭시 
   function cancle() {
     if (confirm('취소하시겠습니까?')) {
       history.back(); //formdata가 넘어감, type:button 으로 해결
     }
   }
+
 </script>
 
 

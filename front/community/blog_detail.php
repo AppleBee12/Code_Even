@@ -1,6 +1,7 @@
 <?php
 $title = '블로그';
 include_once($_SERVER['DOCUMENT_ROOT'] . '/code_even/front/inc/header.php');
+$community_js = "<script src=\"http://" . $_SERVER['HTTP_HOST'] . "/code_even/front/js/community.js\"></script>";
 
 // URL에서 post_id 가져오기
 $post_id = $_GET['post_id'] ?? null;
