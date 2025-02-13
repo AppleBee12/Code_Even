@@ -207,9 +207,13 @@ if (!isset($_SESSION[$hit]) || $_SESSION[$hit] < strtotime('today')) {
       </div>
 
       <!-- 숨겨진 댓글 수정 폼 -->
-      <!-- 클릭시 comment_text, modify-btn display 숨기고 comment-modify는 display block -->
+      <!-- 클릭시 comment_text, modify-btn display 숨기고 comment-edit-form는 display block -->
       <form action="" class="comment-edit-form" 
       style="display:none;">
+        <input type="hidden" name="uid" value="<?= $_SESSION['UID']; ?>">
+        <input type="hidden" name="board_type" value="<?= $board_type; ?>">
+        <input type="hidden" name="post_id" value="<?= $post_id; ?>">
+        <input type="hidden" name="commid" value="<?= htmlspecialchars($row_comment['commid']); ?>">
         <textarea class="form-control edit-contents"><?= htmlspecialchars($row_comment['contents']); ?></textarea>
         <div class="d-flex justify-content-end gap-2 mt-2">
           <button type="button" class="btn btn-secondary save-comment">저장</button>
