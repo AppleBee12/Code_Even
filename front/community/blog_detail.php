@@ -143,7 +143,7 @@ if (!isset($_SESSION[$hit]) || $_SESSION[$hit] < strtotime('today')) {
             <td colspan="5" class="">
               <img src="http://<?= $_SERVER['HTTP_HOST']; ?><?= $row['thumbnails'] ?>" alt="<?= $row['titles'] ?>">
               <br>
-              <?= $row['contents'] ?>
+              <?= htmlspecialchars($row['contents']) ?>
             </td>
           </tr>
         <?php
