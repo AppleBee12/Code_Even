@@ -9,7 +9,8 @@ $what_recipe_js = "<script src=\"http://" . $_SERVER['HTTP_HOST'] . "/code_even/
     <div class="container">
       <div>
         <div class>
-          <h3 class="headt3">오직 코드이븐에서만</h3>
+          <h3 class="d-none">코드이븐의 레시피강좌 소개페이지입니다</h3>
+          <p class="headt3">오직 코드이븐에서만</p>
           <p class="headt3 b">현업자 사이 입소문난 그 코스!</p>
         </div>
         <p class="headt1">레시피</p>
@@ -41,9 +42,9 @@ $what_recipe_js = "<script src=\"http://" . $_SERVER['HTTP_HOST'] . "/code_even/
   <section class="sec04">
     <div class="container d-flex justify-content-around align-items-center">
       <div class="d-flex flex-column justify-content-center align-items-center">
-        <p class=" eng">recipe 01</p>
+        <p class="eng">recipe 01</p>
         <div>
-          <h3>이해에 필요한 필수 개념부터</h3>
+          <p>이해에 필요한 필수 개념부터</p>
           <p>필요한 언어 설명까지</p>
         </div>
         <img src="../images/what_recipe_sec04_icon01.png" alt="">
@@ -73,7 +74,7 @@ $what_recipe_js = "<script src=\"http://" . $_SERVER['HTTP_HOST'] . "/code_even/
     <div class="container">
       <div class="title_wrapper">
         <h3 class="headt4">한시가 급한 프로젝트, 찾을 시간도 아깝다면?</h3>
-        <p class="headt3">코드이븐의 RECIPE 레시피 강좌 !</p>
+        <p class="headt3">코드이븐의 <span class="eng">RECIPE</span> 레시피 강좌 !</p>
       </div>
       <div>
         <img src="../images/what_recipe_sec05_check.png" alt="">
@@ -83,7 +84,7 @@ $what_recipe_js = "<script src=\"http://" . $_SERVER['HTTP_HOST'] . "/code_even/
   <section class="sec06">
     <div class="container">
       <div class="title_wrapper">
-        <p class="headt4">RECIPE 강좌를 듣고 나면</p>
+        <p class="headt4"><span class="eng">RECIPE</span> 강좌를 듣고 나면</p>
         <h3 class="headt3">기초부터 자연스럽게 이해하게 됩니다.</h3>
       </div>
       <div>
