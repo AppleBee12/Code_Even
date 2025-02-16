@@ -28,6 +28,13 @@ $realusername = $userdata->username;
 $realuseremail = $userdata->useremail;
 
 
+if ($level == 1) {
+  echo '<script>
+      alert("접근 권한이 없습니다.");
+      location.href = "http://' . $_SERVER['HTTP_HOST'] . '/code_even/index.php";
+  </script>';
+}
+
 if ($level == 10) {
   
 
