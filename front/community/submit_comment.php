@@ -8,7 +8,7 @@ include_once($_SERVER['DOCUMENT_ROOT'] . '/code_even/admin/inc/dbcon.php');
 $uid = $_POST['uid'];
 $board_type = $_POST['board_type'];
 $post_id = $_POST['post_id'];
-$contents = nl2br($_POST['contents']);
+$contents = $_POST['contents'];
 
 
 $sql = "INSERT INTO post_comment (uid, board_type, post_id, contents) 
