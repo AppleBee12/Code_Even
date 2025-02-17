@@ -77,7 +77,7 @@ $postcomment->bind_param("i", $current_uid);
                   <td><?= $postSource; ?></td>
 
                   <!-- 제목에 링크 추가 -->
-                  <td class="post_title">
+                  <td class="post_title text-truncate" style="overflow: hidden; white-space: nowrap; text-overflow: ellipsis; max-width: 200px;">
                     <?php if ($postSource == '고민상담') { ?>
                       <a class='underline' href='http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/front/community/counsel_detail.php?post_id=<?= $row['post_id']; ?>'>
                         <?= htmlspecialchars($row['titles']); ?>
@@ -90,14 +90,14 @@ $postcomment->bind_param("i", $current_uid);
                   </td>
 
                   <!-- 글 내용에 링크 추가 -->
-                  <td class="post_contents">
+                  <td class="post_contents text-truncate" style="overflow: hidden; white-space: nowrap; text-overflow: ellipsis; max-width: 500px;">
                     <?php if ($postSource == '고민상담') { ?>
                       <a class='underline' href='http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/front/community/counsel_detail.php?post_id=<?= $row['post_id']; ?>'>
-                        <?= ($row['contents']); ?>
+                        <?= strip_tags($row['contents']); ?>
                       </a>
                     <?php } else if ($postSource == '팀 프로젝트') { ?>
                       <a class='underline' href='http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/front/community/teamproject_detail.php?post_id=<?= $row['post_id']; ?>'>
-                        <?= ($row['contents']); ?>
+                        <?= strip_tags($row['contents']); ?>
                       </a>
                     <?php } ?>
                   </td>
