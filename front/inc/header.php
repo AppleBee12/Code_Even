@@ -567,7 +567,7 @@ if (isset($_GET['code'])) {
               <!-- 장바구니가 비었을 때 표시되는 메시지 -->
               <div class="empty_cart text-center">
                 <p>장바구니가 비어 있습니다.</p>
-                <a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/front/lecture_list.php" class="go_class my-3">강좌 보러가기</a>
+                <a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/front/cart/cart.php" class="go_class my-3">강좌 보러가기</a>
               </div>
             <?php endif; ?>
           </div>
