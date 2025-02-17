@@ -567,7 +567,10 @@ if (isset($_GET['code'])) {
               <!-- 장바구니가 비었을 때 표시되는 메시지 -->
               <div class="empty_cart text-center">
                 <p>장바구니가 비어 있습니다.</p>
-                <a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/front/cart/cart.php" class="go_class my-3">강좌 보러가기</a>
+                <div class="d-flex justify-content-evenly my-3">  
+                  <a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/front/lecture_list.php" class="go_class">강좌 보러가기</a>
+                  <a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/front/cart/cart.php" class="go_class">장바구니로 이동</a>
+                </div>
               </div>
             <?php endif; ?>
           </div>
@@ -581,7 +584,7 @@ if (isset($_GET['code'])) {
                   <span>원</span>
                 </div>
               </div>
-              <a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/front/cart/cart.php" class="goto_cart">장바구니로 이동</a>
+              <a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/front/cart/cart.php" class="goto_cart">장바구니로 이동</a>              
             <?php endif; ?>
           </div>
         </div>
@@ -596,7 +599,41 @@ if (isset($_GET['code'])) {
                     d="M 11.988281 0.99023438 A 0.750075 0.750075 0 0 0 11.25 1.75 L 11.25 3.1523438 C 7.2185669 3.5496326 4.0175781 6.8479156 4.0175781 10.982422 L 4.0175781 14.082031 C 4.0175781 16.848644 2.1699219 18.71875 2.1699219 18.71875 A 0.750075 0.750075 0 0 0 2.6992188 20 L 9 20 C 9 21.648068 10.351932 23 12 23 C 13.648068 23 15 21.648068 15 20 L 21.300781 20 A 0.750075 0.750075 0 0 0 21.830078 18.71875 C 21.830078 18.71875 19.982422 16.848644 19.982422 14.082031 L 19.982422 10.982422 C 19.982422 6.8479156 16.781433 3.5496326 12.75 3.1523438 L 12.75 1.75 A 0.750075 0.750075 0 0 0 11.988281 0.99023438 z M 12 4.5 C 15.588642 4.5 18.482422 7.3928035 18.482422 10.982422 L 18.482422 14.082031 C 18.482422 16.107423 19.179375 17.513214 19.832031 18.5 L 4.1679688 18.5 C 4.8206249 17.513214 5.5175781 16.107423 5.5175781 14.082031 L 5.5175781 10.982422 C 5.5175781 7.3928035 8.411358 4.5 12 4.5 z M 10.5 20 L 13.5 20 C 13.5 20.837932 12.837932 21.5 12 21.5 C 11.162068 21.5 10.5 20.837932 10.5 20 z">
                   </path>
                 </svg>
+                <?php if ($cart_count > 0): ?>
+                  <!-- 장바구니 개수가 1개 이상일 때만 뱃지 표시 -->
+                  <span class="cart_cnt d-flex align-items-center justify-content-center"><?= $cart_count; ?></span>
+                <?php endif; ?>
               </a>
+              <!-- 수정중 -->
+              <!-- <div class="alarm d-flex flex-column align-items-end justify-content-end">
+                <i class="bi bi-bell">
+                  <?php if ($level == 100) { ?>
+                    <span class="<?= ($level == 100 && $tc_count == 0) ? 'visually-hidden' : '' ?> position-absolute top-40 start-80 translate-middle badge rounded-pill bg-danger">
+                      <?= $tc_count ?>
+                    </span>
+                  <?php } else if ($level == 10) { ?>
+                    <span class="<?= ($level == 10 && $unanswered_count == 0) ? 'visually-hidden' : '' ?> position-absolute top-40 start-80 translate-middle badge rounded-pill bg-danger">
+                      <?= $unanswered_count ?>
+                    </span>
+                  <?php }; ?>
+                </i>
+                <div class="alert alert-light alert-dismissible fade " role="alert">
+                  <i class="bi bi-info-circle-fill"></i>
+                  <?php if ($level == 100 && $tc_count > 0) { ?>
+                    강사
+                    <a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/teacher/teacher_list.php"
+                      class="alert-link"><?= $tc_count ?>명</a> 의 수강승인이 필요합니다.
+                  <?php } else if ($level == 10 && $unanswered_count > 0) { ?>
+                    답변이 필요한 학생 문의가
+                    <a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/student/student_question.php"
+                      class="alert-link"><?= $unanswered_count ?>명</a> 있습니다.
+                  <?php }; ?>
+                  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+              </div> -->
+              <!-- 수정중 -->
             </div>
             <div class="mini_profile">
               <a id="profileIcon" href="">
