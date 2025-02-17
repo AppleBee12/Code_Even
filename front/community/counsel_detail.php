@@ -204,7 +204,7 @@ if (!isset($_SESSION[$hit]) || $_SESSION[$hit] < strtotime('today')) {
         </div>
       </div>
       <div class="comment_text">
-      <?= nl2br(htmlspecialchars($row_comment['contents'])); ?>
+        <?= nl2br(htmlspecialchars($row_comment['contents'], ENT_QUOTES, 'UTF-8')); ?>
       </div>
 
       <!-- 숨겨진 댓글 수정 폼 -->
