@@ -272,73 +272,71 @@ if (!isset($_SESSION[$hit]) || $_SESSION[$hit] < strtotime('today')) {
         </div>
       </div>
     </div>
-
     <div class="row comment_wrapper">
 
-    <!-- 있는 댓글 출력하기-->
-    <?php
-    $p_com->execute();
-    $result_comment = $p_com->get_result();
+      <!-- 있는 댓글 출력하기-->
+      <?php
+      $p_com->execute();
+      $result_comment = $p_com->get_result();
 
-    if ($result_comment->num_rows > 0) {
-      while ($row_comment = $result_comment->fetch_assoc()) {
-    ?>
-    <!-- 작성된 댓글 표시-->
-    <div class="comment_write col-11">
-      <div class="comment_title d-flex">
-        <img src="../images/profile.png" alt="이븐학생 프로필 사진">
-        <div class="d-flex flex-column justify-content-evenly">
-          <p class="headt6"><?= $row_comment['display_name'] ?></p>
-          <p><?= $row_comment['regdate'] ?></p>
+      if ($result_comment->num_rows > 0) {
+        while ($row_comment = $result_comment->fetch_assoc()) {
+      ?>
+      <!-- 작성된 댓글 표시-->
+      <div class="comment_write col-11">
+        <div class="comment_title d-flex">
+          <img src="../images/profile.png" alt="이븐학생 프로필 사진">
+          <div class="d-flex flex-column justify-content-evenly">
+            <p class="headt6"><?= $row_comment['display_name'] ?></p>
+            <p><?= $row_comment['regdate'] ?></p>
+          </div>
         </div>
-      </div>
-      <div class="comment_text">
-        <?= nl2br(htmlspecialchars($row_comment['contents'])); ?>
-      </div>
-
-      <!-- 숨겨진 댓글 수정 폼 -->
-      <form action="submit_comment_edit.php" method="POST" class="comment-edit-form mt-4" style="display:none;">
-        <input type="hidden" name="uid" value="<?= $_SESSION['UID']; ?>">
-        <input type="hidden" name="board_type" value="<?= $board_type; ?>">
-        <input type="hidden" name="post_id" value="<?= $post_id; ?>">
-        <input type="hidden" name="commid" value="<?= htmlspecialchars($row_comment['commid']); ?>">
-
-        <label for="edit-contents"></label>
-        <textarea id="edit-contents" name="edit-contents" class="form-control edit-contents"><?= htmlspecialchars($row_comment['contents']); ?></textarea>
-        <div class="d-flex justify-content-end gap-2 mt-3">
-          <button type="button" class="btn btn-outline-danger cancel-edit">취소</button>
-          <button class="btn btn-secondary save-comment">저장</button>
+        <div class="comment_text">
+          <?= nl2br(htmlspecialchars($row_comment['contents'])); ?>
         </div>
 
-      </form>
+        <!-- 숨겨진 댓글 수정 폼 -->
+        <form action="submit_comment_edit.php" method="POST" class="comment-edit-form mt-4" style="display:none;">
+          <input type="hidden" name="uid" value="<?= $_SESSION['UID']; ?>">
+          <input type="hidden" name="board_type" value="<?= $board_type; ?>">
+          <input type="hidden" name="post_id" value="<?= $post_id; ?>">
+          <input type="hidden" name="commid" value="<?= htmlspecialchars($row_comment['commid']); ?>">
+
+          <label for="edit-contents"></label>
+          <textarea id="edit-contents" name="edit-contents" class="form-control edit-contents"><?= htmlspecialchars($row_comment['contents']); ?></textarea>
+          <div class="d-flex justify-content-end gap-2 mt-3">
+            <button type="button" class="btn btn-outline-danger cancel-edit">취소</button>
+            <button class="btn btn-secondary save-comment">저장</button>
+          </div>
+
+        </form>
 
 
-      <div class="modify-btn d-flex justify-content-end gap-2">
-        <?php
-          if (isset($_SESSION['UID'])) {
-            $logged_in_uid = $_SESSION['UID'];
-          } else {
-            $logged_in_uid = null;
+        <div class="modify-btn d-flex justify-content-end gap-2">
+          <?php
+            if (isset($_SESSION['UID'])) {
+              $logged_in_uid = $_SESSION['UID'];
+            } else {
+              $logged_in_uid = null;
+            }
+
+            if ($logged_in_uid == $row_comment['uid']) {
+          ?>
+          <div class="btn btn-outline-secondary comment-modify">수정</div>
+          <div class="btn btn-danger" onclick="deleteComment(<?= $row_comment['commid']; ?>, <?= $row_comment['uid']; ?>, '<?= $board_type; ?>', <?= $post_id; ?>)">삭제</div>
+          <?php
           }
-
-          if ($logged_in_uid == $row_comment['uid']) {
-        ?>
-        <div class="btn btn-outline-secondary comment-modify">수정</div>
-        <div class="btn btn-danger" onclick="deleteComment(<?= $row_comment['commid']; ?>, <?= $row_comment['uid']; ?>, '<?= $board_type; ?>', <?= $post_id; ?>)">삭제</div>
-        <?php
-        }
-        ?>
+          ?>
+        </div>
       </div>
-    </div>
-    <!-- 작성된 댓글이 없다면-->
-    <?php
+      <!-- 작성된 댓글이 없다면-->
+      <?php
+        }
+      } else {
+        echo "<p class=\"col-11\">첫 댓글을 남겨보세요!</p>";
       }
-    } else {
-      echo "<p class=\"col-11\">첫 댓글을 남겨보세요!</p>";
-    }
-    $p_com->close();
-    ?>
-
+      $p_com->close();
+      ?>
       <!-- 댓글 쓰기-->
       <div class="submit_comment_wrapper col-11">
         <?php if (isset($_SESSION['UID'])): ?>
@@ -363,16 +361,16 @@ if (!isset($_SESSION[$hit]) || $_SESSION[$hit] < strtotime('today')) {
         <?php else: ?>
           <!-- 사용자가 로그인하지 않은 경우 -->
           <div>
-            <div data-bs-toggle="modal" data-bs-target="#exampleModaltest" data-bs-whatever="@mdo">
-              <p>댓글</p>
-              <div class="submit_comments mt-2">
-                <p id="notLoginContents"><span class="under_line">로그인</span> 후에 댓글을 남길 수 있습니다!</p>
+              <div data-bs-toggle="modal" data-bs-target="#exampleModaltest" data-bs-whatever="@mdo">
+                <p>댓글</p>
+                <div class="submit_comments mt-2">
+                  <p id="notLoginContents"><span class="under_line">로그인</span> 후에 댓글을 남길 수 있습니다!</p>
+                </div>
               </div>
             </div>
-          </div>
-        <?php endif; ?>
+          <?php endif; ?>
+        </div>
       </div>
-    </div>
   </div>
 </div>
 
