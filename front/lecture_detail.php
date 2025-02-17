@@ -212,8 +212,8 @@ $detail_result = $mysqli->query($detail_query);
             <p>등록된 강의가 없습니다.</p>
           <?php endif; ?>
         </div>
-        <a href="inquiry.html" class="inquiry-link">
-          <i class="fas fa-envelope"></i> 1:1 문의하러 가기
+        <a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/front/mypage/mypage_class_qna_question.php?" class="inquiry-link">
+          <i class="fas fa-envelope"> </i> 1:1 문의하러 가기
         </a>
       </div>
     </div>
