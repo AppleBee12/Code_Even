@@ -59,8 +59,9 @@ foreach ($classArr as $class) {
   <!-- 탭메뉴1의 내용-->
   <div class="tab-pane fade show active" id="nav-myLecTab1" role="tabpanel" aria-labelledby="nav-myLecTab1-tab">
     <div class="my_lecture_wrapper">
-      <!-- 강의목록 시작 -->
+    <!-- 강의목록 시작 -->
 
+      <!-- 수료중인 강좌가 없을 때 -->
       <?php if (empty($groupedClasses)) {?>
         <div>
           <p class="text-center mt-5">&#128064;</p>
@@ -71,6 +72,7 @@ foreach ($classArr as $class) {
         </div>
         </div>
         <?php } else { ?>
+      <!-- 수료중인 강좌가 있을 때 -->
       <?php
       foreach ($groupedClasses as $lectureId => $classes):
         ?>
