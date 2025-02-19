@@ -208,6 +208,24 @@ if (isset($_GET['code'])) {
   $row_ongoing_count = $result_ongoing_count->fetch_assoc();
   $ongoing_count = $row_ongoing_count['ongoing_count'] ?? 0;
   
+
+
+ // 새로운'선생님 답변' 갯수 구하기
+ //로그인한 id의 teacher_qna(선생님에게 받은 답변) 갯수 - student_qna의 is_read가 true인 갯수가 나올 수 있도록 "새로 받은 답변의 갯수"
+ $sql_new_answer = "SELECT 
+                      (SELECT COUNT(*) 
+                       FROM teacher_qna tq 
+                       JOIN student_qna sq ON tq.sqid = sq.sqid
+                       JOIN class_data cd ON sq.cdid = cd.cdid
+                       WHERE cd.uid = '$uid') 
+                      - 
+                      (SELECT COUNT(*) 
+                       FROM student_qna sq
+                       JOIN class_data cd ON sq.cdid = cd.cdid
+                       WHERE cd.uid = '$uid' AND sq.is_read = TRUE) 
+                    AS new_answers;
+                    ";
+
 ?>
 
 
