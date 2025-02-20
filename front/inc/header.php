@@ -213,19 +213,27 @@ if (isset($_GET['code'])) {
  // 새로운'선생님 답변' 갯수 구하기
  //로그인한 id의 teacher_qna(선생님에게 받은 답변) 갯수 - student_qna의 is_read가 true인 갯수가 나올 수 있도록 "새로 받은 답변의 갯수"
  //$student_id 와 $uid를 비교하여 로그인 학생값 확인 후 새 답변 확인시 읽음 처리는 AJAX로 비동기처리로 바로 적용시킬 예정ㅇ
- $sql_new_answer = "SELECT 
-                      (SELECT COUNT(*) 
-                       FROM teacher_qna tq 
-                       JOIN student_qna sq ON tq.sqid = sq.sqid
-                       JOIN class_data cd ON sq.cdid = cd.cdid
-                       WHERE cd.uid = '$student_id') 
-                      - 
-                      (SELECT COUNT(*) 
-                       FROM student_qna sq
-                       JOIN class_data cd ON sq.cdid = cd.cdid
-                       WHERE cd.uid = '$student_id' AND sq.is_read = TRUE) 
-                    AS new_answers;
-                    ";
+ $student_id = isset($_SESSION['user_id'] )? $_SESSION['user_id']:null;
+ if ($student_id) {
+  $sql_new_answer = "SELECT 
+                        (SELECT COUNT(*) 
+                         FROM teacher_qna tq
+                         JOIN student_qna sq ON tq.sqid = sq.sqid
+                         JOIN class_data cd ON sq.cdid = cd.cdid
+                         WHERE cd.uid = '$student_id') 
+                        - 
+                        (SELECT COUNT(*) 
+                         FROM teacher_qna tq
+                         JOIN student_qna sq ON tq.sqid = sq.sqid
+                         JOIN class_data cd ON sq.cdid = cd.cdid
+                         WHERE cd.uid = '$student_id' AND sq.is_read = TRUE) 
+                      AS new_answers;";
+                      $result = $mysqli->query($sql_new_answer);
+                      $row = $result->fetch_assoc();
+                      $new_answers = $row['new_answers'];
+                  } else {
+                      $new_answers = ""; // 로그인하지 않았을 경우 빈 값 반환
+                  }
 
 ?>
 
@@ -608,46 +616,33 @@ if (isset($_GET['code'])) {
           </div>
         </div>
       </div>
-
           <?php if (isset($_SESSION['AUID']) || isset($_SESSION['KAKAO_UID'])) { ?>
             <div class="mini_bell alarm">
               <a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/front/mypage/mypage_qna.php">
                 <i class="bi bi-bell"></i>
-                <?php if ($cart_count > 0): ?>
+                <?php if ($new_answers > 0): ?>
                   <!-- 달린 답변 개수가 1개 이상일 때만 뱃지 표시 -->
-                  <span class="cart_cnt d-flex align-items-center justify-content-center"><?= $cart_count; ?></span>
+                  <span class="cart_cnt d-flex align-items-center justify-content-center"><?= $new_answers; ?></span>
                 <?php endif; ?>
               </a>
-              <!-- 수정중 -->
-              <!-- <div class="alarm d-flex flex-column align-items-end justify-content-end">
-                <i class="bi bi-bell">
-                  <?php if ($level == 100) { ?>
-                    <span class="<?= ($level == 100 && $tc_count == 0) ? 'visually-hidden' : '' ?> position-absolute top-40 start-80 translate-middle badge rounded-pill bg-danger">
-                      <?= $tc_count ?>
-                    </span>
-                  <?php } else if ($level == 10) { ?>
-                    <span class="<?= ($level == 10 && $unanswered_count == 0) ? 'visually-hidden' : '' ?> position-absolute top-40 start-80 translate-middle badge rounded-pill bg-danger">
-                      <?= $unanswered_count ?>
-                    </span>
-                  <?php }; ?>
-                </i>
-                <div class="alert alert-light alert-dismissible fade " role="alert">
-                  <i class="bi bi-info-circle-fill"></i>
-                  <?php if ($level == 100 && $tc_count > 0) { ?>
-                    강사
-                    <a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/teacher/teacher_list.php"
-                      class="alert-link"><?= $tc_count ?>명</a> 의 수강승인이 필요합니다.
-                  <?php } else if ($level == 10 && $unanswered_count > 0) { ?>
-                    답변이 필요한 학생 문의가
-                    <a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/student/student_question.php"
-                      class="alert-link"><?= $unanswered_count ?>명</a> 있습니다.
-                  <?php }; ?>
+              <!-- 알림bell버튼 클릭시 나올 설명-->
+              <div id="miniCartContent" class="cart_dropdown">
+                <div class="mncart_header d-flex justify-content-between">
+                  <h4>새로운 답변<span id="newAnswers"><?= $new_answers; ?></span></h4>
                   <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                   </button>
                 </div>
-              </div> -->
-              <!-- 수정중 -->
+                <div class="mncart_list">
+                  <div class="alert new_answer text-center" role="alert">
+                    <i class="bi bi-info-circle-fill"></i>
+                      선생님의 답변이
+                      <a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/teacher/teacher_list.php"
+                        class="alert-link"><?= $new_answers ?>건</a> 있습니다.
+
+                  </div>
+                </div>
+              </div>
             </div>
             <div class="mini_profile">
               <a id="profileIcon" href="">
