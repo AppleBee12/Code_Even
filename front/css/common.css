@@ -683,7 +683,15 @@ header .header_search_inner {
   background-color: var(--red900);
 }
 
+/* 퀵아이콘 - 알람벨 */
 
+/* .fade{
+  display: block;
+}
+
+.show{
+  display: none;
+} */
 
 
 /* 퀵아이콘 - 프로필 */

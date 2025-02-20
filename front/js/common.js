@@ -46,6 +46,20 @@ $(document).ready(function () {
     e.stopPropagation();
   });
 
+  //Header 아이콘 퀵메뉴 - 알림벨
+  const alertBox = document.querySelector(".alarm .alert");
+  const toggleElements = document.querySelectorAll(".alarm .bi-bell, .alarm .badge, .alarm button.close");
+
+
+  function showAlert(e) {
+      e.stopPropagation();
+      alertBox.classList.toggle("fade");
+      alertBox.classList.toggle("show");
+  }
+
+  toggleElements.forEach(element => element.addEventListener("click", showAlert));
+
+
 
 
   //Header 아이콘 퀵메뉴 - 프로필

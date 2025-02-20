@@ -550,79 +550,79 @@ if (isset($_GET['code'])) {
           <!-- 아이콘 퀵메뉴 -->
           <div class="header_icon d-flex gap-3">
           <div class="mini_cart">
-        <a href="" id="cartIcon">
-          <i class="bi bi-cart"></i>
-          <?php if ($cart_count > 0): ?>
-            <!-- 장바구니 개수가 1개 이상일 때만 뱃지 표시 -->
-            <span class="cart_cnt d-flex align-items-center justify-content-center"><?= $cart_count; ?></span>
-          <?php endif; ?>
-        </a>
-        <div id="miniCartContent" class="cart_dropdown">
-          <div class="mncart_header">
-            <h4>장바구니<span id="cartCount"><?= $cart_count; ?></span></h4>
-          </div>
-          <div class="mncart_list">
-            <?php if ($cart_count > 0): ?>
-              <!-- 장바구니에 담긴 강좌 정보 출력 -->
-              <ul>
-                <?php
-                $total = 0;
-                foreach ($cartArr as $cart):
-                  $total += $cart->lecture_price;
-                ?>
-                  <li>
-                    <div class="item_tit d-flex">
-                      <img src="http://<?= $_SERVER['HTTP_HOST'] ?><?= $cart->image; ?>" alt="상품 이미지">
-                      <p><?= $cart->title; ?><span><?= $cart->name; ?></span></p>
-                    </div>
-                    <div class="item_price">
-                      <p><span class="number"><?= $cart->lecture_price; ?></span>원</p>
-                    </div>
-                    <?php if (!empty($cart->boid)): ?>
-                      <div class="book_price d-flex justify-content-between align-items-center">
-                        <span class="badge_custom book_badge">교재포함강좌</span>
-                        <p> +<span class="number"><?= $cart->book_price; ?></span>원 </p>
-                      </div>
+            <a href="" id="cartIcon">
+              <i class="bi bi-cart"></i>
+              <?php if ($cart_count > 0): ?>
+                <!-- 장바구니 개수가 1개 이상일 때만 뱃지 표시 -->
+                <span class="cart_cnt d-flex align-items-center justify-content-center"><?= $cart_count; ?></span>
+              <?php endif; ?>
+            </a>
+            <div id="miniCartContent" class="cart_dropdown">
+              <div class="mncart_header">
+                <h4>장바구니<span id="cartCount"><?= $cart_count; ?></span></h4>
+              </div>
+              <div class="mncart_list">
+                <?php if ($cart_count > 0): ?>
+                  <!-- 장바구니에 담긴 강좌 정보 출력 -->
+                  <ul>
                     <?php
-                      $total += $cart->book_price;
-                    endif;
+                    $total = 0;
+                    foreach ($cartArr as $cart):
+                      $total += $cart->lecture_price;
                     ?>
-                  </li>
-                <?php endforeach; ?>
-              </ul>
-            <?php else: ?>
-              <!-- 장바구니가 비었을 때 표시되는 메시지 -->
-              <div class="empty_cart text-center">
-                <p>장바구니가 비어 있습니다.</p>
-                <div class="d-flex justify-content-evenly my-3">  
-                  <a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/front/lecture_list.php" class="go_class">강좌 보러가기</a>
-                  <a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/front/cart/cart.php" class="go_class">장바구니로 이동</a>
-                </div>
+                      <li>
+                        <div class="item_tit d-flex">
+                          <img src="http://<?= $_SERVER['HTTP_HOST'] ?><?= $cart->image; ?>" alt="상품 이미지">
+                          <p><?= $cart->title; ?><span><?= $cart->name; ?></span></p>
+                        </div>
+                        <div class="item_price">
+                          <p><span class="number"><?= $cart->lecture_price; ?></span>원</p>
+                        </div>
+                        <?php if (!empty($cart->boid)): ?>
+                          <div class="book_price d-flex justify-content-between align-items-center">
+                            <span class="badge_custom book_badge">교재포함강좌</span>
+                            <p> +<span class="number"><?= $cart->book_price; ?></span>원 </p>
+                          </div>
+                        <?php
+                          $total += $cart->book_price;
+                        endif;
+                        ?>
+                      </li>
+                    <?php endforeach; ?>
+                  </ul>
+                <?php else: ?>
+                  <!-- 장바구니가 비었을 때 표시되는 메시지 -->
+                  <div class="empty_cart text-center">
+                    <p>장바구니가 비어 있습니다.</p>
+                    <div class="d-flex justify-content-evenly my-3">  
+                      <a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/front/lecture_list.php" class="go_class">강좌 보러가기</a>
+                      <a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/front/cart/cart.php" class="go_class">장바구니로 이동</a>
+                    </div>
+                  </div>
+                <?php endif; ?>
               </div>
-            <?php endif; ?>
-          </div>
-          <div class="mncart_footer">
-            <?php if ($cart_count > 0): ?>
-              <!-- 총 결제 금액 및 이동 버튼 -->
-              <div class="mncart_total d-flex justify-content-between">
-                <p>총 결제 금액: </p>
-                <div class="price">
-                  <span class="number"><?= $total ?></span>
-                  <span>원</span>
-                </div>
+              <div class="mncart_footer">
+                <?php if ($cart_count > 0): ?>
+                  <!-- 총 결제 금액 및 이동 버튼 -->
+                  <div class="mncart_total d-flex justify-content-between">
+                    <p>총 결제 금액: </p>
+                    <div class="price">
+                      <span class="number"><?= $total ?></span>
+                      <span>원</span>
+                    </div>
+                  </div>
+                  <a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/front/cart/cart.php" class="goto_cart">장바구니로 이동</a>              
+                <?php endif; ?>
               </div>
-              <a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/front/cart/cart.php" class="goto_cart">장바구니로 이동</a>              
-            <?php endif; ?>
+            </div>
           </div>
-        </div>
-      </div>
           <?php if (isset($_SESSION['AUID']) || isset($_SESSION['KAKAO_UID'])) { ?>
             <div class="mini_bell alarm">
               <a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/front/mypage/mypage_qna.php">
                 <i class="bi bi-bell"></i>
                 <?php if ($new_answers > 0): ?>
                   <!-- 달린 답변 개수가 1개 이상일 때만 뱃지 표시 -->
-                  <span class="cart_cnt d-flex align-items-center justify-content-center"><?= $new_answers; ?></span>
+                  <span class="cart_cnt d-flex align-items-center justify-content-center badge"><?= $new_answers; ?></span>
                 <?php endif; ?>
               </a>
               <!-- 알림bell버튼 클릭시 나올 설명-->
@@ -633,13 +633,12 @@ if (isset($_GET['code'])) {
                     <span aria-hidden="true">&times;</span>
                   </button>
                 </div>
-                <div class="mncart_list">
+                <div class="mncart_list alert">
                   <div class="alert new_answer text-center" role="alert">
                     <i class="bi bi-info-circle-fill"></i>
                       선생님의 답변이
                       <a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/teacher/teacher_list.php"
                         class="alert-link"><?= $new_answers ?>건</a> 있습니다.
-
                   </div>
                 </div>
               </div>
