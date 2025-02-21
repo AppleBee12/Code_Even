@@ -539,7 +539,7 @@ header .header_search_inner {
 }
 
 
-.cart_dropdown {
+.cart_dropdown, .alarmbell_dropdown{
   display: none;
   position: absolute;
   top: 62px;
@@ -558,12 +558,12 @@ header .header_search_inner {
   border-bottom: 1px solid var(--bk900);
 }
 
-.cart_dropdown h4 {
+.cart_dropdown h4 ,.alarmbell_dropdown h4 {
   font-weight: 600;
   font-size: 18px;
 }
 
-.cart_dropdown h4 span {
+.cart_dropdown h4 span, .alarmbell_dropdown h4 span {
   color: var(--red700);
   margin-left: 8px;
 }
@@ -685,13 +685,15 @@ header .header_search_inner {
 
 /* 퀵아이콘 - 알람벨 */
 
-/* .fade{
+.alarmbell_dropdown {
+  display: none;
+  transition: opacity 0.3s ease-in-out;
+}
+
+.alarmbell_dropdown.show {
   display: block;
 }
 
-.show{
-  display: none;
-} */
 
 
 /* 퀵아이콘 - 프로필 */

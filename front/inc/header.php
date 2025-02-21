@@ -618,7 +618,7 @@ if (isset($_GET['code'])) {
           </div>
           <?php if (isset($_SESSION['AUID']) || isset($_SESSION['KAKAO_UID'])) { ?>
             <div class="mini_bell alarm">
-              <a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/front/mypage/mypage_qna.php">
+              <a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/front/mypage/mypage_qna.php" class="alarmbell_badge">
                 <i class="bi bi-bell"></i>
                 <?php if ($new_answers > 0): ?>
                   <!-- 달린 답변 개수가 1개 이상일 때만 뱃지 표시 -->
@@ -626,7 +626,7 @@ if (isset($_GET['code'])) {
                 <?php endif; ?>
               </a>
               <!-- 알림bell버튼 클릭시 나올 설명-->
-              <div id="miniCartContent" class="cart_dropdown">
+              <div class="alarmbell_dropdown">
                 <div class="mncart_header d-flex justify-content-between">
                   <h4>새로운 답변<span id="newAnswers"><?= $new_answers; ?></span></h4>
                   <button type="button" class="close" data-dismiss="alert" aria-label="Close">
