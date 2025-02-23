@@ -697,6 +697,9 @@ position: relative;
   display: block;
 }
 
+.alert-link{
+  color: var(--red700);
+}
 
 
 
