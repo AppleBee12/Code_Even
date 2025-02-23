@@ -232,7 +232,7 @@ if (isset($_GET['code'])) {
                       $row = $result->fetch_assoc();
                       $new_answers = $row['new_answers'];
                   } else {
-                      $new_answers = ""; // 로그인하지 않았을 경우 빈 값 반환
+                      $new_answers = "0"; // 로그인하지 않았을 경우 빈 값 반환
                   }
 
 ?>
