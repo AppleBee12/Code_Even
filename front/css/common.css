@@ -684,6 +684,9 @@ header .header_search_inner {
 }
 
 /* 퀵아이콘 - 알람벨 */
+.mini_bell{
+position: relative;
+}
 
 .alarmbell_dropdown {
   display: none;
@@ -693,6 +696,8 @@ header .header_search_inner {
 .alarmbell_dropdown.show {
   display: block;
 }
+
+
 
 
 
@@ -715,13 +720,13 @@ header .header_search_inner {
   width: 100%;
   height: 100%;
 }
-
+/* 
 .header_icon .mini_bell a svg {
   width: 22px;
   height: 22px;
   display: block;
   color: var(--bk200);
-}
+} */
 
 .header_icon .mini_profile > a > i {
   font-size: 23px;
