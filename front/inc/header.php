@@ -212,13 +212,7 @@ if (isset($_GET['code'])) {
 
  // 새로운'선생님 답변' 갯수 구하기
 
-if (isset($_SESSION['UID'])) {
-  $student_id = $_SESSION['UID'];
-} elseif (isset($_SESSION['KAKAO_UID'])) {
-  $student_id = $_SESSION['KAKAO_UID'];
-} else {
-  $student_id = null; // 세션에 둘 다 없으면 null
-}
+ $student_id = $_SESSION['UID'] ?? $_SESSION['KAKAO_UID'] ?? null;
  
  if ($student_id) {
   $sql_new_answer = "SELECT 
