@@ -211,9 +211,15 @@ if (isset($_GET['code'])) {
 
 
  // 새로운'선생님 답변' 갯수 구하기
- //로그인한 id의 teacher_qna(선생님에게 받은 답변) 갯수 - student_qna의 is_read가 true인 갯수가 나올 수 있도록 "새로 받은 답변의 갯수"
- //$student_id 와 $uid를 비교하여 로그인 학생값 확인 후 새 답변 확인시 읽음 처리는 AJAX로 비동기처리로 바로 적용시킬 예정ㅇ
- $student_id = isset($_SESSION['user_id'] )? $_SESSION['user_id']:null;
+
+if (isset($_SESSION['UID'])) {
+  $student_id = $_SESSION['UID'];
+} elseif (isset($_SESSION['KAKAO_UID'])) {
+  $student_id = $_SESSION['KAKAO_UID'];
+} else {
+  $student_id = null; // 세션에 둘 다 없으면 null
+}
+ 
  if ($student_id) {
   $sql_new_answer = "SELECT 
                         (SELECT COUNT(*) 
@@ -226,13 +232,17 @@ if (isset($_GET['code'])) {
                          FROM teacher_qna tq
                          JOIN student_qna sq ON tq.sqid = sq.sqid
                          JOIN class_data cd ON sq.cdid = cd.cdid
-                         WHERE cd.uid = '$student_id' AND sq.is_read = TRUE) 
+                         WHERE cd.uid = '$student_id' AND sq.is_read = '1') 
                       AS new_answers;";
                       $result = $mysqli->query($sql_new_answer);
-                      $row = $result->fetch_assoc();
-                      $new_answers = $row['new_answers'];
+                      if ($result) {
+                          $row = $result->fetch_assoc();
+                          $new_answers = $row['new_answers'];
+                      } else {
+                          echo "쿼리 실행 오류: " . $mysqli->error;
+                      }
                   } else {
-                      $new_answers = "0"; // 로그인하지 않았을 경우 빈 값 반환
+                      $new_answers = '0'; // 로그인하지 않았을 경우 빈 값 반환
                   }
 
 ?>
