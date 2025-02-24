@@ -127,9 +127,14 @@ if (isset($_SESSION['UID'])) {
         <div class="my_noti col-4">
           <div class="my_border">
             <p><i class="bi bi-chat-dots"></i> 나의 알림</p>
+            
             <div class="my_noti_desc body2">
-              <p>답변이 달린 문의글이 <span>2건</span> 있습니다.</p>
-              <p>답변이 달린 문의글이 <span>2건</span> 있습니다.</p>
+              <?php if ($new_answers > 0): ?>
+                <p>답변이 달린 문의글이 <a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/front/mypage/mypage_qna.php"
+                class="alert-link"><span><?= $new_answers ?>건</span></a> 있습니다.</p>
+              <?php else: ?>
+                <p>새로운 알림이 없습니다.</p>
+              <?php endif; ?>
             </div>
           </div>
         </div>

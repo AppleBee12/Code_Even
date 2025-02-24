@@ -628,17 +628,19 @@ if (isset($_GET['code'])) {
               <!-- 알림bell버튼 클릭시 나올 설명-->
               <div class="alarmbell_dropdown">
                 <div class="mncart_header d-flex justify-content-between">
-                  <h4>새로운 답변<span id="newAnswers"><?= $new_answers; ?></span></h4>
+                  <h4>새로운 알림<span id="newAnswers"><?= $new_answers; ?></span></h4>
                   <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                   </button>
                 </div>
                 <div class="mncart_list alert">
                   <div class="alert new_answer text-center" role="alert">
-                    <i class="bi bi-info-circle-fill"></i>
-                      선생님의 답변이
-                      <a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/admin/teacher/teacher_list.php"
-                        class="alert-link"><?= $new_answers ?>건</a> 있습니다.
+                    <?php if ($new_answers > 0): ?>
+                      <p><i class="bi bi-info-circle-fill"></i>답변이 달린 문의글이 <a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/front/mypage/mypage_qna.php"
+                      class="alert-link"><span><?= $new_answers ?>건</span></a> 있습니다.</p>
+                    <?php else: ?>
+                      <p>새로운 알림이 없습니다.</p>
+                    <?php endif; ?>
                   </div>
                 </div>
               </div>
