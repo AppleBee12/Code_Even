@@ -640,7 +640,7 @@ if (isset($_GET['code'])) {
                 <div class="mncart_list alert">
                   <div class="alert new_answer text-center" role="alert">
                     <?php if ($new_answers > 0): ?>
-                      <p><i class="bi bi-info-circle-fill"></i>답변이 달린 문의글이 <a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/front/mypage/mypage_qna.php"
+                      <p><i class="bi bi-info-circle-fill"> </i>확인하지 않은 새 답변이 <a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/front/mypage/mypage_qna.php"
                       class="alert-link"><span><?= $new_answers ?>건</span></a> 있습니다.</p>
                     <?php else: ?>
                       <p>새로운 알림이 없습니다.</p>

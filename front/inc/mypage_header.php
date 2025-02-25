@@ -130,7 +130,7 @@ if (isset($_SESSION['UID'])) {
             
             <div class="my_noti_desc body2">
               <?php if ($new_answers > 0): ?>
-                <p>답변이 달린 문의글이 <a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/front/mypage/mypage_qna.php"
+                <p>확인하지 않은 새 답변이 <a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/front/mypage/mypage_qna.php"
                 class="alert-link"><span><?= $new_answers ?>건</span></a> 있습니다.</p>
               <?php else: ?>
                 <p>새로운 알림이 없습니다.</p>
