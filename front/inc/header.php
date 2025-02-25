@@ -626,7 +626,7 @@ if (isset($_GET['code'])) {
                 <i class="bi bi-bell"></i>
                 <?php if ($new_answers > 0): ?>
                   <!-- 달린 답변 개수가 1개 이상일 때만 뱃지 표시 -->
-                  <span class="cart_cnt d-flex align-items-center justify-content-center badge"><?= $new_answers; ?></span>
+                  <span class="alarm_cnt d-flex align-items-center justify-content-center badge"><?= $new_answers; ?></span>
                 <?php endif; ?>
               </a>
               <!-- 알림bell버튼 클릭시 나올 설명-->

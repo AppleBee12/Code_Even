@@ -524,7 +524,7 @@ header .header_search_inner {
   position: relative;
 }
 
-.mini_cart .cart_cnt {
+.mini_cart .cart_cnt, .mini_bell .alarm_cnt {
   position: absolute;
   right: 4px;
   top: 4px;
