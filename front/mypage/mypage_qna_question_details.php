@@ -13,13 +13,6 @@ $question_result = $mysqli->query($question_sql);
 $qdata = $question_result->fetch_object();
 
 
-//알람벨 용 is_read DB update
-// if ($qdata && $qdata->is_read == 0) { // 아직 안 읽은 상태라면
-//   $update_sql = "UPDATE admin_question SET is_read = 1 WHERE aqid = $aqid";
-//   $mysqli->query($update_sql);
-// }
-
-
 ?>
 <div class="tab-content" id="nav-tabContent"><!--탭 메뉴 내용 시작-->
   <div class="tab-pane fade show active" id="nav-myLecTab1" role="tabpanel"><!-- 탭메뉴1 -->
