@@ -2,7 +2,7 @@
 $title = '마이페이지-문의글보기';
 include_once($_SERVER['DOCUMENT_ROOT'] . '/code_even/front/inc/mypage_header.php');
 
-$sqid = $_GET['sqid'];
+$sqid = (int) $_GET['sqid'];
 $sql = "SELECT student_qna.*, teacher_qna.*, class_data.*, lecture.*, user.* 
         FROM student_qna 
         LEFT JOIN teacher_qna ON student_qna.sqid = teacher_qna.sqid
@@ -14,7 +14,25 @@ $sql = "SELECT student_qna.*, teacher_qna.*, class_data.*, lecture.*, user.*
 $result = $mysqli->query($sql);
 $data = $result->fetch_object();
 
+//알람벨 용 is_read DB update
+
+$alarm_sql = "SELECT student_qna.*, teacher_qna.sqid AS teacher_sqid 
+        FROM student_qna 
+        LEFT JOIN teacher_qna ON student_qna.sqid = teacher_qna.sqid
+        WHERE student_qna.sqid = $sqid";
+        
+$alarm_result = $mysqli->query($alarm_sql);
+$alarm_data = $alarm_result->fetch_object();
+
+if ($alarm_data) {
+  if ($alarm_data->is_read == 0 && $alarm_data->teacher_sqid) { 
+      // is_read가 0, student_qna와 동일한 sqid를 가진 teacher_qna가 있을 때 업데이트
+      $update_alarm_sql = "UPDATE student_qna SET is_read = 1 WHERE sqid = $sqid";
+      $mysqli->query($update_alarm_sql);
+  }
+}
 ?>
+
 <div class="tab-content" id="nav-tabContent"><!--탭 메뉴 내용 시작-->
   <div class="tab-pane fade show active" id="nav-myLecTab1" role="tabpanel" aria-labelledby="nav-myLecTab1-tab"><!-- 탭메뉴1 -->
     <!--제목 시작-->
