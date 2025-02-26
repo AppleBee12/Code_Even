@@ -4,13 +4,21 @@ include_once($_SERVER['DOCUMENT_ROOT'] . '/code_even/front/inc/mypage_header.php
 
 $aqid = $_GET['aqid'];
 
-$question_sql = "SELECT admin_question.*, user.uid, user.username, admin_answer.aaid, admin_answer.acontent 
+$question_sql = "SELECT admin_question.*, user.uid, user.username, admin_answer.aaid, admin_answer.acontent,
                 FROM admin_question 
                 JOIN user ON admin_question.uid = user.uid 
                 LEFT JOIN admin_answer ON admin_question.aqid = admin_answer.aqid 
                 WHERE admin_answer.aqid = $aqid";
 $question_result = $mysqli->query($question_sql);
 $qdata = $question_result->fetch_object();
+
+
+//알람벨 용 is_read DB update
+// if ($qdata && $qdata->is_read == 0) { // 아직 안 읽은 상태라면
+//   $update_sql = "UPDATE admin_question SET is_read = 1 WHERE aqid = $aqid";
+//   $mysqli->query($update_sql);
+// }
+
 
 ?>
 <div class="tab-content" id="nav-tabContent"><!--탭 메뉴 내용 시작-->
