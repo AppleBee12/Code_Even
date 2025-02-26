@@ -210,7 +210,7 @@ if (isset($_GET['code'])) {
   
 
 
- // 새로운'선생님 답변' 갯수 구하기
+ // 알림벨- 새로운'선생님 답변' 갯수 구하기
 
  $student_id = $_SESSION['UID'] ?? $_SESSION['KAKAO_UID'] ?? null;
  
