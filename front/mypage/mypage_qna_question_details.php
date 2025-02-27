@@ -4,7 +4,7 @@ include_once($_SERVER['DOCUMENT_ROOT'] . '/code_even/front/inc/mypage_header.php
 
 $aqid = $_GET['aqid'];
 
-$question_sql = "SELECT admin_question.*, user.uid, user.username, admin_answer.aaid, admin_answer.acontent,
+$question_sql = "SELECT admin_question.*, user.uid, user.username, admin_answer.aaid, admin_answer.acontent
                 FROM admin_question 
                 JOIN user ON admin_question.uid = user.uid 
                 LEFT JOIN admin_answer ON admin_question.aqid = admin_answer.aqid 
