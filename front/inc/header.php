@@ -191,11 +191,27 @@ if (isset($_GET['code'])) {
       uc.userid = ? AND uc.status = 0
   ORDER BY 
       uc.couponid DESC";
+
   $stmt_expired = $mysqli->prepare($sql_expired);
   $stmt_expired->bind_param('s', $userid);
   $stmt_expired->execute();
   $result_expired = $stmt_expired->get_result();
   $data_expired = $result_expired->fetch_all(MYSQLI_ASSOC);
+
+  // 사용 가능한 쿠폰 조회
+  $sql_available_count = "
+                          SELECT COUNT(*) as available_count
+                          FROM user_coupons
+                          WHERE userid = ? AND status = 1";
+
+  $stmt_available = $mysqli->prepare($sql_available_count);
+  $stmt_available->bind_param('s', $userid);
+  $stmt_available->execute();
+  $result_available = $stmt_available->get_result();
+  $row = $result_available->fetch_assoc();
+  $available_coupon_count = $row['available_count']; 
+
+
 
   // 수강중인 강좌 개수 가져오기
   $ongoing_count_sql = "SELECT COUNT(*) AS ongoing_count 
@@ -664,7 +680,7 @@ if (isset($_GET['code'])) {
                   </a>
                   <div class="profile_btn d-flex gap-2">
                     <div class="d-flex">
-                    <a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/front/mypage/mypage_coupons.php">쿠폰 <span><?php echo $available_count; ?></span>
+                    <a href="http://<?= $_SERVER['HTTP_HOST']; ?>/code_even/front/mypage/mypage_coupons.php">쿠폰 <span><?php echo $available_coupon_count; ?></span>
                   </a>
                         </div>
                     <a href="http://<?= $_SERVER['HTTP_HOST'] ?>/code_even/front/mypage/mypage_lecture.php">수강중인강좌 <span
