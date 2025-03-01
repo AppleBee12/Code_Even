@@ -62,7 +62,7 @@ $menu_items = ($level == 100) ? $menu_admin : $menu_teacher;
 <div class="container manual-wrap">
   <div class="manual-body">
     <div>
-      <p class="d-flex justify-content-between"><span>선생님 환영합니다!</span><span>최종 업데이트:2024-11-24</span></p>
+      <p class="d-flex justify-content-between"><span>선생님 환영합니다!</span><span>최종 업데이트:2025-03-02</span></p>
       <p>이 매뉴얼에서 code even 사이트에서 사용하는 Dashboard와 각 카테고리에 대한 시스템 관리에 관한 내용을 확인할 수 있습니다.</p>
       <p class="pb-5 border-bottom">아래 목차에서 궁금하신 영역을 클릭하셔서 자세한 설명을 확인하세요.<br />
         추가로 궁금하신 부분은 아래로 문의 주시면 순차적으로 답변드리겠습니다.</p>
