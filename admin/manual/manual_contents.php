@@ -5,7 +5,7 @@ $manual_js = "<script src=\"http://$host/code_even/admin/js/manual.js\"></script
 include_once($_SERVER['DOCUMENT_ROOT'] . '/code_even/admin/inc/header.php');
 
 //$uid, $level은 header에서 잡아줌
-$title =  ($level == 100) ? "관리자 매뉴얼" : (($level == 10) ? "강사 매뉴얼" : null);;
+$title =  ($level == 100) ? "관리자 매뉴얼" : (($level == 10) ? "강사 매뉴얼" : null);
 // $mnid = ($level == 100) ? 1 : (($level == 10) ? 20 : null);
 // $type = ($level == 100) ? '관리자' : (($level == 10) ? '강사' : null); // 원하는 type
 
